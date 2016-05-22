@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Threading;
 using Terraria.DataStructures;
 using Terraria.Enums;
+using Terraria.GameContent;
 using Terraria.GameContent.Achievements;
 using Terraria.GameContent.Biomes;
 using Terraria.GameContent.Events;

@@ -21,1373 +21,2096 @@ namespace Terraria
 {
 	public class Player : Entity
 	{
-		public const int maxSolarShields = 3;
-
-		public const int nebulaMaxLevel = 3;
-
-		public const int SupportedSlotsArmor = 3;
-
-		public const int SupportedSlotsAccs = 7;
-
-		public const int SupportedSlotSets = 10;
-
-		public const int InitialAccSlotCount = 5;
-
-		public const int miscSlotPet = 0;
-
-		public const int miscSlotLight = 1;
-
-		public const int miscSlotCart = 2;
-
-		public const int miscSlotMount = 3;
-
-		public const int miscSlotHook = 4;
-
-		public const int maxBuffs = 22;
-
-		public const int defaultWidth = 20;
-
-		public const int defaultHeight = 42;
-
-		private const int shadowMax = 3;
-
-		private static byte[] ENCRYPTION_KEY;
-
-		public Player.OverheadMessage chatOverhead = new Player.OverheadMessage();
-
-		public bool alchemyTable;
-
-		private bool GoingDownWithGrapple;
-
-		private byte spelunkerTimer;
-
-		public bool[] hideInfo = new bool[13];
-
-		public int lostCoins;
-
-		public string lostCoinString = "";
-
-		public int soulDrain;
-
-		public float drainBoost;
-
-		public int taxMoney;
-
-		public int taxTimer;
-
-		public static int taxRate;
-
-		public static int crystalLeafDamage;
-
-		public static int crystalLeafKB;
-
-		public bool[] NPCBannerBuff = new bool[251];
-
-		public bool hasBanner;
-
-		public Vector2 lastDeathPostion;
-
-		public DateTime lastDeathTime;
-
-		public bool showLastDeath;
-
-		public int extraAccessorySlots = 2;
-
-		public bool extraAccessory;
-
-		public int tankPet = -1;
-
-		public bool tankPetReset;
-
-		public int stringColor;
-
-		public int counterWeight;
-
-		public bool yoyoString;
-
-		public bool yoyoGlove;
-
-		public int beetleOrbs;
-
-		public float beetleCounter;
-
-		public int beetleCountdown;
-
-		public bool beetleDefense;
-
-		public bool beetleOffense;
-
-		public bool beetleBuff;
-
-		public int solarShields;
-
-		public int solarCounter;
-
-		public Vector2[] solarShieldPos = new Vector2[3];
-
-		public Vector2[] solarShieldVel = new Vector2[3];
-
-		public bool solarDashing;
-
-		public bool solarDashConsumedFlare;
-
-		public int nebulaLevelLife;
-
-		public int nebulaLevelMana;
-
-		public int nebulaManaCounter;
-
-		public int nebulaLevelDamage;
-
-		public bool manaMagnet;
-
-		public bool lifeMagnet;
-
-		public bool lifeForce;
-
-		public bool calmed;
-
-		public bool inferno;
-
-		public float flameRingRot;
-
-		public float flameRingScale = 1f;
-
-		public byte flameRingFrame;
-
-		public byte flameRingAlpha;
-
-		public int netManaTime;
-
-		public int netLifeTime;
-
-		public bool netMana;
-
-		public bool netLife;
-
-		public Vector2[] beetlePos = new Vector2[3];
-
-		public Vector2[] beetleVel = new Vector2[3];
-
-		public int beetleFrame;
-
-		public int beetleFrameCounter;
-
-		public static int manaSickTime;
-
-		public static int manaSickTimeMax;
-
-		public static float manaSickLessDmg;
-
-		public float manaSickReduction;
-
-		public bool manaSick;
-
-		public bool stairFall;
-
-		public int loadStatus;
-
-		public Vector2[] itemFlamePos = new Vector2[7];
-
-		public int itemFlameCount;
-
-		public bool outOfRange;
-
-		public float lifeSteal = 99999f;
-
-		public float ghostDmg;
-
-		public bool teleporting;
-
-		public float teleportTime;
-
-		public int teleportStyle;
-
-		public bool sloping;
-
-		public bool chilled;
-
-		public bool dazed;
-
-		public bool frozen;
-
-		public bool stoned;
-
-		public bool lastStoned;
-
-		public bool ichor;
-
-		public bool webbed;
-
-		public int ropeCount;
-
-		public int manaRegenBonus;
-
-		public int manaRegenDelayBonus;
-
-		public int dash;
-
-		public int dashTime;
-
-		public int dashDelay;
-
-		public int eocDash;
-
-		public int eocHit;
-
-		public float accRunSpeed;
-
-		public bool cordage;
-
-		public int gem = -1;
-
-		public int gemCount;
-
-		public byte meleeEnchant;
-
-		public byte pulleyDir;
-
-		public bool pulley;
-
-		public int pulleyFrame;
-
-		public float pulleyFrameCounter;
-
-		public bool blackBelt;
-
-		public bool sliding;
-
-		public int slideDir;
-
-		public int launcherWait;
-
-		public bool iceSkate;
-
-		public bool carpet;
-
-		public int spikedBoots;
-
-		public int carpetFrame = -1;
-
-		public float carpetFrameCounter;
-
-		public bool canCarpet;
-
-		public int carpetTime;
-
-		public int miscCounter;
-
-		public int infernoCounter;
-
-		public bool sandStorm;
-
-		public bool crimsonRegen;
-
-		public bool ghostHeal;
-
-		public bool ghostHurt;
-
-		public bool sticky;
-
-		public bool slippy;
-
-		public bool slippy2;
-
-		public bool powerrun;
-
-		public bool flapSound;
-
-		public bool iceBarrier;
-
-		public bool dangerSense;
-
-		public float endurance;
-
-		public bool loveStruck;
-
-		public bool stinky;
-
-		public bool resistCold;
-
-		public bool electrified;
-
-		public bool dryadWard;
-
-		public bool panic;
-
-		public bool brainOfConfusion;
-
-		public byte iceBarrierFrame;
-
-		public byte iceBarrierFrameCounter;
-
-		public bool shadowDodge;
-
-		public float shadowDodgeCount;
-
-		public bool palladiumRegen;
-
-		public bool onHitDodge;
-
-		public bool onHitRegen;
-
-		public bool onHitPetal;
-
-		public int petalTimer;
-
-		public int shadowDodgeTimer;
-
-		public int fishingSkill;
-
-		public bool cratePotion;
-
-		public bool sonarPotion;
-
-		public bool accFishingLine;
-
-		public bool accTackleBox;
-
-		public int maxMinions = 1;
-
-		public int numMinions;
-
-		public float slotsMinions;
-
-		public bool pygmy;
-
-		public bool raven;
-
-		public bool slime;
-
-		public bool hornetMinion;
-
-		public bool impMinion;
-
-		public bool twinsMinion;
-
-		public bool spiderMinion;
-
-		public bool pirateMinion;
-
-		public bool sharknadoMinion;
-
-		public bool UFOMinion;
-
-		public bool DeadlySphereMinion;
-
-		public bool stardustMinion;
-
-		public bool stardustGuardian;
-
-		public bool stardustDragon;
-
-		public float wingTime;
-
-		public int wings;
-
-		public int wingsLogic;
-
-		public int wingTimeMax;
-
-		public int wingFrame;
-
-		public int wingFrameCounter;
-
-		public int skinVariant;
-
-		public bool ghost;
-
-		public int ghostFrame;
-
-		public int ghostFrameCounter;
-
-		public int miscTimer;
-
-		public bool pvpDeath;
-
-		public BitsByte zone1 = 0;
-
-		public BitsByte zone2 = 0;
-
-		public bool boneArmor;
-
-		public bool frostArmor;
-
-		public bool honey;
-
-		public bool crystalLeaf;
-
-		public int[] doubleTapCardinalTimer = new int[4];
-
-		public int[] holdDownCardinalTimer = new int[4];
-
-		public bool paladinBuff;
-
-		public bool paladinGive;
-
-		public float[] speedSlice = new float[60];
-
-		public float townNPCs;
-
-		public double headFrameCounter;
-
-		public double bodyFrameCounter;
-
-		public double legFrameCounter;
-
-		public int netSkip;
-
-		public int oldSelectItem;
-
-		public bool immune;
-
-		public int immuneTime;
-
-		public int immuneAlphaDirection;
-
-		public int immuneAlpha;
-
-		public int team;
-
-		public bool hbLocked;
-
-		public static int nameLen;
-
-		private float maxRegenDelay;
-
-		public int sign = -1;
-
-		public bool editedChestName;
-
-		public int reuseDelay;
-
-		public int aggro;
-
-		public float activeNPCs;
-
-		public bool mouseInterface;
-
-		public bool lastMouseInterface;
-
-		public int noThrow;
-
-		public int changeItem = -1;
-
-		public int selectedItem;
-
-		public Item[] armor = new Item[20];
-
-		public Item[] dye = new Item[10];
-
-		public Item[] miscEquips = new Item[5];
-
-		public Item[] miscDyes = new Item[5];
-
-		public Item trashItem = new Item();
-
-		public int itemAnimation;
-
-		public int itemAnimationMax;
-
-		public int itemTime;
-
-		public int toolTime;
-
-		public float itemRotation;
-
-		public int itemWidth;
-
-		public int itemHeight;
-
-		public Vector2 itemLocation;
-
-		public bool poundRelease;
-
-		public float ghostFade;
-
-		public float ghostDir = 1f;
-
-		public int[] buffType = new int[22];
-
-		public int[] buffTime = new int[22];
-
-		public bool[] buffImmune = new bool[191];
-
-		public int heldProj = -1;
-
-		public int breathCD;
-
-		public int breathMax = 200;
-
-		public int breath = 200;
-
-		public int lavaCD;
-
-		public int lavaMax;
-
-		public int lavaTime;
-
-		public bool ignoreWater;
-
-		public bool socialShadow;
-
-		public bool socialGhost;
-
-		public bool shroomiteStealth;
-
-		public int stealthTimer;
-
-		public float stealth = 1f;
-
-		public string setBonus = "";
-
-		public Item[] inventory = new Item[59];
-
-		public bool[] inventoryChestStack = new bool[59];
-
-		public Chest bank = new Chest(true);
-
-		public Chest bank2 = new Chest(true);
-
-		public float headRotation;
-
-		public float bodyRotation;
-
-		public float legRotation;
-
-		public Vector2 headPosition;
-
-		public Vector2 bodyPosition;
-
-		public Vector2 legPosition;
-
-		public Vector2 headVelocity;
-
-		public Vector2 bodyVelocity;
-
-		public Vector2 legVelocity;
-
-		public float fullRotation;
-
-		public Vector2 fullRotationOrigin = Vector2.Zero;
-
-		public int nonTorch = -1;
-
-		public float gfxOffY;
-
-		public float stepSpeed = 1f;
-
-		public static bool deadForGood;
-
-		public bool dead;
-
-		public int respawnTimer;
-
-		public int attackCD;
-
-		public int potionDelay;
-
-		public byte difficulty;
-
-		public byte wetSlime;
-
-		public HitTile hitTile;
-
-		public int jump;
-
-		public int head = -1;
-
-		public int body = -1;
-
-		public int legs = -1;
-
-		public sbyte handon = -1;
-
-		public sbyte handoff = -1;
-
-		public sbyte back = -1;
-
-		public sbyte front = -1;
-
-		public sbyte shoe = -1;
-
-		public sbyte waist = -1;
-
-		public sbyte shield = -1;
-
-		public sbyte neck = -1;
-
-		public sbyte face = -1;
-
-		public sbyte balloon = -1;
-
-		public bool[] hideVisual = new bool[10];
-
-		public BitsByte hideMisc = 0;
-
-		public Rectangle headFrame;
-
-		public Rectangle bodyFrame;
-
-		public Rectangle legFrame;
-
-		public Rectangle hairFrame;
-
-		public bool controlLeft;
-
-		public bool controlRight;
-
-		public bool controlUp;
-
-		public bool controlDown;
-
-		public bool controlJump;
-
-		public bool controlUseItem;
-
-		public bool controlUseTile;
-
-		public bool controlThrow;
-
-		public bool controlInv;
-
-		public bool controlHook;
-
-		public bool controlTorch;
-
-		public bool controlMap;
-
-		public bool controlSmart;
-
-		public bool controlMount;
-
-		public bool releaseJump;
-
-		public bool releaseUp;
-
-		public bool releaseUseItem;
-
-		public bool releaseUseTile;
-
-		public bool releaseInventory;
-
-		public bool releaseHook;
-
-		public bool releaseThrow;
-
-		public bool releaseQuickMana;
-
-		public bool releaseQuickHeal;
-
-		public bool releaseLeft;
-
-		public bool releaseRight;
-
-		public bool releaseSmart;
-
-		public bool releaseMount;
-
-		public bool releaseDown;
-
-		public int altFunctionUse;
-
-		public bool mapZoomIn;
-
-		public bool mapZoomOut;
-
-		public bool mapAlphaUp;
-
-		public bool mapAlphaDown;
-
-		public bool mapFullScreen;
-
-		public bool mapStyle;
-
-		public bool releaseMapFullscreen;
-
-		public bool releaseMapStyle;
-
-		public int leftTimer;
-
-		public int rightTimer;
-
-		public bool delayUseItem;
-
-		public bool showItemIcon;
-
-		public bool showItemIconR;
-
-		public int showItemIcon2;
-
-		public string showItemIconText = "";
-
-		public int runSoundDelay;
-
-		public float shadow;
-
-		public Vector2[] shadowPos = new Vector2[3];
-
-		public float[] shadowRotation = new float[3];
-
-		public Vector2[] shadowOrigin = new Vector2[3];
-
-		public int[] shadowDirection = new int[3];
-
-		public int shadowCount;
-
-		public float manaCost = 1f;
-
-		public bool fireWalk;
-
-		public bool channel;
-
-		public int step = -1;
-
-		public int anglerQuestsFinished;
-
-		public int armorPenetration;
-
-		public int statDefense;
-
-		public int statLifeMax = 100;
-
-		public int statLifeMax2 = 100;
-
-		public int statLife = 100;
-
-		public int statMana;
-
-		public int statManaMax;
-
-		public int statManaMax2;
-
-		public int lifeRegen;
-
-		public int lifeRegenCount;
-
-		public int lifeRegenTime;
-
-		public int manaRegen;
-
-		public int manaRegenCount;
-
-		public int manaRegenDelay;
-
-		public bool manaRegenBuff;
-
-		public bool noKnockback;
-
-		public bool spaceGun;
-
-		public float gravDir = 1f;
-
-		public bool ammoCost80;
-
-		public bool ammoCost75;
-
-		public int stickyBreak;
-
-		public bool magicQuiver;
-
-		public bool magmaStone;
-
-		public bool lavaRose;
-
-		public int phantasmTime;
-
-		public bool ammoBox;
-
-		public bool ammoPotion;
-
-		public bool chaosState;
-
-		public bool strongBees;
-
-		public bool sporeSac;
-
-		public bool shinyStone;
-
-		public int yoraiz0rEye;
-
-		public bool yoraiz0rDarkness;
-
-		public bool suspiciouslookingTentacle;
-
-		public bool crimsonHeart;
-
-		public bool lightOrb;
-
-		public bool blueFairy;
-
-		public bool redFairy;
-
-		public bool greenFairy;
-
-		public bool bunny;
-
-		public bool turtle;
-
-		public bool eater;
-
-		public bool penguin;
-
-		public bool magicLantern;
-
-		public bool rabid;
-
-		public bool sunflower;
-
-		public bool wellFed;
-
-		public bool puppy;
-
-		public bool grinch;
-
-		public bool miniMinotaur;
-
-		public bool arcticDivingGear;
-
-		public bool wearsRobe;
-
-		public bool minecartLeft;
-
-		public bool onWrongGround;
-
-		public bool onTrack;
-
-		public int cartRampTime;
-
-		public bool cartFlip;
-
-		public float trackBoost;
-
-		public Vector2 lastBoost = Vector2.Zero;
-
-		public Mount mount;
-
-		public bool blackCat;
-
-		public bool spider;
-
-		public bool squashling;
-
-		public bool babyFaceMonster;
-
-		public bool magicCuffs;
-
-		public bool coldDash;
-
-		public bool sailDash;
-
-		public bool eyeSpring;
-
-		public bool snowman;
-
-		public bool scope;
-
-		public bool dino;
-
-		public bool skeletron;
-
-		public bool hornet;
-
-		public bool zephyrfish;
-
-		public bool tiki;
-
-		public bool parrot;
-
-		public bool truffle;
-
-		public bool sapling;
-
-		public bool cSapling;
-
-		public bool wisp;
-
-		public bool lizard;
-
-		public bool archery;
-
-		public bool poisoned;
-
-		public bool venom;
-
-		public bool blind;
-
-		public bool blackout;
-
-		public bool headcovered;
-
-		public bool frostBurn;
-
-		public bool onFrostBurn;
-
-		public bool burned;
-
-		public bool suffocating;
-
-		public byte suffocateDelay;
-
-		public bool dripping;
-
-		public bool drippingSlime;
-
-		public bool onFire;
-
-		public bool onFire2;
-
-		public bool noItems;
-
-		public bool wereWolf;
-
-		public bool wolfAcc;
-
-		public bool hideMerman;
-
-		public bool hideWolf;
-
-		public bool forceMerman;
-
-		public bool forceWerewolf;
-
-		public bool rulerGrid;
-
-		public bool rulerLine;
-
-		public bool bleed;
-
-		public bool confused;
-
-		public bool accMerman;
-
-		public bool merman;
-
-		public bool brokenArmor;
-
-		public bool silence;
-
-		public bool slow;
-
-		public bool gross;
-
-		public bool tongued;
-
-		public bool kbGlove;
-
-		public bool kbBuff;
-
-		public bool starCloak;
-
-		public bool longInvince;
-
-		public bool pStone;
-
-		public bool manaFlower;
-
-		public bool moonLeech;
-
-		public bool vortexDebuff;
-
-		public bool trapDebuffSource;
-
-		public int meleeCrit = 4;
-
-		public int rangedCrit = 4;
-
-		public int magicCrit = 4;
-
-		public int thrownCrit = 4;
-
-		public float meleeDamage = 1f;
-
-		public float rangedDamage = 1f;
-
-		public float thrownDamage = 1f;
-
-		public float bulletDamage = 1f;
-
-		public float arrowDamage = 1f;
-
-		public float rocketDamage = 1f;
-
-		public float magicDamage = 1f;
-
-		public float minionDamage = 1f;
-
-		public float minionKB;
-
-		public float meleeSpeed = 1f;
-
-		public float thrownVelocity = 1f;
-
-		public bool thrownCost50;
-
-		public bool thrownCost33;
-
-		public float moveSpeed = 1f;
-
-		public float pickSpeed = 1f;
-
-		public float wallSpeed = 1f;
-
-		public float tileSpeed = 1f;
-
-		public bool autoPaint;
-
-		public int SpawnX = -1;
-
-		public int SpawnY = -1;
-
-		public int[] spX = new int[200];
-
-		public int[] spY = new int[200];
-
-		public string[] spN = new string[200];
-
-		public int[] spI = new int[200];
-
-		public static int tileRangeX;
-
-		public static int tileRangeY;
-
-		public int lastTileRangeX;
-
-		public int lastTileRangeY;
-
-		public static int tileTargetX;
-
-		public static int tileTargetY;
-
-		public static float defaultGravity;
-
-		private static int jumpHeight;
-
-		private static float jumpSpeed;
-
-		public float gravity = Player.defaultGravity;
-
-		public float maxFallSpeed = 10f;
-
-		public float maxRunSpeed = 3f;
-
-		public float runAcceleration = 0.08f;
-
-		public float runSlowdown = 0.2f;
-
-		public bool adjWater;
-
-		public bool adjHoney;
-
-		public bool adjLava;
-
-		public bool oldAdjWater;
-
-		public bool oldAdjHoney;
-
-		public bool oldAdjLava;
-
-		public bool[] adjTile = new bool[419];
-
-		public bool[] oldAdjTile = new bool[419];
-
-		private static int defaultItemGrabRange;
-
-		private static float itemGrabSpeed;
-
-		private static float itemGrabSpeedMax;
-
-		public byte hairDye;
-
-		public Color hairDyeColor = Color.Transparent;
-
-		public float hairDyeVar;
-
-		public Color hairColor = new Color(215, 90, 55);
-
-		public Color skinColor = new Color(255, 125, 90);
-
-		public Color eyeColor = new Color(105, 90, 75);
-
-		public Color shirtColor = new Color(175, 165, 140);
-
-		public Color underShirtColor = new Color(160, 180, 215);
-
-		public Color pantsColor = new Color(255, 230, 175);
-
-		public Color shoeColor = new Color(160, 105, 60);
-
-		public int hair;
-
-		public bool hostile;
-
-		public int accCompass;
-
-		public int accWatch;
-
-		public int accDepthMeter;
-
-		public bool accFishFinder;
-
-		public bool accWeatherRadio;
-
-		public bool accJarOfSouls;
-
+		// Token: 0x04000F9C RID: 3996
 		public bool accCalendar;
 
-		public int lastCreatureHit = -1;
+		// Token: 0x04000F96 RID: 3990
+		public int accCompass;
 
-		public bool accThirdEye;
-
-		public byte accThirdEyeCounter;
-
-		public byte accThirdEyeNumber;
-
-		public bool accStopwatch;
-
-		public bool accOreFinder;
-
-		public int bestOre = -1;
-
+		// Token: 0x04000FA4 RID: 4004
 		public bool accCritterGuide;
 
+		// Token: 0x04000FA5 RID: 4005
 		public byte accCritterGuideCounter;
 
+		// Token: 0x04000FA6 RID: 4006
 		public byte accCritterGuideNumber;
 
-		public bool accDreamCatcher;
+		// Token: 0x04000F98 RID: 3992
+		public int accDepthMeter;
 
-		public DateTime dpsStart;
-
-		public DateTime dpsEnd;
-
-		public DateTime dpsLastHit;
-
-		public int dpsDamage;
-
-		public bool dpsStarted;
-
-		public string displayedFishingInfo = "";
-
-		public bool discount;
-
-		public bool coins;
-
-		public bool goldRing;
-
+		// Token: 0x04000FB4 RID: 4020
 		public bool accDivingHelm;
 
+		// Token: 0x04000FA7 RID: 4007
+		public bool accDreamCatcher;
+
+		// Token: 0x04000F99 RID: 3993
+		public bool accFishFinder;
+
+		// Token: 0x04000E0C RID: 3596
+		public bool accFishingLine;
+
+		// Token: 0x04000FB5 RID: 4021
 		public bool accFlipper;
 
-		public bool doubleJumpCloud;
+		// Token: 0x04000F9B RID: 3995
+		public bool accJarOfSouls;
 
-		public bool jumpAgainCloud;
+		// Token: 0x04000F44 RID: 3908
+		public bool accMerman;
 
-		public bool dJumpEffectCloud;
+		// Token: 0x04000FA2 RID: 4002
+		public bool accOreFinder;
 
-		public bool doubleJumpSandstorm;
+		// Token: 0x04000DD5 RID: 3541
+		public float accRunSpeed;
 
-		public bool jumpAgainSandstorm;
+		// Token: 0x04000FA1 RID: 4001
+		public bool accStopwatch;
 
-		public bool dJumpEffectSandstorm;
+		// Token: 0x04000E0D RID: 3597
+		public bool accTackleBox;
 
-		public bool doubleJumpBlizzard;
+		// Token: 0x04000F9E RID: 3998
+		public bool accThirdEye;
 
-		public bool jumpAgainBlizzard;
+		// Token: 0x04000F9F RID: 3999
+		public byte accThirdEyeCounter;
 
-		public bool dJumpEffectBlizzard;
+		// Token: 0x04000FA0 RID: 4000
+		public byte accThirdEyeNumber;
 
-		public bool doubleJumpFart;
+		// Token: 0x04000F97 RID: 3991
+		public int accWatch;
 
-		public bool jumpAgainFart;
+		// Token: 0x04000F9A RID: 3994
+		public bool accWeatherRadio;
 
-		public bool dJumpEffectFart;
+		// Token: 0x04000E48 RID: 3656
+		public float activeNPCs;
 
-		public bool doubleJumpSail;
+		// Token: 0x04000FA8 RID: 4008
+		public bool ActuationRodLock;
 
-		public bool jumpAgainSail;
+		// Token: 0x04000FA9 RID: 4009
+		public bool ActuationRodLockSetting;
 
-		public bool dJumpEffectSail;
+		// Token: 0x04000F80 RID: 3968
+		public bool adjHoney;
 
-		public bool doubleJumpUnicorn;
+		// Token: 0x04000F81 RID: 3969
+		public bool adjLava;
 
-		public bool jumpAgainUnicorn;
+		// Token: 0x04000F85 RID: 3973
+		public bool[] adjTile;
 
-		public bool dJumpEffectUnicorn;
+		// Token: 0x04000F7F RID: 3967
+		public bool adjWater;
 
+		// Token: 0x04000E47 RID: 3655
+		public int aggro;
+
+		// Token: 0x04000D79 RID: 3449
+		public bool alchemyTable;
+
+		// Token: 0x04000EBC RID: 3772
+		public int altFunctionUse;
+
+		// Token: 0x04000EF1 RID: 3825
+		public bool ammoBox;
+
+		// Token: 0x04000EEB RID: 3819
+		public bool ammoCost75;
+
+		// Token: 0x04000EEA RID: 3818
+		public bool ammoCost80;
+
+		// Token: 0x04000EF2 RID: 3826
+		public bool ammoPotion;
+
+		// Token: 0x04000ED7 RID: 3799
+		public int anglerQuestsFinished;
+
+		// Token: 0x04000F2A RID: 3882
+		public bool archery;
+
+		// Token: 0x04000F0A RID: 3850
+		public bool arcticDivingGear;
+
+		// Token: 0x04000E4E RID: 3662
+		public Item[] armor;
+
+		// Token: 0x04000ED8 RID: 3800
+		public int armorPenetration;
+
+		// Token: 0x04000F5C RID: 3932
+		public float arrowDamage;
+
+		// Token: 0x04000E85 RID: 3717
+		public int attackCD;
+
+		// Token: 0x04000F6A RID: 3946
+		public bool autoActuator;
+
+		// Token: 0x04000FC8 RID: 4040
 		public bool autoJump;
 
-		public bool justJumped;
+		// Token: 0x04000F69 RID: 3945
+		public bool autoPaint;
 
-		public float jumpSpeedBoost;
+		// Token: 0x04000F18 RID: 3864
+		public bool babyFaceMonster;
 
-		public int extraFall;
+		// Token: 0x04000E90 RID: 3728
+		public sbyte back;
 
-		public bool spawnMax;
+		// Token: 0x04000E97 RID: 3735
+		public sbyte balloon;
 
-		public int blockRange;
+		// Token: 0x04000E72 RID: 3698
+		public Chest bank;
 
-		public int[] grappling = new int[20];
+		// Token: 0x04000E73 RID: 3699
+		public Chest bank2;
 
-		public int grapCount;
-
-		public int rocketTime;
-
-		public int rocketTimeMax = 7;
-
-		public int rocketDelay;
-
-		public int rocketDelay2;
-
-		public bool rocketRelease;
-
-		public bool rocketFrame;
-
-		public int rocketBoots;
-
-		public bool canRocket;
-
-		public bool jumpBoost;
-
-		public bool noFallDmg;
-
-		public int swimTime;
-
-		public bool killGuide;
-
-		public bool killClothier;
-
-		public bool lavaImmune;
-
-		public bool gills;
-
-		public bool slowFall;
-
-		public bool findTreasure;
-
-		public bool invis;
-
-		public bool detectCreature;
-
-		public bool nightVision;
-
-		public bool enemySpawns;
-
-		public float thorns;
-
-		public bool turtleArmor;
-
-		public bool turtleThorns;
-
-		public bool spiderArmor;
-
-		public bool setSolar;
-
-		public bool setVortex;
-
-		public bool setNebula;
-
-		public int nebulaCD;
-
-		public bool setStardust;
-
-		public bool vortexStealthActive;
-
-		public bool waterWalk;
-
-		public bool waterWalk2;
-
-		public bool gravControl;
-
-		public bool gravControl2;
-
+		// Token: 0x04000FF3 RID: 4083
 		public bool bee;
 
-		public int lastChest;
+		// Token: 0x04000D9A RID: 3482
+		public bool beetleBuff;
 
-		public int flyingPigChest = -1;
+		// Token: 0x04000D97 RID: 3479
+		public int beetleCountdown;
 
-		public int chest = -1;
+		// Token: 0x04000D96 RID: 3478
+		public float beetleCounter;
 
-		public int chestX;
+		// Token: 0x04000D98 RID: 3480
+		public bool beetleDefense;
 
-		public int chestY;
+		// Token: 0x04000DB4 RID: 3508
+		public int beetleFrame;
 
-		public int talkNPC = -1;
+		// Token: 0x04000DB5 RID: 3509
+		public int beetleFrameCounter;
 
-		public int fallStart;
+		// Token: 0x04000D99 RID: 3481
+		public bool beetleOffense;
 
-		public int fallStart2;
+		// Token: 0x04000D95 RID: 3477
+		public int beetleOrbs;
 
-		public int potionDelayTime = Item.potionDelay;
+		// Token: 0x04000DB2 RID: 3506
+		public Vector2[] beetlePos;
 
-		public int restorationDelayTime = Item.restorationDelay;
+		// Token: 0x04000DB3 RID: 3507
+		public Vector2[] beetleVel;
 
-		private int cHead;
+		// Token: 0x04000FA3 RID: 4003
+		public int bestOre;
 
-		private int cBody;
+		// Token: 0x04000DDF RID: 3551
+		public bool blackBelt;
 
-		private int cLegs;
+		// Token: 0x04000F14 RID: 3860
+		public bool blackCat;
 
-		private int cHandOn;
+		// Token: 0x04000F2E RID: 3886
+		public bool blackout;
 
-		private int cHandOff;
+		// Token: 0x04000F42 RID: 3906
+		public bool bleed;
 
+		// Token: 0x04000F2D RID: 3885
+		public bool blind;
+
+		// Token: 0x04000FCD RID: 4045
+		public int blockRange;
+
+		// Token: 0x04000EFC RID: 3836
+		public bool blueFairy;
+
+		// Token: 0x04000E8C RID: 3724
+		public int body;
+
+		// Token: 0x04000E9B RID: 3739
+		public Rectangle bodyFrame;
+
+		// Token: 0x04000E38 RID: 3640
+		public double bodyFrameCounter;
+
+		// Token: 0x04000E78 RID: 3704
+		public Vector2 bodyPosition;
+
+		// Token: 0x04000E75 RID: 3701
+		public float bodyRotation;
+
+		// Token: 0x04000E7B RID: 3707
+		public Vector2 bodyVelocity;
+
+		// Token: 0x04000E2D RID: 3629
+		public bool boneArmor;
+
+		// Token: 0x04000DFE RID: 3582
+		public bool brainOfConfusion;
+
+		// Token: 0x04000E64 RID: 3684
+		public int breath;
+
+		// Token: 0x04000E62 RID: 3682
+		public int breathCD;
+
+		// Token: 0x04000E63 RID: 3683
+		public int breathMax;
+
+		// Token: 0x04000F46 RID: 3910
+		public bool brokenArmor;
+
+		// Token: 0x04000E60 RID: 3680
+		public bool[] buffImmune;
+
+		// Token: 0x04000E5F RID: 3679
+		public int[] buffTime;
+
+		// Token: 0x04000E5E RID: 3678
+		public int[] buffType;
+
+		// Token: 0x04000D7E RID: 3454
+		public int[] builderAccStatus;
+
+		// Token: 0x04000F5B RID: 3931
+		public float bulletDamage;
+
+		// Token: 0x04000EFF RID: 3839
+		public bool bunny;
+
+		// Token: 0x04000F32 RID: 3890
+		public bool burned;
+
+		// Token: 0x04000DA8 RID: 3496
+		public bool calmed;
+
+		// Token: 0x04000DE8 RID: 3560
+		public bool canCarpet;
+
+		// Token: 0x04000FD7 RID: 4055
+		public bool canRocket;
+
+		// Token: 0x04000DE4 RID: 3556
+		public bool carpet;
+
+		// Token: 0x04000DE6 RID: 3558
+		public int carpetFrame;
+
+		// Token: 0x04000DE7 RID: 3559
+		public float carpetFrameCounter;
+
+		// Token: 0x04000DE9 RID: 3561
+		public int carpetTime;
+
+		// Token: 0x04000F10 RID: 3856
+		public bool cartFlip;
+
+		// Token: 0x04000F0F RID: 3855
+		public int cartRampTime;
+
+		// Token: 0x04001004 RID: 4100
 		private int cBack;
 
-		private int cFront;
-
-		private int cShoe;
-
-		private int cWaist;
-
-		private int cShield;
-
-		private int cNeck;
-
-		private int cFace;
-
+		// Token: 0x0400100B RID: 4107
 		private int cBalloon;
 
-		private int cWings;
+		// Token: 0x04001000 RID: 4096
+		private int cBody;
 
+		// Token: 0x0400100D RID: 4109
 		private int cCarpet;
 
+		// Token: 0x0400100A RID: 4106
+		private int cFace;
+
+		// Token: 0x04001005 RID: 4101
+		private int cFront;
+
+		// Token: 0x0400100E RID: 4110
 		public int cGrapple;
 
-		public int cMount;
+		// Token: 0x04001003 RID: 4099
+		private int cHandOff;
 
-		public int cMinecart;
+		// Token: 0x04001002 RID: 4098
+		private int cHandOn;
 
-		public int cPet;
+		// Token: 0x04000E4C RID: 3660
+		public int changeItem;
 
+		// Token: 0x04000ED5 RID: 3797
+		public bool channel;
+
+		// Token: 0x04000EF3 RID: 3827
+		public bool chaosState;
+
+		// Token: 0x04000D75 RID: 3445
+		public Player.OverheadMessage chatOverhead = default(Player.OverheadMessage);
+
+		// Token: 0x04000FFF RID: 4095
+		private int cHead;
+
+		// Token: 0x04000FF7 RID: 4087
+		public int chest;
+
+		// Token: 0x04000FF8 RID: 4088
+		public int chestX;
+
+		// Token: 0x04000FF9 RID: 4089
+		public int chestY;
+
+		// Token: 0x04000DC6 RID: 3526
+		public bool chilled;
+
+		// Token: 0x04001001 RID: 4097
+		private int cLegs;
+
+		// Token: 0x04001012 RID: 4114
 		public int cLight;
 
+		// Token: 0x04001010 RID: 4112
+		public int cMinecart;
+
+		// Token: 0x0400100F RID: 4111
+		public int cMount;
+
+		// Token: 0x04001009 RID: 4105
+		private int cNeck;
+
+		// Token: 0x04000FB2 RID: 4018
+		public bool coins;
+
+		// Token: 0x04000F1A RID: 3866
+		public bool coldDash;
+
+		// Token: 0x04000F17 RID: 3863
+		public bool companionCube;
+
+		// Token: 0x04000F43 RID: 3907
+		public bool confused;
+
+		// Token: 0x04000EA1 RID: 3745
+		public bool controlDown;
+
+		// Token: 0x04000EA7 RID: 3751
+		public bool controlHook;
+
+		// Token: 0x04000EA6 RID: 3750
+		public bool controlInv;
+
+		// Token: 0x04000EA2 RID: 3746
+		public bool controlJump;
+
+		// Token: 0x04000E9E RID: 3742
+		public bool controlLeft;
+
+		// Token: 0x04000EA9 RID: 3753
+		public bool controlMap;
+
+		// Token: 0x04000EAB RID: 3755
+		public bool controlMount;
+
+		// Token: 0x04000EBB RID: 3771
+		public bool controlQuickHeal;
+
+		// Token: 0x04000EBA RID: 3770
+		public bool controlQuickMana;
+
+		// Token: 0x04000E9F RID: 3743
+		public bool controlRight;
+
+		// Token: 0x04000EAA RID: 3754
+		public bool controlSmart;
+
+		// Token: 0x04000EA5 RID: 3749
+		public bool controlThrow;
+
+		// Token: 0x04000EA8 RID: 3752
+		public bool controlTorch;
+
+		// Token: 0x04000EA0 RID: 3744
+		public bool controlUp;
+
+		// Token: 0x04000EA3 RID: 3747
+		public bool controlUseItem;
+
+		// Token: 0x04000EA4 RID: 3748
+		public bool controlUseTile;
+
+		// Token: 0x04000DD6 RID: 3542
+		public bool cordage;
+
+		// Token: 0x04000D92 RID: 3474
+		public int counterWeight;
+
+		// Token: 0x04001011 RID: 4113
+		public int cPet;
+
+		// Token: 0x04000E0A RID: 3594
+		public bool cratePotion;
+
+		// Token: 0x04000EFA RID: 3834
+		public bool crimsonHeart;
+
+		// Token: 0x04000DED RID: 3565
+		public bool crimsonRegen;
+
+		// Token: 0x04000E30 RID: 3632
+		public bool crystalLeaf;
+
+		// Token: 0x04000D86 RID: 3462
+		public static int crystalLeafDamage = 100;
+
+		// Token: 0x04000D87 RID: 3463
+		public static int crystalLeafKB = 10;
+
+		// Token: 0x04000F27 RID: 3879
+		public bool cSapling;
+
+		// Token: 0x04001008 RID: 4104
+		private int cShield;
+
+		// Token: 0x04001006 RID: 4102
+		private int cShoe;
+
+		// Token: 0x04001007 RID: 4103
+		private int cWaist;
+
+		// Token: 0x0400100C RID: 4108
+		private int cWings;
+
+		// Token: 0x04001013 RID: 4115
 		public int cYorai;
 
-		public int[] ownedProjectileCounts = new int[651];
+		// Token: 0x04000DF6 RID: 3574
+		public bool dangerSense;
 
-		public bool[] npcTypeNoAggro = new bool[540];
+		// Token: 0x04000DD0 RID: 3536
+		public int dash;
 
-		public int lastPortalColorIndex;
+		// Token: 0x04000DD2 RID: 3538
+		public int dashDelay;
 
-		public int _portalPhysicsTime;
+		// Token: 0x04000DD1 RID: 3537
+		public int dashTime;
 
-		public bool justGotOutOfPortal;
+		// Token: 0x04000DC7 RID: 3527
+		public bool dazed;
 
-		public float MountFishronSpecialCounter;
+		// Token: 0x04000E83 RID: 3715
+		public bool dead;
 
-		public Vector2 MinionTargetPoint = Vector2.Zero;
+		// Token: 0x04000E82 RID: 3714
+		public static bool deadForGood = false;
 
-		public List<Point> TouchedTiles = new List<Point>();
+		// Token: 0x04000E1B RID: 3611
+		public bool DeadlySphereMinion;
 
-		private bool makeStrongBee;
+		// Token: 0x04000F77 RID: 3959
+		public static float defaultGravity = 0.4f;
 
-		public int _funkytownCheckCD;
+		// Token: 0x04000D72 RID: 3442
+		public const int defaultHeight = 42;
 
+		// Token: 0x04000F87 RID: 3975
+		private static int defaultItemGrabRange = 38;
+
+		// Token: 0x04000D71 RID: 3441
+		public const int defaultWidth = 20;
+
+		// Token: 0x04000E33 RID: 3635
+		public bool defendedByPaladin;
+
+		// Token: 0x04000EC7 RID: 3783
+		public bool delayUseItem;
+
+		// Token: 0x04000FE2 RID: 4066
+		public bool detectCreature;
+
+		// Token: 0x04000E87 RID: 3719
+		public byte difficulty;
+
+		// Token: 0x04000F1F RID: 3871
+		public bool dino;
+
+		// Token: 0x04000FB1 RID: 4017
+		public bool discount;
+
+		// Token: 0x04000FB0 RID: 4016
+		public string displayedFishingInfo;
+
+		// Token: 0x04000FBE RID: 4030
+		public bool dJumpEffectBlizzard;
+
+		// Token: 0x04000FB8 RID: 4024
+		public bool dJumpEffectCloud;
+
+		// Token: 0x04000FC1 RID: 4033
+		public bool dJumpEffectFart;
+
+		// Token: 0x04000FC4 RID: 4036
+		public bool dJumpEffectSail;
+
+		// Token: 0x04000FBB RID: 4027
+		public bool dJumpEffectSandstorm;
+
+		// Token: 0x04000FC7 RID: 4039
+		public bool dJumpEffectUnicorn;
+
+		// Token: 0x04000FBC RID: 4028
+		public bool doubleJumpBlizzard;
+
+		// Token: 0x04000FB6 RID: 4022
+		public bool doubleJumpCloud;
+
+		// Token: 0x04000FBF RID: 4031
+		public bool doubleJumpFart;
+
+		// Token: 0x04000FC2 RID: 4034
+		public bool doubleJumpSail;
+
+		// Token: 0x04000FB9 RID: 4025
+		public bool doubleJumpSandstorm;
+
+		// Token: 0x04000FC5 RID: 4037
+		public bool doubleJumpUnicorn;
+
+		// Token: 0x04000E31 RID: 3633
+		public int[] doubleTapCardinalTimer;
+
+		// Token: 0x04000FAE RID: 4014
+		public int dpsDamage;
+
+		// Token: 0x04000FAC RID: 4012
+		public DateTime dpsEnd;
+
+		// Token: 0x04000FAD RID: 4013
+		public DateTime dpsLastHit;
+
+		// Token: 0x04000FAB RID: 4011
+		public DateTime dpsStart;
+
+		// Token: 0x04000FAF RID: 4015
+		public bool dpsStarted;
+
+		// Token: 0x04000D82 RID: 3458
+		public float drainBoost;
+
+		// Token: 0x04000F35 RID: 3893
+		public bool dripping;
+
+		// Token: 0x04000F36 RID: 3894
+		public bool drippingSlime;
+
+		// Token: 0x04000DFC RID: 3580
+		public bool dryadWard;
+
+		// Token: 0x04000E4F RID: 3663
+		public Item[] dye;
+
+		// Token: 0x04000F01 RID: 3841
+		public bool eater;
+
+		// Token: 0x04000E45 RID: 3653
+		public bool editedChestName;
+
+		// Token: 0x04000DFB RID: 3579
+		public bool electrified;
+
+		// Token: 0x04000D74 RID: 3444
+		private static byte[] ENCRYPTION_KEY = new UnicodeEncoding().GetBytes("h3y_gUyZ");
+
+		// Token: 0x04000DF7 RID: 3575
+		public float endurance;
+
+		// Token: 0x04000FE4 RID: 4068
+		public bool enemySpawns;
+
+		// Token: 0x04000DD3 RID: 3539
+		public int eocDash;
+
+		// Token: 0x04000DD4 RID: 3540
+		public int eocHit;
+
+		// Token: 0x04000D8E RID: 3470
+		public bool extraAccessory;
+
+		// Token: 0x04000D8D RID: 3469
+		public int extraAccessorySlots;
+
+		// Token: 0x04000FCB RID: 4043
+		public int extraFall;
+
+		// Token: 0x04000F8F RID: 3983
+		public Color eyeColor;
+
+		// Token: 0x04000F1C RID: 3868
+		public bool eyeSpring;
+
+		// Token: 0x04000E96 RID: 3734
+		public sbyte face;
+
+		// Token: 0x04000FFB RID: 4091
+		public int fallStart;
+
+		// Token: 0x04000FFC RID: 4092
+		public int fallStart2;
+
+		// Token: 0x04000FE0 RID: 4064
+		public bool findTreasure;
+
+		// Token: 0x04000ED4 RID: 3796
+		public bool fireWalk;
+
+		// Token: 0x04000E09 RID: 3593
+		public int fishingSkill;
+
+		// Token: 0x04000DAD RID: 3501
+		public byte flameRingAlpha;
+
+		// Token: 0x04000DAC RID: 3500
+		public byte flameRingFrame;
+
+		// Token: 0x04000DAA RID: 3498
+		public float flameRingRot;
+
+		// Token: 0x04000DAB RID: 3499
+		public float flameRingScale;
+
+		// Token: 0x04000DF4 RID: 3572
+		public bool flapSound;
+
+		// Token: 0x04000FF6 RID: 4086
+		public int flyingPigChest;
+
+		// Token: 0x04000F3E RID: 3902
+		public bool forceMerman;
+
+		// Token: 0x04000F3F RID: 3903
+		public bool forceWerewolf;
+
+		// Token: 0x04000E91 RID: 3729
+		public sbyte front;
+
+		// Token: 0x04000E2E RID: 3630
+		public bool frostArmor;
+
+		// Token: 0x04000F30 RID: 3888
+		public bool frostBurn;
+
+		// Token: 0x04000DC8 RID: 3528
+		public bool frozen;
+
+		// Token: 0x04000E7D RID: 3709
+		public float fullRotation;
+
+		// Token: 0x04000E7E RID: 3710
+		public Vector2 fullRotationOrigin;
+
+		// Token: 0x04000DD7 RID: 3543
+		public int gem;
+
+		// Token: 0x04000DD8 RID: 3544
+		public int gemCount;
+
+		// Token: 0x04000E80 RID: 3712
+		public float gfxOffY;
+
+		// Token: 0x04000E26 RID: 3622
+		public bool ghost;
+
+		// Token: 0x04000E5D RID: 3677
+		public float ghostDir;
+
+		// Token: 0x04000DC1 RID: 3521
+		public float ghostDmg;
+
+		// Token: 0x04000E5C RID: 3676
+		public float ghostFade;
+
+		// Token: 0x04000E27 RID: 3623
+		public int ghostFrame;
+
+		// Token: 0x04000E28 RID: 3624
+		public int ghostFrameCounter;
+
+		// Token: 0x04000DEE RID: 3566
+		public bool ghostHeal;
+
+		// Token: 0x04000DEF RID: 3567
+		public bool ghostHurt;
+
+		// Token: 0x04000FDE RID: 4062
+		public bool gills;
+
+		// Token: 0x04000D7B RID: 3451
+		private bool GoingDownWithGrapple;
+
+		// Token: 0x04000FB3 RID: 4019
+		public bool goldRing;
+
+		// Token: 0x04000FCF RID: 4047
+		public int grapCount;
+
+		// Token: 0x04000FCE RID: 4046
+		public int[] grappling;
+
+		// Token: 0x04000FF1 RID: 4081
+		public bool gravControl;
+
+		// Token: 0x04000FF2 RID: 4082
+		public bool gravControl2;
+
+		// Token: 0x04000EE9 RID: 3817
+		public float gravDir;
+
+		// Token: 0x04000F7A RID: 3962
+		public float gravity;
+
+		// Token: 0x04000EFE RID: 3838
+		public bool greenFairy;
+
+		// Token: 0x04000F08 RID: 3848
+		public bool grinch;
+
+		// Token: 0x04000F49 RID: 3913
+		public bool gross;
+
+		// Token: 0x04000F94 RID: 3988
+		public int hair;
+
+		// Token: 0x04000F8D RID: 3981
+		public Color hairColor;
+
+		// Token: 0x04000F8A RID: 3978
+		public byte hairDye;
+
+		// Token: 0x04000F8B RID: 3979
+		public Color hairDyeColor;
+
+		// Token: 0x04000F8C RID: 3980
+		public float hairDyeVar;
+
+		// Token: 0x04000E9D RID: 3741
+		public Rectangle hairFrame;
+
+		// Token: 0x04000E8F RID: 3727
+		public sbyte handoff;
+
+		// Token: 0x04000E8E RID: 3726
+		public sbyte handon;
+
+		// Token: 0x04000D89 RID: 3465
+		public bool hasBanner;
+
+		// Token: 0x04000E34 RID: 3636
+		public bool hasPaladinShield;
+
+		// Token: 0x04000E41 RID: 3649
+		public bool hbLocked;
+
+		// Token: 0x04000E8B RID: 3723
+		public int head;
+
+		// Token: 0x04000F2F RID: 3887
+		public bool headcovered;
+
+		// Token: 0x04000E9A RID: 3738
+		public Rectangle headFrame;
+
+		// Token: 0x04000E37 RID: 3639
+		public double headFrameCounter;
+
+		// Token: 0x04000E77 RID: 3703
+		public Vector2 headPosition;
+
+		// Token: 0x04000E74 RID: 3700
+		public float headRotation;
+
+		// Token: 0x04000E7A RID: 3706
+		public Vector2 headVelocity;
+
+		// Token: 0x04000E61 RID: 3681
+		public int heldProj;
+
+		// Token: 0x04000D7D RID: 3453
+		public bool[] hideInfo = new bool[13];
+
+		// Token: 0x04000F3C RID: 3900
+		public bool hideMerman;
+
+		// Token: 0x04000E99 RID: 3737
+		public BitsByte hideMisc;
+
+		// Token: 0x04000E98 RID: 3736
+		public bool[] hideVisual;
+
+		// Token: 0x04000F3D RID: 3901
+		public bool hideWolf;
+
+		// Token: 0x04000E89 RID: 3721
+		public HitTile hitTile;
+
+		// Token: 0x04000E32 RID: 3634
+		public int[] holdDownCardinalTimer;
+
+		// Token: 0x04000E2F RID: 3631
+		public bool honey;
+
+		// Token: 0x04000F21 RID: 3873
+		public bool hornet;
+
+		// Token: 0x04000E14 RID: 3604
+		public bool hornetMinion;
+
+		// Token: 0x04000F95 RID: 3989
+		public bool hostile;
+
+		// Token: 0x04000D7A RID: 3450
+		public int HotbarOffset;
+
+		// Token: 0x04001020 RID: 4128
 		public int[] hurtCooldowns;
 
-		public static bool lastPound;
+		// Token: 0x04000DF5 RID: 3573
+		public bool iceBarrier;
+
+		// Token: 0x04000DFF RID: 3583
+		public byte iceBarrierFrame;
+
+		// Token: 0x04000E00 RID: 3584
+		public byte iceBarrierFrameCounter;
+
+		// Token: 0x04000DE3 RID: 3555
+		public bool iceSkate;
+
+		// Token: 0x04000DCB RID: 3531
+		public bool ichor;
+
+		// Token: 0x04000E68 RID: 3688
+		public bool ignoreWater;
+
+		// Token: 0x04000E3C RID: 3644
+		public bool immune;
+
+		// Token: 0x04000E3F RID: 3647
+		public int immuneAlpha;
+
+		// Token: 0x04000E3E RID: 3646
+		public int immuneAlphaDirection;
+
+		// Token: 0x04000E3D RID: 3645
+		public int immuneTime;
+
+		// Token: 0x04000E15 RID: 3605
+		public bool impMinion;
+
+		// Token: 0x04000DA9 RID: 3497
+		public bool inferno;
+
+		// Token: 0x04000DEB RID: 3563
+		public int infernoCounter;
+
+		// Token: 0x04000FAA RID: 4010
+		public bool InfoAccMechShowWires;
+
+		// Token: 0x04000D6A RID: 3434
+		public const int InitialAccSlotCount = 5;
+
+		// Token: 0x04000E70 RID: 3696
+		public Item[] inventory;
+
+		// Token: 0x04000E71 RID: 3697
+		public bool[] inventoryChestStack;
+
+		// Token: 0x04000FE1 RID: 4065
+		public bool invis;
+
+		// Token: 0x04000E53 RID: 3667
+		public int itemAnimation;
+
+		// Token: 0x04000E54 RID: 3668
+		public int itemAnimationMax;
+
+		// Token: 0x04000DBE RID: 3518
+		public int itemFlameCount;
+
+		// Token: 0x04000DBD RID: 3517
+		public Vector2[] itemFlamePos;
+
+		// Token: 0x04000F88 RID: 3976
+		private static float itemGrabSpeed = 0.45f;
+
+		// Token: 0x04000F89 RID: 3977
+		private static float itemGrabSpeedMax = 4f;
+
+		// Token: 0x04000E59 RID: 3673
+		public int itemHeight;
+
+		// Token: 0x04000E5A RID: 3674
+		public Vector2 itemLocation;
+
+		// Token: 0x04000E57 RID: 3671
+		public float itemRotation;
+
+		// Token: 0x04000E55 RID: 3669
+		public int itemTime;
+
+		// Token: 0x04000E58 RID: 3672
+		public int itemWidth;
+
+		// Token: 0x04000E8A RID: 3722
+		public int jump;
+
+		// Token: 0x04000FBD RID: 4029
+		public bool jumpAgainBlizzard;
+
+		// Token: 0x04000FB7 RID: 4023
+		public bool jumpAgainCloud;
+
+		// Token: 0x04000FC0 RID: 4032
+		public bool jumpAgainFart;
+
+		// Token: 0x04000FC3 RID: 4035
+		public bool jumpAgainSail;
+
+		// Token: 0x04000FBA RID: 4026
+		public bool jumpAgainSandstorm;
+
+		// Token: 0x04000FC6 RID: 4038
+		public bool jumpAgainUnicorn;
+
+		// Token: 0x04000FD8 RID: 4056
+		public bool jumpBoost;
+
+		// Token: 0x04000F78 RID: 3960
+		private static int jumpHeight = 15;
+
+		// Token: 0x04000F79 RID: 3961
+		private static float jumpSpeed = 5.01f;
+
+		// Token: 0x04000FCA RID: 4042
+		public float jumpSpeedBoost;
+
+		// Token: 0x04000FC9 RID: 4041
+		public bool justJumped;
+
+		// Token: 0x04000F4C RID: 3916
+		public bool kbBuff;
+
+		// Token: 0x04000F4B RID: 3915
+		public bool kbGlove;
+
+		// Token: 0x04000FDC RID: 4060
+		public bool killClothier;
+
+		// Token: 0x04000FDB RID: 4059
+		public bool killGuide;
+
+		// Token: 0x04000F12 RID: 3858
+		public Vector2 lastBoost;
+
+		// Token: 0x04000FF5 RID: 4085
+		public int lastChest;
+
+		// Token: 0x04000F9D RID: 3997
+		public int lastCreatureHit;
+
+		// Token: 0x04000D8A RID: 3466
+		public Vector2 lastDeathPostion;
+
+		// Token: 0x04000D8B RID: 3467
+		public DateTime lastDeathTime;
+
+		// Token: 0x04000E4A RID: 3658
+		public bool lastMouseInterface;
+
+		// Token: 0x04001016 RID: 4118
+		public int lastPortalColorIndex;
+
+		// Token: 0x04001021 RID: 4129
+		public static bool lastPound = true;
+
+		// Token: 0x04000DCA RID: 3530
+		public bool lastStoned;
+
+		// Token: 0x04000F73 RID: 3955
+		public int lastTileRangeX;
+
+		// Token: 0x04000F74 RID: 3956
+		public int lastTileRangeY;
+
+		// Token: 0x04000DE2 RID: 3554
+		public int launcherWait;
+
+		// Token: 0x04000E65 RID: 3685
+		public int lavaCD;
+
+		// Token: 0x04000FDD RID: 4061
+		public bool lavaImmune;
+
+		// Token: 0x04000E66 RID: 3686
+		public int lavaMax;
+
+		// Token: 0x04000EEF RID: 3823
+		public bool lavaRose;
+
+		// Token: 0x04000E67 RID: 3687
+		public int lavaTime;
+
+		// Token: 0x04000EC5 RID: 3781
+		public int leftTimer;
+
+		// Token: 0x04000E9C RID: 3740
+		public Rectangle legFrame;
+
+		// Token: 0x04000E39 RID: 3641
+		public double legFrameCounter;
+
+		// Token: 0x04000E79 RID: 3705
+		public Vector2 legPosition;
+
+		// Token: 0x04000E76 RID: 3702
+		public float legRotation;
+
+		// Token: 0x04000E8D RID: 3725
+		public int legs;
+
+		// Token: 0x04000E7C RID: 3708
+		public Vector2 legVelocity;
+
+		// Token: 0x04000DA7 RID: 3495
+		public bool lifeForce;
+
+		// Token: 0x04000DA6 RID: 3494
+		public bool lifeMagnet;
+
+		// Token: 0x04000EE0 RID: 3808
+		public int lifeRegen;
+
+		// Token: 0x04000EE1 RID: 3809
+		public int lifeRegenCount;
+
+		// Token: 0x04000EE2 RID: 3810
+		public int lifeRegenTime;
+
+		// Token: 0x04000DC0 RID: 3520
+		public float lifeSteal;
+
+		// Token: 0x04000EFB RID: 3835
+		public bool lightOrb;
+
+		// Token: 0x04000F29 RID: 3881
+		public bool lizard;
+
+		// Token: 0x04000DBC RID: 3516
+		public int loadStatus;
+
+		// Token: 0x04000F4E RID: 3918
+		public bool longInvince;
+
+		// Token: 0x04000D7F RID: 3455
+		public int lostCoins;
+
+		// Token: 0x04000D80 RID: 3456
+		public string lostCoinString;
+
+		// Token: 0x04000DF8 RID: 3576
+		public bool loveStruck;
+
+		// Token: 0x04000F56 RID: 3926
+		public int magicCrit;
+
+		// Token: 0x04000F19 RID: 3865
+		public bool magicCuffs;
+
+		// Token: 0x04000F5E RID: 3934
+		public float magicDamage;
+
+		// Token: 0x04000F03 RID: 3843
+		public bool magicLantern;
+
+		// Token: 0x04000EED RID: 3821
+		public bool magicQuiver;
+
+		// Token: 0x04000EEE RID: 3822
+		public bool magmaStone;
+
+		// Token: 0x0400101D RID: 4125
+		private bool makeStrongBee;
+
+		// Token: 0x04000ED3 RID: 3795
+		public float manaCost;
+
+		// Token: 0x04000F50 RID: 3920
+		public bool manaFlower;
+
+		// Token: 0x04000DA5 RID: 3493
+		public bool manaMagnet;
+
+		// Token: 0x04000EE3 RID: 3811
+		public int manaRegen;
+
+		// Token: 0x04000DCE RID: 3534
+		public int manaRegenBonus;
+
+		// Token: 0x04000EE6 RID: 3814
+		public bool manaRegenBuff;
+
+		// Token: 0x04000EE4 RID: 3812
+		public int manaRegenCount;
+
+		// Token: 0x04000EE5 RID: 3813
+		public int manaRegenDelay;
+
+		// Token: 0x04000DCF RID: 3535
+		public int manaRegenDelayBonus;
+
+		// Token: 0x04000DBA RID: 3514
+		public bool manaSick;
+
+		// Token: 0x04000DB8 RID: 3512
+		public static float manaSickLessDmg = 0.25f;
+
+		// Token: 0x04000DB9 RID: 3513
+		public float manaSickReduction;
+
+		// Token: 0x04000DB6 RID: 3510
+		public static int manaSickTime = 300;
+
+		// Token: 0x04000DB7 RID: 3511
+		public static int manaSickTimeMax = 600;
+
+		// Token: 0x04000EC0 RID: 3776
+		public bool mapAlphaDown;
+
+		// Token: 0x04000EBF RID: 3775
+		public bool mapAlphaUp;
+
+		// Token: 0x04000EC1 RID: 3777
+		public bool mapFullScreen;
+
+		// Token: 0x04000EC2 RID: 3778
+		public bool mapStyle;
+
+		// Token: 0x04000EBD RID: 3773
+		public bool mapZoomIn;
+
+		// Token: 0x04000EBE RID: 3774
+		public bool mapZoomOut;
+
+		// Token: 0x04000D70 RID: 3440
+		public const int maxBuffs = 22;
+
+		// Token: 0x04000F7B RID: 3963
+		public float maxFallSpeed;
+
+		// Token: 0x04000E0E RID: 3598
+		public int maxMinions;
+
+		// Token: 0x04000E43 RID: 3651
+		private float maxRegenDelay;
+
+		// Token: 0x04000F7C RID: 3964
+		public float maxRunSpeed;
+
+		// Token: 0x04000D65 RID: 3429
+		public const int maxSolarShields = 3;
+
+		// Token: 0x04000F54 RID: 3924
+		public int meleeCrit;
+
+		// Token: 0x04000F58 RID: 3928
+		public float meleeDamage;
+
+		// Token: 0x04000DDA RID: 3546
+		public byte meleeEnchant;
+
+		// Token: 0x04000F61 RID: 3937
+		public float meleeSpeed;
+
+		// Token: 0x04000F45 RID: 3909
+		public bool merman;
+
+		// Token: 0x04000F0C RID: 3852
+		public bool minecartLeft;
+
+		// Token: 0x04000F09 RID: 3849
+		public bool miniMinotaur;
+
+		// Token: 0x04000F5F RID: 3935
+		public float minionDamage;
+
+		// Token: 0x04000F60 RID: 3936
+		public float minionKB;
+
+		// Token: 0x0400101A RID: 4122
+		public Vector2 MinionTargetPoint;
+
+		// Token: 0x04000DEA RID: 3562
+		public int miscCounter;
+
+		// Token: 0x04000E51 RID: 3665
+		public Item[] miscDyes;
+
+		// Token: 0x04000E50 RID: 3664
+		public Item[] miscEquips;
+
+		// Token: 0x04000D6D RID: 3437
+		public const int miscSlotCart = 2;
+
+		// Token: 0x04000D6F RID: 3439
+		public const int miscSlotHook = 4;
+
+		// Token: 0x04000D6C RID: 3436
+		public const int miscSlotLight = 1;
+
+		// Token: 0x04000D6E RID: 3438
+		public const int miscSlotMount = 3;
+
+		// Token: 0x04000D6B RID: 3435
+		public const int miscSlotPet = 0;
+
+		// Token: 0x04000E29 RID: 3625
+		public int miscTimer;
+
+		// Token: 0x04000F51 RID: 3921
+		public bool moonLeech;
+
+		// Token: 0x04000F13 RID: 3859
+		public Mount mount;
+
+		// Token: 0x04001019 RID: 4121
+		public float MountFishronSpecialCounter;
+
+		// Token: 0x04000E49 RID: 3657
+		public bool mouseInterface;
+
+		// Token: 0x04000F65 RID: 3941
+		public float moveSpeed;
+
+		// Token: 0x04000E42 RID: 3650
+		public static int nameLen = 20;
+
+		// Token: 0x04000FEC RID: 4076
+		public int nebulaCD;
+
+		// Token: 0x04000DA4 RID: 3492
+		public int nebulaLevelDamage;
+
+		// Token: 0x04000DA1 RID: 3489
+		public int nebulaLevelLife;
+
+		// Token: 0x04000DA2 RID: 3490
+		public int nebulaLevelMana;
+
+		// Token: 0x04000DA3 RID: 3491
+		public int nebulaManaCounter;
+
+		// Token: 0x04000D66 RID: 3430
+		public const int nebulaMaxLevel = 3;
+
+		// Token: 0x04000E95 RID: 3733
+		public sbyte neck;
+
+		// Token: 0x04000DB1 RID: 3505
+		public bool netLife;
+
+		// Token: 0x04000DAF RID: 3503
+		public int netLifeTime;
+
+		// Token: 0x04000DB0 RID: 3504
+		public bool netMana;
+
+		// Token: 0x04000DAE RID: 3502
+		public int netManaTime;
+
+		// Token: 0x04000E3A RID: 3642
+		public int netSkip;
+
+		// Token: 0x04000FE3 RID: 4067
+		public bool nightVision;
+
+		// Token: 0x04000FD9 RID: 4057
+		public bool noFallDmg;
+
+		// Token: 0x04000F39 RID: 3897
+		public bool noItems;
+
+		// Token: 0x04000EE7 RID: 3815
+		public bool noKnockback;
+
+		// Token: 0x04000E7F RID: 3711
+		public int nonTorch;
+
+		// Token: 0x04000E4B RID: 3659
+		public int noThrow;
+
+		// Token: 0x04000D88 RID: 3464
+		public bool[] NPCBannerBuff;
+
+		// Token: 0x04001015 RID: 4117
+		public bool[] npcTypeNoAggro;
+
+		// Token: 0x04000E0F RID: 3599
+		public int numMinions;
+
+		// Token: 0x04000F83 RID: 3971
+		public bool oldAdjHoney;
+
+		// Token: 0x04000F84 RID: 3972
+		public bool oldAdjLava;
+
+		// Token: 0x04000F86 RID: 3974
+		public bool[] oldAdjTile;
+
+		// Token: 0x04000F82 RID: 3970
+		public bool oldAdjWater;
+
+		// Token: 0x04000E3B RID: 3643
+		public int oldSelectItem;
+
+		// Token: 0x04000F37 RID: 3895
+		public bool onFire;
+
+		// Token: 0x04000F38 RID: 3896
+		public bool onFire2;
+
+		// Token: 0x04000F31 RID: 3889
+		public bool onFrostBurn;
+
+		// Token: 0x04000E04 RID: 3588
+		public bool onHitDodge;
+
+		// Token: 0x04000E06 RID: 3590
+		public bool onHitPetal;
+
+		// Token: 0x04000E05 RID: 3589
+		public bool onHitRegen;
+
+		// Token: 0x04000F0E RID: 3854
+		public bool onTrack;
+
+		// Token: 0x04000F0D RID: 3853
+		public bool onWrongGround;
+
+		// Token: 0x04000DBF RID: 3519
+		public bool outOfRange;
+
+		// Token: 0x04000DD9 RID: 3545
+		public BitsByte ownedLargeGems;
+
+		// Token: 0x04001014 RID: 4116
+		public int[] ownedProjectileCounts;
+
+		// Token: 0x04000E03 RID: 3587
+		public bool palladiumRegen;
+
+		// Token: 0x04000DFD RID: 3581
+		public bool panic;
+
+		// Token: 0x04000F92 RID: 3986
+		public Color pantsColor;
+
+		// Token: 0x04000F24 RID: 3876
+		public bool parrot;
+
+		// Token: 0x04000F02 RID: 3842
+		public bool penguin;
+
+		// Token: 0x04000E07 RID: 3591
+		public int petalTimer;
+
+		// Token: 0x04000EF0 RID: 3824
+		public int phantasmTime;
+
+		// Token: 0x04000F66 RID: 3942
+		public float pickSpeed;
+
+		// Token: 0x04000E18 RID: 3608
+		public bool pirateMinion;
+
+		// Token: 0x04000F2B RID: 3883
+		public bool poisoned;
+
+		// Token: 0x04001018 RID: 4120
+		public bool portalPhysicsFlag;
+
+		// Token: 0x04000E86 RID: 3718
+		public int potionDelay;
+
+		// Token: 0x04000FFD RID: 4093
+		public int potionDelayTime;
+
+		// Token: 0x04000E5B RID: 3675
+		public bool poundRelease;
+
+		// Token: 0x04000DF3 RID: 3571
+		public bool powerrun;
+
+		// Token: 0x04000F4F RID: 3919
+		public bool pStone;
+
+		// Token: 0x04000DDC RID: 3548
+		public bool pulley;
+
+		// Token: 0x04000DDB RID: 3547
+		public byte pulleyDir;
+
+		// Token: 0x04000DDD RID: 3549
+		public int pulleyFrame;
+
+		// Token: 0x04000DDE RID: 3550
+		public float pulleyFrameCounter;
+
+		// Token: 0x04000F07 RID: 3847
+		public bool puppy;
+
+		// Token: 0x04000E2A RID: 3626
+		public bool pvpDeath;
+
+		// Token: 0x04000E11 RID: 3601
+		public bool pygmy;
+
+		// Token: 0x04000F04 RID: 3844
+		public bool rabid;
+
+		// Token: 0x04000F55 RID: 3925
+		public int rangedCrit;
+
+		// Token: 0x04000F59 RID: 3929
+		public float rangedDamage;
+
+		// Token: 0x04000E12 RID: 3602
+		public bool raven;
+
+		// Token: 0x04000EFD RID: 3837
+		public bool redFairy;
+
+		// Token: 0x04000EB9 RID: 3769
+		public bool releaseDown;
+
+		// Token: 0x04000EB1 RID: 3761
+		public bool releaseHook;
+
+		// Token: 0x04000EB0 RID: 3760
+		public bool releaseInventory;
+
+		// Token: 0x04000EAC RID: 3756
+		public bool releaseJump;
+
+		// Token: 0x04000EB5 RID: 3765
+		public bool releaseLeft;
+
+		// Token: 0x04000EC3 RID: 3779
+		public bool releaseMapFullscreen;
+
+		// Token: 0x04000EC4 RID: 3780
+		public bool releaseMapStyle;
+
+		// Token: 0x04000EB8 RID: 3768
+		public bool releaseMount;
+
+		// Token: 0x04000EB4 RID: 3764
+		public bool releaseQuickHeal;
+
+		// Token: 0x04000EB3 RID: 3763
+		public bool releaseQuickMana;
+
+		// Token: 0x04000EB6 RID: 3766
+		public bool releaseRight;
+
+		// Token: 0x04000EB7 RID: 3767
+		public bool releaseSmart;
+
+		// Token: 0x04000EB2 RID: 3762
+		public bool releaseThrow;
+
+		// Token: 0x04000EAD RID: 3757
+		public bool releaseUp;
+
+		// Token: 0x04000EAE RID: 3758
+		public bool releaseUseItem;
+
+		// Token: 0x04000EAF RID: 3759
+		public bool releaseUseTile;
+
+		// Token: 0x04000DFA RID: 3578
+		public bool resistCold;
+
+		// Token: 0x04000E84 RID: 3716
+		public int respawnTimer;
+
+		// Token: 0x04000FFE RID: 4094
+		public int restorationDelayTime;
+
+		// Token: 0x04000E46 RID: 3654
+		public int reuseDelay;
+
+		// Token: 0x04000EC6 RID: 3782
+		public int rightTimer;
+
+		// Token: 0x04000FD6 RID: 4054
+		public int rocketBoots;
+
+		// Token: 0x04000F5D RID: 3933
+		public float rocketDamage;
+
+		// Token: 0x04000FD2 RID: 4050
+		public int rocketDelay;
+
+		// Token: 0x04000FD3 RID: 4051
+		public int rocketDelay2;
+
+		// Token: 0x04000FD5 RID: 4053
+		public bool rocketFrame;
+
+		// Token: 0x04000FD4 RID: 4052
+		public bool rocketRelease;
+
+		// Token: 0x04000FD0 RID: 4048
+		public int rocketTime;
+
+		// Token: 0x04000FD1 RID: 4049
+		public int rocketTimeMax;
+
+		// Token: 0x04000DCD RID: 3533
+		public int ropeCount;
+
+		// Token: 0x04000F40 RID: 3904
+		public bool rulerGrid;
+
+		// Token: 0x04000F41 RID: 3905
+		public bool rulerLine;
+
+		// Token: 0x04000F7D RID: 3965
+		public float runAcceleration;
+
+		// Token: 0x04000F7E RID: 3966
+		public float runSlowdown;
+
+		// Token: 0x04000ECC RID: 3788
+		public int runSoundDelay;
+
+		// Token: 0x04000F1B RID: 3867
+		public bool sailDash;
+
+		// Token: 0x04000DEC RID: 3564
+		public bool sandStorm;
+
+		// Token: 0x04000F26 RID: 3878
+		public bool sapling;
+
+		// Token: 0x04000F1E RID: 3870
+		public bool scope;
+
+		// Token: 0x04000E4D RID: 3661
+		public int selectedItem;
+
+		// Token: 0x04000E6F RID: 3695
+		public string setBonus;
+
+		// Token: 0x04000FEB RID: 4075
+		public bool setNebula;
+
+		// Token: 0x04000FE9 RID: 4073
+		public bool setSolar;
+
+		// Token: 0x04000FED RID: 4077
+		public bool setStardust;
+
+		// Token: 0x04000FEA RID: 4074
+		public bool setVortex;
+
+		// Token: 0x04000ECD RID: 3789
+		public float shadow;
+
+		// Token: 0x04000ED2 RID: 3794
+		public int shadowCount;
+
+		// Token: 0x04000ED1 RID: 3793
+		public int[] shadowDirection;
+
+		// Token: 0x04000E01 RID: 3585
+		public bool shadowDodge;
+
+		// Token: 0x04000E02 RID: 3586
+		public float shadowDodgeCount;
+
+		// Token: 0x04000E08 RID: 3592
+		public int shadowDodgeTimer;
+
+		// Token: 0x04000D73 RID: 3443
+		private const int shadowMax = 3;
+
+		// Token: 0x04000ED0 RID: 3792
+		public Vector2[] shadowOrigin;
+
+		// Token: 0x04000ECE RID: 3790
+		public Vector2[] shadowPos;
+
+		// Token: 0x04000ECF RID: 3791
+		public float[] shadowRotation;
+
+		// Token: 0x04000E19 RID: 3609
+		public bool sharknadoMinion;
+
+		// Token: 0x04000E94 RID: 3732
+		public sbyte shield;
+
+		// Token: 0x04000EF6 RID: 3830
+		public bool shinyStone;
+
+		// Token: 0x04000F90 RID: 3984
+		public Color shirtColor;
+
+		// Token: 0x04000E92 RID: 3730
+		public sbyte shoe;
+
+		// Token: 0x04000F93 RID: 3987
+		public Color shoeColor;
+
+		// Token: 0x04000EC8 RID: 3784
+		public bool showItemIcon;
+
+		// Token: 0x04000ECA RID: 3786
+		public int showItemIcon2;
+
+		// Token: 0x04000EC9 RID: 3785
+		public bool showItemIconR;
+
+		// Token: 0x04000ECB RID: 3787
+		public string showItemIconText;
+
+		// Token: 0x04000D8C RID: 3468
+		public bool showLastDeath;
+
+		// Token: 0x04000E6B RID: 3691
+		public bool shroomiteStealth;
+
+		// Token: 0x04000E44 RID: 3652
+		public int sign;
+
+		// Token: 0x04000F47 RID: 3911
+		public bool silence;
+
+		// Token: 0x04000F20 RID: 3872
+		public bool skeletron;
+
+		// Token: 0x04000F8E RID: 3982
+		public Color skinColor;
+
+		// Token: 0x04000E25 RID: 3621
+		public int skinVariant;
+
+		// Token: 0x04000DE1 RID: 3553
+		public int slideDir;
+
+		// Token: 0x04000DE0 RID: 3552
+		public bool sliding;
+
+		// Token: 0x04000E13 RID: 3603
+		public bool slime;
+
+		// Token: 0x04000DF1 RID: 3569
+		public bool slippy;
+
+		// Token: 0x04000DF2 RID: 3570
+		public bool slippy2;
+
+		// Token: 0x04000DC5 RID: 3525
+		public bool sloping;
+
+		// Token: 0x04000E10 RID: 3600
+		public float slotsMinions;
+
+		// Token: 0x04000F48 RID: 3912
+		public bool slow;
+
+		// Token: 0x04000FDF RID: 4063
+		public bool slowFall;
+
+		// Token: 0x04000F1D RID: 3869
+		public bool snowman;
+
+		// Token: 0x04000E6A RID: 3690
+		public bool socialGhost;
+
+		// Token: 0x04000E6C RID: 3692
+		public bool socialIgnoreLight;
+
+		// Token: 0x04000E69 RID: 3689
+		public bool socialShadow;
+
+		// Token: 0x04000D9C RID: 3484
+		public int solarCounter;
+
+		// Token: 0x04000DA0 RID: 3488
+		public bool solarDashConsumedFlare;
+
+		// Token: 0x04000D9F RID: 3487
+		public bool solarDashing;
+
+		// Token: 0x04000D9D RID: 3485
+		public Vector2[] solarShieldPos;
+
+		// Token: 0x04000D9B RID: 3483
+		public int solarShields;
+
+		// Token: 0x04000D9E RID: 3486
+		public Vector2[] solarShieldVel;
+
+		// Token: 0x04000E0B RID: 3595
+		public bool sonarPotion;
+
+		// Token: 0x04000D81 RID: 3457
+		public int soulDrain;
+
+		// Token: 0x04000EE8 RID: 3816
+		public bool spaceGun;
+
+		// Token: 0x04000FCC RID: 4044
+		public bool spawnMax;
+
+		// Token: 0x04000F6B RID: 3947
+		public int SpawnX;
+
+		// Token: 0x04000F6C RID: 3948
+		public int SpawnY;
+
+		// Token: 0x04000E35 RID: 3637
+		public float[] speedSlice;
+
+		// Token: 0x04000D7C RID: 3452
+		private byte spelunkerTimer;
+
+		// Token: 0x04000F70 RID: 3952
+		public int[] spI;
+
+		// Token: 0x04000F15 RID: 3861
+		public bool spider;
+
+		// Token: 0x04000FE8 RID: 4072
+		public bool spiderArmor;
+
+		// Token: 0x04000E17 RID: 3607
+		public bool spiderMinion;
+
+		// Token: 0x04000DE5 RID: 3557
+		public int spikedBoots;
+
+		// Token: 0x04000F6F RID: 3951
+		public string[] spN;
+
+		// Token: 0x04000EF5 RID: 3829
+		public bool sporeSac;
+
+		// Token: 0x04000F6D RID: 3949
+		public int[] spX;
+
+		// Token: 0x04000F6E RID: 3950
+		public int[] spY;
+
+		// Token: 0x04000F16 RID: 3862
+		public bool squashling;
+
+		// Token: 0x04000DBB RID: 3515
+		public bool stairFall;
+
+		// Token: 0x04000F4D RID: 3917
+		public bool starCloak;
+
+		// Token: 0x04000E1E RID: 3614
+		public bool stardustDragon;
+
+		// Token: 0x04000E1D RID: 3613
+		public bool stardustGuardian;
+
+		// Token: 0x04000E1C RID: 3612
+		public bool stardustMinion;
+
+		// Token: 0x04000ED9 RID: 3801
+		public int statDefense;
+
+		// Token: 0x04000EDC RID: 3804
+		public int statLife;
+
+		// Token: 0x04000EDA RID: 3802
+		public int statLifeMax;
+
+		// Token: 0x04000EDB RID: 3803
+		public int statLifeMax2;
+
+		// Token: 0x04000EDD RID: 3805
+		public int statMana;
+
+		// Token: 0x04000EDE RID: 3806
+		public int statManaMax;
+
+		// Token: 0x04000EDF RID: 3807
+		public int statManaMax2;
+
+		// Token: 0x04000E6E RID: 3694
+		public float stealth;
+
+		// Token: 0x04000E6D RID: 3693
+		public int stealthTimer;
+
+		// Token: 0x04000ED6 RID: 3798
+		public int step;
+
+		// Token: 0x04000E81 RID: 3713
+		public float stepSpeed;
+
+		// Token: 0x04000DF0 RID: 3568
+		public bool sticky;
+
+		// Token: 0x04000EEC RID: 3820
+		public int stickyBreak;
+
+		// Token: 0x04000DF9 RID: 3577
+		public bool stinky;
+
+		// Token: 0x04000DC9 RID: 3529
+		public bool stoned;
+
+		// Token: 0x0400101C RID: 4124
+		public static int StopMoneyTroughFromWorking = 3;
+
+		// Token: 0x04000D91 RID: 3473
+		public int stringColor;
+
+		// Token: 0x04000EF4 RID: 3828
+		public bool strongBees;
+
+		// Token: 0x04000F34 RID: 3892
+		public byte suffocateDelay;
+
+		// Token: 0x04000F33 RID: 3891
+		public bool suffocating;
+
+		// Token: 0x04000F05 RID: 3845
+		public bool sunflower;
+
+		// Token: 0x04000D68 RID: 3432
+		public const int SupportedSlotsAccs = 7;
+
+		// Token: 0x04000D67 RID: 3431
+		public const int SupportedSlotsArmor = 3;
+
+		// Token: 0x04000D69 RID: 3433
+		public const int SupportedSlotSets = 10;
+
+		// Token: 0x04000EF9 RID: 3833
+		public bool suspiciouslookingTentacle;
+
+		// Token: 0x04000FDA RID: 4058
+		public int swimTime;
+
+		// Token: 0x04000FFA RID: 4090
+		public int talkNPC;
+
+		// Token: 0x04000D8F RID: 3471
+		public int tankPet;
+
+		// Token: 0x04000D90 RID: 3472
+		public bool tankPetReset;
+
+		// Token: 0x04000D83 RID: 3459
+		public int taxMoney;
+
+		// Token: 0x04000D85 RID: 3461
+		public static int taxRate = 3600;
+
+		// Token: 0x04000D84 RID: 3460
+		public int taxTimer;
+
+		// Token: 0x04000E40 RID: 3648
+		public int team;
+
+		// Token: 0x04000DC2 RID: 3522
+		public bool teleporting;
+
+		// Token: 0x04000DC4 RID: 3524
+		public int teleportStyle;
+
+		// Token: 0x04000DC3 RID: 3523
+		public float teleportTime;
+
+		// Token: 0x04000FE5 RID: 4069
+		public float thorns;
+
+		// Token: 0x04000F64 RID: 3940
+		public bool thrownCost33;
+
+		// Token: 0x04000F63 RID: 3939
+		public bool thrownCost50;
+
+		// Token: 0x04000F57 RID: 3927
+		public int thrownCrit;
+
+		// Token: 0x04000F5A RID: 3930
+		public float thrownDamage;
+
+		// Token: 0x04000F62 RID: 3938
+		public float thrownVelocity;
+
+		// Token: 0x04000F23 RID: 3875
+		public bool tiki;
+
+		// Token: 0x04000F71 RID: 3953
+		public static int tileRangeX = 5;
+
+		// Token: 0x04000F72 RID: 3954
+		public static int tileRangeY = 4;
+
+		// Token: 0x04000F68 RID: 3944
+		public float tileSpeed;
+
+		// Token: 0x04000F75 RID: 3957
+		public static int tileTargetX;
+
+		// Token: 0x04000F76 RID: 3958
+		public static int tileTargetY;
+
+		// Token: 0x04000F4A RID: 3914
+		public bool tongued;
+
+		// Token: 0x04000E56 RID: 3670
+		public int toolTime;
+
+		// Token: 0x0400101B RID: 4123
+		public List<Point> TouchedTiles;
+
+		// Token: 0x04000E36 RID: 3638
+		public float townNPCs;
+
+		// Token: 0x04000F11 RID: 3857
+		public float trackBoost;
+
+		// Token: 0x04000F53 RID: 3923
+		public bool trapDebuffSource;
+
+		// Token: 0x04000E52 RID: 3666
+		public Item trashItem;
+
+		// Token: 0x04000F25 RID: 3877
+		public bool truffle;
+
+		// Token: 0x04000F00 RID: 3840
+		public bool turtle;
+
+		// Token: 0x04000FE6 RID: 4070
+		public bool turtleArmor;
+
+		// Token: 0x04000FE7 RID: 4071
+		public bool turtleThorns;
+
+		// Token: 0x04000E16 RID: 3606
+		public bool twinsMinion;
+
+		// Token: 0x04000E1A RID: 3610
+		public bool UFOMinion;
+
+		// Token: 0x04000F91 RID: 3985
+		public Color underShirtColor;
+
+		// Token: 0x04000F2C RID: 3884
+		public bool venom;
+
+		// Token: 0x04000F52 RID: 3922
+		public bool vortexDebuff;
+
+		// Token: 0x04000FEE RID: 4078
+		public bool vortexStealthActive;
+
+		// Token: 0x04000E93 RID: 3731
+		public sbyte waist;
+
+		// Token: 0x04000F67 RID: 3943
+		public float wallSpeed;
+
+		// Token: 0x04000FEF RID: 4079
+		public bool waterWalk;
+
+		// Token: 0x04000FF0 RID: 4080
+		public bool waterWalk2;
+
+		// Token: 0x04000F0B RID: 3851
+		public bool wearsRobe;
+
+		// Token: 0x04000DCC RID: 3532
+		public bool webbed;
+
+		// Token: 0x04000F06 RID: 3846
+		public bool wellFed;
+
+		// Token: 0x04000F3A RID: 3898
+		public bool wereWolf;
+
+		// Token: 0x04000E88 RID: 3720
+		public byte wetSlime;
+
+		// Token: 0x04000E23 RID: 3619
+		public int wingFrame;
+
+		// Token: 0x04000E24 RID: 3620
+		public int wingFrameCounter;
+
+		// Token: 0x04000E20 RID: 3616
+		public int wings;
+
+		// Token: 0x04000E21 RID: 3617
+		public int wingsLogic;
+
+		// Token: 0x04000E1F RID: 3615
+		public float wingTime;
+
+		// Token: 0x04000E22 RID: 3618
+		public int wingTimeMax;
+
+		// Token: 0x04000FF4 RID: 4084
+		public int wireOperationsCooldown;
+
+		// Token: 0x04000F28 RID: 3880
+		public bool wisp;
+
+		// Token: 0x04000F3B RID: 3899
+		public bool wolfAcc;
+
+		// Token: 0x04000EF8 RID: 3832
+		public bool yoraiz0rDarkness;
+
+		// Token: 0x04000EF7 RID: 3831
+		public int yoraiz0rEye;
+
+		// Token: 0x04000D94 RID: 3476
+		public bool yoyoGlove;
+
+		// Token: 0x04000D93 RID: 3475
+		public bool yoyoString;
+
+		// Token: 0x04000F22 RID: 3874
+		public bool zephyrfish;
+
+		// Token: 0x04000E2B RID: 3627
+		public BitsByte zone1;
+
+		// Token: 0x04000E2C RID: 3628
+		public BitsByte zone2;
+
+		// Token: 0x0400101E RID: 4126
+		public int _funkytownCheckCD;
+
+		// Token: 0x04001017 RID: 4119
+		public int _portalPhysicsTime;
 
 		public bool CCed
 		{
@@ -1699,15 +2422,140 @@ namespace Terraria
 		}
 
 		public Player()
+            : base()
 		{
-			int[] array = new int[2];
-			this.hurtCooldowns = array;
+			int[] array = new int[10];
+			this.builderAccStatus = array;
+			this.lostCoinString = "";
+			this.NPCBannerBuff = new bool[251];
+			this.extraAccessorySlots = 2;
+			this.tankPet = -1;
+			this.solarShieldPos = new Vector2[3];
+			this.solarShieldVel = new Vector2[3];
+			this.flameRingScale = 1f;
+			this.beetlePos = new Vector2[3];
+			this.beetleVel = new Vector2[3];
+			this.itemFlamePos = new Vector2[7];
+			this.lifeSteal = 99999f;
+			this.gem = -1;
+			this.carpetFrame = -1;
+			this.maxMinions = 1;
+			this.zone1 = 0;
+			this.zone2 = 0;
+			this.doubleTapCardinalTimer = new int[4];
+			this.holdDownCardinalTimer = new int[4];
+			this.speedSlice = new float[60];
+			this.sign = -1;
+			this.changeItem = -1;
+			this.armor = new Item[20];
+			this.dye = new Item[10];
+			this.miscEquips = new Item[5];
+			this.miscDyes = new Item[5];
+			this.trashItem = new Item();
+			this.ghostDir = 1f;
+			this.buffType = new int[22];
+			this.buffTime = new int[22];
+			this.buffImmune = new bool[192];
+			this.heldProj = -1;
+			this.breathMax = 200;
+			this.breath = 200;
+			this.stealth = 1f;
+			this.setBonus = "";
+			this.inventory = new Item[59];
+			this.inventoryChestStack = new bool[59];
+			this.bank = new Chest(true);
+			this.bank2 = new Chest(true);
+			this.fullRotationOrigin = Vector2.Zero;
+			this.nonTorch = -1;
+			this.stepSpeed = 1f;
+			this.head = -1;
+			this.body = -1;
+			this.legs = -1;
+			this.handon = -1;
+			this.handoff = -1;
+			this.back = -1;
+			this.front = -1;
+			this.shoe = -1;
+			this.waist = -1;
+			this.shield = -1;
+			this.neck = -1;
+			this.face = -1;
+			this.balloon = -1;
+			this.hideVisual = new bool[10];
+			this.hideMisc = 0;
+			this.showItemIconText = "";
+			this.shadowPos = new Vector2[3];
+			this.shadowRotation = new float[3];
+			this.shadowOrigin = new Vector2[3];
+			this.shadowDirection = new int[3];
+			this.manaCost = 1f;
+			this.step = -1;
+			this.statLifeMax = 100;
+			this.statLifeMax2 = 100;
+			this.statLife = 100;
+			this.gravDir = 1f;
+			this.lastBoost = Vector2.Zero;
+			this.meleeCrit = 4;
+			this.rangedCrit = 4;
+			this.magicCrit = 4;
+			this.thrownCrit = 4;
+			this.meleeDamage = 1f;
+			this.rangedDamage = 1f;
+			this.thrownDamage = 1f;
+			this.bulletDamage = 1f;
+			this.arrowDamage = 1f;
+			this.rocketDamage = 1f;
+			this.magicDamage = 1f;
+			this.minionDamage = 1f;
+			this.meleeSpeed = 1f;
+			this.thrownVelocity = 1f;
+			this.moveSpeed = 1f;
+			this.pickSpeed = 1f;
+			this.wallSpeed = 1f;
+			this.tileSpeed = 1f;
+			this.SpawnX = -1;
+			this.SpawnY = -1;
+			this.spX = new int[200];
+			this.spY = new int[200];
+			this.spN = new string[200];
+			this.spI = new int[200];
+			this.gravity = Player.defaultGravity;
+			this.maxFallSpeed = 10f;
+			this.maxRunSpeed = 3f;
+			this.runAcceleration = 0.08f;
+			this.runSlowdown = 0.2f;
+			this.adjTile = new bool[446];
+			this.oldAdjTile = new bool[446];
+			this.hairDyeColor = Color.Transparent;
+			this.hairColor = new Color(215, 90, 55);
+			this.skinColor = new Color(255, 125, 90);
+			this.eyeColor = new Color(105, 90, 75);
+			this.shirtColor = new Color(175, 165, 140);
+			this.underShirtColor = new Color(160, 180, 215);
+			this.pantsColor = new Color(255, 230, 175);
+			this.shoeColor = new Color(160, 105, 60);
+			this.lastCreatureHit = -1;
+			this.bestOre = -1;
+			this.displayedFishingInfo = "";
+			this.grappling = new int[20];
+			this.rocketTimeMax = 7;
+			this.flyingPigChest = -1;
+			this.chest = -1;
+			this.talkNPC = -1;
+			this.potionDelayTime = Item.potionDelay;
+			this.restorationDelayTime = Item.restorationDelay;
+			this.ownedProjectileCounts = new int[656];
+			this.npcTypeNoAggro = new bool[540];
+			this.MinionTargetPoint = Vector2.Zero;
+			this.TouchedTiles = new List<Point>();
+			int[] array2 = new int[2];
+			this.hurtCooldowns = array2;
 			this.width = 20;
 			this.height = 42;
 			this.name = string.Empty;
 			for (int i = 0; i < 59; i++)
 			{
-				if (i < (int)this.armor.Length)
+				if (i < this.armor.Length)
 				{
 					this.armor[i] = new Item();
 					this.armor[i].name = "";
@@ -1722,28 +2570,30 @@ namespace Terraria
 				this.bank2.item[j] = new Item();
 				this.bank2.item[j].name = "";
 			}
-			for (int k = 0; k < (int)this.dye.Length; k++)
+			for (int k = 0; k < this.dye.Length; k++)
 			{
 				this.dye[k] = new Item();
 			}
-			for (int l = 0; l < (int)this.miscEquips.Length; l++)
+			for (int l = 0; l < this.miscEquips.Length; l++)
 			{
 				this.miscEquips[l] = new Item();
 			}
-			for (int m = 0; m < (int)this.miscDyes.Length; m++)
+			for (int m = 0; m < this.miscDyes.Length; m++)
 			{
 				this.miscDyes[m] = new Item();
 			}
+			this.trashItem = new Item();
 			this.grappling[0] = -1;
 			this.inventory[0].SetDefaults("Copper Shortsword");
 			this.inventory[1].SetDefaults("Copper Pickaxe");
 			this.inventory[2].SetDefaults("Copper Axe");
 			this.statManaMax = 20;
+			this.extraAccessory = false;
 			if (Main.cEd)
 			{
 				this.inventory[3].SetDefaults(603, false);
 			}
-			for (int n = 0; n < 419; n++)
+			for (int n = 0; n < 446; n++)
 			{
 				this.adjTile[n] = false;
 				this.oldAdjTile[n] = false;
@@ -5903,26 +6753,32 @@ namespace Terraria
 			}
 		}
 
+
+		// Token: 0x060007ED RID: 2029 RVA: 0x000E1B48 File Offset: 0x000DFD48
 		public double Hurt(int Damage, int hitDirection, bool pvp = false, bool quiet = false, string deathText = " was slain...", bool Crit = false, int cooldownCounter = -1)
 		{
 			bool flag = !this.immune;
 			if (cooldownCounter == 0)
 			{
-				flag = (this.hurtCooldowns[0] <= 0);
+				flag = (this.hurtCooldowns[cooldownCounter] <= 0);
+			}
+			if (cooldownCounter == 1)
+			{
+				flag = (this.hurtCooldowns[cooldownCounter] <= 0);
 			}
 			if (!flag)
 			{
-				return 0;
+				return 0.0;
 			}
 			if (this.whoAmI == Main.myPlayer && this.blackBelt && Main.rand.Next(10) == 0)
 			{
 				this.NinjaDodge();
-				return 0;
+				return 0.0;
 			}
 			if (this.whoAmI == Main.myPlayer && this.shadowDodge)
 			{
 				this.ShadowDodge();
-				return 0;
+				return 0.0;
 			}
 			if (this.whoAmI == Main.myPlayer && this.panic)
 			{
@@ -5933,13 +6789,13 @@ namespace Terraria
 			{
 				NetMessage.SendData(84, -1, -1, "", this.whoAmI, 0f, 0f, 0f, 0, 0, 0);
 			}
-			int damage = Damage;
-			double num = Main.CalculatePlayerDamage(damage, this.statDefense);
+			int num = Damage;
+			double num2 = Main.CalculatePlayerDamage(num, this.statDefense);
 			if (Crit)
 			{
-				damage = damage * 2;
+				num *= 2;
 			}
-			if (num >= 1)
+			if (num2 >= 1.0)
 			{
 				if (this.invis)
 				{
@@ -5951,30 +6807,30 @@ namespace Terraria
 						}
 					}
 				}
-				num = (double)((int)((double)(1f - this.endurance) * num));
-				if (num < 1)
+				num2 = (double)((int)((double)(1f - this.endurance) * num2));
+				if (num2 < 1.0)
 				{
-					num = 1;
+					num2 = 1.0;
 				}
 				if (this.ConsumeSolarFlare())
 				{
-					num = (double)((int)((double)(1f - 0.3f) * num));
-					if (num < 1)
+					float num3 = 0.3f;
+					num2 = (double)((int)((double)(1f - num3) * num2));
+					if (num2 < 1.0)
 					{
-						num = 1;
+						num2 = 1.0;
 					}
 					if (this.whoAmI == Main.myPlayer)
 					{
-						int num1 = Projectile.NewProjectile(base.Center.X, base.Center.Y, 0f, 0f, 608, 150, 15f, Main.myPlayer, 0f, 0f);
-						Main.projectile[num1].Kill();
+						int num4 = Projectile.NewProjectile(base.Center.X, base.Center.Y, 0f, 0f, 608, 150, 15f, Main.myPlayer, 0f, 0f);
+						Main.projectile[num4].Kill();
 					}
 				}
 				if (this.beetleDefense && this.beetleOrbs > 0)
 				{
-					float single = 0.15f * (float)this.beetleOrbs;
-					num = (double)((int)((double)(1f - single) * num));
-					Player player = this;
-					player.beetleOrbs = player.beetleOrbs - 1;
+					float num5 = 0.15f * (float)this.beetleOrbs;
+					num2 = (double)((int)((double)(1f - num5) * num2));
+					this.beetleOrbs--;
 					for (int j = 0; j < 22; j++)
 					{
 						if (this.buffType[j] >= 95 && this.buffType[j] <= 97)
@@ -5987,65 +6843,102 @@ namespace Terraria
 						this.AddBuff(95 + this.beetleOrbs - 1, 5, false);
 					}
 					this.beetleCounter = 0f;
-					if (num < 1)
+					if (num2 < 1.0)
 					{
-						num = 1;
+						num2 = 1.0;
 					}
 				}
 				if (this.magicCuffs)
 				{
-					int num2 = damage;
-					Player player1 = this;
-					player1.statMana = player1.statMana + num2;
+					int num6 = num;
+					this.statMana += num6;
 					if (this.statMana > this.statManaMax2)
 					{
 						this.statMana = this.statManaMax2;
 					}
-					this.ManaEffect(num2);
+					this.ManaEffect(num6);
 				}
-				if (this.paladinBuff && this.whoAmI != Main.myPlayer)
+				if (this.defendedByPaladin)
 				{
-					int num3 = (int)(num * 0.25);
-					num = (double)((int)(num * 0.75));
-					if (Main.player[Main.myPlayer].paladinGive)
+					if (this.whoAmI != Main.myPlayer)
 					{
-						int num4 = Main.myPlayer;
-						if (Main.player[num4].team == this.team && this.team != 0)
+						if (Main.player[Main.myPlayer].hasPaladinShield)
 						{
-							float x = this.position.X - Main.player[num4].position.X;
-							float y = this.position.Y - Main.player[num4].position.Y;
-							if ((float)Math.Sqrt((double)(x * x + y * y)) < 800f)
+							Player player = Main.player[Main.myPlayer];
+							if (player.team == this.team && this.team != 0)
 							{
-								Main.player[num4].Hurt(num3, 0, false, false, "", false);
+								float num7 = player.Distance(base.Center);
+								bool flag2 = num7 < 800f;
+								if (flag2)
+								{
+									for (int k = 0; k < 255; k++)
+									{
+										if (k != Main.myPlayer && Main.player[k].active && !Main.player[k].dead && !Main.player[k].immune && Main.player[k].hasPaladinShield && Main.player[k].team == this.team && (float)Main.player[k].statLife > (float)Main.player[k].statLifeMax2 * 0.25f)
+										{
+											float num8 = Main.player[k].Distance(base.Center);
+											if (num7 > num8 || (num7 == num8 && k < Main.myPlayer))
+											{
+												flag2 = false;
+												break;
+											}
+										}
+									}
+								}
+								if (flag2)
+								{
+									int damage = (int)(num2 * 0.25);
+									num2 = (double)((int)(num2 * 0.75));
+									player.Hurt(damage, 0, false, false, "", false, -1);
+								}
 							}
+						}
+					}
+					else
+					{
+						bool flag3 = false;
+						for (int l = 0; l < 255; l++)
+						{
+							if (l != Main.myPlayer && Main.player[l].active && !Main.player[l].dead && !Main.player[l].immune && Main.player[l].hasPaladinShield && Main.player[l].team == this.team && (float)Main.player[l].statLife > (float)Main.player[l].statLifeMax2 * 0.25f)
+							{
+								flag3 = true;
+								break;
+							}
+						}
+						if (flag3)
+						{
+							num2 = (double)((int)(num2 * 0.75));
 						}
 					}
 				}
 				if (this.brainOfConfusion && Main.myPlayer == this.whoAmI)
 				{
-					for (int k = 0; k < 200; k++)
+					for (int m = 0; m < 200; m++)
 					{
-						if (Main.npc[k].active && !Main.npc[k].friendly && Main.rand.Next(500) < 300 + (int)num * 2)
+						if (Main.npc[m].active && !Main.npc[m].friendly)
 						{
-							Vector2 center = Main.npc[k].Center - base.Center;
-							float single1 = center.Length();
-							float single2 = (float)Main.rand.Next(200 + (int)num / 2, 301 + (int)num * 2);
-							if (single2 > 500f)
+							int num9 = 300;
+							num9 += (int)num2 * 2;
+							if (Main.rand.Next(500) < num9)
 							{
-								single2 = 500f + (single2 - 500f) * 0.75f;
-							}
-							if (single2 > 700f)
-							{
-								single2 = 700f + (single2 - 700f) * 0.5f;
-							}
-							if (single2 > 900f)
-							{
-								single2 = 900f + (single2 - 900f) * 0.25f;
-							}
-							if (single1 < single2)
-							{
-								float single3 = (float)Main.rand.Next(90 + (int)num / 3, 300 + (int)num / 2);
-								Main.npc[k].AddBuff(31, (int)single3, false);
+								float num10 = (Main.npc[m].Center - base.Center).Length();
+								float num11 = (float)Main.rand.Next(200 + (int)num2 / 2, 301 + (int)num2 * 2);
+								if (num11 > 500f)
+								{
+									num11 = 500f + (num11 - 500f) * 0.75f;
+								}
+								if (num11 > 700f)
+								{
+									num11 = 700f + (num11 - 700f) * 0.5f;
+								}
+								if (num11 > 900f)
+								{
+									num11 = 900f + (num11 - 900f) * 0.25f;
+								}
+								if (num10 < num11)
+								{
+									float num12 = (float)Main.rand.Next(90 + (int)num2 / 3, 300 + (int)num2 / 2);
+									Main.npc[m].AddBuff(31, (int)num12, false);
+								}
 							}
 						}
 					}
@@ -6053,28 +6946,27 @@ namespace Terraria
 				}
 				if (Main.netMode == 1 && this.whoAmI == Main.myPlayer && !quiet)
 				{
-					int num5 = 0;
+					int number = 0;
 					if (Crit)
 					{
-						num5 = 1;
+						number = 1;
 					}
-					int num6 = 0;
+					int num13 = 0;
 					if (pvp)
 					{
-						num6 = 1;
+						num13 = 1;
 					}
 					NetMessage.SendData(13, -1, -1, "", this.whoAmI, 0f, 0f, 0f, 0, 0, 0);
 					NetMessage.SendData(16, -1, -1, "", this.whoAmI, 0f, 0f, 0f, 0, 0, 0);
-					NetMessage.SendData(26, -1, -1, "", this.whoAmI, (float)hitDirection, (float)Damage, (float)num6, num5, cooldownCounter, 0);
+					NetMessage.SendData(26, -1, -1, "", this.whoAmI, (float)hitDirection, (float)Damage, (float)num13, number, cooldownCounter, 0);
 				}
-				Color color = (Crit ? CombatText.DamagedFriendlyCrit : CombatText.DamagedFriendly);
-				CombatText.NewText(new Rectangle((int)this.position.X, (int)this.position.Y, this.width, this.height), color, string.Concat((int)num), Crit, false);
-				Player player2 = this;
-				this.statLife -= (int)num;
+				Color color = Crit ? CombatText.DamagedFriendlyCrit : CombatText.DamagedFriendly;
+				CombatText.NewText(new Rectangle((int)this.position.X, (int)this.position.Y, this.width, this.height), color, string.Concat((int)num2), Crit, false);
+				this.statLife -= (int)num2;
 				if (cooldownCounter == -1)
 				{
 					this.immune = true;
-					if (num == 1.0)
+					if (num2 == 1.0)
 					{
 						this.immuneTime = 20;
 						if (this.longInvince)
@@ -6097,7 +6989,7 @@ namespace Terraria
 				}
 				else if (cooldownCounter == 0)
 				{
-					if (num == 1.0)
+					if (num2 == 1.0)
 					{
 						this.hurtCooldowns[cooldownCounter] = (this.longInvince ? 40 : 20);
 					}
@@ -6108,7 +7000,7 @@ namespace Terraria
 				}
 				else if (cooldownCounter == 1)
 				{
-					if (num == 1.0)
+					if (num2 == 1.0)
 					{
 						this.hurtCooldowns[cooldownCounter] = (this.longInvince ? 40 : 20);
 					}
@@ -6122,43 +7014,43 @@ namespace Terraria
 				{
 					if (this.starCloak)
 					{
-						for (int l = 0; l < 3; l++)
+						for (int n = 0; n < 3; n++)
 						{
-							float x1 = this.position.X + (float)Main.rand.Next(-400, 400);
-							float y1 = this.position.Y - (float)Main.rand.Next(500, 800);
-							Vector2 vector2 = new Vector2(x1, y1);
-							float x2 = this.position.X + (float)(this.width / 2) - vector2.X;
-							float y2 = this.position.Y + (float)(this.height / 2) - vector2.Y;
-							x2 = x2 + (float)Main.rand.Next(-100, 101);
-							int num7 = 23;
-							float single4 = (float)Math.Sqrt((double)(x2 * x2 + y2 * y2));
-							single4 = (float)num7 / single4;
-							x2 = x2 * single4;
-							y2 = y2 * single4;
-							int num8 = Projectile.NewProjectile(x1, y1, x2, y2, 92, 30, 5f, this.whoAmI, 0f, 0f);
-							Main.projectile[num8].ai[1] = this.position.Y;
+							float x = this.position.X + (float)Main.rand.Next(-400, 400);
+							float y = this.position.Y - (float)Main.rand.Next(500, 800);
+							Vector2 vector = new Vector2(x, y);
+							float num14 = this.position.X + (float)(this.width / 2) - vector.X;
+							float num15 = this.position.Y + (float)(this.height / 2) - vector.Y;
+							num14 += (float)Main.rand.Next(-100, 101);
+							int num16 = 23;
+							float num17 = (float)Math.Sqrt((double)(num14 * num14 + num15 * num15));
+							num17 = (float)num16 / num17;
+							num14 *= num17;
+							num15 *= num17;
+							int num18 = Projectile.NewProjectile(x, y, num14, num15, 92, 30, 5f, this.whoAmI, 0f, 0f);
+							Main.projectile[num18].ai[1] = this.position.Y;
 						}
 					}
 					if (this.bee)
 					{
-						int num9 = 1;
+						int num19 = 1;
 						if (Main.rand.Next(3) == 0)
 						{
-							num9++;
+							num19++;
 						}
 						if (Main.rand.Next(3) == 0)
 						{
-							num9++;
+							num19++;
 						}
 						if (this.strongBees && Main.rand.Next(3) == 0)
 						{
-							num9++;
+							num19++;
 						}
-						for (int m = 0; m < num9; m++)
+						for (int num20 = 0; num20 < num19; num20++)
 						{
-							float single5 = (float)Main.rand.Next(-35, 36) * 0.02f;
-							float single6 = (float)Main.rand.Next(-35, 36) * 0.02f;
-							Projectile.NewProjectile(this.position.X, this.position.Y, single5, single6, this.beeType(), this.beeDamage(7), this.beeKB(0f), Main.myPlayer, 0f, 0f);
+							float speedX = (float)Main.rand.Next(-35, 36) * 0.02f;
+							float speedY = (float)Main.rand.Next(-35, 36) * 0.02f;
+							Projectile.NewProjectile(this.position.X, this.position.Y, speedX, speedY, this.beeType(), this.beeDamage(7), this.beeKB(0f), Main.myPlayer, 0f, 0f);
 						}
 					}
 				}
@@ -6167,20 +7059,20 @@ namespace Terraria
 					this.velocity.X = 4.5f * (float)hitDirection;
 					this.velocity.Y = -3.5f;
 				}
-				if (this.statLife <= 0)
+				else
 				{
 					this.statLife = 0;
 					if (this.whoAmI == Main.myPlayer)
 					{
-						this.KillMe(num, hitDirection, pvp, deathText);
+						this.KillMe(num2, hitDirection, pvp, deathText);
 					}
 				}
 			}
 			if (pvp)
 			{
-				num = Main.CalculateDamage(damage, this.statDefense);
+				num2 = Main.CalculateDamage(num, this.statDefense);
 			}
-			return num;
+			return num2;
 		}
 
 		public bool IsStackingItems()
@@ -16994,13 +17886,13 @@ namespace Terraria
 
 		public void ResetEffects()
 		{
-			if (!this.extraAccessory || !Main.expertMode && !Main.gameMenu)
+			if (this.extraAccessory && (Main.expertMode || Main.gameMenu))
 			{
-				this.extraAccessorySlots = 0;
+				this.extraAccessorySlots = 1;
 			}
 			else
 			{
-				this.extraAccessorySlots = 1;
+				this.extraAccessorySlots = 0;
 			}
 			this.arcticDivingGear = false;
 			this.strongBees = false;
@@ -17127,6 +18019,7 @@ namespace Terraria
 			this.accFishFinder = false;
 			this.accWeatherRadio = false;
 			this.accThirdEye = false;
+			this.InfoAccMechShowWires = false;
 			this.accJarOfSouls = false;
 			this.accCalendar = false;
 			this.accStopwatch = false;
@@ -17136,6 +18029,8 @@ namespace Terraria
 			this.wallSpeed = 1f;
 			this.tileSpeed = 1f;
 			this.autoPaint = false;
+			this.autoActuator = false;
+			this.companionCube = false;
 			this.babyFaceMonster = false;
 			this.manaSick = false;
 			this.puppy = false;
@@ -17234,19 +18129,8 @@ namespace Terraria
 			this.moonLeech = false;
 			this.headcovered = false;
 			this.vortexDebuff = false;
-			bool flag = false;
-			this.setStardust = false;
-			bool flag1 = flag;
-			bool flag2 = flag1;
-			this.setNebula = flag1;
-			this.setVortex = flag2;
-			int num1 = 0;
-			int num2 = num1;
-			this.nebulaLevelMana = num1;
-			int num3 = num2;
-			int num4 = num3;
-			this.nebulaLevelLife = num3;
-			this.nebulaLevelDamage = num4;
+			this.setVortex = (this.setNebula = (this.setStardust = false));
+			this.nebulaLevelDamage = (this.nebulaLevelLife = (this.nebulaLevelMana = 0));
 			this.ignoreWater = false;
 			this.meleeEnchant = 0;
 			this.discount = false;
@@ -17256,22 +18140,29 @@ namespace Terraria
 			this.doubleJumpBlizzard = false;
 			this.doubleJumpFart = false;
 			this.doubleJumpUnicorn = false;
-			this.paladinBuff = false;
-			this.paladinGive = false;
+			this.defendedByPaladin = false;
+			this.hasPaladinShield = false;
 			this.autoJump = false;
 			this.justJumped = false;
 			this.jumpSpeedBoost = 0f;
 			this.extraFall = 0;
 			if (this.phantasmTime > 0)
 			{
-				Player player = this;
-				player.phantasmTime = player.phantasmTime - 1;
+				this.phantasmTime--;
 			}
-			for (int i = 0; i < (int)this.npcTypeNoAggro.Length; i++)
+			if (this.wireOperationsCooldown > 0)
+			{
+				this.wireOperationsCooldown--;
+			}
+			if (this.releaseUseItem)
+			{
+				this.ActuationRodLock = false;
+			}
+			for (int i = 0; i < this.npcTypeNoAggro.Length; i++)
 			{
 				this.npcTypeNoAggro[i] = false;
 			}
-			for (int j = 0; j < (int)this.ownedProjectileCounts.Length; j++)
+			for (int j = 0; j < this.ownedProjectileCounts.Length; j++)
 			{
 				this.ownedProjectileCounts[j] = 0;
 			}
@@ -20866,7 +21757,7 @@ namespace Terraria
 				{
 					this.lastPortalColorIndex = extraInfo;
 					num = this.lastPortalColorIndex;
-					this.justGotOutOfPortal = true;
+					this.portalPhysicsFlag = true;
 					this.gravity = 0f;
 				}
 				for (int j = 0; j < 3; j++)
@@ -26873,303 +27764,279 @@ namespace Terraria
 			{
 				this.AddBuff(151, 2, true);
 			}
-			for (int num = 0; num < 1000; num++)
+			for (int j = 0; j < 1000; j++)
 			{
-				if (Main.projectile[num].active && Main.projectile[num].owner == i)
+				if (Main.projectile[j].active && Main.projectile[j].owner == i)
 				{
-					this.ownedProjectileCounts[Main.projectile[num].type] = this.ownedProjectileCounts[Main.projectile[num].type] + 1;
+					this.ownedProjectileCounts[Main.projectile[j].type]++;
 				}
 			}
-			for (int j = 0; j < 22; j++)
+			for (int k = 0; k < 22; k++)
 			{
-				if (this.buffType[j] > 0 && this.buffTime[j] > 0)
+				if (this.buffType[k] > 0 && this.buffTime[k] > 0)
 				{
-					if (this.whoAmI == Main.myPlayer && this.buffType[j] != 28)
+					if (this.whoAmI == Main.myPlayer && this.buffType[k] != 28)
 					{
-						this.buffTime[j] = this.buffTime[j] - 1;
+						this.buffTime[k]--;
 					}
-					if (this.buffType[j] == 1)
+					if (this.buffType[k] == 1)
 					{
 						this.lavaImmune = true;
 						this.fireWalk = true;
 						this.buffImmune[24] = true;
 					}
-					else if (this.buffType[j] == 158)
+					else if (this.buffType[k] == 158)
 					{
-						Player player = this;
-						player.manaRegen = player.manaRegen + 2;
+						this.manaRegenBonus += 2;
 					}
-					else if (this.buffType[j] == 159 && this.inventory[this.selectedItem].melee)
+					else if (this.buffType[k] == 159 && this.inventory[this.selectedItem].melee)
 					{
 						this.armorPenetration = 4;
 					}
-					else if (this.buffType[j] == 2)
+					else if (this.buffType[k] == 2)
 					{
-						Player player1 = this;
-						player1.lifeRegen = player1.lifeRegen + 4;
+						this.lifeRegen += 4;
 					}
-					else if (this.buffType[j] == 3)
+					else if (this.buffType[k] == 3)
 					{
-						Player player2 = this;
-						player2.moveSpeed = player2.moveSpeed + 0.25f;
+						this.moveSpeed += 0.25f;
 					}
-					else if (this.buffType[j] == 4)
+					else if (this.buffType[k] == 4)
 					{
 						this.gills = true;
 					}
-					else if (this.buffType[j] == 5)
+					else if (this.buffType[k] == 5)
 					{
-						Player player3 = this;
-						player3.statDefense = player3.statDefense + 8;
+						this.statDefense += 8;
 					}
-					else if (this.buffType[j] == 6)
+					else if (this.buffType[k] == 6)
 					{
 						this.manaRegenBuff = true;
 					}
-					else if (this.buffType[j] == 7)
+					else if (this.buffType[k] == 7)
 					{
-						Player player4 = this;
-						player4.magicDamage = player4.magicDamage + 0.2f;
+						this.magicDamage += 0.2f;
 					}
-					else if (this.buffType[j] == 8)
+					else if (this.buffType[k] == 8)
 					{
 						this.slowFall = true;
 					}
-					else if (this.buffType[j] == 9)
+					else if (this.buffType[k] == 9)
 					{
 						this.findTreasure = true;
 					}
-					else if (this.buffType[j] == 10)
+					else if (this.buffType[k] == 10)
 					{
 						this.invis = true;
 					}
-					else if (this.buffType[j] == 12)
+					else if (this.buffType[k] == 12)
 					{
 						this.nightVision = true;
 					}
-					else if (this.buffType[j] == 13)
+					else if (this.buffType[k] == 13)
 					{
 						this.enemySpawns = true;
 					}
-					else if (this.buffType[j] == 14)
+					else if (this.buffType[k] == 14)
 					{
 						if (this.thorns < 1f)
 						{
 							this.thorns = 0.333333343f;
 						}
 					}
-					else if (this.buffType[j] == 15)
+					else if (this.buffType[k] == 15)
 					{
 						this.waterWalk = true;
 					}
-					else if (this.buffType[j] == 16)
+					else if (this.buffType[k] == 16)
 					{
 						this.archery = true;
 					}
-					else if (this.buffType[j] == 17)
+					else if (this.buffType[k] == 17)
 					{
 						this.detectCreature = true;
 					}
-					else if (this.buffType[j] == 18)
+					else if (this.buffType[k] == 18)
 					{
 						this.gravControl = true;
 					}
-					else if (this.buffType[j] == 30)
+					else if (this.buffType[k] == 30)
 					{
 						this.bleed = true;
 					}
-					else if (this.buffType[j] == 31)
+					else if (this.buffType[k] == 31)
 					{
 						this.confused = true;
 					}
-					else if (this.buffType[j] == 32)
+					else if (this.buffType[k] == 32)
 					{
 						this.slow = true;
 					}
-					else if (this.buffType[j] == 35)
+					else if (this.buffType[k] == 35)
 					{
 						this.silence = true;
 					}
-					else if (this.buffType[j] == 160)
+					else if (this.buffType[k] == 160)
 					{
 						this.dazed = true;
 					}
-					else if (this.buffType[j] == 46)
+					else if (this.buffType[k] == 46)
 					{
 						this.chilled = true;
 					}
-					else if (this.buffType[j] == 47)
+					else if (this.buffType[k] == 47)
 					{
 						this.frozen = true;
 					}
-					else if (this.buffType[j] == 156)
+					else if (this.buffType[k] == 156)
 					{
 						this.stoned = true;
 					}
-					else if (this.buffType[j] == 69)
+					else if (this.buffType[k] == 69)
 					{
 						this.ichor = true;
-						Player player5 = this;
-						player5.statDefense = player5.statDefense - 20;
+						this.statDefense -= 20;
 					}
-					else if (this.buffType[j] == 36)
+					else if (this.buffType[k] == 36)
 					{
 						this.brokenArmor = true;
 					}
-					else if (this.buffType[j] == 48)
+					else if (this.buffType[k] == 48)
 					{
 						this.honey = true;
 					}
-					else if (this.buffType[j] == 59)
+					else if (this.buffType[k] == 59)
 					{
 						this.shadowDodge = true;
 					}
-					else if (this.buffType[j] == 93)
+					else if (this.buffType[k] == 93)
 					{
 						this.ammoBox = true;
 					}
-					else if (this.buffType[j] == 58)
+					else if (this.buffType[k] == 58)
 					{
 						this.palladiumRegen = true;
 					}
-					else if (this.buffType[j] == 88)
+					else if (this.buffType[k] == 88)
 					{
 						this.chaosState = true;
 					}
-					else if (this.buffType[j] == 63)
+					else if (this.buffType[k] == 63)
 					{
-						Player player6 = this;
-						player6.moveSpeed = player6.moveSpeed + 1f;
+						this.moveSpeed += 1f;
 					}
-					else if (this.buffType[j] == 104)
+					else if (this.buffType[k] == 104)
 					{
-						Player player7 = this;
-						player7.pickSpeed = player7.pickSpeed - 0.25f;
+						this.pickSpeed -= 0.25f;
 					}
-					else if (this.buffType[j] == 105)
+					else if (this.buffType[k] == 105)
 					{
 						this.lifeMagnet = true;
 					}
-					else if (this.buffType[j] == 106)
+					else if (this.buffType[k] == 106)
 					{
 						this.calmed = true;
 					}
-					else if (this.buffType[j] == 121)
+					else if (this.buffType[k] == 121)
 					{
-						Player player8 = this;
-						player8.fishingSkill = player8.fishingSkill + 15;
+						this.fishingSkill += 15;
 					}
-					else if (this.buffType[j] == 122)
+					else if (this.buffType[k] == 122)
 					{
 						this.sonarPotion = true;
 					}
-					else if (this.buffType[j] == 123)
+					else if (this.buffType[k] == 123)
 					{
 						this.cratePotion = true;
 					}
-					else if (this.buffType[j] == 107)
+					else if (this.buffType[k] == 107)
 					{
-						Player player9 = this;
-						player9.tileSpeed = player9.tileSpeed + 0.25f;
-						Player player10 = this;
-						player10.wallSpeed = player10.wallSpeed + 0.25f;
-						Player player11 = this;
-						player11.blockRange = player11.blockRange + 1;
+						this.tileSpeed += 0.25f;
+						this.wallSpeed += 0.25f;
+						this.blockRange++;
 					}
-					else if (this.buffType[j] == 108)
+					else if (this.buffType[k] == 108)
 					{
 						this.kbBuff = true;
 					}
-					else if (this.buffType[j] == 109)
+					else if (this.buffType[k] == 109)
 					{
 						this.ignoreWater = true;
 						this.accFlipper = true;
 					}
-					else if (this.buffType[j] == 110)
+					else if (this.buffType[k] == 110)
 					{
-						Player player12 = this;
-						player12.maxMinions = player12.maxMinions + 1;
+						this.maxMinions++;
 					}
-					else if (this.buffType[j] == 150)
+					else if (this.buffType[k] == 150)
 					{
-						Player player13 = this;
-						player13.maxMinions = player13.maxMinions + 1;
+						this.maxMinions++;
 					}
-					else if (this.buffType[j] == 111)
+					else if (this.buffType[k] == 111)
 					{
 						this.dangerSense = true;
 					}
-					else if (this.buffType[j] == 112)
+					else if (this.buffType[k] == 112)
 					{
 						this.ammoPotion = true;
 					}
-					else if (this.buffType[j] == 113)
+					else if (this.buffType[k] == 113)
 					{
 						this.lifeForce = true;
-						Player player14 = this;
-						player14.statLifeMax2 = player14.statLifeMax2 + this.statLifeMax / 5 / 20 * 20;
+						this.statLifeMax2 += this.statLifeMax / 5 / 20 * 20;
 					}
-					else if (this.buffType[j] == 114)
+					else if (this.buffType[k] == 114)
 					{
-						Player player15 = this;
-						player15.endurance = player15.endurance + 0.1f;
+						this.endurance += 0.1f;
 					}
-					else if (this.buffType[j] == 115)
+					else if (this.buffType[k] == 115)
 					{
-						Player player16 = this;
-						player16.meleeCrit = player16.meleeCrit + 10;
-						Player player17 = this;
-						player17.rangedCrit = player17.rangedCrit + 10;
-						Player player18 = this;
-						player18.magicCrit = player18.magicCrit + 10;
-						Player player19 = this;
-						player19.thrownCrit = player19.thrownCrit + 10;
+						this.meleeCrit += 10;
+						this.rangedCrit += 10;
+						this.magicCrit += 10;
+						this.thrownCrit += 10;
 					}
-					else if (this.buffType[j] == 116)
+					else if (this.buffType[k] == 116)
 					{
 						this.inferno = true;
-						int num1 = 24;
-						float single = 200f;
+						int num = 24;
+						float num2 = 200f;
 						bool flag = this.infernoCounter % 60 == 0;
-						int num2 = 10;
+						int num3 = 10;
 						if (this.whoAmI == Main.myPlayer)
 						{
-							for (int k = 0; k < 200; k++)
+							for (int l = 0; l < 200; l++)
 							{
-								NPC nPC = Main.npc[k];
-								if (nPC.active && !nPC.friendly && nPC.damage > 0 && !nPC.dontTakeDamage && !nPC.buffImmune[num1] && Vector2.Distance(base.Center, nPC.Center) <= single)
+								NPC nPC = Main.npc[l];
+								if (nPC.active && !nPC.friendly && nPC.damage > 0 && !nPC.dontTakeDamage && !nPC.buffImmune[num] && Vector2.Distance(base.Center, nPC.Center) <= num2)
 								{
-									if (nPC.HasBuff(num1) == -1)
+									if (nPC.HasBuff(num) == -1)
 									{
-										nPC.AddBuff(num1, 120, false);
+										nPC.AddBuff(num, 120, false);
 									}
 									if (flag)
 									{
-										nPC.StrikeNPC(num2, 0f, 0, false, false, false, this);
-										if (Main.netMode != 0)
-										{
-											NetMessage.SendData(28, -1, -1, "", k, (float)num2, 0f, 0f, 0, 0, 0);
-										}
+										this.ApplyDamageToNPC(nPC, num3, 0f, 0, false);
 									}
 								}
 							}
 							if (this.hostile)
 							{
-								for (int l = 0; l < 255; l++)
+								for (int m = 0; m < 255; m++)
 								{
-									Player player20 = Main.player[l];
-									if (player20 != this && player20.active && !player20.dead && player20.hostile && !player20.buffImmune[num1] && (player20.team != this.team || player20.team == 0) && Vector2.Distance(base.Center, player20.Center) <= single)
+									Player player = Main.player[m];
+									if (player != this && player.active && !player.dead && player.hostile && !player.buffImmune[num] && (player.team != this.team || player.team == 0) && Vector2.Distance(base.Center, player.Center) <= num2)
 									{
-										if (player20.HasBuff(num1) == -1)
+										if (player.HasBuff(num) == -1)
 										{
-											player20.AddBuff(num1, 120, true);
+											player.AddBuff(num, 120, true);
 										}
 										if (flag)
 										{
-											player20.Hurt(num2, 0, true, false, "", false);
+											player.Hurt(num3, 0, true, false, "", false, -1);
 											if (Main.netMode != 0)
 											{
-												NetMessage.SendData(26, -1, -1, Lang.deathMsg(this.whoAmI, -1, -1, -1), l, 0f, (float)num2, 1f, 0, 0, 0);
+												NetMessage.SendData(26, -1, -1, Lang.deathMsg(this.whoAmI, -1, -1, -1), m, 0f, (float)num3, 1f, 0, 0, 0);
 											}
 										}
 									}
@@ -27177,1214 +28044,1177 @@ namespace Terraria
 							}
 						}
 					}
-					else if (this.buffType[j] == 117)
+					else if (this.buffType[k] == 117)
 					{
-						Player player21 = this;
-						player21.thrownDamage = player21.thrownDamage + 0.1f;
-						Player player22 = this;
-						player22.meleeDamage = player22.meleeDamage + 0.1f;
-						Player player23 = this;
-						player23.rangedDamage = player23.rangedDamage + 0.1f;
-						Player player24 = this;
-						player24.magicDamage = player24.magicDamage + 0.1f;
-						Player player25 = this;
-						player25.minionDamage = player25.minionDamage + 0.1f;
+						this.thrownDamage += 0.1f;
+						this.meleeDamage += 0.1f;
+						this.rangedDamage += 0.1f;
+						this.magicDamage += 0.1f;
+						this.minionDamage += 0.1f;
 					}
-					else if (this.buffType[j] == 119)
+					else if (this.buffType[k] == 119)
 					{
 						this.loveStruck = true;
 					}
-					else if (this.buffType[j] == 120)
+					else if (this.buffType[k] == 120)
 					{
 						this.stinky = true;
 					}
-					else if (this.buffType[j] == 124)
+					else if (this.buffType[k] == 124)
 					{
 						this.resistCold = true;
 					}
-					else if (this.buffType[j] == 165)
+					else if (this.buffType[k] == 165)
 					{
-						Player player26 = this;
-						player26.lifeRegen = player26.lifeRegen + 6;
-						Player player27 = this;
-						player27.statDefense = player27.statDefense + 8;
+						this.lifeRegen += 6;
+						this.statDefense += 8;
 						this.dryadWard = true;
 						if (this.thorns < 1f)
 						{
-							Player player28 = this;
-							player28.thorns = player28.thorns + 0.2f;
+							this.thorns += 0.2f;
 						}
 					}
-					else if (this.buffType[j] == 144)
+					else if (this.buffType[k] == 144)
 					{
 						this.electrified = true;
 					}
-					else if (this.buffType[j] == 94)
+					else if (this.buffType[k] == 94)
 					{
 						this.manaSick = true;
-						this.manaSickReduction = Player.manaSickLessDmg * ((float)this.buffTime[j] / (float)Player.manaSickTime);
+						this.manaSickReduction = Player.manaSickLessDmg * ((float)this.buffTime[k] / (float)Player.manaSickTime);
 					}
-					else if (this.buffType[j] >= 95 && this.buffType[j] <= 97)
+					else if (this.buffType[k] >= 95 && this.buffType[k] <= 97)
 					{
-						this.buffTime[j] = 5;
-						int num3 = (byte)(1 + this.buffType[j] - 95);
-						if (this.beetleOrbs > 0 && this.beetleOrbs != num3)
+						this.buffTime[k] = 5;
+						int num4 = (int)((byte)(1 + this.buffType[k] - 95));
+						if (this.beetleOrbs > 0 && this.beetleOrbs != num4)
 						{
-							if (this.beetleOrbs <= num3)
+							if (this.beetleOrbs > num4)
 							{
-								for (int m = 0; m < 22; m++)
-								{
-									if (this.buffType[m] >= 95 && this.buffType[m] <= 95 + num3 - 1)
-									{
-										this.DelBuff(m);
-										m--;
-									}
-								}
+								this.DelBuff(k);
+								k--;
 							}
 							else
 							{
-								this.DelBuff(j);
-								j--;
-							}
-						}
-						this.beetleOrbs = num3;
-						if (this.beetleDefense)
-						{
-							this.beetleBuff = true;
-						}
-						else
-						{
-							this.beetleOrbs = 0;
-							this.DelBuff(j);
-							j--;
-						}
-					}
-					else if (this.buffType[j] >= 170 && this.buffType[j] <= 172)
-					{
-						this.buffTime[j] = 5;
-						int num4 = (byte)(1 + this.buffType[j] - 170);
-						if (this.solarShields > 0 && this.solarShields != num4)
-						{
-							if (this.solarShields <= num4)
-							{
 								for (int n = 0; n < 22; n++)
 								{
-									if (this.buffType[n] >= 170 && this.buffType[n] <= 170 + num4 - 1)
+									if (this.buffType[n] >= 95 && this.buffType[n] <= 95 + num4 - 1)
 									{
 										this.DelBuff(n);
 										n--;
 									}
 								}
 							}
-							else
-							{
-								this.DelBuff(j);
-								j--;
-							}
 						}
-						this.solarShields = num4;
-						if (!this.setSolar)
+						this.beetleOrbs = num4;
+						if (!this.beetleDefense)
 						{
-							this.solarShields = 0;
-							this.DelBuff(j);
-							j--;
+							this.beetleOrbs = 0;
+							this.DelBuff(k);
+							k--;
 						}
-					}
-					else if (this.buffType[j] >= 98 && this.buffType[j] <= 100)
-					{
-						int num5 = (byte)(1 + this.buffType[j] - 98);
-						if (this.beetleOrbs > 0 && this.beetleOrbs != num5)
-						{
-							if (this.beetleOrbs <= num5)
-							{
-								for (int o = 0; o < 22; o++)
-								{
-									if (this.buffType[o] >= 98 && this.buffType[o] <= 98 + num5 - 1)
-									{
-										this.DelBuff(o);
-										o--;
-									}
-								}
-							}
-							else
-							{
-								this.DelBuff(j);
-								j--;
-							}
-						}
-						this.beetleOrbs = num5;
-						Player player29 = this;
-						player29.meleeDamage = player29.meleeDamage + 0.1f * (float)this.beetleOrbs;
-						Player player30 = this;
-						player30.meleeSpeed = player30.meleeSpeed + 0.1f * (float)this.beetleOrbs;
-						if (this.beetleOffense)
+						else
 						{
 							this.beetleBuff = true;
 						}
-						else
+					}
+					else if (this.buffType[k] >= 170 && this.buffType[k] <= 172)
+					{
+						this.buffTime[k] = 5;
+						int num5 = (int)((byte)(1 + this.buffType[k] - 170));
+						if (this.solarShields > 0 && this.solarShields != num5)
+						{
+							if (this.solarShields > num5)
+							{
+								this.DelBuff(k);
+								k--;
+							}
+							else
+							{
+								for (int num6 = 0; num6 < 22; num6++)
+								{
+									if (this.buffType[num6] >= 170 && this.buffType[num6] <= 170 + num5 - 1)
+									{
+										this.DelBuff(num6);
+										num6--;
+									}
+								}
+							}
+						}
+						this.solarShields = num5;
+						if (!this.setSolar)
+						{
+							this.solarShields = 0;
+							this.DelBuff(k);
+							k--;
+						}
+					}
+					else if (this.buffType[k] >= 98 && this.buffType[k] <= 100)
+					{
+						int num7 = (int)((byte)(1 + this.buffType[k] - 98));
+						if (this.beetleOrbs > 0 && this.beetleOrbs != num7)
+						{
+							if (this.beetleOrbs > num7)
+							{
+								this.DelBuff(k);
+								k--;
+							}
+							else
+							{
+								for (int num8 = 0; num8 < 22; num8++)
+								{
+									if (this.buffType[num8] >= 98 && this.buffType[num8] <= 98 + num7 - 1)
+									{
+										this.DelBuff(num8);
+										num8--;
+									}
+								}
+							}
+						}
+						this.beetleOrbs = num7;
+						this.meleeDamage += 0.1f * (float)this.beetleOrbs;
+						this.meleeSpeed += 0.1f * (float)this.beetleOrbs;
+						if (!this.beetleOffense)
 						{
 							this.beetleOrbs = 0;
-							this.DelBuff(j);
-							j--;
-						}
-					}
-					else if (this.buffType[j] >= 176 && this.buffType[j] <= 178)
-					{
-						int num6 = this.nebulaLevelMana;
-						int num7 = (byte)(1 + this.buffType[j] - 176);
-						if (num6 > 0 && num6 != num7)
-						{
-							if (num6 <= num7)
-							{
-								for (int p = 0; p < 22; p++)
-								{
-									if (this.buffType[p] >= 176 && this.buffType[p] <= 178 + num7 - 1)
-									{
-										this.DelBuff(p);
-										p--;
-									}
-								}
-							}
-							else
-							{
-								this.DelBuff(j);
-								j--;
-							}
-						}
-						this.nebulaLevelMana = num7;
-						if (this.buffTime[j] == 2 && this.nebulaLevelMana > 1)
-						{
-							Player player31 = this;
-							player31.nebulaLevelMana = player31.nebulaLevelMana - 1;
-							this.buffType[j] = this.buffType[j] - 1;
-							this.buffTime[j] = 480;
-						}
-					}
-					else if (this.buffType[j] >= 173 && this.buffType[j] <= 175)
-					{
-						int num8 = this.nebulaLevelLife;
-						int num9 = (byte)(1 + this.buffType[j] - 173);
-						if (num8 > 0 && num8 != num9)
-						{
-							if (num8 <= num9)
-							{
-								for (int q = 0; q < 22; q++)
-								{
-									if (this.buffType[q] >= 173 && this.buffType[q] <= 175 + num9 - 1)
-									{
-										this.DelBuff(q);
-										q--;
-									}
-								}
-							}
-							else
-							{
-								this.DelBuff(j);
-								j--;
-							}
-						}
-						this.nebulaLevelLife = num9;
-						if (this.buffTime[j] == 2 && this.nebulaLevelLife > 1)
-						{
-							Player player32 = this;
-							player32.nebulaLevelLife = player32.nebulaLevelLife - 1;
-							this.buffType[j] = this.buffType[j] - 1;
-							this.buffTime[j] = 480;
-						}
-						Player player33 = this;
-						player33.lifeRegen = player33.lifeRegen + 10 * this.nebulaLevelLife;
-					}
-					else if (this.buffType[j] >= 179 && this.buffType[j] <= 181)
-					{
-						int num10 = this.nebulaLevelDamage;
-						int num11 = (byte)(1 + this.buffType[j] - 179);
-						if (num10 > 0 && num10 != num11)
-						{
-							if (num10 <= num11)
-							{
-								for (int r = 0; r < 22; r++)
-								{
-									if (this.buffType[r] >= 179 && this.buffType[r] <= 181 + num11 - 1)
-									{
-										this.DelBuff(r);
-										r--;
-									}
-								}
-							}
-							else
-							{
-								this.DelBuff(j);
-								j--;
-							}
-						}
-						this.nebulaLevelDamage = num11;
-						if (this.buffTime[j] == 2 && this.nebulaLevelDamage > 1)
-						{
-							Player player34 = this;
-							player34.nebulaLevelDamage = player34.nebulaLevelDamage - 1;
-							this.buffType[j] = this.buffType[j] - 1;
-							this.buffTime[j] = 480;
-						}
-						float single1 = 0.15f * (float)this.nebulaLevelDamage;
-						Player player35 = this;
-						player35.meleeDamage = player35.meleeDamage + single1;
-						Player player36 = this;
-						player36.rangedDamage = player36.rangedDamage + single1;
-						Player player37 = this;
-						player37.magicDamage = player37.magicDamage + single1;
-						Player player38 = this;
-						player38.minionDamage = player38.minionDamage + single1;
-						Player player39 = this;
-						player39.thrownDamage = player39.thrownDamage + single1;
-					}
-					else if (this.buffType[j] == 62)
-					{
-						if ((double)this.statLife > (double)this.statLifeMax2 * 0.5)
-						{
-							this.DelBuff(j);
-							j--;
+							this.DelBuff(k);
+							k--;
 						}
 						else
 						{
+							this.beetleBuff = true;
+						}
+					}
+					else if (this.buffType[k] >= 176 && this.buffType[k] <= 178)
+					{
+						int num9 = this.nebulaLevelMana;
+						int num10 = (int)((byte)(1 + this.buffType[k] - 176));
+						if (num9 > 0 && num9 != num10)
+						{
+							if (num9 > num10)
+							{
+								this.DelBuff(k);
+								k--;
+							}
+							else
+							{
+								for (int num11 = 0; num11 < 22; num11++)
+								{
+									if (this.buffType[num11] >= 176 && this.buffType[num11] <= 178 + num10 - 1)
+									{
+										this.DelBuff(num11);
+										num11--;
+									}
+								}
+							}
+						}
+						this.nebulaLevelMana = num10;
+						if (this.buffTime[k] == 2 && this.nebulaLevelMana > 1)
+						{
+							this.nebulaLevelMana--;
+							this.buffType[k]--;
+							this.buffTime[k] = 480;
+						}
+					}
+					else if (this.buffType[k] >= 173 && this.buffType[k] <= 175)
+					{
+						int num12 = this.nebulaLevelLife;
+						int num13 = (int)((byte)(1 + this.buffType[k] - 173));
+						if (num12 > 0 && num12 != num13)
+						{
+							if (num12 > num13)
+							{
+								this.DelBuff(k);
+								k--;
+							}
+							else
+							{
+								for (int num14 = 0; num14 < 22; num14++)
+								{
+									if (this.buffType[num14] >= 173 && this.buffType[num14] <= 175 + num13 - 1)
+									{
+										this.DelBuff(num14);
+										num14--;
+									}
+								}
+							}
+						}
+						this.nebulaLevelLife = num13;
+						if (this.buffTime[k] == 2 && this.nebulaLevelLife > 1)
+						{
+							this.nebulaLevelLife--;
+							this.buffType[k]--;
+							this.buffTime[k] = 480;
+						}
+						this.lifeRegen += 10 * this.nebulaLevelLife;
+					}
+					else if (this.buffType[k] >= 179 && this.buffType[k] <= 181)
+					{
+						int num15 = this.nebulaLevelDamage;
+						int num16 = (int)((byte)(1 + this.buffType[k] - 179));
+						if (num15 > 0 && num15 != num16)
+						{
+							if (num15 > num16)
+							{
+								this.DelBuff(k);
+								k--;
+							}
+							else
+							{
+								for (int num17 = 0; num17 < 22; num17++)
+								{
+									if (this.buffType[num17] >= 179 && this.buffType[num17] <= 181 + num16 - 1)
+									{
+										this.DelBuff(num17);
+										num17--;
+									}
+								}
+							}
+						}
+						this.nebulaLevelDamage = num16;
+						if (this.buffTime[k] == 2 && this.nebulaLevelDamage > 1)
+						{
+							this.nebulaLevelDamage--;
+							this.buffType[k]--;
+							this.buffTime[k] = 480;
+						}
+						float num18 = 0.15f * (float)this.nebulaLevelDamage;
+						this.meleeDamage += num18;
+						this.rangedDamage += num18;
+						this.magicDamage += num18;
+						this.minionDamage += num18;
+						this.thrownDamage += num18;
+					}
+					else if (this.buffType[k] == 62)
+					{
+						if ((double)this.statLife <= (double)this.statLifeMax2 * 0.5)
+						{
 							this.iceBarrier = true;
-							Player player40 = this;
-							player40.endurance = player40.endurance + 0.25f;
-							Player player41 = this;
-							player41.iceBarrierFrameCounter = (byte)(player41.iceBarrierFrameCounter + 1);
+							this.endurance += 0.25f;
+							this.iceBarrierFrameCounter += 1;
 							if (this.iceBarrierFrameCounter > 2)
 							{
 								this.iceBarrierFrameCounter = 0;
-								Player player42 = this;
-								player42.iceBarrierFrame = (byte)(player42.iceBarrierFrame + 1);
+								this.iceBarrierFrame += 1;
 								if (this.iceBarrierFrame >= 12)
 								{
 									this.iceBarrierFrame = 0;
 								}
 							}
 						}
-					}
-					else if (this.buffType[j] == 49)
-					{
-						for (int s = 191; s <= 194; s++)
+						else
 						{
-							if (this.ownedProjectileCounts[s] > 0)
+							this.DelBuff(k);
+							k--;
+						}
+					}
+					else if (this.buffType[k] == 49)
+					{
+						for (int num19 = 191; num19 <= 194; num19++)
+						{
+							if (this.ownedProjectileCounts[num19] > 0)
 							{
 								this.pygmy = true;
 							}
 						}
-						if (this.pygmy)
+						if (!this.pygmy)
 						{
-							this.buffTime[j] = 18000;
+							this.DelBuff(k);
+							k--;
 						}
 						else
 						{
-							this.DelBuff(j);
-							j--;
+							this.buffTime[k] = 18000;
 						}
 					}
-					else if (this.buffType[j] == 83)
+					else if (this.buffType[k] == 83)
 					{
 						if (this.ownedProjectileCounts[317] > 0)
 						{
 							this.raven = true;
 						}
-						if (this.raven)
+						if (!this.raven)
 						{
-							this.buffTime[j] = 18000;
+							this.DelBuff(k);
+							k--;
 						}
 						else
 						{
-							this.DelBuff(j);
-							j--;
+							this.buffTime[k] = 18000;
 						}
 					}
-					else if (this.buffType[j] == 64)
+					else if (this.buffType[k] == 64)
 					{
 						if (this.ownedProjectileCounts[266] > 0)
 						{
 							this.slime = true;
 						}
-						if (this.slime)
+						if (!this.slime)
 						{
-							this.buffTime[j] = 18000;
+							this.DelBuff(k);
+							k--;
 						}
 						else
 						{
-							this.DelBuff(j);
-							j--;
+							this.buffTime[k] = 18000;
 						}
 					}
-					else if (this.buffType[j] == 125)
+					else if (this.buffType[k] == 125)
 					{
 						if (this.ownedProjectileCounts[373] > 0)
 						{
 							this.hornetMinion = true;
 						}
-						if (this.hornetMinion)
+						if (!this.hornetMinion)
 						{
-							this.buffTime[j] = 18000;
+							this.DelBuff(k);
+							k--;
 						}
 						else
 						{
-							this.DelBuff(j);
-							j--;
+							this.buffTime[k] = 18000;
 						}
 					}
-					else if (this.buffType[j] == 126)
+					else if (this.buffType[k] == 126)
 					{
 						if (this.ownedProjectileCounts[375] > 0)
 						{
 							this.impMinion = true;
 						}
-						if (this.impMinion)
+						if (!this.impMinion)
 						{
-							this.buffTime[j] = 18000;
+							this.DelBuff(k);
+							k--;
 						}
 						else
 						{
-							this.DelBuff(j);
-							j--;
+							this.buffTime[k] = 18000;
 						}
 					}
-					else if (this.buffType[j] == 133)
+					else if (this.buffType[k] == 133)
 					{
 						if (this.ownedProjectileCounts[390] > 0 || this.ownedProjectileCounts[391] > 0 || this.ownedProjectileCounts[392] > 0)
 						{
 							this.spiderMinion = true;
 						}
-						if (this.spiderMinion)
+						if (!this.spiderMinion)
 						{
-							this.buffTime[j] = 18000;
+							this.DelBuff(k);
+							k--;
 						}
 						else
 						{
-							this.DelBuff(j);
-							j--;
+							this.buffTime[k] = 18000;
 						}
 					}
-					else if (this.buffType[j] == 134)
+					else if (this.buffType[k] == 134)
 					{
 						if (this.ownedProjectileCounts[387] > 0 || this.ownedProjectileCounts[388] > 0)
 						{
 							this.twinsMinion = true;
 						}
-						if (this.twinsMinion)
+						if (!this.twinsMinion)
 						{
-							this.buffTime[j] = 18000;
+							this.DelBuff(k);
+							k--;
 						}
 						else
 						{
-							this.DelBuff(j);
-							j--;
+							this.buffTime[k] = 18000;
 						}
 					}
-					else if (this.buffType[j] == 135)
+					else if (this.buffType[k] == 135)
 					{
 						if (this.ownedProjectileCounts[393] > 0 || this.ownedProjectileCounts[394] > 0 || this.ownedProjectileCounts[395] > 0)
 						{
 							this.pirateMinion = true;
 						}
-						if (this.pirateMinion)
+						if (!this.pirateMinion)
 						{
-							this.buffTime[j] = 18000;
+							this.DelBuff(k);
+							k--;
 						}
 						else
 						{
-							this.DelBuff(j);
-							j--;
+							this.buffTime[k] = 18000;
 						}
 					}
-					else if (this.buffType[j] == 139)
+					else if (this.buffType[k] == 139)
 					{
 						if (this.ownedProjectileCounts[407] > 0)
 						{
 							this.sharknadoMinion = true;
 						}
-						if (this.sharknadoMinion)
+						if (!this.sharknadoMinion)
 						{
-							this.buffTime[j] = 18000;
+							this.DelBuff(k);
+							k--;
 						}
 						else
 						{
-							this.DelBuff(j);
-							j--;
+							this.buffTime[k] = 18000;
 						}
 					}
-					else if (this.buffType[j] == 140)
+					else if (this.buffType[k] == 140)
 					{
 						if (this.ownedProjectileCounts[423] > 0)
 						{
 							this.UFOMinion = true;
 						}
-						if (this.UFOMinion)
+						if (!this.UFOMinion)
 						{
-							this.buffTime[j] = 18000;
+							this.DelBuff(k);
+							k--;
 						}
 						else
 						{
-							this.DelBuff(j);
-							j--;
+							this.buffTime[k] = 18000;
 						}
 					}
-					else if (this.buffType[j] == 182)
+					else if (this.buffType[k] == 182)
 					{
 						if (this.ownedProjectileCounts[613] > 0)
 						{
 							this.stardustMinion = true;
 						}
-						if (this.stardustMinion)
+						if (!this.stardustMinion)
 						{
-							this.buffTime[j] = 18000;
+							this.DelBuff(k);
+							k--;
 						}
 						else
 						{
-							this.DelBuff(j);
-							j--;
+							this.buffTime[k] = 18000;
 						}
 					}
-					else if (this.buffType[j] == 187)
+					else if (this.buffType[k] == 187)
 					{
 						if (this.ownedProjectileCounts[623] > 0)
 						{
 							this.stardustGuardian = true;
 						}
-						if (this.stardustGuardian)
+						if (!this.stardustGuardian)
 						{
-							this.buffTime[j] = 18000;
+							this.DelBuff(k);
+							k--;
 						}
 						else
 						{
-							this.DelBuff(j);
-							j--;
+							this.buffTime[k] = 18000;
 						}
 					}
-					else if (this.buffType[j] == 188)
+					else if (this.buffType[k] == 188)
 					{
 						if (this.ownedProjectileCounts[625] > 0)
 						{
 							this.stardustDragon = true;
 						}
-						if (this.stardustDragon)
+						if (!this.stardustDragon)
 						{
-							this.buffTime[j] = 18000;
+							this.DelBuff(k);
+							k--;
 						}
 						else
 						{
-							this.DelBuff(j);
-							j--;
+							this.buffTime[k] = 18000;
 						}
 					}
-					else if (this.buffType[j] == 161)
+					else if (this.buffType[k] == 161)
 					{
 						if (this.ownedProjectileCounts[533] > 0)
 						{
 							this.DeadlySphereMinion = true;
 						}
-						if (this.DeadlySphereMinion)
+						if (!this.DeadlySphereMinion)
 						{
-							this.buffTime[j] = 18000;
+							this.DelBuff(k);
+							k--;
 						}
 						else
 						{
-							this.DelBuff(j);
-							j--;
+							this.buffTime[k] = 18000;
 						}
 					}
-					else if (this.buffType[j] == 90)
+					else if (this.buffType[k] == 90)
 					{
 						this.mount.SetMount(0, this, false);
-						this.buffTime[j] = 10;
+						this.buffTime[k] = 10;
 					}
-					else if (this.buffType[j] == 128)
+					else if (this.buffType[k] == 128)
 					{
 						this.mount.SetMount(1, this, false);
-						this.buffTime[j] = 10;
+						this.buffTime[k] = 10;
 					}
-					else if (this.buffType[j] == 129)
+					else if (this.buffType[k] == 129)
 					{
 						this.mount.SetMount(2, this, false);
-						this.buffTime[j] = 10;
+						this.buffTime[k] = 10;
 					}
-					else if (this.buffType[j] == 130)
+					else if (this.buffType[k] == 130)
 					{
 						this.mount.SetMount(3, this, false);
-						this.buffTime[j] = 10;
+						this.buffTime[k] = 10;
 					}
-					else if (this.buffType[j] == 118)
+					else if (this.buffType[k] == 118)
 					{
 						this.mount.SetMount(6, this, true);
-						this.buffTime[j] = 10;
+						this.buffTime[k] = 10;
 					}
-					else if (this.buffType[j] == 138)
+					else if (this.buffType[k] == 138)
 					{
 						this.mount.SetMount(6, this, false);
-						this.buffTime[j] = 10;
+						this.buffTime[k] = 10;
 					}
-					else if (this.buffType[j] == 167)
+					else if (this.buffType[k] == 167)
 					{
 						this.mount.SetMount(11, this, true);
-						this.buffTime[j] = 10;
+						this.buffTime[k] = 10;
 					}
-					else if (this.buffType[j] == 166)
+					else if (this.buffType[k] == 166)
 					{
 						this.mount.SetMount(11, this, false);
-						this.buffTime[j] = 10;
+						this.buffTime[k] = 10;
 					}
-					else if (this.buffType[j] == 184)
+					else if (this.buffType[k] == 184)
 					{
 						this.mount.SetMount(13, this, true);
-						this.buffTime[j] = 10;
+						this.buffTime[k] = 10;
 					}
-					else if (this.buffType[j] == 185)
+					else if (this.buffType[k] == 185)
 					{
 						this.mount.SetMount(13, this, false);
-						this.buffTime[j] = 10;
+						this.buffTime[k] = 10;
 					}
-					else if (this.buffType[j] == 131)
+					else if (this.buffType[k] == 131)
 					{
 						this.ignoreWater = true;
 						this.accFlipper = true;
 						this.mount.SetMount(4, this, false);
-						this.buffTime[j] = 10;
+						this.buffTime[k] = 10;
 					}
-					else if (this.buffType[j] == 132)
+					else if (this.buffType[k] == 132)
 					{
 						this.mount.SetMount(5, this, false);
-						this.buffTime[j] = 10;
+						this.buffTime[k] = 10;
 					}
-					else if (this.buffType[j] == 168)
+					else if (this.buffType[k] == 168)
 					{
 						this.ignoreWater = true;
 						this.accFlipper = true;
 						this.mount.SetMount(12, this, false);
-						this.buffTime[j] = 10;
+						this.buffTime[k] = 10;
 					}
-					else if (this.buffType[j] == 141)
+					else if (this.buffType[k] == 141)
 					{
 						this.mount.SetMount(7, this, false);
-						this.buffTime[j] = 10;
+						this.buffTime[k] = 10;
 					}
-					else if (this.buffType[j] == 142)
+					else if (this.buffType[k] == 142)
 					{
 						this.mount.SetMount(8, this, false);
-						this.buffTime[j] = 10;
+						this.buffTime[k] = 10;
 					}
-					else if (this.buffType[j] == 143)
+					else if (this.buffType[k] == 143)
 					{
 						this.mount.SetMount(9, this, false);
-						this.buffTime[j] = 10;
+						this.buffTime[k] = 10;
 					}
-					else if (this.buffType[j] == 162)
+					else if (this.buffType[k] == 162)
 					{
 						this.mount.SetMount(10, this, false);
-						this.buffTime[j] = 10;
+						this.buffTime[k] = 10;
 					}
-					else if (this.buffType[j] == 37)
+					else if (this.buffType[k] == 37)
 					{
-						if (Main.wof < 0 || Main.npc[Main.wof].type != 113)
+						if (Main.wof >= 0 && Main.npc[Main.wof].type == 113)
 						{
-							this.DelBuff(j);
-							j--;
+							this.gross = true;
+							this.buffTime[k] = 10;
 						}
 						else
 						{
-							this.gross = true;
-							this.buffTime[j] = 10;
+							this.DelBuff(k);
+							k--;
 						}
 					}
-					else if (this.buffType[j] == 38)
+					else if (this.buffType[k] == 38)
 					{
-						this.buffTime[j] = 10;
+						this.buffTime[k] = 10;
 						this.tongued = true;
 					}
-					else if (this.buffType[j] == 146)
+					else if (this.buffType[k] == 146)
 					{
-						Player player43 = this;
-						player43.moveSpeed = player43.moveSpeed + 0.1f;
-						Player player44 = this;
-						player44.moveSpeed = player44.moveSpeed * 1.1f;
+						this.moveSpeed += 0.1f;
+						this.moveSpeed *= 1.1f;
 						this.sunflower = true;
 					}
-					else if (this.buffType[j] == 19)
+					else if (this.buffType[k] == 19)
 					{
-						this.buffTime[j] = 18000;
+						this.buffTime[k] = 18000;
 						this.lightOrb = true;
-						bool flag1 = true;
+						bool flag2 = true;
 						if (this.ownedProjectileCounts[18] > 0)
 						{
-							flag1 = false;
+							flag2 = false;
 						}
-						if (flag1)
+						if (flag2 && this.whoAmI == Main.myPlayer)
 						{
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 18, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 155)
+					else if (this.buffType[k] == 155)
 					{
-						this.buffTime[j] = 18000;
+						this.buffTime[k] = 18000;
 						this.crimsonHeart = true;
-						bool flag2 = true;
+						bool flag3 = true;
 						if (this.ownedProjectileCounts[500] > 0)
 						{
-							flag2 = false;
+							flag3 = false;
 						}
-						if (flag2)
+						if (flag3 && this.whoAmI == Main.myPlayer)
 						{
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 500, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 190)
+					else if (this.buffType[k] == 191)
 					{
-						this.buffTime[j] = 18000;
+						this.buffTime[k] = 18000;
+						this.companionCube = true;
+						bool flag4 = true;
+						if (this.ownedProjectileCounts[653] > 0)
+						{
+							flag4 = false;
+						}
+						if (flag4 && this.whoAmI == Main.myPlayer)
+						{
+							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 653, 0, 0f, this.whoAmI, 0f, 0f);
+						}
+					}
+					else if (this.buffType[k] == 190)
+					{
+						this.buffTime[k] = 18000;
 						this.suspiciouslookingTentacle = true;
-						bool flag3 = true;
+						bool flag5 = true;
 						if (this.ownedProjectileCounts[650] > 0)
 						{
-							flag3 = false;
+							flag5 = false;
 						}
-						if (flag3)
+						if (flag5 && this.whoAmI == Main.myPlayer)
 						{
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 650, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 27 || this.buffType[j] == 101 || this.buffType[j] == 102)
+					else if (this.buffType[k] == 27 || this.buffType[k] == 101 || this.buffType[k] == 102)
 					{
-						this.buffTime[j] = 18000;
-						bool flag4 = true;
-						int num12 = 72;
-						if (this.buffType[j] == 27)
+						this.buffTime[k] = 18000;
+						bool flag6 = true;
+						int num20 = 72;
+						if (this.buffType[k] == 27)
 						{
 							this.blueFairy = true;
 						}
-						if (this.buffType[j] == 101)
+						if (this.buffType[k] == 101)
 						{
-							num12 = 86;
+							num20 = 86;
 							this.redFairy = true;
 						}
-						if (this.buffType[j] == 102)
+						if (this.buffType[k] == 102)
 						{
-							num12 = 87;
+							num20 = 87;
 							this.greenFairy = true;
 						}
 						if (this.head == 45 && this.body == 26 && this.legs == 25)
 						{
-							num12 = 72;
+							num20 = 72;
 						}
-						if (this.ownedProjectileCounts[num12] > 0)
+						if (this.ownedProjectileCounts[num20] > 0)
 						{
-							flag4 = false;
+							flag6 = false;
 						}
-						if (flag4)
+						if (flag6 && this.whoAmI == Main.myPlayer)
 						{
-							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, num12, 0, 0f, this.whoAmI, 0f, 0f);
+							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, num20, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 40)
+					else if (this.buffType[k] == 40)
 					{
-						this.buffTime[j] = 18000;
+						this.buffTime[k] = 18000;
 						this.bunny = true;
-						bool flag5 = true;
+						bool flag7 = true;
 						if (this.ownedProjectileCounts[111] > 0)
 						{
-							flag5 = false;
+							flag7 = false;
 						}
-						if (flag5)
+						if (flag7 && this.whoAmI == Main.myPlayer)
 						{
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 111, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 148)
+					else if (this.buffType[k] == 148)
 					{
 						this.rabid = true;
 						if (Main.rand.Next(1200) == 0)
 						{
-							int num13 = Main.rand.Next(6);
-							float single2 = (float)Main.rand.Next(60, 100) * 0.01f;
-							if (num13 == 0)
+							int num21 = Main.rand.Next(6);
+							float num22 = (float)Main.rand.Next(60, 100) * 0.01f;
+							if (num21 == 0)
 							{
-								this.AddBuff(22, (int)(60f * single2 * 3f), true);
+								this.AddBuff(22, (int)(60f * num22 * 3f), true);
 							}
-							else if (num13 == 1)
+							else if (num21 == 1)
 							{
-								this.AddBuff(23, (int)(60f * single2 * 0.75f), true);
+								this.AddBuff(23, (int)(60f * num22 * 0.75f), true);
 							}
-							else if (num13 == 2)
+							else if (num21 == 2)
 							{
-								this.AddBuff(31, (int)(60f * single2 * 1.5f), true);
+								this.AddBuff(31, (int)(60f * num22 * 1.5f), true);
 							}
-							else if (num13 == 3)
+							else if (num21 == 3)
 							{
-								this.AddBuff(32, (int)(60f * single2 * 3.5f), true);
+								this.AddBuff(32, (int)(60f * num22 * 3.5f), true);
 							}
-							else if (num13 == 4)
+							else if (num21 == 4)
 							{
-								this.AddBuff(33, (int)(60f * single2 * 5f), true);
+								this.AddBuff(33, (int)(60f * num22 * 5f), true);
 							}
-							else if (num13 == 5)
+							else if (num21 == 5)
 							{
-								this.AddBuff(35, (int)(60f * single2 * 1f), true);
+								this.AddBuff(35, (int)(60f * num22 * 1f), true);
 							}
 						}
-						Player player45 = this;
-						player45.meleeDamage = player45.meleeDamage + 0.2f;
-						Player player46 = this;
-						player46.magicDamage = player46.magicDamage + 0.2f;
-						Player player47 = this;
-						player47.rangedDamage = player47.rangedDamage + 0.2f;
-						Player player48 = this;
-						player48.thrownDamage = player48.thrownDamage + 0.2f;
-						Player player49 = this;
-						player49.minionDamage = player49.minionDamage + 0.2f;
+						this.meleeDamage += 0.2f;
+						this.magicDamage += 0.2f;
+						this.rangedDamage += 0.2f;
+						this.thrownDamage += 0.2f;
+						this.minionDamage += 0.2f;
 					}
-					else if (this.buffType[j] == 41)
+					else if (this.buffType[k] == 41)
 					{
-						this.buffTime[j] = 18000;
+						this.buffTime[k] = 18000;
 						this.penguin = true;
-						bool flag6 = true;
+						bool flag8 = true;
 						if (this.ownedProjectileCounts[112] > 0)
 						{
-							flag6 = false;
+							flag8 = false;
 						}
-						if (flag6)
+						if (flag8 && this.whoAmI == Main.myPlayer)
 						{
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 112, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 152)
+					else if (this.buffType[k] == 152)
 					{
-						this.buffTime[j] = 18000;
+						this.buffTime[k] = 18000;
 						this.magicLantern = true;
-						if (this.ownedProjectileCounts[492] == 0)
+						if (this.ownedProjectileCounts[492] == 0 && this.whoAmI == Main.myPlayer)
 						{
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 492, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 91)
+					else if (this.buffType[k] == 91)
 					{
-						this.buffTime[j] = 18000;
+						this.buffTime[k] = 18000;
 						this.puppy = true;
-						bool flag7 = true;
+						bool flag9 = true;
 						if (this.ownedProjectileCounts[334] > 0)
 						{
-							flag7 = false;
+							flag9 = false;
 						}
-						if (flag7)
+						if (flag9 && this.whoAmI == Main.myPlayer)
 						{
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 334, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 92)
+					else if (this.buffType[k] == 92)
 					{
-						this.buffTime[j] = 18000;
+						this.buffTime[k] = 18000;
 						this.grinch = true;
-						bool flag8 = true;
+						bool flag10 = true;
 						if (this.ownedProjectileCounts[353] > 0)
 						{
-							flag8 = false;
+							flag10 = false;
 						}
-						if (flag8)
+						if (flag10 && this.whoAmI == Main.myPlayer)
 						{
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 353, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 84)
+					else if (this.buffType[k] == 84)
 					{
-						this.buffTime[j] = 18000;
+						this.buffTime[k] = 18000;
 						this.blackCat = true;
-						bool flag9 = true;
+						bool flag11 = true;
 						if (this.ownedProjectileCounts[319] > 0)
 						{
-							flag9 = false;
+							flag11 = false;
 						}
-						if (flag9)
+						if (flag11 && this.whoAmI == Main.myPlayer)
 						{
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 319, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 61)
+					else if (this.buffType[k] == 61)
 					{
-						this.buffTime[j] = 18000;
+						this.buffTime[k] = 18000;
 						this.dino = true;
-						bool flag10 = true;
+						bool flag12 = true;
 						if (this.ownedProjectileCounts[236] > 0)
 						{
-							flag10 = false;
+							flag12 = false;
 						}
-						if (flag10)
+						if (flag12 && this.whoAmI == Main.myPlayer)
 						{
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 236, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 154)
+					else if (this.buffType[k] == 154)
 					{
-						this.buffTime[j] = 18000;
+						this.buffTime[k] = 18000;
 						this.babyFaceMonster = true;
-						bool flag11 = true;
+						bool flag13 = true;
 						if (this.ownedProjectileCounts[499] > 0)
 						{
-							flag11 = false;
+							flag13 = false;
 						}
-						if (flag11)
+						if (flag13 && this.whoAmI == Main.myPlayer)
 						{
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 499, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 65)
+					else if (this.buffType[k] == 65)
 					{
-						this.buffTime[j] = 18000;
+						this.buffTime[k] = 18000;
 						this.eyeSpring = true;
-						bool flag12 = true;
+						bool flag14 = true;
 						if (this.ownedProjectileCounts[268] > 0)
 						{
-							flag12 = false;
+							flag14 = false;
 						}
-						if (flag12)
+						if (flag14 && this.whoAmI == Main.myPlayer)
 						{
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 268, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 66)
+					else if (this.buffType[k] == 66)
 					{
-						this.buffTime[j] = 18000;
+						this.buffTime[k] = 18000;
 						this.snowman = true;
-						bool flag13 = true;
+						bool flag15 = true;
 						if (this.ownedProjectileCounts[269] > 0)
 						{
-							flag13 = false;
+							flag15 = false;
 						}
-						if (flag13)
+						if (flag15 && this.whoAmI == Main.myPlayer)
 						{
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 269, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 42)
+					else if (this.buffType[k] == 42)
 					{
-						this.buffTime[j] = 18000;
+						this.buffTime[k] = 18000;
 						this.turtle = true;
-						bool flag14 = true;
+						bool flag16 = true;
 						if (this.ownedProjectileCounts[127] > 0)
 						{
-							flag14 = false;
+							flag16 = false;
 						}
-						if (flag14)
+						if (flag16 && this.whoAmI == Main.myPlayer)
 						{
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 127, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 45)
+					else if (this.buffType[k] == 45)
 					{
-						this.buffTime[j] = 18000;
+						this.buffTime[k] = 18000;
 						this.eater = true;
-						bool flag15 = true;
+						bool flag17 = true;
 						if (this.ownedProjectileCounts[175] > 0)
 						{
-							flag15 = false;
+							flag17 = false;
 						}
-						if (flag15)
+						if (flag17 && this.whoAmI == Main.myPlayer)
 						{
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 175, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 50)
+					else if (this.buffType[k] == 50)
 					{
-						this.buffTime[j] = 18000;
+						this.buffTime[k] = 18000;
 						this.skeletron = true;
-						bool flag16 = true;
+						bool flag18 = true;
 						if (this.ownedProjectileCounts[197] > 0)
 						{
-							flag16 = false;
+							flag18 = false;
 						}
-						if (flag16)
+						if (flag18 && this.whoAmI == Main.myPlayer)
 						{
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 197, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 51)
+					else if (this.buffType[k] == 51)
 					{
-						this.buffTime[j] = 18000;
+						this.buffTime[k] = 18000;
 						this.hornet = true;
-						bool flag17 = true;
+						bool flag19 = true;
 						if (this.ownedProjectileCounts[198] > 0)
 						{
-							flag17 = false;
+							flag19 = false;
 						}
-						if (flag17)
+						if (flag19 && this.whoAmI == Main.myPlayer)
 						{
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 198, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 52)
+					else if (this.buffType[k] == 52)
 					{
-						this.buffTime[j] = 18000;
+						this.buffTime[k] = 18000;
 						this.tiki = true;
-						bool flag18 = true;
+						bool flag20 = true;
 						if (this.ownedProjectileCounts[199] > 0)
 						{
-							flag18 = false;
+							flag20 = false;
 						}
-						if (flag18)
+						if (flag20 && this.whoAmI == Main.myPlayer)
 						{
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 199, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 53)
+					else if (this.buffType[k] == 53)
 					{
-						this.buffTime[j] = 18000;
+						this.buffTime[k] = 18000;
 						this.lizard = true;
-						bool flag19 = true;
+						bool flag21 = true;
 						if (this.ownedProjectileCounts[200] > 0)
 						{
-							flag19 = false;
+							flag21 = false;
 						}
-						if (flag19)
+						if (flag21 && this.whoAmI == Main.myPlayer)
 						{
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 200, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 54)
+					else if (this.buffType[k] == 54)
 					{
-						this.buffTime[j] = 18000;
+						this.buffTime[k] = 18000;
 						this.parrot = true;
-						bool flag20 = true;
+						bool flag22 = true;
 						if (this.ownedProjectileCounts[208] > 0)
 						{
-							flag20 = false;
+							flag22 = false;
 						}
-						if (flag20)
+						if (flag22 && this.whoAmI == Main.myPlayer)
 						{
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 208, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 55)
+					else if (this.buffType[k] == 55)
 					{
-						this.buffTime[j] = 18000;
+						this.buffTime[k] = 18000;
 						this.truffle = true;
-						bool flag21 = true;
+						bool flag23 = true;
 						if (this.ownedProjectileCounts[209] > 0)
 						{
-							flag21 = false;
+							flag23 = false;
 						}
-						if (flag21)
+						if (flag23 && this.whoAmI == Main.myPlayer)
 						{
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 209, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 56)
+					else if (this.buffType[k] == 56)
 					{
-						this.buffTime[j] = 18000;
+						this.buffTime[k] = 18000;
 						this.sapling = true;
-						bool flag22 = true;
+						bool flag24 = true;
 						if (this.ownedProjectileCounts[210] > 0)
 						{
-							flag22 = false;
+							flag24 = false;
 						}
-						if (flag22)
+						if (flag24 && this.whoAmI == Main.myPlayer)
 						{
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 210, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 85)
+					else if (this.buffType[k] == 85)
 					{
-						this.buffTime[j] = 18000;
+						this.buffTime[k] = 18000;
 						this.cSapling = true;
-						bool flag23 = true;
+						bool flag25 = true;
 						if (this.ownedProjectileCounts[324] > 0)
 						{
-							flag23 = false;
+							flag25 = false;
 						}
-						if (flag23)
+						if (flag25 && this.whoAmI == Main.myPlayer)
 						{
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 324, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 81)
+					else if (this.buffType[k] == 81)
 					{
-						this.buffTime[j] = 18000;
+						this.buffTime[k] = 18000;
 						this.spider = true;
-						bool flag24 = true;
+						bool flag26 = true;
 						if (this.ownedProjectileCounts[313] > 0)
 						{
-							flag24 = false;
+							flag26 = false;
 						}
-						if (flag24)
+						if (flag26 && this.whoAmI == Main.myPlayer)
 						{
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 313, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 82)
+					else if (this.buffType[k] == 82)
 					{
-						this.buffTime[j] = 18000;
+						this.buffTime[k] = 18000;
 						this.squashling = true;
-						bool flag25 = true;
+						bool flag27 = true;
 						if (this.ownedProjectileCounts[314] > 0)
 						{
-							flag25 = false;
+							flag27 = false;
 						}
-						if (flag25)
+						if (flag27 && this.whoAmI == Main.myPlayer)
 						{
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 314, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 57)
+					else if (this.buffType[k] == 57)
 					{
-						this.buffTime[j] = 18000;
+						this.buffTime[k] = 18000;
 						this.wisp = true;
-						bool flag26 = true;
+						bool flag28 = true;
 						if (this.ownedProjectileCounts[211] > 0)
 						{
-							flag26 = false;
+							flag28 = false;
 						}
-						if (flag26)
+						if (flag28 && this.whoAmI == Main.myPlayer)
 						{
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 211, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 60)
+					else if (this.buffType[k] == 60)
 					{
-						this.buffTime[j] = 18000;
+						this.buffTime[k] = 18000;
 						this.crystalLeaf = true;
-						bool flag27 = true;
-						for (int t = 0; t < 1000; t++)
+						bool flag29 = true;
+						for (int num23 = 0; num23 < 1000; num23++)
 						{
-							if (Main.projectile[t].active && Main.projectile[t].owner == this.whoAmI && Main.projectile[t].type == 226)
+							if (Main.projectile[num23].active && Main.projectile[num23].owner == this.whoAmI && Main.projectile[num23].type == 226)
 							{
-								if (!flag27)
+								if (!flag29)
 								{
-									Main.projectile[t].Kill();
+									Main.projectile[num23].Kill();
 								}
-								flag27 = false;
+								flag29 = false;
 							}
 						}
-						if (flag27)
+						if (flag29 && this.whoAmI == Main.myPlayer)
 						{
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 226, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 127)
+					else if (this.buffType[k] == 127)
 					{
-						this.buffTime[j] = 18000;
+						this.buffTime[k] = 18000;
 						this.zephyrfish = true;
-						bool flag28 = true;
+						bool flag30 = true;
 						if (this.ownedProjectileCounts[380] > 0)
 						{
-							flag28 = false;
+							flag30 = false;
 						}
-						if (flag28)
+						if (flag30 && this.whoAmI == Main.myPlayer)
 						{
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 380, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 136)
+					else if (this.buffType[k] == 136)
 					{
-						this.buffTime[j] = 18000;
+						this.buffTime[k] = 18000;
 						this.miniMinotaur = true;
-						bool flag29 = true;
+						bool flag31 = true;
 						if (this.ownedProjectileCounts[398] > 0)
 						{
-							flag29 = false;
+							flag31 = false;
 						}
-						if (flag29)
+						if (flag31 && this.whoAmI == Main.myPlayer)
 						{
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 398, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 70)
+					else if (this.buffType[k] == 70)
 					{
 						this.venom = true;
 					}
-					else if (this.buffType[j] == 20)
+					else if (this.buffType[k] == 20)
 					{
 						this.poisoned = true;
 					}
-					else if (this.buffType[j] == 21)
+					else if (this.buffType[k] == 21)
 					{
-						this.potionDelay = this.buffTime[j];
+						this.potionDelay = this.buffTime[k];
 					}
-					else if (this.buffType[j] == 22)
+					else if (this.buffType[k] == 22)
 					{
 						this.blind = true;
 					}
-					else if (this.buffType[j] == 80)
+					else if (this.buffType[k] == 80)
 					{
 						this.blackout = true;
 					}
-					else if (this.buffType[j] == 23)
+					else if (this.buffType[k] == 23)
 					{
 						this.noItems = true;
 					}
-					else if (this.buffType[j] == 24)
+					else if (this.buffType[k] == 24)
 					{
 						this.onFire = true;
 					}
-					else if (this.buffType[j] == 103)
+					else if (this.buffType[k] == 103)
 					{
 						this.dripping = true;
 					}
-					else if (this.buffType[j] == 137)
+					else if (this.buffType[k] == 137)
 					{
 						this.drippingSlime = true;
 					}
-					else if (this.buffType[j] == 67)
+					else if (this.buffType[k] == 67)
 					{
 						this.burned = true;
 					}
-					else if (this.buffType[j] == 68)
+					else if (this.buffType[k] == 68)
 					{
 						this.suffocating = true;
 					}
-					else if (this.buffType[j] == 39)
+					else if (this.buffType[k] == 39)
 					{
 						this.onFire2 = true;
 					}
-					else if (this.buffType[j] == 44)
+					else if (this.buffType[k] == 44)
 					{
 						this.onFrostBurn = true;
 					}
-					else if (this.buffType[j] == 163)
+					else if (this.buffType[k] == 163)
 					{
 						this.headcovered = true;
 						this.bleed = true;
 					}
-					else if (this.buffType[j] == 164)
+					else if (this.buffType[k] == 164)
 					{
 						this.vortexDebuff = true;
 					}
-					else if (this.buffType[j] == 145)
+					else if (this.buffType[k] == 145)
 					{
-						bool flag30 = false;
-						int num14 = 0;
-						while (num14 < 1000)
-						{
-							Projectile projectile = Main.projectile[num14];
-							if (!projectile.active || projectile.type != 456 || projectile.ai[1] != (float)this.whoAmI)
-							{
-								num14++;
-							}
-							else
-							{
-								flag30 = true;
-								break;
-							}
-						}
-						if (!flag30)
-						{
-							this.DelBuff(j);
-						}
-						else
-						{
-							this.moonLeech = true;
-						}
+						this.moonLeech = true;
 					}
-					else if (this.buffType[j] == 149)
+					else if (this.buffType[k] == 149)
 					{
 						this.webbed = true;
-						if (this.velocity.Y == 0f)
+						if (this.velocity.Y != 0f)
 						{
-							this.velocity = Vector2.Zero;
+							this.velocity = new Vector2(0f, 1E-06f);
 						}
 						else
 						{
-							this.velocity = new Vector2(0f, 1E-06f);
+							this.velocity = Vector2.Zero;
 						}
 						Player.jumpHeight = 0;
 						this.gravity = 0f;
@@ -28393,134 +29223,103 @@ namespace Terraria
 						this.noKnockback = true;
 						this.grappling[0] = -1;
 						this.grapCount = 0;
-						for (int u = 0; u < 1000; u++)
+						for (int num24 = 0; num24 < 1000; num24++)
 						{
-							if (Main.projectile[u].active && Main.projectile[u].owner == this.whoAmI && Main.projectile[u].aiStyle == 7)
+							if (Main.projectile[num24].active && Main.projectile[num24].owner == this.whoAmI && Main.projectile[num24].aiStyle == 7)
 							{
-								Main.projectile[u].Kill();
+								Main.projectile[num24].Kill();
 							}
 						}
 					}
-					else if (this.buffType[j] == 43)
+					else if (this.buffType[k] == 43)
 					{
-						this.paladinBuff = true;
+						this.defendedByPaladin = true;
 					}
-					else if (this.buffType[j] == 29)
+					else if (this.buffType[k] == 29)
 					{
-						Player player50 = this;
-						player50.magicCrit = player50.magicCrit + 2;
-						Player player51 = this;
-						player51.magicDamage = player51.magicDamage + 0.05f;
-						Player player52 = this;
-						player52.statManaMax2 = player52.statManaMax2 + 20;
-						Player player53 = this;
-						player53.manaCost = player53.manaCost - 0.02f;
+						this.magicCrit += 2;
+						this.magicDamage += 0.05f;
+						this.statManaMax2 += 20;
+						this.manaCost -= 0.02f;
 					}
-					else if (this.buffType[j] == 28)
+					else if (this.buffType[k] == 28)
 					{
-						if (Main.dayTime || !this.wolfAcc || this.merman)
+						if (!Main.dayTime && this.wolfAcc && !this.merman)
 						{
-							this.DelBuff(j);
-							j--;
+							this.lifeRegen++;
+							this.wereWolf = true;
+							this.meleeCrit += 2;
+							this.meleeDamage += 0.051f;
+							this.meleeSpeed += 0.051f;
+							this.statDefense += 3;
+							this.moveSpeed += 0.05f;
 						}
 						else
 						{
-							Player player54 = this;
-							player54.lifeRegen = player54.lifeRegen + 1;
-							this.wereWolf = true;
-							Player player55 = this;
-							player55.meleeCrit = player55.meleeCrit + 2;
-							Player player56 = this;
-							player56.meleeDamage = player56.meleeDamage + 0.051f;
-							Player player57 = this;
-							player57.meleeSpeed = player57.meleeSpeed + 0.051f;
-							Player player58 = this;
-							player58.statDefense = player58.statDefense + 3;
-							Player player59 = this;
-							player59.moveSpeed = player59.moveSpeed + 0.05f;
+							this.DelBuff(k);
+							k--;
 						}
 					}
-					else if (this.buffType[j] == 33)
+					else if (this.buffType[k] == 33)
 					{
-						Player player60 = this;
-						player60.meleeDamage = player60.meleeDamage - 0.051f;
-						Player player61 = this;
-						player61.meleeSpeed = player61.meleeSpeed - 0.051f;
-						Player player62 = this;
-						player62.statDefense = player62.statDefense - 4;
-						Player player63 = this;
-						player63.moveSpeed = player63.moveSpeed - 0.1f;
+						this.meleeDamage -= 0.051f;
+						this.meleeSpeed -= 0.051f;
+						this.statDefense -= 4;
+						this.moveSpeed -= 0.1f;
 					}
-					else if (this.buffType[j] == 25)
+					else if (this.buffType[k] == 25)
 					{
-						Player player64 = this;
-						player64.statDefense = player64.statDefense - 4;
-						Player player65 = this;
-						player65.meleeCrit = player65.meleeCrit + 2;
-						Player player66 = this;
-						player66.meleeDamage = player66.meleeDamage + 0.1f;
-						Player player67 = this;
-						player67.meleeSpeed = player67.meleeSpeed + 0.1f;
+						this.statDefense -= 4;
+						this.meleeCrit += 2;
+						this.meleeDamage += 0.1f;
+						this.meleeSpeed += 0.1f;
 					}
-					else if (this.buffType[j] == 26)
+					else if (this.buffType[k] == 26)
 					{
 						this.wellFed = true;
-						Player player68 = this;
-						player68.statDefense = player68.statDefense + 2;
-						Player player69 = this;
-						player69.meleeCrit = player69.meleeCrit + 2;
-						Player player70 = this;
-						player70.meleeDamage = player70.meleeDamage + 0.05f;
-						Player player71 = this;
-						player71.meleeSpeed = player71.meleeSpeed + 0.05f;
-						Player player72 = this;
-						player72.magicCrit = player72.magicCrit + 2;
-						Player player73 = this;
-						player73.magicDamage = player73.magicDamage + 0.05f;
-						Player player74 = this;
-						player74.rangedCrit = player74.rangedCrit + 2;
-						Player player75 = this;
-						player75.rangedDamage = player75.rangedDamage + 0.05f;
-						Player player76 = this;
-						player76.thrownCrit = player76.thrownCrit + 2;
-						Player player77 = this;
-						player77.thrownDamage = player77.thrownDamage + 0.05f;
-						Player player78 = this;
-						player78.minionDamage = player78.minionDamage + 0.05f;
-						Player player79 = this;
-						player79.minionKB = player79.minionKB + 0.5f;
-						Player player80 = this;
-						player80.moveSpeed = player80.moveSpeed + 0.2f;
+						this.statDefense += 2;
+						this.meleeCrit += 2;
+						this.meleeDamage += 0.05f;
+						this.meleeSpeed += 0.05f;
+						this.magicCrit += 2;
+						this.magicDamage += 0.05f;
+						this.rangedCrit += 2;
+						this.rangedDamage += 0.05f;
+						this.thrownCrit += 2;
+						this.thrownDamage += 0.05f;
+						this.minionDamage += 0.05f;
+						this.minionKB += 0.5f;
+						this.moveSpeed += 0.2f;
 					}
-					else if (this.buffType[j] == 71)
+					else if (this.buffType[k] == 71)
 					{
 						this.meleeEnchant = 1;
 					}
-					else if (this.buffType[j] == 73)
+					else if (this.buffType[k] == 73)
 					{
 						this.meleeEnchant = 2;
 					}
-					else if (this.buffType[j] == 74)
+					else if (this.buffType[k] == 74)
 					{
 						this.meleeEnchant = 3;
 					}
-					else if (this.buffType[j] == 75)
+					else if (this.buffType[k] == 75)
 					{
 						this.meleeEnchant = 4;
 					}
-					else if (this.buffType[j] == 76)
+					else if (this.buffType[k] == 76)
 					{
 						this.meleeEnchant = 5;
 					}
-					else if (this.buffType[j] == 77)
+					else if (this.buffType[k] == 77)
 					{
 						this.meleeEnchant = 6;
 					}
-					else if (this.buffType[j] == 78)
+					else if (this.buffType[k] == 78)
 					{
 						this.meleeEnchant = 7;
 					}
-					else if (this.buffType[j] == 79)
+					else if (this.buffType[k] == 79)
 					{
 						this.meleeEnchant = 8;
 					}
@@ -28814,1237 +29613,969 @@ namespace Terraria
 			this.cYorai = this.cPet;
 		}
 
+		// Token: 0x060007A4 RID: 1956 RVA: 0x000B39FC File Offset: 0x000B1BFC
 		public void UpdateEquips(int i)
 		{
-			for (int num = 0; num < 58; num++)
+			for (int j = 0; j < 58; j++)
 			{
-				int num1 = this.inventory[num].type;
-				if ((num1 == 15 || num1 == 707) && this.accWatch < 1)
+				int type = this.inventory[j].type;
+				if ((type == 15 || type == 707) && this.accWatch < 1)
 				{
 					this.accWatch = 1;
 				}
-				if ((num1 == 16 || num1 == 708) && this.accWatch < 2)
+				if ((type == 16 || type == 708) && this.accWatch < 2)
 				{
 					this.accWatch = 2;
 				}
-				if ((num1 == 17 || num1 == 709) && this.accWatch < 3)
+				if ((type == 17 || type == 709) && this.accWatch < 3)
 				{
 					this.accWatch = 3;
 				}
-				if (num1 == 393)
+				if (type == 393)
 				{
 					this.accCompass = 1;
 				}
-				if (num1 == 18)
+				if (type == 18)
 				{
 					this.accDepthMeter = 1;
 				}
-				if (num1 == 395 || num1 == 3123 || num1 == 3124)
+				if (type == 395 || type == 3123 || type == 3124)
 				{
 					this.accWatch = 3;
 					this.accDepthMeter = 1;
 					this.accCompass = 1;
 				}
-				if (num1 == 3120 || num1 == 3036 || num1 == 3123 || num1 == 3124)
+				if (type == 3120 || type == 3036 || type == 3123 || type == 3124)
 				{
 					this.accFishFinder = true;
 				}
-				if (num1 == 3037 || num1 == 3036 || num1 == 3123 || num1 == 3124)
+				if (type == 3037 || type == 3036 || type == 3123 || type == 3124)
 				{
 					this.accWeatherRadio = true;
 				}
-				if (num1 == 3096 || num1 == 3036 || num1 == 3123 || num1 == 3124)
+				if (type == 3096 || type == 3036 || type == 3123 || type == 3124)
 				{
 					this.accCalendar = true;
 				}
-				if (num1 == 3084 || num1 == 3122 || num1 == 3123 || num1 == 3124)
+				if (type == 3084 || type == 3122 || type == 3123 || type == 3124)
 				{
 					this.accThirdEye = true;
 				}
-				if (num1 == 3095 || num1 == 3122 || num1 == 3123 || num1 == 3124)
+				if (type == 3095 || type == 3122 || type == 3123 || type == 3124)
 				{
 					this.accJarOfSouls = true;
 				}
-				if (num1 == 3118 || num1 == 3122 || num1 == 3123 || num1 == 3124)
+				if (type == 3118 || type == 3122 || type == 3123 || type == 3124)
 				{
 					this.accCritterGuide = true;
 				}
-				if (num1 == 3099 || num1 == 3121 || num1 == 3123 || num1 == 3124)
+				if (type == 3099 || type == 3121 || type == 3123 || type == 3124)
 				{
 					this.accStopwatch = true;
 				}
-				if (num1 == 3102 || num1 == 3121 || num1 == 3123 || num1 == 3124)
+				if (type == 3102 || type == 3121 || type == 3123 || type == 3124)
 				{
 					this.accOreFinder = true;
 				}
-				if (num1 == 3119 || num1 == 3121 || num1 == 3123 || num1 == 3124)
+				if (type == 3119 || type == 3121 || type == 3123 || type == 3124)
 				{
 					this.accDreamCatcher = true;
 				}
-			}
-			for (int j = 0; j < 8 + this.extraAccessorySlots; j++)
-			{
-				if (!this.armor[j].expertOnly || Main.expertMode)
+				if (type == 3619 || type == 3611)
 				{
-					int num2 = this.armor[j].type;
-					if ((num2 == 15 || num2 == 707) && this.accWatch < 1)
+					this.InfoAccMechShowWires = true;
+				}
+				if (type == 486 || type == 3611)
+				{
+					this.rulerLine = true;
+				}
+				if (type == 2799)
+				{
+					this.rulerGrid = true;
+				}
+				if (type == 2216 || type == 3061)
+				{
+					this.autoPaint = true;
+				}
+				if (type == 3624)
+				{
+					this.autoActuator = true;
+				}
+			}
+			for (int k = 0; k < 8 + this.extraAccessorySlots; k++)
+			{
+				if (!this.armor[k].expertOnly || Main.expertMode)
+				{
+					int type2 = this.armor[k].type;
+					if ((type2 == 15 || type2 == 707) && this.accWatch < 1)
 					{
 						this.accWatch = 1;
 					}
-					if ((num2 == 16 || num2 == 708) && this.accWatch < 2)
+					if ((type2 == 16 || type2 == 708) && this.accWatch < 2)
 					{
 						this.accWatch = 2;
 					}
-					if ((num2 == 17 || num2 == 709) && this.accWatch < 3)
+					if ((type2 == 17 || type2 == 709) && this.accWatch < 3)
 					{
 						this.accWatch = 3;
 					}
-					if (num2 == 393)
+					if (type2 == 393)
 					{
 						this.accCompass = 1;
 					}
-					if (num2 == 18)
+					if (type2 == 18)
 					{
 						this.accDepthMeter = 1;
 					}
-					if (num2 == 395 || num2 == 3123 || num2 == 3124)
+					if (type2 == 395 || type2 == 3123 || type2 == 3124)
 					{
 						this.accWatch = 3;
 						this.accDepthMeter = 1;
 						this.accCompass = 1;
 					}
-					if (num2 == 3120 || num2 == 3036 || num2 == 3123 || num2 == 3124)
+					if (type2 == 3120 || type2 == 3036 || type2 == 3123 || type2 == 3124)
 					{
 						this.accFishFinder = true;
 					}
-					if (num2 == 3037 || num2 == 3036 || num2 == 3123 || num2 == 3124)
+					if (type2 == 3037 || type2 == 3036 || type2 == 3123 || type2 == 3124)
 					{
 						this.accWeatherRadio = true;
 					}
-					if (num2 == 3096 || num2 == 3036 || num2 == 3123 || num2 == 3124)
+					if (type2 == 3096 || type2 == 3036 || type2 == 3123 || type2 == 3124)
 					{
 						this.accCalendar = true;
 					}
-					if (num2 == 3084 || num2 == 3122 || num2 == 3123 || num2 == 3124)
+					if (type2 == 3084 || type2 == 3122 || type2 == 3123 || type2 == 3124)
 					{
 						this.accThirdEye = true;
 					}
-					if (num2 == 3095 || num2 == 3122 || num2 == 3123 || num2 == 3124)
+					if (type2 == 3095 || type2 == 3122 || type2 == 3123 || type2 == 3124)
 					{
 						this.accJarOfSouls = true;
 					}
-					if (num2 == 3118 || num2 == 3122 || num2 == 3123 || num2 == 3124)
+					if (type2 == 3118 || type2 == 3122 || type2 == 3123 || type2 == 3124)
 					{
 						this.accCritterGuide = true;
 					}
-					if (num2 == 3099 || num2 == 3121 || num2 == 3123 || num2 == 3124)
+					if (type2 == 3099 || type2 == 3121 || type2 == 3123 || type2 == 3124)
 					{
 						this.accStopwatch = true;
 					}
-					if (num2 == 3102 || num2 == 3121 || num2 == 3123 || num2 == 3124)
+					if (type2 == 3102 || type2 == 3121 || type2 == 3123 || type2 == 3124)
 					{
 						this.accOreFinder = true;
 					}
-					if (num2 == 3119 || num2 == 3121 || num2 == 3123 || num2 == 3124)
+					if (type2 == 3119 || type2 == 3121 || type2 == 3123 || type2 == 3124)
 					{
 						this.accDreamCatcher = true;
 					}
-					if (this.armor[j].type == 3017 && this.whoAmI == Main.myPlayer && this.velocity.Y == 0f && this.grappling[0] == -1)
+					if (type2 == 3619)
 					{
-						int x = (int)base.Center.X / 16;
-						int y = (int)(this.position.Y + (float)this.height - 1f) / 16;
-						if (Main.tile[x, y] == null)
+						this.InfoAccMechShowWires = true;
+					}
+					if (this.armor[k].type == 3017 && this.whoAmI == Main.myPlayer && this.velocity.Y == 0f && this.grappling[0] == -1)
+					{
+						int num = (int)base.Center.X / 16;
+						int num2 = (int)(this.position.Y + (float)this.height - 1f) / 16;
+						if (Main.tile[num, num2] == null)
 						{
-							Main.tile[x, y] = new Tile();
+							Main.tile[num, num2] = new Tile();
 						}
-						if (!Main.tile[x, y].active() && Main.tile[x, y].liquid == 0 && Main.tile[x, y + 1] != null && WorldGen.SolidTile(x, y + 1))
+						if (!Main.tile[num, num2].active() && Main.tile[num, num2].liquid == 0 && Main.tile[num, num2 + 1] != null && WorldGen.SolidTile(num, num2 + 1))
 						{
-							Main.tile[x, y].frameY = 0;
-							Main.tile[x, y].slope(0);
-							Main.tile[x, y].halfBrick(false);
-							if (Main.tile[x, y + 1].type == 2)
+							Main.tile[num, num2].frameY = 0;
+							Main.tile[num, num2].slope(0);
+							Main.tile[num, num2].halfBrick(false);
+							if (Main.tile[num, num2 + 1].type == 2)
 							{
-								if (Main.rand.Next(2) != 0)
+								if (Main.rand.Next(2) == 0)
 								{
-									Main.tile[x, y].active(true);
-									Main.tile[x, y].type = 73;
-									Main.tile[x, y].frameX = (short)(18 * Main.rand.Next(6, 21));
-									while (Main.tile[x, y].frameX == 144)
+									Main.tile[num, num2].active(true);
+									Main.tile[num, num2].type = 3;
+									Main.tile[num, num2].frameX = (short)(18 * Main.rand.Next(6, 11));
+									while (Main.tile[num, num2].frameX == 144)
 									{
-										Main.tile[x, y].frameX = (short)(18 * Main.rand.Next(6, 21));
+										Main.tile[num, num2].frameX = (short)(18 * Main.rand.Next(6, 11));
 									}
 								}
 								else
 								{
-									Main.tile[x, y].active(true);
-									Main.tile[x, y].type = 3;
-									Main.tile[x, y].frameX = (short)(18 * Main.rand.Next(6, 11));
-									while (Main.tile[x, y].frameX == 144)
+									Main.tile[num, num2].active(true);
+									Main.tile[num, num2].type = 73;
+									Main.tile[num, num2].frameX = (short)(18 * Main.rand.Next(6, 21));
+									while (Main.tile[num, num2].frameX == 144)
 									{
-										Main.tile[x, y].frameX = (short)(18 * Main.rand.Next(6, 11));
+										Main.tile[num, num2].frameX = (short)(18 * Main.rand.Next(6, 21));
 									}
 								}
 								if (Main.netMode == 1)
 								{
-									NetMessage.SendTileSquare(-1, x, y, 1);
+									NetMessage.SendTileSquare(-1, num, num2, 1);
 								}
 							}
-							else if (Main.tile[x, y + 1].type == 109)
+							else if (Main.tile[num, num2 + 1].type == 109)
 							{
-								if (Main.rand.Next(2) != 0)
+								if (Main.rand.Next(2) == 0)
 								{
-									Main.tile[x, y].active(true);
-									Main.tile[x, y].type = 113;
-									Main.tile[x, y].frameX = (short)(18 * Main.rand.Next(2, 8));
-									while (Main.tile[x, y].frameX == 90)
+									Main.tile[num, num2].active(true);
+									Main.tile[num, num2].type = 110;
+									Main.tile[num, num2].frameX = (short)(18 * Main.rand.Next(4, 7));
+									while (Main.tile[num, num2].frameX == 90)
 									{
-										Main.tile[x, y].frameX = (short)(18 * Main.rand.Next(2, 8));
+										Main.tile[num, num2].frameX = (short)(18 * Main.rand.Next(4, 7));
 									}
 								}
 								else
 								{
-									Main.tile[x, y].active(true);
-									Main.tile[x, y].type = 110;
-									Main.tile[x, y].frameX = (short)(18 * Main.rand.Next(4, 7));
-									while (Main.tile[x, y].frameX == 90)
+									Main.tile[num, num2].active(true);
+									Main.tile[num, num2].type = 113;
+									Main.tile[num, num2].frameX = (short)(18 * Main.rand.Next(2, 8));
+									while (Main.tile[num, num2].frameX == 90)
 									{
-										Main.tile[x, y].frameX = (short)(18 * Main.rand.Next(4, 7));
+										Main.tile[num, num2].frameX = (short)(18 * Main.rand.Next(2, 8));
 									}
 								}
 								if (Main.netMode == 1)
 								{
-									NetMessage.SendTileSquare(-1, x, y, 1);
+									NetMessage.SendTileSquare(-1, num, num2, 1);
 								}
 							}
-							else if (Main.tile[x, y + 1].type == 60)
+							else if (Main.tile[num, num2 + 1].type == 60)
 							{
-								Main.tile[x, y].active(true);
-								Main.tile[x, y].type = 74;
-								Main.tile[x, y].frameX = (short)(18 * Main.rand.Next(9, 17));
+								Main.tile[num, num2].active(true);
+								Main.tile[num, num2].type = 74;
+								Main.tile[num, num2].frameX = (short)(18 * Main.rand.Next(9, 17));
 								if (Main.netMode == 1)
 								{
-									NetMessage.SendTileSquare(-1, x, y, 1);
+									NetMessage.SendTileSquare(-1, num, num2, 1);
 								}
 							}
 						}
 					}
-					Player player = this;
-					player.statDefense = player.statDefense + this.armor[j].defense;
-					Player player1 = this;
-					player1.lifeRegen = player1.lifeRegen + this.armor[j].lifeRegen;
-					if (this.armor[j].type == 268)
+					this.statDefense += this.armor[k].defense;
+					this.lifeRegen += this.armor[k].lifeRegen;
+					if (this.armor[k].type == 268)
 					{
 						this.accDivingHelm = true;
 					}
-					if (this.armor[j].type == 238)
+					if (this.armor[k].type == 238)
 					{
-						Player player2 = this;
-						player2.magicDamage = player2.magicDamage + 0.15f;
+						this.magicDamage += 0.15f;
 					}
-					if (this.armor[j].type == 3212)
+					if (this.armor[k].type == 3212)
 					{
-						Player player3 = this;
-						player3.armorPenetration = player3.armorPenetration + 5;
+						this.armorPenetration += 5;
 					}
-					if (this.armor[j].type == 2277)
+					if (this.armor[k].type == 2277)
 					{
-						Player player4 = this;
-						player4.magicDamage = player4.magicDamage + 0.05f;
-						Player player5 = this;
-						player5.meleeDamage = player5.meleeDamage + 0.05f;
-						Player player6 = this;
-						player6.rangedDamage = player6.rangedDamage + 0.05f;
-						Player player7 = this;
-						player7.thrownDamage = player7.thrownDamage + 0.05f;
-						Player player8 = this;
-						player8.magicCrit = player8.magicCrit + 5;
-						Player player9 = this;
-						player9.rangedCrit = player9.rangedCrit + 5;
-						Player player10 = this;
-						player10.meleeCrit = player10.meleeCrit + 5;
-						Player player11 = this;
-						player11.thrownCrit = player11.thrownCrit + 5;
-						Player player12 = this;
-						player12.meleeSpeed = player12.meleeSpeed + 0.1f;
-						Player player13 = this;
-						player13.moveSpeed = player13.moveSpeed + 0.1f;
+						this.magicDamage += 0.05f;
+						this.meleeDamage += 0.05f;
+						this.rangedDamage += 0.05f;
+						this.thrownDamage += 0.05f;
+						this.magicCrit += 5;
+						this.rangedCrit += 5;
+						this.meleeCrit += 5;
+						this.thrownCrit += 5;
+						this.meleeSpeed += 0.1f;
+						this.moveSpeed += 0.1f;
 					}
-					if (this.armor[j].type == 2279)
+					if (this.armor[k].type == 2279)
 					{
-						Player player14 = this;
-						player14.magicDamage = player14.magicDamage + 0.06f;
-						Player player15 = this;
-						player15.magicCrit = player15.magicCrit + 6;
-						Player player16 = this;
-						player16.manaCost = player16.manaCost - 0.1f;
+						this.magicDamage += 0.06f;
+						this.magicCrit += 6;
+						this.manaCost -= 0.1f;
 					}
-					if (this.armor[j].type == 3109)
+					if (this.armor[k].type == 3109)
 					{
 						this.nightVision = true;
 					}
-					if (this.armor[j].type == 256)
+					if (this.armor[k].type == 256)
 					{
-						Player player17 = this;
-						player17.thrownVelocity = player17.thrownVelocity + 0.15f;
+						this.thrownVelocity += 0.15f;
 					}
-					if (this.armor[j].type == 257)
+					if (this.armor[k].type == 257)
 					{
-						Player player18 = this;
-						player18.thrownDamage = player18.thrownDamage + 0.15f;
+						this.thrownDamage += 0.15f;
 					}
-					if (this.armor[j].type == 258)
+					if (this.armor[k].type == 258)
 					{
-						Player player19 = this;
-						player19.thrownCrit = player19.thrownCrit + 10;
+						this.thrownCrit += 10;
 					}
-					if (this.armor[j].type == 3374)
+					if (this.armor[k].type == 3374)
 					{
-						Player player20 = this;
-						player20.thrownVelocity = player20.thrownVelocity + 0.2f;
+						this.thrownVelocity += 0.2f;
 					}
-					if (this.armor[j].type == 3375)
+					if (this.armor[k].type == 3375)
 					{
-						Player player21 = this;
-						player21.thrownDamage = player21.thrownDamage + 0.2f;
+						this.thrownDamage += 0.2f;
 					}
-					if (this.armor[j].type == 3376)
+					if (this.armor[k].type == 3376)
 					{
-						Player player22 = this;
-						player22.thrownCrit = player22.thrownCrit + 15;
+						this.thrownCrit += 15;
 					}
-					if (this.armor[j].type == 2275)
+					if (this.armor[k].type == 2275)
 					{
-						Player player23 = this;
-						player23.magicDamage = player23.magicDamage + 0.07f;
-						Player player24 = this;
-						player24.magicCrit = player24.magicCrit + 7;
+						this.magicDamage += 0.07f;
+						this.magicCrit += 7;
 					}
-					if (this.armor[j].type == 123 || this.armor[j].type == 124 || this.armor[j].type == 125)
+					if (this.armor[k].type == 123 || this.armor[k].type == 124 || this.armor[k].type == 125)
 					{
-						Player player25 = this;
-						player25.magicDamage = player25.magicDamage + 0.07f;
+						this.magicDamage += 0.07f;
 					}
-					if (this.armor[j].type == 151 || this.armor[j].type == 152 || this.armor[j].type == 153 || this.armor[j].type == 959)
+					if (this.armor[k].type == 151 || this.armor[k].type == 152 || this.armor[k].type == 153 || this.armor[k].type == 959)
 					{
-						Player player26 = this;
-						player26.rangedDamage = player26.rangedDamage + 0.05f;
+						this.rangedDamage += 0.05f;
 					}
-					if (this.armor[j].type == 111 || this.armor[j].type == 228 || this.armor[j].type == 229 || this.armor[j].type == 230 || this.armor[j].type == 960 || this.armor[j].type == 961 || this.armor[j].type == 962)
+					if (this.armor[k].type == 111 || this.armor[k].type == 228 || this.armor[k].type == 229 || this.armor[k].type == 230 || this.armor[k].type == 960 || this.armor[k].type == 961 || this.armor[k].type == 962)
 					{
-						Player player27 = this;
-						player27.statManaMax2 = player27.statManaMax2 + 20;
+						this.statManaMax2 += 20;
 					}
-					if (this.armor[j].type == 228 || this.armor[j].type == 960)
+					if (this.armor[k].type == 228 || this.armor[k].type == 960)
 					{
-						Player player28 = this;
-						player28.statManaMax2 = player28.statManaMax2 + 20;
+						this.statManaMax2 += 20;
 					}
-					if (this.armor[j].type == 228 || this.armor[j].type == 229 || this.armor[j].type == 230 || this.armor[j].type == 960 || this.armor[j].type == 961 || this.armor[j].type == 962)
+					if (this.armor[k].type == 228 || this.armor[k].type == 229 || this.armor[k].type == 230 || this.armor[k].type == 960 || this.armor[k].type == 961 || this.armor[k].type == 962)
 					{
-						Player player29 = this;
-						player29.magicCrit = player29.magicCrit + 4;
+						this.magicCrit += 4;
 					}
-					if (this.armor[j].type == 100 || this.armor[j].type == 101 || this.armor[j].type == 102)
+					if (this.armor[k].type == 100 || this.armor[k].type == 101 || this.armor[k].type == 102)
 					{
-						Player player30 = this;
-						player30.meleeSpeed = player30.meleeSpeed + 0.07f;
+						this.meleeSpeed += 0.07f;
 					}
-					if (this.armor[j].type == 956 || this.armor[j].type == 957 || this.armor[j].type == 958)
+					if (this.armor[k].type == 956 || this.armor[k].type == 957 || this.armor[k].type == 958)
 					{
-						Player player31 = this;
-						player31.meleeSpeed = player31.meleeSpeed + 0.07f;
+						this.meleeSpeed += 0.07f;
 					}
-					if (this.armor[j].type == 792 || this.armor[j].type == 793 || this.armor[j].type == 794)
+					if (this.armor[k].type == 792 || this.armor[k].type == 793 || this.armor[k].type == 794)
 					{
-						Player player32 = this;
-						player32.meleeDamage = player32.meleeDamage + 0.02f;
-						Player player33 = this;
-						player33.rangedDamage = player33.rangedDamage + 0.02f;
-						Player player34 = this;
-						player34.magicDamage = player34.magicDamage + 0.02f;
-						Player player35 = this;
-						player35.thrownDamage = player35.thrownDamage + 0.02f;
+						this.meleeDamage += 0.02f;
+						this.rangedDamage += 0.02f;
+						this.magicDamage += 0.02f;
+						this.thrownDamage += 0.02f;
 					}
-					if (this.armor[j].type == 371)
+					if (this.armor[k].type == 371)
 					{
-						Player player36 = this;
-						player36.magicCrit = player36.magicCrit + 9;
-						Player player37 = this;
-						player37.statManaMax2 = player37.statManaMax2 + 40;
+						this.magicCrit += 9;
+						this.statManaMax2 += 40;
 					}
-					if (this.armor[j].type == 372)
+					if (this.armor[k].type == 372)
 					{
-						Player player38 = this;
-						player38.moveSpeed = player38.moveSpeed + 0.07f;
-						Player player39 = this;
-						player39.meleeSpeed = player39.meleeSpeed + 0.12f;
+						this.moveSpeed += 0.07f;
+						this.meleeSpeed += 0.12f;
 					}
-					if (this.armor[j].type == 373)
+					if (this.armor[k].type == 373)
 					{
-						Player player40 = this;
-						player40.rangedDamage = player40.rangedDamage + 0.1f;
-						Player player41 = this;
-						player41.rangedCrit = player41.rangedCrit + 6;
+						this.rangedDamage += 0.1f;
+						this.rangedCrit += 6;
 					}
-					if (this.armor[j].type == 374)
+					if (this.armor[k].type == 374)
 					{
-						Player player42 = this;
-						player42.magicCrit = player42.magicCrit + 3;
-						Player player43 = this;
-						player43.meleeCrit = player43.meleeCrit + 3;
-						Player player44 = this;
-						player44.rangedCrit = player44.rangedCrit + 3;
+						this.magicCrit += 3;
+						this.meleeCrit += 3;
+						this.rangedCrit += 3;
 					}
-					if (this.armor[j].type == 375)
+					if (this.armor[k].type == 375)
 					{
-						Player player45 = this;
-						player45.moveSpeed = player45.moveSpeed + 0.1f;
+						this.moveSpeed += 0.1f;
 					}
-					if (this.armor[j].type == 376)
+					if (this.armor[k].type == 376)
 					{
-						Player player46 = this;
-						player46.magicDamage = player46.magicDamage + 0.15f;
-						Player player47 = this;
-						player47.statManaMax2 = player47.statManaMax2 + 60;
+						this.magicDamage += 0.15f;
+						this.statManaMax2 += 60;
 					}
-					if (this.armor[j].type == 377)
+					if (this.armor[k].type == 377)
 					{
-						Player player48 = this;
-						player48.meleeCrit = player48.meleeCrit + 5;
-						Player player49 = this;
-						player49.meleeDamage = player49.meleeDamage + 0.1f;
+						this.meleeCrit += 5;
+						this.meleeDamage += 0.1f;
 					}
-					if (this.armor[j].type == 378)
+					if (this.armor[k].type == 378)
 					{
-						Player player50 = this;
-						player50.rangedDamage = player50.rangedDamage + 0.12f;
-						Player player51 = this;
-						player51.rangedCrit = player51.rangedCrit + 7;
+						this.rangedDamage += 0.12f;
+						this.rangedCrit += 7;
 					}
-					if (this.armor[j].type == 379)
+					if (this.armor[k].type == 379)
 					{
-						Player player52 = this;
-						player52.rangedDamage = player52.rangedDamage + 0.05f;
-						Player player53 = this;
-						player53.meleeDamage = player53.meleeDamage + 0.05f;
-						Player player54 = this;
-						player54.magicDamage = player54.magicDamage + 0.05f;
+						this.rangedDamage += 0.05f;
+						this.meleeDamage += 0.05f;
+						this.magicDamage += 0.05f;
 					}
-					if (this.armor[j].type == 380)
+					if (this.armor[k].type == 380)
 					{
-						Player player55 = this;
-						player55.magicCrit = player55.magicCrit + 3;
-						Player player56 = this;
-						player56.meleeCrit = player56.meleeCrit + 3;
-						Player player57 = this;
-						player57.rangedCrit = player57.rangedCrit + 3;
+						this.magicCrit += 3;
+						this.meleeCrit += 3;
+						this.rangedCrit += 3;
 					}
-					if (this.armor[j].type >= 2367 && this.armor[j].type <= 2369)
+					if (this.armor[k].type >= 2367 && this.armor[k].type <= 2369)
 					{
-						Player player58 = this;
-						player58.fishingSkill = player58.fishingSkill + 5;
+						this.fishingSkill += 5;
 					}
-					if (this.armor[j].type == 400)
+					if (this.armor[k].type == 400)
 					{
-						Player player59 = this;
-						player59.magicDamage = player59.magicDamage + 0.11f;
-						Player player60 = this;
-						player60.magicCrit = player60.magicCrit + 11;
-						Player player61 = this;
-						player61.statManaMax2 = player61.statManaMax2 + 80;
+						this.magicDamage += 0.11f;
+						this.magicCrit += 11;
+						this.statManaMax2 += 80;
 					}
-					if (this.armor[j].type == 401)
+					if (this.armor[k].type == 401)
 					{
-						Player player62 = this;
-						player62.meleeCrit = player62.meleeCrit + 7;
-						Player player63 = this;
-						player63.meleeDamage = player63.meleeDamage + 0.14f;
+						this.meleeCrit += 7;
+						this.meleeDamage += 0.14f;
 					}
-					if (this.armor[j].type == 402)
+					if (this.armor[k].type == 402)
 					{
-						Player player64 = this;
-						player64.rangedDamage = player64.rangedDamage + 0.14f;
-						Player player65 = this;
-						player65.rangedCrit = player65.rangedCrit + 8;
+						this.rangedDamage += 0.14f;
+						this.rangedCrit += 8;
 					}
-					if (this.armor[j].type == 403)
+					if (this.armor[k].type == 403)
 					{
-						Player player66 = this;
-						player66.rangedDamage = player66.rangedDamage + 0.06f;
-						Player player67 = this;
-						player67.meleeDamage = player67.meleeDamage + 0.06f;
-						Player player68 = this;
-						player68.magicDamage = player68.magicDamage + 0.06f;
+						this.rangedDamage += 0.06f;
+						this.meleeDamage += 0.06f;
+						this.magicDamage += 0.06f;
 					}
-					if (this.armor[j].type == 404)
+					if (this.armor[k].type == 404)
 					{
-						Player player69 = this;
-						player69.magicCrit = player69.magicCrit + 4;
-						Player player70 = this;
-						player70.meleeCrit = player70.meleeCrit + 4;
-						Player player71 = this;
-						player71.rangedCrit = player71.rangedCrit + 4;
-						Player player72 = this;
-						player72.moveSpeed = player72.moveSpeed + 0.05f;
+						this.magicCrit += 4;
+						this.meleeCrit += 4;
+						this.rangedCrit += 4;
+						this.moveSpeed += 0.05f;
 					}
-					if (this.armor[j].type == 1205)
+					if (this.armor[k].type == 1205)
 					{
-						Player player73 = this;
-						player73.meleeDamage = player73.meleeDamage + 0.08f;
-						Player player74 = this;
-						player74.meleeSpeed = player74.meleeSpeed + 0.12f;
+						this.meleeDamage += 0.08f;
+						this.meleeSpeed += 0.12f;
 					}
-					if (this.armor[j].type == 1206)
+					if (this.armor[k].type == 1206)
 					{
-						Player player75 = this;
-						player75.rangedDamage = player75.rangedDamage + 0.09f;
-						Player player76 = this;
-						player76.rangedCrit = player76.rangedCrit + 9;
+						this.rangedDamage += 0.09f;
+						this.rangedCrit += 9;
 					}
-					if (this.armor[j].type == 1207)
+					if (this.armor[k].type == 1207)
 					{
-						Player player77 = this;
-						player77.magicDamage = player77.magicDamage + 0.07f;
-						Player player78 = this;
-						player78.magicCrit = player78.magicCrit + 7;
-						Player player79 = this;
-						player79.statManaMax2 = player79.statManaMax2 + 60;
+						this.magicDamage += 0.07f;
+						this.magicCrit += 7;
+						this.statManaMax2 += 60;
 					}
-					if (this.armor[j].type == 1208)
+					if (this.armor[k].type == 1208)
 					{
-						Player player80 = this;
-						player80.meleeDamage = player80.meleeDamage + 0.03f;
-						Player player81 = this;
-						player81.rangedDamage = player81.rangedDamage + 0.03f;
-						Player player82 = this;
-						player82.magicDamage = player82.magicDamage + 0.03f;
-						Player player83 = this;
-						player83.magicCrit = player83.magicCrit + 2;
-						Player player84 = this;
-						player84.meleeCrit = player84.meleeCrit + 2;
-						Player player85 = this;
-						player85.rangedCrit = player85.rangedCrit + 2;
+						this.meleeDamage += 0.03f;
+						this.rangedDamage += 0.03f;
+						this.magicDamage += 0.03f;
+						this.magicCrit += 2;
+						this.meleeCrit += 2;
+						this.rangedCrit += 2;
 					}
-					if (this.armor[j].type == 1209)
+					if (this.armor[k].type == 1209)
 					{
-						Player player86 = this;
-						player86.meleeDamage = player86.meleeDamage + 0.02f;
-						Player player87 = this;
-						player87.rangedDamage = player87.rangedDamage + 0.02f;
-						Player player88 = this;
-						player88.magicDamage = player88.magicDamage + 0.02f;
-						Player player89 = this;
-						player89.magicCrit = player89.magicCrit + 1;
-						Player player90 = this;
-						player90.meleeCrit = player90.meleeCrit + 1;
-						Player player91 = this;
-						player91.rangedCrit = player91.rangedCrit + 1;
+						this.meleeDamage += 0.02f;
+						this.rangedDamage += 0.02f;
+						this.magicDamage += 0.02f;
+						this.magicCrit++;
+						this.meleeCrit++;
+						this.rangedCrit++;
 					}
-					if (this.armor[j].type == 1210)
+					if (this.armor[k].type == 1210)
 					{
-						Player player92 = this;
-						player92.meleeDamage = player92.meleeDamage + 0.07f;
-						Player player93 = this;
-						player93.meleeSpeed = player93.meleeSpeed + 0.07f;
-						Player player94 = this;
-						player94.moveSpeed = player94.moveSpeed + 0.07f;
+						this.meleeDamage += 0.07f;
+						this.meleeSpeed += 0.07f;
+						this.moveSpeed += 0.07f;
 					}
-					if (this.armor[j].type == 1211)
+					if (this.armor[k].type == 1211)
 					{
-						Player player95 = this;
-						player95.rangedCrit = player95.rangedCrit + 15;
-						Player player96 = this;
-						player96.moveSpeed = player96.moveSpeed + 0.08f;
+						this.rangedCrit += 15;
+						this.moveSpeed += 0.08f;
 					}
-					if (this.armor[j].type == 1212)
+					if (this.armor[k].type == 1212)
 					{
-						Player player97 = this;
-						player97.magicCrit = player97.magicCrit + 18;
-						Player player98 = this;
-						player98.statManaMax2 = player98.statManaMax2 + 80;
+						this.magicCrit += 18;
+						this.statManaMax2 += 80;
 					}
-					if (this.armor[j].type == 1213)
+					if (this.armor[k].type == 1213)
 					{
-						Player player99 = this;
-						player99.magicCrit = player99.magicCrit + 6;
-						Player player100 = this;
-						player100.meleeCrit = player100.meleeCrit + 6;
-						Player player101 = this;
-						player101.rangedCrit = player101.rangedCrit + 6;
+						this.magicCrit += 6;
+						this.meleeCrit += 6;
+						this.rangedCrit += 6;
 					}
-					if (this.armor[j].type == 1214)
+					if (this.armor[k].type == 1214)
 					{
-						Player player102 = this;
-						player102.moveSpeed = player102.moveSpeed + 0.11f;
+						this.moveSpeed += 0.11f;
 					}
-					if (this.armor[j].type == 1215)
+					if (this.armor[k].type == 1215)
 					{
-						Player player103 = this;
-						player103.meleeDamage = player103.meleeDamage + 0.08f;
-						Player player104 = this;
-						player104.meleeCrit = player104.meleeCrit + 8;
-						Player player105 = this;
-						player105.meleeSpeed = player105.meleeSpeed + 0.08f;
+						this.meleeDamage += 0.08f;
+						this.meleeCrit += 8;
+						this.meleeSpeed += 0.08f;
 					}
-					if (this.armor[j].type == 1216)
+					if (this.armor[k].type == 1216)
 					{
-						Player player106 = this;
-						player106.rangedDamage = player106.rangedDamage + 0.16f;
-						Player player107 = this;
-						player107.rangedCrit = player107.rangedCrit + 7;
+						this.rangedDamage += 0.16f;
+						this.rangedCrit += 7;
 					}
-					if (this.armor[j].type == 1217)
+					if (this.armor[k].type == 1217)
 					{
-						Player player108 = this;
-						player108.magicDamage = player108.magicDamage + 0.16f;
-						Player player109 = this;
-						player109.magicCrit = player109.magicCrit + 7;
-						Player player110 = this;
-						player110.statManaMax2 = player110.statManaMax2 + 100;
+						this.magicDamage += 0.16f;
+						this.magicCrit += 7;
+						this.statManaMax2 += 100;
 					}
-					if (this.armor[j].type == 1218)
+					if (this.armor[k].type == 1218)
 					{
-						Player player111 = this;
-						player111.meleeDamage = player111.meleeDamage + 0.04f;
-						Player player112 = this;
-						player112.rangedDamage = player112.rangedDamage + 0.04f;
-						Player player113 = this;
-						player113.magicDamage = player113.magicDamage + 0.04f;
-						Player player114 = this;
-						player114.magicCrit = player114.magicCrit + 3;
-						Player player115 = this;
-						player115.meleeCrit = player115.meleeCrit + 3;
-						Player player116 = this;
-						player116.rangedCrit = player116.rangedCrit + 3;
+						this.meleeDamage += 0.04f;
+						this.rangedDamage += 0.04f;
+						this.magicDamage += 0.04f;
+						this.magicCrit += 3;
+						this.meleeCrit += 3;
+						this.rangedCrit += 3;
 					}
-					if (this.armor[j].type == 1219)
+					if (this.armor[k].type == 1219)
 					{
-						Player player117 = this;
-						player117.meleeDamage = player117.meleeDamage + 0.03f;
-						Player player118 = this;
-						player118.rangedDamage = player118.rangedDamage + 0.03f;
-						Player player119 = this;
-						player119.magicDamage = player119.magicDamage + 0.03f;
-						Player player120 = this;
-						player120.magicCrit = player120.magicCrit + 3;
-						Player player121 = this;
-						player121.meleeCrit = player121.meleeCrit + 3;
-						Player player122 = this;
-						player122.rangedCrit = player122.rangedCrit + 3;
-						Player player123 = this;
-						player123.moveSpeed = player123.moveSpeed + 0.06f;
+						this.meleeDamage += 0.03f;
+						this.rangedDamage += 0.03f;
+						this.magicDamage += 0.03f;
+						this.magicCrit += 3;
+						this.meleeCrit += 3;
+						this.rangedCrit += 3;
+						this.moveSpeed += 0.06f;
 					}
-					if (this.armor[j].type == 558)
+					if (this.armor[k].type == 558)
 					{
-						Player player124 = this;
-						player124.magicDamage = player124.magicDamage + 0.12f;
-						Player player125 = this;
-						player125.magicCrit = player125.magicCrit + 12;
-						Player player126 = this;
-						player126.statManaMax2 = player126.statManaMax2 + 100;
+						this.magicDamage += 0.12f;
+						this.magicCrit += 12;
+						this.statManaMax2 += 100;
 					}
-					if (this.armor[j].type == 559)
+					if (this.armor[k].type == 559)
 					{
-						Player player127 = this;
-						player127.meleeCrit = player127.meleeCrit + 10;
-						Player player128 = this;
-						player128.meleeDamage = player128.meleeDamage + 0.1f;
-						Player player129 = this;
-						player129.meleeSpeed = player129.meleeSpeed + 0.1f;
+						this.meleeCrit += 10;
+						this.meleeDamage += 0.1f;
+						this.meleeSpeed += 0.1f;
 					}
-					if (this.armor[j].type == 553)
+					if (this.armor[k].type == 553)
 					{
-						Player player130 = this;
-						player130.rangedDamage = player130.rangedDamage + 0.15f;
-						Player player131 = this;
-						player131.rangedCrit = player131.rangedCrit + 8;
+						this.rangedDamage += 0.15f;
+						this.rangedCrit += 8;
 					}
-					if (this.armor[j].type == 551)
+					if (this.armor[k].type == 551)
 					{
-						Player player132 = this;
-						player132.magicCrit = player132.magicCrit + 7;
-						Player player133 = this;
-						player133.meleeCrit = player133.meleeCrit + 7;
-						Player player134 = this;
-						player134.rangedCrit = player134.rangedCrit + 7;
+						this.magicCrit += 7;
+						this.meleeCrit += 7;
+						this.rangedCrit += 7;
 					}
-					if (this.armor[j].type == 552)
+					if (this.armor[k].type == 552)
 					{
-						Player player135 = this;
-						player135.rangedDamage = player135.rangedDamage + 0.07f;
-						Player player136 = this;
-						player136.meleeDamage = player136.meleeDamage + 0.07f;
-						Player player137 = this;
-						player137.magicDamage = player137.magicDamage + 0.07f;
-						Player player138 = this;
-						player138.moveSpeed = player138.moveSpeed + 0.08f;
+						this.rangedDamage += 0.07f;
+						this.meleeDamage += 0.07f;
+						this.magicDamage += 0.07f;
+						this.moveSpeed += 0.08f;
 					}
-					if (this.armor[j].type == 1001)
+					if (this.armor[k].type == 1001)
 					{
-						Player player139 = this;
-						player139.meleeDamage = player139.meleeDamage + 0.16f;
-						Player player140 = this;
-						player140.meleeCrit = player140.meleeCrit + 6;
+						this.meleeDamage += 0.16f;
+						this.meleeCrit += 6;
 					}
-					if (this.armor[j].type == 1002)
+					if (this.armor[k].type == 1002)
 					{
-						Player player141 = this;
-						player141.rangedDamage = player141.rangedDamage + 0.16f;
+						this.rangedDamage += 0.16f;
 						this.ammoCost80 = true;
 					}
-					if (this.armor[j].type == 1003)
+					if (this.armor[k].type == 1003)
 					{
-						Player player142 = this;
-						player142.statManaMax2 = player142.statManaMax2 + 80;
-						Player player143 = this;
-						player143.manaCost = player143.manaCost - 0.17f;
-						Player player144 = this;
-						player144.magicDamage = player144.magicDamage + 0.16f;
+						this.statManaMax2 += 80;
+						this.manaCost -= 0.17f;
+						this.magicDamage += 0.16f;
 					}
-					if (this.armor[j].type == 1004)
+					if (this.armor[k].type == 1004)
 					{
-						Player player145 = this;
-						player145.meleeDamage = player145.meleeDamage + 0.05f;
-						Player player146 = this;
-						player146.magicDamage = player146.magicDamage + 0.05f;
-						Player player147 = this;
-						player147.rangedDamage = player147.rangedDamage + 0.05f;
-						Player player148 = this;
-						player148.magicCrit = player148.magicCrit + 7;
-						Player player149 = this;
-						player149.meleeCrit = player149.meleeCrit + 7;
-						Player player150 = this;
-						player150.rangedCrit = player150.rangedCrit + 7;
+						this.meleeDamage += 0.05f;
+						this.magicDamage += 0.05f;
+						this.rangedDamage += 0.05f;
+						this.magicCrit += 7;
+						this.meleeCrit += 7;
+						this.rangedCrit += 7;
 					}
-					if (this.armor[j].type == 1005)
+					if (this.armor[k].type == 1005)
 					{
-						Player player151 = this;
-						player151.magicCrit = player151.magicCrit + 8;
-						Player player152 = this;
-						player152.meleeCrit = player152.meleeCrit + 8;
-						Player player153 = this;
-						player153.rangedCrit = player153.rangedCrit + 8;
-						Player player154 = this;
-						player154.moveSpeed = player154.moveSpeed + 0.05f;
+						this.magicCrit += 8;
+						this.meleeCrit += 8;
+						this.rangedCrit += 8;
+						this.moveSpeed += 0.05f;
 					}
-					if (this.armor[j].type == 2189)
+					if (this.armor[k].type == 2189)
 					{
-						Player player155 = this;
-						player155.statManaMax2 = player155.statManaMax2 + 60;
-						Player player156 = this;
-						player156.manaCost = player156.manaCost - 0.13f;
-						Player player157 = this;
-						player157.magicDamage = player157.magicDamage + 0.05f;
-						Player player158 = this;
-						player158.magicCrit = player158.magicCrit + 5;
+						this.statManaMax2 += 60;
+						this.manaCost -= 0.13f;
+						this.magicDamage += 0.05f;
+						this.magicCrit += 5;
 					}
-					if (this.armor[j].type == 1503)
+					if (this.armor[k].type == 1503)
 					{
-						Player player159 = this;
-						player159.magicDamage = player159.magicDamage - 0.4f;
+						this.magicDamage -= 0.4f;
 					}
-					if (this.armor[j].type == 1504)
+					if (this.armor[k].type == 1504)
 					{
-						Player player160 = this;
-						player160.magicDamage = player160.magicDamage + 0.07f;
-						Player player161 = this;
-						player161.magicCrit = player161.magicCrit + 7;
+						this.magicDamage += 0.07f;
+						this.magicCrit += 7;
 					}
-					if (this.armor[j].type == 1505)
+					if (this.armor[k].type == 1505)
 					{
-						Player player162 = this;
-						player162.magicDamage = player162.magicDamage + 0.08f;
-						Player player163 = this;
-						player163.moveSpeed = player163.moveSpeed + 0.08f;
+						this.magicDamage += 0.08f;
+						this.moveSpeed += 0.08f;
 					}
-					if (this.armor[j].type == 1546)
+					if (this.armor[k].type == 1546)
 					{
-						Player player164 = this;
-						player164.rangedCrit = player164.rangedCrit + 5;
-						Player player165 = this;
-						player165.arrowDamage = player165.arrowDamage + 0.15f;
+						this.rangedCrit += 5;
+						this.arrowDamage += 0.15f;
 					}
-					if (this.armor[j].type == 1547)
+					if (this.armor[k].type == 1547)
 					{
-						Player player166 = this;
-						player166.rangedCrit = player166.rangedCrit + 5;
-						Player player167 = this;
-						player167.bulletDamage = player167.bulletDamage + 0.15f;
+						this.rangedCrit += 5;
+						this.bulletDamage += 0.15f;
 					}
-					if (this.armor[j].type == 1548)
+					if (this.armor[k].type == 1548)
 					{
-						Player player168 = this;
-						player168.rangedCrit = player168.rangedCrit + 5;
-						Player player169 = this;
-						player169.rocketDamage = player169.rocketDamage + 0.15f;
+						this.rangedCrit += 5;
+						this.rocketDamage += 0.15f;
 					}
-					if (this.armor[j].type == 1549)
+					if (this.armor[k].type == 1549)
 					{
-						Player player170 = this;
-						player170.rangedCrit = player170.rangedCrit + 13;
-						Player player171 = this;
-						player171.rangedDamage = player171.rangedDamage + 0.13f;
+						this.rangedCrit += 13;
+						this.rangedDamage += 0.13f;
 						this.ammoCost80 = true;
 					}
-					if (this.armor[j].type == 1550)
+					if (this.armor[k].type == 1550)
 					{
-						Player player172 = this;
-						player172.rangedCrit = player172.rangedCrit + 7;
-						Player player173 = this;
-						player173.moveSpeed = player173.moveSpeed + 0.12f;
+						this.rangedCrit += 7;
+						this.moveSpeed += 0.12f;
 					}
-					if (this.armor[j].type == 1282)
+					if (this.armor[k].type == 1282)
 					{
-						Player player174 = this;
-						player174.statManaMax2 = player174.statManaMax2 + 20;
-						Player player175 = this;
-						player175.manaCost = player175.manaCost - 0.05f;
+						this.statManaMax2 += 20;
+						this.manaCost -= 0.05f;
 					}
-					if (this.armor[j].type == 1283)
+					if (this.armor[k].type == 1283)
 					{
-						Player player176 = this;
-						player176.statManaMax2 = player176.statManaMax2 + 40;
-						Player player177 = this;
-						player177.manaCost = player177.manaCost - 0.07f;
+						this.statManaMax2 += 40;
+						this.manaCost -= 0.07f;
 					}
-					if (this.armor[j].type == 1284)
+					if (this.armor[k].type == 1284)
 					{
-						Player player178 = this;
-						player178.statManaMax2 = player178.statManaMax2 + 40;
-						Player player179 = this;
-						player179.manaCost = player179.manaCost - 0.09f;
+						this.statManaMax2 += 40;
+						this.manaCost -= 0.09f;
 					}
-					if (this.armor[j].type == 1285)
+					if (this.armor[k].type == 1285)
 					{
-						Player player180 = this;
-						player180.statManaMax2 = player180.statManaMax2 + 60;
-						Player player181 = this;
-						player181.manaCost = player181.manaCost - 0.11f;
+						this.statManaMax2 += 60;
+						this.manaCost -= 0.11f;
 					}
-					if (this.armor[j].type == 1286)
+					if (this.armor[k].type == 1286)
 					{
-						Player player182 = this;
-						player182.statManaMax2 = player182.statManaMax2 + 60;
-						Player player183 = this;
-						player183.manaCost = player183.manaCost - 0.13f;
+						this.statManaMax2 += 60;
+						this.manaCost -= 0.13f;
 					}
-					if (this.armor[j].type == 1287)
+					if (this.armor[k].type == 1287)
 					{
-						Player player184 = this;
-						player184.statManaMax2 = player184.statManaMax2 + 80;
-						Player player185 = this;
-						player185.manaCost = player185.manaCost - 0.15f;
+						this.statManaMax2 += 80;
+						this.manaCost -= 0.15f;
 					}
-					if (this.armor[j].type == 1316 || this.armor[j].type == 1317 || this.armor[j].type == 1318)
+					if (this.armor[k].type == 1316 || this.armor[k].type == 1317 || this.armor[k].type == 1318)
 					{
-						Player player186 = this;
-						player186.aggro = player186.aggro + 250;
+						this.aggro += 250;
 					}
-					if (this.armor[j].type == 1316)
+					if (this.armor[k].type == 1316)
 					{
-						Player player187 = this;
-						player187.meleeDamage = player187.meleeDamage + 0.06f;
+						this.meleeDamage += 0.06f;
 					}
-					if (this.armor[j].type == 1317)
+					if (this.armor[k].type == 1317)
 					{
-						Player player188 = this;
-						player188.meleeDamage = player188.meleeDamage + 0.08f;
-						Player player189 = this;
-						player189.meleeCrit = player189.meleeCrit + 8;
+						this.meleeDamage += 0.08f;
+						this.meleeCrit += 8;
 					}
-					if (this.armor[j].type == 1318)
+					if (this.armor[k].type == 1318)
 					{
-						Player player190 = this;
-						player190.meleeCrit = player190.meleeCrit + 4;
+						this.meleeCrit += 4;
 					}
-					if (this.armor[j].type == 2199 || this.armor[j].type == 2202)
+					if (this.armor[k].type == 2199 || this.armor[k].type == 2202)
 					{
-						Player player191 = this;
-						player191.aggro = player191.aggro + 250;
+						this.aggro += 250;
 					}
-					if (this.armor[j].type == 2201)
+					if (this.armor[k].type == 2201)
 					{
-						Player player192 = this;
-						player192.aggro = player192.aggro + 400;
+						this.aggro += 400;
 					}
-					if (this.armor[j].type == 2199)
+					if (this.armor[k].type == 2199)
 					{
-						Player player193 = this;
-						player193.meleeDamage = player193.meleeDamage + 0.06f;
+						this.meleeDamage += 0.06f;
 					}
-					if (this.armor[j].type == 2200)
+					if (this.armor[k].type == 2200)
 					{
-						Player player194 = this;
-						player194.meleeDamage = player194.meleeDamage + 0.08f;
-						Player player195 = this;
-						player195.meleeCrit = player195.meleeCrit + 8;
-						Player player196 = this;
-						player196.meleeSpeed = player196.meleeSpeed + 0.06f;
-						Player player197 = this;
-						player197.moveSpeed = player197.moveSpeed + 0.06f;
+						this.meleeDamage += 0.08f;
+						this.meleeCrit += 8;
+						this.meleeSpeed += 0.06f;
+						this.moveSpeed += 0.06f;
 					}
-					if (this.armor[j].type == 2201)
+					if (this.armor[k].type == 2201)
 					{
-						Player player198 = this;
-						player198.meleeDamage = player198.meleeDamage + 0.05f;
-						Player player199 = this;
-						player199.meleeCrit = player199.meleeCrit + 5;
+						this.meleeDamage += 0.05f;
+						this.meleeCrit += 5;
 					}
-					if (this.armor[j].type == 2202)
+					if (this.armor[k].type == 2202)
 					{
-						Player player200 = this;
-						player200.meleeSpeed = player200.meleeSpeed + 0.06f;
-						Player player201 = this;
-						player201.moveSpeed = player201.moveSpeed + 0.06f;
+						this.meleeSpeed += 0.06f;
+						this.moveSpeed += 0.06f;
 					}
-					if (this.armor[j].type == 684)
+					if (this.armor[k].type == 684)
 					{
-						Player player202 = this;
-						player202.rangedDamage = player202.rangedDamage + 0.16f;
-						Player player203 = this;
-						player203.meleeDamage = player203.meleeDamage + 0.16f;
+						this.rangedDamage += 0.16f;
+						this.meleeDamage += 0.16f;
 					}
-					if (this.armor[j].type == 685)
+					if (this.armor[k].type == 685)
 					{
-						Player player204 = this;
-						player204.meleeCrit = player204.meleeCrit + 11;
-						Player player205 = this;
-						player205.rangedCrit = player205.rangedCrit + 11;
+						this.meleeCrit += 11;
+						this.rangedCrit += 11;
 					}
-					if (this.armor[j].type == 686)
+					if (this.armor[k].type == 686)
 					{
-						Player player206 = this;
-						player206.moveSpeed = player206.moveSpeed + 0.08f;
-						Player player207 = this;
-						player207.meleeSpeed = player207.meleeSpeed + 0.07f;
+						this.moveSpeed += 0.08f;
+						this.meleeSpeed += 0.07f;
 					}
-					if (this.armor[j].type == 2361)
+					if (this.armor[k].type == 2361)
 					{
-						Player player208 = this;
-						player208.maxMinions = player208.maxMinions + 1;
-						Player player209 = this;
-						player209.minionDamage = player209.minionDamage + 0.04f;
+						this.maxMinions++;
+						this.minionDamage += 0.04f;
 					}
-					if (this.armor[j].type == 2362)
+					if (this.armor[k].type == 2362)
 					{
-						Player player210 = this;
-						player210.maxMinions = player210.maxMinions + 1;
-						Player player211 = this;
-						player211.minionDamage = player211.minionDamage + 0.04f;
+						this.maxMinions++;
+						this.minionDamage += 0.04f;
 					}
-					if (this.armor[j].type == 2363)
+					if (this.armor[k].type == 2363)
 					{
-						Player player212 = this;
-						player212.minionDamage = player212.minionDamage + 0.05f;
+						this.minionDamage += 0.05f;
 					}
-					if (this.armor[j].type >= 1158 && this.armor[j].type <= 1161)
+					if (this.armor[k].type >= 1158 && this.armor[k].type <= 1161)
 					{
-						Player player213 = this;
-						player213.maxMinions = player213.maxMinions + 1;
+						this.maxMinions++;
 					}
-					if (this.armor[j].type >= 1159 && this.armor[j].type <= 1161)
+					if (this.armor[k].type >= 1159 && this.armor[k].type <= 1161)
 					{
-						Player player214 = this;
-						player214.minionDamage = player214.minionDamage + 0.1f;
+						this.minionDamage += 0.1f;
 					}
-					if (this.armor[j].type >= 2370 && this.armor[j].type <= 2371)
+					if (this.armor[k].type >= 2370 && this.armor[k].type <= 2371)
 					{
-						Player player215 = this;
-						player215.minionDamage = player215.minionDamage + 0.05f;
-						Player player216 = this;
-						player216.maxMinions = player216.maxMinions + 1;
+						this.minionDamage += 0.05f;
+						this.maxMinions++;
 					}
-					if (this.armor[j].type == 2372)
+					if (this.armor[k].type == 2372)
 					{
-						Player player217 = this;
-						player217.minionDamage = player217.minionDamage + 0.06f;
-						Player player218 = this;
-						player218.maxMinions = player218.maxMinions + 1;
+						this.minionDamage += 0.06f;
+						this.maxMinions++;
 					}
-					if (this.armor[j].type == 3381 || this.armor[j].type == 3382 || this.armor[j].type == 3383)
+					if (this.armor[k].type == 3381 || this.armor[k].type == 3382 || this.armor[k].type == 3383)
 					{
-						if (this.armor[j].type != 3381)
+						if (this.armor[k].type != 3381)
 						{
-							Player player219 = this;
-							player219.maxMinions = player219.maxMinions + 1;
+							this.maxMinions++;
 						}
-						Player player220 = this;
-						player220.maxMinions = player220.maxMinions + 1;
-						Player player221 = this;
-						player221.minionDamage = player221.minionDamage + 0.22f;
+						this.maxMinions++;
+						this.minionDamage += 0.22f;
 					}
-					if (this.armor[j].type == 2763)
+					if (this.armor[k].type == 2763)
 					{
-						Player player222 = this;
-						player222.aggro = player222.aggro + 300;
-						Player player223 = this;
-						player223.meleeCrit = player223.meleeCrit + 17;
+						this.aggro += 300;
+						this.meleeCrit += 17;
 					}
-					if (this.armor[j].type == 2764)
+					if (this.armor[k].type == 2764)
 					{
-						Player player224 = this;
-						player224.aggro = player224.aggro + 300;
-						Player player225 = this;
-						player225.meleeDamage = player225.meleeDamage + 0.22f;
+						this.aggro += 300;
+						this.meleeDamage += 0.22f;
 					}
-					if (this.armor[j].type == 2765)
+					if (this.armor[k].type == 2765)
 					{
-						Player player226 = this;
-						player226.aggro = player226.aggro + 300;
-						Player player227 = this;
-						player227.meleeSpeed = player227.meleeSpeed + 0.15f;
-						Player player228 = this;
-						player228.moveSpeed = player228.moveSpeed + 0.15f;
+						this.aggro += 300;
+						this.meleeSpeed += 0.15f;
+						this.moveSpeed += 0.15f;
 					}
-					if (this.armor[j].type == 2757)
+					if (this.armor[k].type == 2757)
 					{
-						Player player229 = this;
-						player229.rangedCrit = player229.rangedCrit + 7;
-						Player player230 = this;
-						player230.rangedDamage = player230.rangedDamage + 0.16f;
+						this.rangedCrit += 7;
+						this.rangedDamage += 0.16f;
 					}
-					if (this.armor[j].type == 2758)
+					if (this.armor[k].type == 2758)
 					{
 						this.ammoCost75 = true;
-						Player player231 = this;
-						player231.rangedCrit = player231.rangedCrit + 12;
-						Player player232 = this;
-						player232.rangedDamage = player232.rangedDamage + 0.12f;
+						this.rangedCrit += 12;
+						this.rangedDamage += 0.12f;
 					}
-					if (this.armor[j].type == 2759)
+					if (this.armor[k].type == 2759)
 					{
-						Player player233 = this;
-						player233.rangedCrit = player233.rangedCrit + 8;
-						Player player234 = this;
-						player234.rangedDamage = player234.rangedDamage + 0.08f;
-						Player player235 = this;
-						player235.moveSpeed = player235.moveSpeed + 0.1f;
+						this.rangedCrit += 8;
+						this.rangedDamage += 0.08f;
+						this.moveSpeed += 0.1f;
 					}
-					if (this.armor[j].type == 2760)
+					if (this.armor[k].type == 2760)
 					{
-						Player player236 = this;
-						player236.statManaMax2 = player236.statManaMax2 + 60;
-						Player player237 = this;
-						player237.manaCost = player237.manaCost - 0.15f;
-						Player player238 = this;
-						player238.magicCrit = player238.magicCrit + 7;
-						Player player239 = this;
-						player239.magicDamage = player239.magicDamage + 0.07f;
+						this.statManaMax2 += 60;
+						this.manaCost -= 0.15f;
+						this.magicCrit += 7;
+						this.magicDamage += 0.07f;
 					}
-					if (this.armor[j].type == 2761)
+					if (this.armor[k].type == 2761)
 					{
-						Player player240 = this;
-						player240.magicDamage = player240.magicDamage + 0.09f;
-						Player player241 = this;
-						player241.magicCrit = player241.magicCrit + 9;
+						this.magicDamage += 0.09f;
+						this.magicCrit += 9;
 					}
-					if (this.armor[j].type == 2762)
+					if (this.armor[k].type == 2762)
 					{
-						Player player242 = this;
-						player242.moveSpeed = player242.moveSpeed + 0.1f;
-						Player player243 = this;
-						player243.magicDamage = player243.magicDamage + 0.1f;
+						this.moveSpeed += 0.1f;
+						this.magicDamage += 0.1f;
 					}
-					if (this.armor[j].type >= 1832 && this.armor[j].type <= 1834)
+					if (this.armor[k].type >= 1832 && this.armor[k].type <= 1834)
 					{
-						Player player244 = this;
-						player244.maxMinions = player244.maxMinions + 1;
+						this.maxMinions++;
 					}
-					if (this.armor[j].type >= 1832 && this.armor[j].type <= 1834)
+					if (this.armor[k].type >= 1832 && this.armor[k].type <= 1834)
 					{
-						Player player245 = this;
-						player245.minionDamage = player245.minionDamage + 0.11f;
+						this.minionDamage += 0.11f;
 					}
-					if (this.armor[j].prefix == 62)
+					if (this.armor[k].prefix == 62)
 					{
-						Player player246 = this;
-						player246.statDefense = player246.statDefense + 1;
+						this.statDefense++;
 					}
-					if (this.armor[j].prefix == 63)
+					if (this.armor[k].prefix == 63)
 					{
-						Player player247 = this;
-						player247.statDefense = player247.statDefense + 2;
+						this.statDefense += 2;
 					}
-					if (this.armor[j].prefix == 64)
+					if (this.armor[k].prefix == 64)
 					{
-						Player player248 = this;
-						player248.statDefense = player248.statDefense + 3;
+						this.statDefense += 3;
 					}
-					if (this.armor[j].prefix == 65)
+					if (this.armor[k].prefix == 65)
 					{
-						Player player249 = this;
-						player249.statDefense = player249.statDefense + 4;
+						this.statDefense += 4;
 					}
-					if (this.armor[j].prefix == 66)
+					if (this.armor[k].prefix == 66)
 					{
-						Player player250 = this;
-						player250.statManaMax2 = player250.statManaMax2 + 20;
+						this.statManaMax2 += 20;
 					}
-					if (this.armor[j].prefix == 67)
+					if (this.armor[k].prefix == 67)
 					{
-						Player player251 = this;
-						player251.meleeCrit = player251.meleeCrit + 2;
-						Player player252 = this;
-						player252.rangedCrit = player252.rangedCrit + 2;
-						Player player253 = this;
-						player253.magicCrit = player253.magicCrit + 2;
-						Player player254 = this;
-						player254.thrownCrit = player254.thrownCrit + 2;
+						this.meleeCrit += 2;
+						this.rangedCrit += 2;
+						this.magicCrit += 2;
+						this.thrownCrit += 2;
 					}
-					if (this.armor[j].prefix == 68)
+					if (this.armor[k].prefix == 68)
 					{
-						Player player255 = this;
-						player255.meleeCrit = player255.meleeCrit + 4;
-						Player player256 = this;
-						player256.rangedCrit = player256.rangedCrit + 4;
-						Player player257 = this;
-						player257.magicCrit = player257.magicCrit + 4;
-						Player player258 = this;
-						player258.thrownCrit = player258.thrownCrit + 4;
+						this.meleeCrit += 4;
+						this.rangedCrit += 4;
+						this.magicCrit += 4;
+						this.thrownCrit += 4;
 					}
-					if (this.armor[j].prefix == 69)
+					if (this.armor[k].prefix == 69)
 					{
-						Player player259 = this;
-						player259.meleeDamage = player259.meleeDamage + 0.01f;
-						Player player260 = this;
-						player260.rangedDamage = player260.rangedDamage + 0.01f;
-						Player player261 = this;
-						player261.magicDamage = player261.magicDamage + 0.01f;
-						Player player262 = this;
-						player262.minionDamage = player262.minionDamage + 0.01f;
-						Player player263 = this;
-						player263.thrownDamage = player263.thrownDamage + 0.01f;
+						this.meleeDamage += 0.01f;
+						this.rangedDamage += 0.01f;
+						this.magicDamage += 0.01f;
+						this.minionDamage += 0.01f;
+						this.thrownDamage += 0.01f;
 					}
-					if (this.armor[j].prefix == 70)
+					if (this.armor[k].prefix == 70)
 					{
-						Player player264 = this;
-						player264.meleeDamage = player264.meleeDamage + 0.02f;
-						Player player265 = this;
-						player265.rangedDamage = player265.rangedDamage + 0.02f;
-						Player player266 = this;
-						player266.magicDamage = player266.magicDamage + 0.02f;
-						Player player267 = this;
-						player267.minionDamage = player267.minionDamage + 0.02f;
-						Player player268 = this;
-						player268.thrownDamage = player268.thrownDamage + 0.02f;
+						this.meleeDamage += 0.02f;
+						this.rangedDamage += 0.02f;
+						this.magicDamage += 0.02f;
+						this.minionDamage += 0.02f;
+						this.thrownDamage += 0.02f;
 					}
-					if (this.armor[j].prefix == 71)
+					if (this.armor[k].prefix == 71)
 					{
-						Player player269 = this;
-						player269.meleeDamage = player269.meleeDamage + 0.03f;
-						Player player270 = this;
-						player270.rangedDamage = player270.rangedDamage + 0.03f;
-						Player player271 = this;
-						player271.magicDamage = player271.magicDamage + 0.03f;
-						Player player272 = this;
-						player272.minionDamage = player272.minionDamage + 0.03f;
-						Player player273 = this;
-						player273.thrownDamage = player273.thrownDamage + 0.03f;
+						this.meleeDamage += 0.03f;
+						this.rangedDamage += 0.03f;
+						this.magicDamage += 0.03f;
+						this.minionDamage += 0.03f;
+						this.thrownDamage += 0.03f;
 					}
-					if (this.armor[j].prefix == 72)
+					if (this.armor[k].prefix == 72)
 					{
-						Player player274 = this;
-						player274.meleeDamage = player274.meleeDamage + 0.04f;
-						Player player275 = this;
-						player275.rangedDamage = player275.rangedDamage + 0.04f;
-						Player player276 = this;
-						player276.magicDamage = player276.magicDamage + 0.04f;
-						Player player277 = this;
-						player277.minionDamage = player277.minionDamage + 0.04f;
-						Player player278 = this;
-						player278.thrownDamage = player278.thrownDamage + 0.04f;
+						this.meleeDamage += 0.04f;
+						this.rangedDamage += 0.04f;
+						this.magicDamage += 0.04f;
+						this.minionDamage += 0.04f;
+						this.thrownDamage += 0.04f;
 					}
-					if (this.armor[j].prefix == 73)
+					if (this.armor[k].prefix == 73)
 					{
-						Player player279 = this;
-						player279.moveSpeed = player279.moveSpeed + 0.01f;
+						this.moveSpeed += 0.01f;
 					}
-					if (this.armor[j].prefix == 74)
+					if (this.armor[k].prefix == 74)
 					{
-						Player player280 = this;
-						player280.moveSpeed = player280.moveSpeed + 0.02f;
+						this.moveSpeed += 0.02f;
 					}
-					if (this.armor[j].prefix == 75)
+					if (this.armor[k].prefix == 75)
 					{
-						Player player281 = this;
-						player281.moveSpeed = player281.moveSpeed + 0.03f;
+						this.moveSpeed += 0.03f;
 					}
-					if (this.armor[j].prefix == 76)
+					if (this.armor[k].prefix == 76)
 					{
-						Player player282 = this;
-						player282.moveSpeed = player282.moveSpeed + 0.04f;
+						this.moveSpeed += 0.04f;
 					}
-					if (this.armor[j].prefix == 77)
+					if (this.armor[k].prefix == 77)
 					{
-						Player player283 = this;
-						player283.meleeSpeed = player283.meleeSpeed + 0.01f;
+						this.meleeSpeed += 0.01f;
 					}
-					if (this.armor[j].prefix == 78)
+					if (this.armor[k].prefix == 78)
 					{
-						Player player284 = this;
-						player284.meleeSpeed = player284.meleeSpeed + 0.02f;
+						this.meleeSpeed += 0.02f;
 					}
-					if (this.armor[j].prefix == 79)
+					if (this.armor[k].prefix == 79)
 					{
-						Player player285 = this;
-						player285.meleeSpeed = player285.meleeSpeed + 0.03f;
+						this.meleeSpeed += 0.03f;
 					}
-					if (this.armor[j].prefix == 80)
+					if (this.armor[k].prefix == 80)
 					{
-						Player player286 = this;
-						player286.meleeSpeed = player286.meleeSpeed + 0.04f;
+						this.meleeSpeed += 0.04f;
 					}
 				}
 			}
 			bool flag = false;
-			bool flag1 = false;
 			bool flag2 = false;
-			for (int k = 3; k < 8 + this.extraAccessorySlots; k++)
+			bool flag3 = false;
+			for (int l = 3; l < 8 + this.extraAccessorySlots; l++)
 			{
-				if (!this.armor[k].expertOnly || Main.expertMode)
+				if (!this.armor[l].expertOnly || Main.expertMode)
 				{
-					if (this.armor[k].type == 3015)
+					if (this.armor[l].type == 3015)
 					{
-						Player player287 = this;
-						player287.aggro = player287.aggro - 400;
-						Player player288 = this;
-						player288.meleeCrit = player288.meleeCrit + 5;
-						Player player289 = this;
-						player289.magicCrit = player289.magicCrit + 5;
-						Player player290 = this;
-						player290.rangedCrit = player290.rangedCrit + 5;
-						Player player291 = this;
-						player291.thrownCrit = player291.thrownCrit + 5;
-						Player player292 = this;
-						player292.meleeDamage = player292.meleeDamage + 0.05f;
-						Player player293 = this;
-						player293.magicDamage = player293.magicDamage + 0.05f;
-						Player player294 = this;
-						player294.rangedDamage = player294.rangedDamage + 0.05f;
-						Player player295 = this;
-						player295.thrownDamage = player295.thrownDamage + 0.05f;
-						Player player296 = this;
-						player296.minionDamage = player296.minionDamage + 0.05f;
+						this.aggro -= 400;
+						this.meleeCrit += 5;
+						this.magicCrit += 5;
+						this.rangedCrit += 5;
+						this.thrownCrit += 5;
+						this.meleeDamage += 0.05f;
+						this.magicDamage += 0.05f;
+						this.rangedDamage += 0.05f;
+						this.thrownDamage += 0.05f;
+						this.minionDamage += 0.05f;
 					}
-					if (this.armor[k].type == 3016)
+					if (this.armor[l].type == 3016)
 					{
-						Player player297 = this;
-						player297.aggro = player297.aggro + 400;
+						this.aggro += 400;
 					}
-					if (this.armor[k].type == 2373)
+					if (this.armor[l].type == 2373)
 					{
 						this.accFishingLine = true;
 					}
-					if (this.armor[k].type == 2374)
+					if (this.armor[l].type == 2374)
 					{
-						Player player298 = this;
-						player298.fishingSkill = player298.fishingSkill + 10;
+						this.fishingSkill += 10;
 					}
-					if (this.armor[k].type == 2375)
+					if (this.armor[l].type == 2375)
 					{
 						this.accTackleBox = true;
 					}
-					if (this.armor[k].type == 3090)
+					if (this.armor[l].type == 3721)
+					{
+						this.accFishingLine = true;
+						this.accTackleBox = true;
+						this.fishingSkill += 10;
+					}
+					if (this.armor[l].type == 3090)
 					{
 						this.npcTypeNoAggro[1] = true;
 						this.npcTypeNoAggro[16] = true;
@@ -30068,947 +30599,851 @@ namespace Terraria
 						this.npcTypeNoAggro[336] = true;
 						this.npcTypeNoAggro[537] = true;
 					}
-					if (this.armor[k].stringColor > 0)
+					if (this.armor[l].stringColor > 0)
 					{
 						this.yoyoString = true;
 					}
-					if (this.armor[k].type == 3366)
+					if (this.armor[l].type == 3366)
 					{
 						this.counterWeight = 556 + Main.rand.Next(6);
 						this.yoyoGlove = true;
 						this.yoyoString = true;
 					}
-					if (this.armor[k].type >= 3309 && this.armor[k].type <= 3314)
+					if (this.armor[l].type >= 3309 && this.armor[l].type <= 3314)
 					{
-						this.counterWeight = 556 + this.armor[k].type - 3309;
+						this.counterWeight = 556 + this.armor[l].type - 3309;
 					}
-					if (this.armor[k].type == 3334)
+					if (this.armor[l].type == 3334)
 					{
 						this.yoyoGlove = true;
 					}
-					if (this.armor[k].type == 3337)
+					if (this.armor[l].type == 3337)
 					{
 						this.shinyStone = true;
 					}
-					if (this.armor[k].type == 3336)
+					if (this.armor[l].type == 3336)
 					{
 						this.SporeSac();
 						this.sporeSac = true;
 					}
-					if (this.armor[k].type == 2423)
+					if (this.armor[l].type == 2423)
 					{
 						this.autoJump = true;
-						Player player299 = this;
-						player299.jumpSpeedBoost = player299.jumpSpeedBoost + 2.4f;
-						Player player300 = this;
-						player300.extraFall = player300.extraFall + 15;
+						this.jumpSpeedBoost += 2.4f;
+						this.extraFall += 15;
 					}
-					if (this.armor[k].type == 857)
+					if (this.armor[l].type == 857)
 					{
 						this.doubleJumpSandstorm = true;
 					}
-					if (this.armor[k].type == 983)
+					if (this.armor[l].type == 983)
 					{
 						this.doubleJumpSandstorm = true;
 						this.jumpBoost = true;
 					}
-					if (this.armor[k].type == 987)
+					if (this.armor[l].type == 987)
 					{
 						this.doubleJumpBlizzard = true;
 					}
-					if (this.armor[k].type == 1163)
+					if (this.armor[l].type == 1163)
 					{
 						this.doubleJumpBlizzard = true;
 						this.jumpBoost = true;
 					}
-					if (this.armor[k].type == 1724)
+					if (this.armor[l].type == 1724)
 					{
 						this.doubleJumpFart = true;
 					}
-					if (this.armor[k].type == 1863)
+					if (this.armor[l].type == 1863)
 					{
 						this.doubleJumpFart = true;
 						this.jumpBoost = true;
 					}
-					if (this.armor[k].type == 1164)
+					if (this.armor[l].type == 1164)
 					{
 						this.doubleJumpCloud = true;
 						this.doubleJumpSandstorm = true;
 						this.doubleJumpBlizzard = true;
 						this.jumpBoost = true;
 					}
-					if (this.armor[k].type == 1250)
+					if (this.armor[l].type == 1250)
 					{
 						this.jumpBoost = true;
 						this.doubleJumpCloud = true;
 						this.noFallDmg = true;
 					}
-					if (this.armor[k].type == 1252)
+					if (this.armor[l].type == 1252)
 					{
 						this.doubleJumpSandstorm = true;
 						this.jumpBoost = true;
 						this.noFallDmg = true;
 					}
-					if (this.armor[k].type == 1251)
+					if (this.armor[l].type == 1251)
 					{
 						this.doubleJumpBlizzard = true;
 						this.jumpBoost = true;
 						this.noFallDmg = true;
 					}
-					if (this.armor[k].type == 3250)
+					if (this.armor[l].type == 3250)
 					{
 						this.doubleJumpFart = true;
 						this.jumpBoost = true;
 						this.noFallDmg = true;
 					}
-					if (this.armor[k].type == 3252)
+					if (this.armor[l].type == 3252)
 					{
 						this.doubleJumpSail = true;
 						this.jumpBoost = true;
 						this.noFallDmg = true;
 					}
-					if (this.armor[k].type == 3251)
+					if (this.armor[l].type == 3251)
 					{
 						this.jumpBoost = true;
 						this.bee = true;
 						this.noFallDmg = true;
 					}
-					if (this.armor[k].type == 1249)
+					if (this.armor[l].type == 1249)
 					{
 						this.jumpBoost = true;
 						this.bee = true;
 					}
-					if (this.armor[k].type == 3241)
+					if (this.armor[l].type == 3241)
 					{
 						this.jumpBoost = true;
 						this.doubleJumpSail = true;
 					}
-					if (this.armor[k].type == 1253 && (double)this.statLife <= (double)this.statLifeMax2 * 0.5)
+					if (this.armor[l].type == 1253 && (double)this.statLife <= (double)this.statLifeMax2 * 0.5)
 					{
 						this.AddBuff(62, 5, true);
 					}
-					if (this.armor[k].type == 1290)
+					if (this.armor[l].type == 1290)
 					{
 						this.panic = true;
 					}
-					if ((this.armor[k].type == 1300 || this.armor[k].type == 1858) && (this.inventory[this.selectedItem].useAmmo == 14 || this.inventory[this.selectedItem].useAmmo == 311 || this.inventory[this.selectedItem].useAmmo == 323 || this.inventory[this.selectedItem].useAmmo == 23))
+					if ((this.armor[l].type == 1300 || this.armor[l].type == 1858) && (this.inventory[this.selectedItem].useAmmo == 14 || this.inventory[this.selectedItem].useAmmo == 311 || this.inventory[this.selectedItem].useAmmo == 323 || this.inventory[this.selectedItem].useAmmo == 23))
 					{
 						this.scope = true;
 					}
-					if (this.armor[k].type == 1858)
+					if (this.armor[l].type == 1858)
 					{
-						Player player301 = this;
-						player301.rangedCrit = player301.rangedCrit + 10;
-						Player player302 = this;
-						player302.rangedDamage = player302.rangedDamage + 0.1f;
+						this.rangedCrit += 10;
+						this.rangedDamage += 0.1f;
 					}
-					if (this.armor[k].type == 1301)
+					if (this.armor[l].type == 1301)
 					{
-						Player player303 = this;
-						player303.meleeCrit = player303.meleeCrit + 8;
-						Player player304 = this;
-						player304.rangedCrit = player304.rangedCrit + 8;
-						Player player305 = this;
-						player305.magicCrit = player305.magicCrit + 8;
-						Player player306 = this;
-						player306.thrownCrit = player306.thrownCrit + 8;
-						Player player307 = this;
-						player307.meleeDamage = player307.meleeDamage + 0.1f;
-						Player player308 = this;
-						player308.rangedDamage = player308.rangedDamage + 0.1f;
-						Player player309 = this;
-						player309.magicDamage = player309.magicDamage + 0.1f;
-						Player player310 = this;
-						player310.minionDamage = player310.minionDamage + 0.1f;
-						Player player311 = this;
-						player311.thrownDamage = player311.thrownDamage + 0.1f;
+						this.meleeCrit += 8;
+						this.rangedCrit += 8;
+						this.magicCrit += 8;
+						this.thrownCrit += 8;
+						this.meleeDamage += 0.1f;
+						this.rangedDamage += 0.1f;
+						this.magicDamage += 0.1f;
+						this.minionDamage += 0.1f;
+						this.thrownDamage += 0.1f;
 					}
-					if (this.armor[k].type == 982)
+					if (this.armor[l].type == 982)
 					{
-						Player player312 = this;
-						player312.statManaMax2 = player312.statManaMax2 + 20;
-						Player player313 = this;
-						player313.manaRegenDelayBonus = player313.manaRegenDelayBonus + 1;
-						Player player314 = this;
-						player314.manaRegenBonus = player314.manaRegenBonus + 25;
+						this.statManaMax2 += 20;
+						this.manaRegenDelayBonus++;
+						this.manaRegenBonus += 25;
 					}
-					if (this.armor[k].type == 1595)
+					if (this.armor[l].type == 1595)
 					{
-						Player player315 = this;
-						player315.statManaMax2 = player315.statManaMax2 + 20;
+						this.statManaMax2 += 20;
 						this.magicCuffs = true;
 					}
-					if (this.armor[k].type == 2219)
+					if (this.armor[l].type == 2219)
 					{
 						this.manaMagnet = true;
 					}
-					if (this.armor[k].type == 2220)
+					if (this.armor[l].type == 2220)
 					{
 						this.manaMagnet = true;
-						Player player316 = this;
-						player316.magicDamage = player316.magicDamage + 0.15f;
+						this.magicDamage += 0.15f;
 					}
-					if (this.armor[k].type == 2221)
+					if (this.armor[l].type == 2221)
 					{
 						this.manaMagnet = true;
 						this.magicCuffs = true;
 					}
-					if (this.whoAmI == Main.myPlayer && this.armor[k].type == 1923)
+					if (this.whoAmI == Main.myPlayer && this.armor[l].type == 1923)
 					{
-						Player.tileRangeX = Player.tileRangeX + 1;
-						Player.tileRangeY = Player.tileRangeY + 1;
+						Player.tileRangeX++;
+						Player.tileRangeY++;
 					}
-					if (this.armor[k].type == 1247)
+					if (this.armor[l].type == 1247)
 					{
 						this.starCloak = true;
 						this.bee = true;
 					}
-					if (this.armor[k].type == 1248)
+					if (this.armor[l].type == 1248)
 					{
-						Player player317 = this;
-						player317.meleeCrit = player317.meleeCrit + 10;
-						Player player318 = this;
-						player318.rangedCrit = player318.rangedCrit + 10;
-						Player player319 = this;
-						player319.magicCrit = player319.magicCrit + 10;
-						Player player320 = this;
-						player320.thrownCrit = player320.thrownCrit + 10;
+						this.meleeCrit += 10;
+						this.rangedCrit += 10;
+						this.magicCrit += 10;
+						this.thrownCrit += 10;
 					}
-					if (this.armor[k].type == 854)
+					if (this.armor[l].type == 854)
 					{
 						this.discount = true;
 					}
-					if (this.armor[k].type == 855)
+					if (this.armor[l].type == 855)
 					{
 						this.coins = true;
 					}
-					if (this.armor[k].type == 3033)
+					if (this.armor[l].type == 3033)
 					{
 						this.goldRing = true;
 					}
-					if (this.armor[k].type == 3034)
+					if (this.armor[l].type == 3034)
 					{
 						this.goldRing = true;
 						this.coins = true;
 					}
-					if (this.armor[k].type == 3035)
+					if (this.armor[l].type == 3035)
 					{
 						this.goldRing = true;
 						this.coins = true;
 						this.discount = true;
 					}
-					if (this.armor[k].type == 53)
+					if (this.armor[l].type == 53)
 					{
 						this.doubleJumpCloud = true;
 					}
-					if (this.armor[k].type == 3201)
+					if (this.armor[l].type == 3201)
 					{
 						this.doubleJumpSail = true;
 					}
-					if (this.armor[k].type == 54)
+					if (this.armor[l].type == 54)
 					{
 						this.accRunSpeed = 6f;
 					}
-					if (this.armor[k].type == 3068)
+					if (this.armor[l].type == 3068)
 					{
 						this.cordage = true;
 					}
-					if (this.armor[k].type == 1579)
+					if (this.armor[l].type == 1579)
 					{
 						this.accRunSpeed = 6f;
 						this.coldDash = true;
 					}
-					if (this.armor[k].type == 3200)
+					if (this.armor[l].type == 3200)
 					{
 						this.accRunSpeed = 6f;
 						this.sailDash = true;
 					}
-					if (this.armor[k].type == 128)
+					if (this.armor[l].type == 128)
 					{
 						this.rocketBoots = 1;
 					}
-					if (this.armor[k].type == 156)
+					if (this.armor[l].type == 156)
 					{
 						this.noKnockback = true;
 					}
-					if (this.armor[k].type == 158)
+					if (this.armor[l].type == 158)
 					{
 						this.noFallDmg = true;
 					}
-					if (this.armor[k].type == 934)
+					if (this.armor[l].type == 934)
 					{
 						this.carpet = true;
 					}
-					if (this.armor[k].type == 953)
+					if (this.armor[l].type == 953)
 					{
-						Player player321 = this;
-						player321.spikedBoots = player321.spikedBoots + 1;
+						this.spikedBoots++;
 					}
-					if (this.armor[k].type == 975)
+					if (this.armor[l].type == 975)
 					{
-						Player player322 = this;
-						player322.spikedBoots = player322.spikedBoots + 1;
+						this.spikedBoots++;
 					}
-					if (this.armor[k].type == 976)
+					if (this.armor[l].type == 976)
 					{
-						Player player323 = this;
-						player323.spikedBoots = player323.spikedBoots + 2;
+						this.spikedBoots += 2;
 					}
-					if (this.armor[k].type == 977)
+					if (this.armor[l].type == 977)
 					{
 						this.dash = 1;
 					}
-					if (this.armor[k].type == 3097)
+					if (this.armor[l].type == 3097)
 					{
 						this.dash = 2;
 					}
-					if (this.armor[k].type == 963)
+					if (this.armor[l].type == 963)
 					{
 						this.blackBelt = true;
 					}
-					if (this.armor[k].type == 984)
+					if (this.armor[l].type == 984)
 					{
 						this.blackBelt = true;
 						this.dash = 1;
 						this.spikedBoots = 2;
 					}
-					if (this.armor[k].type == 1131)
+					if (this.armor[l].type == 1131)
 					{
 						this.gravControl2 = true;
 					}
-					if (this.armor[k].type == 1132)
+					if (this.armor[l].type == 1132)
 					{
 						this.bee = true;
 					}
-					if (this.armor[k].type == 1578)
+					if (this.armor[l].type == 1578)
 					{
 						this.bee = true;
 						this.panic = true;
 					}
-					if (this.armor[k].type == 3224)
+					if (this.armor[l].type == 3224)
 					{
-						Player player324 = this;
-						player324.endurance = player324.endurance + 0.17f;
+						this.endurance += 0.17f;
 					}
-					if (this.armor[k].type == 3223)
+					if (this.armor[l].type == 3223)
 					{
 						this.brainOfConfusion = true;
 					}
-					if (this.armor[k].type == 950)
+					if (this.armor[l].type == 950)
 					{
 						this.iceSkate = true;
 					}
-					if (this.armor[k].type == 159)
+					if (this.armor[l].type == 159)
 					{
 						this.jumpBoost = true;
 					}
-					if (this.armor[k].type == 3225)
+					if (this.armor[l].type == 3225)
 					{
 						this.jumpBoost = true;
 					}
-					if (this.armor[k].type == 187)
+					if (this.armor[l].type == 187)
 					{
 						this.accFlipper = true;
 					}
-					if (this.armor[k].type == 211)
+					if (this.armor[l].type == 211)
 					{
-						Player player325 = this;
-						player325.meleeSpeed = player325.meleeSpeed + 0.12f;
+						this.meleeSpeed += 0.12f;
 					}
-					if (this.armor[k].type == 223)
+					if (this.armor[l].type == 223)
 					{
-						Player player326 = this;
-						player326.manaCost = player326.manaCost - 0.06f;
+						this.manaCost -= 0.06f;
 					}
-					if (this.armor[k].type == 285)
+					if (this.armor[l].type == 285)
 					{
-						Player player327 = this;
-						player327.moveSpeed = player327.moveSpeed + 0.05f;
+						this.moveSpeed += 0.05f;
 					}
-					if (this.armor[k].type == 212)
+					if (this.armor[l].type == 212)
 					{
-						Player player328 = this;
-						player328.moveSpeed = player328.moveSpeed + 0.1f;
+						this.moveSpeed += 0.1f;
 					}
-					if (this.armor[k].type == 267)
+					if (this.armor[l].type == 267)
 					{
 						this.killGuide = true;
 					}
-					if (this.armor[k].type == 1307)
+					if (this.armor[l].type == 1307)
 					{
 						this.killClothier = true;
 					}
-					if (this.armor[k].type == 193)
+					if (this.armor[l].type == 193)
 					{
 						this.fireWalk = true;
 					}
-					if (this.armor[k].type == 861)
+					if (this.armor[l].type == 861)
 					{
 						this.accMerman = true;
 						this.wolfAcc = true;
-						if (this.hideVisual[k])
+						if (this.hideVisual[l])
 						{
 							this.hideMerman = true;
 							this.hideWolf = true;
 						}
 					}
-					if (this.armor[k].type == 862)
+					if (this.armor[l].type == 862)
 					{
 						this.starCloak = true;
 						this.longInvince = true;
 					}
-					if (this.armor[k].type == 860)
+					if (this.armor[l].type == 860)
 					{
 						this.pStone = true;
 					}
-					if (this.armor[k].type == 863)
+					if (this.armor[l].type == 863)
 					{
 						this.waterWalk2 = true;
 					}
-					if (this.armor[k].type == 907)
+					if (this.armor[l].type == 907)
 					{
 						this.waterWalk2 = true;
 						this.fireWalk = true;
 					}
-					if (this.armor[k].type == 908)
+					if (this.armor[l].type == 908)
 					{
 						this.waterWalk = true;
 						this.fireWalk = true;
-						Player player329 = this;
-						player329.lavaMax = player329.lavaMax + 420;
+						this.lavaMax += 420;
 					}
-					if (this.armor[k].type == 906)
+					if (this.armor[l].type == 906)
 					{
-						Player player330 = this;
-						player330.lavaMax = player330.lavaMax + 420;
+						this.lavaMax += 420;
 					}
-					if (this.armor[k].type == 485)
+					if (this.armor[l].type == 485)
 					{
 						this.wolfAcc = true;
-						if (this.hideVisual[k])
+						if (this.hideVisual[l])
 						{
 							this.hideWolf = true;
 						}
 					}
-
-					if (this.armor[k].type == 486 && !this.hideVisual[k])
+					if (this.armor[l].type == 486)
 					{
 						this.rulerLine = true;
 					}
-					if (this.armor[k].type == 2799 && !this.hideVisual[k])
+					if (this.armor[l].type == 2799)
 					{
 						this.rulerGrid = true;
 					}
-					if (this.armor[k].type == 394)
+					if (this.armor[l].type == 394)
 					{
 						this.accFlipper = true;
 						this.accDivingHelm = true;
 					}
-					if (this.armor[k].type == 396)
+					if (this.armor[l].type == 396)
 					{
 						this.noFallDmg = true;
 						this.fireWalk = true;
 					}
-					if (this.armor[k].type == 397)
+					if (this.armor[l].type == 397)
 					{
 						this.noKnockback = true;
 						this.fireWalk = true;
 					}
-					if (this.armor[k].type == 399)
+					if (this.armor[l].type == 399)
 					{
 						this.jumpBoost = true;
 						this.doubleJumpCloud = true;
 					}
-					if (this.armor[k].type == 405)
+					if (this.armor[l].type == 405)
 					{
 						this.accRunSpeed = 6f;
 						this.rocketBoots = 2;
 					}
-					if (this.armor[k].type == 1860)
+					if (this.armor[l].type == 1860)
 					{
 						this.accFlipper = true;
 						this.accDivingHelm = true;
+						
 					}
-					if (this.armor[k].type == 1861)
+					if (this.armor[l].type == 1861)
 					{
 						this.arcticDivingGear = true;
 						this.accFlipper = true;
 						this.accDivingHelm = true;
 						this.iceSkate = true;
 					}
-					if (this.armor[k].type == 2214)
-					{
-						flag1 = true;
-					}
-					if (this.armor[k].type == 2215)
+					if (this.armor[l].type == 2214)
 					{
 						flag2 = true;
 					}
-					if (this.armor[k].type == 2216)
+					if (this.armor[l].type == 2215)
+					{
+						flag3 = true;
+					}
+					if (this.armor[l].type == 2216)
 					{
 						this.autoPaint = true;
 					}
-					if (this.armor[k].type == 2217)
+					if (this.armor[l].type == 2217)
 					{
 						flag = true;
 					}
-					if (this.armor[k].type == 3061)
+					if (this.armor[l].type == 3061)
 					{
 						flag = true;
-						flag1 = true;
-						this.autoPaint = true;
 						flag2 = true;
+						this.autoPaint = true;
+						flag3 = true;
 					}
-					if (this.armor[k].type == 897)
+					if (this.armor[l].type == 3624)
+					{
+						this.autoActuator = true;
+					}
+					if (this.armor[l].type == 897)
 					{
 						this.kbGlove = true;
-						Player player331 = this;
-						player331.meleeSpeed = player331.meleeSpeed + 0.12f;
+						this.meleeSpeed += 0.12f;
 					}
-					if (this.armor[k].type == 1343)
+					if (this.armor[l].type == 1343)
 					{
 						this.kbGlove = true;
-						Player player332 = this;
-						player332.meleeSpeed = player332.meleeSpeed + 0.1f;
-						Player player333 = this;
-						player333.meleeDamage = player333.meleeDamage + 0.1f;
+						this.meleeSpeed += 0.1f;
+						this.meleeDamage += 0.1f;
 						this.magmaStone = true;
 					}
-					if (this.armor[k].type == 1167)
+					if (this.armor[l].type == 1167)
 					{
-						Player player334 = this;
-						player334.minionKB = player334.minionKB + 2f;
-						Player player335 = this;
-						player335.minionDamage = player335.minionDamage + 0.15f;
+						this.minionKB += 2f;
+						this.minionDamage += 0.15f;
 					}
-					if (this.armor[k].type == 1864)
+					if (this.armor[l].type == 1864)
 					{
-						Player player336 = this;
-						player336.minionKB = player336.minionKB + 2f;
-						Player player337 = this;
-						player337.minionDamage = player337.minionDamage + 0.15f;
-						Player player338 = this;
-						player338.maxMinions = player338.maxMinions + 1;
+						this.minionKB += 2f;
+						this.minionDamage += 0.15f;
+						this.maxMinions++;
 					}
-					if (this.armor[k].type == 1845)
+					if (this.armor[l].type == 1845)
 					{
-						Player player339 = this;
-						player339.minionDamage = player339.minionDamage + 0.1f;
-						Player player340 = this;
-						player340.maxMinions = player340.maxMinions + 1;
+						this.minionDamage += 0.1f;
+						this.maxMinions++;
 					}
-					if (this.armor[k].type == 1321)
+					if (this.armor[l].type == 1321)
 					{
 						this.magicQuiver = true;
-						Player player341 = this;
-						player341.arrowDamage = player341.arrowDamage + 0.1f;
+						this.arrowDamage += 0.1f;
 					}
-					if (this.armor[k].type == 1322)
+					if (this.armor[l].type == 1322)
 					{
 						this.magmaStone = true;
 					}
-					if (this.armor[k].type == 1323)
+					if (this.armor[l].type == 1323)
 					{
 						this.lavaRose = true;
 					}
-					if (this.armor[k].type == 3333)
+					if (this.armor[l].type == 3333)
 					{
 						this.strongBees = true;
 					}
-					if (this.armor[k].type == 938)
+					if (this.armor[l].type == 938)
 					{
 						this.noKnockback = true;
-						if ((double)this.statLife > (double)this.statLifeMax2 * 0.25)
+						if ((float)this.statLife > (float)this.statLifeMax2 * 0.25f)
 						{
-							if (i == Main.myPlayer)
+							this.hasPaladinShield = true;
+							if (i != Main.myPlayer && this.miscCounter % 10 == 0)
 							{
-								this.paladinGive = true;
-							}
-							else if (this.miscCounter % 5 == 0)
-							{
-								int num3 = Main.myPlayer;
-								if (Main.player[num3].team == this.team && this.team != 0)
+								int myPlayer = Main.myPlayer;
+								if (Main.player[myPlayer].team == this.team && this.team != 0)
 								{
-									float single = this.position.X - Main.player[num3].position.X;
-									float y1 = this.position.Y - Main.player[num3].position.Y;
-									if ((float)Math.Sqrt((double)(single * single + y1 * y1)) < 800f)
+									float num3 = this.position.X - Main.player[myPlayer].position.X;
+									float num4 = this.position.Y - Main.player[myPlayer].position.Y;
+									float num5 = (float)Math.Sqrt((double)(num3 * num3 + num4 * num4));
+									if (num5 < 800f)
 									{
-										Main.player[num3].AddBuff(43, 10, true);
+										Main.player[myPlayer].AddBuff(43, 20, true);
 									}
 								}
 							}
 						}
 					}
-					if (this.armor[k].type == 936)
+					if (this.armor[l].type == 936)
 					{
 						this.kbGlove = true;
-						Player player342 = this;
-						player342.meleeSpeed = player342.meleeSpeed + 0.12f;
-						Player player343 = this;
-						player343.meleeDamage = player343.meleeDamage + 0.12f;
+						this.meleeSpeed += 0.12f;
+						this.meleeDamage += 0.12f;
 					}
-					if (this.armor[k].type == 898)
+					if (this.armor[l].type == 898)
 					{
 						this.accRunSpeed = 6.75f;
 						this.rocketBoots = 2;
-						Player player344 = this;
-						player344.moveSpeed = player344.moveSpeed + 0.08f;
+						this.moveSpeed += 0.08f;
 					}
-					if (this.armor[k].type == 1862)
+					if (this.armor[l].type == 1862)
 					{
 						this.accRunSpeed = 6.75f;
 						this.rocketBoots = 3;
-						Player player345 = this;
-						player345.moveSpeed = player345.moveSpeed + 0.08f;
+						this.moveSpeed += 0.08f;
 						this.iceSkate = true;
 					}
-					if (this.armor[k].type == 3110)
+					if (this.armor[l].type == 3110)
 					{
 						this.accMerman = true;
 						this.wolfAcc = true;
-						if (this.hideVisual[k])
+						if (this.hideVisual[l])
 						{
 							this.hideMerman = true;
 							this.hideWolf = true;
 						}
 					}
-					if (this.armor[k].type == 1865 || this.armor[k].type == 3110)
+					if (this.armor[l].type == 1865 || this.armor[l].type == 3110)
 					{
-						Player player346 = this;
-						player346.lifeRegen = player346.lifeRegen + 2;
-						Player player347 = this;
-						player347.statDefense = player347.statDefense + 4;
-						Player player348 = this;
-						player348.meleeSpeed = player348.meleeSpeed + 0.1f;
-						Player player349 = this;
-						player349.meleeDamage = player349.meleeDamage + 0.1f;
-						Player player350 = this;
-						player350.meleeCrit = player350.meleeCrit + 2;
-						Player player351 = this;
-						player351.rangedDamage = player351.rangedDamage + 0.1f;
-						Player player352 = this;
-						player352.rangedCrit = player352.rangedCrit + 2;
-						Player player353 = this;
-						player353.magicDamage = player353.magicDamage + 0.1f;
-						Player player354 = this;
-						player354.magicCrit = player354.magicCrit + 2;
-						Player player355 = this;
-						player355.pickSpeed = player355.pickSpeed - 0.15f;
-						Player player356 = this;
-						player356.minionDamage = player356.minionDamage + 0.1f;
-						Player player357 = this;
-						player357.minionKB = player357.minionKB + 0.5f;
-						Player player358 = this;
-						player358.thrownDamage = player358.thrownDamage + 0.1f;
-						Player player359 = this;
-						player359.thrownCrit = player359.thrownCrit + 2;
+						this.lifeRegen += 2;
+						this.statDefense += 4;
+						this.meleeSpeed += 0.1f;
+						this.meleeDamage += 0.1f;
+						this.meleeCrit += 2;
+						this.rangedDamage += 0.1f;
+						this.rangedCrit += 2;
+						this.magicDamage += 0.1f;
+						this.magicCrit += 2;
+						this.pickSpeed -= 0.15f;
+						this.minionDamage += 0.1f;
+						this.minionKB += 0.5f;
+						this.thrownDamage += 0.1f;
+						this.thrownCrit += 2;
 					}
-					if (this.armor[k].type == 899 && Main.dayTime)
+					if (this.armor[l].type == 899 && Main.dayTime)
 					{
-						Player player360 = this;
-						player360.lifeRegen = player360.lifeRegen + 2;
-						Player player361 = this;
-						player361.statDefense = player361.statDefense + 4;
-						Player player362 = this;
-						player362.meleeSpeed = player362.meleeSpeed + 0.1f;
-						Player player363 = this;
-						player363.meleeDamage = player363.meleeDamage + 0.1f;
-						Player player364 = this;
-						player364.meleeCrit = player364.meleeCrit + 2;
-						Player player365 = this;
-						player365.rangedDamage = player365.rangedDamage + 0.1f;
-						Player player366 = this;
-						player366.rangedCrit = player366.rangedCrit + 2;
-						Player player367 = this;
-						player367.magicDamage = player367.magicDamage + 0.1f;
-						Player player368 = this;
-						player368.magicCrit = player368.magicCrit + 2;
-						Player player369 = this;
-						player369.pickSpeed = player369.pickSpeed - 0.15f;
-						Player player370 = this;
-						player370.minionDamage = player370.minionDamage + 0.1f;
-						Player player371 = this;
-						player371.minionKB = player371.minionKB + 0.5f;
-						Player player372 = this;
-						player372.thrownDamage = player372.thrownDamage + 0.1f;
-						Player player373 = this;
-						player373.thrownCrit = player373.thrownCrit + 2;
+						this.lifeRegen += 2;
+						this.statDefense += 4;
+						this.meleeSpeed += 0.1f;
+						this.meleeDamage += 0.1f;
+						this.meleeCrit += 2;
+						this.rangedDamage += 0.1f;
+						this.rangedCrit += 2;
+						this.magicDamage += 0.1f;
+						this.magicCrit += 2;
+						this.pickSpeed -= 0.15f;
+						this.minionDamage += 0.1f;
+						this.minionKB += 0.5f;
+						this.thrownDamage += 0.1f;
+						this.thrownCrit += 2;
 					}
-					if (this.armor[k].type == 900 && (!Main.dayTime || Main.eclipse))
+					if (this.armor[l].type == 900 && (!Main.dayTime || Main.eclipse))
 					{
-						Player player374 = this;
-						player374.lifeRegen = player374.lifeRegen + 2;
-						Player player375 = this;
-						player375.statDefense = player375.statDefense + 4;
-						Player player376 = this;
-						player376.meleeSpeed = player376.meleeSpeed + 0.1f;
-						Player player377 = this;
-						player377.meleeDamage = player377.meleeDamage + 0.1f;
-						Player player378 = this;
-						player378.meleeCrit = player378.meleeCrit + 2;
-						Player player379 = this;
-						player379.rangedDamage = player379.rangedDamage + 0.1f;
-						Player player380 = this;
-						player380.rangedCrit = player380.rangedCrit + 2;
-						Player player381 = this;
-						player381.magicDamage = player381.magicDamage + 0.1f;
-						Player player382 = this;
-						player382.magicCrit = player382.magicCrit + 2;
-						Player player383 = this;
-						player383.pickSpeed = player383.pickSpeed - 0.15f;
-						Player player384 = this;
-						player384.minionDamage = player384.minionDamage + 0.1f;
-						Player player385 = this;
-						player385.minionKB = player385.minionKB + 0.5f;
-						Player player386 = this;
-						player386.thrownDamage = player386.thrownDamage + 0.1f;
-						Player player387 = this;
-						player387.thrownCrit = player387.thrownCrit + 2;
+						this.lifeRegen += 2;
+						this.statDefense += 4;
+						this.meleeSpeed += 0.1f;
+						this.meleeDamage += 0.1f;
+						this.meleeCrit += 2;
+						this.rangedDamage += 0.1f;
+						this.rangedCrit += 2;
+						this.magicDamage += 0.1f;
+						this.magicCrit += 2;
+						this.pickSpeed -= 0.15f;
+						this.minionDamage += 0.1f;
+						this.minionKB += 0.5f;
+						this.thrownDamage += 0.1f;
+						this.thrownCrit += 2;
 					}
-					if (this.armor[k].type == 407)
+					if (this.armor[l].type == 407)
 					{
 						this.blockRange = 1;
 					}
-					if (this.armor[k].type == 489)
+					if (this.armor[l].type == 489)
 					{
-						Player player388 = this;
-						player388.magicDamage = player388.magicDamage + 0.15f;
+						this.magicDamage += 0.15f;
 					}
-					if (this.armor[k].type == 490)
+					if (this.armor[l].type == 490)
 					{
-						Player player389 = this;
-						player389.meleeDamage = player389.meleeDamage + 0.15f;
+						this.meleeDamage += 0.15f;
 					}
-					if (this.armor[k].type == 491)
+					if (this.armor[l].type == 491)
 					{
-						Player player390 = this;
-						player390.rangedDamage = player390.rangedDamage + 0.15f;
+						this.rangedDamage += 0.15f;
 					}
-					if (this.armor[k].type == 2998)
+					if (this.armor[l].type == 2998)
 					{
-						Player player391 = this;
-						player391.minionDamage = player391.minionDamage + 0.15f;
+						this.minionDamage += 0.15f;
 					}
-					if (this.armor[k].type == 935)
+					if (this.armor[l].type == 935)
 					{
-						Player player392 = this;
-						player392.magicDamage = player392.magicDamage + 0.12f;
-						Player player393 = this;
-						player393.meleeDamage = player393.meleeDamage + 0.12f;
-						Player player394 = this;
-						player394.rangedDamage = player394.rangedDamage + 0.12f;
-						Player player395 = this;
-						player395.minionDamage = player395.minionDamage + 0.12f;
-						Player player396 = this;
-						player396.thrownDamage = player396.thrownDamage + 0.12f;
+						this.magicDamage += 0.12f;
+						this.meleeDamage += 0.12f;
+						this.rangedDamage += 0.12f;
+						this.minionDamage += 0.12f;
+						this.thrownDamage += 0.12f;
 					}
-					if (this.armor[k].type == 492)
+					if (this.armor[l].type == 492)
 					{
 						this.wingTimeMax = 100;
 					}
-					if (this.armor[k].type == 493)
+					if (this.armor[l].type == 493)
 					{
 						this.wingTimeMax = 100;
 					}
-					if (this.armor[k].type == 748)
+					if (this.armor[l].type == 748)
 					{
 						this.wingTimeMax = 115;
 					}
-					if (this.armor[k].type == 749)
+					if (this.armor[l].type == 749)
 					{
 						this.wingTimeMax = 130;
 					}
-					if (this.armor[k].type == 761)
+					if (this.armor[l].type == 761)
 					{
 						this.wingTimeMax = 130;
 					}
-					if (this.armor[k].type == 785)
+					if (this.armor[l].type == 785)
 					{
 						this.wingTimeMax = 140;
 					}
-					if (this.armor[k].type == 786)
+					if (this.armor[l].type == 786)
 					{
 						this.wingTimeMax = 140;
 					}
-					if (this.armor[k].type == 821)
+					if (this.armor[l].type == 821)
 					{
 						this.wingTimeMax = 160;
 					}
-					if (this.armor[k].type == 822)
+					if (this.armor[l].type == 822)
 					{
 						this.wingTimeMax = 160;
 					}
-					if (this.armor[k].type == 823)
+					if (this.armor[l].type == 823)
 					{
 						this.wingTimeMax = 160;
 					}
-					if (this.armor[k].type == 2280)
+					if (this.armor[l].type == 2280)
 					{
 						this.wingTimeMax = 160;
 					}
-					if (this.armor[k].type == 2494)
+					if (this.armor[l].type == 2494)
 					{
 						this.wingTimeMax = 100;
 					}
-					if (this.armor[k].type == 2609)
+					if (this.armor[l].type == 2609)
 					{
 						this.wingTimeMax = 180;
 						this.ignoreWater = true;
 					}
-					if (this.armor[k].type == 948)
+					if (this.armor[l].type == 948)
 					{
 						this.wingTimeMax = 180;
 					}
-					if (this.armor[k].type == 1162)
+					if (this.armor[l].type == 1162)
 					{
 						this.wingTimeMax = 160;
 					}
-					if (this.armor[k].type == 1165)
+					if (this.armor[l].type == 1165)
 					{
 						this.wingTimeMax = 140;
 					}
-					if (this.armor[k].type == 1515)
+					if (this.armor[l].type == 1515)
 					{
 						this.wingTimeMax = 130;
 					}
-					if (this.armor[k].type == 665)
+					if (this.armor[l].type == 665)
 					{
 						this.wingTimeMax = 150;
 					}
-					if (this.armor[k].type == 1583)
+					if (this.armor[l].type == 1583)
 					{
 						this.wingTimeMax = 150;
 					}
-					if (this.armor[k].type == 1584)
+					if (this.armor[l].type == 1584)
 					{
 						this.wingTimeMax = 150;
 					}
-					if (this.armor[k].type == 1585)
+					if (this.armor[l].type == 1585)
 					{
 						this.wingTimeMax = 150;
 					}
-					if (this.armor[k].type == 1586)
+					if (this.armor[l].type == 1586)
 					{
 						this.wingTimeMax = 150;
 					}
-					if (this.armor[k].type == 3228)
+					if (this.armor[l].type == 3228)
 					{
 						this.wingTimeMax = 150;
 					}
-					if (this.armor[k].type == 3580)
+					if (this.armor[l].type == 3580)
 					{
 						this.wingTimeMax = 150;
 					}
-					if (this.armor[k].type == 3582)
+					if (this.armor[l].type == 3582)
 					{
 						this.wingTimeMax = 150;
 					}
-					if (this.armor[k].type == 3588)
+					if (this.armor[l].type == 3588)
 					{
 						this.wingTimeMax = 150;
 					}
-					if (this.armor[k].type == 3592)
+					if (this.armor[l].type == 3592)
 					{
 						this.wingTimeMax = 150;
 					}
-					if (this.armor[k].type == 1797)
+					if (this.armor[l].type == 1797)
 					{
 						this.wingTimeMax = 180;
 					}
-					if (this.armor[k].type == 1830)
+					if (this.armor[l].type == 1830)
 					{
 						this.wingTimeMax = 180;
 					}
-					if (this.armor[k].type == 1866)
+					if (this.armor[l].type == 1866)
 					{
 						this.wingTimeMax = 170;
 					}
-					if (this.armor[k].type == 1871)
+					if (this.armor[l].type == 1871)
 					{
 						this.wingTimeMax = 170;
 					}
-					if (this.armor[k].type == 2770)
+					if (this.armor[l].type == 2770)
 					{
 						this.wingTimeMax = 160;
 					}
-					if (this.armor[k].type == 3468)
+					if (this.armor[l].type == 3468)
 					{
 						this.wingTimeMax = 180;
 					}
-					if (this.armor[k].type == 3469)
+					if (this.armor[l].type == 3469)
 					{
 						this.wingTimeMax = 160;
 					}
-					if (this.armor[k].type == 3470)
+					if (this.armor[l].type == 3470)
 					{
 						this.wingTimeMax = 180;
 					}
-					if (this.armor[k].type == 3471)
+					if (this.armor[l].type == 3471)
 					{
 						this.wingTimeMax = 220;
 					}
-					if (this.armor[k].type == 885)
+					if (this.armor[l].type == 885)
 					{
 						this.buffImmune[30] = true;
 					}
-					if (this.armor[k].type == 886)
+					if (this.armor[l].type == 886)
 					{
 						this.buffImmune[36] = true;
 					}
-					if (this.armor[k].type == 887)
+					if (this.armor[l].type == 887)
 					{
 						this.buffImmune[20] = true;
 					}
-					if (this.armor[k].type == 888)
+					if (this.armor[l].type == 888)
 					{
 						this.buffImmune[22] = true;
 					}
-					if (this.armor[k].type == 889)
+					if (this.armor[l].type == 889)
 					{
 						this.buffImmune[32] = true;
 					}
-					if (this.armor[k].type == 890)
+					if (this.armor[l].type == 890)
 					{
 						this.buffImmune[35] = true;
 					}
-					if (this.armor[k].type == 891)
+					if (this.armor[l].type == 891)
 					{
 						this.buffImmune[23] = true;
 					}
-					if (this.armor[k].type == 892)
+					if (this.armor[l].type == 892)
 					{
 						this.buffImmune[33] = true;
 					}
-					if (this.armor[k].type == 893)
+					if (this.armor[l].type == 893)
 					{
 						this.buffImmune[31] = true;
 					}
-					if (this.armor[k].type == 901)
+					if (this.armor[l].type == 901)
 					{
 						this.buffImmune[33] = true;
 						this.buffImmune[36] = true;
 					}
-					if (this.armor[k].type == 902)
+					if (this.armor[l].type == 902)
 					{
 						this.buffImmune[30] = true;
 						this.buffImmune[20] = true;
 					}
-					if (this.armor[k].type == 903)
+					if (this.armor[l].type == 903)
 					{
 						this.buffImmune[32] = true;
 						this.buffImmune[31] = true;
 					}
-					if (this.armor[k].type == 904)
+					if (this.armor[l].type == 904)
 					{
 						this.buffImmune[35] = true;
 						this.buffImmune[23] = true;
 					}
-					if (this.armor[k].type == 1921)
+					if (this.armor[l].type == 1921)
 					{
 						this.buffImmune[46] = true;
 						this.buffImmune[47] = true;
 					}
-					if (this.armor[k].type == 1612)
+					if (this.armor[l].type == 1612)
 					{
 						this.buffImmune[33] = true;
 						this.buffImmune[36] = true;
@@ -31020,7 +31455,7 @@ namespace Terraria
 						this.buffImmune[23] = true;
 						this.buffImmune[22] = true;
 					}
-					if (this.armor[k].type == 1613)
+					if (this.armor[l].type == 1613)
 					{
 						this.buffImmune[46] = true;
 						this.noKnockback = true;
@@ -31035,222 +31470,221 @@ namespace Terraria
 						this.buffImmune[23] = true;
 						this.buffImmune[22] = true;
 					}
-					if (this.armor[k].type == 497)
+					if (this.armor[l].type == 497)
 					{
 						this.accMerman = true;
-						if (this.hideVisual[k])
+						if (this.hideVisual[l])
 						{
 							this.hideMerman = true;
 						}
 					}
-					if (this.armor[k].type == 535)
+					if (this.armor[l].type == 535)
 					{
 						this.pStone = true;
 					}
-					if (this.armor[k].type == 536)
+					if (this.armor[l].type == 536)
 					{
 						this.kbGlove = true;
 					}
-					if (this.armor[k].type == 532)
+					if (this.armor[l].type == 532)
 					{
 						this.starCloak = true;
 					}
-					if (this.armor[k].type == 554)
+					if (this.armor[l].type == 554)
 					{
 						this.longInvince = true;
 					}
-					if (this.armor[k].type == 555)
+					if (this.armor[l].type == 555)
 					{
 						this.manaFlower = true;
-						Player player397 = this;
-						player397.manaCost = player397.manaCost - 0.08f;
+						this.manaCost -= 0.08f;
 					}
 					if (Main.myPlayer == this.whoAmI)
 					{
-						if (this.armor[k].type == 576 && Main.rand.Next(10800) == 0 && Main.curMusic > 0 && Main.curMusic <= 39)
+						if (this.armor[l].type == 576 && Main.rand.Next(10800) == 0 && Main.curMusic > 0 && Main.curMusic <= 39)
 						{
-							int num4 = 0;
+							int num6 = 0;
 							if (Main.curMusic == 1)
 							{
-								num4 = 0;
+								num6 = 0;
 							}
 							if (Main.curMusic == 2)
 							{
-								num4 = 1;
+								num6 = 1;
 							}
 							if (Main.curMusic == 3)
 							{
-								num4 = 2;
+								num6 = 2;
 							}
 							if (Main.curMusic == 4)
 							{
-								num4 = 4;
+								num6 = 4;
 							}
 							if (Main.curMusic == 5)
 							{
-								num4 = 5;
+								num6 = 5;
 							}
 							if (Main.curMusic == 6)
 							{
-								num4 = 3;
+								num6 = 3;
 							}
 							if (Main.curMusic == 7)
 							{
-								num4 = 6;
+								num6 = 6;
 							}
 							if (Main.curMusic == 8)
 							{
-								num4 = 7;
+								num6 = 7;
 							}
 							if (Main.curMusic == 9)
 							{
-								num4 = 9;
+								num6 = 9;
 							}
 							if (Main.curMusic == 10)
 							{
-								num4 = 8;
+								num6 = 8;
 							}
 							if (Main.curMusic == 11)
 							{
-								num4 = 11;
+								num6 = 11;
 							}
 							if (Main.curMusic == 12)
 							{
-								num4 = 10;
+								num6 = 10;
 							}
 							if (Main.curMusic == 13)
 							{
-								num4 = 12;
+								num6 = 12;
 							}
 							if (Main.curMusic == 28)
 							{
-								this.armor[k].SetDefaults(1963, false);
+								this.armor[l].SetDefaults(1963, false);
 							}
 							else if (Main.curMusic == 29)
 							{
-								this.armor[k].SetDefaults(1610, false);
+								this.armor[l].SetDefaults(1610, false);
 							}
 							else if (Main.curMusic == 30)
 							{
-								this.armor[k].SetDefaults(1963, false);
+								this.armor[l].SetDefaults(1963, false);
 							}
 							else if (Main.curMusic == 31)
 							{
-								this.armor[k].SetDefaults(1964, false);
+								this.armor[l].SetDefaults(1964, false);
 							}
 							else if (Main.curMusic == 32)
 							{
-								this.armor[k].SetDefaults(1965, false);
+								this.armor[l].SetDefaults(1965, false);
 							}
 							else if (Main.curMusic == 33)
 							{
-								this.armor[k].SetDefaults(2742, false);
+								this.armor[l].SetDefaults(2742, false);
 							}
 							else if (Main.curMusic == 34)
 							{
-								this.armor[k].SetDefaults(3370, false);
+								this.armor[l].SetDefaults(3370, false);
 							}
 							else if (Main.curMusic == 35)
 							{
-								this.armor[k].SetDefaults(3236, false);
+								this.armor[l].SetDefaults(3236, false);
 							}
 							else if (Main.curMusic == 36)
 							{
-								this.armor[k].SetDefaults(3237, false);
+								this.armor[l].SetDefaults(3237, false);
 							}
 							else if (Main.curMusic == 37)
 							{
-								this.armor[k].SetDefaults(3235, false);
+								this.armor[l].SetDefaults(3235, false);
 							}
 							else if (Main.curMusic == 38)
 							{
-								this.armor[k].SetDefaults(3044, false);
+								this.armor[l].SetDefaults(3044, false);
 							}
 							else if (Main.curMusic == 39)
 							{
-								this.armor[k].SetDefaults(3371, false);
+								this.armor[l].SetDefaults(3371, false);
 							}
-							else if (Main.curMusic <= 13)
+							else if (Main.curMusic > 13)
 							{
-								this.armor[k].SetDefaults(num4 + 562, false);
+								this.armor[l].SetDefaults(1596 + Main.curMusic - 14, false);
 							}
 							else
 							{
-								this.armor[k].SetDefaults(1596 + Main.curMusic - 14, false);
+								this.armor[l].SetDefaults(num6 + 562, false);
 							}
 						}
-						if (this.armor[k].type >= 562 && this.armor[k].type <= 574)
+						if (this.armor[l].type >= 562 && this.armor[l].type <= 574)
 						{
-							Main.musicBox2 = this.armor[k].type - 562;
+							Main.musicBox2 = this.armor[l].type - 562;
 						}
-						if (this.armor[k].type >= 1596 && this.armor[k].type <= 1609)
+						if (this.armor[l].type >= 1596 && this.armor[l].type <= 1609)
 						{
-							Main.musicBox2 = this.armor[k].type - 1596 + 13;
+							Main.musicBox2 = this.armor[l].type - 1596 + 13;
 						}
-						if (this.armor[k].type == 1610)
+						if (this.armor[l].type == 1610)
 						{
 							Main.musicBox2 = 27;
 						}
-						if (this.armor[k].type == 1963)
+						if (this.armor[l].type == 1963)
 						{
 							Main.musicBox2 = 28;
 						}
-						if (this.armor[k].type == 1964)
+						if (this.armor[l].type == 1964)
 						{
 							Main.musicBox2 = 29;
 						}
-						if (this.armor[k].type == 1965)
+						if (this.armor[l].type == 1965)
 						{
 							Main.musicBox2 = 30;
 						}
-						if (this.armor[k].type == 2742)
+						if (this.armor[l].type == 2742)
 						{
 							Main.musicBox2 = 31;
 						}
-						if (this.armor[k].type == 3044)
+						if (this.armor[l].type == 3044)
 						{
 							Main.musicBox2 = 32;
 						}
-						if (this.armor[k].type == 3235)
+						if (this.armor[l].type == 3235)
 						{
 							Main.musicBox2 = 33;
 						}
-						if (this.armor[k].type == 3236)
+						if (this.armor[l].type == 3236)
 						{
 							Main.musicBox2 = 34;
 						}
-						if (this.armor[k].type == 3237)
+						if (this.armor[l].type == 3237)
 						{
 							Main.musicBox2 = 35;
 						}
-						if (this.armor[k].type == 3370)
+						if (this.armor[l].type == 3370)
 						{
 							Main.musicBox2 = 36;
 						}
-						if (this.armor[k].type == 3371)
+						if (this.armor[l].type == 3371)
 						{
 							Main.musicBox2 = 37;
 						}
 					}
 				}
 			}
-			for (int l = 3; l < 8 + this.extraAccessorySlots; l++)
+			for (int m = 3; m < 8 + this.extraAccessorySlots; m++)
 			{
-				if (this.armor[l].wingSlot > 0)
-				{
-					if (!this.hideVisual[l] || this.velocity.Y != 0f && !this.mount.Active)
-					{
-						this.wings = this.armor[l].wingSlot;
-					}
-					this.wingsLogic = this.armor[l].wingSlot;
-				}
-			}
-			for (int m = 13; m < 18 + this.extraAccessorySlots; m++)
-			{
-				int type3 = this.armor[m].type;
 				if (this.armor[m].wingSlot > 0)
 				{
-					this.wings = this.armor[m].wingSlot;
+					if (!this.hideVisual[m] || (this.velocity.Y != 0f && !this.mount.Active))
+					{
+						this.wings = (int)this.armor[m].wingSlot;
+					}
+					this.wingsLogic = (int)this.armor[m].wingSlot;
+				}
+			}
+			for (int n = 13; n < 18 + this.extraAccessorySlots; n++)
+			{
+				int type3 = this.armor[n].type;
+				if (this.armor[n].wingSlot > 0)
+				{
+					this.wings = (int)this.armor[n].wingSlot;
 				}
 				if (type3 == 861 || type3 == 3110 || type3 == 485)
 				{
@@ -31262,27 +31696,23 @@ namespace Terraria
 					this.hideMerman = false;
 					this.forceMerman = true;
 				}
-
 			}
 			if (this.whoAmI == Main.myPlayer && Main.clock && this.accWatch < 3)
 			{
-				Player player398 = this;
-				player398.accWatch = player398.accWatch + 1;
+				this.accWatch++;
 			}
-			if (flag1)
+			if (flag2)
 			{
-				Player player399 = this;
-				player399.tileSpeed = player399.tileSpeed + 0.5f;
+				this.tileSpeed += 0.5f;
 			}
 			if (flag)
 			{
-				Player player400 = this;
-				player400.wallSpeed = player400.wallSpeed + 0.5f;
+				this.wallSpeed += 0.5f;
 			}
-			if (flag2 && this.whoAmI == Main.myPlayer)
+			if (flag3 && this.whoAmI == Main.myPlayer)
 			{
-				Player.tileRangeX = Player.tileRangeX + 3;
-				Player.tileRangeY = Player.tileRangeY + 2;
+				Player.tileRangeX += 3;
+				Player.tileRangeY += 2;
 			}
 			if (!this.accThirdEye)
 			{
@@ -31290,57 +31720,61 @@ namespace Terraria
 			}
 			if (Main.netMode == 1 && this.whoAmI == Main.myPlayer)
 			{
-				for (int n = 0; n < 255; n++)
+				for (int num7 = 0; num7 < 255; num7++)
 				{
-					if (n != this.whoAmI && Main.player[n].active && !Main.player[n].dead && Main.player[n].team == this.team && Main.player[n].team != 0 && (Main.player[n].Center - base.Center).Length() < (float)800)
+					if (num7 != this.whoAmI && Main.player[num7].active && !Main.player[num7].dead && Main.player[num7].team == this.team && Main.player[num7].team != 0)
 					{
-						if (Main.player[n].accWatch > this.accWatch)
+						int num8 = 800;
+						if ((Main.player[num7].Center - base.Center).Length() < (float)num8)
 						{
-							this.accWatch = Main.player[n].accWatch;
-						}
-						if (Main.player[n].accCompass > this.accCompass)
-						{
-							this.accCompass = Main.player[n].accCompass;
-						}
-						if (Main.player[n].accDepthMeter > this.accDepthMeter)
-						{
-							this.accDepthMeter = Main.player[n].accDepthMeter;
-						}
-						if (Main.player[n].accFishFinder)
-						{
-							this.accFishFinder = true;
-						}
-						if (Main.player[n].accWeatherRadio)
-						{
-							this.accWeatherRadio = true;
-						}
-						if (Main.player[n].accThirdEye)
-						{
-							this.accThirdEye = true;
-						}
-						if (Main.player[n].accJarOfSouls)
-						{
-							this.accJarOfSouls = true;
-						}
-						if (Main.player[n].accCalendar)
-						{
-							this.accCalendar = true;
-						}
-						if (Main.player[n].accStopwatch)
-						{
-							this.accStopwatch = true;
-						}
-						if (Main.player[n].accOreFinder)
-						{
-							this.accOreFinder = true;
-						}
-						if (Main.player[n].accCritterGuide)
-						{
-							this.accCritterGuide = true;
-						}
-						if (Main.player[n].accDreamCatcher)
-						{
-							this.accDreamCatcher = true;
+							if (Main.player[num7].accWatch > this.accWatch)
+							{
+								this.accWatch = Main.player[num7].accWatch;
+							}
+							if (Main.player[num7].accCompass > this.accCompass)
+							{
+								this.accCompass = Main.player[num7].accCompass;
+							}
+							if (Main.player[num7].accDepthMeter > this.accDepthMeter)
+							{
+								this.accDepthMeter = Main.player[num7].accDepthMeter;
+							}
+							if (Main.player[num7].accFishFinder)
+							{
+								this.accFishFinder = true;
+							}
+							if (Main.player[num7].accWeatherRadio)
+							{
+								this.accWeatherRadio = true;
+							}
+							if (Main.player[num7].accThirdEye)
+							{
+								this.accThirdEye = true;
+							}
+							if (Main.player[num7].accJarOfSouls)
+							{
+								this.accJarOfSouls = true;
+							}
+							if (Main.player[num7].accCalendar)
+							{
+								this.accCalendar = true;
+							}
+							if (Main.player[num7].accStopwatch)
+							{
+								this.accStopwatch = true;
+							}
+							if (Main.player[num7].accOreFinder)
+							{
+								this.accOreFinder = true;
+							}
+							if (Main.player[num7].accCritterGuide)
+							{
+								this.accCritterGuide = true;
+							}
+							if (Main.player[num7].accDreamCatcher)
+							{
+								this.accDreamCatcher = true;
+							}
 						}
 					}
 				}
@@ -31351,6 +31785,7 @@ namespace Terraria
 				this.dpsEnd = DateTime.Now;
 			}
 		}
+
 
 		public void UpdateImmunity()
 		{
@@ -32356,7 +32791,27 @@ namespace Terraria
 			}
 		}
 
-		public static event Action<Player> OnEnterWorld;
+
+        #region 1.3.1
+
+		public void ApplyDamageToNPC(NPC npc, int damage, float knockback, int direction, bool crit)
+		{
+			npc.StrikeNPC(damage, knockback, direction, crit, false, false);
+			if (Main.netMode != 0)
+			{
+				NetMessage.SendData(28, -1, -1, "", npc.whoAmI, (float)damage, knockback, (float)direction, crit.ToInt(), 0, 0);
+			}
+			int num = Item.NPCtoBanner(npc.BannerID());
+			if (num >= 0)
+			{
+				this.lastCreatureHit = num;
+			}
+		}
+
+        #endregion
+
+
+        public static event Action<Player> OnEnterWorld;
 
 		public struct OverheadMessage
 		{
