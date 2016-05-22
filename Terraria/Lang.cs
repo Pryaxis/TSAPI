@@ -4,50 +4,31 @@ namespace Terraria
 {
 	public class Lang
 	{
-		public static int lang;
+		public static int lang = 0;
 
-		public static string[] misc;
+		public static string[] misc = new string[100];
 
-		public static string[] menu;
+		public static string[] menu = new string[250];
 
-		public static string[] gen;
+		public static string[] gen = new string[82];
 
-		public static string[] inter;
+		public static string[] inter = new string[128];
 
-		public static string[] tip;
+		public static string[] tip = new string[60];
 
-		public static string[] mp;
+		public static string[] mp = new string[23];
 
-		public static string[] dt;
+		public static string[] dt = new string[4];
 
-		public static string[] chestType;
+		public static string[] chestType = new string[52];
 
-		public static string[] dresserType;
+		public static string[] dresserType = new string[28];
 
 		public static string[] mapLegend;
 
-		public static string[] prefix;
+		public static string[] prefix = new string[84];
 
 		public static string the;
-
-		static Lang()
-		{
-			Lang.lang = 0;
-			Lang.misc = new string[53];
-			Lang.menu = new string[142];
-			Lang.gen = new string[82];
-			Lang.inter = new string[115];
-			Lang.tip = new string[60];
-			Lang.mp = new string[23];
-			Lang.dt = new string[4];
-			Lang.chestType = new string[52];
-			Lang.dresserType = new string[28];
-			Lang.prefix = new string[84];
-		}
-
-		public Lang()
-		{
-		}
 
 		public static string AnglerQuestChat(bool gotFish = false)
 		{
@@ -1167,6 +1148,10 @@ namespace Terraria
 						{
 							str = " just became another dirt pile.";
 						}
+					}
+					else if (other == 6)
+					{
+						str = " was stabbed.";
 					}
 				}
 				return str;
@@ -3093,7 +3078,7 @@ namespace Terraria
 					}
 					case 373:
 					{
-						return string.Concat("Why don't YOU try collecting money from ", str4, " and not losing a hand or foot or...");
+						return string.Concat("Why don't YOU try collecting money from " + str2 + " and not lose a hand or foot or...");
 					}
 					case 374:
 					{
@@ -9854,7 +9839,7 @@ namespace Terraria
 					}
 					case 414:
 					{
-						return "Mudstone Block";
+						return "Mudstone Brick";
 					}
 					case 415:
 					{
@@ -10234,7 +10219,7 @@ namespace Terraria
 					}
 					case 509:
 					{
-						return "Wrench";
+							return "Red Wrench";
 					}
 					case 510:
 					{
@@ -22595,6 +22580,219 @@ namespace Terraria
 					{
 						return "Celestial Sigil";
 					}
+					case 3602:
+						return "Logic Gate Lamp (Off)";
+					case 3603:
+						return "Logic Gate (AND)";
+					case 3604:
+						return "Logic Gate (OR)";
+					case 3605:
+						return "Logic Gate (NAND)";
+					case 3606:
+						return "Logic Gate (NOR)";
+					case 3607:
+						return "Logic Gate (XOR)";
+					case 3608:
+						return "Logic Gate (NXOR)";
+					case 3609:
+						return "Conveyor Belt (Clockwise)";
+					case 3610:
+						return "Conveyor Belt (Counter Clockwise)";
+					case 3611:
+						return "The Grand Design";
+					case 3612:
+						return "Yellow Wrench";
+					case 3613:
+						return "Logic Sensor (Day)";
+					case 3614:
+						return "Logic Sensor (Night)";
+					case 3615:
+						return "Logic Sensor (Player Above)";
+					case 3616:
+						return "Junction Box";
+					case 3617:
+						return "Announcement Box";
+					case 3618:
+						return "Logic Gate Lamp (On)";
+					case 3619:
+						return "Mechanical Lens";
+					case 3620:
+						return "Actuation Rod";
+					case 3621:
+						return "Red Team Block";
+					case 3622:
+						return "Red Team Platform";
+					case 3623:
+						return "Static Hook";
+					case 3624:
+						return "Presserator";
+					case 3625:
+						return "Multicolor Wrench";
+					case 3626:
+						return "Pink Weighted Pressure Plate";
+					case 3627:
+						return "Engineering Helmet";
+					case 3628:
+						return "Companion Cube";
+					case 3629:
+						return "Wire Bulb";
+					case 3630:
+						return "Orange Weighted Pressure Plate";
+					case 3631:
+						return "Purple Weighted Pressure Plate";
+					case 3632:
+						return "Cyan Weighted Pressure Plate";
+					case 3633:
+						return "Green Team Block";
+					case 3634:
+						return "Blue Team Block";
+					case 3635:
+						return "Yellow Team Block";
+					case 3636:
+						return "Pink Team Block";
+					case 3637:
+						return "White Team Block";
+					case 3638:
+						return "Green Team Platform";
+					case 3639:
+						return "Blue Team Platform";
+					case 3640:
+						return "Yellow Team Platform";
+					case 3641:
+						return "Pink Team Platform";
+					case 3642:
+						return "White Team Platform";
+					case 3643:
+						return "Large Amber";
+					case 3644:
+						return "Ruby Gem Lock";
+					case 3645:
+						return "Sapphire Gem Lock";
+					case 3646:
+						return "Emerald Gem Lock";
+					case 3647:
+						return "Topaz Gem Lock";
+					case 3648:
+						return "Amethyst Gem Lock";
+					case 3649:
+						return "Diamond Gem Lock";
+					case 3650:
+						return "Amber Gem Lock";
+					case 3651:
+						return "Squirrel Statue";
+					case 3652:
+						return "Butterfly Statue";
+					case 3653:
+						return "Worm Statue";
+					case 3654:
+						return "Firefly Statue";
+					case 3655:
+						return "Scorpion Statue";
+					case 3656:
+						return "Snail Statue";
+					case 3657:
+						return "Grasshopper Statue";
+					case 3658:
+						return "Mouse Statue";
+					case 3659:
+						return "Duck Statue";
+					case 3660:
+						return "Penguin Statue";
+					case 3661:
+						return "Frog Statue";
+					case 3662:
+						return "Buggy Statue";
+					case 3663:
+						return "Logic Gate Lamp (Faulty)";
+					case 3664:
+						return "Portal Gun Station";
+					case 3665:
+					case 3666:
+					case 3667:
+					case 3668:
+					case 3669:
+					case 3670:
+					case 3671:
+					case 3672:
+					case 3673:
+					case 3674:
+					case 3675:
+					case 3676:
+					case 3677:
+					case 3678:
+					case 3679:
+					case 3680:
+					case 3681:
+					case 3682:
+					case 3683:
+					case 3684:
+					case 3685:
+					case 3686:
+					case 3687:
+					case 3688:
+					case 3689:
+					case 3690:
+					case 3691:
+					case 3692:
+					case 3693:
+					case 3694:
+					case 3695:
+					case 3696:
+					case 3697:
+					case 3698:
+					case 3699:
+					case 3700:
+					case 3701:
+					case 3702:
+					case 3703:
+					case 3704:
+						return "Trapped " + Lang.itemName(ItemID.Sets.TextureCopyLoad[l], english);
+					case 3707:
+						return "Teal Pressure Pad";
+					case 3708:
+						return "Wall Creeper Statue";
+					case 3709:
+						return "Unicorn Statue";
+					case 3710:
+						return "Drippler Statue";
+					case 3711:
+						return "Wraith Statue";
+					case 3712:
+						return "Bone Skeleton Statue";
+					case 3713:
+						return "Undead Viking Statue";
+					case 3714:
+						return "Medusa Statue";
+					case 3715:
+						return "Harpy Statue";
+					case 3716:
+						return "Pigron Statue";
+					case 3717:
+						return "Hoplite Statue";
+					case 3718:
+						return "Granite Golem Statue";
+					case 3719:
+						return "Armed Zombie Statue";
+					case 3720:
+						return "Blood Zombie Statue";
+					case 3721:
+						return "Angler Tackle Bag";
+					case 3722:
+						return "Geyser";
+					case 3723:
+						return "Ultra Bright Campfire";
+					case 3724:
+						return "Bone Campfire";
+					case 3725:
+						return "Pixel Box";
+					case 3726:
+						return "Liquid Sensor (Water)";
+					case 3727:
+						return "Liquid Sensor (Lava)";
+					case 3728:
+						return "Liquid Sensor (Honey)";
+					case 3729:
+						return "Liquid Sensor (Any)";
 				}
 			}
 			else if (Lang.lang == 2)
@@ -38956,6 +39154,49 @@ namespace Terraria
 				Lang.misc[50] = "have been defeated!";
 				Lang.misc[51] = "Lunar Fragment";
 				Lang.misc[52] = "Impending doom approaches...";
+				Lang.misc[53] = "Select";
+				Lang.misc[54] = "Take";
+				Lang.misc[55] = "Take One";
+				Lang.misc[56] = "Close";
+				Lang.misc[57] = "Grapple";
+				Lang.misc[58] = "Jump";
+				Lang.misc[59] = "Cycle hotbar";
+				Lang.misc[60] = "Attack";
+				Lang.misc[61] = "Build";
+				Lang.misc[62] = "Drink";
+				Lang.misc[63] = "Action";
+				Lang.misc[64] = "Switch menu";
+				Lang.misc[65] = "Place";
+				Lang.misc[66] = "Swap";
+				Lang.misc[67] = "Equip";
+				Lang.misc[68] = "Unequip";
+				Lang.misc[69] = "Show room flags";
+				Lang.misc[70] = "Check housing";
+				Lang.misc[71] = "Quick craft";
+				Lang.misc[72] = "Craft";
+				Lang.misc[73] = "Select";
+				Lang.misc[74] = "Trash";
+				Lang.misc[75] = "Sell";
+				Lang.misc[76] = "Transfer";
+				Lang.misc[77] = "Show visuals";
+				Lang.misc[78] = "Hide visuals";
+				Lang.misc[79] = "Use";
+				Lang.misc[80] = "Talk";
+				Lang.misc[81] = "Read";
+				Lang.misc[82] = "Back";
+				Lang.misc[83] = "Favorite";
+				Lang.misc[84] = "You can't change teams inside your team's blocks!";
+				Lang.misc[85] = "Bug";
+				Lang.misc[86] = "Duck";
+				Lang.misc[87] = "Butterfly";
+				Lang.misc[88] = "Firefly";
+				Lang.misc[89] = "Wiring Options";
+				Lang.misc[90] = "Buy";
+				Lang.misc[91] = "Buy More";
+				Lang.misc[92] = "Sell";
+				Lang.misc[93] = "Craft more";
+				Lang.misc[94] = "Try Removing";
+				Lang.misc[95] = "Snail";
 				Lang.menu[0] = "Start a new instance of Terraria to join!";
 				Lang.menu[1] = "Running on port ";
 				Lang.menu[2] = "Disconnect";
@@ -39077,8 +39318,8 @@ namespace Terraria
 				Lang.menu[118] = "Close Menu";
 				Lang.menu[119] = "Ambient";
 				Lang.menu[120] = "Smart Cursor    ";
-				Lang.menu[121] = "Smart Cursor Mode Toggle";
-				Lang.menu[122] = "Smart Cursor Mode Hold";
+				Lang.menu[121] = "Smart Cursor Mode: Toggle";
+				Lang.menu[122] = "Smart Cursor Mode: Hold";
 				Lang.menu[123] = "Event Progress Bar";
 				Lang.menu[124] = "Off";
 				Lang.menu[125] = "Timed";
@@ -39091,13 +39332,118 @@ namespace Terraria
 				Lang.menu[132] = "Blood and Gore On";
 				Lang.menu[133] = "Blood and Gore Off";
 				Lang.menu[134] = "Apply";
-				Lang.menu[135] = "Steam Multiplayer Mode:";
-				Lang.menu[136] = "Off";
-				Lang.menu[137] = "Invite Only";
-				Lang.menu[138] = "Friends Only";
-				Lang.menu[139] = "Join via Steam";
-				Lang.menu[140] = "Join via IP";
-				Lang.menu[141] = "Invite Friends";
+				Lang.menu[135] = "Server Settings";
+				Lang.menu[136] = "Steam Multiplayer: Disabled";
+				Lang.menu[137] = "Steam Multiplayer: Enabled";
+				Lang.menu[138] = "Allowed Users: Invite Only";
+				Lang.menu[139] = "Allowed Users: Friends";
+				Lang.menu[140] = "Friends Can Invite: Off";
+				Lang.menu[141] = "Friends Can Invite: On";
+				Lang.menu[142] = "Allow Friends Of Friends: Off";
+				Lang.menu[143] = "Allow Friends Of Friends: On";
+				Lang.menu[144] = "Start";
+				Lang.menu[145] = "Join via Steam";
+				Lang.menu[146] = "Join via IP";
+				Lang.menu[147] = "Invite Friends";
+				Lang.menu[148] = "Up";
+				Lang.menu[149] = "Down";
+				Lang.menu[150] = "Left";
+				Lang.menu[151] = "Right";
+				Lang.menu[152] = "Jump";
+				Lang.menu[153] = "Throw";
+				Lang.menu[154] = "Inventory";
+				Lang.menu[155] = "Grapple";
+				Lang.menu[156] = "Quick Mana";
+				Lang.menu[157] = "Quick Buff";
+				Lang.menu[158] = "Quick Mount";
+				Lang.menu[159] = "Quick Heal";
+				Lang.menu[160] = "Auto Select";
+				Lang.menu[161] = "Smart Cursor";
+				Lang.menu[162] = "Use Item";
+				Lang.menu[163] = "Interact";
+				Lang.menu[164] = "Gameplay Controls";
+				Lang.menu[165] = "Map Controls";
+				Lang.menu[166] = "Hotbar Controls";
+				Lang.menu[167] = "Gamepad Settings";
+				Lang.menu[168] = "Zoom In";
+				Lang.menu[169] = "Zoom Out";
+				Lang.menu[170] = "Increase Transparency";
+				Lang.menu[171] = "Decrease Transparency";
+				Lang.menu[172] = "Toggle Map Style";
+				Lang.menu[173] = "Toggle Full Map";
+				Lang.menu[174] = "Cycle Left";
+				Lang.menu[175] = "Cycle Right";
+				Lang.menu[176] = "Hotbar #1";
+				Lang.menu[177] = "Hotbar #2";
+				Lang.menu[178] = "Hotbar #3";
+				Lang.menu[179] = "Hotbar #4";
+				Lang.menu[180] = "Hotbar #5";
+				Lang.menu[181] = "Hotbar #6";
+				Lang.menu[182] = "Hotbar #7";
+				Lang.menu[183] = "Hotbar #8";
+				Lang.menu[184] = "Hotbar #9";
+				Lang.menu[185] = "Hotbar #10";
+				Lang.menu[186] = "Quick Mark #1";
+				Lang.menu[187] = "Quick Mark #2";
+				Lang.menu[188] = "Quick Mark #3";
+				Lang.menu[189] = "Quick Mark #4";
+				Lang.menu[190] = "Radial Hotbar";
+				Lang.menu[191] = "Cursor Snap Up";
+				Lang.menu[192] = "Cursor Snap Right";
+				Lang.menu[193] = "Cursor Snap Down";
+				Lang.menu[194] = "Cursor Snap Left";
+				Lang.menu[195] = "<Unbound>";
+				Lang.menu[196] = "Thumbstick Cursor Snap";
+				Lang.menu[197] = "Thumbstick Hotbar";
+				Lang.menu[198] = "Gamepad Advanced Settings";
+				Lang.menu[199] = "Triggers Deadzone";
+				Lang.menu[200] = "Sliders Deadzone";
+				Lang.menu[201] = "Left Thumbstick Deadzone X";
+				Lang.menu[202] = "Left Thumbstick Deadzone Y";
+				Lang.menu[203] = "Right Thumbstick Deadzone X";
+				Lang.menu[204] = "Right Thumbstick Deadzone Y";
+				Lang.menu[205] = "Invert Left Thumbstick Horizontally";
+				Lang.menu[206] = "Invert Left Thumbstick Vertically";
+				Lang.menu[207] = "Invert Right Thumbstick Horizontally";
+				Lang.menu[208] = "Invert Right Thumbstick Vertical";
+				Lang.menu[209] = "Utilize";
+				Lang.menu[210] = "Interface";
+				Lang.menu[211] = "Passwords: Visible";
+				Lang.menu[212] = "Passwords: Hidden";
+				Lang.menu[213] = "Smart Cursor Priority: Pickaxe -> Axe";
+				Lang.menu[214] = "Smart Cursor Priority: Axe -> Pickaxe";
+				Lang.menu[215] = "Smart Block Placement: To Cursor";
+				Lang.menu[216] = "Smart Block Placement: Filling";
+				Lang.menu[217] = "Border Color";
+				Lang.menu[218] = "Cursor";
+				Lang.menu[219] = "Controls";
+				Lang.menu[220] = "Activate Set Bonuses: Up";
+				Lang.menu[221] = "Activate Set Bonuses: Down";
+				Lang.menu[222] = "Keybindings";
+				Lang.menu[223] = "Left Shift Quick Trash: Enabled";
+				Lang.menu[224] = "Left Shift Quick Trash: Disabled";
+				Lang.menu[225] = "Quick Wall Replace: Disabled";
+				Lang.menu[226] = "Quick Wall Replace: Enabled";
+				Lang.menu[227] = "Hotbar Scroll Time To Radial: On";
+				Lang.menu[228] = "Hotbar Scroll Time To Radial: Off";
+				Lang.menu[229] = "Tile Grid On";
+				Lang.menu[230] = "Tile Grid Off";
+				Lang.menu[231] = "Lock On";
+				Lang.menu[232] = "Lock On Priority: Focus Target";
+				Lang.menu[233] = "Lock On Priority: Target Closest";
+				Lang.menu[234] = "Lock On Priority: Clearest Line";
+				Lang.menu[235] = "abc / ABC / !@#";
+				Lang.menu[236] = "Backspace";
+				Lang.menu[237] = "Submit";
+				Lang.menu[238] = "Space";
+				Lang.menu[239] = "<-";
+				Lang.menu[240] = "->";
+				Lang.menu[241] = "Gamepad Instructions Off";
+				Lang.menu[242] = "Gamepad Instructions On";
+				Lang.menu[243] = "Menu Controls";
+				Lang.menu[244] = "Radial Quickbar";
+				Lang.menu[245] = "Borderless Window: Enabled";
+				Lang.menu[246] = "Borderless Window: Disabled";
 				Lang.gen[0] = "Generating world terrain";
 				Lang.gen[1] = "Adding sand";
 				Lang.gen[2] = "Generating hills";
@@ -39295,6 +39641,13 @@ namespace Terraria
 				Lang.inter[112] = "You must first set a frame";
 				Lang.inter[113] = "Only available in windowed mode";
 				Lang.inter[114] = "Only available if map is enabled";
+				Lang.inter[115] = "Camera Mode Disabled";
+				Lang.inter[116] = "Highlight New Items Off";
+				Lang.inter[117] = "Highlight New Items On";
+				Lang.inter[118] = "Zoom In";
+				Lang.inter[119] = "Zoom Out";
+				Lang.inter[120] = "Teleport to ally";
+				Lang.inter[121] = "Drop Item";
 				Lang.tip[0] = "Equipped in social slot";
 				Lang.tip[1] = "No stats will be gained";
 				Lang.tip[2] = " melee damage";
@@ -39657,8 +40010,8 @@ namespace Terraria
 				Main.buffTip[143] = "Pew Pew";
 				Main.buffName[144] = "Electrified";
 				Main.buffTip[144] = "You cannot move";
-				Main.buffName[145] = "The Line";
-				Main.buffTip[145] = "You are being drained of life";
+				Main.buffName[145] = "Moon Bite";
+				Main.buffTip[145] = "You are unable to absorb healing effects";
 				Main.buffName[146] = "Happy!";
 				Main.buffTip[146] = "Movement speed increased and monster spawns reduced";
 				Main.buffName[147] = "Banner";
@@ -39695,6 +40048,8 @@ namespace Terraria
 				Main.buffTip[189] = "Incenerated by solar rays";
 				Main.buffName[190] = "Suspicious Looking Eye";
 				Main.buffTip[190] = "A suspicious looking eye that provides light";
+				Main.buffName[191] = "Companion Cube";
+				Main.buffTip[191] = "Will never threaten to stab you and, in fact, cannot speak";
 				Main.buffName[156] = "Stoned";
 				Main.buffTip[156] = "You are completely petrified!";
 				Main.buffName[158] = "Star in a Bottle";
@@ -39705,8 +40060,6 @@ namespace Terraria
 				Main.buffTip[160] = "Movement is greatly slowed";
 				Main.buffName[161] = "Deadly Sphere";
 				Main.buffTip[161] = "The Deadly Sphere will fight for you";
-				Main.buffName[162] = "Unicorn Mount";
-				Main.buffTip[162] = "Charge ahead... fabulously!";
 				Main.buffName[163] = "Obstructed";
 				Main.buffTip[163] = "You can't see!";
 				Main.buffName[164] = "Distorted";
@@ -39717,8 +40070,6 @@ namespace Terraria
 				Main.buffTip[166] = "Riding in a minecart";
 				Main.buffName[167] = "Minecart";
 				Main.buffTip[167] = "Riding in a minecart";
-				Main.buffName[168] = "Cute Fishron Mount";
-				Main.buffTip[168] = "Just don't make it crawl.";
 				Main.buffName[185] = "Minecart";
 				Main.buffTip[185] = "Riding in a minecart";
 				Main.buffName[184] = "Minecart";
@@ -39747,6 +40098,10 @@ namespace Terraria
 				Main.buffTip[177] = "Increased mana regeneration";
 				Main.buffName[178] = "Mana Nebula";
 				Main.buffTip[178] = "Increased mana regeneration";
+				Main.buffName[162] = "Unicorn Mount";
+				Main.buffTip[162] = "Charge ahead... fabulously!";
+				Main.buffName[168] = "Cute Fishron Mount";
+				Main.buffTip[168] = "Just don't make it crawl.";
 				Main.buffName[71] = "Weapon Imbue: Venom";
 				Main.buffTip[71] = "Melee attacks inflict venom on your targets";
 				Main.buffName[73] = "Weapon Imbue: Cursed Flames";
@@ -42358,13 +42713,13 @@ namespace Terraria
 					Lang.prefix[i] = string.Empty;
 				}
 			}
-			for (int j = 0; j < (int)Main.recipe.Length; j++)
+			for (int j = 0; j < Main.recipe.Length; j++)
 			{
 				if (Main.recipe[j].createItem.name != null && Main.recipe[j].createItem.name != "" && Main.recipe[j].createItem.netID != 0)
 				{
 					Main.recipe[j].createItem.name = Lang.itemName(Main.recipe[j].createItem.netID, false);
 					Main.recipe[j].createItem.CheckTip();
-					for (int k = 0; k < (int)Main.recipe[k].requiredItem.Length; k++)
+					for (int k = 0; k < Main.recipe[k].requiredItem.Length; k++)
 					{
 						Main.recipe[j].requiredItem[k].name = Lang.itemName(Main.recipe[j].requiredItem[k].netID, false);
 						Main.recipe[j].requiredItem[k].CheckTip();
@@ -42378,7 +42733,7 @@ namespace Terraria
 			int num = Main.rand.Next(16);
 			if (Lang.lang <= 1)
 			{
-				num = Main.rand.Next(53);
+				num = Main.rand.Next(55);
 				if (num == 0)
 				{
 					return "Terraria: Dig Peon, Dig!";
@@ -42586,6 +42941,14 @@ namespace Terraria
 				if (num == 51)
 				{
 					return "Terraria: I just wanna know where the gold at?";
+				}
+				if (num == 52)
+				{
+					return "Terraria: Now with more ducks!";
+				}
+				if (num == 53)
+				{
+					return "Terraria: 9 + 1 = 11";
 				}
 				return "Terraria: Shut Up and Dig Gaiden!";
 			}
@@ -43040,26 +43403,27 @@ namespace Terraria
 				{
 					return "Placeable on a christmas tree";
 				}
-				if (l >= 2897 && l <= 2994 || l >= 1615 && l <= 1701 || l >= 3390 && l <= 3452 || l >= 3593 && l <= 3594)
+				if ((l >= 2897 && l <= 2994) || (l >= 1615 && l <= 1701) || (l >= 3390 && l <= 3452) || (l >= 3593 && l <= 3594))
 				{
-					int nPC = 0;
+					int l2 = 0;
 					if (l >= 2897 && l <= 2994)
 					{
-						nPC = Item.BannerToNPC(89 + l - 2897 - 1);
+						l2 = Item.BannerToNPC(89 + l - 2897 - 1);
 					}
 					if (l >= 1615 && l <= 1701)
 					{
-						nPC = Item.BannerToNPC(l - 1614);
+						l2 = Item.BannerToNPC(l - 1614);
 					}
 					if (l >= 3390 && l <= 3452)
 					{
-						nPC = Item.BannerToNPC(186 + l - 3390);
+						l2 = Item.BannerToNPC(186 + l - 3390);
 					}
 					if (l >= 3593 && l <= 3594)
 					{
-						nPC = Item.BannerToNPC(249 + l - 3593);
+						l2 = Item.BannerToNPC(249 + l - 3593);
 					}
-					return string.Concat("Nearby players get a bonus against: ", Lang.npcName(nPC, false));
+					string str = Lang.npcName(l2, false);
+					return "Nearby players get a bonus against: " + str;
 				}
 				if (l >= 3293 && l <= 3308)
 				{
@@ -43071,142 +43435,133 @@ namespace Terraria
 				}
 				if (l >= 3318 && l <= 3332)
 				{
-					return "Right click to open";
+					return "<right> to open";
 				}
-				int num = l;
-				if (num <= 1450)
+				if (l <= 1613)
 				{
-					if (num <= 332)
+					if (l <= 352)
 					{
-						if (num <= 168)
+						if (l <= 168)
 						{
-							if (num <= 43)
+							if (l <= 43)
 							{
-								if (num > 23)
+								if (l <= 23)
 								{
-									if (num == 29)
-									{
-										return "Permanently increases maximum life by 20";
-									}
-									switch (num)
-									{
-										case 33:
-										{
-											return "Used for smelting ore";
-										}
-										case 34:
-										{
-											if (english || Lang.lang <= 1)
-											{
-												return "";
-											}
-											return Lang.toolTip(l, true);
-										}
-										case 35:
-										{
-											return "Used to craft items from metal bars";
-										}
-										case 36:
-										{
-											return "Used for basic crafting";
-										}
-										default:
-										{
-											if (num == 43)
-											{
-												return "Summons the Eye of Cthulhu";
-											}
-											if (english || Lang.lang <= 1)
-											{
-												return "";
-											}
-											return Lang.toolTip(l, true);
-										}
-									}
-								}
-								else
-								{
-									if (num == 8)
+									if (l == 8)
 									{
 										return "Provides light";
 									}
-									switch (num)
+									switch (l)
 									{
 										case 15:
-										{
 											return "Tells the time";
-										}
 										case 16:
-										{
 											return "Tells the time";
-										}
 										case 17:
-										{
 											return "Tells the time";
-										}
 										case 18:
-										{
 											return "Displays depth";
-										}
 										case 19:
 										case 20:
 										case 21:
 										case 22:
-										{
-											if (english || Lang.lang <= 1)
-											{
-												return "";
-											}
-											return Lang.toolTip(l, true);
-										}
+											goto IL_AC2F;
 										case 23:
-										{
 											return "'Both tasty and flammable'";
-										}
 										default:
-										{
-											if (english || Lang.lang <= 1)
+											goto IL_AC2F;
+									}
+								}
+								else
+								{
+									if (l == 29)
+									{
+										return "Permanently increases maximum life by 20";
+									}
+									switch (l)
+									{
+										case 33:
+											return "Used for smelting ore";
+										case 34:
+											goto IL_AC2F;
+										case 35:
+											return "Used to craft items from metal bars";
+										case 36:
+											return "Used for basic crafting";
+										default:
+											if (l != 43)
 											{
-												return "";
+												goto IL_AC2F;
 											}
-											return Lang.toolTip(l, true);
-										}
+											return "Summons the Eye of Cthulhu";
 									}
 								}
 							}
-							else if (num > 75)
+							else if (l <= 75)
 							{
-								switch (num)
+								switch (l)
+								{
+									case 49:
+										return "Slowly regenerates life";
+									case 50:
+										return "Gaze in the mirror to return home";
+									case 51:
+									case 52:
+									case 55:
+									case 58:
+									case 59:
+									case 60:
+									case 61:
+									case 62:
+									case 63:
+									case 69:
+										goto IL_AC2F;
+									case 53:
+										return "Allows the holder to double jump";
+									case 54:
+										return "The wearer can run super fast";
+									case 56:
+										return "'Pulsing with dark energy'";
+									case 57:
+										return "'Pulsing with dark energy'";
+									case 64:
+										return "Summons a vile thorn";
+									case 65:
+										return "Causes stars to rain from the sky";
+									case 66:
+										return "Cleanses the evil";
+									case 67:
+										goto IL_22F5;
+									case 68:
+										return "'Looks tasty!'";
+									case 70:
+										return "Summons the Eater of Worlds";
+									default:
+										if (l != 75)
+										{
+											goto IL_AC2F;
+										}
+										return "Disappears after the sunrise";
+								}
+							}
+							else
+							{
+								switch (l)
 								{
 									case 84:
-									{
 										return "'Get over here!'";
-									}
 									case 85:
-									{
 										return "Can be climbed on";
-									}
 									case 86:
 									case 87:
-									{
-										if (english || Lang.lang <= 1)
-										{
-											return "";
-										}
-										return Lang.toolTip(l, true);
-									}
+										goto IL_AC2F;
 									case 88:
-									{
 										return "Provides light when worn";
-									}
 									default:
-									{
-										switch (num)
+										switch (l)
 										{
 											case 98:
-											{
 												return "33% chance to not consume ammo";
-											}
 											case 99:
 											case 104:
 											case 105:
@@ -43219,97 +43574,50 @@ namespace Terraria
 											case 122:
 											case 126:
 											case 127:
-											{
-												if (english || Lang.lang <= 1)
-												{
-													return "";
-												}
-												return Lang.toolTip(l, true);
-											}
+												goto IL_AC2F;
 											case 100:
-											{
 												return "7% increased melee speed";
-											}
 											case 101:
-											{
 												return "7% increased melee speed";
-											}
 											case 102:
-											{
 												return "7% increased melee speed";
-											}
 											case 103:
-											{
 												return "Able to mine Hellstone";
-											}
 											case 109:
-											{
 												return "Permanently increases maximum mana by 20";
-											}
 											case 111:
-											{
 												return "Increases maximum mana by 20";
-											}
 											case 112:
-											{
 												return "Throws balls of fire";
-											}
 											case 113:
-											{
 												return "Casts a controllable missile";
-											}
 											case 114:
-											{
 												return "Magically moves dirt";
-											}
 											case 115:
-											{
 												return "Creates a magical shadow orb";
-											}
 											case 117:
-											{
 												return "'Warm to the touch'";
-											}
 											case 118:
-											{
 												return "Sometimes dropped by Skeletons and Piranha";
-											}
 											case 120:
-											{
 												return "Lights wooden arrows ablaze";
-											}
 											case 121:
-											{
 												return "'It's made out of fire!'";
-											}
 											case 123:
-											{
 												return "7% increased magic damage";
-											}
 											case 124:
-											{
 												return "7% increased magic damage";
-											}
 											case 125:
-											{
 												return "7% increased magic damage";
-											}
 											case 128:
-											{
 												return "Allows flight";
-											}
 											default:
-											{
-												switch (num)
+												switch (l)
 												{
 													case 148:
-													{
 														return "Holding this may attract unwanted attention";
-													}
 													case 149:
-													{
 														return "'It contains strange symbols'";
-													}
 													case 150:
 													case 154:
 													case 155:
@@ -43318,175 +43626,75 @@ namespace Terraria
 													case 162:
 													case 163:
 													case 164:
-													{
-														if (english || Lang.lang <= 1)
-														{
-															return "";
-														}
-														return Lang.toolTip(l, true);
-													}
+														goto IL_AC2F;
 													case 151:
-													{
 														break;
-													}
 													case 152:
-													{
 														return "5% increased ranged damage.";
-													}
 													case 153:
-													{
 														return "5% increased ranged damage.";
-													}
 													case 156:
-													{
 														return "Grants immunity to knockback";
-													}
 													case 157:
-													{
 														return "Sprays out a shower of water";
-													}
 													case 158:
-													{
 														return "Negates fall damage";
-													}
 													case 159:
-													{
 														return "Increases jump height";
-													}
 													case 165:
-													{
 														return "Casts a slow moving bolt of water";
-													}
 													case 166:
-													{
 														return "A small explosion that will destroy some tiles";
-													}
 													case 167:
-													{
 														return "A large explosion that will destroy most tiles";
-													}
 													case 168:
-													{
 														return "A small explosion that will not destroy tiles";
-													}
 													default:
-													{
-														if (english || Lang.lang <= 1)
-														{
-															return "";
-														}
-														return Lang.toolTip(l, true);
-													}
+														goto IL_AC2F;
 												}
 												break;
-											}
 										}
 										break;
-									}
+								}
+							}
+						}
+						else if (l <= 230)
+						{
+							if (l <= 190)
+							{
+								if (l == 175)
+								{
+									return "'Hot to the touch'";
+								}
+								switch (l)
+								{
+									case 186:
+										return "Increases breath time and allows breathing in water";
+									case 187:
+										return "Grants the ability to swim";
+									case 188:
+									case 189:
+										goto IL_AC2F;
+									case 190:
+										return "Has a chance to poison enemies";
+									default:
+										goto IL_AC2F;
 								}
 							}
 							else
 							{
-								switch (num)
-								{
-									case 49:
-									{
-										return "Slowly regenerates life";
-									}
-									case 50:
-									{
-										return "Gaze in the mirror to return home";
-									}
-									case 51:
-									case 52:
-									case 55:
-									case 58:
-									case 59:
-									case 60:
-									case 61:
-									case 62:
-									case 63:
-									case 69:
-									{
-										if (english || Lang.lang <= 1)
-										{
-											return "";
-										}
-										return Lang.toolTip(l, true);
-									}
-									case 53:
-									{
-										return "Allows the holder to double jump";
-									}
-									case 54:
-									{
-										return "The wearer can run super fast";
-									}
-									case 56:
-									{
-										return "'Pulsing with dark energy'";
-									}
-									case 57:
-									{
-										return "'Pulsing with dark energy'";
-									}
-									case 64:
-									{
-										return "Summons a vile thorn";
-									}
-									case 65:
-									{
-										return "Causes stars to rain from the sky";
-									}
-									case 66:
-									{
-										return "Cleanses the evil";
-									}
-									case 67:
-									{
-										return "Banishes the Hallow";
-									}
-									case 68:
-									{
-										return "'Looks tasty!'";
-									}
-									case 70:
-									{
-										return "Summons the Eater of Worlds";
-									}
-									default:
-									{
-										if (num == 75)
-										{
-											return "Disappears after the sunrise";
-										}
-										if (english || Lang.lang <= 1)
-										{
-											return "";
-										}
-										return Lang.toolTip(l, true);
-									}
-								}
-							}
-						}
-						else if (num <= 230)
-						{
-							if (num > 190)
-							{
-								if (num == 193)
+								if (l == 193)
 								{
 									return "Grants immunity to fire blocks";
 								}
-								if (num == 197)
+								if (l == 197)
 								{
 									return "Shoots fallen stars";
 								}
-								switch (num)
+								switch (l)
 								{
 									case 208:
-									{
 										return "'It's pretty, oh so pretty'";
-									}
 									case 209:
 									case 210:
 									case 214:
@@ -43498,185 +43706,55 @@ namespace Terraria
 									case 224:
 									case 225:
 									case 226:
-									{
-										if (english || Lang.lang <= 1)
-										{
-											return "";
-										}
-										return Lang.toolTip(l, true);
-									}
+										goto IL_AC2F;
 									case 211:
-									{
 										return "12% increased melee speed";
-									}
 									case 212:
-									{
 										return "10% increased movement speed";
-									}
 									case 213:
-									{
 										return "Creates grass and moss on dirt and stone";
-									}
 									case 215:
-									{
 										return "'May annoy others'";
-									}
 									case 218:
-									{
 										return "Summons a controllable ball of fire";
-									}
 									case 222:
-									{
 										return "Grows plants";
-									}
 									case 223:
-									{
 										return "6% reduced mana usage";
-									}
 									case 227:
-									{
 										return "Reduced potion cooldown";
-									}
 									case 228:
-									{
 										return "Increases maximum mana by 40";
-									}
 									case 229:
-									{
 										return "Increases maximum mana by 20";
-									}
 									case 230:
-									{
 										return "Increases maximum mana by 20";
-									}
 									default:
-									{
-										if (english || Lang.lang <= 1)
-										{
-											return "";
-										}
-										return Lang.toolTip(l, true);
-									}
-								}
-							}
-							else
-							{
-								if (num == 175)
-								{
-									return "'Hot to the touch'";
-								}
-								switch (num)
-								{
-									case 186:
-									{
-										return "Increases breath time and allows breathing in water";
-									}
-									case 187:
-									{
-										return "Grants the ability to swim";
-									}
-									case 188:
-									case 189:
-									{
-										if (english || Lang.lang <= 1)
-										{
-											return "";
-										}
-										return Lang.toolTip(l, true);
-									}
-									case 190:
-									{
-										return "Has a chance to poison enemies";
-									}
-									default:
-									{
-										if (english || Lang.lang <= 1)
-										{
-											return "";
-										}
-										return Lang.toolTip(l, true);
-									}
+										goto IL_AC2F;
 								}
 							}
 						}
-						else if (num > 305)
+						else if (l <= 324)
 						{
-							if (num == 324)
-							{
-								return "'Banned in most places'";
-							}
-							switch (num)
-							{
-								case 327:
-								{
-									return "Opens one Gold or Dungeon Chest";
-								}
-								case 328:
-								{
-									if (english || Lang.lang <= 1)
-									{
-										return "";
-									}
-									return Lang.toolTip(l, true);
-								}
-								case 329:
-								{
-									return "Opens all Shadow Chests";
-								}
-								default:
-								{
-									if (num == 332)
-									{
-										return "Used for crafting cloth";
-									}
-									if (english || Lang.lang <= 1)
-									{
-										return "";
-									}
-									return Lang.toolTip(l, true);
-								}
-							}
-						}
-						else
-						{
-							switch (num)
+							switch (l)
 							{
 								case 235:
-								{
-									return "'Tossing may be difficult.'";
-								}
+									goto IL_2475;
 								case 236:
-								{
-									if (english || Lang.lang <= 1)
-									{
-										return "";
-									}
-									return Lang.toolTip(l, true);
-								}
+									goto IL_AC2F;
 								case 237:
-								{
 									return "'Makes you look cool!'";
-								}
 								case 238:
-								{
 									return "15% increased magic damage";
-								}
 								default:
-								{
-									switch (num)
+									switch (l)
 									{
 										case 256:
-										{
 											return "15% increased throwing velocity";
-										}
 										case 257:
-										{
 											return "15% increased throwing damage";
-										}
 										case 258:
-										{
 											return "10% increased throwing critical strike chance";
-										}
 										case 259:
 										case 262:
 										case 263:
@@ -43696,522 +43774,106 @@ namespace Terraria
 										case 284:
 										case 286:
 										case 287:
-										{
-											if (english || Lang.lang <= 1)
-											{
-												return "";
-											}
-											return Lang.toolTip(l, true);
-										}
+											goto IL_AC2F;
 										case 260:
-										{
 											return "It smells funny...";
-										}
 										case 261:
-										{
 											return "'It's smiling, might be a good snack'";
-										}
 										case 266:
-										{
 											return "'This is a good idea!'";
-										}
 										case 267:
-										{
 											return "'You are a terrible person.'";
-										}
 										case 268:
-										{
 											return "Greatly extends underwater breathing";
-										}
 										case 272:
-										{
 											return "Casts a demon scythe";
-										}
 										case 281:
-										{
 											return "Allows the collection of seeds for ammo";
-										}
 										case 282:
-										{
 											return "Works when wet";
-										}
 										case 283:
-										{
 											return "For use with Blowpipe";
-										}
 										case 285:
-										{
 											return "5% increased movement speed";
-										}
 										case 288:
-										{
 											return "Provides immunity to lava";
-										}
 										case 289:
-										{
 											return "Provides life regeneration";
-										}
 										case 290:
-										{
 											return "25% increased movement speed";
-										}
 										case 291:
-										{
 											return "Breathe water instead of air";
-										}
 										case 292:
-										{
 											return "Increase defense by 8";
-										}
 										case 293:
-										{
 											return "Increased mana regeneration";
-										}
 										case 294:
-										{
 											return "20% increased magic damage";
-										}
 										case 295:
-										{
 											return "Slows falling speed";
-										}
 										case 296:
-										{
 											return "Shows the location of treasure and ore";
-										}
 										case 297:
-										{
 											return "Grants invisibility";
-										}
 										case 298:
-										{
 											return "Emits an aura of light";
-										}
 										case 299:
-										{
 											return "Increases night vision";
-										}
 										case 300:
-										{
 											return "Increases enemy spawn rate";
-										}
 										case 301:
-										{
 											return "Attackers also take damage";
-										}
 										case 302:
-										{
 											return "Allows the ability to walk on water";
-										}
 										case 303:
-										{
 											return "20% increased arrow speed and damage";
-										}
 										case 304:
-										{
 											return "Shows the location of enemies";
-										}
 										case 305:
-										{
 											return "Allows the control of gravity";
-										}
 										default:
-										{
-											if (english || Lang.lang <= 1)
+											if (l != 324)
 											{
-												return "";
+												goto IL_AC2F;
 											}
-											return Lang.toolTip(l, true);
-										}
+											return "'Banned in most places'";
 									}
-								}
+									break;
+							}
+						}
+						else
+						{
+							switch (l)
+							{
+								case 327:
+									return "Opens one Gold or Dungeon Chest";
+								case 328:
+									goto IL_AC2F;
+								case 329:
+									return "Opens all Shadow Chests";
+								default:
+									if (l == 332)
+									{
+										return "Used for crafting cloth";
+									}
+									if (l != 352)
+									{
+										goto IL_AC2F;
+									}
+									return "Used for brewing ale";
 							}
 						}
 					}
-					else if (num <= 726)
+					else if (l <= 749)
 					{
-						if (num <= 603)
+						if (l <= 669)
 						{
-							if (num > 407)
+							if (l <= 425)
 							{
-								switch (num)
-								{
-									case 422:
-									{
-										return "Spreads the Hallow to some blocks";
-									}
-									case 423:
-									{
-										return "Spreads the corruption to some blocks";
-									}
-									case 424:
-									{
-										if (english || Lang.lang <= 1)
-										{
-											return "";
-										}
-										return Lang.toolTip(l, true);
-									}
-									case 425:
-									{
-										return "Summons a magical fairy";
-									}
-									default:
-									{
-										if (num == 434)
-										{
-											return "Three round burst";
-										}
-										switch (num)
-										{
-											case 485:
-											{
-												return "Turns the holder into a werewolf at night";
-											}
-											case 486:
-											{
-												return "Creates measurement lines on screen for block placement";
-											}
-											case 487:
-											case 488:
-											case 494:
-											case 498:
-											case 499:
-											case 500:
-											case 501:
-											case 502:
-											case 503:
-											case 504:
-											case 505:
-											case 507:
-											case 508:
-											case 511:
-											case 512:
-											case 513:
-											case 514:
-											case 530:
-											case 537:
-											case 538:
-											case 539:
-											case 540:
-											case 545:
-											case 546:
-											case 550:
-											case 562:
-											case 563:
-											case 564:
-											case 565:
-											case 566:
-											case 567:
-											case 568:
-											case 569:
-											case 570:
-											case 571:
-											case 572:
-											case 573:
-											case 574:
-											case 577:
-											case 578:
-											case 586:
-											case 587:
-											case 588:
-											case 589:
-											case 590:
-											case 591:
-											case 592:
-											case 593:
-											case 594:
-											case 595:
-											case 596:
-											case 597:
-											case 598:
-											{
-												if (english || Lang.lang <= 1)
-												{
-													return "";
-												}
-												return Lang.toolTip(l, true);
-											}
-											case 489:
-											{
-												return "15% increased magic damage";
-											}
-											case 490:
-											{
-												return "15% increased melee damage";
-											}
-											case 491:
-											{
-												return "15% increased ranged damage";
-											}
-											case 492:
-											{
-												return "Allows flight and slow fall";
-											}
-											case 493:
-											{
-												return "Allows flight and slow fall";
-											}
-											case 495:
-											{
-												return "Casts a controllable rainbow";
-											}
-											case 496:
-											{
-												return "Summons a block of ice";
-											}
-											case 497:
-											{
-												return "Transforms the holder into merfolk when entering water";
-											}
-											case 506:
-											{
-												return "Uses gel for ammo";
-											}
-											case 509:
-											{
-												return "Places red wire";
-											}
-											case 510:
-											{
-												return "Removes wire";
-											}
-											case 515:
-											{
-												return "Creates several crystal shards on impact";
-											}
-											case 516:
-											{
-												return "Summons falling stars on impact";
-											}
-											case 517:
-											{
-												return "A magical returning dagger";
-											}
-											case 518:
-											{
-												return "Summons rapid fire crystal shards";
-											}
-											case 519:
-											{
-												return "Summons unholy fire balls";
-											}
-											case 520:
-											{
-												return "'The essence of light creatures'";
-											}
-											case 521:
-											{
-												return "'The essence of dark creatures'";
-											}
-											case 522:
-											{
-												return "'Not even water can put the flame out'";
-											}
-											case 523:
-											{
-												return "Can be placed in water";
-											}
-											case 524:
-											{
-												return "Used to smelt adamantite and titanium ore";
-											}
-											case 525:
-											{
-												return "Used to craft items from mythril, orichalcum, adamantite, and titanium bars";
-											}
-											case 526:
-											{
-												return "'Sharp and magical!'";
-											}
-											case 527:
-											{
-												return "'Sometimes carried by creatures in corrupt deserts'";
-											}
-											case 528:
-											{
-												return "'Sometimes carried by creatures in light deserts'";
-											}
-											case 529:
-											{
-												return "Activates when stepped on";
-											}
-											case 531:
-											{
-												return "Can be enchanted";
-											}
-											case 532:
-											{
-												return "Causes stars to fall when injured";
-											}
-											case 533:
-											{
-												return "50% chance to not consume ammo";
-											}
-											case 534:
-											{
-												return "Fires a spread of bullets";
-											}
-											case 535:
-											{
-												return "Reduces the cooldown of healing potions";
-											}
-											case 536:
-											{
-												return "Increases melee knockback";
-											}
-											case 541:
-											{
-												return "Activates when stepped on";
-											}
-											case 542:
-											{
-												return "Activates when a player steps on it";
-											}
-											case 543:
-											{
-												return "Activates when a player steps on it";
-											}
-											case 544:
-											{
-												return "Summons The Twins";
-											}
-											case 547:
-											{
-												return "'The essence of pure terror'";
-											}
-											case 548:
-											{
-												return "'The essence of the destroyer'";
-											}
-											case 549:
-											{
-												return "'The essence of omniscient watchers'";
-											}
-											case 551:
-											{
-												return "7% increased critical strike chance";
-											}
-											case 552:
-											{
-												return "7% increased damage";
-											}
-											case 553:
-											{
-												return "15% increased ranged damage";
-											}
-											case 554:
-											{
-												return "Increases length of invincibility after taking damage";
-											}
-											case 555:
-											{
-												return "8% reduced mana usage";
-											}
-											case 556:
-											{
-												return "Summons Destroyer";
-											}
-											case 557:
-											{
-												return "Summons Skeletron Prime";
-											}
-											case 558:
-											{
-												return "Increases maximum mana by 100";
-											}
-											case 559:
-											{
-												return "10% increased melee damage and critical strike chance";
-											}
-											case 560:
-											{
-												return "Summons King Slime";
-											}
-											case 561:
-											{
-												return "Stacks up to 5";
-											}
-											case 575:
-											{
-												return "'The essence of powerful flying creatures'";
-											}
-											case 576:
-											{
-												return "Has a chance to record songs";
-											}
-											case 579:
-											{
-												return "'Not to be confused with a picksaw'";
-											}
-											case 580:
-											{
-												return "Explodes when activated";
-											}
-											case 581:
-											{
-												return "Sends water to outlet pumps";
-											}
-											case 582:
-											{
-												return "Receives water from inlet pumps";
-											}
-											case 583:
-											{
-												return "Activates every second";
-											}
-											case 584:
-											{
-												return "Activates every 3 seconds";
-											}
-											case 585:
-											{
-												return "Activates every 5 seconds";
-											}
-											case 599:
-											{
-												return "Right click to open";
-											}
-											case 600:
-											{
-												return "Right click to open";
-											}
-											case 601:
-											{
-												return "Right click to open";
-											}
-											case 602:
-											{
-												return "Summons the Frost Legion";
-											}
-											case 603:
-											{
-												return "Summons a pet bunny";
-											}
-											default:
-											{
-												if (english || Lang.lang <= 1)
-												{
-													return "";
-												}
-												return Lang.toolTip(l, true);
-											}
-										}
-									}
-								}
-							}
-							else
-							{
-								if (num == 352)
-								{
-									return "Used for brewing ale";
-								}
-								switch (num)
+								switch (l)
 								{
 									case 357:
-									{
 										return "Minor improvements to all stats";
-									}
 									case 358:
 									case 359:
 									case 360:
@@ -44236,1144 +43898,449 @@ namespace Terraria
 									case 391:
 									case 392:
 									case 406:
-									{
-										if (english || Lang.lang <= 1)
-										{
-											return "";
-										}
-										return Lang.toolTip(l, true);
-									}
+										goto IL_AC2F;
 									case 361:
-									{
 										return "Summons a Goblin Army";
-									}
 									case 363:
-									{
 										return "Used for advanced wood crafting";
-									}
 									case 367:
-									{
 										return "Strong enough to destroy Demon Altars";
-									}
 									case 371:
-									{
 										return "Increases maximum mana by 40";
-									}
 									case 372:
-									{
 										return "7% increased movement speed";
-									}
 									case 373:
-									{
 										return "10% increased ranged damage";
-									}
 									case 376:
-									{
 										return "Increases maximum mana by 60";
-									}
 									case 377:
-									{
 										return "5% increased melee critical strike chance";
-									}
 									case 378:
-									{
 										return "12% increased ranged damage";
-									}
 									case 385:
-									{
 										return "Can mine Mythril and Orichalcum";
-									}
 									case 386:
-									{
 										return "Can mine Adamantite and Titanium";
-									}
 									case 389:
-									{
 										return "Has a chance to confuse";
-									}
 									case 393:
-									{
 										return "Displays horizontal position";
-									}
 									case 394:
-									{
 										return "Grants the ability to swim";
-									}
 									case 395:
-									{
 										return "Shows position";
-									}
 									case 396:
-									{
 										return "Negates fall damage";
-									}
 									case 397:
-									{
 										return "Grants immunity to knockback";
-									}
 									case 398:
-									{
 										return "Allows the combining of some accessories";
-									}
 									case 399:
-									{
 										return "Allows the holder to double jump";
-									}
 									case 400:
-									{
 										return "Increases maximum mana by 80";
-									}
 									case 401:
-									{
 										return "7% increased melee critical strike chance";
-									}
 									case 402:
-									{
 										return "14% increased ranged damage";
-									}
 									case 403:
-									{
 										return "6% increased damage";
-									}
 									case 404:
-									{
 										return "4% increased critical strike chance";
-									}
 									case 405:
-									{
 										return "Allows flight";
-									}
 									case 407:
-									{
 										return "Increases block placement range";
-									}
 									default:
-									{
-										if (english || Lang.lang <= 1)
+										switch (l)
 										{
-											return "";
+											case 422:
+												return "Spreads the Hallow to some blocks";
+											case 423:
+												return "Spreads the corruption to some blocks";
+											case 424:
+												goto IL_AC2F;
+											case 425:
+												return "Summons a magical fairy";
+											default:
+												goto IL_AC2F;
 										}
-										return Lang.toolTip(l, true);
-									}
+										break;
+								}
+							}
+							else
+							{
+								if (l == 434)
+								{
+									return "Three round burst";
+								}
+								switch (l)
+								{
+									case 485:
+										return "Turns the holder into a werewolf at night";
+									case 486:
+										return "Creates measurement lines on screen for block placement";
+									case 487:
+									case 488:
+									case 494:
+									case 498:
+									case 499:
+									case 500:
+									case 501:
+									case 502:
+									case 503:
+									case 504:
+									case 505:
+									case 507:
+									case 508:
+									case 511:
+									case 512:
+									case 513:
+									case 514:
+									case 530:
+									case 537:
+									case 538:
+									case 539:
+									case 540:
+									case 545:
+									case 546:
+									case 550:
+									case 562:
+									case 563:
+									case 564:
+									case 565:
+									case 566:
+									case 567:
+									case 568:
+									case 569:
+									case 570:
+									case 571:
+									case 572:
+									case 573:
+									case 574:
+									case 577:
+									case 578:
+									case 586:
+									case 587:
+									case 588:
+									case 589:
+									case 590:
+									case 591:
+									case 592:
+									case 593:
+									case 594:
+									case 595:
+									case 596:
+									case 597:
+									case 598:
+										goto IL_AC2F;
+									case 489:
+										return "15% increased magic damage";
+									case 490:
+										return "15% increased melee damage";
+									case 491:
+										return "15% increased ranged damage";
+									case 492:
+										return "Allows flight and slow fall";
+									case 493:
+										return "Allows flight and slow fall";
+									case 495:
+										return "Casts a controllable rainbow";
+									case 496:
+										return "Summons a block of ice";
+									case 497:
+										return "Transforms the holder into merfolk when entering water";
+									case 506:
+										return "Uses gel for ammo";
+									case 509:
+										return "Places red wire";
+									case 510:
+										return "Removes wire";
+									case 515:
+										return "Creates several crystal shards on impact";
+									case 516:
+										return "Summons falling stars on impact";
+									case 517:
+										return "A magical returning dagger";
+									case 518:
+										return "Summons rapid fire crystal shards";
+									case 519:
+										return "Summons unholy fire balls";
+									case 520:
+										return "'The essence of light creatures'";
+									case 521:
+										return "'The essence of dark creatures'";
+									case 522:
+										return "'Not even water can put the flame out'";
+									case 523:
+										return "Can be placed in water";
+									case 524:
+										return "Used to smelt adamantite and titanium ore";
+									case 525:
+										return "Used to craft items from mythril, orichalcum, adamantite, and titanium bars";
+									case 526:
+										return "'Sharp and magical!'";
+									case 527:
+										return "'Sometimes carried by creatures in corrupt deserts'";
+									case 528:
+										return "'Sometimes carried by creatures in light deserts'";
+									case 529:
+										return "Activates when stepped on";
+									case 531:
+										return "Can be enchanted";
+									case 532:
+										return "Causes stars to fall when injured";
+									case 533:
+										return "50% chance to not consume ammo";
+									case 534:
+										return "Fires a spread of bullets";
+									case 535:
+										return "Reduces the cooldown of healing potions";
+									case 536:
+										return "Increases melee knockback";
+									case 541:
+										return "Activates when stepped on";
+									case 542:
+										return "Activates when a player steps on it";
+									case 543:
+										return "Activates when a player steps on it";
+									case 544:
+										return "Summons The Twins";
+									case 547:
+										return "'The essence of pure terror'";
+									case 548:
+										return "'The essence of the destroyer'";
+									case 549:
+										return "'The essence of omniscient watchers'";
+									case 551:
+										return "7% increased critical strike chance";
+									case 552:
+										return "7% increased damage";
+									case 553:
+										return "15% increased ranged damage";
+									case 554:
+										return "Increases length of invincibility after taking damage";
+									case 555:
+										return "8% reduced mana usage";
+									case 556:
+										return "Summons Destroyer";
+									case 557:
+										return "Summons Skeletron Prime";
+									case 558:
+										return "Increases maximum mana by 100";
+									case 559:
+										return "10% increased melee damage and critical strike chance";
+									case 560:
+										return "Summons King Slime";
+									case 561:
+										return "Stacks up to 5";
+									case 575:
+										return "'The essence of powerful flying creatures'";
+									case 576:
+										return "Has a chance to record songs";
+									case 579:
+										return "'Not to be confused with a picksaw'";
+									case 580:
+										return "Explodes when activated";
+									case 581:
+										return "Sends water to outlet pumps";
+									case 582:
+										return "Receives water from inlet pumps";
+									case 583:
+										return "Activates every second";
+									case 584:
+										return "Activates every 3 seconds";
+									case 585:
+										return "Activates every 5 seconds";
+									case 599:
+										return "<right> to open";
+									case 600:
+										return "<right> to open";
+									case 601:
+										return "<right> to open";
+									case 602:
+										return "Summons the Frost Legion";
+									case 603:
+										return "Summons a pet bunny";
+									default:
+										switch (l)
+										{
+											case 665:
+											case 666:
+											case 667:
+											case 668:
+												goto IL_346B;
+											case 669:
+												return "Summons a baby penguin";
+											default:
+												goto IL_AC2F;
+										}
+										break;
 								}
 							}
 						}
-						else if (num > 686)
+						else if (l <= 709)
 						{
-							switch (num)
+							switch (l)
 							{
-								case 707:
-								{
-									return "Tells the time";
-								}
-								case 708:
-								{
-									return "Tells the time";
-								}
-								case 709:
-								{
-									return "Tells the time";
-								}
+								case 676:
+									return "Shoots an icy bolt";
+								case 677:
+								case 679:
+								case 680:
+								case 681:
+								case 682:
+									goto IL_AC2F;
+								case 678:
+									return "Only for those who are worthy";
+								case 683:
+									return "Summons the Devil's trident";
+								case 684:
+									return "16% increased melee and ranged damage";
+								case 685:
+									return "11% increased melee and ranged critical strike chance";
+								case 686:
+									return "8% increased movement speed";
 								default:
-								{
-									if (num == 716)
+									switch (l)
 									{
-										return "Used to craft items from metal bars";
-									}
-									switch (num)
-									{
-										case 723:
-										{
-											return "Shoots a beam of light";
-										}
-										case 724:
-										{
-											return "Shoots an icy bolt";
-										}
-										case 725:
-										{
-											return "Shoots frost arrows";
-										}
-										case 726:
-										{
-											return "Shoots a stream of frost";
-										}
+										case 707:
+											return "Tells the time";
+										case 708:
+											return "Tells the time";
+										case 709:
+											return "Tells the time";
 										default:
-										{
-											if (english || Lang.lang <= 1)
-											{
-												return "";
-											}
-											return Lang.toolTip(l, true);
-										}
+											goto IL_AC2F;
 									}
-								}
+									break;
 							}
 						}
 						else
 						{
-							switch (num)
+							if (l == 716)
 							{
-								case 665:
-								case 666:
-								case 667:
-								case 668:
-								{
-									return "'Great for impersonating devs!'";
-								}
-								case 669:
-								{
-									return "Summons a baby penguin";
-								}
+								return "Used to craft items from metal bars";
+							}
+							switch (l)
+							{
+								case 723:
+									return "Shoots a beam of light";
+								case 724:
+									return "Shoots an icy bolt";
+								case 725:
+									return "Shoots frost arrows";
+								case 726:
+									return "Shoots a stream of frost";
 								default:
-								{
-									switch (num)
+									switch (l)
 									{
-										case 676:
-										{
-											return "Shoots an icy bolt";
-										}
-										case 677:
-										case 679:
-										case 680:
-										case 681:
-										case 682:
-										{
-											if (english || Lang.lang <= 1)
-											{
-												return "";
-											}
-											return Lang.toolTip(l, true);
-										}
-										case 678:
-										{
-											return "Only for those who are worthy";
-										}
-										case 683:
-										{
-											return "Summons the Devil's trident";
-										}
-										case 684:
-										{
-											return "16% increased melee and ranged damage";
-										}
-										case 685:
-										{
-											return "11% increased melee and ranged critical strike chance";
-										}
-										case 686:
-										{
-											return "8% increased movement speed";
-										}
+										case 748:
+											return "Allows flight and slow fall";
+										case 749:
+											return "Allows flight and slow fall";
 										default:
-										{
-											if (english || Lang.lang <= 1)
-											{
-												return "";
-											}
-											return Lang.toolTip(l, true);
-										}
+											goto IL_AC2F;
 									}
-								}
+									break;
 							}
 						}
 					}
-					else if (num <= 823)
+					else if (l <= 832)
 					{
-						if (num > 753)
+						if (l <= 761)
 						{
-							if (num == 761)
+							if (l == 753)
 							{
-								return "Allows flight and slow fall";
+								return "Summons a pet turtle";
 							}
-							switch (num)
+							if (l != 761)
+							{
+								goto IL_AC2F;
+							}
+							return "Allows flight and slow fall";
+						}
+						else
+						{
+							switch (l)
 							{
 								case 779:
-								{
 									return "Creates and destroys biomes when sprayed";
-								}
 								case 780:
-								{
 									return "Used by the Clentaminator";
-								}
 								case 781:
-								{
 									return "Used by the Clentaminator";
-								}
 								case 782:
-								{
 									return "Used by the Clentaminator";
-								}
 								case 783:
-								{
 									return "Used by the Clentaminator";
-								}
 								case 784:
-								{
 									return "Used by the Clentaminator";
-								}
 								case 785:
-								{
 									return "Allows flight and slow fall";
-								}
 								case 786:
-								{
 									return "Allows flight and slow fall";
-								}
 								case 787:
-								{
 									return "Strong enough to destroy Demon Altars";
-								}
 								case 788:
-								{
 									return "Summons a thorn spear";
-								}
 								case 789:
 								case 790:
 								case 791:
 								case 795:
 								case 796:
 								case 797:
-								{
-									if (english || Lang.lang <= 1)
-									{
-										return "";
-									}
-									return Lang.toolTip(l, true);
-								}
+									goto IL_AC2F;
 								case 792:
-								{
 									return "2% increased damage";
-								}
 								case 793:
-								{
 									return "2% increased damage";
-								}
 								case 794:
-								{
 									return "2% increased damage";
-								}
 								case 798:
-								{
 									return "Able to mine Hellstone";
-								}
 								default:
-								{
-									switch (num)
+									switch (l)
 									{
 										case 821:
-										{
 											return "Allows flight and slow fall";
-										}
 										case 822:
-										{
 											return "Allows flight and slow fall";
-										}
 										case 823:
-										{
 											return "Allows flight and slow fall";
-										}
 										default:
-										{
-											if (english || Lang.lang <= 1)
+											if (l != 832)
 											{
-												return "";
+												goto IL_AC2F;
 											}
-											return Lang.toolTip(l, true);
-										}
+											return "Places living wood";
 									}
-								}
-							}
-						}
-						else
-						{
-							switch (num)
-							{
-								case 748:
-								{
-									return "Allows flight and slow fall";
-								}
-								case 749:
-								{
-									return "Allows flight and slow fall";
-								}
-								default:
-								{
-									if (num == 753)
-									{
-										return "Summons a pet turtle";
-									}
-									if (english || Lang.lang <= 1)
-									{
-										return "";
-									}
-									return Lang.toolTip(l, true);
-								}
+									break;
 							}
 						}
 					}
-					else if (num > 1072)
+					else if (l <= 1343)
 					{
-						switch (num)
-						{
-							case 1100:
-							{
-								return "Used to remove paint";
-							}
-							case 1101:
-							case 1102:
-							case 1103:
-							case 1104:
-							case 1105:
-							case 1106:
-							case 1124:
-							case 1125:
-							case 1126:
-							case 1127:
-							case 1128:
-							case 1134:
-							case 1135:
-							case 1136:
-							case 1137:
-							case 1138:
-							case 1139:
-							case 1140:
-							case 1142:
-							case 1143:
-							case 1144:
-							case 1146:
-							case 1147:
-							case 1148:
-							case 1149:
-							case 1150:
-							case 1152:
-							case 1153:
-							case 1154:
-							case 1155:
-							case 1166:
-							case 1168:
-							case 1173:
-							case 1174:
-							case 1175:
-							case 1176:
-							case 1177:
-							case 1184:
-							case 1185:
-							case 1186:
-							case 1187:
-							case 1190:
-							case 1191:
-							case 1192:
-							case 1193:
-							case 1194:
-							case 1197:
-							case 1198:
-							case 1199:
-							case 1200:
-							case 1201:
-							case 1202:
-							case 1203:
-							case 1204:
-							case 1222:
-							case 1223:
-							case 1224:
-							case 1225:
-							case 1229:
-							case 1230:
-							case 1231:
-							case 1232:
-							case 1233:
-							case 1234:
-							case 1236:
-							case 1237:
-							case 1238:
-							case 1239:
-							case 1240:
-							case 1241:
-							case 1243:
-							case 1245:
-							case 1246:
-							case 1257:
-							case 1262:
-							case 1263:
-							case 1266:
-							case 1267:
-							case 1268:
-							case 1269:
-							case 1270:
-							case 1271:
-							case 1272:
-							case 1273:
-							case 1274:
-							case 1275:
-							case 1276:
-							case 1277:
-							case 1278:
-							case 1279:
-							case 1280:
-							case 1281:
-							case 1288:
-							case 1289:
-							case 1292:
-							case 1298:
-							case 1302:
-							case 1304:
-							case 1305:
-							case 1319:
-							case 1320:
-							case 1324:
-							case 1325:
-							case 1328:
-							case 1329:
-							case 1330:
-							case 1337:
-							case 1338:
-							case 1339:
-							case 1340:
-							case 1341:
-							case 1342:
-							{
-								if (english || Lang.lang <= 1)
-								{
-									return "";
-								}
-								return Lang.toolTip(l, true);
-							}
-							case 1107:
-							{
-								return "Used to make Teal Dye";
-							}
-							case 1108:
-							{
-								return "Used to make Green Dye";
-							}
-							case 1109:
-							{
-								return "Used to make Sky Blue Dye";
-							}
-							case 1110:
-							{
-								return "Used to make Yellow Dye";
-							}
-							case 1111:
-							{
-								return "Used to make Blue Dye";
-							}
-							case 1112:
-							{
-								return "Used to make Lime Dye";
-							}
-							case 1113:
-							{
-								return "Used to make Pink Dye";
-							}
-							case 1114:
-							{
-								return "Used to make Orange Dye";
-							}
-							case 1115:
-							{
-								return "Used to make Red Dye";
-							}
-							case 1116:
-							{
-								return "Used to make Cyan Dye";
-							}
-							case 1117:
-							{
-								return "Used to make Violet Dye";
-							}
-							case 1118:
-							{
-								return "Used to make Purple Dye";
-							}
-							case 1119:
-							{
-								return "Used to make Black Dye";
-							}
-							case 1120:
-							{
-								return "Used to Craft Dyes";
-							}
-							case 1121:
-							{
-								return "Shoots bees that will chase your enemy";
-							}
-							case 1122:
-							{
-								return "Chases after your enemy";
-							}
-							case 1123:
-							{
-								return "Summons killer bees after striking your foe";
-							}
-							case 1129:
-							{
-								return "Places Hives";
-							}
-							case 1130:
-							{
-								return "Explodes into a swarm of bees";
-							}
-							case 1131:
-							{
-								return "Allows the holder to reverse gravity";
-							}
-							case 1132:
-							{
-								return "Releases bees when damaged";
-							}
-							case 1133:
-							{
-								return "Summons the Queen Bee";
-							}
-							case 1141:
-							{
-								return "Opens the jungle temple door";
-							}
-							case 1145:
-							{
-								return "Used for basic crafting";
-							}
-							case 1151:
-							{
-								return "Activates when a player steps on it";
-							}
-							case 1156:
-							{
-								return "Latches on to enemies for continuous damage";
-							}
-							case 1157:
-							{
-								return "Summons a Pygmy to fight for you";
-							}
-							case 1158:
-							{
-								return "Increases your max number of minions";
-							}
-							case 1159:
-							{
-								return "Increases your max number of minions";
-							}
-							case 1160:
-							{
-								return "Increases your max number of minions";
-							}
-							case 1161:
-							{
-								return "Increases your max number of minions";
-							}
-							case 1162:
-							{
-								return "Allows flight and slow fall";
-							}
-							case 1163:
-							{
-								return "Allows the holder to double jump";
-							}
-							case 1164:
-							{
-								return "Allows the holder to quadruple jump";
-							}
-							case 1165:
-							{
-								return "Allows flight and slow fall";
-							}
-							case 1167:
-							{
-								return "Increases the damage of your minions by 15%";
-							}
-							case 1169:
-							{
-								return "Summons a Baby Skeletron Head";
-							}
-							case 1170:
-							{
-								return "Summons a Baby Hornet";
-							}
-							case 1171:
-							{
-								return "Summons a Tiki Spirit";
-							}
-							case 1172:
-							{
-								return "Summons a Pet Lizard";
-							}
-							case 1178:
-							{
-								return "Rapidly shoots razor sharp leaves";
-							}
-							case 1179:
-							{
-								return "Chases after your enemy";
-							}
-							case 1180:
-							{
-								return "Summons a Pet Parrot";
-							}
-							case 1181:
-							{
-								return "Summons a Baby Truffle";
-							}
-							case 1182:
-							{
-								return "Summons a Pet Sapling";
-							}
-							case 1183:
-							{
-								return "Summons a Wisp to provide light";
-							}
-							case 1188:
-							{
-								return "Can mine Mythril and Orichalcum";
-							}
-							case 1189:
-							{
-								return "Can mine Mythril and Orichalcum";
-							}
-							case 1195:
-							{
-								return "Can mine Adamantite and Titanium";
-							}
-							case 1196:
-							{
-								return "Can mine Adamantite and Titanium";
-							}
-							case 1205:
-							{
-								return "8% increased melee damage";
-							}
-							case 1206:
-							{
-								return "9% increased ranged damage";
-							}
-							case 1207:
-							{
-								return "7% increased magic damage and critical strike chance";
-							}
-							case 1208:
-							{
-								return "3% increased damage";
-							}
-							case 1209:
-							{
-								return "2% increased damage";
-							}
-							case 1210:
-							{
-								return "7% increased melee damage";
-							}
-							case 1211:
-							{
-								return "15% increased ranged critical strike chance";
-							}
-							case 1212:
-							{
-								return "18% increased magic critical strike chance";
-							}
-							case 1213:
-							{
-								return "6% increased critical strike chance";
-							}
-							case 1214:
-							{
-								return "11% increased movement speed";
-							}
-							case 1215:
-							{
-								return "8% increased melee damage and critical strike chance";
-							}
-							case 1216:
-							{
-								return "16% increased ranged damage";
-							}
-							case 1217:
-							{
-								return "16% increased magic damage and 7% increased magic critical strike chance";
-							}
-							case 1218:
-							{
-								return "4% increased damage";
-							}
-							case 1219:
-							{
-								return "3% increased damage and critical strike chance";
-							}
-							case 1220:
-							{
-								return "Used to craft items from mythril, orichalcum, adamantite, and titanium bars";
-							}
-							case 1221:
-							{
-								return "Used to smelt adamantite and titanium ore";
-							}
-							case 1226:
-							{
-								return "Shoots a powerful orb";
-							}
-							case 1227:
-							{
-								return "Shoots a spore cloud";
-							}
-							case 1228:
-							{
-								return "Shoots a spore cloud";
-							}
-							case 1235:
-							{
-								return "Bounces back after hitting a wall";
-							}
-							case 1242:
-							{
-								return "Summons a Baby Dinosaur";
-							}
-							case 1244:
-							{
-								return "Summons a cloud to rain down on your foes";
-							}
-							case 1247:
-							{
-								return "Causes stars to fall and releases bees when injured";
-							}
-							case 1248:
-							{
-								return "10% increased critical strike chance";
-							}
-							case 1249:
-							{
-								return "Increases jump height";
-							}
-							case 1250:
-							{
-								return "Allows the holder to double jump";
-							}
-							case 1251:
-							{
-								return "Allows the holder to double jump";
-							}
-							case 1252:
-							{
-								return "Allows the holder to double jump";
-							}
-							case 1253:
-							{
-								return "Puts a shell around the owner when below 50% life that reduces damage";
-							}
-							case 1254:
-							{
-								return "Shoots a powerful, high velocity bullet";
-							}
-							case 1255:
-							{
-								return "Shoots a powerful, high velocity bullet";
-							}
-							case 1256:
-							{
-								return "Summons a cloud to rain blood on your foes";
-							}
-							case 1258:
-							{
-								return "Shoots an explosive bolt";
-							}
-							case 1259:
-							{
-								return "Shoots razor sharp flower petals at nearby enemies";
-							}
-							case 1260:
-							{
-								return "Shoots a rainbow that does continuous damage";
-							}
-							case 1261:
-							{
-								return "Explodes into deadly shrapnel";
-							}
-							case 1264:
-							{
-								return "Shoots a ball of frost";
-							}
-							case 1265:
-							{
-								return "Shoots a powerful, high velocity bullet";
-							}
-							case 1282:
-							{
-								return "Increases maximum mana by 20";
-							}
-							case 1283:
-							{
-								return "Increases maximum mana by 40";
-							}
-							case 1284:
-							{
-								return "Increases maximum mana by 40";
-							}
-							case 1285:
-							{
-								return "Increases maximum mana by 60";
-							}
-							case 1286:
-							{
-								return "Increases maximum mana by 60";
-							}
-							case 1287:
-							{
-								return "Increases maximum mana by 80";
-							}
-							case 1290:
-							{
-								return "Increases movement speed after being struck";
-							}
-							case 1291:
-							{
-								return "Permanently increases maximum life by 5";
-							}
-							case 1293:
-							{
-								return "Used at the Lihzahrd Altar";
-							}
-							case 1294:
-							{
-								return "Capable of mining Lihzahrd Bricks";
-							}
-							case 1295:
-							{
-								return "Shoots a piercing ray of heat";
-							}
-							case 1296:
-							{
-								return "Summons a powerful boulder";
-							}
-							case 1297:
-							{
-								return "Punches with the force of a golem";
-							}
-							case 1299:
-							{
-								return "Increases view range when held";
-							}
-							case 1300:
-							{
-								return "Increases view range for guns";
-							}
-							case 1301:
-							{
-								return "10% increased damage";
-							}
-							case 1303:
-							{
-								return "Provides light under water";
-							}
-							case 1306:
-							{
-								return "Shoots an icy sickle";
-							}
-							case 1307:
-							{
-								return "'You are a terrible person'";
-							}
-							case 1308:
-							{
-								return "Shoots a poison fang that pierces multiple enemies";
-							}
-							case 1309:
-							{
-								return "Summons a baby slime to fight for you";
-							}
-							case 1310:
-							{
-								return "Inflicts poison on enemies";
-							}
-							case 1311:
-							{
-								return "Summons an eyeball spring";
-							}
-							case 1312:
-							{
-								return "Summons a baby snowman";
-							}
-							case 1313:
-							{
-								return "Shoots a skull";
-							}
-							case 1314:
-							{
-								return "Shoots a boxing glove";
-							}
-							case 1315:
-							{
-								return "Summons a pirate invasion";
-							}
-							case 1316:
-							{
-								return "6% increased melee damage";
-							}
-							case 1317:
-							{
-								return "8% increased melee damage and critical strike chance";
-							}
-							case 1318:
-							{
-								return "4% increased melee critical strike chance";
-							}
-							case 1321:
-							{
-								return "Increases damage by 10% and greatly increases arrow speed";
-							}
-							case 1322:
-							{
-								return "Inflicts fire damage on attack";
-							}
-							case 1323:
-							{
-								return "Reduces damage from touching lava";
-							}
-							case 1326:
-							{
-								return "Teleports you to the position of the mouse";
-							}
-							case 1327:
-							{
-								return "Shoots a deathly sickle";
-							}
-							case 1331:
-							{
-								return "Summons the Brain of Cthulhu";
-							}
-							case 1332:
-							{
-								return "'The blood of gods'";
-							}
-							case 1333:
-							{
-								return "Can be placed in water";
-							}
-							case 1334:
-							{
-								return "Decreases target's defense";
-							}
-							case 1335:
-							{
-								return "Decreases target's defense";
-							}
-							case 1336:
-							{
-								return "Sprays a shower of ichor";
-							}
-							case 1343:
-							{
-								return "Increases melee knockback and inflicts fire damage on attack";
-							}
-							default:
-							{
-								switch (num)
-								{
-									case 1430:
-									{
-										return "Used to craft weapon imbuement flasks";
-									}
-									case 1431:
-									{
-										if (english || Lang.lang <= 1)
-										{
-											return "";
-										}
-										return Lang.toolTip(l, true);
-									}
-									case 1432:
-									{
-										return "Used to craft various types of ammo";
-									}
-									default:
-									{
-										switch (num)
-										{
-											case 1444:
-											{
-												return "Creates a shadow beam that bounces off walls";
-											}
-											case 1445:
-											{
-												return "Launches a ball of fire that explodes into a raging inferno";
-											}
-											case 1446:
-											{
-												return "Summons a lost soul to chase your foes";
-											}
-											case 1447:
-											case 1448:
-											{
-												if (english || Lang.lang <= 1)
-												{
-													return "";
-												}
-												return Lang.toolTip(l, true);
-											}
-											case 1449:
-											{
-												return "Blows bubbles";
-											}
-											case 1450:
-											{
-												return "Blows bubbles";
-											}
-											default:
-											{
-												if (english || Lang.lang <= 1)
-												{
-													return "";
-												}
-												return Lang.toolTip(l, true);
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-					else
-					{
-						if (num == 832)
-						{
-							return "Places living wood";
-						}
-						switch (num)
+						switch (l)
 						{
 							case 849:
-							{
 								return "Enables solid blocks to be toggled on and off";
-							}
 							case 850:
-							{
 								return "Places blue wire";
-							}
 							case 851:
-							{
 								return "Places green wire";
-							}
 							case 852:
-							{
 								return "Activates when a player steps on it";
-							}
 							case 853:
-							{
 								return "Activates when anything but a player steps on it";
-							}
 							case 854:
-							{
 								return "Shops have lower prices";
-							}
 							case 855:
-							{
 								return "Hitting enemies will sometimes drop extra coins";
-							}
 							case 856:
-							{
 								return "'Having a wonderful time!'";
-							}
 							case 857:
-							{
 								return "Allows the holder to do an improved double jump";
-							}
 							case 858:
 							case 859:
 							case 864:
@@ -45448,2058 +44415,1758 @@ namespace Terraria
 							case 992:
 							case 993:
 							case 999:
-							{
-								if (english || Lang.lang <= 1)
-								{
-									return "";
-								}
-								return Lang.toolTip(l, true);
-							}
+								goto IL_AC2F;
 							case 860:
-							{
 								return "Provides life regeneration and reduces the cooldown of healing potions";
-							}
 							case 861:
-							{
 								return "Turns the holder into a werewolf at night and a merfolk when entering water";
-							}
 							case 862:
-							{
 								return "Causes stars to fall and increases length of invincibility after taking damage";
-							}
 							case 863:
-							{
 								return "Provides the ability to walk on water";
-							}
 							case 885:
-							{
 								return "Immunity to Bleeding";
-							}
 							case 886:
-							{
 								return "Immunity to Broken Armor";
-							}
 							case 887:
-							{
 								return "Immunity to Poison";
-							}
 							case 888:
-							{
 								return "Immunity to Darkness";
-							}
 							case 889:
-							{
 								return "Immunity to Slow";
-							}
 							case 890:
-							{
 								return "Immunity to Silence";
-							}
 							case 891:
-							{
 								return "Immunity to Curse";
-							}
 							case 892:
-							{
 								return "Immunity to Weakness";
-							}
 							case 893:
-							{
 								return "Immunity to Confusion";
-							}
 							case 897:
-							{
 								return "Increases melee knockback";
-							}
 							case 898:
-							{
 								return "Allows flight";
-							}
 							case 899:
-							{
 								return "Increases all stats if worn during the day";
-							}
 							case 900:
-							{
 								return "Increases all stats if worn during the night";
-							}
 							case 901:
-							{
 								return "Immunity to Weakness and Broken Armor";
-							}
 							case 902:
-							{
 								return "Immunity to Poison and Bleeding";
-							}
 							case 903:
-							{
 								return "Immunity to Slow and Confusion";
-							}
 							case 904:
-							{
 								return "Immunity to Silence and Curse";
-							}
 							case 905:
-							{
 								return "Uses coins for ammo";
-							}
 							case 906:
-							{
 								return "Provides 7 seconds of immunity to lava";
-							}
 							case 907:
-							{
 								return "Provides the ability to walk on water";
-							}
 							case 908:
-							{
 								return "Provides the ability to walk on water and lava";
-							}
 							case 932:
-							{
 								return "Places bone";
-							}
 							case 933:
-							{
 								return "Places leaves";
-							}
 							case 934:
-							{
 								return "Allows the owner to float for a few seconds";
-							}
 							case 935:
-							{
 								return "12% increased damage";
-							}
 							case 936:
-							{
 								return "Increases melee knockback";
-							}
 							case 937:
-							{
 								return "Explodes when stepped on";
-							}
 							case 938:
-							{
 								return "Absorbs 25% of damage done to players on your team";
-							}
 							case 946:
-							{
 								return "You will fall slower while holding this";
-							}
 							case 947:
-							{
 								return "'Reacts to the light'";
-							}
 							case 948:
-							{
 								return "Allows flight and slowfall";
-							}
 							case 950:
-							{
 								return "Provides extra mobility on ice";
-							}
 							case 951:
-							{
 								return "Rapidly launches snowballs";
-							}
 							case 953:
-							{
 								return "Allows the ability to slide down walls";
-							}
 							case 956:
-							{
 								return "7% increased melee speed";
-							}
 							case 957:
-							{
 								return "7% increased melee speed";
-							}
 							case 958:
-							{
 								return "7% increased melee speed";
-							}
 							case 959:
-							{
 								break;
-							}
 							case 960:
-							{
 								return "Increases maximum mana by 40";
-							}
 							case 961:
-							{
 								return "Increases maximum mana by 20";
-							}
 							case 962:
-							{
 								return "Increases maximum mana by 20";
-							}
 							case 963:
-							{
 								return "Gives a chance to dodge attacks";
-							}
 							case 964:
-							{
 								return "Fires a spread of bullets";
-							}
 							case 965:
-							{
 								return "Can be climbed on";
-							}
 							case 966:
-							{
 								return "Life regen is increased when near a campfire";
-							}
 							case 967:
-							{
 								return "Put it on a stick and roast over a campfire";
-							}
 							case 968:
-							{
 								return "Roast it over a campfire!";
-							}
 							case 969:
-							{
 								return "Minor improvements to all stats";
-							}
 							case 975:
-							{
 								return "Allows the ability to slide down walls";
-							}
 							case 976:
-							{
 								return "Allows the ability to climb walls";
-							}
 							case 977:
-							{
 								return "Allows the ability to dash";
-							}
 							case 982:
-							{
 								return "Increases maximum mana by 20";
-							}
 							case 983:
-							{
 								return "Allows the holder to double jump";
-							}
 							case 984:
-							{
 								return "Allows the ability to climb walls and dash";
-							}
 							case 985:
-							{
 								return "Throw to create a climbable line of rope";
-							}
 							case 986:
-							{
 								return "Allows the collection of seeds for ammo";
-							}
 							case 987:
-							{
 								return "Allows the holder to double jump";
-							}
 							case 989:
-							{
 								return "Shoots an enchanted sword beam";
-							}
 							case 990:
-							{
 								return "'Not to be confused with a hamdrill'";
-							}
 							case 994:
-							{
 								return "Summons a Baby Eater of Souls";
-							}
 							case 995:
-							{
 								return "Used to craft objects";
-							}
 							case 996:
-							{
 								return "Used to craft objects";
-							}
 							case 997:
-							{
 								return "Turns silt/slush/fossils into something more useful";
-							}
 							case 998:
-							{
 								return "Used to craft objects";
-							}
 							case 1000:
-							{
 								return "Shoots confetti everywhere!";
-							}
 							case 1001:
-							{
 								return "16% increased melee damage";
-							}
 							case 1002:
-							{
 								return "16% increased ranged damage";
-							}
 							case 1003:
-							{
 								return "Increases maximum mana by 80 and reduces mana usage by 17%";
-							}
 							case 1004:
-							{
 								return "5% increased damage";
-							}
 							case 1005:
-							{
 								return "8% increased critical strike chance";
-							}
 							case 1006:
-							{
 								return "Reacts to the light";
-							}
 							default:
-							{
-								switch (num)
+								switch (l)
 								{
 									case 1071:
-									{
 										return "Used with paint to color blocks";
-									}
 									case 1072:
-									{
 										return "Used with paint to color walls";
-									}
 									default:
-									{
-										if (english || Lang.lang <= 1)
+										switch (l)
 										{
-											return "";
+											case 1100:
+												return "Used to remove paint";
+											case 1101:
+											case 1102:
+											case 1103:
+											case 1104:
+											case 1105:
+											case 1106:
+											case 1124:
+											case 1125:
+											case 1126:
+											case 1127:
+											case 1128:
+											case 1134:
+											case 1135:
+											case 1136:
+											case 1137:
+											case 1138:
+											case 1139:
+											case 1140:
+											case 1142:
+											case 1143:
+											case 1144:
+											case 1146:
+											case 1147:
+											case 1148:
+											case 1149:
+											case 1150:
+											case 1152:
+											case 1153:
+											case 1154:
+											case 1155:
+											case 1166:
+											case 1168:
+											case 1173:
+											case 1174:
+											case 1175:
+											case 1176:
+											case 1177:
+											case 1184:
+											case 1185:
+											case 1186:
+											case 1187:
+											case 1190:
+											case 1191:
+											case 1192:
+											case 1193:
+											case 1194:
+											case 1197:
+											case 1198:
+											case 1199:
+											case 1200:
+											case 1201:
+											case 1202:
+											case 1203:
+											case 1204:
+											case 1222:
+											case 1223:
+											case 1224:
+											case 1225:
+											case 1229:
+											case 1230:
+											case 1231:
+											case 1232:
+											case 1233:
+											case 1234:
+											case 1236:
+											case 1237:
+											case 1238:
+											case 1239:
+											case 1240:
+											case 1241:
+											case 1243:
+											case 1245:
+											case 1246:
+											case 1257:
+											case 1262:
+											case 1263:
+											case 1266:
+											case 1267:
+											case 1268:
+											case 1269:
+											case 1270:
+											case 1271:
+											case 1272:
+											case 1273:
+											case 1274:
+											case 1275:
+											case 1276:
+											case 1277:
+											case 1278:
+											case 1279:
+											case 1280:
+											case 1281:
+											case 1288:
+											case 1289:
+											case 1292:
+											case 1298:
+											case 1302:
+											case 1304:
+											case 1305:
+											case 1319:
+											case 1320:
+											case 1324:
+											case 1325:
+											case 1328:
+											case 1329:
+											case 1330:
+											case 1337:
+											case 1338:
+											case 1339:
+											case 1340:
+											case 1341:
+											case 1342:
+												goto IL_AC2F;
+											case 1107:
+												return "Used to make Teal Dye";
+											case 1108:
+												return "Used to make Green Dye";
+											case 1109:
+												return "Used to make Sky Blue Dye";
+											case 1110:
+												return "Used to make Yellow Dye";
+											case 1111:
+												return "Used to make Blue Dye";
+											case 1112:
+												return "Used to make Lime Dye";
+											case 1113:
+												return "Used to make Pink Dye";
+											case 1114:
+												return "Used to make Orange Dye";
+											case 1115:
+												return "Used to make Red Dye";
+											case 1116:
+												return "Used to make Cyan Dye";
+											case 1117:
+												return "Used to make Violet Dye";
+											case 1118:
+												return "Used to make Purple Dye";
+											case 1119:
+												return "Used to make Black Dye";
+											case 1120:
+												return "Used to Craft Dyes";
+											case 1121:
+												return "Shoots bees that will chase your enemy";
+											case 1122:
+												return "Chases after your enemy";
+											case 1123:
+												return "Summons killer bees after striking your foe";
+											case 1129:
+												return "Places Hives";
+											case 1130:
+												return "Explodes into a swarm of bees";
+											case 1131:
+												return "Allows the holder to reverse gravity";
+											case 1132:
+												return "Releases bees when damaged";
+											case 1133:
+												return "Summons the Queen Bee";
+											case 1141:
+												return "Opens the jungle temple door";
+											case 1145:
+												return "Used for basic crafting";
+											case 1151:
+												return "Activates when a player steps on it";
+											case 1156:
+												return "Latches on to enemies for continuous damage";
+											case 1157:
+												return "Summons a Pygmy to fight for you";
+											case 1158:
+												return "Increases your max number of minions";
+											case 1159:
+												return "Increases your max number of minions";
+											case 1160:
+												return "Increases your max number of minions";
+											case 1161:
+												return "Increases your max number of minions";
+											case 1162:
+												return "Allows flight and slow fall";
+											case 1163:
+												return "Allows the holder to double jump";
+											case 1164:
+												return "Allows the holder to quadruple jump";
+											case 1165:
+												return "Allows flight and slow fall";
+											case 1167:
+												return "Increases the damage of your minions by 15%";
+											case 1169:
+												return "Summons a Baby Skeletron Head";
+											case 1170:
+												return "Summons a Baby Hornet";
+											case 1171:
+												return "Summons a Tiki Spirit";
+											case 1172:
+												return "Summons a Pet Lizard";
+											case 1178:
+												return "Rapidly shoots razor sharp leaves";
+											case 1179:
+												return "Chases after your enemy";
+											case 1180:
+												return "Summons a Pet Parrot";
+											case 1181:
+												return "Summons a Baby Truffle";
+											case 1182:
+												return "Summons a Pet Sapling";
+											case 1183:
+												return "Summons a Wisp to provide light";
+											case 1188:
+												return "Can mine Mythril and Orichalcum";
+											case 1189:
+												return "Can mine Mythril and Orichalcum";
+											case 1195:
+												return "Can mine Adamantite and Titanium";
+											case 1196:
+												return "Can mine Adamantite and Titanium";
+											case 1205:
+												return "8% increased melee damage";
+											case 1206:
+												return "9% increased ranged damage";
+											case 1207:
+												return "7% increased magic damage and critical strike chance";
+											case 1208:
+												return "3% increased damage";
+											case 1209:
+												return "2% increased damage";
+											case 1210:
+												return "7% increased melee damage";
+											case 1211:
+												return "15% increased ranged critical strike chance";
+											case 1212:
+												return "18% increased magic critical strike chance";
+											case 1213:
+												return "6% increased critical strike chance";
+											case 1214:
+												return "11% increased movement speed";
+											case 1215:
+												return "8% increased melee damage and critical strike chance";
+											case 1216:
+												return "16% increased ranged damage";
+											case 1217:
+												return "16% increased magic damage and 7% increased magic critical strike chance";
+											case 1218:
+												return "4% increased damage";
+											case 1219:
+												return "3% increased damage and critical strike chance";
+											case 1220:
+												return "Used to craft items from mythril, orichalcum, adamantite, and titanium bars";
+											case 1221:
+												return "Used to smelt adamantite and titanium ore";
+											case 1226:
+												return "Shoots a powerful orb";
+											case 1227:
+												return "Shoots a spore cloud";
+											case 1228:
+												return "Shoots a spore cloud";
+											case 1235:
+												return "Bounces back after hitting a wall";
+											case 1242:
+												return "Summons a Baby Dinosaur";
+											case 1244:
+												return "Summons a cloud to rain down on your foes";
+											case 1247:
+												return "Causes stars to fall and releases bees when injured";
+											case 1248:
+												return "10% increased critical strike chance";
+											case 1249:
+												return "Increases jump height";
+											case 1250:
+												return "Allows the holder to double jump";
+											case 1251:
+												return "Allows the holder to double jump";
+											case 1252:
+												return "Allows the holder to double jump";
+											case 1253:
+												return "Puts a shell around the owner when below 50% life that reduces damage";
+											case 1254:
+												return "Shoots a powerful, high velocity bullet";
+											case 1255:
+												return "Shoots a powerful, high velocity bullet";
+											case 1256:
+												return "Summons a cloud to rain blood on your foes";
+											case 1258:
+												return "Shoots an explosive bolt";
+											case 1259:
+												return "Shoots razor sharp flower petals at nearby enemies";
+											case 1260:
+												return "Shoots a rainbow that does continuous damage";
+											case 1261:
+												return "Explodes into deadly shrapnel";
+											case 1264:
+												return "Shoots a ball of frost";
+											case 1265:
+												return "Shoots a powerful, high velocity bullet";
+											case 1282:
+												return "Increases maximum mana by 20";
+											case 1283:
+												return "Increases maximum mana by 40";
+											case 1284:
+												return "Increases maximum mana by 40";
+											case 1285:
+												return "Increases maximum mana by 60";
+											case 1286:
+												return "Increases maximum mana by 60";
+											case 1287:
+												return "Increases maximum mana by 80";
+											case 1290:
+												return "Increases movement speed after being struck";
+											case 1291:
+												return "Permanently increases maximum life by 5";
+											case 1293:
+												return "Used at the Lihzahrd Altar";
+											case 1294:
+												return "Capable of mining Lihzahrd Bricks";
+											case 1295:
+												return "Shoots a piercing ray of heat";
+											case 1296:
+												return "Summons a powerful boulder";
+											case 1297:
+												return "Punches with the force of a golem";
+											case 1299:
+												return "Increases view range when held";
+											case 1300:
+												return "Increases view range for guns";
+											case 1301:
+												return "10% increased damage";
+											case 1303:
+												return "Provides light under water";
+											case 1306:
+												return "Shoots an icy sickle";
+											case 1307:
+												return "'You are a terrible person'";
+											case 1308:
+												return "Shoots a poison fang that pierces multiple enemies";
+											case 1309:
+												return "Summons a baby slime to fight for you";
+											case 1310:
+												return "Inflicts poison on enemies";
+											case 1311:
+												return "Summons an eyeball spring";
+											case 1312:
+												return "Summons a baby snowman";
+											case 1313:
+												return "Shoots a skull";
+											case 1314:
+												return "Shoots a boxing glove";
+											case 1315:
+												return "Summons a pirate invasion";
+											case 1316:
+												return "6% increased melee damage";
+											case 1317:
+												return "8% increased melee damage and critical strike chance";
+											case 1318:
+												return "4% increased melee critical strike chance";
+											case 1321:
+												return "Increases damage by 10% and greatly increases arrow speed";
+											case 1322:
+												return "Inflicts fire damage on attack";
+											case 1323:
+												return "Reduces damage from touching lava";
+											case 1326:
+												return "Teleports you to the position of the mouse";
+											case 1327:
+												return "Shoots a deathly sickle";
+											case 1331:
+												return "Summons the Brain of Cthulhu";
+											case 1332:
+												return "'The blood of gods'";
+											case 1333:
+												return "Can be placed in water";
+											case 1334:
+												return "Decreases target's defense";
+											case 1335:
+												return "Decreases target's defense";
+											case 1336:
+												return "Sprays a shower of ichor";
+											case 1343:
+												return "Increases melee knockback and inflicts fire damage on attack";
+											default:
+												goto IL_AC2F;
 										}
-										return Lang.toolTip(l, true);
-									}
+										break;
 								}
-							}
+								break;
+						}
+					}
+					else
+					{
+						switch (l)
+						{
+							case 1430:
+								return "Used to craft weapon imbuement flasks";
+							case 1431:
+								goto IL_AC2F;
+							case 1432:
+								return "Used to craft various types of ammo";
+							default:
+								switch (l)
+								{
+									case 1444:
+										return "Creates a shadow beam that bounces off walls";
+									case 1445:
+										return "Launches a ball of fire that explodes into a raging inferno";
+									case 1446:
+										return "Summons a lost soul to chase your foes";
+									case 1447:
+									case 1448:
+										goto IL_AC2F;
+									case 1449:
+										return "Blows bubbles";
+									case 1450:
+										return "Blows bubbles";
+									default:
+										switch (l)
+										{
+											case 1503:
+												return "40% decreased magic damage";
+											case 1504:
+												return "7% increased magic damage and critical strike chance";
+											case 1505:
+												return "8% increased magic damage";
+											case 1506:
+											case 1507:
+											case 1508:
+											case 1509:
+											case 1510:
+											case 1511:
+											case 1512:
+											case 1514:
+											case 1516:
+											case 1517:
+											case 1518:
+											case 1519:
+											case 1520:
+											case 1521:
+											case 1528:
+											case 1529:
+											case 1530:
+											case 1531:
+											case 1532:
+											case 1538:
+											case 1539:
+											case 1540:
+											case 1541:
+											case 1542:
+											case 1552:
+											case 1570:
+											case 1573:
+											case 1574:
+											case 1575:
+											case 1576:
+											case 1577:
+											case 1589:
+											case 1590:
+											case 1591:
+											case 1592:
+											case 1593:
+											case 1594:
+											case 1596:
+											case 1597:
+											case 1598:
+											case 1599:
+											case 1600:
+											case 1601:
+											case 1602:
+											case 1603:
+											case 1604:
+											case 1605:
+											case 1606:
+											case 1607:
+											case 1608:
+											case 1609:
+											case 1610:
+											case 1611:
+												goto IL_AC2F;
+											case 1513:
+												return "A powerful returning hammer";
+											case 1515:
+												return "Allows flight and slow fall";
+											case 1522:
+												goto IL_2DF3;
+											case 1523:
+												return "For Capture the Gem. It drops when you die";
+											case 1524:
+												return "For Capture the Gem. It drops when you die";
+											case 1525:
+												return "For Capture the Gem. It drops when you die";
+											case 1526:
+												return "For Capture the Gem. It drops when you die";
+											case 1527:
+												return "For Capture the Gem. It drops when you die";
+											case 1533:
+												return "Unlocks a Jungle Chest in the dungeon";
+											case 1534:
+												return "Unlocks a Corruption Chest in the dungeon";
+											case 1535:
+												return "Unlocks a Crimson Chest in the dungeon";
+											case 1536:
+												return "Unlocks a Hallowed Chest in the dungeon";
+											case 1537:
+												return "Unlocks a Frozen Chest in the dungeon";
+											case 1543:
+												return "Used with paint to color blocks";
+											case 1544:
+												return "Used with paint to color walls";
+											case 1545:
+												return "Used to remove paint";
+											case 1546:
+												return "15% increased arrow damage";
+											case 1547:
+												return "15% increased bullet damage";
+											case 1548:
+												return "15% increased rocket damage";
+											case 1549:
+												return "13% increased ranged critical strike chance";
+											case 1550:
+												return "7% increased ranged critical strike chance";
+											case 1551:
+												return "Converts Chlorophyte Bars into Shroomite Bars";
+											case 1553:
+												return "50% chance to not consume ammo";
+											case 1554:
+											case 1555:
+											case 1556:
+											case 1557:
+											case 1558:
+											case 1559:
+											case 1560:
+											case 1561:
+											case 1562:
+											case 1563:
+											case 1564:
+											case 1565:
+											case 1566:
+											case 1567:
+											case 1568:
+											case 1580:
+											case 1581:
+											case 1582:
+											case 1583:
+											case 1584:
+											case 1585:
+											case 1586:
+											case 1587:
+											case 1588:
+												goto IL_346B;
+											case 1569:
+												return "Rapidly throw life stealing daggers";
+											case 1571:
+												return "A powerful javelin that unleashes tiny eaters";
+											case 1572:
+												return "Summons a powerful frost hydra to spit ice at your enemies";
+											case 1578:
+												return "Releases bees and increases movement speed when damaged";
+											case 1579:
+												return "The wearer can run super fast";
+											case 1595:
+												return "Increases maximum mana by 20";
+											case 1612:
+												return "Grants immunity to most debuffs";
+											case 1613:
+												return "Grants immunity to knockback and fire blocks";
+											default:
+												goto IL_AC2F;
+										}
+										break;
+								}
+								break;
 						}
 					}
 					return "5% increased ranged damage.";
 				}
-				else if (num > 2502)
+				if (l > 2551)
 				{
-					if (num <= 3124)
+					if (l <= 3245)
 					{
-						if (num <= 2624)
+						if (l <= 2771)
 						{
-							if (num > 2551)
+							if (l <= 2611)
 							{
-								switch (num)
+								switch (l)
 								{
 									case 2584:
-									{
 										return "Summons pirates to fight for you";
-									}
 									case 2585:
 									case 2588:
 									case 2589:
-									{
-										if (english || Lang.lang <= 1)
-										{
-											return "";
-										}
-										return Lang.toolTip(l, true);
-									}
+										goto IL_AC2F;
 									case 2586:
-									{
 										break;
-									}
 									case 2587:
-									{
 										return "Summons a mini minotaur";
-									}
 									case 2590:
-									{
 										return "A small explosion that puts enemies on fire";
-									}
 									default:
-									{
-										switch (num)
+										switch (l)
 										{
 											case 2609:
-											{
 												return "Allows flight and slow fall";
-											}
 											case 2610:
-											{
 												return "Squirts a harmless stream of slime";
-											}
 											case 2611:
-											{
 												return "Spews homing bubbles";
-											}
 											default:
-											{
-												switch (num)
-												{
-													case 2621:
-													{
-														return "Summons sharknados to fight for you";
-													}
-													case 2622:
-													{
-														return "Casts fast moving razorwheels";
-													}
-													case 2623:
-													{
-														return "Rapidly shoots forceful bubbles";
-													}
-													case 2624:
-													{
-														return "Shoots 5 arrows at a time";
-													}
-													default:
-													{
-														if (english || Lang.lang <= 1)
-														{
-															return "";
-														}
-														return Lang.toolTip(l, true);
-													}
-												}
-											}
+												goto IL_AC2F;
 										}
-									}
+										break;
 								}
 							}
 							else
 							{
-								if (num == 2535)
+								switch (l)
 								{
-									return "Summons twins to fight for you";
+									case 2621:
+										return "Summons sharknados to fight for you";
+									case 2622:
+										return "Casts fast moving razorwheels";
+									case 2623:
+										return "Rapidly shoots forceful bubbles";
+									case 2624:
+										return "Shoots 5 arrows at a time";
+									default:
+										if (l == 2699)
+										{
+											return "<right> to place item on weapon rack";
+										}
+										switch (l)
+										{
+											case 2739:
+												return "Hammer to change direction";
+											case 2740:
+											case 2741:
+											case 2742:
+											case 2743:
+											case 2744:
+											case 2745:
+											case 2746:
+											case 2747:
+											case 2748:
+											case 2751:
+											case 2752:
+											case 2753:
+											case 2754:
+											case 2755:
+											case 2756:
+											case 2766:
+												goto IL_AC2F;
+											case 2749:
+												return "Summons a UFO to fight for you";
+											case 2750:
+												return "Showers meteors";
+											case 2757:
+												return "16% increased ranged damage";
+											case 2758:
+												return "12% increased ranged damage and critical strike chance";
+											case 2759:
+												return "8% increased ranged damage and critical strike chance";
+											case 2760:
+												return "Increases maximum mana by 60 and reduces mana usage by 15% ";
+											case 2761:
+												return "9% increased magic damage and critical strike chance";
+											case 2762:
+												return "10% increased magic damage";
+											case 2763:
+												return "17% increased melee critical strike chance";
+											case 2764:
+												return "22% increased melee damage";
+											case 2765:
+												return "15% increased movement and melee speed";
+											case 2767:
+												return "Summons the Eclipse";
+											case 2768:
+												return "Summons a rideable Drill mount";
+											case 2769:
+												return "Summons a rideable UFO mount";
+											case 2770:
+												return "Allows flight and slow fall";
+											case 2771:
+												return "Summons a rideable Scutlix mount";
+											default:
+												goto IL_AC2F;
+										}
+										break;
 								}
-								if (num == 2551)
-								{
-									return "Summons spiders to fight for you";
-								}
-								if (english || Lang.lang <= 1)
-								{
-									return "";
-								}
-								return Lang.toolTip(l, true);
 							}
 						}
-						else if (num > 2771)
+						else if (l <= 2896)
 						{
-							if (num == 2799)
+							if (l == 2799)
 							{
 								return "Creates measurement lines on screen for block placement";
 							}
-							switch (num)
+							switch (l)
 							{
 								case 2886:
-								{
-									return "Banishes the Hallow";
-								}
+									goto IL_22F5;
 								case 2887:
-								{
-									if (english || Lang.lang <= 1)
-									{
-										return "";
-									}
-									return Lang.toolTip(l, true);
-								}
+									goto IL_AC2F;
 								case 2888:
-								{
 									return "Wooden arrows turn into a column of bees";
-								}
 								default:
-								{
-									switch (num)
+									if (l != 2896)
 									{
-										case 2997:
-										{
-											return "Teleports you to a party member";
-										}
-										case 2998:
-										{
-											return "15% increased summon damage";
-										}
-										case 2999:
-										{
-											return "Right click to have more minions";
-										}
-										case 3000:
-										{
-											return "33% chance to not consume potion crafting ingredients";
-										}
-										case 3001:
-										{
-											return "'It looks and smells terrible'";
-										}
-										case 3002:
-										{
-											return "Exposes nearby treasure";
-										}
-										case 3003:
-										case 3007:
-										case 3008:
-										case 3009:
-										case 3010:
-										case 3011:
-										case 3012:
-										case 3013:
-										case 3018:
-										case 3020:
-										case 3021:
-										case 3022:
-										case 3023:
-										case 3025:
-										case 3026:
-										case 3027:
-										case 3028:
-										case 3038:
-										case 3039:
-										case 3040:
-										case 3041:
-										case 3042:
-										case 3044:
-										case 3045:
-										case 3055:
-										case 3056:
-										case 3057:
-										case 3058:
-										case 3059:
-										case 3063:
-										case 3065:
-										case 3066:
-										case 3067:
-										case 3070:
-										case 3071:
-										case 3072:
-										case 3073:
-										case 3074:
-										case 3075:
-										case 3076:
-										case 3077:
-										case 3078:
-										case 3079:
-										case 3080:
-										case 3081:
-										case 3082:
-										case 3083:
-										case 3086:
-										case 3087:
-										case 3088:
-										case 3089:
-										case 3094:
-										case 3100:
-										case 3101:
-										case 3103:
-										case 3104:
-										case 3105:
-										case 3107:
-										case 3108:
-										case 3114:
-										{
-											if (english || Lang.lang <= 1)
-											{
-												return "";
-											}
-											return Lang.toolTip(l, true);
-										}
-										case 3004:
-										{
-											return "'Emits a deathly glow'";
-										}
-										case 3005:
-										{
-											return "Throw to create a climbable line of vine rope";
-										}
-										case 3006:
-										{
-											return "Drains life from enemies";
-										}
-										case 3014:
-										{
-											return "Summons a wall of cursed flames";
-										}
-										case 3015:
-										{
-											return "Enemies are less likely to target you";
-										}
-										case 3016:
-										{
-											return "Enemies are more likely to target you";
-										}
-										case 3017:
-										{
-											return "Flowers grow on the grass you walk on";
-										}
-										case 3019:
-										{
-											return "Wooden arrows turn into flaming bats";
-										}
-										case 3024:
-										{
-											return "'Great for impersonating devs!'";
-										}
-										case 3029:
-										{
-											return "Shoots arrows from the sky";
-										}
-										case 3030:
-										{
-											return "Throws a controllable flying knife";
-										}
-										case 3031:
-										{
-											return "Contains an endless amount of water";
-										}
-										case 3032:
-										{
-											return "Capable of soaking up any endless amount of water";
-										}
-										case 3033:
-										{
-											return "Increases coin pickup range";
-										}
-										case 3034:
-										{
-											return "Increases coin pickup range";
-										}
-										case 3035:
-										{
-											return "Increases coin pickup range and shops have lower prices";
-										}
-										case 3036:
-										{
-											return "Displays weather, moon phase, and fishing information";
-										}
-										case 3037:
-										{
-											return "Displays the weather";
-										}
-										case 3043:
-										{
-											return "Summons a magic lantern that exposes nearby treasure";
-										}
-										case 3046:
-										{
-											return "Life regen is increased when near a campfire";
-										}
-										case 3047:
-										{
-											return "Life regen is increased when near a campfire";
-										}
-										case 3048:
-										{
-											return "Life regen is increased when near a campfire";
-										}
-										case 3049:
-										{
-											return "Life regen is increased when near a campfire";
-										}
-										case 3050:
-										{
-											return "Life regen is increased when near a campfire";
-										}
-										case 3051:
-										{
-											return "Summons a massive crystal spike";
-										}
-										case 3052:
-										{
-											return "Shoots Shadowflame Arrows";
-										}
-										case 3053:
-										{
-											return "Summons Shadowflame tentacles to strike your foe";
-										}
-										case 3054:
-										{
-											return "Inflicts Shadowflame on hit";
-										}
-										case 3060:
-										{
-											return "Summons a Baby Face Monster";
-										}
-										case 3061:
-										{
-											return "Increases tile and wall placement speed and reach";
-										}
-										case 3062:
-										{
-											return "Summons a heart to provide light";
-										}
-										case 3064:
-										{
-											return "Allows time to fast forward one day per week";
-										}
-										case 3068:
-										{
-											return "Allows the collection of Vine Rope from vines";
-										}
-										case 3069:
-										{
-											return "Shoots a small spark";
-										}
-										case 3084:
-										{
-											return "Detects enemies around you";
-										}
-										case 3085:
-										{
-											return "Right click to open";
-										}
-										case 3090:
-										{
-											return "Slimes become friendly";
-										}
-										case 3091:
-										{
-											return "'Charged with the essence of many souls'";
-										}
-										case 3092:
-										{
-											return "'Charged with the essence of many souls'";
-										}
-										case 3093:
-										{
-											return "Right click to open";
-										}
-										case 3095:
-										{
-											return "Displays how many monsters have been killed";
-										}
-										case 3096:
-										{
-											return "Displays the phase of the moon";
-										}
-										case 3097:
-										{
-											return "Allows the player to dash into the enemy";
-										}
-										case 3098:
-										{
-											return "Sparks emit from struck enemies";
-										}
-										case 3099:
-										{
-											return "Displays how fast the player is moving";
-										}
-										case 3102:
-										{
-											return "Displays the most valuable ore around you";
-										}
-										case 3106:
-										{
-											return "Allows you to go into stealth mode";
-										}
-										case 3109:
-										{
-											return "Improves vision";
-										}
-										case 3110:
-										{
-											return "Turns the holder into a werewolf at night and a merfolk when entering water";
-										}
-										case 3111:
-										{
-											return "'Bouncy and sweet!'";
-										}
-										case 3112:
-										{
-											return "Works when wet";
-										}
-										case 3113:
-										{
-											return "Very bouncy";
-										}
-										case 3115:
-										{
-											return "A small explosion that will destroy some tiles";
-										}
-										case 3116:
-										{
-											return "A small explosion that will not destroy tiles";
-										}
-										case 3117:
-										{
-											return "Makes surrounding creatures less hostile";
-										}
-										case 3118:
-										{
-											return "Displays the name of rare creatures around you";
-										}
-										case 3119:
-										{
-											return "Displays your damage per second";
-										}
-										case 3120:
-										{
-											return "Displays fishing information";
-										}
-										case 3121:
-										{
-											return "Displays movement speed, damage per second, and valuable ore";
-										}
-										case 3122:
-										{
-											return "Displays number of monsters, kill count, and rare creatures";
-										}
-										case 3123:
-										{
-											return "Displays everything";
-										}
-										case 3124:
-										{
-											return "Displays everything";
-										}
-										default:
-										{
-											if (english || Lang.lang <= 1)
-											{
-												return "";
-											}
-											return Lang.toolTip(l, true);
-										}
+										goto IL_AC2F;
 									}
-								}
+									goto IL_2475;
 							}
 						}
 						else
 						{
-							if (num == 2699)
+							switch (l)
 							{
-								return "Right click to place item on weapon rack";
-							}
-							switch (num)
-							{
-								case 2739:
-								{
-									return "Hammer to change direction";
-								}
-								case 2740:
-								case 2741:
-								case 2742:
-								case 2743:
-								case 2744:
-								case 2745:
-								case 2746:
-								case 2747:
-								case 2748:
-								case 2751:
-								case 2752:
-								case 2753:
-								case 2754:
-								case 2755:
-								case 2756:
-								case 2766:
-								{
-									if (english || Lang.lang <= 1)
-									{
-										return "";
-									}
-									return Lang.toolTip(l, true);
-								}
-								case 2749:
-								{
-									return "Summons a UFO to fight for you";
-								}
-								case 2750:
-								{
-									return "Showers meteors";
-								}
-								case 2757:
-								{
-									return "16% increased ranged damage";
-								}
-								case 2758:
-								{
-									return "12% increased ranged damage and critical strike chance";
-								}
-								case 2759:
-								{
-									return "8% increased ranged damage and critical strike chance";
-								}
-								case 2760:
-								{
-									return "Increases maximum mana by 60 and reduces mana usage by 15% ";
-								}
-								case 2761:
-								{
-									return "9% increased magic damage and critical strike chance";
-								}
-								case 2762:
-								{
-									return "10% increased magic damage";
-								}
-								case 2763:
-								{
-									return "17% increased melee critical strike chance";
-								}
-								case 2764:
-								{
-									return "22% increased melee damage";
-								}
-								case 2765:
-								{
-									return "15% increased movement and melee speed";
-								}
-								case 2767:
-								{
-									return "Summons the Eclipse";
-								}
-								case 2768:
-								{
-									return "Summons a rideable Drill mount";
-								}
-								case 2769:
-								{
-									return "Summons a rideable UFO mount";
-								}
-								case 2770:
-								{
-									return "Allows flight and slow fall";
-								}
-								case 2771:
-								{
-									return "Summons a rideable Scutlix mount";
-								}
+								case 2997:
+									return "Teleports you to a party member";
+								case 2998:
+									return "15% increased summon damage";
+								case 2999:
+									return "<right> to have more minions";
+								case 3000:
+									return "33% chance to not consume potion crafting ingredients";
+								case 3001:
+									return "'It looks and smells terrible'";
+								case 3002:
+									return "Exposes nearby treasure";
+								case 3003:
+								case 3007:
+								case 3008:
+								case 3009:
+								case 3010:
+								case 3011:
+								case 3012:
+								case 3013:
+								case 3018:
+								case 3020:
+								case 3021:
+								case 3022:
+								case 3023:
+								case 3025:
+								case 3026:
+								case 3027:
+								case 3028:
+								case 3038:
+								case 3039:
+								case 3040:
+								case 3041:
+								case 3042:
+								case 3044:
+								case 3045:
+								case 3055:
+								case 3056:
+								case 3057:
+								case 3058:
+								case 3059:
+								case 3063:
+								case 3065:
+								case 3066:
+								case 3067:
+								case 3070:
+								case 3071:
+								case 3072:
+								case 3073:
+								case 3074:
+								case 3075:
+								case 3076:
+								case 3077:
+								case 3078:
+								case 3079:
+								case 3080:
+								case 3081:
+								case 3082:
+								case 3083:
+								case 3086:
+								case 3087:
+								case 3088:
+								case 3089:
+								case 3094:
+								case 3100:
+								case 3101:
+								case 3103:
+								case 3104:
+								case 3105:
+								case 3107:
+								case 3108:
+								case 3114:
+									goto IL_AC2F;
+								case 3004:
+									return "'Emits a deathly glow'";
+								case 3005:
+									return "Throw to create a climbable line of vine rope";
+								case 3006:
+									return "Drains life from enemies";
+								case 3014:
+									return "Summons a wall of cursed flames";
+								case 3015:
+									return "Enemies are less likely to target you";
+								case 3016:
+									return "Enemies are more likely to target you";
+								case 3017:
+									return "Flowers grow on the grass you walk on";
+								case 3019:
+									return "Wooden arrows turn into flaming bats";
+								case 3024:
+									goto IL_346B;
+								case 3029:
+									return "Shoots arrows from the sky";
+								case 3030:
+									return "Throws a controllable flying knife";
+								case 3031:
+									return "Contains an endless amount of water";
+								case 3032:
+									return "Capable of soaking up an endless amount of water";
+								case 3033:
+									return "Increases coin pickup range";
+								case 3034:
+									return "Increases coin pickup range";
+								case 3035:
+									return "Increases coin pickup range and shops have lower prices";
+								case 3036:
+									return "Displays weather, moon phase, and fishing information";
+								case 3037:
+									return "Displays the weather";
+								case 3043:
+									return "Summons a magic lantern that exposes nearby treasure";
+								case 3046:
+								case 3047:
+								case 3048:
+								case 3049:
+								case 3050:
+									goto IL_330F;
+								case 3051:
+									return "Summons a massive crystal spike";
+								case 3052:
+									return "Shoots Shadowflame Arrows";
+								case 3053:
+									return "Summons Shadowflame tentacles to strike your foe";
+								case 3054:
+									return "Inflicts Shadowflame on hit";
+								case 3060:
+									return "Summons a Baby Face Monster";
+								case 3061:
+									return "Increases tile and wall placement speed and reach";
+								case 3062:
+									return "Summons a heart to provide light";
+								case 3064:
+									return "Allows time to fast forward one day per week";
+								case 3068:
+									return "Allows the collection of Vine Rope from vines";
+								case 3069:
+									return "Shoots a small spark";
+								case 3084:
+									return "Detects enemies around you";
+								case 3085:
+									return "<right> to open";
+								case 3090:
+									return "Slimes become friendly";
+								case 3091:
+									return "'Charged with the essence of many souls'";
+								case 3092:
+									return "'Charged with the essence of many souls'";
+								case 3093:
+									return "<right> to open";
+								case 3095:
+									return "Displays how many monsters have been killed";
+								case 3096:
+									return "Displays the phase of the moon";
+								case 3097:
+									return "Allows the player to dash into the enemy";
+								case 3098:
+									return "Sparks emit from struck enemies";
+								case 3099:
+									return "Displays how fast the player is moving";
+								case 3102:
+									return "Displays the most valuable ore around you";
+								case 3106:
+									return "Allows you to go into stealth mode";
+								case 3109:
+									return "Improves vision";
+								case 3110:
+									return "Turns the holder into a werewolf at night and a merfolk when entering water";
+								case 3111:
+									return "'Bouncy and sweet!'";
+								case 3112:
+									return "Works when wet";
+								case 3113:
+									return "Very bouncy";
+								case 3115:
+									return "A small explosion that will destroy some tiles";
+								case 3116:
+									return "A small explosion that will not destroy tiles";
+								case 3117:
+									return "Makes surrounding creatures less hostile";
+								case 3118:
+									return "Displays the name of rare creatures around you";
+								case 3119:
+									return "Displays your damage per second";
+								case 3120:
+									return "Displays fishing information";
+								case 3121:
+									return "Displays movement speed, damage per second, and valuable ore";
+								case 3122:
+									return "Displays number of monsters, kill count, and rare creatures";
+								case 3123:
+									return "Displays everything";
+								case 3124:
+									return "Displays everything";
 								default:
-								{
-									if (english || Lang.lang <= 1)
+									switch (l)
 									{
-										return "";
+										case 3195:
+											return "Minor improvements to all stats";
+										case 3196:
+											return "A small explosion that will destroy some tiles";
+										case 3197:
+										case 3202:
+										case 3214:
+										case 3215:
+										case 3216:
+										case 3217:
+										case 3218:
+										case 3219:
+										case 3220:
+										case 3221:
+										case 3222:
+										case 3229:
+										case 3230:
+										case 3231:
+										case 3232:
+										case 3233:
+										case 3234:
+										case 3235:
+										case 3236:
+										case 3237:
+										case 3238:
+										case 3239:
+										case 3240:
+											goto IL_AC2F;
+										case 3198:
+											return "Increases armor penetration for melee weapons";
+										case 3199:
+											return "Gaze in the mirror to return home";
+										case 3200:
+											return "The wearer can run super fast";
+										case 3201:
+											return "Allows the holder to double jump";
+										case 3203:
+											return "<right> to open";
+										case 3204:
+											return "<right> to open";
+										case 3205:
+											return "<right> to open";
+										case 3206:
+											return "<right> to open";
+										case 3207:
+											return "<right> to open";
+										case 3208:
+											return "<right> to open";
+										case 3209:
+											return "Shoots an explosive crystal charge";
+										case 3210:
+											return "Spits toxic bubbles";
+										case 3211:
+											return "Spits an Ichor stream on contact";
+										case 3212:
+											return "Increases armor penetration by 5";
+										case 3213:
+											return "Summons a flying piggy bank to store your items";
+										case 3223:
+											return "May confuse nearby enemies after being struck";
+										case 3224:
+											return "Reduces damage taken by 17%";
+										case 3225:
+											return "Increases jump height";
+										case 3226:
+										case 3227:
+										case 3228:
+											goto IL_346B;
+										case 3241:
+											return "Increases jump height";
+										default:
+											if (l != 3245)
+											{
+												goto IL_AC2F;
+											}
+											return "Throws empowered bones";
 									}
-									return Lang.toolTip(l, true);
-								}
+									break;
 							}
 						}
 					}
-					else if (num <= 3288)
+					else if (l <= 3361)
 					{
-						if (num > 3245)
+						if (l <= 3260)
 						{
-							switch (num)
+							switch (l)
 							{
 								case 3250:
 								case 3252:
-								{
 									return "Allows the holder to double jump";
-								}
 								case 3251:
-								{
 									return "Releases bees when damaged";
-								}
 								default:
-								{
-									if (num == 3260)
+									if (l != 3260)
 									{
-										return "Summons a rideable unicorn mount";
+										goto IL_AC2F;
 									}
-									switch (num)
-									{
-										case 3287:
-										case 3288:
-										{
-											return "'Great for impersonating devs!'";
-										}
-										default:
-										{
-											if (english || Lang.lang <= 1)
-											{
-												return "";
-											}
-											return Lang.toolTip(l, true);
-										}
-									}
-								}
+									return "Summons a rideable unicorn mount";
 							}
 						}
 						else
 						{
-							switch (num)
+							switch (l)
 							{
-								case 3195:
-								{
-									return "Minor improvements to all stats";
-								}
-								case 3196:
-								{
-									return "A small explosion that will destroy some tiles";
-								}
-								case 3197:
-								case 3202:
-								case 3214:
-								case 3215:
-								case 3216:
-								case 3217:
-								case 3218:
-								case 3219:
-								case 3220:
-								case 3221:
-								case 3222:
-								case 3229:
-								case 3230:
-								case 3231:
-								case 3232:
-								case 3233:
-								case 3234:
-								case 3235:
-								case 3236:
-								case 3237:
-								case 3238:
-								case 3239:
-								case 3240:
-								{
-									if (english || Lang.lang <= 1)
-									{
-										return "";
-									}
-									return Lang.toolTip(l, true);
-								}
-								case 3198:
-								{
-									return "Increases armor penetration for melee weapons";
-								}
-								case 3199:
-								{
-									return "Gaze in the mirror to return home";
-								}
-								case 3200:
-								{
-									return "The wearer can run super fast";
-								}
-								case 3201:
-								{
-									return "Allows the holder to double jump";
-								}
-								case 3203:
-								{
-									return "Right click to open";
-								}
-								case 3204:
-								{
-									return "Right click to open";
-								}
-								case 3205:
-								{
-									return "Right click to open";
-								}
-								case 3206:
-								{
-									return "Right click to open";
-								}
-								case 3207:
-								{
-									return "Right click to open";
-								}
-								case 3208:
-								{
-									return "Right click to open";
-								}
-								case 3209:
-								{
-									return "Shoots an explosive crystal charge";
-								}
-								case 3210:
-								{
-									return "Spits toxic bubbles";
-								}
-								case 3211:
-								{
-									return "Spits an Ichor stream on contact";
-								}
-								case 3212:
-								{
-									return "Increases armor penetration by 5";
-								}
-								case 3213:
-								{
-									return "Summons a flying piggy bank to store your items";
-								}
-								case 3223:
-								{
-									return "May confuse nearby enemies after being struck";
-								}
-								case 3224:
-								{
-									return "Reduces damage taken by 17%";
-								}
-								case 3225:
-								{
-									return "Increases jump height";
-								}
-								case 3226:
-								case 3227:
-								case 3228:
-								{
-									return "'Great for impersonating devs!'";
-								}
-								case 3241:
-								{
-									return "Increases jump height";
-								}
+								case 3287:
+								case 3288:
+									goto IL_346B;
 								default:
-								{
-									if (num == 3245)
+									switch (l)
 									{
-										return "Throws empowered bones";
+										case 3333:
+											return "Increases the strength of friendly bees";
+										case 3334:
+											return "Allows the use of two yoyos at once";
+										case 3335:
+											return "Permanently increases the number of accessory slots";
+										case 3336:
+											return "Summons spores over time that will damage enemies";
+										case 3337:
+											return "Greatly increases life regen when not moving";
+										default:
+											switch (l)
+											{
+												case 3360:
+													return "Places living rich mahogany";
+												case 3361:
+													return "Places rich mahogany leaves";
+												default:
+													goto IL_AC2F;
+											}
+											break;
 									}
-									if (english || Lang.lang <= 1)
-									{
-										return "";
-									}
-									return Lang.toolTip(l, true);
-								}
+									break;
 							}
 						}
 					}
-					else if (num > 3388)
+					else if (l <= 3650)
 					{
-						switch (num)
+						switch (l)
 						{
-							case 3456:
-								{
-									return "'Swirling energies emanate from this fragment'";
-								}
-							case 3457:
-								{
-									return "'The power of a galaxy resides within this fragment'";
-								}
-							case 3458:
-								{
-									return "'The fury of the universe lies within this fragment'";
-								}
-							case 3459:
-								{
-									return "'Entrancing particles revolve around this fragment'";
-								}
-							case 3460:
-								{
-									return "'A pebble of the heavens'";
-								}
-							case 3461:
-							case 3462:
-							case 3463:
-							case 3464:
-							case 3465:
-							case 3466:
-							case 3472:
-							case 3480:
-							case 3481:
-							case 3482:
-							case 3483:
-							case 3484:
-							case 3486:
-							case 3487:
-							case 3488:
-							case 3489:
-							case 3490:
-								{
-									if (english || Lang.lang <= 1)
-									{
-										return "";
-									}
-									return Lang.toolTip(l, true);
-								}
-							case 3467:
-								{
-									return "'It vibrates with luminous celestial energy'";
-								}
-							case 3468:
-								{
-									return "Allows flight and slow fall";
-								}
-							case 3469:
-								{
-									return "Allows flight and slow fall";
-								}
-							case 3470:
-								{
-									return "Allows flight and slow fall";
-								}
-							case 3471:
-								{
-									return "Allows flight and slow fall";
-								}
-							case 3473:
-								{
-									return "'Strike with the fury of the sun'";
-								}
-							case 3474:
-								{
-									return "Summons a stardust cell to fight for you";
-								}
-							case 3475:
-								{
-									return "66% chance to not consume ammo";
-								}
-							case 3476:
-								{
-									return "'Conjure masses of astral energy to chase down your foes'";
-								}
-							case 3477:
-								{
-									return "Spreads the crimson to some blocks";
-								}
-							case 3478:
-								{
-									return "'Wuv... twue wuv...'";
-								}
-							case 3479:
-								{
-									return "'Mawwiage...'";
-								}
-							case 3485:
-							case 3491:
-								{
-									return "Can mine Meteorite";
-								}
-							case 3521:
-								{
-									return "Can mine Meteorite";
-								}
-							case 3522:
-							case 3523:
-							case 3524:
-							case 3525:
-							case 3526:
-							case 3527:
-							case 3528:
-							case 3529:
-							case 3530:
-							case 3533:
-							case 3534:
-							case 3535:
-							case 3544:
-							case 3546:
-								{
-									if (english || Lang.lang <= 1)
-									{
-										return "";
-									}
-									return Lang.toolTip(l, true);
-								}
-							case 3531:
-								{
-									return "Summons a stardust dragon to fight for you";
-								}
-							case 3532:
-								{
-									return "Minor improvements to all stats";
-								}
-							case 3536:
-								{
-									return "'Wield a small amount of power from the Vortex Tower'";
-								}
-							case 3537:
-								{
-									return "'Wield a small amount of power from the Nebula Tower'";
-								}
-							case 3538:
-								{
-									return "'Wield a small amount of power from the Stardust Tower'";
-								}
-							case 3539:
-								{
-									return "'Wield a small amount of power from the Solar Tower'";
-								}
-							case 3540:
-								{
-									return "66% chance to not consume ammo";
-								}
-							case 3541:
-								{
-									return "'Fire a lifeform disintegration rainbow'";
-								}
-							case 3542:
-								{
-									return "'From Orion's belt to the palm of your hand'";
-								}
-							case 3543:
-								{
-									return "'Rend your foes asunder with a spear of light!'";
-								}
-							case 3545:
-								{
-									return "'Guts... and Gory!'";
-								}
-							case 3547:
-								{
-									return "'This will prove to be terrible idea'";
-								}
-							case 3548:
-								{
-									break;
-								}
-							case 3549:
-								{
-									return "Used to craft items from Lunar Fragments and Luminite";
-								}
-							case 3567:
-								{
-									return "'Line 'em up and knock 'em down...'";
-								}
-							case 3568:
-								{
-									return "'Shooting them down at the speed of sound!'";
-								}
-							case 3569:
-								{
-									return "Summons a lunar portal to shoot lasers at your enemies";
-								}
-							case 3570:
-								{
-									return "Rains down lunar flares";
-								}
-							case 3571:
-								{
-									return "Summons a radiant crystal that banishes your enemies";
-								}
-							case 3572:
-								{
-									return "'You want the moon? Just grapple it and pull it down!'";
-								}
-							case 3573:
-							case 3574:
-							case 3575:
-							case 3576:
-							case 3584:
-								{
-									if (english || Lang.lang <= 1)
-									{
-										return "";
-									}
-									return Lang.toolTip(l, true);
-								}
-							case 3577:
-								{
-									return "Calls upon a suspicious looking eye to provide light";
-								}
-							case 3578:
-							case 3579:
-							case 3580:
-							case 3581:
-							case 3582:
-							case 3583:
-							case 3585:
-							case 3586:
-							case 3587:
-							case 3588:
-							case 3589:
-							case 3590:
-							case 3591:
-							case 3592:
-								{
-									return "'Great for impersonating devs!'";
-								}
+							case 3366:
+								return "Gives the user master yoyo skills";
+							case 3367:
+								return "Attracts a legendary creature which flourishes in water & combat";
+							case 3368:
+							case 3369:
+							case 3370:
+							case 3371:
+							case 3372:
+							case 3373:
+							case 3377:
+							case 3378:
+							case 3379:
+							case 3380:
+							case 3384:
+								goto IL_AC2F;
+							case 3374:
+								return "20% increased throwing velocity";
+							case 3375:
+								return "20% increased throwing damage";
+							case 3376:
+								return "15% increased throwing critical strike chance";
+							case 3381:
+								return "Increases your max number of minions";
+							case 3382:
+								return "Increases your max number of minions";
+							case 3383:
+								return "Increases your max number of minions";
+							case 3385:
+							case 3386:
+							case 3387:
+							case 3388:
+								return "Can be traded for rare dyes";
 							default:
+								switch (l)
 								{
-									if (english || Lang.lang <= 1)
-									{
-										return "";
-									}
-									return Lang.toolTip(l, true);
+									case 3456:
+										return "'Swirling energies emanate from this fragment'";
+									case 3457:
+										return "'The power of a galaxy resides within this fragment'";
+									case 3458:
+										return "'The fury of the universe lies within this fragment'";
+									case 3459:
+										return "'Entrancing particles revolve around this fragment'";
+									case 3460:
+										return "'A pebble of the heavens'";
+									case 3461:
+									case 3462:
+									case 3463:
+									case 3464:
+									case 3465:
+									case 3466:
+									case 3472:
+									case 3480:
+									case 3481:
+									case 3482:
+									case 3483:
+									case 3484:
+									case 3486:
+									case 3487:
+									case 3488:
+									case 3489:
+									case 3490:
+										goto IL_AC2F;
+									case 3467:
+										return "'It vibrates with luminous celestial energy'";
+									case 3468:
+										return "Allows flight and slow fall";
+									case 3469:
+										return "Allows flight and slow fall";
+									case 3470:
+										return "Allows flight and slow fall";
+									case 3471:
+										return "Allows flight and slow fall";
+									case 3473:
+										return "'Strike with the fury of the sun'";
+									case 3474:
+										return "Summons a stardust cell to fight for you";
+									case 3475:
+										return "66% chance to not consume ammo";
+									case 3476:
+										return "'Conjure masses of astral energy to chase down your foes'";
+									case 3477:
+										return "Spreads the crimson to some blocks";
+									case 3478:
+										return "'Wuv... twue wuv...'";
+									case 3479:
+										return "'Mawwiage...'";
+									case 3485:
+									case 3491:
+										break;
+									default:
+										switch (l)
+										{
+											case 3521:
+												break;
+											case 3522:
+											case 3523:
+											case 3524:
+											case 3525:
+											case 3526:
+											case 3527:
+											case 3528:
+											case 3529:
+											case 3530:
+											case 3533:
+											case 3534:
+											case 3535:
+											case 3544:
+											case 3546:
+											case 3550:
+											case 3551:
+											case 3552:
+											case 3553:
+											case 3554:
+											case 3555:
+											case 3556:
+											case 3557:
+											case 3558:
+											case 3559:
+											case 3560:
+											case 3561:
+											case 3562:
+											case 3563:
+											case 3564:
+											case 3565:
+											case 3566:
+											case 3573:
+											case 3574:
+											case 3575:
+											case 3576:
+											case 3584:
+											case 3593:
+											case 3594:
+											case 3595:
+											case 3596:
+											case 3597:
+											case 3598:
+											case 3600:
+											case 3609:
+											case 3610:
+											case 3617:
+											case 3621:
+											case 3622:
+											case 3623:
+											case 3627:
+											case 3633:
+											case 3634:
+											case 3635:
+											case 3636:
+											case 3637:
+											case 3638:
+											case 3639:
+											case 3640:
+											case 3641:
+											case 3642:
+												goto IL_AC2F;
+											case 3531:
+												return "Summons a stardust dragon to fight for you";
+											case 3532:
+												return "Minor improvements to all stats";
+											case 3536:
+												return "'Wield a small amount of power from the Vortex Tower'";
+											case 3537:
+												return "'Wield a small amount of power from the Nebula Tower'";
+											case 3538:
+												return "'Wield a small amount of power from the Stardust Tower'";
+											case 3539:
+												return "'Wield a small amount of power from the Solar Tower'";
+											case 3540:
+												return "66% chance to not consume ammo";
+											case 3541:
+												return "'Fire a lifeform disintegration rainbow'";
+											case 3542:
+												return "'From Orion's belt to the palm of your hand'";
+											case 3543:
+												return "'Rend your foes asunder with a spear of light!'";
+											case 3545:
+												return "'Guts... and Gory!'";
+											case 3547:
+												return "'This will prove to be terrible idea'";
+											case 3548:
+												goto IL_3213;
+											case 3549:
+												return "Used to craft items from Lunar Fragments and Luminite";
+											case 3567:
+												return "'Line 'em up and knock 'em down...'";
+											case 3568:
+												return "'Shooting them down at the speed of sound!'";
+											case 3569:
+												return "Summons a lunar portal to shoot lasers at your enemies";
+											case 3570:
+												return "Rains down lunar flares";
+											case 3571:
+												return "Summons a radiant crystal that banishes your enemies";
+											case 3572:
+												return "'You want the moon? Just grapple it and pull it down!'";
+											case 3577:
+												return "Calls upon a suspicious looking eye to provide light";
+											case 3578:
+											case 3579:
+											case 3580:
+											case 3581:
+											case 3582:
+											case 3583:
+											case 3585:
+											case 3586:
+											case 3587:
+											case 3588:
+											case 3589:
+											case 3590:
+											case 3591:
+											case 3592:
+											case 3599:
+												goto IL_346B;
+											case 3601:
+												return "Summons the Impending Doom";
+											case 3602:
+											case 3618:
+												return "Place this on logic gates to add checks";
+											case 3603:
+											case 3604:
+											case 3605:
+											case 3606:
+											case 3607:
+											case 3608:
+												return "Judges logic gate lamps above it";
+											case 3611:
+												return "Allows ultimate control over wires!";
+											case 3612:
+												return "Places yellow wire";
+											case 3613:
+												return "Activates once day starts";
+											case 3614:
+												return "Activates once night starts";
+											case 3615:
+												return "Activates whenever players are over it, deactivates otherwise";
+											case 3616:
+												return "Separates wire paths\nIt's also hammerable!";
+											case 3619:
+												return "Grants improved wire vision";
+											case 3620:
+												return "Activates Actuators";
+											case 3624:
+												return "Automatically places actuators on placed objects";
+											case 3625:
+												return "<right> while holding to edit wire settings";
+											case 3626:
+											case 3630:
+											case 3631:
+											case 3632:
+												return "Activates when a player steps on or off it";
+											case 3628:
+												return "Susceptible to lava!";
+											case 3629:
+												return "Lights up bulbs for each wire color";
+											case 3643:
+												goto IL_2DF3;
+											case 3644:
+												return "<right> to place or remove Large Rubies";
+											case 3645:
+												return "<right> to place or remove Large Sapphires";
+											case 3646:
+												return "<right> to place or remove Large Emeralds";
+											case 3647:
+												return "<right> to place or remove Large Topazes";
+											case 3648:
+												return "<right> to place or remove Large Amethysts";
+											case 3649:
+												return "<right> to place or remove Large Diamonds";
+											case 3650:
+												return "<right> to place or remove Large Ambers";
+											default:
+												goto IL_AC2F;
+										}
+										break;
 								}
+								return "Can mine Meteorite";
 						}
 					}
 					else
 					{
-						switch (num)
+						if (l == 3663)
 						{
-							case 3333:
-								{
-									return "Increases the strength of friendly bees";
-								}
-							case 3334:
-								{
-									return "Allows the use of two yoyos at once";
-								}
-							case 3335:
-								{
-									return "Permanently increases the number of accessory slots";
-								}
-							case 3336:
-								{
-									return "Summons spores over time that will damage enemies";
-								}
-							case 3337:
-								{
-									return "Greatly increases life regen when not moving";
-								}
+							return "Place this on logic gate lamps to randomize the activation";
+						}
+						if (l == 3707)
+						{
+							return "Activates when a projectile touches it";
+						}
+						switch (l)
+						{
+							case 3721:
+								return "Fishing line will never break, Decreases chance of bait consumption, Increases fishing skill";
+							case 3722:
+								goto IL_AC2F;
+							case 3723:
+							case 3724:
+								goto IL_330F;
+							case 3725:
+								return "Separates wire paths\nLights off from horizontal signals\nLights on from crossed signals";
+							case 3726:
+								return "Activates whenever occupied by water, deactives otherwise";
+							case 3727:
+								return "Activates whenever occupied by lava, deactives otherwise";
+							case 3728:
+								return "Activates whenever occupied by honey, deactives otherwise";
+							case 3729:
+								return "Activates whenever occupied by liquid, deactives otherwise";
 							default:
-								{
-									switch (num)
-									{
-										case 3360:
-											{
-												return "Places living rich mahogany";
-											}
-										case 3361:
-											{
-												return "Places rich mahogany leaves";
-											}
-										default:
-											{
-												switch (num)
-												{
-													case 3366:
-														{
-															return "Gives the user master yoyo skills";
-														}
-													case 3367:
-														{
-															return "Attracts a legendary creature which flourishes in water & combat";
-														}
-													case 3368:
-													case 3369:
-													case 3370:
-													case 3371:
-													case 3372:
-													case 3373:
-													case 3377:
-													case 3378:
-													case 3379:
-													case 3380:
-													case 3384:
-														{
-															if (english || Lang.lang <= 1)
-															{
-																return "";
-															}
-															return Lang.toolTip(l, true);
-														}
-													case 3374:
-														{
-															return "20% increased throwing velocity";
-														}
-													case 3375:
-														{
-															return "20% increased throwing damage";
-														}
-													case 3376:
-														{
-															return "15% increased throwing critical strike chance";
-														}
-													case 3381:
-														{
-															return "Increases your max number of minions";
-														}
-													case 3382:
-														{
-															return "Increases your max number of minions";
-														}
-													case 3383:
-														{
-															return "Increases your max number of minions";
-														}
-													case 3385:
-													case 3386:
-													case 3387:
-													case 3388:
-														{
-															return "Can be traded for rare dyes";
-														}
-													default:
-														{
-															if (english || Lang.lang <= 1)
-															{
-																return "";
-															}
-															return Lang.toolTip(l, true);
-														}
-												}
-											}
-									}
-								}
+								goto IL_AC2F;
 						}
 					}
+					IL_3213:
 					return "A small explosion that will not destroy tiles";
+					IL_330F:
+					return "Life regen is increased when near a campfire";
 				}
-				else if (num <= 1931)
+				if (l <= 1947)
 				{
-					if (num <= 1810)
+					if (l <= 1834)
 					{
-						if (num > 1724)
+						if (l <= 1769)
 						{
-							switch (num)
+							if (l == 1724)
+							{
+								return "Allows the holder to double jump";
+							}
+							switch (l)
 							{
 								case 1767:
-								{
 									return "To me it look like a leprechaun to me";
-								}
 								case 1768:
-								{
 									return "I just wanna know where the gold at!";
-								}
 								case 1769:
-								{
 									return "I want the gold. I want the gold. I want the gold. Gimme the gold!";
-								}
 								default:
-								{
-									if (num == 1774)
-									{
-										return "Right click to open";
-									}
-									switch (num)
-									{
-										case 1782:
-										{
-											return "33% chance to not consume ammo";
-										}
-										case 1783:
-										case 1784:
-										case 1785:
-										case 1788:
-										case 1789:
-										case 1790:
-										case 1791:
-										case 1792:
-										case 1793:
-										case 1794:
-										case 1795:
-										case 1796:
-										case 1800:
-										case 1808:
-										{
-											if (english || Lang.lang <= 1)
-											{
-												return "";
-											}
-											return Lang.toolTip(l, true);
-										}
-										case 1786:
-										{
-											return "Allows the collection of hay from grass";
-										}
-										case 1787:
-										{
-											return "Minor improvements to all stats";
-										}
-										case 1797:
-										{
-											return "Allows flight and slow fall";
-										}
-										case 1798:
-										{
-											return "Summons a pet spider";
-										}
-										case 1799:
-										{
-											return "Summons a pet squashling";
-										}
-										case 1801:
-										{
-											return "Summons bats to attack your enemies";
-										}
-										case 1802:
-										{
-											return "Summons a raven to fight for you";
-										}
-										case 1803:
-										{
-											return "Used for crafting a Jungle Key";
-										}
-										case 1804:
-										{
-											return "Used for crafting a Corruption Key";
-										}
-										case 1805:
-										{
-											return "Used for crafting a Crimson Key";
-										}
-										case 1806:
-										{
-											return "Used for crafting a Hallowed Key";
-										}
-										case 1807:
-										{
-											return "Used for crafting a Frozen Key";
-										}
-										case 1809:
-										{
-											return "Best used for pranking townsfolk";
-										}
-										case 1810:
-										{
-											return "Summons a black kitty";
-										}
-										default:
-										{
-											if (english || Lang.lang <= 1)
-											{
-												return "";
-											}
-											return Lang.toolTip(l, true);
-										}
-									}
-								}
+									goto IL_AC2F;
 							}
 						}
 						else
 						{
-							switch (num)
+							if (l == 1774)
 							{
-								case 1503:
-								{
-									return "40% decreased magic damage";
-								}
-								case 1504:
-								{
-									return "7% increased magic damage and critical strike chance";
-								}
-								case 1505:
-								{
-									return "8% increased magic damage";
-								}
-								case 1506:
-								case 1507:
-								case 1508:
-								case 1509:
-								case 1510:
-								case 1511:
-								case 1512:
-								case 1514:
-								case 1516:
-								case 1517:
-								case 1518:
-								case 1519:
-								case 1520:
-								case 1521:
-								case 1528:
-								case 1529:
-								case 1530:
-								case 1531:
-								case 1532:
-								case 1538:
-								case 1539:
-								case 1540:
-								case 1541:
-								case 1542:
-								case 1552:
-								case 1570:
-								case 1573:
-								case 1574:
-								case 1575:
-								case 1576:
-								case 1577:
-								case 1589:
-								case 1590:
-								case 1591:
-								case 1592:
-								case 1593:
-								case 1594:
-								case 1596:
-								case 1597:
-								case 1598:
-								case 1599:
-								case 1600:
-								case 1601:
-								case 1602:
-								case 1603:
-								case 1604:
-								case 1605:
-								case 1606:
-								case 1607:
-								case 1608:
-								case 1609:
-								case 1610:
-								case 1611:
-								{
-									if (english || Lang.lang <= 1)
-									{
-										return "";
-									}
-									return Lang.toolTip(l, true);
-								}
-								case 1513:
-								{
-									return "A powerful returning hammer";
-								}
-								case 1515:
-								{
+								return "<right> to open";
+							}
+							switch (l)
+							{
+								case 1782:
+									return "33% chance to not consume ammo";
+								case 1783:
+								case 1784:
+								case 1785:
+								case 1788:
+								case 1789:
+								case 1790:
+								case 1791:
+								case 1792:
+								case 1793:
+								case 1794:
+								case 1795:
+								case 1796:
+								case 1800:
+								case 1808:
+									goto IL_AC2F;
+								case 1786:
+									return "Allows the collection of hay from grass";
+								case 1787:
+									return "Minor improvements to all stats";
+								case 1797:
 									return "Allows flight and slow fall";
-								}
-								case 1522:
-								{
-									return "For Capture the Gem. It drops when you die";
-								}
-								case 1523:
-								{
-									return "For Capture the Gem. It drops when you die";
-								}
-								case 1524:
-								{
-									return "For Capture the Gem. It drops when you die";
-								}
-								case 1525:
-								{
-									return "For Capture the Gem. It drops when you die";
-								}
-								case 1526:
-								{
-									return "For Capture the Gem. It drops when you die";
-								}
-								case 1527:
-								{
-									return "For Capture the Gem. It drops when you die";
-								}
-								case 1533:
-								{
-									return "Unlocks a Jungle Chest in the dungeon";
-								}
-								case 1534:
-								{
-									return "Unlocks a Corruption Chest in the dungeon";
-								}
-								case 1535:
-								{
-									return "Unlocks a Crimson Chest in the dungeon";
-								}
-								case 1536:
-								{
-									return "Unlocks a Hallowed Chest in the dungeon";
-								}
-								case 1537:
-								{
-									return "Unlocks a Frozen Chest in the dungeon";
-								}
-								case 1543:
-								{
-									return "Used with paint to color blocks";
-								}
-								case 1544:
-								{
-									return "Used with paint to color walls";
-								}
-								case 1545:
-								{
-									return "Used to remove paint";
-								}
-								case 1546:
-								{
-									return "15% increased arrow damage";
-								}
-								case 1547:
-								{
-									return "15% increased bullet damage";
-								}
-								case 1548:
-								{
-									return "15% increased rocket damage";
-								}
-								case 1549:
-								{
-									return "13% increased ranged critical strike chance";
-								}
-								case 1550:
-								{
-									return "7% increased ranged critical strike chance";
-								}
-								case 1551:
-								{
-									return "Converts Chlorophyte Bars into Shroomite Bars";
-								}
-								case 1553:
-								{
-									return "50% chance to not consume ammo";
-								}
-								case 1554:
-								case 1555:
-								case 1556:
-								case 1557:
-								case 1558:
-								case 1559:
-								case 1560:
-								case 1561:
-								case 1562:
-								case 1563:
-								case 1564:
-								case 1565:
-								case 1566:
-								case 1567:
-								case 1568:
-								case 1580:
-								case 1581:
-								case 1582:
-								case 1583:
-								case 1584:
-								case 1585:
-								case 1586:
-								case 1587:
-								case 1588:
-								{
-									break;
-								}
-								case 1569:
-								{
-									return "Rapidly throw life stealing daggers";
-								}
-								case 1571:
-								{
-									return "A powerful javelin that unleashes tiny eaters";
-								}
-								case 1572:
-								{
-									return "Summons a powerful frost hydra to spit ice at your enemies";
-								}
-								case 1578:
-								{
-									return "Releases bees and increases movement speed when damaged";
-								}
-								case 1579:
-								{
-									return "The wearer can run super fast";
-								}
-								case 1595:
-								{
-									return "Increases maximum mana by 20";
-								}
-								case 1612:
-								{
-									return "Grants immunity to most debuffs";
-								}
-								case 1613:
-								{
-									return "Grants immunity to knockback and fire blocks";
-								}
+								case 1798:
+									return "Summons a pet spider";
+								case 1799:
+									return "Summons a pet squashling";
+								case 1801:
+									return "Summons bats to attack your enemies";
+								case 1802:
+									return "Summons a raven to fight for you";
+								case 1803:
+									return "Used for crafting a Jungle Key";
+								case 1804:
+									return "Used for crafting a Corruption Key";
+								case 1805:
+									return "Used for crafting a Crimson Key";
+								case 1806:
+									return "Used for crafting a Hallowed Key";
+								case 1807:
+									return "Used for crafting a Frozen Key";
+								case 1809:
+									return "Best used for pranking townsfolk";
+								case 1810:
+									return "Summons a black kitty";
 								default:
-								{
-									if (num == 1724)
+									switch (l)
 									{
-										return "Allows the holder to double jump";
+										case 1826:
+											return "Summons Pumpkin heads to attack your enemies";
+										case 1827:
+										case 1828:
+										case 1829:
+										case 1831:
+											goto IL_AC2F;
+										case 1830:
+											return "Allows flight and slow fall";
+										case 1832:
+											return "Increases your max number of minions";
+										case 1833:
+											return "Increases your max number of minions";
+										case 1834:
+											return "Increases your max number of minions";
+										default:
+											goto IL_AC2F;
 									}
-									if (english || Lang.lang <= 1)
-									{
-										return "";
-									}
-									return Lang.toolTip(l, true);
-								}
+									break;
 							}
 						}
 					}
-					else if (num > 1837)
+					else if (l <= 1845)
 					{
-						switch (num)
+						if (l == 1837)
+						{
+							return "Summons a cursed sapling to follow you";
+						}
+						switch (l)
 						{
 							case 1844:
-							{
 								return "Summons the Pumpkin Moon";
-							}
 							case 1845:
-							{
 								return "Increases your max number of minions";
-							}
 							default:
-							{
-								switch (num)
-								{
-									case 1858:
-									{
-										return "Increases view range for guns (right click to zoom out)";
-									}
-									case 1859:
-									case 1867:
-									case 1868:
-									{
-										if (english || Lang.lang <= 1)
-										{
-											return "";
-										}
-										return Lang.toolTip(l, true);
-									}
-									case 1860:
-									{
-										return "Grants the ability to swim and greatly extends underwater breathing";
-									}
-									case 1861:
-									{
-										return "Grants the ability to swim and greatly extends underwater breathing";
-									}
-									case 1862:
-									{
-										return "Allows flight, super fast running, and extra mobility on ice";
-									}
-									case 1863:
-									{
-										return "Allows the holder to double jump";
-									}
-									case 1864:
-									{
-										return "Increases your max number of minions";
-									}
-									case 1865:
-									{
-										return "Minor increase to damage, melee speed, critical strike chance,";
-									}
-									case 1866:
-									{
-										return "Allows flight and slow fall";
-									}
-									case 1869:
-									{
-										return "Right click to open";
-									}
-									case 1870:
-									{
-										return "'Don't shoot your eye out!'";
-									}
-									case 1871:
-									{
-										return "Allows flight and slow fall";
-									}
-									default:
-									{
-										switch (num)
-										{
-											case 1910:
-											{
-												return "Uses gel for ammo";
-											}
-											case 1911:
-											{
-												return "Minor improvements to all stats";
-											}
-											case 1912:
-											case 1913:
-											case 1915:
-											case 1916:
-											case 1918:
-											case 1924:
-											case 1925:
-											case 1926:
-											{
-												if (english || Lang.lang <= 1)
-												{
-													return "";
-												}
-												return Lang.toolTip(l, true);
-											}
-											case 1914:
-											{
-												return "Summons a rideable reindeer";
-											}
-											case 1917:
-											{
-												return "Can mine Meteorite";
-											}
-											case 1919:
-											{
-												return "Minor improvements to all stats";
-											}
-											case 1920:
-											{
-												return "Minor improvements to all stats";
-											}
-											case 1921:
-											{
-												return "Provides immunity to chill and freezing effects";
-											}
-											case 1922:
-											{
-												return "'You've been naughty this year'";
-											}
-											case 1923:
-											{
-												return "Increases item placement and tool range by 1";
-											}
-											case 1927:
-											{
-												return "Summons a Puppy";
-											}
-											case 1928:
-											{
-												return "Shoots Christmas ornaments";
-											}
-											case 1929:
-											{
-												return "50% chance to not consume ammo";
-											}
-											case 1930:
-											{
-												return "Shoots razor sharp pine needles";
-											}
-											case 1931:
-											{
-												return "Showers an area with icicles";
-											}
-											default:
-											{
-												if (english || Lang.lang <= 1)
-												{
-													return "";
-												}
-												return Lang.toolTip(l, true);
-											}
-										}
-									}
-								}
-							}
+								goto IL_AC2F;
 						}
 					}
 					else
 					{
-						switch (num)
+						switch (l)
 						{
-							case 1826:
-							{
-								return "Summons Pumpkin heads to attack your enemies";
-							}
-							case 1827:
-							case 1828:
-							case 1829:
-							case 1831:
-							{
-								if (english || Lang.lang <= 1)
-								{
-									return "";
-								}
-								return Lang.toolTip(l, true);
-							}
-							case 1830:
-							{
+							case 1858:
+								return "Increases view range for guns (<right> to zoom out)";
+							case 1859:
+							case 1867:
+							case 1868:
+								goto IL_AC2F;
+							case 1860:
+								return "Grants the ability to swim and greatly extends underwater breathing";
+							case 1861:
+								return "Grants the ability to swim and greatly extends underwater breathing";
+							case 1862:
+								return "Allows flight, super fast running, and extra mobility on ice";
+							case 1863:
+								return "Allows the holder to double jump";
+							case 1864:
+								return "Increases your max number of minions";
+							case 1865:
+								return "Minor increase to damage, melee speed, critical strike chance,";
+							case 1866:
 								return "Allows flight and slow fall";
-							}
-							case 1832:
-							{
-								return "Increases your max number of minions";
-							}
-							case 1833:
-							{
-								return "Increases your max number of minions";
-							}
-							case 1834:
-							{
-								return "Increases your max number of minions";
-							}
+							case 1869:
+								return "<right> to open";
+							case 1870:
+								return "'Don't shoot your eye out!'";
+							case 1871:
+								return "Allows flight and slow fall";
 							default:
-							{
-								if (num == 1837)
+								switch (l)
 								{
-									return "Summons a cursed sapling to follow you";
+									case 1910:
+										return "Uses gel for ammo";
+									case 1911:
+										return "Minor improvements to all stats";
+									case 1912:
+									case 1913:
+									case 1915:
+									case 1916:
+									case 1918:
+									case 1924:
+									case 1925:
+									case 1926:
+										goto IL_AC2F;
+									case 1914:
+										return "Summons a rideable reindeer";
+									case 1917:
+										return "Can mine Meteorite";
+									case 1919:
+										return "Minor improvements to all stats";
+									case 1920:
+										return "Minor improvements to all stats";
+									case 1921:
+										return "Provides immunity to chill and freezing effects";
+									case 1922:
+										return "'You've been naughty this year'";
+									case 1923:
+										return "Increases item placement and tool range by 1";
+									case 1927:
+										return "Summons a Puppy";
+									case 1928:
+										return "Shoots Christmas ornaments";
+									case 1929:
+										return "50% chance to not consume ammo";
+									case 1930:
+										return "Shoots razor sharp pine needles";
+									case 1931:
+										return "Showers an area with icicles";
+									default:
+										switch (l)
+										{
+											case 1946:
+												return "Launches homing missiles";
+											case 1947:
+												return "Shoots an icy spear that rains snowflakes";
+											default:
+												goto IL_AC2F;
+										}
+										break;
 								}
-								if (english || Lang.lang <= 1)
-								{
-									return "";
-								}
-								return Lang.toolTip(l, true);
-							}
+								break;
 						}
 					}
 				}
-				else if (num <= 2223)
+				else if (l <= 2280)
 				{
-					if (num > 1959)
+					if (l <= 1988)
 					{
-						if (num == 1988)
+						switch (l)
 						{
-							return "'Fezzes are cool'";
+							case 1958:
+								return "Summons the Frost Moon";
+							case 1959:
+								return "Summons a Baby Grinch";
+							default:
+								if (l != 1988)
+								{
+									goto IL_AC2F;
+								}
+								return "'Fezzes are cool'";
 						}
-						switch (num)
+					}
+					else
+					{
+						switch (l)
 						{
 							case 2172:
-							{
 								return "Used for advanced crafting";
-							}
 							case 2173:
 							case 2174:
 							case 2175:
@@ -47516,3621 +46183,2061 @@ namespace Terraria
 							case 2187:
 							case 2190:
 							case 2191:
-							{
-								if (english || Lang.lang <= 1)
-								{
-									return "";
-								}
-								return Lang.toolTip(l, true);
-							}
+								goto IL_AC2F;
 							case 2177:
-							{
 								return "Reduces ammo usage by 20%";
-							}
 							case 2188:
-							{
 								return "Shoots a venom fang that pierces multiple enemies";
-							}
 							case 2189:
-							{
 								return "Increases maximum mana by 60 and reduces mana usage by 13%";
-							}
 							case 2192:
-							{
 								return "Used for special crafting";
-							}
 							case 2193:
-							{
 								return "Used for special crafting";
-							}
 							case 2194:
-							{
 								return "Used for special crafting";
-							}
 							case 2195:
-							{
 								return "Used for special crafting";
-							}
 							case 2196:
-							{
 								return "Used for special crafting";
-							}
 							case 2197:
-							{
 								return "Used for special crafting";
-							}
 							case 2198:
-							{
 								return "Used for special crafting";
-							}
 							case 2199:
-							{
 								return "6% increased melee damage";
-							}
 							case 2200:
-							{
 								return "8% increased melee damage and critical strike chance";
-							}
 							case 2201:
-							{
 								return "5% increased melee damage and critical strike chance";
-							}
 							case 2202:
-							{
 								return "6% increased movement and melee speed";
-							}
 							case 2203:
-							{
 								return "Used for special crafting";
-							}
 							case 2204:
-							{
 								return "Used for special crafting";
-							}
 							default:
-							{
-								switch (num)
+								switch (l)
 								{
 									case 2214:
-									{
 										return "Increases tile placement speed";
-									}
 									case 2215:
-									{
 										return "Increases tile reach";
-									}
 									case 2216:
-									{
 										return "Automatically paints placed objects";
-									}
 									case 2217:
-									{
 										return "Increases wall placement speed";
-									}
 									case 2218:
 									case 2222:
-									{
-										if (english || Lang.lang <= 1)
-										{
-											return "";
-										}
-										return Lang.toolTip(l, true);
-									}
+										goto IL_AC2F;
 									case 2219:
-									{
 										return "Increases pickup range for mana stars";
-									}
 									case 2220:
-									{
 										return "Increases pickup range for mana stars";
-									}
 									case 2221:
-									{
 										return "Increases pickup range for mana stars";
-									}
 									case 2223:
-									{
 										return "Shoots a charged arrow";
-									}
 									default:
-									{
-										if (english || Lang.lang <= 1)
+										switch (l)
 										{
-											return "";
+											case 2267:
+												return "Minor improvements to all stats";
+											case 2268:
+												return "Minor improvements to all stats";
+											case 2269:
+											case 2271:
+											case 2273:
+											case 2274:
+											case 2276:
+											case 2278:
+												goto IL_AC2F;
+											case 2270:
+												return "50% chance to not consume ammo";
+											case 2272:
+												return "Squirts a harmless stream of water";
+											case 2275:
+												return "7% increased magic damage and critical strike chance";
+											case 2277:
+												return "5% increased damage and critical strike chance";
+											case 2279:
+												return "6% increased magic damage and critical strike chance";
+											case 2280:
+												return "Allows flight and slow fall";
+											default:
+												goto IL_AC2F;
 										}
-										return Lang.toolTip(l, true);
+										break;
+								}
+								break;
+						}
+					}
+				}
+				else if (l <= 2494)
+				{
+					switch (l)
+					{
+						case 2302:
+							return "'Its colorful scales could sell well.'";
+						case 2303:
+						case 2304:
+						case 2305:
+						case 2306:
+						case 2307:
+						case 2309:
+						case 2310:
+						case 2311:
+						case 2312:
+						case 2313:
+						case 2314:
+						case 2315:
+						case 2316:
+						case 2317:
+						case 2318:
+						case 2319:
+						case 2320:
+						case 2321:
+						case 2330:
+						case 2331:
+						case 2332:
+						case 2333:
+						case 2337:
+						case 2338:
+						case 2339:
+						case 2341:
+						case 2342:
+						case 2357:
+						case 2358:
+						case 2360:
+							goto IL_AC2F;
+						case 2308:
+							return "Quite shiny.  This will probably sell well.";
+						case 2322:
+							return "Increases mining speed by 25%";
+						case 2323:
+							return "Increases pickup range for life hearts";
+						case 2324:
+							return "Reduces enemy aggression";
+						case 2325:
+							return "Increases placement speed and range";
+						case 2326:
+							return "Increases knockback";
+						case 2327:
+							return "Lets you move swiftly in liquids";
+						case 2328:
+							return "Increases your max number of minions";
+						case 2329:
+							return "Allows you to see nearby danger sources";
+						case 2334:
+							return "<right> to open";
+						case 2335:
+							return "<right> to open";
+						case 2336:
+							return "<right> to open";
+						case 2340:
+							return "Hammer end piece to change bumper style";
+						case 2343:
+							return "Let's ride the rails";
+						case 2344:
+							return "20% chance to not consume ammo";
+						case 2345:
+							return "Increases max life by 20%";
+						case 2346:
+							return "Reduces damage taken by 10%";
+						case 2347:
+							return "Increases critical chance by 10%";
+						case 2348:
+							return "Ignites nearby enemies";
+						case 2349:
+							return "Increases damage by 10%";
+						case 2350:
+							return "Teleports you home";
+						case 2351:
+							return "Teleports you to a random location";
+						case 2352:
+							return "Throw this to make someone fall in love";
+						case 2353:
+							return "Throw this to make someone smell terrible";
+						case 2354:
+							return "Increases fishing skill";
+						case 2355:
+							return "Detects hooked fish";
+						case 2356:
+							return "Increases chance to get a crate";
+						case 2359:
+							return "Reduces damage from cold sources";
+						case 2361:
+							return "Increases minion damage by 4%";
+						case 2362:
+							return "Increases minion damage by 4%";
+						case 2363:
+							return "Increases minion damage by 5%";
+						case 2364:
+							return "Summons a hornet to fight for you";
+						case 2365:
+							return "Summons an imp to fight for you";
+						case 2366:
+							return "Summons a spider queen to spit eggs at your enemies";
+						case 2367:
+							return "Increases fishing level";
+						case 2368:
+							return "Increases fishing level";
+						case 2369:
+							return "Increases fishing level";
+						case 2370:
+							return "Increases your max number of minions";
+						case 2371:
+							return "Increases your max number of minions";
+						case 2372:
+							return "Increases your max number of minions";
+						case 2373:
+							return "Fishing line will never break";
+						case 2374:
+							return "Increases fishing skill";
+						case 2375:
+							return "Decreases chance of bait consumption";
+						default:
+							switch (l)
+							{
+								case 2420:
+									return "Summons a pet Zephyr Fish";
+								case 2421:
+								case 2422:
+								case 2424:
+									goto IL_AC2F;
+								case 2423:
+									return "Increases jump speed and allows auto-jump";
+								case 2425:
+									return "Minor improvements to all stats";
+								case 2426:
+									return "Minor improvements to all stats";
+								case 2427:
+									return "Minor improvements to all stats";
+								case 2428:
+									return "Summons a rideable Bunny mount";
+								case 2429:
+									return "Summons a rideable Pigron mount";
+								case 2430:
+									return "Summons a rideable Slime mount";
+								default:
+									switch (l)
+									{
+										case 2491:
+											return "Summons a rideable Turtle mount";
+										case 2492:
+											return "Not for use on slopes";
+										case 2493:
+											goto IL_AC2F;
+										case 2494:
+											return "Allows flight and slow fall";
+										default:
+											goto IL_AC2F;
 									}
+									break;
+							}
+							break;
+					}
+				}
+				else
+				{
+					if (l == 2502)
+					{
+						return "Summons a rideable Bee mount";
+					}
+					if (l == 2535)
+					{
+						return "Summons twins to fight for you";
+					}
+					if (l != 2551)
+					{
+						goto IL_AC2F;
+					}
+					return "Summons spiders to fight for you";
+				}
+				IL_22F5:
+				return "Banishes the Hallow";
+				IL_2475:
+				return "'Tossing may be difficult.'";
+				IL_2DF3:
+				return "For Capture the Gem. It drops when you die";
+				IL_346B:
+				return "'Great for impersonating devs!'";
+			}
+			else if (Lang.lang == 2)
+			{
+				if (l <= 407)
+				{
+					if (l <= 175)
+					{
+						if (l <= 70)
+						{
+							if (l <= 29)
+							{
+								if (l == 8)
+								{
+									return "Verstroemt Licht";
+								}
+								switch (l)
+								{
+									case 15:
+										return "Zeigt die Zeit an";
+									case 16:
+										return "Zeigt die Zeit an";
+									case 17:
+										return "Zeigt die Zeit an";
+									case 18:
+										return "Zeigt die Tiefe an";
+									case 19:
+									case 20:
+									case 21:
+									case 22:
+										break;
+									case 23:
+										return "'Lecker und brennbar'";
+									default:
+										if (l == 29)
+										{
+											return "Erhoeht dauerhaft die maximale Lebensspanne um 20";
+										}
+										break;
 								}
 							}
+							else
+							{
+								switch (l)
+								{
+									case 33:
+										return "Wird fuer die Verhuettung von Erz verwendet";
+									case 34:
+										break;
+									case 35:
+										return "Wird verwendet, um Items aus Metallbarren herzustellen";
+									case 36:
+										return "Wird zur einfachen Herstellung verwendet";
+									default:
+										if (l == 43)
+										{
+											return "Ruft das Auge von Cthulhu herbei";
+										}
+										switch (l)
+										{
+											case 49:
+												return "Belebt langsam wieder";
+											case 50:
+												return "Ein Blick in den Spiegel bringt einen nach Hause zurueck";
+											case 53:
+												return "Berechtigt den Inhaber zum Doppelsprung";
+											case 54:
+												return "Der Traeger kann superschnell rennen";
+											case 56:
+												return "'Durchpulst von dunkler Energie'";
+											case 57:
+												return "'Durchpulst von dunkler Energie'";
+											case 64:
+												return "Ruft einen Ekeldorn herbei";
+											case 65:
+												return "Laesst Sterne vom Himmel regen";
+											case 66:
+												return "Reinigt das Verderben";
+											case 67:
+												return "Entfernt den Segen";
+											case 68:
+												return "'Sieht lecker aus!'";
+											case 70:
+												return "Ruft den Weltenfresser herbei";
+										}
+										break;
+								}
+							}
+						}
+						else if (l <= 88)
+						{
+							if (l == 75)
+							{
+								return "Verschwindet nach Sonnenaufgang";
+							}
+							if (l == 84)
+							{
+								return "'Komm hier rueber!'";
+							}
+							if (l == 88)
+							{
+								return "Verstroemt beim Tragen Licht";
+							}
+						}
+						else
+						{
+							switch (l)
+							{
+								case 98:
+									return "33%ige Chance, Munition nicht zu verbrauchen";
+								case 99:
+								case 104:
+								case 105:
+								case 106:
+								case 107:
+								case 108:
+								case 110:
+								case 116:
+								case 119:
+								case 122:
+								case 126:
+								case 127:
+									break;
+								case 100:
+									return "Um 7% erhoehtes Nahkampftempo";
+								case 101:
+									return "Um 7% erhoehtes Nahkampftempo";
+								case 102:
+									return "Um 7% erhoehtes Nahkampftempo";
+								case 103:
+									return "Kann Hoellenstein abbauen";
+								case 109:
+									return "Erhoeht maximales Mana um 20";
+								case 111:
+									return "Erhoeht die maximale Mana um 20";
+								case 112:
+									return "Schiesst Feuerbaelle ab";
+								case 113:
+									return "Wirft eine steuerbare Rakete aus";
+								case 114:
+									return "Bewegt magisch Dreck";
+								case 115:
+									return "Erschafft eine magische Lichtkugel";
+								case 117:
+									return "'Fuehlt sich warm an'";
+								case 118:
+									return "Faellt mitunter von Skeletten und Piranhas herab";
+								case 120:
+									return "Entfacht lodernde Holzpfeile";
+								case 121:
+									return "'Ist ganz aus Feuer!'";
+								case 123:
+									return "Um 5% erhoehter magischer Schaden";
+								case 124:
+									return "Um 5% erhoehter magischer Schaden";
+								case 125:
+									return "Um 5% erhoehter magischer Schaden";
+								case 128:
+									return "Laesst fliegen";
+								default:
+									switch (l)
+									{
+										case 148:
+											return "Kann unerwuenschte Aufmerksamkeit erwecken";
+										case 149:
+											return "'Es enthaelt seltsame Symbole'";
+										case 150:
+										case 154:
+										case 155:
+										case 160:
+										case 161:
+										case 162:
+										case 163:
+										case 164:
+											break;
+										case 151:
+											return "Um 5% erhoehter Fernkampf-Schaden";
+										case 152:
+											return "Um 5% erhoehter Fernkampf-Schaden";
+										case 153:
+											return "Um 5% erhoehter Fernkampf-Schaden";
+										case 156:
+											return "Macht immun gegen Rueckstoss";
+										case 157:
+											return "Versprueht eine Wasserdusche";
+										case 158:
+											return "Hebt Sturzschaden auf";
+										case 159:
+											return "Vergroessert die Sprunghoehe";
+										case 165:
+											return "Wirft einen sich langsam bewegenden Wasserbolzen aus";
+										case 166:
+											return "Eine kleine Explosion, die einige Felder zerstoeren wird";
+										case 167:
+											return "Eine grosse Explosion, die die meisten Felder zerstoert";
+										case 168:
+											return "Eine kleine Explosion, die keine Felder zerstoert";
+										default:
+											if (l == 175)
+											{
+												return "'Heiss, heiss, heiss!'";
+											}
+											break;
+									}
+									break;
+							}
+						}
+					}
+					else if (l <= 238)
+					{
+						if (l <= 197)
+						{
+							switch (l)
+							{
+								case 186:
+									return "'Ganz nett, nicht ertrinken zu muessen'";
+								case 187:
+									return "Befaehigt zum Schwimmen";
+								default:
+									if (l == 193)
+									{
+										return "Macht immun gegen Feuer-Bloecke";
+									}
+									if (l == 197)
+									{
+										return "Schiesst Sternschnuppen herunter";
+									}
+									break;
+							}
+						}
+						else
+						{
+							switch (l)
+							{
+								case 208:
+									return "'Oh, ist die huebsch!'";
+								case 209:
+								case 210:
+								case 214:
+								case 216:
+								case 217:
+									break;
+								case 211:
+									return "Um 12% erhoehtes Nahkampftempo";
+								case 212:
+									return "Um 10% erhoehtes Bewegungstempo";
+								case 213:
+									return "Laesst Gras auf Schmutz wachsen";
+								case 215:
+									return "'Kann Aerger erregen'";
+								case 218:
+									return "Ruft einen steuerbaren Feuerball herbei";
+								default:
+									switch (l)
+									{
+										case 222:
+											return "Laesst Pflanzen wachsen";
+										case 223:
+											return "Um 6% reduzierte Mana-Nutzung";
+										case 224:
+										case 225:
+										case 226:
+										case 227:
+											break;
+										case 228:
+											return "Erhoeht die maximale Mana um 40";
+										case 229:
+											return "Erhoeht die maximale Mana um 20";
+										case 230:
+											return "Erhoeht die maximale Mana um 20";
+										default:
+											switch (l)
+											{
+												case 235:
+													return "'Werfen koennte schwierig werden.'";
+												case 237:
+													return "'Damit siehst du cool aus!'";
+												case 238:
+													return "Um 15% erhoehter magischer Schaden";
+											}
+											break;
+									}
+									break;
+							}
+						}
+					}
+					else if (l <= 329)
+					{
+						switch (l)
+						{
+							case 261:
+								return "'Er laechelt - vielleicht schmeckt er auch gut...'";
+							case 262:
+							case 263:
+							case 264:
+							case 265:
+							case 269:
+							case 270:
+							case 271:
+							case 273:
+							case 274:
+							case 275:
+							case 276:
+							case 277:
+							case 278:
+							case 279:
+							case 280:
+							case 284:
+							case 286:
+							case 287:
+								break;
+							case 266:
+								return "'Das ist eine gute Idee!'";
+							case 267:
+								return "'Du bist ein schrecklicher Mensch.'";
+							case 268:
+								return "Verlaengert das Atmen unter Wasser deutlich";
+							case 272:
+								return "Wirft eine Daemonensense aus";
+							case 281:
+								return "Zum Erstellen einer Saatsammlung als Munition";
+							case 282:
+								return "Funktioniert bei Naesse";
+							case 283:
+								return "Zur Verwendung im Blasrohr";
+							case 285:
+								return "Um 5% erhoehtes Bewegungstempo";
+							case 288:
+								return "Macht immun gegen Lava";
+							case 289:
+								return "Belebt wieder";
+							case 290:
+								return "Erhoeht Bewegungstempo um 25%";
+							case 291:
+								return "Wasser statt Luft atmen";
+							case 292:
+								return "Erhoeht die Abwehr um 8";
+							case 293:
+								return "Erhoehte Mana-Wiederherstellung";
+							case 294:
+								return "Erhoeht magischen Schaden um 20%";
+							case 295:
+								return "Verlangsamt das Sturztempo";
+							case 296:
+								return "Zeigt den Fundort von Schatz und Erz";
+							case 297:
+								return "Macht unsichtbar";
+							case 298:
+								return "Verstroemt eine Aura aus Licht";
+							case 299:
+								return "Erhoeht die Nachtsicht";
+							case 300:
+								return "Erhoeht Feind-Spawnquote";
+							case 301:
+								return "Auch die Angreifer erleiden Schaden";
+							case 302:
+								return "Befaehigt, auf dem Wasser zu gehen";
+							case 303:
+								return "Erhoeht Pfeiltempo und Schaden um 20%";
+							case 304:
+								return "Zeigt die Position von Feinden";
+							case 305:
+								return "Zur Steuerung der Schwerkraft";
+							default:
+								if (l == 324)
+								{
+									return "'An den meisten Orten verboten'";
+								}
+								switch (l)
+								{
+									case 327:
+										return "Oeffnet eine Goldtruhe";
+									case 329:
+										return "Oeffnet alle Schattentruhen";
+								}
+								break;
 						}
 					}
 					else
 					{
-						switch (num)
+						if (l == 332)
 						{
-							case 1946:
-							{
-								return "Launches homing missiles";
-							}
-							case 1947:
-							{
-								return "Shoots an icy spear that rains snowflakes";
-							}
-							default:
-							{
-								switch (num)
-								{
-									case 1958:
-									{
-										return "Summons the Frost Moon";
-									}
-									case 1959:
-									{
-										return "Summons a Baby Grinch";
-									}
-									default:
-									{
-										if (english || Lang.lang <= 1)
-										{
-											return "";
-										}
-										return Lang.toolTip(l, true);
-									}
-								}
-							}
+							return "Verwendet fuer die Tuchherstellung ";
+						}
+						if (l == 352)
+						{
+							return "Zum Bierbrauen";
+						}
+						switch (l)
+						{
+							case 357:
+								return "Geringe Anhebung aller Werte";
+							case 361:
+								return "Ruft eine Goblin-Armee herbei";
+							case 363:
+								return "Fuer fortgeschrittene Holzherstellung";
+							case 367:
+								return "Stark genug, um Daemonenaltaere zu zerstoeren";
+							case 371:
+								return "Erhoeht die maximale Mana um 40";
+							case 372:
+								return "Um 7% erhoehtes Bewegungstempo";
+							case 373:
+								return "Um 10% erhoehter Fernkampfschaden";
+							case 376:
+								return "Erhoeht die maximale Mana um 60";
+							case 377:
+								return "Um 5% erhoehte kritische Nahkampf-Trefferchance";
+							case 378:
+								return "Um 12% erhoehter Fernkampf-Schaden";
+							case 385:
+								return "Kann Mithril abbauen";
+							case 386:
+								return "Kann Adamantit abbauen";
+							case 389:
+								return "Kann Verwirrung stiften";
+							case 393:
+								return "Zeigt horizontale Position";
+							case 394:
+								return "Befaehigt zum Schwimmen";
+							case 395:
+								return "Zeigt Position an";
+							case 396:
+								return "Hebt Sturzschaden auf";
+							case 397:
+								return "Macht immun gegen Rueckstoss";
+							case 398:
+								return "Ermoeglicht die Kombination von Zubehoer";
+							case 399:
+								return "Berechtigt den Inhaber zum Doppelsprung";
+							case 400:
+								return "Erhoeht die maximale Mana um 80";
+							case 401:
+								return "Um 7% erhoehte kritische Nahkampf-Trefferchance";
+							case 402:
+								return "Um 14% erhoehter Fernkampfschaden";
+							case 403:
+								return "Um 6% erhoehter Schaden";
+							case 404:
+								return "Um 4% erhoehte kritische Trefferchance";
+							case 405:
+								return "Laesst fliegen";
+							case 407:
+								return "Erweitert den Platzierbereich von Bloecken";
 						}
 					}
 				}
-				else if (num > 2375)
+				else if (l <= 761)
 				{
-					switch (num)
+					if (l <= 686)
 					{
-						case 2420:
+						if (l <= 603)
 						{
-							return "Summons a pet Zephyr Fish";
-						}
-						case 2421:
-						case 2422:
-						case 2424:
-						{
-							if (english || Lang.lang <= 1)
+							switch (l)
 							{
-								return "";
-							}
-							return Lang.toolTip(l, true);
-						}
-						case 2423:
-						{
-							return "Increases jump speed and allows auto-jump";
-						}
-						case 2425:
-						{
-							return "Minor improvements to all stats";
-						}
-						case 2426:
-						{
-							return "Minor improvements to all stats";
-						}
-						case 2427:
-						{
-							return "Minor improvements to all stats";
-						}
-						case 2428:
-						{
-							return "Summons a rideable Bunny mount";
-						}
-						case 2429:
-						{
-							return "Summons a rideable Pigron mount";
-						}
-						case 2430:
-						{
-							return "Summons a rideable Slime mount";
-						}
-						default:
-						{
-							switch (num)
-							{
-								case 2491:
-								{
-									return "Summons a rideable Turtle mount";
-								}
-								case 2492:
-								{
-									return "Not for use on slopes";
-								}
-								case 2493:
-								{
-									if (english || Lang.lang <= 1)
-									{
-										return "";
-									}
-									return Lang.toolTip(l, true);
-								}
-								case 2494:
-								{
-									return "Allows flight and slow fall";
-								}
+								case 422:
+									return "Verspritzt Segen auf einige Bloecke";
+								case 423:
+									return "Verteilt Verderben auf einige Bloecke";
+								case 424:
+									break;
+								case 425:
+									return "Ruft eine magische Fee herbei";
 								default:
-								{
-									if (num == 2502)
+									if (l == 434)
 									{
-										return "Summons a rideable Bee mount";
+										return "Dreifachschuss";
 									}
-									if (english || Lang.lang <= 1)
+									switch (l)
 									{
-										return "";
+										case 485:
+											return "Verwandelt den Inhaber bei Vollmond in einen Werwolf";
+										case 486:
+											return "Erstellt ein Raster auf dem Bildschirm zum Platzieren der Bloecke";
+										case 489:
+											return "Um 15% erhoehter magischer Schaden";
+										case 490:
+											return "Um 15% erhoehter Nahkampfschaden";
+										case 491:
+											return "Um 15% erhoehter Fernkampfschaden";
+										case 492:
+											return "Ermoeglicht Flug und langsamen Fall";
+										case 493:
+											return "Ermoeglicht Flug und langsamen Fall";
+										case 495:
+											return "Wirft einen steuerbaren Regenbogen aus";
+										case 496:
+											return "Ruft einen Eisblock herbei";
+										case 497:
+											return "Verwandelt den Besitzer beim Hineingehen ins Wasser in Meermenschen";
+										case 506:
+											return "Verwendet Glibber als Munition";
+										case 509:
+											return "Platziert Kabel";
+										case 510:
+											return "Entfernt Kabel";
+										case 515:
+											return "Erzeugt beim Aufprall mehrere Kristallscherben";
+										case 516:
+											return "Ruft beim Aufprall Sternschnuppen herbei";
+										case 517:
+											return "Ein Dolch, der magisch zurueckkehrt";
+										case 518:
+											return "Ruft schnelle Feuerkristallscherben herbei";
+										case 519:
+											return "Ruft unheilige Feuerbaelle herbei";
+										case 520:
+											return "'Die Essenz von Lichtkreaturen'";
+										case 521:
+											return "'Die Essenz von Finsterkreaturen'";
+										case 522:
+											return "'Nicht einmal Wasser loescht diese Flamme'";
+										case 523:
+											return "Kann in Wasser platziert werden";
+										case 524:
+											return "Zum Schmelzen von Adamantiterz";
+										case 525:
+											return "Zur Herstellung von Items aus Mithril- und Adamantitbarren";
+										case 526:
+											return "'Scharf und magisch!'";
+										case 527:
+											return "'Kreaturen in verderbten Wuesten tragen sie mitunter'";
+										case 528:
+											return "'Werden mitunter von Kreaturen in Lichtwuesten getragen'";
+										case 529:
+											return "Wird beim Betreten aktiviert";
+										case 531:
+											return "Zum Zaubern";
+										case 532:
+											return "Laesst Sterne bei Verletzung herabfallen";
+										case 533:
+											return "50%ige Chance, Munition nicht zu verbrauchen";
+										case 534:
+											return "Feuert einen Kugelregen ab";
+										case 535:
+											return "Verringert die Abklingzeit von Heiltraenken";
+										case 536:
+											return "Erhoeht Nahkampf-Rueckstoss";
+										case 541:
+											return "Wird beim Betreten aktiviert";
+										case 542:
+											return "Wird beim Betreten aktiviert";
+										case 543:
+											return "Wird beim Betreten aktiviert";
+										case 544:
+											return "Ruft die Zwillinge herbei";
+										case 547:
+											return "'Die Essenz reinen Schreckens'";
+										case 548:
+											return "'Die Essenz des Zerstoerers'";
+										case 549:
+											return "'Die Essenz der allwissenden Beobachter'";
+										case 551:
+											return "Um 7% erhoehte kritische Trefferchance";
+										case 552:
+											return "Um 7% erhoehter Schaden";
+										case 553:
+											return "Um 15% erhoehter Fernkampfschaden";
+										case 554:
+											return "Verlaengert die Unbesiegbarkeit nach erlittenem Schaden";
+										case 555:
+											return "Um 8% reduzierte Mananutzung";
+										case 556:
+											return "Ruft den Zerstoerer";
+										case 557:
+											return "Ruft Super-Skeletron herbei";
+										case 558:
+											return "Erhoeht die maximale Mana um 100";
+										case 559:
+											return "Nahkampfschaden und kritische Trefferchance um 10% erhoeht";
+										case 560:
+											return "Ruft Schleimi-Koenig herbei";
+										case 561:
+											return "Kann bis zu 5 stapeln";
+										case 575:
+											return "'Essenz maechtiger fliegender Kreaturen'";
+										case 576:
+											return "Kann Songs aufzeichnen";
+										case 579:
+											return "'Nicht mit einer Hamsaege zu verwechseln'";
+										case 580:
+											return "Explodiert bei Aktivierung";
+										case 581:
+											return "Sendet Wasser zu Auslasspumpen";
+										case 582:
+											return "Empfaengt Wasser vom Einlasspumpen";
+										case 583:
+											return "Aktiviert jede Sekunde";
+										case 584:
+											return "Aktiviert alle 3 Sekunden";
+										case 585:
+											return "Aktiviert alle 5 Sekunden";
+										case 599:
+											return "Rechter Mausklick zu öffnen";
+										case 600:
+											return "Rechter Mausklick zu öffnen";
+										case 601:
+											return "Rechter Mausklick zu öffnen";
+										case 602:
+											return "Beschwört den Frost Legion";
+										case 603:
+											return "Vorladung ein Haustier Hase";
 									}
-									return Lang.toolTip(l, true);
-								}
+									break;
 							}
+						}
+						else
+						{
+							switch (l)
+							{
+								case 665:
+									return "Sie sollten nicht diese";
+								case 666:
+									return "Sie sollten nicht diese";
+								case 667:
+									return "Sie sollten nicht diese";
+								case 668:
+									return "Sie sollten nicht diese";
+								case 669:
+									return "Beschwört einen Baby-Pinguin";
+								default:
+									if (l == 676)
+									{
+										return "Schießt ein eisiger Bolzen";
+									}
+									switch (l)
+									{
+										case 683:
+											return "Summons des Teufels Dreizack";
+										case 684:
+											return "16% erhöht Nahkampf-und Fernkampf Schaden";
+										case 685:
+											return "11% erhöht Nahkampf-und Fernkampf kritische Trefferchance";
+										case 686:
+											return "8% erhöht Bewegungsgeschwindigkeit";
+									}
+									break;
+							}
+						}
+					}
+					else if (l <= 726)
+					{
+						switch (l)
+						{
+							case 707:
+								return "Teilt die Zeit";
+							case 708:
+								return "Teilt die Zeit";
+							case 709:
+								return "Teilt die Zeit";
+							default:
+								if (l == 716)
+								{
+									return "Wird verwendet, um kunstgewerbliche Gegenstände aus Metall Bars";
+								}
+								switch (l)
+								{
+									case 723:
+										return "Schießt einen Lichtstrahl";
+									case 724:
+										return "Schießt ein eisiger Bolzen";
+									case 725:
+										return "Shoots frost Pfeile";
+									case 726:
+										return "Schießt einen Strom von frost";
+								}
+								break;
+						}
+					}
+					else
+					{
+						switch (l)
+						{
+							case 748:
+								return "Ermöglicht Flug und langsam fallen";
+							case 749:
+								return "Ermöglicht Flug und langsam fallen";
+							default:
+								if (l == 753)
+								{
+									return "Beschwört ein Haustier Schildkröte";
+								}
+								if (l == 761)
+								{
+									return "Ermöglicht Flug und langsam fallen";
+								}
+								break;
 						}
 					}
 				}
 				else
 				{
-					switch (num)
+					if (l > 1343)
 					{
-						case 2267:
+						if (l > 1595)
 						{
-							return "Minor improvements to all stats";
-						}
-						case 2268:
-						{
-							return "Minor improvements to all stats";
-						}
-						case 2269:
-						case 2271:
-						case 2273:
-						case 2274:
-						case 2276:
-						case 2278:
-						{
-							if (english || Lang.lang <= 1)
+							if (l <= 3491)
 							{
-								return "";
-							}
-							return Lang.toolTip(l, true);
-						}
-						case 2270:
-						{
-							return "50% chance to not consume ammo";
-						}
-						case 2272:
-						{
-							return "Squirts a harmless stream of water";
-						}
-						case 2275:
-						{
-							return "7% increased magic damage and critical strike chance";
-						}
-						case 2277:
-						{
-							return "5% increased damage and critical strike chance";
-						}
-						case 2279:
-						{
-							return "6% increased magic damage and critical strike chance";
-						}
-						case 2280:
-						{
-							return "Allows flight and slow fall";
-						}
-						default:
-						{
-							switch (num)
-							{
-								case 2302:
+								if (l != 3485 && l != 3491)
 								{
-									return "'It's colorful scales could sell well.'";
-								}
-								case 2303:
-								case 2304:
-								case 2305:
-								case 2306:
-								case 2307:
-								case 2309:
-								case 2310:
-								case 2311:
-								case 2312:
-								case 2313:
-								case 2314:
-								case 2315:
-								case 2316:
-								case 2317:
-								case 2318:
-								case 2319:
-								case 2320:
-								case 2321:
-								case 2330:
-								case 2331:
-								case 2332:
-								case 2333:
-								case 2337:
-								case 2338:
-								case 2339:
-								case 2341:
-								case 2342:
-								case 2357:
-								case 2358:
-								case 2360:
-								{
-									if (english || Lang.lang <= 1)
-									{
-										return "";
-									}
-									return Lang.toolTip(l, true);
-								}
-								case 2308:
-								{
-									return "Quite shiny.  This will probably sell well.";
-								}
-								case 2322:
-								{
-									return "Increases mining speed by 25%";
-								}
-								case 2323:
-								{
-									return "Increases pickup range for life hearts";
-								}
-								case 2324:
-								{
-									return "Reduces enemy aggression";
-								}
-								case 2325:
-								{
-									return "Increases placement speed and range";
-								}
-								case 2326:
-								{
-									return "Increases knockback";
-								}
-								case 2327:
-								{
-									return "Lets you move swiftly in liquids";
-								}
-								case 2328:
-								{
-									return "Increases your max number of minions";
-								}
-								case 2329:
-								{
-									return "Allows you to see nearby danger sources";
-								}
-								case 2334:
-								{
-									return "Right click to open";
-								}
-								case 2335:
-								{
-									return "Right click to open";
-								}
-								case 2336:
-								{
-									return "Right click to open";
-								}
-								case 2340:
-								{
-									return "Hammer end piece to change bumper style";
-								}
-								case 2343:
-								{
-									return "Let's ride the rails";
-								}
-								case 2344:
-								{
-									return "20% chance to not consume ammo";
-								}
-								case 2345:
-								{
-									return "Increases max life by 20%";
-								}
-								case 2346:
-								{
-									return "Reduces damage taken by 10%";
-								}
-								case 2347:
-								{
-									return "Increases critical chance by 10%";
-								}
-								case 2348:
-								{
-									return "Ignites nearby enemies";
-								}
-								case 2349:
-								{
-									return "Increases damage by 10%";
-								}
-								case 2350:
-								{
-									return "Teleports you home";
-								}
-								case 2351:
-								{
-									return "Teleports you to a random location";
-								}
-								case 2352:
-								{
-									return "Throw this to make someone fall in love";
-								}
-								case 2353:
-								{
-									return "Throw this to make someone smell terrible";
-								}
-								case 2354:
-								{
-									return "Increases fishing skill";
-								}
-								case 2355:
-								{
-									return "Detects hooked fish";
-								}
-								case 2356:
-								{
-									return "Increases chance to get a crate";
-								}
-								case 2359:
-								{
-									return "Reduces damage from cold sources";
-								}
-								case 2361:
-								{
-									return "Increases minion damage by 4%";
-								}
-								case 2362:
-								{
-									return "Increases minion damage by 4%";
-								}
-								case 2363:
-								{
-									return "Increases minion damage by 5%";
-								}
-								case 2364:
-								{
-									return "Summons a hornet to fight for you";
-								}
-								case 2365:
-								{
-									return "Summons an imp to fight for you";
-								}
-								case 2366:
-								{
-									return "Summons a spider queen to spit eggs at your enemies";
-								}
-								case 2367:
-								{
-									return "Increases fishing level";
-								}
-								case 2368:
-								{
-									return "Increases fishing level";
-								}
-								case 2369:
-								{
-									return "Increases fishing level";
-								}
-								case 2370:
-								{
-									return "Increases your max number of minions";
-								}
-								case 2371:
-								{
-									return "Increases your max number of minions";
-								}
-								case 2372:
-								{
-									return "Increases your max number of minions";
-								}
-								case 2373:
-								{
-									return "Fishing line will never break";
-								}
-								case 2374:
-								{
-									return "Increases fishing skill";
-								}
-								case 2375:
-								{
-									return "Decreases chance of bait consumption";
-								}
-								default:
-								{
-									if (english || Lang.lang <= 1)
-									{
-										return "";
-									}
-									return Lang.toolTip(l, true);
+									goto IL_AC2F;
 								}
 							}
-						}
-					}
-				}
-				return "'Great for impersonating devs!'";
-			}
-			else if (Lang.lang == 2)
-			{
-				int num1 = l;
-				if (num1 <= 407)
-				{
-					if (num1 <= 175)
-					{
-						if (num1 <= 70)
-						{
-							if (num1 > 29)
+							else if (l != 3521)
 							{
-								switch (num1)
+								if (l != 3643)
 								{
-									case 33:
-									{
-										return "Wird fuer die Verhuettung von Erz verwendet";
-									}
-									case 34:
-									{
-										break;
-									}
-									case 35:
-									{
-										return "Wird verwendet, um Items aus Metallbarren herzustellen";
-									}
-									case 36:
-									{
-										return "Wird zur einfachen Herstellung verwendet";
-									}
+									goto IL_AC2F;
+								}
+								goto IL_529B;
+							}
+							return "Kann Meteorite abbauen";
+						}
+						switch (l)
+						{
+							case 1430:
+								return "Dient zur Waffe imbuement Flaschen Handwerk";
+							case 1431:
+								goto IL_AC2F;
+							case 1432:
+								return "Wird verwendet, um verschiedene Arten von Munition Handwerk";
+							default:
+								switch (l)
+								{
+									case 1444:
+										return "Erzeugt einen Schatten Strahl, abprallt Wände";
+									case 1445:
+										return "Startet einen Feuerball, der in einem rasenden Inferno explodiert";
+									case 1446:
+										return "Beschwört eine verlorene Seele zu jagen Ihre Feinde";
+									case 1447:
+									case 1448:
+										goto IL_AC2F;
+									case 1449:
+										return "bläst Seifenblasen";
+									case 1450:
+										return "bläst Seifenblasen";
 									default:
-									{
-										if (num1 == 43)
-										{
-											return "Ruft das Auge von Cthulhu herbei";
-										}
-										switch (num1)
-										{
-											case 49:
-											{
-												return "Belebt langsam wieder";
-											}
-											case 50:
-											{
-												return "Ein Blick in den Spiegel bringt einen nach Hause zurueck";
-											}
-											case 53:
-											{
-												return "Berechtigt den Inhaber zum Doppelsprung";
-											}
-											case 54:
-											{
-												return "Der Traeger kann superschnell rennen";
-											}
-											case 56:
-											{
-												return "'Durchpulst von dunkler Energie'";
-											}
-											case 57:
-											{
-												return "'Durchpulst von dunkler Energie'";
-											}
-											case 64:
-											{
-												return "Ruft einen Ekeldorn herbei";
-											}
-											case 65:
-											{
-												return "Laesst Sterne vom Himmel regen";
-											}
-											case 66:
-											{
-												return "Reinigt das Verderben";
-											}
-											case 67:
-											{
-												return "Entfernt den Segen";
-											}
-											case 68:
-											{
-												return "'Sieht lecker aus!'";
-											}
-											case 70:
-											{
-												return "Ruft den Weltenfresser herbei";
-											}
-										}
-										break;
-									}
-								}
-							}
-							else
-							{
-								if (num1 == 8)
-								{
-									return "Verstroemt Licht";
-								}
-								switch (num1)
-								{
-									case 15:
-									{
-										return "Zeigt die Zeit an";
-									}
-									case 16:
-									{
-										return "Zeigt die Zeit an";
-									}
-									case 17:
-									{
-										return "Zeigt die Zeit an";
-									}
-									case 18:
-									{
-										return "Zeigt die Tiefe an";
-									}
-									case 19:
-									case 20:
-									case 21:
-									case 22:
-									{
-										break;
-									}
-									case 23:
-									{
-										return "'Lecker und brennbar'";
-									}
-									default:
-									{
-										if (num1 == 29)
-										{
-											return "Erhoeht dauerhaft die maximale Lebensspanne um 20";
-										}
-										break;
-									}
-								}
-							}
-						}
-						else if (num1 > 88)
-						{
-							switch (num1)
-							{
-								case 98:
-								{
-									return "33%ige Chance, Munition nicht zu verbrauchen";
-								}
-								case 99:
-								case 104:
-								case 105:
-								case 106:
-								case 107:
-								case 108:
-								case 110:
-								case 116:
-								case 119:
-								case 122:
-								case 126:
-								case 127:
-								{
-									break;
-								}
-								case 100:
-								{
-									return "Um 7% erhoehtes Nahkampftempo";
-								}
-								case 101:
-								{
-									return "Um 7% erhoehtes Nahkampftempo";
-								}
-								case 102:
-								{
-									return "Um 7% erhoehtes Nahkampftempo";
-								}
-								case 103:
-								{
-									return "Kann Hoellenstein abbauen";
-								}
-								case 109:
-								{
-									return "Erhoeht maximales Mana um 20";
-								}
-								case 111:
-								{
-									return "Erhoeht die maximale Mana um 20";
-								}
-								case 112:
-								{
-									return "Schiesst Feuerbaelle ab";
-								}
-								case 113:
-								{
-									return "Wirft eine steuerbare Rakete aus";
-								}
-								case 114:
-								{
-									return "Bewegt magisch Dreck";
-								}
-								case 115:
-								{
-									return "Erschafft eine magische Lichtkugel";
-								}
-								case 117:
-								{
-									return "'Fuehlt sich warm an'";
-								}
-								case 118:
-								{
-									return "Faellt mitunter von Skeletten und Piranhas herab";
-								}
-								case 120:
-								{
-									return "Entfacht lodernde Holzpfeile";
-								}
-								case 121:
-								{
-									return "'Ist ganz aus Feuer!'";
-								}
-								case 123:
-								{
-									return "Um 5% erhoehter magischer Schaden";
-								}
-								case 124:
-								{
-									return "Um 5% erhoehter magischer Schaden";
-								}
-								case 125:
-								{
-									return "Um 5% erhoehter magischer Schaden";
-								}
-								case 128:
-								{
-									return "Laesst fliegen";
-								}
-								default:
-								{
-									switch (num1)
-									{
-										case 148:
-										{
-											return "Kann unerwuenschte Aufmerksamkeit erwecken";
-										}
-										case 149:
-										{
-											return "'Es enthaelt seltsame Symbole'";
-										}
-										case 150:
-										case 154:
-										case 155:
-										case 160:
-										case 161:
-										case 162:
-										case 163:
-										case 164:
-										{
-											break;
-										}
-										case 151:
-										{
-											return "Um 5% erhoehter Fernkampf-Schaden";
-										}
-										case 152:
-										{
-											return "Um 5% erhoehter Fernkampf-Schaden";
-										}
-										case 153:
-										{
-											return "Um 5% erhoehter Fernkampf-Schaden";
-										}
-										case 156:
-										{
-											return "Macht immun gegen Rueckstoss";
-										}
-										case 157:
-										{
-											return "Versprueht eine Wasserdusche";
-										}
-										case 158:
-										{
-											return "Hebt Sturzschaden auf";
-										}
-										case 159:
-										{
-											return "Vergroessert die Sprunghoehe";
-										}
-										case 165:
-										{
-											return "Wirft einen sich langsam bewegenden Wasserbolzen aus";
-										}
-										case 166:
-										{
-											return "Eine kleine Explosion, die einige Felder zerstoeren wird";
-										}
-										case 167:
-										{
-											return "Eine grosse Explosion, die die meisten Felder zerstoert";
-										}
-										case 168:
-										{
-											return "Eine kleine Explosion, die keine Felder zerstoert";
-										}
-										default:
-										{
-											if (num1 == 175)
-											{
-												return "'Heiss, heiss, heiss!'";
-											}
-											break;
-										}
-									}
-									break;
-								}
-							}
-						}
-						else
-						{
-							if (num1 == 75)
-							{
-								return "Verschwindet nach Sonnenaufgang";
-							}
-							if (num1 == 84)
-							{
-								return "'Komm hier rueber!'";
-							}
-							if (num1 == 88)
-							{
-								return "Verstroemt beim Tragen Licht";
-							}
-						}
-					}
-					else if (num1 <= 238)
-					{
-						if (num1 > 197)
-						{
-							switch (num1)
-							{
-								case 208:
-								{
-									return "'Oh, ist die huebsch!'";
-								}
-								case 209:
-								case 210:
-								case 214:
-								case 216:
-								case 217:
-								{
-									break;
-								}
-								case 211:
-								{
-									return "Um 12% erhoehtes Nahkampftempo";
-								}
-								case 212:
-								{
-									return "Um 10% erhoehtes Bewegungstempo";
-								}
-								case 213:
-								{
-									return "Laesst Gras auf Schmutz wachsen";
-								}
-								case 215:
-								{
-									return "'Kann Aerger erregen'";
-								}
-								case 218:
-								{
-									return "Ruft einen steuerbaren Feuerball herbei";
-								}
-								default:
-								{
-									switch (num1)
-									{
-										case 222:
-										{
-											return "Laesst Pflanzen wachsen";
-										}
-										case 223:
-										{
-											return "Um 6% reduzierte Mana-Nutzung";
-										}
-										case 224:
-										case 225:
-										case 226:
-										case 227:
-										{
-											break;
-										}
-										case 228:
-										{
-											return "Erhoeht die maximale Mana um 40";
-										}
-										case 229:
-										{
-											return "Erhoeht die maximale Mana um 20";
-										}
-										case 230:
-										{
-											return "Erhoeht die maximale Mana um 20";
-										}
-										default:
-										{
-											switch (num1)
-											{
-												case 235:
-												{
-													return "'Werfen koennte schwierig werden.'";
-												}
-												case 237:
-												{
-													return "'Damit siehst du cool aus!'";
-												}
-												case 238:
-												{
-													return "Um 15% erhoehter magischer Schaden";
-												}
-											}
-											break;
-										}
-									}
-									break;
-								}
-							}
-						}
-						else
-						{
-							switch (num1)
-							{
-								case 186:
-								{
-									return "'Ganz nett, nicht ertrinken zu muessen'";
-								}
-								case 187:
-								{
-									return "Befaehigt zum Schwimmen";
-								}
-								default:
-								{
-									if (num1 == 193)
-									{
-										return "Macht immun gegen Feuer-Bloecke";
-									}
-									if (num1 == 197)
-									{
-										return "Schiesst Sternschnuppen herunter";
-									}
-									break;
-								}
-							}
-						}
-					}
-					else if (num1 > 329)
-					{
-						if (num1 == 332)
-						{
-							return "Verwendet fuer die Tuchherstellung ";
-						}
-						if (num1 == 352)
-						{
-							return "Zum Bierbrauen";
-						}
-						switch (num1)
-						{
-							case 357:
-							{
-								return "Geringe Anhebung aller Werte";
-							}
-							case 361:
-							{
-								return "Ruft eine Goblin-Armee herbei";
-							}
-							case 363:
-							{
-								return "Fuer fortgeschrittene Holzherstellung";
-							}
-							case 367:
-							{
-								return "Stark genug, um Daemonenaltaere zu zerstoeren";
-							}
-							case 371:
-							{
-								return "Erhoeht die maximale Mana um 40";
-							}
-							case 372:
-							{
-								return "Um 7% erhoehtes Bewegungstempo";
-							}
-							case 373:
-							{
-								return "Um 10% erhoehter Fernkampfschaden";
-							}
-							case 376:
-							{
-								return "Erhoeht die maximale Mana um 60";
-							}
-							case 377:
-							{
-								return "Um 5% erhoehte kritische Nahkampf-Trefferchance";
-							}
-							case 378:
-							{
-								return "Um 12% erhoehter Fernkampf-Schaden";
-							}
-							case 385:
-							{
-								return "Kann Mithril abbauen";
-							}
-							case 386:
-							{
-								return "Kann Adamantit abbauen";
-							}
-							case 389:
-							{
-								return "Kann Verwirrung stiften";
-							}
-							case 393:
-							{
-								return "Zeigt horizontale Position";
-							}
-							case 394:
-							{
-								return "Befaehigt zum Schwimmen";
-							}
-							case 395:
-							{
-								return "Zeigt Position an";
-							}
-							case 396:
-							{
-								return "Hebt Sturzschaden auf";
-							}
-							case 397:
-							{
-								return "Macht immun gegen Rueckstoss";
-							}
-							case 398:
-							{
-								return "Ermoeglicht die Kombination von Zubehoer";
-							}
-							case 399:
-							{
-								return "Berechtigt den Inhaber zum Doppelsprung";
-							}
-							case 400:
-							{
-								return "Erhoeht die maximale Mana um 80";
-							}
-							case 401:
-							{
-								return "Um 7% erhoehte kritische Nahkampf-Trefferchance";
-							}
-							case 402:
-							{
-								return "Um 14% erhoehter Fernkampfschaden";
-							}
-							case 403:
-							{
-								return "Um 6% erhoehter Schaden";
-							}
-							case 404:
-							{
-								return "Um 4% erhoehte kritische Trefferchance";
-							}
-							case 405:
-							{
-								return "Laesst fliegen";
-							}
-							case 407:
-							{
-								return "Erweitert den Platzierbereich von Bloecken";
-							}
-						}
-					}
-					else
-					{
-						switch (num1)
-						{
-							case 261:
-							{
-								return "'Er laechelt - vielleicht schmeckt er auch gut...'";
-							}
-							case 262:
-							case 263:
-							case 264:
-							case 265:
-							case 269:
-							case 270:
-							case 271:
-							case 273:
-							case 274:
-							case 275:
-							case 276:
-							case 277:
-							case 278:
-							case 279:
-							case 280:
-							case 284:
-							case 286:
-							case 287:
-							{
-								break;
-							}
-							case 266:
-							{
-								return "'Das ist eine gute Idee!'";
-							}
-							case 267:
-							{
-								return "'Du bist ein schrecklicher Mensch.'";
-							}
-							case 268:
-							{
-								return "Verlaengert das Atmen unter Wasser deutlich";
-							}
-							case 272:
-							{
-								return "Wirft eine Daemonensense aus";
-							}
-							case 281:
-							{
-								return "Zum Erstellen einer Saatsammlung als Munition";
-							}
-							case 282:
-							{
-								return "Funktioniert bei Naesse";
-							}
-							case 283:
-							{
-								return "Zur Verwendung im Blasrohr";
-							}
-							case 285:
-							{
-								return "Um 5% erhoehtes Bewegungstempo";
-							}
-							case 288:
-							{
-								return "Macht immun gegen Lava";
-							}
-							case 289:
-							{
-								return "Belebt wieder";
-							}
-							case 290:
-							{
-								return "Erhoeht Bewegungstempo um 25%";
-							}
-							case 291:
-							{
-								return "Wasser statt Luft atmen";
-							}
-							case 292:
-							{
-								return "Erhoeht die Abwehr um 8";
-							}
-							case 293:
-							{
-								return "Erhoehte Mana-Wiederherstellung";
-							}
-							case 294:
-							{
-								return "Erhoeht magischen Schaden um 20%";
-							}
-							case 295:
-							{
-								return "Verlangsamt das Sturztempo";
-							}
-							case 296:
-							{
-								return "Zeigt den Fundort von Schatz und Erz";
-							}
-							case 297:
-							{
-								return "Macht unsichtbar";
-							}
-							case 298:
-							{
-								return "Verstroemt eine Aura aus Licht";
-							}
-							case 299:
-							{
-								return "Erhoeht die Nachtsicht";
-							}
-							case 300:
-							{
-								return "Erhoeht Feind-Spawnquote";
-							}
-							case 301:
-							{
-								return "Auch die Angreifer erleiden Schaden";
-							}
-							case 302:
-							{
-								return "Befaehigt, auf dem Wasser zu gehen";
-							}
-							case 303:
-							{
-								return "Erhoeht Pfeiltempo und Schaden um 20%";
-							}
-							case 304:
-							{
-								return "Zeigt die Position von Feinden";
-							}
-							case 305:
-							{
-								return "Zur Steuerung der Schwerkraft";
-							}
-							default:
-							{
-								if (num1 == 324)
-								{
-									return "'An den meisten Orten verboten'";
-								}
-								switch (num1)
-								{
-									case 327:
-									{
-										return "Oeffnet eine Goldtruhe";
-									}
-									case 329:
-									{
-										return "Oeffnet alle Schattentruhen";
-									}
-								}
-								break;
-							}
-						}
-					}
-				}
-				else if (num1 <= 761)
-				{
-					if (num1 <= 686)
-					{
-						if (num1 > 603)
-						{
-							switch (num1)
-							{
-								case 665:
-								{
-									return "Sie sollten nicht diese";
-								}
-								case 666:
-								{
-									return "Sie sollten nicht diese";
-								}
-								case 667:
-								{
-									return "Sie sollten nicht diese";
-								}
-								case 668:
-								{
-									return "Sie sollten nicht diese";
-								}
-								case 669:
-								{
-									return "Beschwört einen Baby-Pinguin";
-								}
-								default:
-								{
-									if (num1 == 676)
-									{
-										return "Schießt ein eisiger Bolzen";
-									}
-									switch (num1)
-									{
-										case 683:
-										{
-											return "Summons des Teufels Dreizack";
-										}
-										case 684:
-										{
-											return "16% erhöht Nahkampf-und Fernkampf Schaden";
-										}
-										case 685:
-										{
-											return "11% erhöht Nahkampf-und Fernkampf kritische Trefferchance";
-										}
-										case 686:
-										{
-											return "8% erhöht Bewegungsgeschwindigkeit";
-										}
-									}
-									break;
-								}
-							}
-						}
-						else
-						{
-							switch (num1)
-							{
-								case 422:
-								{
-									return "Verspritzt Segen auf einige Bloecke";
-								}
-								case 423:
-								{
-									return "Verteilt Verderben auf einige Bloecke";
-								}
-								case 424:
-								{
-									break;
-								}
-								case 425:
-								{
-									return "Ruft eine magische Fee herbei";
-								}
-								default:
-								{
-									if (num1 == 434)
-									{
-										return "Dreifachschuss";
-									}
-									switch (num1)
-									{
-										case 485:
-										{
-											return "Verwandelt den Inhaber bei Vollmond in einen Werwolf";
-										}
-										case 486:
-										{
-											return "Erstellt ein Raster auf dem Bildschirm zum Platzieren der Bloecke";
-										}
-										case 489:
-										{
-											return "Um 15% erhoehter magischer Schaden";
-										}
-										case 490:
-										{
-											return "Um 15% erhoehter Nahkampfschaden";
-										}
-										case 491:
-										{
-											return "Um 15% erhoehter Fernkampfschaden";
-										}
-										case 492:
-										{
-											return "Ermoeglicht Flug und langsamen Fall";
-										}
-										case 493:
-										{
-											return "Ermoeglicht Flug und langsamen Fall";
-										}
-										case 495:
-										{
-											return "Wirft einen steuerbaren Regenbogen aus";
-										}
-										case 496:
-										{
-											return "Ruft einen Eisblock herbei";
-										}
-										case 497:
-										{
-											return "Verwandelt den Besitzer beim Hineingehen ins Wasser in Meermenschen";
-										}
-										case 506:
-										{
-											return "Verwendet Glibber als Munition";
-										}
-										case 509:
-										{
-											return "Platziert Kabel";
-										}
-										case 510:
-										{
-											return "Entfernt Kabel";
-										}
-										case 515:
-										{
-											return "Erzeugt beim Aufprall mehrere Kristallscherben";
-										}
-										case 516:
-										{
-											return "Ruft beim Aufprall Sternschnuppen herbei";
-										}
-										case 517:
-										{
-											return "Ein Dolch, der magisch zurueckkehrt";
-										}
-										case 518:
-										{
-											return "Ruft schnelle Feuerkristallscherben herbei";
-										}
-										case 519:
-										{
-											return "Ruft unheilige Feuerbaelle herbei";
-										}
-										case 520:
-										{
-											return "'Die Essenz von Lichtkreaturen'";
-										}
-										case 521:
-										{
-											return "'Die Essenz von Finsterkreaturen'";
-										}
-										case 522:
-										{
-											return "'Nicht einmal Wasser loescht diese Flamme'";
-										}
-										case 523:
-										{
-											return "Kann in Wasser platziert werden";
-										}
-										case 524:
-										{
-											return "Zum Schmelzen von Adamantiterz";
-										}
-										case 525:
-										{
-											return "Zur Herstellung von Items aus Mithril- und Adamantitbarren";
-										}
-										case 526:
-										{
-											return "'Scharf und magisch!'";
-										}
-										case 527:
-										{
-											return "'Kreaturen in verderbten Wuesten tragen sie mitunter'";
-										}
-										case 528:
-										{
-											return "'Werden mitunter von Kreaturen in Lichtwuesten getragen'";
-										}
-										case 529:
-										{
-											return "Wird beim Betreten aktiviert";
-										}
-										case 531:
-										{
-											return "Zum Zaubern";
-										}
-										case 532:
-										{
-											return "Laesst Sterne bei Verletzung herabfallen";
-										}
-										case 533:
-										{
-											return "50%ige Chance, Munition nicht zu verbrauchen";
-										}
-										case 534:
-										{
-											return "Feuert einen Kugelregen ab";
-										}
-										case 535:
-										{
-											return "Verringert die Abklingzeit von Heiltraenken";
-										}
-										case 536:
-										{
-											return "Erhoeht Nahkampf-Rueckstoss";
-										}
-										case 541:
-										{
-											return "Wird beim Betreten aktiviert";
-										}
-										case 542:
-										{
-											return "Wird beim Betreten aktiviert";
-										}
-										case 543:
-										{
-											return "Wird beim Betreten aktiviert";
-										}
-										case 544:
-										{
-											return "Ruft die Zwillinge herbei";
-										}
-										case 547:
-										{
-											return "'Die Essenz reinen Schreckens'";
-										}
-										case 548:
-										{
-											return "'Die Essenz des Zerstoerers'";
-										}
-										case 549:
-										{
-											return "'Die Essenz der allwissenden Beobachter'";
-										}
-										case 551:
-										{
-											return "Um 7% erhoehte kritische Trefferchance";
-										}
-										case 552:
-										{
-											return "Um 7% erhoehter Schaden";
-										}
-										case 553:
-										{
-											return "Um 15% erhoehter Fernkampfschaden";
-										}
-										case 554:
-										{
-											return "Verlaengert die Unbesiegbarkeit nach erlittenem Schaden";
-										}
-										case 555:
-										{
-											return "Um 8% reduzierte Mananutzung";
-										}
-										case 556:
-										{
-											return "Ruft den Zerstoerer";
-										}
-										case 557:
-										{
-											return "Ruft Super-Skeletron herbei";
-										}
-										case 558:
-										{
-											return "Erhoeht die maximale Mana um 100";
-										}
-										case 559:
-										{
-											return "Nahkampfschaden und kritische Trefferchance um 10% erhoeht";
-										}
-										case 560:
-										{
-											return "Ruft Schleimi-Koenig herbei";
-										}
-										case 561:
-										{
-											return "Kann bis zu 5 stapeln";
-										}
-										case 575:
-										{
-											return "'Essenz maechtiger fliegender Kreaturen'";
-										}
-										case 576:
-										{
-											return "Kann Songs aufzeichnen";
-										}
-										case 579:
-										{
-											return "'Nicht mit einer Hamsaege zu verwechseln'";
-										}
-										case 580:
-										{
-											return "Explodiert bei Aktivierung";
-										}
-										case 581:
-										{
-											return "Sendet Wasser zu Auslasspumpen";
-										}
-										case 582:
-										{
-											return "Empfaengt Wasser vom Einlasspumpen";
-										}
-										case 583:
-										{
-											return "Aktiviert jede Sekunde";
-										}
-										case 584:
-										{
-											return "Aktiviert alle 3 Sekunden";
-										}
-										case 585:
-										{
-											return "Aktiviert alle 5 Sekunden";
-										}
-										case 599:
-										{
-											return "Rechter Mausklick zu öffnen";
-										}
-										case 600:
-										{
-											return "Rechter Mausklick zu öffnen";
-										}
-										case 601:
-										{
-											return "Rechter Mausklick zu öffnen";
-										}
-										case 602:
-										{
-											return "Beschwört den Frost Legion";
-										}
-										case 603:
-										{
-											return "Vorladung ein Haustier Hase";
-										}
-									}
-									break;
-								}
-							}
-						}
-					}
-					else if (num1 > 726)
-					{
-						switch (num1)
-						{
-							case 748:
-							{
-								return "Ermöglicht Flug und langsam fallen";
-							}
-							case 749:
-							{
-								return "Ermöglicht Flug und langsam fallen";
-							}
-							default:
-							{
-								if (num1 == 753)
-								{
-									return "Beschwört ein Haustier Schildkröte";
-								}
-								if (num1 == 761)
-								{
-									return "Ermöglicht Flug und langsam fallen";
-								}
-								break;
-							}
-						}
-					}
-					else
-					{
-						switch (num1)
-						{
-							case 707:
-							{
-								return "Teilt die Zeit";
-							}
-							case 708:
-							{
-								return "Teilt die Zeit";
-							}
-							case 709:
-							{
-								return "Teilt die Zeit";
-							}
-							default:
-							{
-								if (num1 == 716)
-								{
-									return "Wird verwendet, um kunstgewerbliche Gegenstände aus Metall Bars";
-								}
-								switch (num1)
-								{
-									case 723:
-									{
-										return "Schießt einen Lichtstrahl";
-									}
-									case 724:
-									{
-										return "Schießt ein eisiger Bolzen";
-									}
-									case 725:
-									{
-										return "Shoots frost Pfeile";
-									}
-									case 726:
-									{
-										return "Schießt einen Strom von frost";
-									}
-								}
-								break;
-							}
-						}
-					}
-				}
-				else if (num1 <= 1343)
-				{
-					if (num1 > 832)
-					{
-						switch (num1)
-						{
-							case 849:
-							{
-								return "Ermöglicht feste Blöcke auf umgeschaltet werden und ausschalten";
-							}
-							case 850:
-							{
-								return "Orte blauen Draht";
-							}
-							case 851:
-							{
-								return "Orte grünen Draht";
-							}
-							case 852:
-							{
-								return "Aktiviert, wenn ein Spieler auf sie";
-							}
-							case 853:
-							{
-								return "Aktiviert, wenn alles andere als ein Spieler auf sie";
-							}
-							case 854:
-							{
-								return "Shops haben niedrigere Preise";
-							}
-							case 855:
-							{
-								return "Schlagen Feinde manchmal fallen zusätzliche Münzen";
-							}
-							case 856:
-							{
-								return "'Nachdem eine wunderbare Zeit!'";
-							}
-							case 857:
-							{
-								return "Ermöglicht dem Halter, einen verbesserten doppelten Sprung tun";
-							}
-							case 858:
-							case 859:
-							case 864:
-							case 865:
-							case 866:
-							case 867:
-							case 868:
-							case 869:
-							case 870:
-							case 871:
-							case 872:
-							case 873:
-							case 874:
-							case 875:
-							case 876:
-							case 877:
-							case 878:
-							case 879:
-							case 880:
-							case 881:
-							case 882:
-							case 883:
-							case 884:
-							case 894:
-							case 895:
-							case 896:
-							case 909:
-							case 910:
-							case 911:
-							case 912:
-							case 913:
-							case 914:
-							case 915:
-							case 916:
-							case 917:
-							case 918:
-							case 919:
-							case 920:
-							case 921:
-							case 922:
-							case 923:
-							case 924:
-							case 925:
-							case 926:
-							case 927:
-							case 928:
-							case 929:
-							case 930:
-							case 931:
-							case 939:
-							case 940:
-							case 941:
-							case 942:
-							case 943:
-							case 944:
-							case 945:
-							case 949:
-							case 952:
-							case 954:
-							case 955:
-							case 970:
-							case 971:
-							case 972:
-							case 973:
-							case 974:
-							case 978:
-							case 979:
-							case 980:
-							case 981:
-							case 988:
-							case 991:
-							case 992:
-							case 993:
-							case 999:
-							{
-								break;
-							}
-							case 860:
-							{
-								return "Bietet das Leben Regeneration und verringert die Abklingzeit Heiltränke";
-							}
-							case 861:
-							{
-								return "Schaltet den Halter in einen Werwolf in der Nacht und einem merfolk beim Betreten Wasser";
-							}
-							case 862:
-							{
-								return "Verursacht Sternen zu fallen und steigt Länge der Unbesiegbarkeit nach Schaden zu nehmen";
-							}
-							case 863:
-							{
-								return "Bietet die Möglichkeit, auf dem Wasser gehen";
-							}
-							case 885:
-							{
-								return "Immunität gegen Blutungen";
-							}
-							case 886:
-							{
-								return "Immunität gegen gebrochene Rüstung";
-							}
-							case 887:
-							{
-								return "Immunität gegen Gift";
-							}
-							case 888:
-							{
-								return "Immunität gegen dunklen";
-							}
-							case 889:
-							{
-								return "Immunität zu verlangsamen";
-							}
-							case 890:
-							{
-								return "Immunität zum Schweigen";
-							}
-							case 891:
-							{
-								return "Immunität zu verfluchen";
-							}
-							case 892:
-							{
-								return "Immunität gegen Schwäche";
-							}
-							case 893:
-							{
-								return "Immunität Verwirrung";
-							}
-							case 897:
-							{
-								return "Erhöht Nahkampf knockback";
-							}
-							case 898:
-							{
-								return "ermöglicht Flug";
-							}
-							case 899:
-							{
-								return "Erhöht alle Statistiken, wenn tagsüber getragen";
-							}
-							case 900:
-							{
-								return "Erhöht alle Statistiken, wenn während der Nacht getragen";
-							}
-							case 901:
-							{
-								return "Immunität gegen Schwäche und zerbrochene Rüstung";
-							}
-							case 902:
-							{
-								return "Immunität gegen Gift und Blutung";
-							}
-							case 903:
-							{
-								return "Immunität zu verlangsamen und Verwirrung";
-							}
-							case 904:
-							{
-								return "Immunität zum Schweigen zu bringen und fluchen";
-							}
-							case 905:
-							{
-								return "Verwendet Münzen für Munition";
-							}
-							case 906:
-							{
-								return "Bietet 7 Sekunden Immunität gegen Lava";
-							}
-							case 907:
-							{
-								return "Bietet die Möglichkeit, auf dem Wasser gehen";
-							}
-							case 908:
-							{
-								return "Bietet die Möglichkeit, auf dem Wasser und Lava zu Fuß";
-							}
-							case 932:
-							{
-								return "Orte Knochen";
-							}
-							case 933:
-							{
-								return "Orte verlässt";
-							}
-							case 934:
-							{
-								return "Ermöglicht der Besitzer für ein paar Sekunden schweben";
-							}
-							case 935:
-							{
-								return "12% mehr Schaden";
-							}
-							case 936:
-							{
-								return "Erhöht Nahkampf knockback";
-							}
-							case 937:
-							{
-								return "Explodiert beim Betreten";
-							}
-							case 938:
-							{
-								return "Absorbiert 25% Schaden an Spielern in Ihrem Team";
-							}
-							case 946:
-							{
-								return "Sie fallen langsamer, während diese";
-							}
-							case 947:
-							{
-								return "Reacts to the light";
-							}
-							case 948:
-							{
-								return "Ermöglicht Flug und langsam fallen";
-							}
-							case 950:
-							{
-								return "Bietet zusätzliche Mobilität auf Eis";
-							}
-							case 951:
-							{
-								return "Schnell startet Schneebälle";
-							}
-							case 953:
-							{
-								return "Allows the ability to slide down walls";
-							}
-							case 956:
-							{
-								return "7% erhöht Nahkampfsangriffstempo";
-							}
-							case 957:
-							{
-								return "7% erhöht Nahkampfsangriffstempo";
-							}
-							case 958:
-							{
-								return "7% erhöht Nahkampfsangriffstempo";
-							}
-							case 959:
-							{
-								return "4% erhöht Fernkampfschaden.";
-							}
-							case 960:
-							{
-								return "Erhöht die maximale Mana um 40";
-							}
-							case 961:
-							{
-								return "Erhöht die maximale Mana um 20";
-							}
-							case 962:
-							{
-								return "Erhöht die maximale Mana um 20";
-							}
-							case 963:
-							{
-								return "Gewährt Euch eine Chance, Angriffe auszuweichen";
-							}
-							case 964:
-							{
-								return "Feuert eine Verbreitung von Kugeln";
-							}
-							case 965:
-							{
-								return "Kann auf bestiegen werden";
-							}
-							case 966:
-							{
-								return "Leben Regeneration erhöht wird, wenn in der Nähe ein Lagerfeuer";
-							}
-							case 967:
-							{
-								return "Legen Sie es auf einem Stock und Braten über dem Lagerfeuer";
-							}
-							case 968:
-							{
-								return "Braten Sie es über dem Lagerfeuer!";
-							}
-							case 969:
-							{
-								return "Kleinere Verbesserungen zu sämtlichen Statistiken";
-							}
-							case 975:
-							{
-								return "Ermöglicht die Fähigkeit, abrutschen Wände";
-							}
-							case 976:
-							{
-								return "Ermöglicht die Fähigkeit, Wände zu klettern";
-							}
-							case 977:
-							{
-								return "Ermöglicht die Fähigkeit zu stürzen";
-							}
-							case 982:
-							{
-								return "Erhöht die maximale Mana um 20";
-							}
-							case 983:
-							{
-								return "Ermöglicht dem Halter, Sprung verdoppeln";
-							}
-							case 984:
-							{
-								return "Ermöglicht die Fähigkeit, Wände und dash klettern";
-							}
-							case 985:
-							{
-								return "Werfen Sie einen climbable Linie des Seils erstellen";
-							}
-							case 986:
-							{
-								return "Ermöglicht die Sammlung von Saatgut für Munition";
-							}
-							case 987:
-							{
-								return "Ermöglicht dem Halter, Sprung verdoppeln";
-							}
-							case 989:
-							{
-								return "Schießt ein verzaubertes Schwert Strahl";
-							}
-							case 990:
-							{
-								return "'Nicht mit einem hamdrill verwechseln'";
-							}
-							case 994:
-							{
-								return "Beschwört einen Baby-Eater of Souls";
-							}
-							case 995:
-							{
-								return "Wird verwendet, um Objekte Handwerk";
-							}
-							case 996:
-							{
-								return "Wird verwendet, um Objekte Handwerk";
-							}
-							case 997:
-							{
-								return "Schaltet Schlamm und Matsch in etwas nützlich";
-							}
-							case 998:
-							{
-								return "Wird verwendet, um Objekte Handwerk";
-							}
-							case 1000:
-							{
-								return "schießt Konfetti überall!";
-							}
-							case 1001:
-							{
-								return "16% erhöht Nahkampfschaden";
-							}
-							case 1002:
-							{
-								return "16% erhöht Fernkampfschaden";
-							}
-							case 1003:
-							{
-								return "Erhöht die maximale Mana um 80 und verringert Manaverbrauchs um 17%";
-							}
-							case 1004:
-							{
-								return "5% mehr Schaden";
-							}
-							case 1005:
-							{
-								return "8% Chance auf kritische Treffer";
-							}
-							case 1006:
-							{
-								return "Reagiert auf das Licht";
-							}
-							default:
-							{
-								switch (num1)
-								{
-									case 1071:
-									{
-										return "Gebrauchte mit Farbe um Farbe Blöcke";
-									}
-									case 1072:
-									{
-										return "Gebrauchte mit Farbe um Farbe Wände";
-									}
-									default:
-									{
-										switch (num1)
-										{
-											case 1100:
-											{
-												return "Wird verwendet, um Farbe zu entfernen";
-											}
-											case 1107:
-											{
-												return "Gebrauchte und türkis Farbstoff machen";
-											}
-											case 1108:
-											{
-												return "Dient zum grünen Farbstoff machen";
-											}
-											case 1109:
-											{
-												return "Dient zum Himmel blauer Farbstoff machen";
-											}
-											case 1110:
-											{
-												return "Wird verwendet, um einen gelben Farbstoff machen";
-											}
-											case 1111:
-											{
-												return "Dient zum blauen Farbstoff machen";
-											}
-											case 1112:
-											{
-												return "Wird verwendet, um Kalk Farbstoff machenWird verwendet, um rosa Farbstoff machen";
-											}
-											case 1113:
-											{
-												return "Wird verwendet, um rosa Farbstoff machen";
-											}
-											case 1114:
-											{
-												return "Dient zum orangen Farbstoff machen";
-											}
-											case 1115:
-											{
-												return "Wird verwendet, um roten Farbstoff zu machen";
-											}
-											case 1116:
-											{
-												return "Wird verwendet, um Blaugrünfarbstoff machen";
-											}
-											case 1117:
-											{
-												return "Dient zum violetten Farbstoff machen";
-											}
-											case 1118:
-											{
-												return "Wird verwendet, um Purpur machen";
-											}
-											case 1119:
-											{
-												return "Dient zum schwarzen Farbstoff machen";
-											}
-											case 1120:
-											{
-												return "Wird verwendet, um Farbstoffe Craft";
-											}
-											case 1121:
-											{
-												return "Shoots Bienen, die den Feind jagen wird";
-											}
-											case 1122:
-											{
-												return "Jagt deinen Feind";
-											}
-											case 1123:
-											{
-												return "Summons Killer-Bienen nach dem Auftreffen auf deinen Gegner";
-											}
-											case 1129:
-											{
-												return "Orte Nesselsucht";
-											}
-											case 1130:
-											{
-												return "Explodiert in einem Bienenschwarm";
-											}
-											case 1131:
-											{
-												return "Ermöglicht dem Halter, der Schwerkraft umkehren";
-											}
-											case 1132:
-											{
-												return "Gibt Bienen, wenn sie beschädigt";
-											}
-											case 1133:
-											{
-												return "Summons die Bienenkönigin";
-											}
-											case 1141:
-											{
-												return "Öffnet die Tür Dschungeltempel";
-											}
-											case 1145:
-											{
-												return "Verwendet für Grundhandwerk";
-											}
-											case 1151:
-											{
-												return "Aktiviert, wenn ein Spieler auf sie";
-											}
-											case 1156:
-											{
-												return "Verriegelungen auf, um Feinde für die kontinuierliche Schäden";
-											}
-											case 1157:
-											{
-												return "Beschwört einen Pygmäen, für Sie zu kämpfen";
-											}
-											case 1158:
-											{
-												return "Erhöht Eure maximale Anzahl der Schergen";
-											}
-											case 1159:
-											{
-												return "Erhöht Eure maximale Anzahl der Schergen";
-											}
-											case 1160:
-											{
-												return "Erhöht Eure maximale Anzahl der Schergen";
-											}
-											case 1161:
-											{
-												return "Erhöht Eure maximale Anzahl der Schergen";
-											}
-											case 1162:
-											{
-												return "Ermöglicht Flug und langsam fallen";
-											}
-											case 1163:
-											{
-												return "Ermöglicht dem Halter, Sprung verdoppeln";
-											}
-											case 1164:
-											{
-												return "Ermöglicht dem Halter, vierfachen Sprung";
-											}
-											case 1165:
-											{
-												return "Ermöglicht Flug und langsam fallen";
-											}
-											case 1167:
-											{
-												return "Erhöht den Schaden Eurer Schergen von 15";
-											}
-											case 1169:
-											{
-												return "Summons ein Baby Skeletron Kopf";
-											}
-											case 1170:
-											{
-												return "Summons ein Baby Hornisse";
-											}
-											case 1171:
-											{
-												return "Beschwört einen Geist tiki";
-											}
-											case 1172:
-											{
-												return "Summons ein Haustier Eidechse";
-											}
-											case 1178:
-											{
-												return "Schnell schießt gestochen scharfe Blätter";
-											}
-											case 1179:
-											{
-												return "Jagt deinen Feind";
-											}
-											case 1180:
-											{
-												return "Beschwört einen Papagei";
-											}
-											case 1181:
-											{
-												return "Summons ein Baby Truffle";
-											}
-											case 1182:
-											{
-												return "Summons ein Haustier Bäumchen";
-											}
-											case 1183:
-											{
-												return "Beschwört einen Hauch um Licht zur Verfügung";
-											}
-											case 1188:
-											{
-												return "Kann mir Mithril, Orichalcum, Adamantite und Titanium";
-											}
-											case 1189:
-											{
-												return "Kann mir Mithril, Orichalcum, Adamantite und Titanium";
-											}
-											case 1195:
-											{
-												return "Kann mir Adamantitbeschlagene und Titanium";
-											}
-											case 1196:
-											{
-												return "Kann mir Adamantitbeschlagene und Titanium";
-											}
-											case 1205:
-											{
-												return "8% erhöht Nahkampfschaden";
-											}
-											case 1206:
-											{
-												return "9% erhöht Fernkampfschaden";
-											}
-											case 1207:
-											{
+										switch (l)
+										{
+											case 1503:
+												return "Erhöht die maximale Mana um 80 und verringert Manaverbrauchs um 17%";
+											case 1504:
 												return "7% erhöht magischen Schaden und kritische Trefferchance";
-											}
-											case 1208:
-											{
-												return "3% Der Schaden wurde erhöht";
-											}
-											case 1209:
-											{
-												return "2% Der Schaden wurde erhöht";
-											}
-											case 1210:
-											{
-												return "7% erhöht Nahkampfschaden";
-											}
-											case 1211:
-											{
-												return "15% erhöhte Chance auf kritische Treffer reichte";
-											}
-											case 1212:
-											{
-												return "18% Magie erhöht Chance auf kritische Treffer";
-											}
-											case 1213:
-											{
-												return "6% erhöhte Chance auf kritische Treffer";
-											}
-											case 1214:
-											{
-												return "11% erhöhte Bewegungsgeschwindigkeit";
-											}
-											case 1215:
-											{
-												return "8% erhöht Nahkampfschaden und Chance auf kritische Treffer";
-											}
-											case 1216:
-											{
-												return "16% erhöht Fernkampfschaden";
-											}
-											case 1217:
-											{
-												return "16% erhöht magischen Schaden und 7% erhöht Magie Chance auf kritische Treffer";
-											}
-											case 1218:
-											{
-												return "4% Der Schaden wurde erhöht";
-											}
-											case 1219:
-											{
-												return "3% erhöhten Schaden und kritische Trefferchance";
-											}
-											case 1220:
-											{
-												return "Wird verwendet, um Elemente aus Mithril, orichalcum, Adamant und Titan Bars Handwerk";
-											}
-											case 1221:
-											{
-												return "Gebraucht zu schmelzen Adamant und Titanerz";
-											}
-											case 1226:
-											{
-												return "Schießt eine leistungsstarke Kugel";
-											}
-											case 1227:
-											{
-												return "Schießt eine Spore Cloud";
-											}
-											case 1228:
-											{
-												return "Schießt eine Spore Cloud";
-											}
-											case 1235:
-											{
-												return "Prallt zurück nach der Kollision mit einer Wand";
-											}
-											case 1242:
-											{
-												return "Beschwört einen Baby-Dinosaurier";
-											}
-											case 1244:
-											{
-												return "Beschwört eine Wolke zu regnen auf deine Feinde";
-											}
-											case 1247:
-											{
-												return "Verursacht Sternen zu fallen und gibt Bienen, wenn sie verletzt";
-											}
-											case 1248:
-											{
-												return "10% erhöhte Chance auf kritische Treffer";
-											}
-											case 1249:
-											{
-												return "Erhöht Sprunghöhe";
-											}
-											case 1250:
-											{
-												return "Ermöglicht dem Halter, Sprung verdoppeln";
-											}
-											case 1251:
-											{
-												return "Ermöglicht dem Halter, Sprung verdoppeln";
-											}
-											case 1252:
-											{
-												return "Ermöglicht dem Halter, Sprung verdoppeln";
-											}
-											case 1253:
-											{
-												return "Legt eine Schale um den Eigentümer, wenn weniger als 50% Leben, reduziert Schäden";
-											}
-											case 1254:
-											{
-												return "Schießt ein leistungsfähiges, mit hoher Geschwindigkeit Kugel";
-											}
-											case 1255:
-											{
-												return "Schießt ein leistungsfähiges, mit hoher Geschwindigkeit Kugel";
-											}
-											case 1256:
-											{
-												return "Beschwört eine Wolke, um Blut auf deine Feinde regnen";
-											}
-											case 1258:
-											{
-												return "Schießt eine explosive Bolzen";
-											}
-											case 1259:
-											{
-												return "Schießt gestochen scharfe Blütenblätter in der Nähe befindliche Feinde";
-											}
-											case 1260:
-											{
-												return "Schießt ein Regenbogen, der kontinuierliche Schaden anrichtet";
-											}
-											case 1261:
-											{
-												return "Explodes in tödliche Splitter";
-											}
-											case 1264:
-											{
-												return "Schießt einen Ball von Frost";
-											}
-											case 1265:
-											{
-												return "Schießt ein leistungsfähiges, mit hoher Geschwindigkeit Kugel";
-											}
-											case 1282:
-											{
+											case 1505:
+												return "8% erhöht magischen Schaden";
+											case 1506:
+											case 1507:
+											case 1508:
+											case 1509:
+											case 1510:
+											case 1511:
+											case 1512:
+											case 1514:
+											case 1516:
+											case 1517:
+											case 1518:
+											case 1519:
+											case 1520:
+											case 1521:
+											case 1528:
+											case 1529:
+											case 1530:
+											case 1531:
+											case 1532:
+											case 1538:
+											case 1539:
+											case 1540:
+											case 1541:
+											case 1542:
+											case 1552:
+											case 1570:
+											case 1573:
+											case 1574:
+											case 1575:
+											case 1576:
+											case 1577:
+											case 1589:
+											case 1590:
+											case 1591:
+											case 1592:
+											case 1593:
+											case 1594:
+												goto IL_AC2F;
+											case 1513:
+												return "Ein leistungsfähiges Rückkehr Hammer";
+											case 1515:
+												return "Ermöglicht Flug und langsam fallen";
+											case 1522:
+												break;
+											case 1523:
+												return "Für fangen die gem. Es fällt, wenn du stirbst";
+											case 1524:
+												return "Für fangen die gem. Es fällt, wenn du stirbst";
+											case 1525:
+												return "Für fangen die gem. Es fällt, wenn du stirbst";
+											case 1526:
+												return "Für fangen die gem. Es fällt, wenn du stirbst";
+											case 1527:
+												return "Für fangen die gem. Es fällt, wenn du stirbst";
+											case 1533:
+												return "Freigeschaltet einen Jungle Brust in den Kerker";
+											case 1534:
+												return "Freigeschaltet eine Korruption Brust in den Kerker";
+											case 1535:
+												return "Freigeschaltet einen hochroten Brust in den Kerker";
+											case 1536:
+												return "Freigeschaltet eine Hallowed Brust in den Kerker";
+											case 1537:
+												return "Freischaltungen einem gefrorenen Brust in den Kerker";
+											case 1543:
+												return "Gebrauchte mit Farbe um Farbe Blöcke";
+											case 1544:
+												return "Gebrauchte mit Farbe um Farbe Wände";
+											case 1545:
+												return "Wird verwendet, um Farbe zu entfernen";
+											case 1546:
+												return "15% erhöht arrow Schaden";
+											case 1547:
+												return "15% erhöht Kugel Schaden";
+											case 1548:
+												return "15% erhöht Rakete Schaden";
+											case 1549:
+												return "13% erhöhte Chance auf kritische Treffer reichte";
+											case 1550:
+												return "7% erhöhte Chance auf kritische Treffer reichte";
+											case 1551:
+												return "Konvertiert chlorophytischen Bars in Shroomite Bars";
+											case 1553:
+												return "50% Chance, nicht verbrauchen Munition";
+											case 1554:
+												return "Sie sollten nicht diese";
+											case 1555:
+												return "Sie sollten nicht diese";
+											case 1556:
+												return "Sie sollten nicht diese";
+											case 1557:
+												return "Sie sollten nicht diese";
+											case 1558:
+												return "Sie sollten nicht diese";
+											case 1559:
+												return "Sie sollten nicht diese";
+											case 1560:
+												return "Sie sollten nicht diese";
+											case 1561:
+												return "Sie sollten nicht diese";
+											case 1562:
+												return "Sie sollten nicht diese";
+											case 1563:
+												return "Sie sollten nicht diese";
+											case 1564:
+												return "Sie sollten nicht diese";
+											case 1565:
+												return "Sie sollten nicht diese";
+											case 1566:
+												return "Sie sollten nicht diese";
+											case 1567:
+												return "Sie sollten nicht diese";
+											case 1568:
+												return "Sie sollten nicht diese";
+											case 1569:
+												return "Schnell werfen Leben stehlen Dolche";
+											case 1571:
+												return "Ein leistungsfähiges Speer, die winzige Esser entfesselt";
+											case 1572:
+												return "Beschwört einen mächtigen Frost Hydra, um Eis auf eure Feinde spucken";
+											case 1578:
+												return "Releases Bienen und erhöht die Bewegungsgeschwindigkeit bei Beschädigung";
+											case 1579:
+												return "Der Träger kann laufen super schnell";
+											case 1580:
+												return "Sie sollten nicht diese";
+											case 1581:
+												return "Sie sollten nicht diese";
+											case 1582:
+												return "Sie sollten nicht diese";
+											case 1583:
+												return "Sie sollten nicht diese";
+											case 1584:
+												return "Sie sollten nicht diese";
+											case 1585:
+												return "Sie sollten nicht diese";
+											case 1586:
+												return "Sie sollten nicht diese";
+											case 1587:
+												return "Sie sollten nicht diese";
+											case 1588:
+												return "Sie sollten nicht diese";
+											case 1595:
 												return "Erhöht maximales Mana um 20";
-											}
-											case 1283:
-											{
-												return "Erhöht maximales Mana um 40";
-											}
-											case 1284:
-											{
-												return "Erhöht maximales Mana um 40";
-											}
-											case 1285:
-											{
-												return "Erhöht maximales Mana um 60";
-											}
-											case 1286:
-											{
-												return "Erhöht maximales Mana um 60";
-											}
-											case 1287:
-											{
-												return "Erhöht maximales Mana um 80";
-											}
-											case 1290:
-											{
-												return "Erhöht die Bewegungsgeschwindigkeit, nachdem er geschlagen";
-											}
-											case 1291:
-											{
-												return "Erhöht dauerhaft die maximale Lebensdauer von 5";
-											}
-											case 1293:
-											{
-												return "Eingesetzt bei den Lihzahrd Altar";
-											}
-											case 1294:
-											{
-												return "Capable des Bergbaus Lihzahrd Ziegel";
-											}
-											case 1295:
-											{
-												return "Schießt ein Piercing ray von Wärme";
-											}
-											case 1296:
-											{
-												return "Beschwört einen mächtigen Felsblock";
-											}
-											case 1297:
-											{
-												return "Locher mit der Kraft einer golem";
-											}
-											case 1299:
-											{
-												return "Erhöht die Reichweite sehen, wenn statt";
-											}
-											case 1300:
-											{
-												return "Erhöht die Reichweite sehen für Waffen";
-											}
-											case 1301:
-											{
-												return "10% Der Schaden wurde erhöht";
-											}
-											case 1303:
-											{
-												return "Bietet Licht Unterwasser";
-											}
-											case 1306:
-											{
-												return "Schießt ein eisiger Sichel";
-											}
-											case 1307:
-											{
-												return "'Sie sind eine schreckliche Person'";
-											}
-											case 1308:
-											{
-												return "Schießt ein Gift fang, die mehrere Feinde durchbohrt";
-											}
-											case 1309:
-											{
-												return "Beschwört ein Baby Schleim für dich kämpfen";
-											}
-											case 1310:
-											{
-												return "Verursacht Gift auf Feinde";
-											}
-											case 1311:
-											{
-												return "Summons an eyeball spring";
-											}
-											case 1312:
-											{
-												return "Beschwört einen Baby-Schneemann";
-											}
-											case 1313:
-											{
-												return "Schießt einen Schädel";
-											}
-											case 1314:
-											{
-												return "Schießt ein Boxhandschuh";
-											}
-											case 1315:
-											{
-												return "Beschwört einen Pirateninvasion";
-											}
-											case 1316:
-											{
-												return "6% erhöht Nahkampfschaden";
-											}
-											case 1317:
-											{
-												return "8% erhöht Nahkampfschaden und Chance auf kritische Treffer";
-											}
-											case 1318:
-											{
-												return "4% erhöht Nahkampf kritische Trefferchance";
-											}
-											case 1321:
-											{
-												return "Erhöht Pfeil Geschwindigkeit und Schaden um 10%";
-											}
-											case 1322:
-											{
-												return "Verursacht Feuerschaden Angriff";
-											}
-											case 1323:
-											{
-												return "Reduces damage from touching lava";
-											}
-											case 1326:
-											{
-												return "Teleporte der Position der Maus";
-											}
-											case 1327:
-											{
-												return "Schießt einen tödlichen Sichel";
-											}
-											case 1331:
-											{
-												return "Vorladung der Brain of Cthulhu";
-											}
-											case 1332:
-											{
-												return "'Das Blut der Götter'";
-											}
-											case 1333:
-											{
-												return "Kann in Wasser gelegt werden";
-											}
-											case 1334:
-											{
-												return "Verringert Verteidigung des Ziels";
-											}
-											case 1335:
-											{
-												return "Verringert Verteidigung des Ziels";
-											}
-											case 1336:
-											{
-												return "Sprays eine Dusche von Jauche";
-											}
-											case 1343:
-											{
-												return "Erhöht die Nahkampf-Rückstoß und verursacht Feuerschaden Angriff";
-											}
+											default:
+												goto IL_AC2F;
 										}
 										break;
-									}
 								}
 								break;
-							}
 						}
+						IL_529B:
+						return "Für fangen die gem. Es fällt, wenn du stirbst";
 					}
-					else
+					if (l <= 832)
 					{
-						switch (num1)
+						switch (l)
 						{
 							case 779:
-							{
 								return "Erstellt und zerstört Biome beim Sprühen";
-							}
 							case 780:
-							{
 								return "Wird von der Clentaminator";
-							}
 							case 781:
-							{
 								return "Wird von der Clentaminator";
-							}
 							case 782:
-							{
 								return "Wird von der Clentaminator";
-							}
 							case 783:
-							{
 								return "Wird von der Clentaminator";
-							}
 							case 784:
-							{
 								return "Wird von der Clentaminator";
-							}
 							case 785:
-							{
 								return "Ermöglicht Flug und langsam fallen";
-							}
 							case 786:
-							{
 								return "Ermöglicht Flug und langsam fallen";
-							}
 							case 787:
-							{
 								return "Stark genug, um Dämonen Altare zerstören";
-							}
 							case 788:
-							{
 								return "Summons ein Dorn Speer";
-							}
 							case 789:
 							case 790:
 							case 791:
 							case 795:
 							case 796:
 							case 797:
-							{
 								break;
-							}
 							case 792:
-							{
 								return "2% mehr Schaden";
-							}
 							case 793:
-							{
 								return "2% mehr Schaden";
-							}
 							case 794:
-							{
 								return "2% mehr Schaden";
-							}
 							case 798:
-							{
 								return "Kann Hellstone abbauen";
-							}
 							default:
-							{
-								switch (num1)
+								switch (l)
 								{
 									case 821:
-									{
 										return "Ermöglicht Flug und langsam fallen";
-									}
 									case 822:
-									{
 										return "Ermöglicht Flug und langsam fallen";
-									}
 									case 823:
-									{
 										return "Ermöglicht Flug und langsam fallen";
-									}
 									default:
-									{
-										if (num1 == 832)
+										if (l == 832)
 										{
 											return "Orte lebendes Holz";
 										}
 										break;
-									}
 								}
 								break;
-							}
 						}
 					}
-				}
-				else if (num1 <= 1595)
-				{
-					switch (num1)
+					else
 					{
-						case 1430:
+						switch (l)
 						{
-							return "Dient zur Waffe imbuement Flaschen Handwerk";
-						}
-						case 1431:
-						{
-							break;
-						}
-						case 1432:
-						{
-							return "Wird verwendet, um verschiedene Arten von Munition Handwerk";
-						}
-						default:
-						{
-							switch (num1)
-							{
-								case 1444:
+							case 849:
+								return "Ermöglicht feste Blöcke auf umgeschaltet werden und ausschalten";
+							case 850:
+								return "Orte blauen Draht";
+							case 851:
+								return "Orte grünen Draht";
+							case 852:
+								return "Aktiviert, wenn ein Spieler auf sie";
+							case 853:
+								return "Aktiviert, wenn alles andere als ein Spieler auf sie";
+							case 854:
+								return "Shops haben niedrigere Preise";
+							case 855:
+								return "Schlagen Feinde manchmal fallen zusätzliche Münzen";
+							case 856:
+								return "'Nachdem eine wunderbare Zeit!'";
+							case 857:
+								return "Ermöglicht dem Halter, einen verbesserten doppelten Sprung tun";
+							case 858:
+							case 859:
+							case 864:
+							case 865:
+							case 866:
+							case 867:
+							case 868:
+							case 869:
+							case 870:
+							case 871:
+							case 872:
+							case 873:
+							case 874:
+							case 875:
+							case 876:
+							case 877:
+							case 878:
+							case 879:
+							case 880:
+							case 881:
+							case 882:
+							case 883:
+							case 884:
+							case 894:
+							case 895:
+							case 896:
+							case 909:
+							case 910:
+							case 911:
+							case 912:
+							case 913:
+							case 914:
+							case 915:
+							case 916:
+							case 917:
+							case 918:
+							case 919:
+							case 920:
+							case 921:
+							case 922:
+							case 923:
+							case 924:
+							case 925:
+							case 926:
+							case 927:
+							case 928:
+							case 929:
+							case 930:
+							case 931:
+							case 939:
+							case 940:
+							case 941:
+							case 942:
+							case 943:
+							case 944:
+							case 945:
+							case 949:
+							case 952:
+							case 954:
+							case 955:
+							case 970:
+							case 971:
+							case 972:
+							case 973:
+							case 974:
+							case 978:
+							case 979:
+							case 980:
+							case 981:
+							case 988:
+							case 991:
+							case 992:
+							case 993:
+							case 999:
+								break;
+							case 860:
+								return "Bietet das Leben Regeneration und verringert die Abklingzeit Heiltränke";
+							case 861:
+								return "Schaltet den Halter in einen Werwolf in der Nacht und einem merfolk beim Betreten Wasser";
+							case 862:
+								return "Verursacht Sternen zu fallen und steigt Länge der Unbesiegbarkeit nach Schaden zu nehmen";
+							case 863:
+								return "Bietet die Möglichkeit, auf dem Wasser gehen";
+							case 885:
+								return "Immunität gegen Blutungen";
+							case 886:
+								return "Immunität gegen gebrochene Rüstung";
+							case 887:
+								return "Immunität gegen Gift";
+							case 888:
+								return "Immunität gegen dunklen";
+							case 889:
+								return "Immunität zu verlangsamen";
+							case 890:
+								return "Immunität zum Schweigen";
+							case 891:
+								return "Immunität zu verfluchen";
+							case 892:
+								return "Immunität gegen Schwäche";
+							case 893:
+								return "Immunität Verwirrung";
+							case 897:
+								return "Erhöht Nahkampf knockback";
+							case 898:
+								return "ermöglicht Flug";
+							case 899:
+								return "Erhöht alle Statistiken, wenn tagsüber getragen";
+							case 900:
+								return "Erhöht alle Statistiken, wenn während der Nacht getragen";
+							case 901:
+								return "Immunität gegen Schwäche und zerbrochene Rüstung";
+							case 902:
+								return "Immunität gegen Gift und Blutung";
+							case 903:
+								return "Immunität zu verlangsamen und Verwirrung";
+							case 904:
+								return "Immunität zum Schweigen zu bringen und fluchen";
+							case 905:
+								return "Verwendet Münzen für Munition";
+							case 906:
+								return "Bietet 7 Sekunden Immunität gegen Lava";
+							case 907:
+								return "Bietet die Möglichkeit, auf dem Wasser gehen";
+							case 908:
+								return "Bietet die Möglichkeit, auf dem Wasser und Lava zu Fuß";
+							case 932:
+								return "Orte Knochen";
+							case 933:
+								return "Orte verlässt";
+							case 934:
+								return "Ermöglicht der Besitzer für ein paar Sekunden schweben";
+							case 935:
+								return "12% mehr Schaden";
+							case 936:
+								return "Erhöht Nahkampf knockback";
+							case 937:
+								return "Explodiert beim Betreten";
+							case 938:
+								return "Absorbiert 25% Schaden an Spielern in Ihrem Team";
+							case 946:
+								return "Sie fallen langsamer, während diese";
+							case 947:
+								return "Reacts to the light";
+							case 948:
+								return "Ermöglicht Flug und langsam fallen";
+							case 950:
+								return "Bietet zusätzliche Mobilität auf Eis";
+							case 951:
+								return "Schnell startet Schneebälle";
+							case 953:
+								return "Allows the ability to slide down walls";
+							case 956:
+								return "7% erhöht Nahkampfsangriffstempo";
+							case 957:
+								return "7% erhöht Nahkampfsangriffstempo";
+							case 958:
+								return "7% erhöht Nahkampfsangriffstempo";
+							case 959:
+								return "4% erhöht Fernkampfschaden.";
+							case 960:
+								return "Erhöht die maximale Mana um 40";
+							case 961:
+								return "Erhöht die maximale Mana um 20";
+							case 962:
+								return "Erhöht die maximale Mana um 20";
+							case 963:
+								return "Gewährt Euch eine Chance, Angriffe auszuweichen";
+							case 964:
+								return "Feuert eine Verbreitung von Kugeln";
+							case 965:
+								return "Kann auf bestiegen werden";
+							case 966:
+								return "Leben Regeneration erhöht wird, wenn in der Nähe ein Lagerfeuer";
+							case 967:
+								return "Legen Sie es auf einem Stock und Braten über dem Lagerfeuer";
+							case 968:
+								return "Braten Sie es über dem Lagerfeuer!";
+							case 969:
+								return "Kleinere Verbesserungen zu sämtlichen Statistiken";
+							case 975:
+								return "Ermöglicht die Fähigkeit, abrutschen Wände";
+							case 976:
+								return "Ermöglicht die Fähigkeit, Wände zu klettern";
+							case 977:
+								return "Ermöglicht die Fähigkeit zu stürzen";
+							case 982:
+								return "Erhöht die maximale Mana um 20";
+							case 983:
+								return "Ermöglicht dem Halter, Sprung verdoppeln";
+							case 984:
+								return "Ermöglicht die Fähigkeit, Wände und dash klettern";
+							case 985:
+								return "Werfen Sie einen climbable Linie des Seils erstellen";
+							case 986:
+								return "Ermöglicht die Sammlung von Saatgut für Munition";
+							case 987:
+								return "Ermöglicht dem Halter, Sprung verdoppeln";
+							case 989:
+								return "Schießt ein verzaubertes Schwert Strahl";
+							case 990:
+								return "'Nicht mit einem hamdrill verwechseln'";
+							case 994:
+								return "Beschwört einen Baby-Eater of Souls";
+							case 995:
+								return "Wird verwendet, um Objekte Handwerk";
+							case 996:
+								return "Wird verwendet, um Objekte Handwerk";
+							case 997:
+								return "Schaltet Schlamm und Matsch in etwas nützlich";
+							case 998:
+								return "Wird verwendet, um Objekte Handwerk";
+							case 1000:
+								return "schießt Konfetti überall!";
+							case 1001:
+								return "16% erhöht Nahkampfschaden";
+							case 1002:
+								return "16% erhöht Fernkampfschaden";
+							case 1003:
+								return "Erhöht die maximale Mana um 80 und verringert Manaverbrauchs um 17%";
+							case 1004:
+								return "5% mehr Schaden";
+							case 1005:
+								return "8% Chance auf kritische Treffer";
+							case 1006:
+								return "Reagiert auf das Licht";
+							default:
+								switch (l)
 								{
-									return "Erzeugt einen Schatten Strahl, abprallt Wände";
+									case 1071:
+										return "Gebrauchte mit Farbe um Farbe Blöcke";
+									case 1072:
+										return "Gebrauchte mit Farbe um Farbe Wände";
+									default:
+										switch (l)
+										{
+											case 1100:
+												return "Wird verwendet, um Farbe zu entfernen";
+											case 1107:
+												return "Gebrauchte und türkis Farbstoff machen";
+											case 1108:
+												return "Dient zum grünen Farbstoff machen";
+											case 1109:
+												return "Dient zum Himmel blauer Farbstoff machen";
+											case 1110:
+												return "Wird verwendet, um einen gelben Farbstoff machen";
+											case 1111:
+												return "Dient zum blauen Farbstoff machen";
+											case 1112:
+												return "Wird verwendet, um Kalk Farbstoff machenWird verwendet, um rosa Farbstoff machen";
+											case 1113:
+												return "Wird verwendet, um rosa Farbstoff machen";
+											case 1114:
+												return "Dient zum orangen Farbstoff machen";
+											case 1115:
+												return "Wird verwendet, um roten Farbstoff zu machen";
+											case 1116:
+												return "Wird verwendet, um Blaugrünfarbstoff machen";
+											case 1117:
+												return "Dient zum violetten Farbstoff machen";
+											case 1118:
+												return "Wird verwendet, um Purpur machen";
+											case 1119:
+												return "Dient zum schwarzen Farbstoff machen";
+											case 1120:
+												return "Wird verwendet, um Farbstoffe Craft";
+											case 1121:
+												return "Shoots Bienen, die den Feind jagen wird";
+											case 1122:
+												return "Jagt deinen Feind";
+											case 1123:
+												return "Summons Killer-Bienen nach dem Auftreffen auf deinen Gegner";
+											case 1129:
+												return "Orte Nesselsucht";
+											case 1130:
+												return "Explodiert in einem Bienenschwarm";
+											case 1131:
+												return "Ermöglicht dem Halter, der Schwerkraft umkehren";
+											case 1132:
+												return "Gibt Bienen, wenn sie beschädigt";
+											case 1133:
+												return "Summons die Bienenkönigin";
+											case 1141:
+												return "Öffnet die Tür Dschungeltempel";
+											case 1145:
+												return "Verwendet für Grundhandwerk";
+											case 1151:
+												return "Aktiviert, wenn ein Spieler auf sie";
+											case 1156:
+												return "Verriegelungen auf, um Feinde für die kontinuierliche Schäden";
+											case 1157:
+												return "Beschwört einen Pygmäen, für Sie zu kämpfen";
+											case 1158:
+												return "Erhöht Eure maximale Anzahl der Schergen";
+											case 1159:
+												return "Erhöht Eure maximale Anzahl der Schergen";
+											case 1160:
+												return "Erhöht Eure maximale Anzahl der Schergen";
+											case 1161:
+												return "Erhöht Eure maximale Anzahl der Schergen";
+											case 1162:
+												return "Ermöglicht Flug und langsam fallen";
+											case 1163:
+												return "Ermöglicht dem Halter, Sprung verdoppeln";
+											case 1164:
+												return "Ermöglicht dem Halter, vierfachen Sprung";
+											case 1165:
+												return "Ermöglicht Flug und langsam fallen";
+											case 1167:
+												return "Erhöht den Schaden Eurer Schergen von 15";
+											case 1169:
+												return "Summons ein Baby Skeletron Kopf";
+											case 1170:
+												return "Summons ein Baby Hornisse";
+											case 1171:
+												return "Beschwört einen Geist tiki";
+											case 1172:
+												return "Summons ein Haustier Eidechse";
+											case 1178:
+												return "Schnell schießt gestochen scharfe Blätter";
+											case 1179:
+												return "Jagt deinen Feind";
+											case 1180:
+												return "Beschwört einen Papagei";
+											case 1181:
+												return "Summons ein Baby Truffle";
+											case 1182:
+												return "Summons ein Haustier Bäumchen";
+											case 1183:
+												return "Beschwört einen Hauch um Licht zur Verfügung";
+											case 1188:
+												return "Kann mir Mithril, Orichalcum, Adamantite und Titanium";
+											case 1189:
+												return "Kann mir Mithril, Orichalcum, Adamantite und Titanium";
+											case 1195:
+												return "Kann mir Adamantitbeschlagene und Titanium";
+											case 1196:
+												return "Kann mir Adamantitbeschlagene und Titanium";
+											case 1205:
+												return "8% erhöht Nahkampfschaden";
+											case 1206:
+												return "9% erhöht Fernkampfschaden";
+											case 1207:
+												return "7% erhöht magischen Schaden und kritische Trefferchance";
+											case 1208:
+												return "3% Der Schaden wurde erhöht";
+											case 1209:
+												return "2% Der Schaden wurde erhöht";
+											case 1210:
+												return "7% erhöht Nahkampfschaden";
+											case 1211:
+												return "15% erhöhte Chance auf kritische Treffer reichte";
+											case 1212:
+												return "18% Magie erhöht Chance auf kritische Treffer";
+											case 1213:
+												return "6% erhöhte Chance auf kritische Treffer";
+											case 1214:
+												return "11% erhöhte Bewegungsgeschwindigkeit";
+											case 1215:
+												return "8% erhöht Nahkampfschaden und Chance auf kritische Treffer";
+											case 1216:
+												return "16% erhöht Fernkampfschaden";
+											case 1217:
+												return "16% erhöht magischen Schaden und 7% erhöht Magie Chance auf kritische Treffer";
+											case 1218:
+												return "4% Der Schaden wurde erhöht";
+											case 1219:
+												return "3% erhöhten Schaden und kritische Trefferchance";
+											case 1220:
+												return "Wird verwendet, um Elemente aus Mithril, orichalcum, Adamant und Titan Bars Handwerk";
+											case 1221:
+												return "Gebraucht zu schmelzen Adamant und Titanerz";
+											case 1226:
+												return "Schießt eine leistungsstarke Kugel";
+											case 1227:
+												return "Schießt eine Spore Cloud";
+											case 1228:
+												return "Schießt eine Spore Cloud";
+											case 1235:
+												return "Prallt zurück nach der Kollision mit einer Wand";
+											case 1242:
+												return "Beschwört einen Baby-Dinosaurier";
+											case 1244:
+												return "Beschwört eine Wolke zu regnen auf deine Feinde";
+											case 1247:
+												return "Verursacht Sternen zu fallen und gibt Bienen, wenn sie verletzt";
+											case 1248:
+												return "10% erhöhte Chance auf kritische Treffer";
+											case 1249:
+												return "Erhöht Sprunghöhe";
+											case 1250:
+												return "Ermöglicht dem Halter, Sprung verdoppeln";
+											case 1251:
+												return "Ermöglicht dem Halter, Sprung verdoppeln";
+											case 1252:
+												return "Ermöglicht dem Halter, Sprung verdoppeln";
+											case 1253:
+												return "Legt eine Schale um den Eigentümer, wenn weniger als 50% Leben, reduziert Schäden";
+											case 1254:
+												return "Schießt ein leistungsfähiges, mit hoher Geschwindigkeit Kugel";
+											case 1255:
+												return "Schießt ein leistungsfähiges, mit hoher Geschwindigkeit Kugel";
+											case 1256:
+												return "Beschwört eine Wolke, um Blut auf deine Feinde regnen";
+											case 1258:
+												return "Schießt eine explosive Bolzen";
+											case 1259:
+												return "Schießt gestochen scharfe Blütenblätter in der Nähe befindliche Feinde";
+											case 1260:
+												return "Schießt ein Regenbogen, der kontinuierliche Schaden anrichtet";
+											case 1261:
+												return "Explodes in tödliche Splitter";
+											case 1264:
+												return "Schießt einen Ball von Frost";
+											case 1265:
+												return "Schießt ein leistungsfähiges, mit hoher Geschwindigkeit Kugel";
+											case 1282:
+												return "Erhöht maximales Mana um 20";
+											case 1283:
+												return "Erhöht maximales Mana um 40";
+											case 1284:
+												return "Erhöht maximales Mana um 40";
+											case 1285:
+												return "Erhöht maximales Mana um 60";
+											case 1286:
+												return "Erhöht maximales Mana um 60";
+											case 1287:
+												return "Erhöht maximales Mana um 80";
+											case 1290:
+												return "Erhöht die Bewegungsgeschwindigkeit, nachdem er geschlagen";
+											case 1291:
+												return "Erhöht dauerhaft die maximale Lebensdauer von 5";
+											case 1293:
+												return "Eingesetzt bei den Lihzahrd Altar";
+											case 1294:
+												return "Capable des Bergbaus Lihzahrd Ziegel";
+											case 1295:
+												return "Schießt ein Piercing ray von Wärme";
+											case 1296:
+												return "Beschwört einen mächtigen Felsblock";
+											case 1297:
+												return "Locher mit der Kraft einer golem";
+											case 1299:
+												return "Erhöht die Reichweite sehen, wenn statt";
+											case 1300:
+												return "Erhöht die Reichweite sehen für Waffen";
+											case 1301:
+												return "10% Der Schaden wurde erhöht";
+											case 1303:
+												return "Bietet Licht Unterwasser";
+											case 1306:
+												return "Schießt ein eisiger Sichel";
+											case 1307:
+												return "'Sie sind eine schreckliche Person'";
+											case 1308:
+												return "Schießt ein Gift fang, die mehrere Feinde durchbohrt";
+											case 1309:
+												return "Beschwört ein Baby Schleim für dich kämpfen";
+											case 1310:
+												return "Verursacht Gift auf Feinde";
+											case 1311:
+												return "Summons an eyeball spring";
+											case 1312:
+												return "Beschwört einen Baby-Schneemann";
+											case 1313:
+												return "Schießt einen Schädel";
+											case 1314:
+												return "Schießt ein Boxhandschuh";
+											case 1315:
+												return "Beschwört einen Pirateninvasion";
+											case 1316:
+												return "6% erhöht Nahkampfschaden";
+											case 1317:
+												return "8% erhöht Nahkampfschaden und Chance auf kritische Treffer";
+											case 1318:
+												return "4% erhöht Nahkampf kritische Trefferchance";
+											case 1321:
+												return "Erhöht Pfeil Geschwindigkeit und Schaden um 10%";
+											case 1322:
+												return "Verursacht Feuerschaden Angriff";
+											case 1323:
+												return "Reduces damage from touching lava";
+											case 1326:
+												return "Teleporte der Position der Maus";
+											case 1327:
+												return "Schießt einen tödlichen Sichel";
+											case 1331:
+												return "Vorladung der Brain of Cthulhu";
+											case 1332:
+												return "'Das Blut der Götter'";
+											case 1333:
+												return "Kann in Wasser gelegt werden";
+											case 1334:
+												return "Verringert Verteidigung des Ziels";
+											case 1335:
+												return "Verringert Verteidigung des Ziels";
+											case 1336:
+												return "Sprays eine Dusche von Jauche";
+											case 1343:
+												return "Erhöht die Nahkampf-Rückstoß und verursacht Feuerschaden Angriff";
+										}
+										break;
 								}
-								case 1445:
-								{
-									return "Startet einen Feuerball, der in einem rasenden Inferno explodiert";
-								}
-								case 1446:
-								{
-									return "Beschwört eine verlorene Seele zu jagen Ihre Feinde";
-								}
-								case 1447:
-								case 1448:
-								{
-									break;
-								}
-								case 1449:
-								{
-									return "bläst Seifenblasen";
-								}
-								case 1450:
-								{
-									return "bläst Seifenblasen";
-								}
-								default:
-								{
-									switch (num1)
-									{
-										case 1503:
-										{
-											return "Erhöht die maximale Mana um 80 und verringert Manaverbrauchs um 17%";
-										}
-										case 1504:
-										{
-											return "7% erhöht magischen Schaden und kritische Trefferchance";
-										}
-										case 1505:
-										{
-											return "8% erhöht magischen Schaden";
-										}
-										case 1513:
-										{
-											return "Ein leistungsfähiges Rückkehr Hammer";
-										}
-										case 1515:
-										{
-											return "Ermöglicht Flug und langsam fallen";
-										}
-										case 1522:
-										{
-											return "Für fangen die gem. Es fällt, wenn du stirbst";
-										}
-										case 1523:
-										{
-											return "Für fangen die gem. Es fällt, wenn du stirbst";
-										}
-										case 1524:
-										{
-											return "Für fangen die gem. Es fällt, wenn du stirbst";
-										}
-										case 1525:
-										{
-											return "Für fangen die gem. Es fällt, wenn du stirbst";
-										}
-										case 1526:
-										{
-											return "Für fangen die gem. Es fällt, wenn du stirbst";
-										}
-										case 1527:
-										{
-											return "Für fangen die gem. Es fällt, wenn du stirbst";
-										}
-										case 1533:
-										{
-											return "Freigeschaltet einen Jungle Brust in den Kerker";
-										}
-										case 1534:
-										{
-											return "Freigeschaltet eine Korruption Brust in den Kerker";
-										}
-										case 1535:
-										{
-											return "Freigeschaltet einen hochroten Brust in den Kerker";
-										}
-										case 1536:
-										{
-											return "Freigeschaltet eine Hallowed Brust in den Kerker";
-										}
-										case 1537:
-										{
-											return "Freischaltungen einem gefrorenen Brust in den Kerker";
-										}
-										case 1543:
-										{
-											return "Gebrauchte mit Farbe um Farbe Blöcke";
-										}
-										case 1544:
-										{
-											return "Gebrauchte mit Farbe um Farbe Wände";
-										}
-										case 1545:
-										{
-											return "Wird verwendet, um Farbe zu entfernen";
-										}
-										case 1546:
-										{
-											return "15% erhöht arrow Schaden";
-										}
-										case 1547:
-										{
-											return "15% erhöht Kugel Schaden";
-										}
-										case 1548:
-										{
-											return "15% erhöht Rakete Schaden";
-										}
-										case 1549:
-										{
-											return "13% erhöhte Chance auf kritische Treffer reichte";
-										}
-										case 1550:
-										{
-											return "7% erhöhte Chance auf kritische Treffer reichte";
-										}
-										case 1551:
-										{
-											return "Konvertiert chlorophytischen Bars in Shroomite Bars";
-										}
-										case 1553:
-										{
-											return "50% Chance, nicht verbrauchen Munition";
-										}
-										case 1554:
-										{
-											return "Sie sollten nicht diese";
-										}
-										case 1555:
-										{
-											return "Sie sollten nicht diese";
-										}
-										case 1556:
-										{
-											return "Sie sollten nicht diese";
-										}
-										case 1557:
-										{
-											return "Sie sollten nicht diese";
-										}
-										case 1558:
-										{
-											return "Sie sollten nicht diese";
-										}
-										case 1559:
-										{
-											return "Sie sollten nicht diese";
-										}
-										case 1560:
-										{
-											return "Sie sollten nicht diese";
-										}
-										case 1561:
-										{
-											return "Sie sollten nicht diese";
-										}
-										case 1562:
-										{
-											return "Sie sollten nicht diese";
-										}
-										case 1563:
-										{
-											return "Sie sollten nicht diese";
-										}
-										case 1564:
-										{
-											return "Sie sollten nicht diese";
-										}
-										case 1565:
-										{
-											return "Sie sollten nicht diese";
-										}
-										case 1566:
-										{
-											return "Sie sollten nicht diese";
-										}
-										case 1567:
-										{
-											return "Sie sollten nicht diese";
-										}
-										case 1568:
-										{
-											return "Sie sollten nicht diese";
-										}
-										case 1569:
-										{
-											return "Schnell werfen Leben stehlen Dolche";
-										}
-										case 1571:
-										{
-											return "Ein leistungsfähiges Speer, die winzige Esser entfesselt";
-										}
-										case 1572:
-										{
-											return "Beschwört einen mächtigen Frost Hydra, um Eis auf eure Feinde spucken";
-										}
-										case 1578:
-										{
-											return "Releases Bienen und erhöht die Bewegungsgeschwindigkeit bei Beschädigung";
-										}
-										case 1579:
-										{
-											return "Der Träger kann laufen super schnell";
-										}
-										case 1580:
-										{
-											return "Sie sollten nicht diese";
-										}
-										case 1581:
-										{
-											return "Sie sollten nicht diese";
-										}
-										case 1582:
-										{
-											return "Sie sollten nicht diese";
-										}
-										case 1583:
-										{
-											return "Sie sollten nicht diese";
-										}
-										case 1584:
-										{
-											return "Sie sollten nicht diese";
-										}
-										case 1585:
-										{
-											return "Sie sollten nicht diese";
-										}
-										case 1586:
-										{
-											return "Sie sollten nicht diese";
-										}
-										case 1587:
-										{
-											return "Sie sollten nicht diese";
-										}
-										case 1588:
-										{
-											return "Sie sollten nicht diese";
-										}
-										case 1595:
-										{
-											return "Erhöht maximales Mana um 20";
-										}
-									}
-									break;
-								}
-							}
-							break;
+								break;
 						}
 					}
-				}
-				else if (num1 == 3485 || num1 == 3491 || num1 == 3521)
-				{
-					return "Kann Meteorite abbauen";
 				}
 			}
 			else if (Lang.lang == 3)
 			{
-				int num2 = l;
-				if (num2 <= 407)
+				if (l <= 407)
 				{
-					if (num2 <= 175)
+					if (l <= 175)
 					{
-						if (num2 <= 70)
+						if (l <= 70)
 						{
-							if (num2 > 29)
+							if (l <= 29)
 							{
-								switch (num2)
-								{
-									case 33:
-									{
-										return "Usato per fondere il minerale";
-									}
-									case 34:
-									{
-										break;
-									}
-									case 35:
-									{
-										return "Usata per creare oggetti dalle sbarre di metallo";
-									}
-									case 36:
-									{
-										return "Usato per l'artigianato di base";
-									}
-									default:
-									{
-										if (num2 == 43)
-										{
-											return "Evoca l'Occhio di Cthulhu";
-										}
-										switch (num2)
-										{
-											case 49:
-											{
-												return "Rigenera la vita lentamente";
-											}
-											case 50:
-											{
-												return "Guarda nello specchio per tornare a casa";
-											}
-											case 53:
-											{
-												return "Permette il salto doppio";
-											}
-											case 54:
-											{
-												return "Colui che li indossa può correre velocissimo";
-											}
-											case 56:
-											{
-												return "'Pulsa di energia oscura'";
-											}
-											case 57:
-											{
-												return "'Pulsa di energia oscura'";
-											}
-											case 64:
-											{
-												return "Evoca una spina vile";
-											}
-											case 65:
-											{
-												return "Fa piovere le stelle dal cielo";
-											}
-											case 66:
-											{
-												return "Ripulisce la distruzione";
-											}
-											case 67:
-											{
-												return "Rimuove il sacro";
-											}
-											case 68:
-											{
-												return "'Gustoso!'";
-											}
-											case 70:
-											{
-												return "Evoca il Mangiatore di mondi";
-											}
-										}
-										break;
-									}
-								}
-							}
-							else
-							{
-								if (num2 == 8)
+								if (l == 8)
 								{
 									return "Fornisce luce";
 								}
-								switch (num2)
+								switch (l)
 								{
 									case 15:
-									{
 										return "Indica il tempo";
-									}
 									case 16:
-									{
 										return "Indica il tempo";
-									}
 									case 17:
-									{
 										return "Indica il tempo";
-									}
 									case 18:
-									{
 										return "Mostra la profondità";
-									}
 									case 19:
 									case 20:
 									case 21:
 									case 22:
-									{
 										break;
-									}
 									case 23:
-									{
 										return "'Sia gustoso che infiammabile'";
-									}
 									default:
-									{
-										if (num2 == 29)
+										if (l == 29)
 										{
 											return "Aumenta in maniera permanente la vita massima di 20";
 										}
 										break;
-									}
 								}
 							}
-						}
-						else if (num2 > 88)
-						{
-							switch (num2)
+							else
 							{
-								case 98:
+								switch (l)
 								{
-									return "33% di possibilità di non consumare munizioni";
-								}
-								case 99:
-								case 104:
-								case 105:
-								case 106:
-								case 107:
-								case 108:
-								case 110:
-								case 116:
-								case 119:
-								case 122:
-								case 126:
-								case 127:
-								{
-									break;
-								}
-								case 100:
-								{
-									return "Velocità del corpo a corpo aumentata del 7%";
-								}
-								case 101:
-								{
-									return "Velocità del corpo a corpo aumentata del 7%";
-								}
-								case 102:
-								{
-									return "Velocità del corpo a corpo aumentata del 7%";
-								}
-								case 103:
-								{
-									return "In grado di estrarre la pietra infernale";
-								}
-								case 109:
-								{
-									return "Aumenta in maniera permanente il mana massimo di 20";
-								}
-								case 111:
-								{
-									return "Aumenta il mana massimo di 20";
-								}
-								case 112:
-								{
-									return "Tira palle di fuoco";
-								}
-								case 113:
-								{
-									return "Scaglia un missile guidato";
-								}
-								case 114:
-								{
-									return "Muovi magicamente la terra";
-								}
-								case 115:
-								{
-									return "Crea una sfera di luce magica";
-								}
-								case 117:
-								{
-									return "'Calda al tocco'";
-								}
-								case 118:
-								{
-									return "Lanciato a volte da Scheletri e Piranha";
-								}
-								case 120:
-								{
-									return "Incendia le frecce di legno";
-								}
-								case 121:
-								{
-									return "'Creato dal fuoco!'";
-								}
-								case 123:
-								{
-									return "Danno magico aumentato del 5%";
-								}
-								case 124:
-								{
-									return "Danno magico aumentato del 5%";
-								}
-								case 125:
-								{
-									return "Danno magico aumentato del 5%";
-								}
-								case 128:
-								{
-									return "Permettono il volo";
-								}
-								default:
-								{
-									switch (num2)
-									{
-										case 148:
+									case 33:
+										return "Usato per fondere il minerale";
+									case 34:
+										break;
+									case 35:
+										return "Usata per creare oggetti dalle sbarre di metallo";
+									case 36:
+										return "Usato per l'artigianato di base";
+									default:
+										if (l == 43)
 										{
-											return "Avere questo oggetto potrebbe attirare attenzione non desiderata";
+											return "Evoca l'Occhio di Cthulhu";
 										}
-										case 149:
+										switch (l)
 										{
-											return "'Contiene simboli strani'";
+											case 49:
+												return "Rigenera la vita lentamente";
+											case 50:
+												return "Guarda nello specchio per tornare a casa";
+											case 53:
+												return "Permette il salto doppio";
+											case 54:
+												return "Colui che li indossa può correre velocissimo";
+											case 56:
+												return "'Pulsa di energia oscura'";
+											case 57:
+												return "'Pulsa di energia oscura'";
+											case 64:
+												return "Evoca una spina vile";
+											case 65:
+												return "Fa piovere le stelle dal cielo";
+											case 66:
+												return "Ripulisce la distruzione";
+											case 67:
+												return "Rimuove il sacro";
+											case 68:
+												return "'Gustoso!'";
+											case 70:
+												return "Evoca il Mangiatore di mondi";
 										}
-										case 150:
-										case 154:
-										case 155:
-										case 160:
-										case 161:
-										case 162:
-										case 163:
-										case 164:
-										{
-											break;
-										}
-										case 151:
-										{
-											return "Danno a distanza  aumentato del 5%";
-										}
-										case 152:
-										{
-											return "Danno a distanza  aumentato del 5%";
-										}
-										case 153:
-										{
-											return "Danno a distanza  aumentato del 5%";
-										}
-										case 156:
-										{
-											return "Permette immunità allo spintone";
-										}
-										case 157:
-										{
-											return "Spruzza una cascata d'acqua";
-										}
-										case 158:
-										{
-											return "Annulla i danni da caduta";
-										}
-										case 159:
-										{
-											return "Aumenta l'altezza del salto";
-										}
-										case 165:
-										{
-											return "Lancia un dardo di acqua lento";
-										}
-										case 166:
-										{
-											return "Una piccola esplosione che distruggerà alcune mattonelle";
-										}
-										case 167:
-										{
-											return "Una grande esplosione che distruggerà molte mattonelle";
-										}
-										case 168:
-										{
-											return "Una piccola esplosione che non distruggerà mattonelle";
-										}
-										default:
-										{
-											if (num2 == 175)
-											{
-												return "'Calda al tocco'";
-											}
-											break;
-										}
-									}
-									break;
+										break;
 								}
 							}
 						}
-						else
+						else if (l <= 88)
 						{
-							if (num2 == 75)
+							if (l == 75)
 							{
 								return "Sparisce dopo l'alba";
 							}
-							if (num2 == 84)
+							if (l == 84)
 							{
 								return "'Vieni qui!'";
 							}
-							if (num2 == 88)
+							if (l == 88)
 							{
 								return "Fa luce una volta indossato";
 							}
 						}
-					}
-					else if (num2 <= 238)
-					{
-						if (num2 > 197)
-						{
-							switch (num2)
-							{
-								case 208:
-								{
-									return "'Graziosa, oh com'è graziosa'";
-								}
-								case 209:
-								case 210:
-								case 214:
-								case 216:
-								case 217:
-								{
-									break;
-								}
-								case 211:
-								{
-									return "Velocità del corpo a corpo aumentata del 12%";
-								}
-								case 212:
-								{
-									return "Velocità di movimento aumentata del 10%";
-								}
-								case 213:
-								{
-									return "Crea erba dalla terra";
-								}
-								case 215:
-								{
-									return "'Può disturbare gli altri'";
-								}
-								case 218:
-								{
-									return "Evoca una palla di fuoco guidata";
-								}
-								default:
-								{
-									switch (num2)
-									{
-										case 222:
-										{
-											return "Fa crescere le piante";
-										}
-										case 223:
-										{
-											return "Consumo mana ridotto del 6%";
-										}
-										case 224:
-										case 225:
-										case 226:
-										case 227:
-										{
-											break;
-										}
-										case 228:
-										{
-											return "Aumenta il mana massimo di 40";
-										}
-										case 229:
-										{
-											return "Aumenta il mana massimo di 20";
-										}
-										case 230:
-										{
-											return "Aumenta il mana massimo di 20";
-										}
-										default:
-										{
-											switch (num2)
-											{
-												case 235:
-												{
-													return "'Lanciare potrebbe essere difficile.'";
-												}
-												case 237:
-												{
-													return "'Migliora il tuo look!'";
-												}
-												case 238:
-												{
-													return "Danno magico aumentato del 15%";
-												}
-											}
-											break;
-										}
-									}
-									break;
-								}
-							}
-						}
 						else
 						{
-							switch (num2)
+							switch (l)
+							{
+								case 98:
+									return "33% di possibilità di non consumare munizioni";
+								case 99:
+								case 104:
+								case 105:
+								case 106:
+								case 107:
+								case 108:
+								case 110:
+								case 116:
+								case 119:
+								case 122:
+								case 126:
+								case 127:
+									break;
+								case 100:
+									return "Velocità del corpo a corpo aumentata del 7%";
+								case 101:
+									return "Velocità del corpo a corpo aumentata del 7%";
+								case 102:
+									return "Velocità del corpo a corpo aumentata del 7%";
+								case 103:
+									return "In grado di estrarre la pietra infernale";
+								case 109:
+									return "Aumenta in maniera permanente il mana massimo di 20";
+								case 111:
+									return "Aumenta il mana massimo di 20";
+								case 112:
+									return "Tira palle di fuoco";
+								case 113:
+									return "Scaglia un missile guidato";
+								case 114:
+									return "Muovi magicamente la terra";
+								case 115:
+									return "Crea una sfera di luce magica";
+								case 117:
+									return "'Calda al tocco'";
+								case 118:
+									return "Lanciato a volte da Scheletri e Piranha";
+								case 120:
+									return "Incendia le frecce di legno";
+								case 121:
+									return "'Creato dal fuoco!'";
+								case 123:
+									return "Danno magico aumentato del 5%";
+								case 124:
+									return "Danno magico aumentato del 5%";
+								case 125:
+									return "Danno magico aumentato del 5%";
+								case 128:
+									return "Permettono il volo";
+								default:
+									switch (l)
+									{
+										case 148:
+											return "Avere questo oggetto potrebbe attirare attenzione non desiderata";
+										case 149:
+											return "'Contiene simboli strani'";
+										case 150:
+										case 154:
+										case 155:
+										case 160:
+										case 161:
+										case 162:
+										case 163:
+										case 164:
+											break;
+										case 151:
+											return "Danno a distanza  aumentato del 5%";
+										case 152:
+											return "Danno a distanza  aumentato del 5%";
+										case 153:
+											return "Danno a distanza  aumentato del 5%";
+										case 156:
+											return "Permette immunità allo spintone";
+										case 157:
+											return "Spruzza una cascata d'acqua";
+										case 158:
+											return "Annulla i danni da caduta";
+										case 159:
+											return "Aumenta l'altezza del salto";
+										case 165:
+											return "Lancia un dardo di acqua lento";
+										case 166:
+											return "Una piccola esplosione che distruggerà alcune mattonelle";
+										case 167:
+											return "Una grande esplosione che distruggerà molte mattonelle";
+										case 168:
+											return "Una piccola esplosione che non distruggerà mattonelle";
+										default:
+											if (l == 175)
+											{
+												return "'Calda al tocco'";
+											}
+											break;
+									}
+									break;
+							}
+						}
+					}
+					else if (l <= 238)
+					{
+						if (l <= 197)
+						{
+							switch (l)
 							{
 								case 186:
-								{
 									return "'Perché non annegare è alquanto piacevole'";
-								}
 								case 187:
-								{
 									return "Abilita al nuoto";
-								}
 								default:
-								{
-									if (num2 == 193)
+									if (l == 193)
 									{
 										return "Permette immunità ai blocchi di fuoco";
 									}
-									if (num2 == 197)
+									if (l == 197)
 									{
 										return "Spara stelle cadenti";
 									}
 									break;
-								}
+							}
+						}
+						else
+						{
+							switch (l)
+							{
+								case 208:
+									return "'Graziosa, oh com'è graziosa'";
+								case 209:
+								case 210:
+								case 214:
+								case 216:
+								case 217:
+									break;
+								case 211:
+									return "Velocità del corpo a corpo aumentata del 12%";
+								case 212:
+									return "Velocità di movimento aumentata del 10%";
+								case 213:
+									return "Crea erba dalla terra";
+								case 215:
+									return "'Può disturbare gli altri'";
+								case 218:
+									return "Evoca una palla di fuoco guidata";
+								default:
+									switch (l)
+									{
+										case 222:
+											return "Fa crescere le piante";
+										case 223:
+											return "Consumo mana ridotto del 6%";
+										case 224:
+										case 225:
+										case 226:
+										case 227:
+											break;
+										case 228:
+											return "Aumenta il mana massimo di 40";
+										case 229:
+											return "Aumenta il mana massimo di 20";
+										case 230:
+											return "Aumenta il mana massimo di 20";
+										default:
+											switch (l)
+											{
+												case 235:
+													return "'Lanciare potrebbe essere difficile.'";
+												case 237:
+													return "'Migliora il tuo look!'";
+												case 238:
+													return "Danno magico aumentato del 15%";
+											}
+											break;
+									}
+									break;
 							}
 						}
 					}
-					else if (num2 > 329)
+					else if (l <= 329)
 					{
-						if (num2 == 332)
-						{
-							return "Usato per fabbricare abiti";
-						}
-						if (num2 == 352)
-						{
-							return "Usato per produrre birra";
-						}
-						switch (num2)
-						{
-							case 357:
-							{
-								return "Migliorie minori a tutti i parametri";
-							}
-							case 361:
-							{
-								return "Evoca un esercito di goblin";
-							}
-							case 363:
-							{
-								return "Usata per un'avanzata lavorazione del legno";
-							}
-							case 367:
-							{
-								return "Abbastanza forte per distruggere gli Altari dei demoni";
-							}
-							case 371:
-							{
-								return "Aumenta il mana massimo di 40";
-							}
-							case 372:
-							{
-								return "Velocità di movimento aumentata del 7%";
-							}
-							case 373:
-							{
-								return "Danno a distanza aumentato del 10%";
-							}
-							case 376:
-							{
-								return "Aumenta il mana massimo di 60";
-							}
-							case 377:
-							{
-								return "Possibilità di colpo critico nel corpo a corpo aumentata del 5%";
-							}
-							case 378:
-							{
-								return "Danno a distanza aumentato del 12%";
-							}
-							case 385:
-							{
-								return "Può estrarre mitrilio";
-							}
-							case 386:
-							{
-								return "Può estrarre adamantio";
-							}
-							case 389:
-							{
-								return "Può confondere";
-							}
-							case 393:
-							{
-								return "Mostra posizione orizzontale";
-							}
-							case 394:
-							{
-								return "Abilita al nuoto";
-							}
-							case 395:
-							{
-								return "Mostra posizione";
-							}
-							case 396:
-							{
-								return "Annulla i danni da caduta";
-							}
-							case 397:
-							{
-								return "Permette immunità allo spintone";
-							}
-							case 398:
-							{
-								return "Permette la combinazione di alcuni accessori";
-							}
-							case 399:
-							{
-								return "Permette il salto doppio";
-							}
-							case 400:
-							{
-								return "Aumenta il mana massimo di 80";
-							}
-							case 401:
-							{
-								return "Possibilità di colpo critico nel corpo a corpo aumentata del 7%";
-							}
-							case 402:
-							{
-								return "Danno a distanza aumentato del 14%";
-							}
-							case 403:
-							{
-								return "Danno aumentato del 6%";
-							}
-							case 404:
-							{
-								return "Possibilità di colpo critico aumetata del 4%";
-							}
-							case 405:
-							{
-								return "Permettono il volo";
-							}
-							case 407:
-							{
-								return "Aumenta la possibilità di collocamento dei blocchi";
-							}
-						}
-					}
-					else
-					{
-						switch (num2)
+						switch (l)
 						{
 							case 261:
-							{
 								return "'Sta ridendo, potrebbe essere uno spuntino appetitoso'";
-							}
 							case 262:
 							case 263:
 							case 264:
@@ -51149,4569 +48256,1291 @@ namespace Terraria
 							case 284:
 							case 286:
 							case 287:
-							{
 								break;
-							}
 							case 266:
-							{
 								return "'Buona idea!'";
-							}
 							case 267:
-							{
 								return "'Sei una persona terribile.'";
-							}
 							case 268:
-							{
 								return "Aumenta moltissimo il respiro sott'acqua";
-							}
 							case 272:
-							{
 								return "Evoca una falce demoniaca";
-							}
 							case 281:
-							{
 								return "Permette la raccolta di semi come munizioni";
-							}
 							case 282:
-							{
 								return "Funziona da bagnato";
-							}
 							case 283:
-							{
 								return "Da usare con la cerbottana";
-							}
 							case 285:
-							{
 								return "Velocità di movimento aumentata del 5%";
-							}
 							case 288:
-							{
 								return "Dà immunità alla lava";
-							}
 							case 289:
-							{
 								return "Rigenera la vita";
-							}
 							case 290:
-							{
 								return "Velocità di movimento aumentata del 25%";
-							}
 							case 291:
-							{
 								return "Respira acqua invece di aria";
-							}
 							case 292:
-							{
 								return "Aumenta la difesa di 8";
-							}
 							case 293:
-							{
 								return "Aumenta la rigenerazione del mana";
-							}
 							case 294:
-							{
 								return "Danno magico aumentato del 20%";
-							}
 							case 295:
-							{
 								return "Velocità di caduta lenta";
-							}
 							case 296:
-							{
 								return "Mostra l'ubicazione di tesori e minerale";
-							}
 							case 297:
-							{
 								return "Rende invisibili";
-							}
 							case 298:
-							{
 								return "Emette un'aura di luce";
-							}
 							case 299:
-							{
 								return "Migliora la visione notturna";
-							}
 							case 300:
-							{
 								return "Aumenta il ritmo di generazone dei nemici";
-							}
 							case 301:
-							{
 								return "Anche gli aggressori subiscono danni";
-							}
 							case 302:
-							{
 								return "Consente di camminare sull'acqua";
-							}
 							case 303:
-							{
 								return "Velocità e danni della freccia aumentati del 20%";
-							}
 							case 304:
-							{
 								return "Mostra la posizione dei nemici";
-							}
 							case 305:
-							{
 								return "Permette il controllo della gravità";
-							}
 							default:
-							{
-								if (num2 == 324)
+								if (l == 324)
 								{
 									return "'Bandita in molti luoghi'";
 								}
-								switch (num2)
+								switch (l)
 								{
 									case 327:
-									{
 										return "Apre una cassa d'oro";
-									}
 									case 329:
-									{
 										return "Apre tutte le casse ombra";
-									}
 								}
 								break;
-							}
+						}
+					}
+					else
+					{
+						if (l == 332)
+						{
+							return "Usato per fabbricare abiti";
+						}
+						if (l == 352)
+						{
+							return "Usato per produrre birra";
+						}
+						switch (l)
+						{
+							case 357:
+								return "Migliorie minori a tutti i parametri";
+							case 361:
+								return "Evoca un esercito di goblin";
+							case 363:
+								return "Usata per un'avanzata lavorazione del legno";
+							case 367:
+								return "Abbastanza forte per distruggere gli Altari dei demoni";
+							case 371:
+								return "Aumenta il mana massimo di 40";
+							case 372:
+								return "Velocità di movimento aumentata del 7%";
+							case 373:
+								return "Danno a distanza aumentato del 10%";
+							case 376:
+								return "Aumenta il mana massimo di 60";
+							case 377:
+								return "Possibilità di colpo critico nel corpo a corpo aumentata del 5%";
+							case 378:
+								return "Danno a distanza aumentato del 12%";
+							case 385:
+								return "Può estrarre mitrilio";
+							case 386:
+								return "Può estrarre adamantio";
+							case 389:
+								return "Può confondere";
+							case 393:
+								return "Mostra posizione orizzontale";
+							case 394:
+								return "Abilita al nuoto";
+							case 395:
+								return "Mostra posizione";
+							case 396:
+								return "Annulla i danni da caduta";
+							case 397:
+								return "Permette immunità allo spintone";
+							case 398:
+								return "Permette la combinazione di alcuni accessori";
+							case 399:
+								return "Permette il salto doppio";
+							case 400:
+								return "Aumenta il mana massimo di 80";
+							case 401:
+								return "Possibilità di colpo critico nel corpo a corpo aumentata del 7%";
+							case 402:
+								return "Danno a distanza aumentato del 14%";
+							case 403:
+								return "Danno aumentato del 6%";
+							case 404:
+								return "Possibilità di colpo critico aumetata del 4%";
+							case 405:
+								return "Permettono il volo";
+							case 407:
+								return "Aumenta la possibilità di collocamento dei blocchi";
 						}
 					}
 				}
-				else if (num2 <= 761)
+				else if (l <= 761)
 				{
-					if (num2 <= 686)
+					if (l <= 686)
 					{
-						if (num2 > 603)
+						if (l <= 603)
 						{
-							switch (num2)
+							switch (l)
 							{
-								case 665:
-								{
-									return "Non si dovrebbe avere questo";
-								}
-								case 666:
-								{
-									return "Non si dovrebbe avere questo";
-								}
-								case 667:
-								{
-									return "Non si dovrebbe avere questo";
-								}
-								case 668:
-								{
-									return "Non si dovrebbe avere questo";
-								}
-								case 669:
-								{
-									return "Evoca un bambino pinguino";
-								}
+								case 422:
+									return "Spruzza acquasanta su alcuni blocchi";
+								case 423:
+									return "Diffonde la distruzione su alcuni blocchi";
+								case 424:
+									break;
+								case 425:
+									return "Evoca una fata magica";
 								default:
-								{
-									if (num2 == 676)
+									if (l == 434)
 									{
-										return "Spara un bullone di ghiaccio";
+										return "Tre raffiche";
 									}
-									switch (num2)
+									switch (l)
 									{
-										case 683:
-										{
-											return "Evoca tridente del Diavolo";
-										}
-										case 684:
-										{
-											return "16% aumentato mischia e danno a distanza";
-										}
-										case 685:
-										{
-											return "11% aumentato mischia ea distanza possibilità di critico";
-										}
-										case 686:
-										{
-											return "8% maggiore velocità di movimento";
-										}
+										case 485:
+											return "Durante la luna piena trasforma il portatore in un lupo mannaro";
+										case 486:
+											return "Crea una griglia sullo schermo per sistemare i blocchi";
+										case 489:
+											return "Danno magico aumentato del 15%";
+										case 490:
+											return "Danno nel corpo a corpo aumentato del 15%";
+										case 491:
+											return "Danno a distanza aumentato del 15%";
+										case 492:
+											return "Permettono il volo e la caduta lenta";
+										case 493:
+											return "Permettono il volo e la caduta lenta";
+										case 495:
+											return "Genera un arcobaleno guidato";
+										case 496:
+											return "Evoca un blocco di ghiaccio";
+										case 497:
+											return "Trasforma il portatore in Tritone quando entra in acqua";
+										case 506:
+											return "Usa il gel come munizione";
+										case 509:
+											return "Sistema i cavi";
+										case 510:
+											return "Rimuove i cavi";
+										case 515:
+											return "Crea svariati frammenti di cristallo all'impatto";
+										case 516:
+											return "Evoca stelle cadenti all'impatto";
+										case 517:
+											return "Un pugnale magico che ritorna";
+										case 518:
+											return "Evoca veloci frammenti di cristallo infuocati";
+										case 519:
+											return "Evoca sfere di fuoco profane";
+										case 520:
+											return "'L'essenza delle creature della luce'";
+										case 521:
+											return "'L'essenza delle creature oscure'";
+										case 522:
+											return "'Neanche l'acqua può spegnere la fiamma'";
+										case 523:
+											return "Può essere messa in acqua";
+										case 524:
+											return "Usata per fondere il minerale adamantio";
+										case 525:
+											return "Usata per creare oggetti da sbarre di mitrilio e adamantio";
+										case 526:
+											return "'Appuntito e magico!'";
+										case 527:
+											return "'A volte portato dalle creature nei deserti distrutti'";
+										case 528:
+											return "'A volte portato dalle creature nei deserti di luce'";
+										case 529:
+											return "Si attiva quando calpestata";
+										case 531:
+											return "Può essere incantato";
+										case 532:
+											return "Causa la caduta delle stelle quando colpito";
+										case 533:
+											return "50% di possibilità di non consumare munizioni";
+										case 534:
+											return "Spara una rosa di proiettili";
+										case 535:
+											return "Riduce la ricarica della pozione curativa";
+										case 536:
+											return "Aumenta lo spintone in corpo a corpo";
+										case 541:
+											return "Si attiva quando calpestata";
+										case 542:
+											return "Si attiva quando calpestata";
+										case 543:
+											return "Si attiva quando calpestata";
+										case 544:
+											return "Evoca i gemelli";
+										case 547:
+											return "'L'essenza del terrore puro'";
+										case 548:
+											return "'L'essenza del distruttore'";
+										case 549:
+											return "'L'essenza degli osservatori onniscienti'";
+										case 551:
+											return "Possibilità di colpo critico aumentata del 7%";
+										case 552:
+											return "Danno aumentato del 7%";
+										case 553:
+											return "Danno a distanza aumentato del 15%";
+										case 554:
+											return "Aumenta la durata dell'invincibilità dopo aver subito danni";
+										case 555:
+											return "Consumo mana ridotto del 8%";
+										case 556:
+											return "Evoca l'Distruttore";
+										case 557:
+											return "Evoca lo Skeletron primario";
+										case 558:
+											return "Aumenta il mana massimo di 100";
+										case 559:
+											return "Possibilità di danno corpo a corpo e colpo critico aumentata del 10%";
+										case 560:
+											return "Evoca lo slime re";
+										case 561:
+											return "Raccoglie fino a 5";
+										case 575:
+											return "'L'essenza delle potenti creature volanti'";
+										case 576:
+											return "Ha una possibilità di registrare canzoni";
+										case 579:
+											return "'Da non confondere con il Segartello'";
+										case 580:
+											return "Esplodono quando attivati";
+										case 581:
+											return "Invia acqua alle pompe esterne";
+										case 582:
+											return "Riceve acqua dalle pompe interne";
+										case 583:
+											return "Si attiva ogni secondo";
+										case 584:
+											return "Si attiva ogni 3 secondi";
+										case 585:
+											return "Si attiva ogni 5 secondi";
+										case 599:
+											return "Tasto destro del mouse per aprire";
+										case 600:
+											return "Tasto destro del mouse per aprire";
+										case 601:
+											return "Tasto destro del mouse per aprire";
+										case 602:
+											return "Evoca la Legione di Frost";
+										case 603:
+											return "Evoca un coniglio domestico";
 									}
 									break;
-								}
 							}
 						}
 						else
 						{
-							switch (num2)
+							switch (l)
 							{
-								case 422:
-								{
-									return "Spruzza acquasanta su alcuni blocchi";
-								}
-								case 423:
-								{
-									return "Diffonde la distruzione su alcuni blocchi";
-								}
-								case 424:
-								{
-									break;
-								}
-								case 425:
-								{
-									return "Evoca una fata magica";
-								}
+								case 665:
+									return "Non si dovrebbe avere questo";
+								case 666:
+									return "Non si dovrebbe avere questo";
+								case 667:
+									return "Non si dovrebbe avere questo";
+								case 668:
+									return "Non si dovrebbe avere questo";
+								case 669:
+									return "Evoca un bambino pinguino";
 								default:
-								{
-									if (num2 == 434)
+									if (l == 676)
 									{
-										return "Tre raffiche";
+										return "Spara un bullone di ghiaccio";
 									}
-									switch (num2)
+									switch (l)
 									{
-										case 485:
-										{
-											return "Durante la luna piena trasforma il portatore in un lupo mannaro";
-										}
-										case 486:
-										{
-											return "Crea una griglia sullo schermo per sistemare i blocchi";
-										}
-										case 489:
-										{
-											return "Danno magico aumentato del 15%";
-										}
-										case 490:
-										{
-											return "Danno nel corpo a corpo aumentato del 15%";
-										}
-										case 491:
-										{
-											return "Danno a distanza aumentato del 15%";
-										}
-										case 492:
-										{
-											return "Permettono il volo e la caduta lenta";
-										}
-										case 493:
-										{
-											return "Permettono il volo e la caduta lenta";
-										}
-										case 495:
-										{
-											return "Genera un arcobaleno guidato";
-										}
-										case 496:
-										{
-											return "Evoca un blocco di ghiaccio";
-										}
-										case 497:
-										{
-											return "Trasforma il portatore in Tritone quando entra in acqua";
-										}
-										case 506:
-										{
-											return "Usa il gel come munizione";
-										}
-										case 509:
-										{
-											return "Sistema i cavi";
-										}
-										case 510:
-										{
-											return "Rimuove i cavi";
-										}
-										case 515:
-										{
-											return "Crea svariati frammenti di cristallo all'impatto";
-										}
-										case 516:
-										{
-											return "Evoca stelle cadenti all'impatto";
-										}
-										case 517:
-										{
-											return "Un pugnale magico che ritorna";
-										}
-										case 518:
-										{
-											return "Evoca veloci frammenti di cristallo infuocati";
-										}
-										case 519:
-										{
-											return "Evoca sfere di fuoco profane";
-										}
-										case 520:
-										{
-											return "'L'essenza delle creature della luce'";
-										}
-										case 521:
-										{
-											return "'L'essenza delle creature oscure'";
-										}
-										case 522:
-										{
-											return "'Neanche l'acqua può spegnere la fiamma'";
-										}
-										case 523:
-										{
-											return "Può essere messa in acqua";
-										}
-										case 524:
-										{
-											return "Usata per fondere il minerale adamantio";
-										}
-										case 525:
-										{
-											return "Usata per creare oggetti da sbarre di mitrilio e adamantio";
-										}
-										case 526:
-										{
-											return "'Appuntito e magico!'";
-										}
-										case 527:
-										{
-											return "'A volte portato dalle creature nei deserti distrutti'";
-										}
-										case 528:
-										{
-											return "'A volte portato dalle creature nei deserti di luce'";
-										}
-										case 529:
-										{
-											return "Si attiva quando calpestata";
-										}
-										case 531:
-										{
-											return "Può essere incantato";
-										}
-										case 532:
-										{
-											return "Causa la caduta delle stelle quando colpito";
-										}
-										case 533:
-										{
-											return "50% di possibilità di non consumare munizioni";
-										}
-										case 534:
-										{
-											return "Spara una rosa di proiettili";
-										}
-										case 535:
-										{
-											return "Riduce la ricarica della pozione curativa";
-										}
-										case 536:
-										{
-											return "Aumenta lo spintone in corpo a corpo";
-										}
-										case 541:
-										{
-											return "Si attiva quando calpestata";
-										}
-										case 542:
-										{
-											return "Si attiva quando calpestata";
-										}
-										case 543:
-										{
-											return "Si attiva quando calpestata";
-										}
-										case 544:
-										{
-											return "Evoca i gemelli";
-										}
-										case 547:
-										{
-											return "'L'essenza del terrore puro'";
-										}
-										case 548:
-										{
-											return "'L'essenza del distruttore'";
-										}
-										case 549:
-										{
-											return "'L'essenza degli osservatori onniscienti'";
-										}
-										case 551:
-										{
-											return "Possibilità di colpo critico aumentata del 7%";
-										}
-										case 552:
-										{
-											return "Danno aumentato del 7%";
-										}
-										case 553:
-										{
-											return "Danno a distanza aumentato del 15%";
-										}
-										case 554:
-										{
-											return "Aumenta la durata dell'invincibilità dopo aver subito danni";
-										}
-										case 555:
-										{
-											return "Consumo mana ridotto del 8%";
-										}
-										case 556:
-										{
-											return "Evoca l'Distruttore";
-										}
-										case 557:
-										{
-											return "Evoca lo Skeletron primario";
-										}
-										case 558:
-										{
-											return "Aumenta il mana massimo di 100";
-										}
-										case 559:
-										{
-											return "Possibilità di danno corpo a corpo e colpo critico aumentata del 10%";
-										}
-										case 560:
-										{
-											return "Evoca lo slime re";
-										}
-										case 561:
-										{
-											return "Raccoglie fino a 5";
-										}
-										case 575:
-										{
-											return "'L'essenza delle potenti creature volanti'";
-										}
-										case 576:
-										{
-											return "Ha una possibilità di registrare canzoni";
-										}
-										case 579:
-										{
-											return "'Da non confondere con il Segartello'";
-										}
-										case 580:
-										{
-											return "Esplodono quando attivati";
-										}
-										case 581:
-										{
-											return "Invia acqua alle pompe esterne";
-										}
-										case 582:
-										{
-											return "Riceve acqua dalle pompe interne";
-										}
-										case 583:
-										{
-											return "Si attiva ogni secondo";
-										}
-										case 584:
-										{
-											return "Si attiva ogni 3 secondi";
-										}
-										case 585:
-										{
-											return "Si attiva ogni 5 secondi";
-										}
-										case 599:
-										{
-											return "Tasto destro del mouse per aprire";
-										}
-										case 600:
-										{
-											return "Tasto destro del mouse per aprire";
-										}
-										case 601:
-										{
-											return "Tasto destro del mouse per aprire";
-										}
-										case 602:
-										{
-											return "Evoca la Legione di Frost";
-										}
-										case 603:
-										{
-											return "Evoca un coniglio domestico";
-										}
+										case 683:
+											return "Evoca tridente del Diavolo";
+										case 684:
+											return "16% aumentato mischia e danno a distanza";
+										case 685:
+											return "11% aumentato mischia ea distanza possibilità di critico";
+										case 686:
+											return "8% maggiore velocità di movimento";
 									}
 									break;
-								}
 							}
 						}
 					}
-					else if (num2 > 726)
+					else if (l <= 726)
 					{
-						switch (num2)
+						switch (l)
+						{
+							case 707:
+								return "Indica il tempo di";
+							case 708:
+								return "Indica il tempo di";
+							case 709:
+								return "Indica il tempo di";
+							default:
+								if (l == 716)
+								{
+									return "Usato per oggetti artigianali da barre metalliche";
+								}
+								switch (l)
+								{
+									case 723:
+										return "Spara un fascio di luce";
+									case 724:
+										return "Spara un bullone di ghiaccio";
+									case 725:
+										return "Germogli gelo frecce";
+									case 726:
+										return "Riprende un flusso di gelo";
+								}
+								break;
+						}
+					}
+					else
+					{
+						switch (l)
 						{
 							case 748:
-							{
 								return "Permette di volo e la caduta lenta";
-							}
 							case 749:
-							{
 								return "Permette di volo e la caduta lenta";
-							}
 							default:
-							{
-								if (num2 == 753)
+								if (l == 753)
 								{
 									return "Summons a pet turtle";
 								}
-								if (num2 == 761)
+								if (l == 761)
 								{
 									return "Permette di volo e la caduta lenta";
 								}
 								break;
-							}
-						}
-					}
-					else
-					{
-						switch (num2)
-						{
-							case 707:
-							{
-								return "Indica il tempo di";
-							}
-							case 708:
-							{
-								return "Indica il tempo di";
-							}
-							case 709:
-							{
-								return "Indica il tempo di";
-							}
-							default:
-							{
-								if (num2 == 716)
-								{
-									return "Usato per oggetti artigianali da barre metalliche";
-								}
-								switch (num2)
-								{
-									case 723:
-									{
-										return "Spara un fascio di luce";
-									}
-									case 724:
-									{
-										return "Spara un bullone di ghiaccio";
-									}
-									case 725:
-									{
-										return "Germogli gelo frecce";
-									}
-									case 726:
-									{
-										return "Riprende un flusso di gelo";
-									}
-								}
-								break;
-							}
 						}
 					}
 				}
-				else if (num2 <= 1343)
+				else
 				{
-					if (num2 > 832)
+					if (l > 1343)
 					{
-						switch (num2)
+						if (l > 1595)
 						{
-							case 849:
+							if (l <= 3491)
 							{
-								return "Consente blocchi solidi di essere attivata e disattivata";
-							}
-							case 850:
-							{
-								return "Luoghi filo blu";
-							}
-							case 851:
-							{
-								return "Luoghi filo verde";
-							}
-							case 852:
-							{
-								return "Attiva quando un giocatore passi su di esso";
-							}
-							case 853:
-							{
-								return "Attiva quando tutt'altro che un giocatore passi su di essa";
-							}
-							case 854:
-							{
-								return "Negozi hanno prezzi più bassi";
-							}
-							case 855:
-							{
-								return "Colpire i nemici a volte cadere monete extra";
-							}
-							case 856:
-							{
-								return "'Avere un tempo meraviglioso!'";
-							}
-							case 857:
-							{
-								return "Consente al titolare di fare una migliore doppio salto";
-							}
-							case 858:
-							case 859:
-							case 864:
-							case 865:
-							case 866:
-							case 867:
-							case 868:
-							case 869:
-							case 870:
-							case 871:
-							case 872:
-							case 873:
-							case 874:
-							case 875:
-							case 876:
-							case 877:
-							case 878:
-							case 879:
-							case 880:
-							case 881:
-							case 882:
-							case 883:
-							case 884:
-							case 894:
-							case 895:
-							case 896:
-							case 909:
-							case 910:
-							case 911:
-							case 912:
-							case 913:
-							case 914:
-							case 915:
-							case 916:
-							case 917:
-							case 918:
-							case 919:
-							case 920:
-							case 921:
-							case 922:
-							case 923:
-							case 924:
-							case 925:
-							case 926:
-							case 927:
-							case 928:
-							case 929:
-							case 930:
-							case 931:
-							case 939:
-							case 940:
-							case 941:
-							case 942:
-							case 943:
-							case 944:
-							case 945:
-							case 949:
-							case 952:
-							case 954:
-							case 955:
-							case 970:
-							case 971:
-							case 972:
-							case 973:
-							case 974:
-							case 978:
-							case 979:
-							case 980:
-							case 981:
-							case 988:
-							case 991:
-							case 992:
-							case 993:
-							case 999:
-							{
-								break;
-							}
-							case 860:
-							{
-								return "Fornisce la rigenerazione della vita e riduce il cooldown delle pozioni di guarigione";
-							}
-							case 861:
-							{
-								return "Attiva il supporto in un lupo mannaro di notte e un Tritone quando si entra in acqua";
-							}
-							case 862:
-							{
-								return "Provoca stelle a cadere e aumenta la durata di invincibilità dopo l'assunzione di danni";
-							}
-							case 863:
-							{
-								return "Offre la possibilità di camminare sull'acqua";
-							}
-							case 885:
-							{
-								return "immunità alle emorragie";
-							}
-							case 886:
-							{
-								return "immunità alle armature rotto";
-							}
-							case 887:
-							{
-								return "immunità al veleno";
-							}
-							case 888:
-							{
-								return "Immunità alle tenebre";
-							}
-							case 889:
-							{
-								return "immunità per rallentare";
-							}
-							case 890:
-							{
-								return "immunità al silenzio";
-							}
-							case 891:
-							{
-								return "immunità a maledire";
-							}
-							case 892:
-							{
-								return "immunità alla debolezza";
-							}
-							case 893:
-							{
-								return "immunità alla confusione";
-							}
-							case 897:
-							{
-								return "Aumenta mischia contraccolpo";
-							}
-							case 898:
-							{
-								return "consente di volo";
-							}
-							case 899:
-							{
-								return "Aumenta tutte le statistiche se consumato durante il giorno";
-							}
-							case 900:
-							{
-								return "Aumenta tutte le statistiche se consumato durante la notte";
-							}
-							case 901:
-							{
-								return "immunità alla debolezza e armatura rotto";
-							}
-							case 902:
-							{
-								return "immunità al veleno e sanguinamento";
-							}
-							case 903:
-							{
-								return "immunità a rallentare e la confusione";
-							}
-							case 904:
-							{
-								return "immunità al silenzio e maledire";
-							}
-							case 905:
-							{
-								return "Utilizza le monete per munizioni";
-							}
-							case 906:
-							{
-								return "Fornisce 7 secondi di immunità ai lavica";
-							}
-							case 907:
-							{
-								return "Offre la possibilità di camminare sull'acqua";
-							}
-							case 908:
-							{
-								return "Offre la possibilità di camminare sulle acque e la lava";
-							}
-							case 932:
-							{
-								return "luoghi osso";
-							}
-							case 933:
-							{
-								return "luoghi lascia";
-							}
-							case 934:
-							{
-								return "Consente al proprietario di galleggiare per qualche secondo";
-							}
-							case 935:
-							{
-								return "12% incrementato il danno";
-							}
-							case 936:
-							{
-								return "Aumenta mischia contraccolpo";
-							}
-							case 937:
-							{
-								return "Esplode quando calpestato";
-							}
-							case 938:
-							{
-								return "Assorbe il 25% del danno fatto ai giocatori per la tua squadra";
-							}
-							case 946:
-							{
-								return "Si cadrà più lento mentre si tiene presente";
-							}
-							case 947:
-							{
-								return "Reagisce alla luce";
-							}
-							case 948:
-							{
-								return "Permette di volo e la caduta lenta";
-							}
-							case 950:
-							{
-								return "Fornisce la mobilità in più sul ghiaccio";
-							}
-							case 951:
-							{
-								return "Lancia rapidamente palle di neve";
-							}
-							case 953:
-							{
-								return "Consente la possibilità di far scorrere verso il basso le pareti";
-							}
-							case 956:
-							{
-								return "7% maggiore velocità di mischia";
-							}
-							case 957:
-							{
-								return "7% maggiore velocità di mischia";
-							}
-							case 958:
-							{
-								return "7% maggiore velocità di mischia";
-							}
-							case 959:
-							{
-								return "4% incrementato il danno a distanza";
-							}
-							case 960:
-							{
-								return "Aumenta mana massimo del 40";
-							}
-							case 961:
-							{
-								return "Aumenta mana massimo del 20";
-							}
-							case 962:
-							{
-								return "Aumenta mana massimo del 20";
-							}
-							case 963:
-							{
-								return "Dà la possibilità di schivare l'attacco";
-							}
-							case 964:
-							{
-								return "Spara una diffusione di proiettili";
-							}
-							case 965:
-							{
-								return "Può essere salito sul";
-							}
-							case 966:
-							{
-								return "Life regeneration is increased when near a campfire";
-							}
-							case 967:
-							{
-								return "La vita di rigenerazione è aumentata quando vicino a un falò";
-							}
-							case 968:
-							{
-								return "Arrostire su un fuoco!";
-							}
-							case 969:
-							{
-								return "Piccoli miglioramenti a tutti stats";
-							}
-							case 975:
-							{
-								return "Consente la possibilità di far scorrere verso il basso le pareti";
-							}
-							case 976:
-							{
-								return "Consente la possibilità di scalare le pareti";
-							}
-							case 977:
-							{
-								return "Consente la possibilità di precipitare";
-							}
-							case 982:
-							{
-								return "Aumenta mana massimo del 20";
-							}
-							case 983:
-							{
-								return "Consente al titolare di doppio salto";
-							}
-							case 984:
-							{
-								return "Consente la possibilità di scalare muri e cruscotto";
-							}
-							case 985:
-							{
-								return "Buttare per creare una linea scalabile di corda";
-							}
-							case 986:
-							{
-								return "Permette la raccolta di semi per munizioni";
-							}
-							case 987:
-							{
-								return "Consente al titolare di doppio salto";
-							}
-							case 989:
-							{
-								return "Spara un fascio di spada incantata";
-							}
-							case 990:
-							{
-								return "'Da non confondere con un hamdrill'";
-							}
-							case 994:
-							{
-								return "Evoca un Mangiamorte Baby of Souls";
-							}
-							case 995:
-							{
-								return "Usato per mestiere oggetti";
-							}
-							case 996:
-							{
-								return "Usato per mestiere oggetti";
-							}
-							case 997:
-							{
-								return "Attiva limo e fango in qualcosa di più utile";
-							}
-							case 998:
-							{
-								return "Usato per mestiere oggetti";
-							}
-							case 1000:
-							{
-								return "Spara coriandoli ovunque!";
-							}
-							case 1001:
-							{
-								return "16% incrementato il danno melee";
-							}
-							case 1002:
-							{
-								return "16% incrementato il danno a distanza";
-							}
-							case 1003:
-							{
-								return "Aumenta mana massimo da 80 e riduce l'uso di mana del 17%";
-							}
-							case 1004:
-							{
-								return "5% incrementato il danno";
-							}
-							case 1005:
-							{
-								return "8% maggiore possibilità di critico";
-							}
-							case 1006:
-							{
-								return "Reagisce alla luce";
-							}
-							default:
-							{
-								switch (num2)
+								if (l != 3485 && l != 3491)
 								{
-									case 1071:
-									{
-										return "Usato con vernice a blocchi di colore";
-									}
-									case 1072:
-									{
-										return "Usato con la vernice per pareti di colore";
-									}
+									goto IL_AC2F;
+								}
+							}
+							else if (l != 3521)
+							{
+								if (l != 3643)
+								{
+									goto IL_AC2F;
+								}
+								goto IL_7011;
+							}
+							return "Può estrarre meteorite";
+						}
+						switch (l)
+						{
+							case 1430:
+								return "Destinati alla costruzione di armi fiaschi imbuement";
+							case 1431:
+								goto IL_AC2F;
+							case 1432:
+								return "Destinati alla costruzione di vari tipi di munizioni";
+							default:
+								switch (l)
+								{
+									case 1444:
+										return "Crea un fascio di ombra che rimbalza muri";
+									case 1445:
+										return "Lancia una palla di fuoco che esplode in un calore infernale";
+									case 1446:
+										return "Evoca un anima persa per inseguire i nemici";
+									case 1447:
+									case 1448:
+										goto IL_AC2F;
+									case 1449:
+										return "soffia bolle";
+									case 1450:
+										return "soffia bolle";
 									default:
-									{
-										switch (num2)
+										switch (l)
 										{
-											case 1100:
-											{
+											case 1503:
+												return "Aumenta mana massimo da 80 e riduce l'uso di mana del 17%";
+											case 1504:
+												return "7% maggiore danno magico e la possibilità di critico";
+											case 1505:
+												return "8% in più di danno magico";
+											case 1506:
+											case 1507:
+											case 1508:
+											case 1509:
+											case 1510:
+											case 1511:
+											case 1512:
+											case 1514:
+											case 1516:
+											case 1517:
+											case 1518:
+											case 1519:
+											case 1520:
+											case 1521:
+											case 1528:
+											case 1529:
+											case 1530:
+											case 1531:
+											case 1532:
+											case 1538:
+											case 1539:
+											case 1540:
+											case 1541:
+											case 1542:
+											case 1552:
+											case 1570:
+											case 1573:
+											case 1574:
+											case 1575:
+											case 1576:
+											case 1577:
+											case 1589:
+											case 1590:
+											case 1591:
+											case 1592:
+											case 1593:
+											case 1594:
+												goto IL_AC2F;
+											case 1513:
+												return "Un potente martello di ritorno";
+											case 1515:
+												return "Permette di volo e la caduta lenta";
+											case 1522:
+												break;
+											case 1523:
+												return "Per catturare la gemma. Che rilascia quando si muore";
+											case 1524:
+												return "Per catturare la gemma. Che rilascia quando si muore";
+											case 1525:
+												return "Per catturare la gemma. Che rilascia quando si muore";
+											case 1526:
+												return "Per catturare la gemma. Che rilascia quando si muore";
+											case 1527:
+												return "Per catturare la gemma. Che rilascia quando si muore";
+											case 1533:
+												return "Sblocca una giungla Busto nel dungeon";
+											case 1534:
+												return "Sblocca un Petto corruzione nel dungeon";
+											case 1535:
+												return "Sblocca un Petto Crimson nel dungeon";
+											case 1536:
+												return "Sblocca un Petto santificato nel dungeon";
+											case 1537:
+												return "Sblocca un Petto congelato nel dungeon";
+											case 1543:
+												return "Usato con vernice a blocchi di colore";
+											case 1544:
+												return "Usato con la vernice per pareti di colore";
+											case 1545:
 												return "Usato per rimuovere la vernice";
-											}
-											case 1107:
-											{
-												return "Usato per fare colorante verde acqua";
-											}
-											case 1108:
-											{
-												return "Usato per fare colorante verde";
-											}
-											case 1109:
-											{
-												return "Usato per fare cielo blu colorante";
-											}
-											case 1110:
-											{
-												return "Usato per fare colorante giallo";
-											}
-											case 1111:
-											{
-												return "Usato per fare colorante blu";
-											}
-											case 1112:
-											{
-												return "Usato per fare tintura calce";
-											}
-											case 1113:
-											{
-												return "Usato per fare colorante rosa";
-											}
-											case 1114:
-											{
-												return "Usato per fare arancio colorante";
-											}
-											case 1115:
-											{
-												return "Usato per fare colorante rosso";
-											}
-											case 1116:
-											{
-												return "Usato per fare colorante ciano";
-											}
-											case 1117:
-											{
-												return "Usato per fare viola colorante";
-											}
-											case 1118:
-											{
-												return "Usato per fare porpora";
-											}
-											case 1119:
-											{
-												return "Usato per fare tintura nera";
-											}
-											case 1120:
-											{
-												return "Usato per mestiere coloranti";
-											}
-											case 1121:
-											{
-												return "Shoots api che inseguirà il nemico";
-											}
-											case 1122:
-											{
-												return "Insegue il tuo nemico";
-											}
-											case 1123:
-											{
-												return "Convoca le api assassine dopo aver colpito il nemico";
-											}
-											case 1129:
-											{
-												return "luoghi orticaria";
-											}
-											case 1130:
-											{
-												return "Esplode in uno sciame di api";
-											}
-											case 1131:
-											{
-												return "Consente al titolare di invertire la gravità";
-											}
-											case 1132:
-											{
-												return "Rilascia le api se danneggiato";
-											}
-											case 1133:
-											{
-												return "Evoca la Queen Bee";
-											}
-											case 1141:
-											{
-												return "Apre la porta del tempio giungla";
-											}
-											case 1145:
-											{
-												return "Usato per la lavorazione di base";
-											}
-											case 1151:
-											{
-												return "Attiva quando un giocatore passi su di essa su";
-											}
-											case 1156:
-											{
-												return "Chiusure a nemici per danni continua";
-											}
-											case 1157:
-											{
-												return "Evoca un pigmeo a combattere per voi";
-											}
-											case 1158:
-											{
-												return "Aumenta il numero massimo di servitori";
-											}
-											case 1159:
-											{
-												return "Aumenta il numero massimo di servitori";
-											}
-											case 1160:
-											{
-												return "Aumenta il numero massimo di servitori";
-											}
-											case 1161:
-											{
-												return "Aumenta il numero massimo di servitori";
-											}
-											case 1162:
-											{
-												return "Permette di volo e la caduta lenta";
-											}
-											case 1163:
-											{
-												return "Consente al titolare di doppio salto";
-											}
-											case 1164:
-											{
-												return "Consente al titolare di salto quadruplo";
-											}
-											case 1165:
-											{
-												return "Permette di volo e la caduta lenta";
-											}
-											case 1167:
-											{
-												return "Aumenta il danno dei tuoi servitori dal 15";
-											}
-											case 1169:
-											{
-												return "Evoca un bambino Skeletron Testa";
-											}
-											case 1170:
-											{
-												return "Evoca un bambino Hornet";
-											}
-											case 1171:
-											{
-												return "Evoca un Spirito Tiki";
-											}
-											case 1172:
-											{
-												return "Evoca una lucertola";
-											}
-											case 1178:
-											{
-												return "Spara rapidamente foglie affilatissime";
-											}
-											case 1179:
-											{
-												return "Insegue il tuo nemico";
-											}
-											case 1180:
-											{
-												return "Evoca un pappagallo domestico";
-											}
-											case 1181:
-											{
-												return "Evoca un bambino Tartufo";
-											}
-											case 1182:
-											{
-												return "Evoca un Pet Alberello";
-											}
-											case 1183:
-											{
-												return "Evoca un Wisp per fornire luce";
-											}
-											case 1188:
-											{
-												return "Possono miniera Mythril, oricalco, Adamantite e titanio";
-											}
-											case 1189:
-											{
-												return "Possono miniera Mythril, oricalco, Adamantite e titanio";
-											}
-											case 1195:
-											{
-												return "Possono miniera Adamantite e Titanio";
-											}
-											case 1196:
-											{
-												return "Possono miniera Adamantite e Titanio";
-											}
-											case 1205:
-											{
-												return "8% incrementato il danno melee";
-											}
-											case 1206:
-											{
-												return "9% incrementato il danno a distanza";
-											}
-											case 1207:
-											{
-												return "7% maggiore danno magico e possibilità di critico";
-											}
-											case 1208:
-											{
-												return "3% incrementato il danno";
-											}
-											case 1209:
-											{
-												return "2% incrementato il danno";
-											}
-											case 1210:
-											{
-												return "7% incrementato il danno melee";
-											}
-											case 1211:
-											{
-												return "15% maggiore distanza possibilità di critico";
-											}
-											case 1212:
-											{
-												return "18% aumento magico possibilità di critico";
-											}
-											case 1213:
-											{
-												return "6% maggiore possibilità di critico";
-											}
-											case 1214:
-											{
-												return "11% maggiore velocità di movimento";
-											}
-											case 1215:
-											{
-												return "8% incrementato il danno melee e possibilità di critico";
-											}
-											case 1216:
-											{
-												return "16% incrementato il danno a distanza";
-											}
-											case 1217:
-											{
-												return "16% maggiore danno magico e il 7% è aumentato magico possibilità di critico";
-											}
-											case 1218:
-											{
-												return "4% in più di danni";
-											}
-											case 1219:
-											{
-												return "3% ha aumentato i danni e possibilità di critico";
-											}
-											case 1220:
-											{
-												return "Usato per creare oggetti da mithril, oricalco, Adamantite, e barre di titanio";
-											}
-											case 1221:
-											{
-												return "Usato per Adamantite odore e il minerale di titanio";
-											}
-											case 1226:
-											{
-												return "Spara un potente globo";
-											}
-											case 1227:
-											{
-												return "Spara una nuvola di spore";
-											}
-											case 1228:
-											{
-												return "Spara una nuvola di spore";
-											}
-											case 1235:
-											{
-												return "Rimbalza indietro dopo aver colpito un muro";
-											}
-											case 1242:
-											{
-												return "Evoca un dinosauro del bambino";
-											}
-											case 1244:
-											{
-												return "Evoca una nube a piovere sui vostri nemici";
-											}
-											case 1247:
-											{
-												return "Provoca stelle a cadere e rilascia le api quando feriti";
-											}
-											case 1248:
-											{
-												return "Il 10% ha aumentato la possibilità di critico feriti";
-											}
-											case 1249:
-											{
-												return "Aumenta salto altezza";
-											}
-											case 1250:
-											{
-												return "Consente al titolare di doppio salto";
-											}
-											case 1251:
-											{
-												return "Consente al titolare di doppio salto";
-											}
-											case 1252:
-											{
-												return "Consente al titolare di doppio salto";
-											}
-											case 1253:
-											{
-												return "Mette un guscio attorno al proprietario quando la vita sotto il 50%, che riduce i danni";
-											}
-											case 1254:
-											{
-												return "Spara un potente, ad alta velocità di proiettile";
-											}
-											case 1255:
-											{
-												return "Spara un potente, ad alta velocità di proiettile";
-											}
-											case 1256:
-											{
-												return "Evoca una nube a piovere sangue sui tuoi nemici";
-											}
-											case 1258:
-											{
-												return "Spara un bullone esplosivo";
-											}
-											case 1259:
-											{
-												return "Shoots nitidissime petali di fiori presso i nemici nelle vicinanze";
-											}
-											case 1260:
-											{
-												return "Spara un arcobaleno che fa danni continua";
-											}
-											case 1261:
-											{
-												return "Esplode in frammenti di proiettile mortale";
-											}
-											case 1264:
-											{
-												return "Spara una palla di gelo";
-											}
-											case 1265:
-											{
-												return "Spara un potente, ad alta velocità di proiettile";
-											}
-											case 1282:
-											{
+											case 1546:
+												return "15% in più di danno freccia";
+											case 1547:
+												return "15% in più di danno proiettile";
+											case 1548:
+												return "15% in più di danno razzo";
+											case 1549:
+												return "Il 13% ha aumentato spaziato possibilità di critico";
+											case 1550:
+												return "Il 13% ha aumentato spaziato possibilità di critico";
+											case 1551:
+												return "Converte Bar Chlorophyte in bar Shroomite";
+											case 1553:
+												return "50% di possibilità di non consumare munizioni";
+											case 1554:
+												return "Non si dovrebbe avere questo";
+											case 1555:
+												return "Non si dovrebbe avere questo";
+											case 1556:
+												return "Non si dovrebbe avere questo";
+											case 1557:
+												return "Non si dovrebbe avere questo";
+											case 1558:
+												return "Non si dovrebbe avere questo";
+											case 1559:
+												return "Non si dovrebbe avere questo";
+											case 1560:
+												return "Non si dovrebbe avere questo";
+											case 1561:
+												return "Non si dovrebbe avere questo";
+											case 1562:
+												return "Non si dovrebbe avere questo";
+											case 1563:
+												return "Non si dovrebbe avere questo";
+											case 1564:
+												return "Non si dovrebbe avere questo";
+											case 1565:
+												return "Non si dovrebbe avere questo";
+											case 1566:
+												return "Non si dovrebbe avere questo";
+											case 1567:
+												return "Non si dovrebbe avere questo";
+											case 1568:
+												return "Non si dovrebbe avere questo";
+											case 1569:
+												return "Rapidamente gettare vita pugnali rubare";
+											case 1571:
+												return "Un giavellotto potente che scatena piccoli mangiatori";
+											case 1572:
+												return "Evoca un potente gelo idra a sputare ghiaccio ai nemici";
+											case 1578:
+												return "Stampa le api e la velocità aumenta il movimento, se danneggiato";
+											case 1579:
+												return "Chi lo indossa può correre super veloce";
+											case 1580:
+												return "Non si dovrebbe avere questo";
+											case 1581:
+												return "Non si dovrebbe avere questo";
+											case 1582:
+												return "Non si dovrebbe avere questo";
+											case 1583:
+												return "Non si dovrebbe avere questo";
+											case 1584:
+												return "Non si dovrebbe avere questo";
+											case 1585:
+												return "Non si dovrebbe avere questo";
+											case 1586:
+												return "Non si dovrebbe avere questo";
+											case 1587:
+												return "Non si dovrebbe avere questo";
+											case 1588:
+												return "Non si dovrebbe avere questo";
+											case 1595:
 												return "Aumenta mana massimo del 20";
-											}
-											case 1283:
-											{
-												return "Aumenta mana massimo del 40";
-											}
-											case 1284:
-											{
-												return "Aumenta mana massimo del 40";
-											}
-											case 1285:
-											{
-												return "Aumenta mana massimo del 60";
-											}
-											case 1286:
-											{
-												return "Aumenta mana massimo del 60";
-											}
-											case 1287:
-											{
-												return "Aumenta mana massimo del 80";
-											}
-											case 1290:
-											{
-												return "Aumenta la velocità di movimento dopo essere stato colpito";
-											}
-											case 1291:
-											{
-												return "Permanente aumenta la durata massima di 5";
-											}
-											case 1293:
-											{
-												return "Usato all'Altare Lihzahrd";
-											}
-											case 1294:
-											{
-												return "Capace di estrazione Lihzahrd mattoni";
-											}
-											case 1295:
-											{
-												return "Spara un raggio penetrante di calore";
-											}
-											case 1296:
-											{
-												return "Evoca un potente masso";
-											}
-											case 1297:
-											{
-												return "Pugni con la forza di un golem";
-											}
-											case 1299:
-											{
-												return "Aumenta Visualizza linea quando si svolgono";
-											}
-											case 1300:
-											{
-												return "Aumenta la visualizzazione della gamma di pistole";
-											}
-											case 1301:
-											{
-												return "10% in più di danno";
-											}
-											case 1303:
-											{
-												return "Fornisce luce sotto l'acqua";
-											}
-											case 1306:
-											{
-												return "Spara una falce di ghiaccio";
-											}
-											case 1307:
-											{
-												return "'Lei è una persona terribile'";
-											}
-											case 1308:
-											{
-												return "Spara un veleno zanna che trafigge più nemici";
-											}
-											case 1309:
-											{
-												return "Evoca un bambino melma per combattere per voi";
-											}
-											case 1310:
-											{
-												return "Infligge veleno sui nemici";
-											}
-											case 1311:
-											{
-												return "Evoca una primavera bulbo oculare";
-											}
-											case 1312:
-											{
-												return "Evoca un bambino pupazzo di neve";
-											}
-											case 1313:
-											{
-												return "Spara un teschio";
-											}
-											case 1314:
-											{
-												return "Spara un guantone da boxe";
-											}
-											case 1315:
-											{
-												return "Evoca un invasione dei pirati";
-											}
-											case 1316:
-											{
-												return "6% aumento danni da mischia";
-											}
-											case 1317:
-											{
-												return "8% ha aumentato i danni melee e possibilità di critico";
-											}
-											case 1318:
-											{
-												return "4% in più di possibilità di critico melee";
-											}
-											case 1321:
-											{
-												return "Aumentare la velocità della freccia e il danno del 10%";
-											}
-											case 1322:
-											{
-												return "Infligge danni da fuoco in attacco";
-											}
-											case 1323:
-											{
-												return "Riduce i danni da toccare lavica";
-											}
-											case 1326:
-											{
-												return "Teleports alla posizione del mouse";
-											}
-											case 1327:
-											{
-												return "Spara una falce mortale";
-											}
-											case 1331:
-											{
-												return "Evoca il cervello di Cthulhu";
-											}
-											case 1332:
-											{
-												return "'Il sangue degli dei'";
-											}
-											case 1333:
-											{
-												return "Può essere posizionato in acqua";
-											}
-											case 1334:
-											{
-												return "Diminuisce la Difesa del bersaglio";
-											}
-											case 1335:
-											{
-												return "Diminuisce la Difesa del bersaglio";
-											}
-											case 1336:
-											{
-												return "Spray una pioggia di ichor";
-											}
-											case 1343:
-											{
-												return "Aumenta mischia contraccolpo e infligge danni da fuoco in attacco";
-											}
+											default:
+												goto IL_AC2F;
 										}
 										break;
-									}
 								}
 								break;
-							}
 						}
+						IL_7011:
+						return "Per catturare la gemma. Che rilascia quando si muore";
 					}
-					else
+					if (l <= 832)
 					{
-						switch (num2)
+						switch (l)
 						{
 							case 779:
-							{
 								return "Crea e distrugge biomi quando spruzzato";
-							}
 							case 780:
-							{
 								return "Usato dal Clentaminator";
-							}
 							case 781:
-							{
 								return "Usato dal Clentaminator";
-							}
 							case 782:
-							{
 								return "Usato dal Clentaminator";
-							}
 							case 783:
-							{
 								return "Usato dal Clentaminator";
-							}
 							case 784:
-							{
 								return "Usato dal Clentaminator";
-							}
 							case 785:
-							{
 								return "Permette di volo e la caduta lenta";
-							}
 							case 786:
-							{
 								return "Permette di volo e la caduta lenta";
-							}
 							case 787:
-							{
 								return "Abbastanza forte da distruggere Altari Demone";
-							}
 							case 788:
-							{
 								return "Evoca una lancia spina";
-							}
 							case 789:
 							case 790:
 							case 791:
 							case 795:
 							case 796:
 							case 797:
-							{
 								break;
-							}
 							case 792:
-							{
 								return "2% incrementato il danno";
-							}
 							case 793:
-							{
 								return "2% incrementato il danno";
-							}
 							case 794:
-							{
 								return "2% incrementato il danno";
-							}
 							case 798:
-							{
 								return "In grado di estrarre Hellstone";
-							}
 							default:
-							{
-								switch (num2)
+								switch (l)
 								{
 									case 821:
-									{
 										return "Permette di volo e la caduta lenta";
-									}
 									case 822:
-									{
 										return "Permette di volo e la caduta lenta";
-									}
 									case 823:
-									{
 										return "Permette di volo e la caduta lenta";
-									}
 									default:
-									{
-										if (num2 == 832)
+										if (l == 832)
 										{
 											return "Luoghi legno vivo";
 										}
 										break;
-									}
 								}
 								break;
-							}
 						}
 					}
-				}
-				else if (num2 <= 1595)
-				{
-					switch (num2)
+					else
 					{
-						case 1430:
+						switch (l)
 						{
-							return "Destinati alla costruzione di armi fiaschi imbuement";
-						}
-						case 1431:
-						{
-							break;
-						}
-						case 1432:
-						{
-							return "Destinati alla costruzione di vari tipi di munizioni";
-						}
-						default:
-						{
-							switch (num2)
-							{
-								case 1444:
+							case 849:
+								return "Consente blocchi solidi di essere attivata e disattivata";
+							case 850:
+								return "Luoghi filo blu";
+							case 851:
+								return "Luoghi filo verde";
+							case 852:
+								return "Attiva quando un giocatore passi su di esso";
+							case 853:
+								return "Attiva quando tutt'altro che un giocatore passi su di essa";
+							case 854:
+								return "Negozi hanno prezzi più bassi";
+							case 855:
+								return "Colpire i nemici a volte cadere monete extra";
+							case 856:
+								return "'Avere un tempo meraviglioso!'";
+							case 857:
+								return "Consente al titolare di fare una migliore doppio salto";
+							case 858:
+							case 859:
+							case 864:
+							case 865:
+							case 866:
+							case 867:
+							case 868:
+							case 869:
+							case 870:
+							case 871:
+							case 872:
+							case 873:
+							case 874:
+							case 875:
+							case 876:
+							case 877:
+							case 878:
+							case 879:
+							case 880:
+							case 881:
+							case 882:
+							case 883:
+							case 884:
+							case 894:
+							case 895:
+							case 896:
+							case 909:
+							case 910:
+							case 911:
+							case 912:
+							case 913:
+							case 914:
+							case 915:
+							case 916:
+							case 917:
+							case 918:
+							case 919:
+							case 920:
+							case 921:
+							case 922:
+							case 923:
+							case 924:
+							case 925:
+							case 926:
+							case 927:
+							case 928:
+							case 929:
+							case 930:
+							case 931:
+							case 939:
+							case 940:
+							case 941:
+							case 942:
+							case 943:
+							case 944:
+							case 945:
+							case 949:
+							case 952:
+							case 954:
+							case 955:
+							case 970:
+							case 971:
+							case 972:
+							case 973:
+							case 974:
+							case 978:
+							case 979:
+							case 980:
+							case 981:
+							case 988:
+							case 991:
+							case 992:
+							case 993:
+							case 999:
+								break;
+							case 860:
+								return "Fornisce la rigenerazione della vita e riduce il cooldown delle pozioni di guarigione";
+							case 861:
+								return "Attiva il supporto in un lupo mannaro di notte e un Tritone quando si entra in acqua";
+							case 862:
+								return "Provoca stelle a cadere e aumenta la durata di invincibilità dopo l'assunzione di danni";
+							case 863:
+								return "Offre la possibilità di camminare sull'acqua";
+							case 885:
+								return "immunità alle emorragie";
+							case 886:
+								return "immunità alle armature rotto";
+							case 887:
+								return "immunità al veleno";
+							case 888:
+								return "Immunità alle tenebre";
+							case 889:
+								return "immunità per rallentare";
+							case 890:
+								return "immunità al silenzio";
+							case 891:
+								return "immunità a maledire";
+							case 892:
+								return "immunità alla debolezza";
+							case 893:
+								return "immunità alla confusione";
+							case 897:
+								return "Aumenta mischia contraccolpo";
+							case 898:
+								return "consente di volo";
+							case 899:
+								return "Aumenta tutte le statistiche se consumato durante il giorno";
+							case 900:
+								return "Aumenta tutte le statistiche se consumato durante la notte";
+							case 901:
+								return "immunità alla debolezza e armatura rotto";
+							case 902:
+								return "immunità al veleno e sanguinamento";
+							case 903:
+								return "immunità a rallentare e la confusione";
+							case 904:
+								return "immunità al silenzio e maledire";
+							case 905:
+								return "Utilizza le monete per munizioni";
+							case 906:
+								return "Fornisce 7 secondi di immunità ai lavica";
+							case 907:
+								return "Offre la possibilità di camminare sull'acqua";
+							case 908:
+								return "Offre la possibilità di camminare sulle acque e la lava";
+							case 932:
+								return "luoghi osso";
+							case 933:
+								return "luoghi lascia";
+							case 934:
+								return "Consente al proprietario di galleggiare per qualche secondo";
+							case 935:
+								return "12% incrementato il danno";
+							case 936:
+								return "Aumenta mischia contraccolpo";
+							case 937:
+								return "Esplode quando calpestato";
+							case 938:
+								return "Assorbe il 25% del danno fatto ai giocatori per la tua squadra";
+							case 946:
+								return "Si cadrà più lento mentre si tiene presente";
+							case 947:
+								return "Reagisce alla luce";
+							case 948:
+								return "Permette di volo e la caduta lenta";
+							case 950:
+								return "Fornisce la mobilità in più sul ghiaccio";
+							case 951:
+								return "Lancia rapidamente palle di neve";
+							case 953:
+								return "Consente la possibilità di far scorrere verso il basso le pareti";
+							case 956:
+								return "7% maggiore velocità di mischia";
+							case 957:
+								return "7% maggiore velocità di mischia";
+							case 958:
+								return "7% maggiore velocità di mischia";
+							case 959:
+								return "4% incrementato il danno a distanza";
+							case 960:
+								return "Aumenta mana massimo del 40";
+							case 961:
+								return "Aumenta mana massimo del 20";
+							case 962:
+								return "Aumenta mana massimo del 20";
+							case 963:
+								return "Dà la possibilità di schivare l'attacco";
+							case 964:
+								return "Spara una diffusione di proiettili";
+							case 965:
+								return "Può essere salito sul";
+							case 966:
+								return "Life regeneration is increased when near a campfire";
+							case 967:
+								return "La vita di rigenerazione è aumentata quando vicino a un falò";
+							case 968:
+								return "Arrostire su un fuoco!";
+							case 969:
+								return "Piccoli miglioramenti a tutti stats";
+							case 975:
+								return "Consente la possibilità di far scorrere verso il basso le pareti";
+							case 976:
+								return "Consente la possibilità di scalare le pareti";
+							case 977:
+								return "Consente la possibilità di precipitare";
+							case 982:
+								return "Aumenta mana massimo del 20";
+							case 983:
+								return "Consente al titolare di doppio salto";
+							case 984:
+								return "Consente la possibilità di scalare muri e cruscotto";
+							case 985:
+								return "Buttare per creare una linea scalabile di corda";
+							case 986:
+								return "Permette la raccolta di semi per munizioni";
+							case 987:
+								return "Consente al titolare di doppio salto";
+							case 989:
+								return "Spara un fascio di spada incantata";
+							case 990:
+								return "'Da non confondere con un hamdrill'";
+							case 994:
+								return "Evoca un Mangiamorte Baby of Souls";
+							case 995:
+								return "Usato per mestiere oggetti";
+							case 996:
+								return "Usato per mestiere oggetti";
+							case 997:
+								return "Attiva limo e fango in qualcosa di più utile";
+							case 998:
+								return "Usato per mestiere oggetti";
+							case 1000:
+								return "Spara coriandoli ovunque!";
+							case 1001:
+								return "16% incrementato il danno melee";
+							case 1002:
+								return "16% incrementato il danno a distanza";
+							case 1003:
+								return "Aumenta mana massimo da 80 e riduce l'uso di mana del 17%";
+							case 1004:
+								return "5% incrementato il danno";
+							case 1005:
+								return "8% maggiore possibilità di critico";
+							case 1006:
+								return "Reagisce alla luce";
+							default:
+								switch (l)
 								{
-									return "Crea un fascio di ombra che rimbalza muri";
+									case 1071:
+										return "Usato con vernice a blocchi di colore";
+									case 1072:
+										return "Usato con la vernice per pareti di colore";
+									default:
+										switch (l)
+										{
+											case 1100:
+												return "Usato per rimuovere la vernice";
+											case 1107:
+												return "Usato per fare colorante verde acqua";
+											case 1108:
+												return "Usato per fare colorante verde";
+											case 1109:
+												return "Usato per fare cielo blu colorante";
+											case 1110:
+												return "Usato per fare colorante giallo";
+											case 1111:
+												return "Usato per fare colorante blu";
+											case 1112:
+												return "Usato per fare tintura calce";
+											case 1113:
+												return "Usato per fare colorante rosa";
+											case 1114:
+												return "Usato per fare arancio colorante";
+											case 1115:
+												return "Usato per fare colorante rosso";
+											case 1116:
+												return "Usato per fare colorante ciano";
+											case 1117:
+												return "Usato per fare viola colorante";
+											case 1118:
+												return "Usato per fare porpora";
+											case 1119:
+												return "Usato per fare tintura nera";
+											case 1120:
+												return "Usato per mestiere coloranti";
+											case 1121:
+												return "Shoots api che inseguirà il nemico";
+											case 1122:
+												return "Insegue il tuo nemico";
+											case 1123:
+												return "Convoca le api assassine dopo aver colpito il nemico";
+											case 1129:
+												return "luoghi orticaria";
+											case 1130:
+												return "Esplode in uno sciame di api";
+											case 1131:
+												return "Consente al titolare di invertire la gravità";
+											case 1132:
+												return "Rilascia le api se danneggiato";
+											case 1133:
+												return "Evoca la Queen Bee";
+											case 1141:
+												return "Apre la porta del tempio giungla";
+											case 1145:
+												return "Usato per la lavorazione di base";
+											case 1151:
+												return "Attiva quando un giocatore passi su di essa su";
+											case 1156:
+												return "Chiusure a nemici per danni continua";
+											case 1157:
+												return "Evoca un pigmeo a combattere per voi";
+											case 1158:
+												return "Aumenta il numero massimo di servitori";
+											case 1159:
+												return "Aumenta il numero massimo di servitori";
+											case 1160:
+												return "Aumenta il numero massimo di servitori";
+											case 1161:
+												return "Aumenta il numero massimo di servitori";
+											case 1162:
+												return "Permette di volo e la caduta lenta";
+											case 1163:
+												return "Consente al titolare di doppio salto";
+											case 1164:
+												return "Consente al titolare di salto quadruplo";
+											case 1165:
+												return "Permette di volo e la caduta lenta";
+											case 1167:
+												return "Aumenta il danno dei tuoi servitori dal 15";
+											case 1169:
+												return "Evoca un bambino Skeletron Testa";
+											case 1170:
+												return "Evoca un bambino Hornet";
+											case 1171:
+												return "Evoca un Spirito Tiki";
+											case 1172:
+												return "Evoca una lucertola";
+											case 1178:
+												return "Spara rapidamente foglie affilatissime";
+											case 1179:
+												return "Insegue il tuo nemico";
+											case 1180:
+												return "Evoca un pappagallo domestico";
+											case 1181:
+												return "Evoca un bambino Tartufo";
+											case 1182:
+												return "Evoca un Pet Alberello";
+											case 1183:
+												return "Evoca un Wisp per fornire luce";
+											case 1188:
+												return "Possono miniera Mythril, oricalco, Adamantite e titanio";
+											case 1189:
+												return "Possono miniera Mythril, oricalco, Adamantite e titanio";
+											case 1195:
+												return "Possono miniera Adamantite e Titanio";
+											case 1196:
+												return "Possono miniera Adamantite e Titanio";
+											case 1205:
+												return "8% incrementato il danno melee";
+											case 1206:
+												return "9% incrementato il danno a distanza";
+											case 1207:
+												return "7% maggiore danno magico e possibilità di critico";
+											case 1208:
+												return "3% incrementato il danno";
+											case 1209:
+												return "2% incrementato il danno";
+											case 1210:
+												return "7% incrementato il danno melee";
+											case 1211:
+												return "15% maggiore distanza possibilità di critico";
+											case 1212:
+												return "18% aumento magico possibilità di critico";
+											case 1213:
+												return "6% maggiore possibilità di critico";
+											case 1214:
+												return "11% maggiore velocità di movimento";
+											case 1215:
+												return "8% incrementato il danno melee e possibilità di critico";
+											case 1216:
+												return "16% incrementato il danno a distanza";
+											case 1217:
+												return "16% maggiore danno magico e il 7% è aumentato magico possibilità di critico";
+											case 1218:
+												return "4% in più di danni";
+											case 1219:
+												return "3% ha aumentato i danni e possibilità di critico";
+											case 1220:
+												return "Usato per creare oggetti da mithril, oricalco, Adamantite, e barre di titanio";
+											case 1221:
+												return "Usato per Adamantite odore e il minerale di titanio";
+											case 1226:
+												return "Spara un potente globo";
+											case 1227:
+												return "Spara una nuvola di spore";
+											case 1228:
+												return "Spara una nuvola di spore";
+											case 1235:
+												return "Rimbalza indietro dopo aver colpito un muro";
+											case 1242:
+												return "Evoca un dinosauro del bambino";
+											case 1244:
+												return "Evoca una nube a piovere sui vostri nemici";
+											case 1247:
+												return "Provoca stelle a cadere e rilascia le api quando feriti";
+											case 1248:
+												return "Il 10% ha aumentato la possibilità di critico feriti";
+											case 1249:
+												return "Aumenta salto altezza";
+											case 1250:
+												return "Consente al titolare di doppio salto";
+											case 1251:
+												return "Consente al titolare di doppio salto";
+											case 1252:
+												return "Consente al titolare di doppio salto";
+											case 1253:
+												return "Mette un guscio attorno al proprietario quando la vita sotto il 50%, che riduce i danni";
+											case 1254:
+												return "Spara un potente, ad alta velocità di proiettile";
+											case 1255:
+												return "Spara un potente, ad alta velocità di proiettile";
+											case 1256:
+												return "Evoca una nube a piovere sangue sui tuoi nemici";
+											case 1258:
+												return "Spara un bullone esplosivo";
+											case 1259:
+												return "Shoots nitidissime petali di fiori presso i nemici nelle vicinanze";
+											case 1260:
+												return "Spara un arcobaleno che fa danni continua";
+											case 1261:
+												return "Esplode in frammenti di proiettile mortale";
+											case 1264:
+												return "Spara una palla di gelo";
+											case 1265:
+												return "Spara un potente, ad alta velocità di proiettile";
+											case 1282:
+												return "Aumenta mana massimo del 20";
+											case 1283:
+												return "Aumenta mana massimo del 40";
+											case 1284:
+												return "Aumenta mana massimo del 40";
+											case 1285:
+												return "Aumenta mana massimo del 60";
+											case 1286:
+												return "Aumenta mana massimo del 60";
+											case 1287:
+												return "Aumenta mana massimo del 80";
+											case 1290:
+												return "Aumenta la velocità di movimento dopo essere stato colpito";
+											case 1291:
+												return "Permanente aumenta la durata massima di 5";
+											case 1293:
+												return "Usato all'Altare Lihzahrd";
+											case 1294:
+												return "Capace di estrazione Lihzahrd mattoni";
+											case 1295:
+												return "Spara un raggio penetrante di calore";
+											case 1296:
+												return "Evoca un potente masso";
+											case 1297:
+												return "Pugni con la forza di un golem";
+											case 1299:
+												return "Aumenta Visualizza linea quando si svolgono";
+											case 1300:
+												return "Aumenta la visualizzazione della gamma di pistole";
+											case 1301:
+												return "10% in più di danno";
+											case 1303:
+												return "Fornisce luce sotto l'acqua";
+											case 1306:
+												return "Spara una falce di ghiaccio";
+											case 1307:
+												return "'Lei è una persona terribile'";
+											case 1308:
+												return "Spara un veleno zanna che trafigge più nemici";
+											case 1309:
+												return "Evoca un bambino melma per combattere per voi";
+											case 1310:
+												return "Infligge veleno sui nemici";
+											case 1311:
+												return "Evoca una primavera bulbo oculare";
+											case 1312:
+												return "Evoca un bambino pupazzo di neve";
+											case 1313:
+												return "Spara un teschio";
+											case 1314:
+												return "Spara un guantone da boxe";
+											case 1315:
+												return "Evoca un invasione dei pirati";
+											case 1316:
+												return "6% aumento danni da mischia";
+											case 1317:
+												return "8% ha aumentato i danni melee e possibilità di critico";
+											case 1318:
+												return "4% in più di possibilità di critico melee";
+											case 1321:
+												return "Aumentare la velocità della freccia e il danno del 10%";
+											case 1322:
+												return "Infligge danni da fuoco in attacco";
+											case 1323:
+												return "Riduce i danni da toccare lavica";
+											case 1326:
+												return "Teleports alla posizione del mouse";
+											case 1327:
+												return "Spara una falce mortale";
+											case 1331:
+												return "Evoca il cervello di Cthulhu";
+											case 1332:
+												return "'Il sangue degli dei'";
+											case 1333:
+												return "Può essere posizionato in acqua";
+											case 1334:
+												return "Diminuisce la Difesa del bersaglio";
+											case 1335:
+												return "Diminuisce la Difesa del bersaglio";
+											case 1336:
+												return "Spray una pioggia di ichor";
+											case 1343:
+												return "Aumenta mischia contraccolpo e infligge danni da fuoco in attacco";
+										}
+										break;
 								}
-								case 1445:
-								{
-									return "Lancia una palla di fuoco che esplode in un calore infernale";
-								}
-								case 1446:
-								{
-									return "Evoca un anima persa per inseguire i nemici";
-								}
-								case 1447:
-								case 1448:
-								{
-									break;
-								}
-								case 1449:
-								{
-									return "soffia bolle";
-								}
-								case 1450:
-								{
-									return "soffia bolle";
-								}
-								default:
-								{
-									switch (num2)
-									{
-										case 1503:
-										{
-											return "Aumenta mana massimo da 80 e riduce l'uso di mana del 17%";
-										}
-										case 1504:
-										{
-											return "7% maggiore danno magico e la possibilità di critico";
-										}
-										case 1505:
-										{
-											return "8% in più di danno magico";
-										}
-										case 1513:
-										{
-											return "Un potente martello di ritorno";
-										}
-										case 1515:
-										{
-											return "Permette di volo e la caduta lenta";
-										}
-										case 1522:
-										{
-											return "Per catturare la gemma. Che rilascia quando si muore";
-										}
-										case 1523:
-										{
-											return "Per catturare la gemma. Che rilascia quando si muore";
-										}
-										case 1524:
-										{
-											return "Per catturare la gemma. Che rilascia quando si muore";
-										}
-										case 1525:
-										{
-											return "Per catturare la gemma. Che rilascia quando si muore";
-										}
-										case 1526:
-										{
-											return "Per catturare la gemma. Che rilascia quando si muore";
-										}
-										case 1527:
-										{
-											return "Per catturare la gemma. Che rilascia quando si muore";
-										}
-										case 1533:
-										{
-											return "Sblocca una giungla Busto nel dungeon";
-										}
-										case 1534:
-										{
-											return "Sblocca un Petto corruzione nel dungeon";
-										}
-										case 1535:
-										{
-											return "Sblocca un Petto Crimson nel dungeon";
-										}
-										case 1536:
-										{
-											return "Sblocca un Petto santificato nel dungeon";
-										}
-										case 1537:
-										{
-											return "Sblocca un Petto congelato nel dungeon";
-										}
-										case 1543:
-										{
-											return "Usato con vernice a blocchi di colore";
-										}
-										case 1544:
-										{
-											return "Usato con la vernice per pareti di colore";
-										}
-										case 1545:
-										{
-											return "Usato per rimuovere la vernice";
-										}
-										case 1546:
-										{
-											return "15% in più di danno freccia";
-										}
-										case 1547:
-										{
-											return "15% in più di danno proiettile";
-										}
-										case 1548:
-										{
-											return "15% in più di danno razzo";
-										}
-										case 1549:
-										{
-											return "Il 13% ha aumentato spaziato possibilità di critico";
-										}
-										case 1550:
-										{
-											return "Il 13% ha aumentato spaziato possibilità di critico";
-										}
-										case 1551:
-										{
-											return "Converte Bar Chlorophyte in bar Shroomite";
-										}
-										case 1553:
-										{
-											return "50% di possibilità di non consumare munizioni";
-										}
-										case 1554:
-										{
-											return "Non si dovrebbe avere questo";
-										}
-										case 1555:
-										{
-											return "Non si dovrebbe avere questo";
-										}
-										case 1556:
-										{
-											return "Non si dovrebbe avere questo";
-										}
-										case 1557:
-										{
-											return "Non si dovrebbe avere questo";
-										}
-										case 1558:
-										{
-											return "Non si dovrebbe avere questo";
-										}
-										case 1559:
-										{
-											return "Non si dovrebbe avere questo";
-										}
-										case 1560:
-										{
-											return "Non si dovrebbe avere questo";
-										}
-										case 1561:
-										{
-											return "Non si dovrebbe avere questo";
-										}
-										case 1562:
-										{
-											return "Non si dovrebbe avere questo";
-										}
-										case 1563:
-										{
-											return "Non si dovrebbe avere questo";
-										}
-										case 1564:
-										{
-											return "Non si dovrebbe avere questo";
-										}
-										case 1565:
-										{
-											return "Non si dovrebbe avere questo";
-										}
-										case 1566:
-										{
-											return "Non si dovrebbe avere questo";
-										}
-										case 1567:
-										{
-											return "Non si dovrebbe avere questo";
-										}
-										case 1568:
-										{
-											return "Non si dovrebbe avere questo";
-										}
-										case 1569:
-										{
-											return "Rapidamente gettare vita pugnali rubare";
-										}
-										case 1571:
-										{
-											return "Un giavellotto potente che scatena piccoli mangiatori";
-										}
-										case 1572:
-										{
-											return "Evoca un potente gelo idra a sputare ghiaccio ai nemici";
-										}
-										case 1578:
-										{
-											return "Stampa le api e la velocità aumenta il movimento, se danneggiato";
-										}
-										case 1579:
-										{
-											return "Chi lo indossa può correre super veloce";
-										}
-										case 1580:
-										{
-											return "Non si dovrebbe avere questo";
-										}
-										case 1581:
-										{
-											return "Non si dovrebbe avere questo";
-										}
-										case 1582:
-										{
-											return "Non si dovrebbe avere questo";
-										}
-										case 1583:
-										{
-											return "Non si dovrebbe avere questo";
-										}
-										case 1584:
-										{
-											return "Non si dovrebbe avere questo";
-										}
-										case 1585:
-										{
-											return "Non si dovrebbe avere questo";
-										}
-										case 1586:
-										{
-											return "Non si dovrebbe avere questo";
-										}
-										case 1587:
-										{
-											return "Non si dovrebbe avere questo";
-										}
-										case 1588:
-										{
-											return "Non si dovrebbe avere questo";
-										}
-										case 1595:
-										{
-											return "Aumenta mana massimo del 20";
-										}
-									}
-									break;
-								}
-							}
-							break;
+								break;
 						}
 					}
-				}
-				else if (num2 == 3485 || num2 == 3491 || num2 == 3521)
-				{
-					return "Può estrarre meteorite";
 				}
 			}
 			else if (Lang.lang == 4)
 			{
-				int num3 = l;
-				if (num3 <= 407)
+				if (l <= 407)
 				{
-					if (num3 <= 175)
+					if (l <= 175)
 					{
-						if (num3 <= 70)
+						if (l <= 70)
 						{
-							if (num3 > 29)
+							if (l <= 29)
 							{
-								switch (num3)
-								{
-									case 33:
-									{
-										return "Utilisé pour fondre le minerai";
-									}
-									case 34:
-									{
-										break;
-									}
-									case 35:
-									{
-										return "Permet de forger des objets à partir de métal";
-									}
-									case 36:
-									{
-										return "Utilisé pour l'artisanat de base";
-									}
-									default:
-									{
-										if (num3 == 43)
-										{
-											return "Invoque l'œil de Cthulhu";
-										}
-										switch (num3)
-										{
-											case 49:
-											{
-												return "Régénère lentement la vie";
-											}
-											case 50:
-											{
-												return "Fixer le miroir pour regagner son foyer";
-											}
-											case 53:
-											{
-												return "Permet de faire un double saut";
-											}
-											case 54:
-											{
-												return "Le porteur peur courir super vite";
-											}
-											case 56:
-											{
-												return "'Vibre d'une énergie sombre'";
-											}
-											case 57:
-											{
-												return "'Vibre d'une énergie sombre'";
-											}
-											case 64:
-											{
-												return "Invoque une vileronce";
-											}
-											case 65:
-											{
-												return "Provoque une pluie d'étoiles";
-											}
-											case 66:
-											{
-												return "Purifie la corruption";
-											}
-											case 67:
-											{
-												return "Corrompt la sainteté";
-											}
-											case 68:
-											{
-												return "'Ça a l'air bon !'";
-											}
-											case 70:
-											{
-												return "Invoque le dévoreur de mondes";
-											}
-										}
-										break;
-									}
-								}
-							}
-							else
-							{
-								if (num3 == 8)
+								if (l == 8)
 								{
 									return "Procure de la lumière";
 								}
-								switch (num3)
+								switch (l)
 								{
 									case 15:
-									{
 										return "Donne l'heure";
-									}
 									case 16:
-									{
 										return "Donne l'heure";
-									}
 									case 17:
-									{
 										return "Donne l'heure";
-									}
 									case 18:
-									{
 										return "Mesure l'altitude";
-									}
 									case 19:
 									case 20:
 									case 21:
 									case 22:
-									{
 										break;
-									}
 									case 23:
-									{
 										return "'À la fois savoureux et inflammable'";
-									}
 									default:
-									{
-										if (num3 == 29)
+										if (l == 29)
 										{
 											return "Augmente le maximum de vie de 20 de façon permanente";
 										}
 										break;
-									}
-								}
-							}
-						}
-						else if (num3 > 88)
-						{
-							switch (num3)
-							{
-								case 98:
-								{
-									return "33 % de chance de n'utiliser aucune munition";
-								}
-								case 99:
-								case 104:
-								case 105:
-								case 106:
-								case 107:
-								case 108:
-								case 110:
-								case 116:
-								case 119:
-								case 122:
-								case 126:
-								case 127:
-								{
-									break;
-								}
-								case 100:
-								{
-									return "Vitesse de mêlée augmentée de 7 %";
-								}
-								case 101:
-								{
-									return "Vitesse de mêlée augmentée de 7 %";
-								}
-								case 102:
-								{
-									return "Vitesse de mêlée augmentée de 7 %";
-								}
-								case 103:
-								{
-									return "Permet d'extraire de la pierre de l'enfer";
-								}
-								case 109:
-								{
-									return "Augmente le maximum de mana de 20 de façon permanente";
-								}
-								case 111:
-								{
-									return "Augmente le maximum de mana de 20";
-								}
-								case 112:
-								{
-									return "Lance des boules de feu";
-								}
-								case 113:
-								{
-									return "Lance un missile contrôlable";
-								}
-								case 114:
-								{
-									return "Déplace la terre par magie";
-								}
-								case 115:
-								{
-									return "Crée un orbe magique de lumière";
-								}
-								case 117:
-								{
-									return "'Chaude au toucher'";
-								}
-								case 118:
-								{
-									return "Trouvé parfois sur les squelettes et les piranhas";
-								}
-								case 120:
-								{
-									return "Transforme les flèches en bois tirées en flèches enflammées";
-								}
-								case 121:
-								{
-									return "'Elle pète le feu !'";
-								}
-								case 123:
-								{
-									return "Dégâts magiques accrus de 5 %";
-								}
-								case 124:
-								{
-									return "Dégâts magiques accrus de 5 %";
-								}
-								case 125:
-								{
-									return "Dégâts magiques accrus de 5 %";
-								}
-								case 128:
-								{
-									return "Permet de voler";
-								}
-								default:
-								{
-									switch (num3)
-									{
-										case 148:
-										{
-											return "Cet objet peut attirer une attention non désirée";
-										}
-										case 149:
-										{
-											return "'Il contient d'étranges symboles'";
-										}
-										case 150:
-										case 154:
-										case 155:
-										case 160:
-										case 161:
-										case 162:
-										case 163:
-										case 164:
-										{
-											break;
-										}
-										case 151:
-										{
-											return "Dégâts à distance augmentés de 5 %";
-										}
-										case 152:
-										{
-											return "Dégâts à distance augmentés de 5 %";
-										}
-										case 153:
-										{
-											return "Dégâts à distance augmentés de 5 %";
-										}
-										case 156:
-										{
-											return "Annule tout effet de recul";
-										}
-										case 157:
-										{
-											return "Lance de l'eau en continu";
-										}
-										case 158:
-										{
-											return "Annule les dégâts de chute";
-										}
-										case 159:
-										{
-											return "Augmente la hauteur des sauts";
-										}
-										case 165:
-										{
-											return "Invoque une boule d'eau se déplaçant lentement";
-										}
-										case 166:
-										{
-											return "Une petite explosion détruisant quelques blocs";
-										}
-										case 167:
-										{
-											return "Une grosse explosion détruisant la plupart des blocs";
-										}
-										case 168:
-										{
-											return "Une petite explosion ne détruisant pas de blocs";
-										}
-										default:
-										{
-											if (num3 == 175)
-											{
-												return "'Chaud au toucher'";
-											}
-											break;
-										}
-									}
-									break;
-								}
-							}
-						}
-						else
-						{
-							if (num3 == 75)
-							{
-								return "Disparaît au coucher du soleil";
-							}
-							if (num3 == 84)
-							{
-								return "'Pour grimper tout là-haut'";
-							}
-							if (num3 == 88)
-							{
-								return "Procure de la lumière lorsqu'il est porté";
-							}
-						}
-					}
-					else if (num3 <= 238)
-					{
-						if (num3 > 197)
-						{
-							switch (num3)
-							{
-								case 208:
-								{
-									return "'Comme c'est joli !'";
-								}
-								case 209:
-								case 210:
-								case 214:
-								case 216:
-								case 217:
-								{
-									break;
-								}
-								case 211:
-								{
-									return "La vitesse de mêlée est augmentée de 12 %";
-								}
-								case 212:
-								{
-									return "La vitesse de déplacement est augmentée de 10 %";
-								}
-								case 213:
-								{
-									return "Fait pousser de l'herbe sur la terre";
-								}
-								case 215:
-								{
-									return "'Peut être incommodant'";
-								}
-								case 218:
-								{
-									return "Invoque une boule de feu contrôlable";
-								}
-								default:
-								{
-									switch (num3)
-									{
-										case 222:
-										{
-											return "Fait pousser les plantes";
-										}
-										case 223:
-										{
-											return "Réduit le coût de mana de 6 %";
-										}
-										case 224:
-										case 225:
-										case 226:
-										case 227:
-										{
-											break;
-										}
-										case 228:
-										{
-											return "Augmente le maximum de mana de 40";
-										}
-										case 229:
-										{
-											return "Augmente le maximum de mana de 20";
-										}
-										case 230:
-										{
-											return "Augmente le maximum de mana de 20";
-										}
-										default:
-										{
-											switch (num3)
-											{
-												case 235:
-												{
-													return "'Peut s'avérer difficile à lancer'";
-												}
-												case 237:
-												{
-													return "'Pour un look de star !'";
-												}
-												case 238:
-												{
-													return "Augmente les dégâts magiques de 15 %";
-												}
-											}
-											break;
-										}
-									}
-									break;
-								}
-							}
-						}
-						else
-						{
-							switch (num3)
-							{
-								case 186:
-								{
-									return "'Ne pas se noyer, c'est quand même cool !'";
-								}
-								case 187:
-								{
-									return "Permet de nager";
-								}
-								default:
-								{
-									if (num3 == 193)
-									{
-										return "Permet de résister aux blocs de feu";
-									}
-									if (num3 == 197)
-									{
-										return "Tire des étoiles filantes";
-									}
-									break;
-								}
-							}
-						}
-					}
-					else if (num3 > 329)
-					{
-						if (num3 == 332)
-						{
-							return "Utilisé pour la fabrication de vêtements";
-						}
-						if (num3 == 352)
-						{
-							return "Utilisé pour brasser la bière.";
-						}
-						switch (num3)
-						{
-							case 357:
-							{
-								return "Amélioration mineure de toutes les stats.";
-							}
-							case 361:
-							{
-								return "Invoque une armée de gobelins";
-							}
-							case 363:
-							{
-								return "Permet un travail avancé du bois";
-							}
-							case 367:
-							{
-								return "Suffisamment puissant pour détruire les autels démoniaques";
-							}
-							case 371:
-							{
-								return "Augmente le maximum de mana de 40";
-							}
-							case 372:
-							{
-								return "La vitesse de déplacement est augmentée de 7 %";
-							}
-							case 373:
-							{
-								return "Les dégâts à distance sont augmentés de 10 %";
-							}
-							case 376:
-							{
-								return "Augmente le maximum de mana de 60";
-							}
-							case 377:
-							{
-								return "Les chances de coup critique de mêler sont augmentées de 5 %";
-							}
-							case 378:
-							{
-								return "Les dégâts à distance sont augmentés de 12 %";
-							}
-							case 385:
-							{
-								return "Permet d'extraire du mythril";
-							}
-							case 386:
-							{
-								return "Permet d'extraire de l'adamantine";
-							}
-							case 389:
-							{
-								return "Peut étourdir les ennemis";
-							}
-							case 393:
-							{
-								return "Indique la position horizontale";
-							}
-							case 394:
-							{
-								return "Permet de nager";
-							}
-							case 395:
-							{
-								return "Indique la position";
-							}
-							case 396:
-							{
-								return "Annule les dégâts de chute";
-							}
-							case 397:
-							{
-								return "Annule tout effet de recul";
-							}
-							case 398:
-							{
-								return "Permet de combiner certains accessoires";
-							}
-							case 399:
-							{
-								return "Permet de faire un double saut";
-							}
-							case 400:
-							{
-								return "Augmente le maximum de mana de 80";
-							}
-							case 401:
-							{
-								return "Les chances de coup critique de mêlée sont augmentées de 7 %";
-							}
-							case 402:
-							{
-								return "Les dégâts à distance sont augmentés de 14 %";
-							}
-							case 403:
-							{
-								return "Les dégâts sont augmentés de 6 %";
-							}
-							case 404:
-							{
-								return "Les chances de coup critique sont augmentées de 4 %";
-							}
-							case 405:
-							{
-								return "Permet de voler";
-							}
-							case 407:
-							{
-								return "Permet de construire un bloc plus loin";
-							}
-						}
-					}
-					else
-					{
-						switch (num3)
-						{
-							case 261:
-							{
-								return "'Il sourit, ça ferait un casse-croûte sympa.'";
-							}
-							case 262:
-							case 263:
-							case 264:
-							case 265:
-							case 269:
-							case 270:
-							case 271:
-							case 273:
-							case 274:
-							case 275:
-							case 276:
-							case 277:
-							case 278:
-							case 279:
-							case 280:
-							case 284:
-							case 286:
-							case 287:
-							{
-								break;
-							}
-							case 266:
-							{
-								return "'Super idée !'";
-							}
-							case 267:
-							{
-								return "'Vous êtes vraiment terrible.'";
-							}
-							case 268:
-							{
-								return "Améliore grandement la respiration sous l'eau";
-							}
-							case 272:
-							{
-								return "Lance une faux de démon";
-							}
-							case 281:
-							{
-								return "Permet de récupérer des graines comme munitions";
-							}
-							case 282:
-							{
-								return "Fonctionne même humide";
-							}
-							case 283:
-							{
-								return "Utilisable avec la sarbacane";
-							}
-							case 285:
-							{
-								return "La vitesse de déplacement est augmentée de 5 %";
-							}
-							case 288:
-							{
-								return "Procure l'immunité à la lave";
-							}
-							case 289:
-							{
-								return "Régénère la vie";
-							}
-							case 290:
-							{
-								return "Augmente la vitesse de déplacement de 25 %";
-							}
-							case 291:
-							{
-								return "Permet de respirer sous l'eau comme dans l'air";
-							}
-							case 292:
-							{
-								return "Augmente la défense de 8";
-							}
-							case 293:
-							{
-								return "Augmente la régénération de mana";
-							}
-							case 294:
-							{
-								return "Augmente les dégâts de magie de 20 %";
-							}
-							case 295:
-							{
-								return "Réduit la vitesse de chute";
-							}
-							case 296:
-							{
-								return "Indique l'emplacement des trésors et du minerai";
-							}
-							case 297:
-							{
-								return "Procure l'invisibilité";
-							}
-							case 298:
-							{
-								return "Émet une aura de lumière";
-							}
-							case 299:
-							{
-								return "Augmente la vision nocturne";
-							}
-							case 300:
-							{
-								return "Augmente la fréquence d'apparition des ennemis";
-							}
-							case 301:
-							{
-								return "Les attaquants subissent aussi des dégâts";
-							}
-							case 302:
-							{
-								return "Permet de marcher sur l'eau";
-							}
-							case 303:
-							{
-								return "La vitesse des flèches et leurs dégâts sont augmentés de 20 %";
-							}
-							case 304:
-							{
-								return "Indique l'emplacement des ennemis";
-							}
-							case 305:
-							{
-								return "Permet de contrôler la gravité";
-							}
-							default:
-							{
-								if (num3 == 324)
-								{
-									return "'Interdit quasiment partout'";
-								}
-								switch (num3)
-								{
-									case 327:
-									{
-										return "Ouvre un coffre d'or";
-									}
-									case 329:
-									{
-										return "Ouvre tous les coffres sombres";
-									}
-								}
-								break;
-							}
-						}
-					}
-				}
-				else if (num3 <= 761)
-				{
-					if (num3 <= 686)
-					{
-						if (num3 > 603)
-						{
-							switch (num3)
-							{
-								case 665:
-								{
-									return "Vous ne devriez pas avoir cette";
-								}
-								case 666:
-								{
-									return "Vous ne devriez pas avoir cette";
-								}
-								case 667:
-								{
-									return "Vous ne devriez pas avoir cette";
-								}
-								case 668:
-								{
-									return "Vous ne devriez pas avoir cette";
-								}
-								case 669:
-								{
-									return "Invoque un bébé pingouin";
-								}
-								default:
-								{
-									if (num3 == 676)
-									{
-										return "Tire sur un boulon de glace";
-									}
-									switch (num3)
-									{
-										case 683:
-										{
-											return "Invoque trident du diable";
-										}
-										case 684:
-										{
-											return "16% ont augmenté mêlée et à distance des dégâts";
-										}
-										case 685:
-										{
-											return "11% ont augmenté mêlée et à distance chances de coup critique";
-										}
-										case 686:
-										{
-											return "8% a augmenté la vitesse de déplacement";
-										}
-									}
-									break;
-								}
-							}
-						}
-						else
-						{
-							switch (num3)
-							{
-								case 422:
-								{
-									return "Purifie certains blocs";
-								}
-								case 423:
-								{
-									return "Corrompt certains blocs";
-								}
-								case 424:
-								{
-									break;
-								}
-								case 425:
-								{
-									return "Invoque une fée magique";
-								}
-								default:
-								{
-									if (num3 == 434)
-									{
-										return "Tire des rafales de trois coups";
-									}
-									switch (num3)
-									{
-										case 485:
-										{
-											return "Transforme le porteur en loup-garou à la pleine lune";
-										}
-										case 486:
-										{
-											return "Crée une grille à l'écran pour le placement des blocs";
-										}
-										case 489:
-										{
-											return "Augmente les dégâts magiques de 15 %";
-										}
-										case 490:
-										{
-											return "Augmente les dégâts de mêlée de 15 %";
-										}
-										case 491:
-										{
-											return "Dégâts à distance augmentés de 15 %";
-										}
-										case 492:
-										{
-											return "Permet de voler et de ralentir la chute";
-										}
-										case 493:
-										{
-											return "Permet de voler et de ralentir la chute";
-										}
-										case 495:
-										{
-											return "Lance un arc-en-ciel contrôlable";
-										}
-										case 496:
-										{
-											return "Invoque un bloc de glace";
-										}
-										case 497:
-										{
-											return "Transforme le porteur en sirène lorsqu'il entre dans l'eau";
-										}
-										case 506:
-										{
-											return "Utilise du gel comme carburant";
-										}
-										case 509:
-										{
-											return "Joint les câbles";
-										}
-										case 510:
-										{
-											return "Coupe les câbles";
-										}
-										case 515:
-										{
-											return "Crée plusieurs éclats de cristal à l'impact";
-										}
-										case 516:
-										{
-											return "Invoque des étoiles déchues à l'impact";
-										}
-										case 517:
-										{
-											return "Une dague qui revient magiquement à son possesseur";
-										}
-										case 518:
-										{
-											return "Invoque des éclats rapides de cristal de feu";
-										}
-										case 519:
-										{
-											return "Invoque des boules de feu maudites";
-										}
-										case 520:
-										{
-											return "'L'essence des créatures de lumière'";
-										}
-										case 521:
-										{
-											return "'L'essence des créatures sombres'";
-										}
-										case 522:
-										{
-											return "'Même l'eau ne peut l'éteindre'";
-										}
-										case 523:
-										{
-											return "Peut être placée dans l'eau";
-										}
-										case 524:
-										{
-											return "Utilisée pour fondre le minerai d'adamantine";
-										}
-										case 525:
-										{
-											return "Utilisée pour forger des objets avec du mythril et de l'adamantite";
-										}
-										case 526:
-										{
-											return "'Magique et coupante'";
-										}
-										case 527:
-										{
-											return "'Porté parfois par les créatures dans le désert corrompu'";
-										}
-										case 528:
-										{
-											return "'Porté parfois par les créatures dans le désert de lumière'";
-										}
-										case 529:
-										{
-											return "S'active en marchant dessus";
-										}
-										case 531:
-										{
-											return "Peut être enchanté";
-										}
-										case 532:
-										{
-											return "Des étoiles tombent lorsque le porteur est blessé";
-										}
-										case 533:
-										{
-											return "50 % de chance de n'utiliser aucune munition";
-										}
-										case 534:
-										{
-											return "Disperse une salve de balles";
-										}
-										case 535:
-										{
-											return "Réduit le temps d'utilisation entre les potions de soin";
-										}
-										case 536:
-										{
-											return "Accroît le recul en mêlée";
-										}
-										case 541:
-										{
-											return "S'active en marchant dessus";
-										}
-										case 542:
-										{
-											return "S'active en marchant dessus";
-										}
-										case 543:
-										{
-											return "S'active en marchant dessus";
-										}
-										case 544:
-										{
-											return "Invoque les jumeaux";
-										}
-										case 547:
-										{
-											return "'L'essence de la terreur pure'";
-										}
-										case 548:
-										{
-											return "'L'essence du destructeur'";
-										}
-										case 549:
-										{
-											return "'L'essence des observateurs omniscients'";
-										}
-										case 551:
-										{
-											return "Augmente les chances de coup critique de 7 %";
-										}
-										case 552:
-										{
-											return "Dégâts augmentés de 7 %";
-										}
-										case 553:
-										{
-											return "Dégâts à distance augmentés de 15 %";
-										}
-										case 554:
-										{
-											return "Augmente la durée d'invincibilité après avoir subi des dégâts";
-										}
-										case 555:
-										{
-											return "Utilisation de mana réduite de 8 %";
-										}
-										case 556:
-										{
-											return "Invoque l'destructeur";
-										}
-										case 557:
-										{
-											return "Invoque le squeletron primaire";
-										}
-										case 558:
-										{
-											return "Augmente le maximum de mana de 100";
-										}
-										case 559:
-										{
-											return "Les chances de coup critique et les dégâts de mêlée sont augmentés de 10 %";
-										}
-										case 560:
-										{
-											return "Invoque le roi slime";
-										}
-										case 561:
-										{
-											return "Possibilité d'en lancer jusqu'à 5";
-										}
-										case 575:
-										{
-											return "'L'essence des puissantes créatures volantes'";
-										}
-										case 576:
-										{
-											return "A une chance d'enregistrer un morceau";
-										}
-										case 579:
-										{
-											return "'À ne pas confondre avec le marteau-scie'";
-										}
-										case 580:
-										{
-											return "Explosent lorsqu'ils sont activés";
-										}
-										case 581:
-										{
-											return "Envoie de l'eau aux sorties de pompage";
-										}
-										case 582:
-										{
-											return "Reçoit de l'eau des postes de pompage";
-										}
-										case 583:
-										{
-											return "S'active chaque seconde";
-										}
-										case 584:
-										{
-											return "S'active toutes les 3 secondes";
-										}
-										case 585:
-										{
-											return "S'active toutes les 5 secondes";
-										}
-										case 599:
-										{
-											return "Faites un clic droit pour ouvrir";
-										}
-										case 600:
-										{
-											return "Faites un clic droit pour ouvrir";
-										}
-										case 601:
-										{
-											return "Faites un clic droit pour ouvrir";
-										}
-										case 602:
-										{
-											return "Invoque la Légion gel";
-										}
-										case 603:
-										{
-											return "Convocation d'un lapin de compagnie";
-										}
-									}
-									break;
-								}
-							}
-						}
-					}
-					else if (num3 > 726)
-					{
-						switch (num3)
-						{
-							case 748:
-							{
-								return "Permet de vol et de chute lente";
-							}
-							case 749:
-							{
-								return "Permet de vol et de chute lente";
-							}
-							default:
-							{
-								if (num3 == 753)
-								{
-									return "Summons a pet turtle";
-								}
-								if (num3 == 761)
-								{
-									return "Permet de vol et de chute lente";
-								}
-								break;
-							}
-						}
-					}
-					else
-					{
-						switch (num3)
-						{
-							case 707:
-							{
-								return "Indique le temps";
-							}
-							case 708:
-							{
-								return "Indique le temps";
-							}
-							case 709:
-							{
-								return "Indique le temps";
-							}
-							default:
-							{
-								if (num3 == 716)
-								{
-									return "Utilisé pour des objets d'artisanat à partir de barres de métal";
-								}
-								switch (num3)
-								{
-									case 723:
-									{
-										return "Tire un faisceau de lumière";
-									}
-									case 724:
-									{
-										return "Tire sur un boulon de glace";
-									}
-									case 725:
-									{
-										return "Lance gel flèches";
-									}
-									case 726:
-									{
-										return "De prendre un flux de gel";
-									}
-								}
-								break;
-							}
-						}
-					}
-				}
-				else if (num3 <= 1343)
-				{
-					if (num3 > 832)
-					{
-						switch (num3)
-						{
-							case 849:
-							{
-								return "Permet blocs solides pour être activée ou désactivée";
-							}
-							case 850:
-							{
-								return "Places fil bleu";
-							}
-							case 851:
-							{
-								return "Places fil vert";
-							}
-							case 852:
-							{
-								return "Active quand un joueur marche sur-le";
-							}
-							case 853:
-							{
-								return "Active quand quelque chose mais un joueur marche dessus sur";
-							}
-							case 854:
-							{
-								return "Magasins ont des prix plus bas";
-							}
-							case 855:
-							{
-								return "Ennemis frappeurs parfois tomber des pièces supplémentaires";
-							}
-							case 856:
-							{
-								return "'Avoir un temps merveilleux!'";
-							}
-							case 857:
-							{
-								return "Permet à son détenteur de faire un meilleur saut double";
-							}
-							case 858:
-							case 859:
-							case 864:
-							case 865:
-							case 866:
-							case 867:
-							case 868:
-							case 869:
-							case 870:
-							case 871:
-							case 872:
-							case 873:
-							case 874:
-							case 875:
-							case 876:
-							case 877:
-							case 878:
-							case 879:
-							case 880:
-							case 881:
-							case 882:
-							case 883:
-							case 884:
-							case 894:
-							case 895:
-							case 896:
-							case 909:
-							case 910:
-							case 911:
-							case 912:
-							case 913:
-							case 914:
-							case 915:
-							case 916:
-							case 917:
-							case 918:
-							case 919:
-							case 920:
-							case 921:
-							case 922:
-							case 923:
-							case 924:
-							case 925:
-							case 926:
-							case 927:
-							case 928:
-							case 929:
-							case 930:
-							case 931:
-							case 939:
-							case 940:
-							case 941:
-							case 942:
-							case 943:
-							case 944:
-							case 945:
-							case 949:
-							case 952:
-							case 954:
-							case 955:
-							case 970:
-							case 971:
-							case 972:
-							case 973:
-							case 974:
-							case 978:
-							case 979:
-							case 980:
-							case 981:
-							case 988:
-							case 991:
-							case 992:
-							case 993:
-							case 999:
-							{
-								break;
-							}
-							case 860:
-							{
-								return "Fournit la régénération de vie et réduit le temps de recharge de potions de guérison";
-							}
-							case 861:
-							{
-								return "Active le support en loup-garou la nuit et un merfolk lors de l'entrée d'eau";
-							}
-							case 862:
-							{
-								return "Provoque étoiles à tomber et augmente la longueur d'invincibilité après prendre des dommages";
-							}
-							case 863:
-							{
-								return "Offre la possibilité de marcher sur l'eau";
-							}
-							case 885:
-							{
-								return "immunité aux saignements";
-							}
-							case 886:
-							{
-								return "immunité à l'armure brisée";
-							}
-							case 887:
-							{
-								return "immunité au poison";
-							}
-							case 888:
-							{
-								return "immunité à l'obscurité";
-							}
-							case 889:
-							{
-								return "immunité à ralentir";
-							}
-							case 890:
-							{
-								return "immunité au silence";
-							}
-							case 891:
-							{
-								return "l'immunité de maudire";
-							}
-							case 892:
-							{
-								return "l'immunité à la faiblesse";
-							}
-							case 893:
-							{
-								return "immunité à confusion";
-							}
-							case 897:
-							{
-								return "Augmente repoussement de mêlée";
-							}
-							case 898:
-							{
-								return "permet vol";
-							}
-							case 899:
-							{
-								return "Augmente tous les stats si usé pendant le jour";
-							}
-							case 900:
-							{
-								return "Augmente tous les stats si usé pendant la nuit";
-							}
-							case 901:
-							{
-								return "Immunité de la faiblesse et de l'armure brisée";
-							}
-							case 902:
-							{
-								return "Immunité au poison et des saignements";
-							}
-							case 903:
-							{
-								return "Immunité à ralentir et confusion";
-							}
-							case 904:
-							{
-								return "Immunité au silence et ne maudissez";
-							}
-							case 905:
-							{
-								return "Utilise des pièces de munitions";
-							}
-							case 906:
-							{
-								return "Fournit de 7 secondes d'immunité aux lave";
-							}
-							case 907:
-							{
-								return "Offre la possibilité de marcher sur l'eau";
-							}
-							case 908:
-							{
-								return "Offre la possibilité de marcher sur l'eau et la lave";
-							}
-							case 932:
-							{
-								return "places os";
-							}
-							case 933:
-							{
-								return "places laisse";
-							}
-							case 934:
-							{
-								return "Permet au propriétaire de flotter pendant quelques secondes";
-							}
-							case 935:
-							{
-								return "12% de dégâts";
-							}
-							case 936:
-							{
-								return "Augmente repoussement de mêlée";
-							}
-							case 937:
-							{
-								return "Explose quand on marche dessus";
-							}
-							case 938:
-							{
-								return "Absorbe 25% des dégâts infligés aux joueurs de votre équipe";
-							}
-							case 946:
-							{
-								return "Vous allez tomber lentement tout en maintenant cette";
-							}
-							case 947:
-							{
-								return "Réagit à la lumière";
-							}
-							case 948:
-							{
-								return "Permet de vol et de chute lente";
-							}
-							case 950:
-							{
-								return "Fournit la mobilité supplémentaire sur la glace";
-							}
-							case 951:
-							{
-								return "Lance rapidement des boules de neige";
-							}
-							case 953:
-							{
-								return "Permet la possibilité de glisser le long des murs";
-							}
-							case 956:
-							{
-								return "7% ont augmenté la vitesse de mêlée";
-							}
-							case 957:
-							{
-								return "7% ont augmenté la vitesse de mêlée";
-							}
-							case 958:
-							{
-								return "7% ont augmenté la vitesse de mêlée";
-							}
-							case 959:
-							{
-								return "4% ont augmenté les dégâts à distance.";
-							}
-							case 960:
-							{
-								return "Augmente mana maximum de 40";
-							}
-							case 961:
-							{
-								return "Augmente mana maximum de 20";
-							}
-							case 962:
-							{
-								return "Augmente mana maximum de 20";
-							}
-							case 963:
-							{
-								return "Donne une chance d'esquiver les attaques";
-							}
-							case 964:
-							{
-								return "Lance une propagation de balles";
-							}
-							case 965:
-							{
-								return "Peut être monté sur";
-							}
-							case 966:
-							{
-								return "Régénération de vie est augmentée lorsque près d'un feu de camp";
-							}
-							case 967:
-							{
-								return "Mettez-le sur un bâton et rôti au feu de bois";
-							}
-							case 968:
-							{
-								return "Rôtir sur un feu de camp!";
-							}
-							case 969:
-							{
-								return "Améliorations mineures apportées à toutes les carac";
-							}
-							case 975:
-							{
-								return "Permet la possibilité de glisser le long des murs";
-							}
-							case 976:
-							{
-								return "Permet la possibilité d'escalader les murs";
-							}
-							case 977:
-							{
-								return "Permet la possibilité de se lancer";
-							}
-							case 982:
-							{
-								return "Augmente mana maximum de 20";
-							}
-							case 983:
-							{
-								return "Permet au titulaire de double saut";
-							}
-							case 984:
-							{
-								return "Permet la possibilité de grimper aux murs et tableau de bord";
-							}
-							case 985:
-							{
-								return "Jeter de créer une ligne de corde climbable";
-							}
-							case 986:
-							{
-								return "Permet la collecte de semences pour munitions";
-							}
-							case 987:
-							{
-								return "Permet au titulaire de double saut";
-							}
-							case 989:
-							{
-								return "Tire un faisceau d'épée enchantée";
-							}
-							case 990:
-							{
-								return "'A ne pas confondre avec un hamdrill'";
-							}
-							case 994:
-							{
-								return "Invoque un mangeur de bébé des âmes";
-							}
-							case 995:
-							{
-								return "Utilisé pour fabriquer des objets";
-							}
-							case 996:
-							{
-								return "Utilisé pour fabriquer des objets";
-							}
-							case 997:
-							{
-								return "Met limon et de boue en quelque chose de plus utile";
-							}
-							case 998:
-							{
-								return "Utilisé pour fabriquer des objets";
-							}
-							case 1000:
-							{
-								return "Lance confettis partout!";
-							}
-							case 1001:
-							{
-								return "16% ont augmenté les dégâts de mêlée";
-							}
-							case 1002:
-							{
-								return "16% ont augmenté les dégâts à distance";
-							}
-							case 1003:
-							{
-								return "Augmente mana maximum de 80 et réduit la consommation de mana de 17%";
-							}
-							case 1004:
-							{
-								return "5% de dégâts";
-							}
-							case 1005:
-							{
-								return "8% ont augmenté les chances de coup critique";
-							}
-							case 1006:
-							{
-								return "Réagit à la lumière";
-							}
-							default:
-							{
-								switch (num3)
-								{
-									case 1071:
-									{
-										return "Utilisé avec de la peinture à blocs de couleur";
-									}
-									case 1072:
-									{
-										return "Utilisé avec de la peinture sur les murs de couleur";
-									}
-									default:
-									{
-										switch (num3)
-										{
-											case 1100:
-											{
-												return "Utilisé pour enlever la peinture";
-											}
-											case 1107:
-											{
-												return "Utilisé pour faire colorant bleu sarcelle";
-											}
-											case 1108:
-											{
-												return "Utilisé pour faire colorant vert";
-											}
-											case 1109:
-											{
-												return "Utilisé pour faire colorant bleu ciel";
-											}
-											case 1110:
-											{
-												return "Utilisé pour faire colorant jaune";
-											}
-											case 1111:
-											{
-												return "Utilisé pour faire colorant bleu";
-											}
-											case 1112:
-											{
-												return "Utilisé pour fabriquer des colorants chaux";
-											}
-											case 1113:
-											{
-												return "Utilisé pour faire colorant rose";
-											}
-											case 1114:
-											{
-												return "Utilisé pour faire colorant d'orange";
-											}
-											case 1115:
-											{
-												return "Utilisé pour faire colorant rouge";
-											}
-											case 1116:
-											{
-												return "Utilisé pour faire colorant cyan";
-											}
-											case 1117:
-											{
-												return "Utilisé pour fabriquer la teinture violette";
-											}
-											case 1118:
-											{
-												return "Utilisé pour faire colorant violet";
-											}
-											case 1119:
-											{
-												return "Utilisé pour faire colorant noir";
-											}
-											case 1120:
-											{
-												return "Utilisé pour fabriquer des colorants";
-											}
-											case 1121:
-											{
-												return "Shoots abeilles qui vont chasser vos ennemis";
-											}
-											case 1122:
-											{
-												return "Poursuites après votre ennemi";
-											}
-											case 1123:
-											{
-												return "Invoque abeilles tueuses après avoir frappé votre ennemi";
-											}
-											case 1129:
-											{
-												return "Places urticaire";
-											}
-											case 1130:
-											{
-												return "Explose en un essaim d'abeilles";
-											}
-											case 1131:
-											{
-												return "Permet à son titulaire d'inverser la gravité";
-											}
-											case 1132:
-											{
-												return "Libère les abeilles lorsqu'elles sont endommagées";
-											}
-											case 1133:
-											{
-												return "Invoque le Queen Bee";
-											}
-											case 1141:
-											{
-												return "Ouvre la porte du temple de la jungle";
-											}
-											case 1145:
-											{
-												return "Utilisé pour l'artisanat de base";
-											}
-											case 1151:
-											{
-												return "Active quand un joueur marche sur-le";
-											}
-											case 1156:
-											{
-												return "Loquets situés sur les ennemis pour les dommages continu";
-											}
-											case 1157:
-											{
-												return "Invoque un pygmée à se battre pour vous";
-											}
-											case 1158:
-											{
-												return "Augmente votre nombre maximum de sous-fifres";
-											}
-											case 1159:
-											{
-												return "Augmente votre nombre maximum de sous-fifres";
-											}
-											case 1160:
-											{
-												return "Augmente votre nombre maximum de sous-fifres";
-											}
-											case 1161:
-											{
-												return "Augmente votre nombre maximum de sous-fifres";
-											}
-											case 1162:
-											{
-												return "Permet de vol et de chute lente";
-											}
-											case 1163:
-											{
-												return "Permet au titulaire de double saut";
-											}
-											case 1164:
-											{
-												return "Permet au titulaire de quadruple saut";
-											}
-											case 1165:
-											{
-												return "Permet de vol et de chute lente";
-											}
-											case 1167:
-											{
-												return "Augmente les dégâts de vos sbires d'ici le 15";
-											}
-											case 1169:
-											{
-												return "Invoque un bébé Skeletron tête";
-											}
-											case 1170:
-											{
-												return "Invoque un Hornet bébé";
-											}
-											case 1171:
-											{
-												return "Invoque un esprit de Tiki";
-											}
-											case 1172:
-											{
-												return "Invoque un lézard de compagnie";
-											}
-											case 1178:
-											{
-												return "Pousses rapidement feuilles acérées";
-											}
-											case 1179:
-											{
-												return "Chases after your enemy";
-											}
-											case 1180:
-											{
-												return "Invoque un perroquet";
-											}
-											case 1181:
-											{
-												return "Invoque un Truffle bébé";
-											}
-											case 1182:
-											{
-												return "Invoque un jeune arbre Pet";
-											}
-											case 1183:
-											{
-												return "Invoque un Wisp pour fournir la lumière";
-											}
-											case 1188:
-											{
-												return "Peut-mines de mithril, orichalque, adamantite et Titane";
-											}
-											case 1189:
-											{
-												return "Peut-mines de mithril, orichalque, adamantite et Titane";
-											}
-											case 1195:
-											{
-												return "Peut mien adamantite et Titane";
-											}
-											case 1196:
-											{
-												return "Peut mien adamantite et Titane";
-											}
-											case 1205:
-											{
-												return "8% ont augmenté les dégâts de mêlée";
-											}
-											case 1206:
-											{
-												return "9% ont augmenté les dégâts à distance";
-											}
-											case 1207:
-											{
-												return "7% d'augmentation des dégâts magiques et les chances de coup critique";
-											}
-											case 1208:
-											{
-												return "3% de dégâts";
-											}
-											case 1209:
-											{
-												return "2% de dégâts";
-											}
-											case 1210:
-											{
-												return "7% ont augmenté les dégâts de mêlée";
-											}
-											case 1211:
-											{
-												return "15% ont augmenté varié chances de coup critique";
-											}
-											case 1212:
-											{
-												return "18% ont augmenté magie chances de coup critique";
-											}
-											case 1213:
-											{
-												return "6% ont augmenté les chances de coup critique";
-											}
-											case 1214:
-											{
-												return "11% augmente la vitesse de déplacement";
-											}
-											case 1215:
-											{
-												return "8% de dégâts au corps à corps et les chances de coup critique";
-											}
-											case 1216:
-											{
-												return "16% ont augmenté les dégâts à distance";
-											}
-											case 1217:
-											{
-												return "16% d'augmentation des dégâts magiques et 7% ont augmenté magie chances de coup critique";
-											}
-											case 1218:
-											{
-												return "4% de dégâts";
-											}
-											case 1219:
-											{
-												return "3% de dégâts et les chances de coup critique";
-											}
-											case 1220:
-											{
-												return "Utilisé pour fabriquer des objets à partir de mithril, orichalque, adamantite, et des barres de titane";
-											}
-											case 1221:
-											{
-												return "Utilisé pour adamante éperlan et du minerai de titane";
-											}
-											case 1226:
-											{
-												return "Tire un puissant orbe";
-											}
-											case 1227:
-											{
-												return "Tire un nuage de spores";
-											}
-											case 1228:
-											{
-												return "Tire un nuage de spores";
-											}
-											case 1235:
-											{
-												return "Rebondit après avoir heurté un mur";
-											}
-											case 1242:
-											{
-												return "Invoque un bébé dinosaure";
-											}
-											case 1244:
-											{
-												return "Invoque un nuage à pleuvoir sur vos ennemis";
-											}
-											case 1247:
-											{
-												return "Provoque étoiles à tomber et libère les abeilles quand blessés";
-											}
-											case 1248:
-											{
-												return "10% ont augmenté les chances de coup critique";
-											}
-											case 1249:
-											{
-												return "Augmente la hauteur de saut";
-											}
-											case 1250:
-											{
-												return "Permet au titulaire de double saut";
-											}
-											case 1251:
-											{
-												return "Permet au titulaire de double saut";
-											}
-											case 1252:
-											{
-												return "Permet au titulaire de double saut";
-											}
-											case 1253:
-											{
-												return "Met une coquille autour de la propriétaire quand la vie dessous de 50% qui réduit les dommages";
-											}
-											case 1254:
-											{
-												return "Tire une puissante balle à grande vitesse";
-											}
-											case 1255:
-											{
-												return "Tire une puissante balle à grande vitesse";
-											}
-											case 1256:
-											{
-												return "Invoque un nuage à pleuvoir du sang sur vos ennemis";
-											}
-											case 1258:
-											{
-												return "Tire un boulon explosif";
-											}
-											case 1259:
-											{
-												return "Pousses rasoir tranchant pétales de fleurs sur les ennemis proches";
-											}
-											case 1260:
-											{
-												return "Tire un arc en ciel qui fait des dégâts en continu";
-											}
-											case 1261:
-											{
-												return "Explose en éclats mortels";
-											}
-											case 1264:
-											{
-												return "Tire une boule de gel";
-											}
-											case 1265:
-											{
-												return "Tire une puissante balle à grande vitesse";
-											}
-											case 1282:
-											{
-												return "Augmente mana maximum de 20";
-											}
-											case 1283:
-											{
-												return "Augmente mana maximum de 40";
-											}
-											case 1284:
-											{
-												return "Augmente mana maximum de 40";
-											}
-											case 1285:
-											{
-												return "Augmente mana maximum de 60";
-											}
-											case 1286:
-											{
-												return "Augmente mana maximum de 60";
-											}
-											case 1287:
-											{
-												return "Augmente mana maximum de 80";
-											}
-											case 1290:
-											{
-												return "Augmente la vitesse de déplacement après avoir été frappé";
-											}
-											case 1291:
-											{
-												return "Augmente en permanence durée de vie maximale de 5";
-											}
-											case 1293:
-											{
-												return "Utilisé à l'autel Lihzahrd";
-											}
-											case 1294:
-											{
-												return "Capable de mines Lihzahrd briques";
-											}
-											case 1295:
-											{
-												return "Tire un rayon perçant de chaleur";
-											}
-											case 1296:
-											{
-												return "Invoque un puissant rocher";
-											}
-											case 1297:
-											{
-												return "Coups de poing avec la force d'un golem";
-											}
-											case 1299:
-											{
-												return "Augmente visualiser gamme lorsqu'il est maintenu";
-											}
-											case 1300:
-											{
-												return "Augmente Afficher la gamme des pistolets";
-											}
-											case 1301:
-											{
-												return "10% de dégâts";
-											}
-											case 1303:
-											{
-												return "Fournit de la lumière sous l'eau";
-											}
-											case 1306:
-											{
-												return "Tire une faucille glacial";
-											}
-											case 1307:
-											{
-												return "'Vous êtes une personne épouvantable'";
-											}
-											case 1308:
-											{
-												return "Tire un poison croc qui perce plusieurs ennemis";
-											}
-											case 1309:
-											{
-												return "Invoque un bébé bave à se battre pour vous";
-											}
-											case 1310:
-											{
-												return "Inflige poison sur les ennemis";
-											}
-											case 1311:
-											{
-												return "Invoque un ressort de globe oculaire";
-											}
-											case 1312:
-											{
-												return "Invoque un bébé bonhomme de neige";
-											}
-											case 1313:
-											{
-												return "Tire un crâne";
-											}
-											case 1314:
-											{
-												return "Tire un gant de boxe";
-											}
-											case 1315:
-											{
-												return "Invoque une invasion de pirates";
-											}
-											case 1316:
-											{
-												return "6% ont augmenté les dégâts de mêlée";
-											}
-											case 1317:
-											{
-												return "8% de dégâts au corps à corps et les chances de coup critique";
-											}
-											case 1318:
-											{
-												return "4% ont augmenté mêlée chances de coup critique";
-											}
-											case 1321:
-											{
-												return "Augmenter la vitesse de flèche et les dommages de 10%";
-											}
-											case 1322:
-											{
-												return "Inflige des dégâts de feu sur l'attaque";
-											}
-											case 1323:
-											{
-												return "Réduit les dégâts de toucher lave";
-											}
-											case 1326:
-											{
-												return "Téléports à la position de la souris";
-											}
-											case 1327:
-											{
-												return "Tire une faucille mort";
-											}
-											case 1331:
-											{
-												return "Invoque le cerveau de Cthulhu";
-											}
-											case 1332:
-											{
-												return "'Le sang des dieux'";
-											}
-											case 1333:
-											{
-												return "Peut être placé dans l'eau";
-											}
-											case 1334:
-											{
-												return "Diminue la défense de la cible";
-											}
-											case 1335:
-											{
-												return "Diminue la défense de la cible";
-											}
-											case 1336:
-											{
-												return "Sprays une pluie de ichor";
-											}
-											case 1343:
-											{
-												return "Augmente la mêlée repoussement et inflige des dégâts de feu sur l'attaque";
-											}
-										}
-										break;
-									}
-								}
-								break;
-							}
-						}
-					}
-					else
-					{
-						switch (num3)
-						{
-							case 779:
-							{
-								return "Crée et détruit biomes lors de la pulvérisation";
-							}
-							case 780:
-							{
-								return "Utilisé par le Clentaminator";
-							}
-							case 781:
-							{
-								return "Utilisé par le Clentaminator";
-							}
-							case 782:
-							{
-								return "Utilisé par le Clentaminator";
-							}
-							case 783:
-							{
-								return "Utilisé par le Clentaminator";
-							}
-							case 784:
-							{
-								return "Utilisé par le Clentaminator";
-							}
-							case 785:
-							{
-								return "Permet de vol et de chute lente";
-							}
-							case 786:
-							{
-								return "Permet de vol et de chute lente";
-							}
-							case 787:
-							{
-								return "Assez fort pour détruire les autels de démon";
-							}
-							case 788:
-							{
-								return "Invoque une lance d'épines";
-							}
-							case 789:
-							case 790:
-							case 791:
-							case 795:
-							case 796:
-							case 797:
-							{
-								break;
-							}
-							case 792:
-							{
-								return "2% de dégâts";
-							}
-							case 793:
-							{
-								return "2% de dégâts";
-							}
-							case 794:
-							{
-								return "2% de dégâts";
-							}
-							case 798:
-							{
-								return "Capable d'exploiter Hellstone";
-							}
-							default:
-							{
-								switch (num3)
-								{
-									case 821:
-									{
-										return "Permet de vol et de chute lente";
-									}
-									case 822:
-									{
-										return "Permet de vol et de chute lente";
-									}
-									case 823:
-									{
-										return "Permet de vol et de chute lente";
-									}
-									default:
-									{
-										if (num3 == 832)
-										{
-											return "Places bois vivant";
-										}
-										break;
-									}
-								}
-								break;
-							}
-						}
-					}
-				}
-				else if (num3 <= 1595)
-				{
-					switch (num3)
-					{
-						case 1430:
-						{
-							return "Utilisé pour fabriquer des flacons de imbuement d'armes";
-						}
-						case 1431:
-						{
-							break;
-						}
-						case 1432:
-						{
-							return "Utilisé pour fabriquer différents types de munitions";
-						}
-						default:
-						{
-							switch (num3)
-							{
-								case 1444:
-								{
-									return "Crée un faisceau d'ombre qui rebondit sur les murs";
-								}
-								case 1445:
-								{
-									return "Lance une boule de feu qui explose dans un brasier";
-								}
-								case 1446:
-								{
-									return "Invoque une âme perdue pour chasser vos ennemis";
-								}
-								case 1447:
-								case 1448:
-								{
-									break;
-								}
-								case 1449:
-								{
-									return "souffle des bulles";
-								}
-								case 1450:
-								{
-									return "souffle des bulles";
-								}
-								default:
-								{
-									switch (num3)
-									{
-										case 1503:
-										{
-											return "Augmente mana maximum de 80 et réduit la consommation de mana de 17%";
-										}
-										case 1504:
-										{
-											return "7% d'augmentation des dégâts magiques et les chances de coup critique";
-										}
-										case 1505:
-										{
-											return "8% d'augmentation des dégâts magiques";
-										}
-										case 1513:
-										{
-											return "Un marteau retour puissant";
-										}
-										case 1515:
-										{
-											return "Permet de vol et de chute lente";
-										}
-										case 1522:
-										{
-											return "Pour capturer le Gem. Il tombe quand vous mourrez";
-										}
-										case 1523:
-										{
-											return "Pour capturer le Gem. Il tombe quand vous mourrez";
-										}
-										case 1524:
-										{
-											return "Pour capturer le Gem. Il tombe quand vous mourrez";
-										}
-										case 1525:
-										{
-											return "Pour capturer le Gem. Il tombe quand vous mourrez";
-										}
-										case 1526:
-										{
-											return "Pour capturer le Gem. Il tombe quand vous mourrez";
-										}
-										case 1527:
-										{
-											return "Pour capturer le Gem. Il tombe quand vous mourrez";
-										}
-										case 1533:
-										{
-											return "Débloque une jungle poitrine dans le donjon";
-										}
-										case 1534:
-										{
-											return "Débloque un coffre de la corruption dans le donjon";
-										}
-										case 1535:
-										{
-											return "Débloque un coffre Crimson dans le donjon";
-										}
-										case 1536:
-										{
-											return "Débloque un coffre sanctifié dans le donjon";
-										}
-										case 1537:
-										{
-											return "Débloque un coffre congelés dans le donjon";
-										}
-										case 1543:
-										{
-											return "Utilisé avec de la peinture à blocs de couleur";
-										}
-										case 1544:
-										{
-											return "Utilisé avec de la peinture sur les murs de couleur";
-										}
-										case 1545:
-										{
-											return "Utilisé pour enlever la peinture";
-										}
-										case 1546:
-										{
-											return "15% de dégâts supplémentaires flèche";
-										}
-										case 1547:
-										{
-											return "15% de dégâts supplémentaires infligés par balle";
-										}
-										case 1548:
-										{
-											return "15% de dégâts supplémentaires fusée";
-										}
-										case 1549:
-										{
-											return "13% ont augmenté varié chances de coup critique";
-										}
-										case 1550:
-										{
-											return "7% ont augmenté varié chances de coup critique";
-										}
-										case 1551:
-										{
-											return "Convertit Bars Bars chlorophyte en Shroomite";
-										}
-										case 1553:
-										{
-											return "50% de chances de ne pas consommer de munitions";
-										}
-										case 1554:
-										{
-											return "Vous ne devriez pas avoir cette";
-										}
-										case 1555:
-										{
-											return "Vous ne devriez pas avoir cette";
-										}
-										case 1556:
-										{
-											return "Vous ne devriez pas avoir cette";
-										}
-										case 1557:
-										{
-											return "Vous ne devriez pas avoir cette";
-										}
-										case 1558:
-										{
-											return "Vous ne devriez pas avoir cette";
-										}
-										case 1559:
-										{
-											return "Vous ne devriez pas avoir cette";
-										}
-										case 1560:
-										{
-											return "Vous ne devriez pas avoir cette";
-										}
-										case 1561:
-										{
-											return "Vous ne devriez pas avoir cette";
-										}
-										case 1562:
-										{
-											return "Vous ne devriez pas avoir cette";
-										}
-										case 1563:
-										{
-											return "Vous ne devriez pas avoir cette";
-										}
-										case 1564:
-										{
-											return "Vous ne devriez pas avoir cette";
-										}
-										case 1565:
-										{
-											return "Vous ne devriez pas avoir cette";
-										}
-										case 1566:
-										{
-											return "Vous ne devriez pas avoir cette";
-										}
-										case 1567:
-										{
-											return "Vous ne devriez pas avoir cette";
-										}
-										case 1568:
-										{
-											return "Vous ne devriez pas avoir cette";
-										}
-										case 1569:
-										{
-											return "Rapidement jeter des poignards qui volent de la vie";
-										}
-										case 1571:
-										{
-											return "Un javelot puissant qui libère de minuscules mangeurs";
-										}
-										case 1572:
-										{
-											return "Invoque un puissant gel hydre à cracher de la glace sur vos ennemis";
-										}
-										case 1578:
-										{
-											return "Communiqués abeilles et augmente la vitesse de déplacement lorsqu'il a été endommagé";
-										}
-										case 1579:
-										{
-											return "Le porteur peut fonctionner super rapide";
-										}
-										case 1580:
-										{
-											return "Vous ne devriez pas avoir cette";
-										}
-										case 1581:
-										{
-											return "Vous ne devriez pas avoir cette";
-										}
-										case 1582:
-										{
-											return "Vous ne devriez pas avoir cette";
-										}
-										case 1583:
-										{
-											return "Vous ne devriez pas avoir cette";
-										}
-										case 1584:
-										{
-											return "Vous ne devriez pas avoir cette";
-										}
-										case 1585:
-										{
-											return "Vous ne devriez pas avoir cette";
-										}
-										case 1586:
-										{
-											return "Vous ne devriez pas avoir cette";
-										}
-										case 1587:
-										{
-											return "Vous ne devriez pas avoir cette";
-										}
-										case 1588:
-										{
-											return "Vous ne devriez pas avoir cette";
-										}
-										case 1595:
-										{
-											return "Augmente mana maximum de 20";
-										}
-									}
-									break;
-								}
-							}
-							break;
-						}
-					}
-				}
-				else if (num3 == 3485 || num3 == 3491 || num3 == 3521)
-				{
-					return "Permet d'extraire la météorite";
-				}
-			}
-			else if (Lang.lang == 5)
-			{
-				int num4 = l;
-				if (num4 <= 407)
-				{
-					if (num4 <= 175)
-					{
-						if (num4 <= 70)
-						{
-							if (num4 > 29)
-							{
-								switch (num4)
-								{
-									case 33:
-									{
-										return "Se usa para fundir mineral";
-									}
-									case 34:
-									{
-										break;
-									}
-									case 35:
-									{
-										return "Se usa para fabricar objetos con lingotes de metal";
-									}
-									case 36:
-									{
-										return "Se usa para creaciones básicas";
-									}
-									default:
-									{
-										if (num4 == 43)
-										{
-											return "Invoca al Ojo de Cthulhu";
-										}
-										switch (num4)
-										{
-											case 49:
-											{
-												return "Regenera la vida poco a poco";
-											}
-											case 50:
-											{
-												return "Al mirarse en él se regresa al hogar";
-											}
-											case 53:
-											{
-												return "Su portador salta el doble";
-											}
-											case 54:
-											{
-												return "Permite correr superrápido";
-											}
-											case 56:
-											{
-												return "'Late de energía oscura'";
-											}
-											case 57:
-											{
-												return "'Late de energía oscura'";
-											}
-											case 64:
-											{
-												return "Lanza una espina vil";
-											}
-											case 65:
-											{
-												return "Hace que lluevan estrellas del cielo";
-											}
-											case 66:
-											{
-												return "Limpia la corrupción";
-											}
-											case 67:
-											{
-												return "Elimina la bendición";
-											}
-											case 68:
-											{
-												return "'¡Sabe asqueroso!'";
-											}
-											case 70:
-											{
-												return "Invoca al Devoramundos";
-											}
-										}
-										break;
-									}
 								}
 							}
 							else
 							{
-								if (num4 == 8)
+								switch (l)
 								{
-									return "Da luz";
-								}
-								switch (num4)
-								{
-									case 15:
-									{
-										return "Da la hora";
-									}
-									case 16:
-									{
-										return "Da la hora";
-									}
-									case 17:
-									{
-										return "Da la hora";
-									}
-									case 18:
-									{
-										return "indica la profundidad";
-									}
-									case 19:
-									case 20:
-									case 21:
-									case 22:
-									{
+									case 33:
+										return "Utilisé pour fondre le minerai";
+									case 34:
 										break;
-									}
-									case 23:
-									{
-										return "'Repugnante a la vez que inflamable'";
-									}
+									case 35:
+										return "Permet de forger des objets à partir de métal";
+									case 36:
+										return "Utilisé pour l'artisanat de base";
 									default:
-									{
-										if (num4 == 29)
+										if (l == 43)
 										{
-											return "Aumenta al máximo la vida (20) de forma definitiva";
+											return "Invoque l'œil de Cthulhu";
+										}
+										switch (l)
+										{
+											case 49:
+												return "Régénère lentement la vie";
+											case 50:
+												return "Fixer le miroir pour regagner son foyer";
+											case 53:
+												return "Permet de faire un double saut";
+											case 54:
+												return "Le porteur peur courir super vite";
+											case 56:
+												return "'Vibre d'une énergie sombre'";
+											case 57:
+												return "'Vibre d'une énergie sombre'";
+											case 64:
+												return "Invoque une vileronce";
+											case 65:
+												return "Provoque une pluie d'étoiles";
+											case 66:
+												return "Purifie la corruption";
+											case 67:
+												return "Corrompt la sainteté";
+											case 68:
+												return "'Ça a l'air bon !'";
+											case 70:
+												return "Invoque le dévoreur de mondes";
 										}
 										break;
-									}
 								}
 							}
 						}
-						else if (num4 > 88)
+						else if (l <= 88)
 						{
-							switch (num4)
+							if (l == 75)
+							{
+								return "Disparaît au coucher du soleil";
+							}
+							if (l == 84)
+							{
+								return "'Pour grimper tout là-haut'";
+							}
+							if (l == 88)
+							{
+								return "Procure de la lumière lorsqu'il est porté";
+							}
+						}
+						else
+						{
+							switch (l)
 							{
 								case 98:
-								{
-									return "Probabilidad del 33% de no gastar munición";
-								}
+									return "33 % de chance de n'utiliser aucune munition";
 								case 99:
 								case 104:
 								case 105:
@@ -55724,93 +49553,50 @@ namespace Terraria
 								case 122:
 								case 126:
 								case 127:
-								{
 									break;
-								}
 								case 100:
-								{
-									return "Aumenta un 7% la velocidad en el cuerpo a cuerpo";
-								}
+									return "Vitesse de mêlée augmentée de 7 %";
 								case 101:
-								{
-									return "Aumenta un 7% la velocidad en el cuerpo a cuerpo";
-								}
+									return "Vitesse de mêlée augmentée de 7 %";
 								case 102:
-								{
-									return "Aumenta un 7% la velocidad en el cuerpo a cuerpo";
-								}
+									return "Vitesse de mêlée augmentée de 7 %";
 								case 103:
-								{
-									return "Puede abrir la piedra infernal";
-								}
+									return "Permet d'extraire de la pierre de l'enfer";
 								case 109:
-								{
-									return "Aumenta al máximo el maná (20) de forma definitiva";
-								}
+									return "Augmente le maximum de mana de 20 de façon permanente";
 								case 111:
-								{
-									return "Aumenta al máximo el maná (20)";
-								}
+									return "Augmente le maximum de mana de 20";
 								case 112:
-								{
-									return "Arroja bolas de fuego";
-								}
+									return "Lance des boules de feu";
 								case 113:
-								{
-									return "Lanza un misil dirigido";
-								}
+									return "Lance un missile contrôlable";
 								case 114:
-								{
-									return "Remueve la tierra por arte de magia";
-								}
+									return "Déplace la terre par magie";
 								case 115:
-								{
-									return "Crea un orbe mágico de luz";
-								}
+									return "Crée un orbe magique de lumière";
 								case 117:
-								{
-									return "'Calienta la antorcha'";
-								}
+									return "'Chaude au toucher'";
 								case 118:
-								{
-									return "A veces lo sueltan esqueletos y pirañas";
-								}
+									return "Trouvé parfois sur les squelettes et les piranhas";
 								case 120:
-								{
-									return "Enciende las flechas de madera";
-								}
+									return "Transforme les flèches en bois tirées en flèches enflammées";
 								case 121:
-								{
-									return "'¡Hecha de fuego!'";
-								}
+									return "'Elle pète le feu !'";
 								case 123:
-								{
-									return "Aumenta el daño mágico en un 5%";
-								}
+									return "Dégâts magiques accrus de 5 %";
 								case 124:
-								{
-									return "Aumenta el daño mágico en un 5%";
-								}
+									return "Dégâts magiques accrus de 5 %";
 								case 125:
-								{
-									return "Aumenta el daño mágico en un 5%";
-								}
+									return "Dégâts magiques accrus de 5 %";
 								case 128:
-								{
-									return "Permite volar";
-								}
+									return "Permet de voler";
 								default:
-								{
-									switch (num4)
+									switch (l)
 									{
 										case 148:
-										{
-											return "Su portador llamará la atención de indeseables";
-										}
+											return "Cet objet peut attirer une attention non désirée";
 										case 149:
-										{
-											return "'Contiene extraños símbolos'";
-										}
+											return "'Il contient d'étranges symboles'";
 										case 150:
 										case 154:
 										case 155:
@@ -55819,332 +49605,124 @@ namespace Terraria
 										case 162:
 										case 163:
 										case 164:
-										{
 											break;
-										}
 										case 151:
-										{
-											return "Aumenta el daño a distancia en un 5%";
-										}
+											return "Dégâts à distance augmentés de 5 %";
 										case 152:
-										{
-											return "Aumenta el daño a distancia en un 5%";
-										}
+											return "Dégâts à distance augmentés de 5 %";
 										case 153:
-										{
-											return "Aumenta el daño a distancia en un 5%";
-										}
+											return "Dégâts à distance augmentés de 5 %";
 										case 156:
-										{
-											return "Ofrece inmunidad ante el retroceso";
-										}
+											return "Annule tout effet de recul";
 										case 157:
-										{
-											return "Pulveriza un chorro de agua";
-										}
+											return "Lance de l'eau en continu";
 										case 158:
-										{
-											return "Anula el daño al caer";
-										}
+											return "Annule les dégâts de chute";
 										case 159:
-										{
-											return "Aumenta la altura al saltar";
-										}
+											return "Augmente la hauteur des sauts";
 										case 165:
-										{
-											return "Lanza un rayo de agua a baja velocidad";
-										}
+											return "Invoque une boule d'eau se déplaçant lentement";
 										case 166:
-										{
-											return "Pequeña explosión que rompe varios ladrillos";
-										}
+											return "Une petite explosion détruisant quelques blocs";
 										case 167:
-										{
-											return "Gran explosión que rompe casi todos los ladrillos";
-										}
+											return "Une grosse explosion détruisant la plupart des blocs";
 										case 168:
-										{
-											return "Pequeña explosión que no rompe ningún ladrillo";
-										}
+											return "Une petite explosion ne détruisant pas de blocs";
 										default:
-										{
-											if (num4 == 175)
+											if (l == 175)
 											{
-												return "'Enciende la antorcha'";
+												return "'Chaud au toucher'";
 											}
 											break;
-										}
 									}
 									break;
-								}
+							}
+						}
+					}
+					else if (l <= 238)
+					{
+						if (l <= 197)
+						{
+							switch (l)
+							{
+								case 186:
+									return "'Ne pas se noyer, c'est quand même cool !'";
+								case 187:
+									return "Permet de nager";
+								default:
+									if (l == 193)
+									{
+										return "Permet de résister aux blocs de feu";
+									}
+									if (l == 197)
+									{
+										return "Tire des étoiles filantes";
+									}
+									break;
 							}
 						}
 						else
 						{
-							if (num4 == 75)
-							{
-								return "Desaparece al amanecer";
-							}
-							if (num4 == 84)
-							{
-								return "'¡Te atrapé!'";
-							}
-							if (num4 == 88)
-							{
-								return "Da luz a su portador";
-							}
-						}
-					}
-					else if (num4 <= 238)
-					{
-						if (num4 > 197)
-						{
-							switch (num4)
+							switch (l)
 							{
 								case 208:
-								{
-									return "'Hermosa, muy hermosa'";
-								}
+									return "'Comme c'est joli !'";
 								case 209:
 								case 210:
 								case 214:
 								case 216:
 								case 217:
-								{
 									break;
-								}
 								case 211:
-								{
-									return "Aumenta un 12% la velocidad en el cuerpo a cuerpo";
-								}
+									return "La vitesse de mêlée est augmentée de 12 %";
 								case 212:
-								{
-									return "Aumenta en un 10% la velocidad de movimiento";
-								}
+									return "La vitesse de déplacement est augmentée de 10 %";
 								case 213:
-								{
-									return "Genera césped sobre la tierra";
-								}
+									return "Fait pousser de l'herbe sur la terre";
 								case 215:
-								{
-									return "'Una molestia para los demás'";
-								}
+									return "'Peut être incommodant'";
 								case 218:
-								{
-									return "Lanza una bola de fuego dirigida";
-								}
+									return "Invoque une boule de feu contrôlable";
 								default:
-								{
-									switch (num4)
+									switch (l)
 									{
 										case 222:
-										{
-											return "Cultiva plantas";
-										}
+											return "Fait pousser les plantes";
 										case 223:
-										{
-											return "Reduce el uso de maná en un 6%";
-										}
+											return "Réduit le coût de mana de 6 %";
 										case 224:
 										case 225:
 										case 226:
 										case 227:
-										{
 											break;
-										}
 										case 228:
-										{
-											return "Aumenta al máximo el maná (40)";
-										}
+											return "Augmente le maximum de mana de 40";
 										case 229:
-										{
-											return "Aumenta al máximo el maná (20)";
-										}
+											return "Augmente le maximum de mana de 20";
 										case 230:
-										{
-											return "Aumenta al máximo el maná (20)";
-										}
+											return "Augmente le maximum de mana de 20";
 										default:
-										{
-											switch (num4)
+											switch (l)
 											{
 												case 235:
-												{
-													return "'Puede costar lanzarla'";
-												}
+													return "'Peut s'avérer difficile à lancer'";
 												case 237:
-												{
-													return "'¡Te quedan muy bien!'";
-												}
+													return "'Pour un look de star !'";
 												case 238:
-												{
-													return "Aumenta el daño mágico en un 15%";
-												}
+													return "Augmente les dégâts magiques de 15 %";
 											}
 											break;
-										}
 									}
 									break;
-								}
-							}
-						}
-						else
-						{
-							switch (num4)
-							{
-								case 186:
-								{
-									return "'Está bien eso de no ahogarse'";
-								}
-								case 187:
-								{
-									return "Permite nadar";
-								}
-								default:
-								{
-									if (num4 == 193)
-									{
-										return "Ofrece inmunidad ante los bloques de fuego";
-									}
-									if (num4 == 197)
-									{
-										return "Dispara estrellas caídas";
-									}
-									break;
-								}
 							}
 						}
 					}
-					else if (num4 > 329)
+					else if (l <= 329)
 					{
-						if (num4 == 332)
-						{
-							return "Se usa para confeccionar ropa";
-						}
-						if (num4 == 352)
-						{
-							return "Se usa para elaborar cerveza";
-						}
-						switch (num4)
-						{
-							case 357:
-							{
-								return "Pequeñas mejoras de todas las estadísticas";
-							}
-							case 361:
-							{
-								return "Invoca a un ejército de duendes";
-							}
-							case 363:
-							{
-								return "Se usa para realizar trabajos de madera avanzados";
-							}
-							case 367:
-							{
-								return "Lo bastante sólido para destruir los altares demoníacos";
-							}
-							case 371:
-							{
-								return "Aumenta al máximo el maná (40)";
-							}
-							case 372:
-							{
-								return "Aumenta en un 7% la velocidad de movimiento";
-							}
-							case 373:
-							{
-								return "Aumenta el daño a distancia en un 10%";
-							}
-							case 376:
-							{
-								return "Aumenta al máximo el maná (60)";
-							}
-							case 377:
-							{
-								return "Aumenta un 5% la probabilidad de ataque crítico en el cuerpo a cuerpo";
-							}
-							case 378:
-							{
-								return "Aumenta el daño a distancia en un 12%";
-							}
-							case 385:
-							{
-								return "Puede abrir el mithril";
-							}
-							case 386:
-							{
-								return "Puede abrir la adamantita";
-							}
-							case 389:
-							{
-								return "Puede llegar a confundir";
-							}
-							case 393:
-							{
-								return "Indica el horizonte";
-							}
-							case 394:
-							{
-								return "Permite nadar";
-							}
-							case 395:
-							{
-								return "Indica la posición";
-							}
-							case 396:
-							{
-								return "Anula el daño al caer";
-							}
-							case 397:
-							{
-								return "Ofrece inmunidad ante el retroceso";
-							}
-							case 398:
-							{
-								return "Permite combinar varios accesorios";
-							}
-							case 399:
-							{
-								return "Su portador salta el doble";
-							}
-							case 400:
-							{
-								return "Aumenta al máximo el maná (80)";
-							}
-							case 401:
-							{
-								return "Aumenta un 7% la probabilidad de ataque crítico en el cuerpo a cuerpo";
-							}
-							case 402:
-							{
-								return "Aumenta el daño a distancia en un 14%";
-							}
-							case 403:
-							{
-								return "Aumenta el daño en un 6%";
-							}
-							case 404:
-							{
-								return "Aumenta la probabilidad de ataque crítico en un 4%";
-							}
-							case 405:
-							{
-								return "Permite volar";
-							}
-							case 407:
-							{
-								return "Aumenta la distancia de colocación de bloques";
-							}
-						}
-					}
-					else
-					{
-						switch (num4)
+						switch (l)
 						{
 							case 261:
-							{
-								return "'Sonríe y además es un buen aperitivo'";
-							}
+								return "'Il sourit, ça ferait un casse-croûte sympa.'";
 							case 262:
 							case 263:
 							case 264:
@@ -56163,604 +49741,676 @@ namespace Terraria
 							case 284:
 							case 286:
 							case 287:
-							{
 								break;
-							}
 							case 266:
-							{
-								return "'¡Una buena idea!'";
-							}
+								return "'Super idée !'";
 							case 267:
-							{
-								return "'Eres mala persona'";
-							}
+								return "'Vous êtes vraiment terrible.'";
 							case 268:
-							{
-								return "Permite respirar bajo el agua mucho más tiempo";
-							}
+								return "Améliore grandement la respiration sous l'eau";
 							case 272:
-							{
-								return "Lanza una guadaña demoníaca";
-							}
+								return "Lance une faux de démon";
 							case 281:
-							{
-								return "Permite recoger semillas como munición";
-							}
+								return "Permet de récupérer des graines comme munitions";
 							case 282:
-							{
-								return "Funciona con humedad";
-							}
+								return "Fonctionne même humide";
 							case 283:
-							{
-								return "Para la cerbatana";
-							}
+								return "Utilisable avec la sarbacane";
 							case 285:
-							{
-								return "Aumenta en un 5% la velocidad de movimiento";
-							}
+								return "La vitesse de déplacement est augmentée de 5 %";
 							case 288:
-							{
-								return "Ofrece inmunidad ante la lava";
-							}
+								return "Procure l'immunité à la lave";
 							case 289:
-							{
-								return "Regenera la vida";
-							}
+								return "Régénère la vie";
 							case 290:
-							{
-								return "Aumenta en un 25% la velocidad de movimiento";
-							}
+								return "Augmente la vitesse de déplacement de 25 %";
 							case 291:
-							{
-								return "Permite respirar agua en lugar de aire";
-							}
+								return "Permet de respirer sous l'eau comme dans l'air";
 							case 292:
-							{
-								return "Aumenta la defensa en 8";
-							}
+								return "Augmente la défense de 8";
 							case 293:
-							{
-								return "Aumenta la regeneración de maná";
-							}
+								return "Augmente la régénération de mana";
 							case 294:
-							{
-								return "Aumenta el daño mágico en un 20%";
-							}
+								return "Augmente les dégâts de magie de 20 %";
 							case 295:
-							{
-								return "Disminuye la velocidad de caída";
-							}
+								return "Réduit la vitesse de chute";
 							case 296:
-							{
-								return "Muestra la ubicación de tesoros y minerales";
-							}
+								return "Indique l'emplacement des trésors et du minerai";
 							case 297:
-							{
-								return "Proporciona invisibilidad";
-							}
+								return "Procure l'invisibilité";
 							case 298:
-							{
-								return "Emite un aura de luz";
-							}
+								return "Émet une aura de lumière";
 							case 299:
-							{
-								return "Aumenta la visión nocturna";
-							}
+								return "Augmente la vision nocturne";
 							case 300:
-							{
-								return "Aumenta el porcentaje de regeneración del enemigo";
-							}
+								return "Augmente la fréquence d'apparition des ennemis";
 							case 301:
-							{
-								return "Los atacantes también sufren daños";
-							}
+								return "Les attaquants subissent aussi des dégâts";
 							case 302:
-							{
-								return "Permite caminar sobre el agua";
-							}
+								return "Permet de marcher sur l'eau";
 							case 303:
-							{
-								return "Aumenta en un 20% la velocidad y el daño de las flechas";
-							}
+								return "La vitesse des flèches et leurs dégâts sont augmentés de 20 %";
 							case 304:
-							{
-								return "Muestra la ubicación de los enemigos";
-							}
+								return "Indique l'emplacement des ennemis";
 							case 305:
-							{
-								return "Permite controlar la gravedad";
-							}
+								return "Permet de contrôler la gravité";
 							default:
-							{
-								if (num4 == 324)
+								if (l == 324)
 								{
-									return "'Prohibidos en casi todas partes'";
+									return "'Interdit quasiment partout'";
 								}
-								switch (num4)
+								switch (l)
 								{
 									case 327:
-									{
-										return "Abre un cofre de oro";
-									}
+										return "Ouvre un coffre d'or";
 									case 329:
-									{
-										return "Abre todos los cofres de las sombras";
-									}
+										return "Ouvre tous les coffres sombres";
 								}
 								break;
-							}
-						}
-					}
-				}
-				else if (num4 <= 761)
-				{
-					if (num4 <= 686)
-					{
-						if (num4 > 603)
-						{
-							switch (num4)
-							{
-								case 665:
-								{
-									return "Usted no debería tener este";
-								}
-								case 666:
-								{
-									return "Usted no debería tener este";
-								}
-								case 667:
-								{
-									return "Usted no debería tener este";
-								}
-								case 668:
-								{
-									return "Usted no debería tener este";
-								}
-								case 669:
-								{
-									return "Invoca a un bebé pingüino";
-								}
-								default:
-								{
-									if (num4 == 676)
-									{
-										return "Dispara un tornillo de hielo";
-									}
-									switch (num4)
-									{
-										case 683:
-										{
-											return "Citación tridente del diablo";
-										}
-										case 684:
-										{
-											return "16% más de daño cuerpo a cuerpo ya distancia";
-										}
-										case 685:
-										{
-											return "11% más de cuerpo a cuerpo ya distancia probabilidad de golpe críticoe";
-										}
-										case 686:
-										{
-											return "8% de aumento de la velocidad de movimiento";
-										}
-									}
-									break;
-								}
-							}
-						}
-						else
-						{
-							switch (num4)
-							{
-								case 422:
-								{
-									return "Extiende la bendición a algunos bloques";
-								}
-								case 423:
-								{
-									return "Extiende la corrupción a algunos bloques";
-								}
-								case 424:
-								{
-									break;
-								}
-								case 425:
-								{
-									return "Invoca a una hada mágica";
-								}
-								default:
-								{
-									if (num4 == 434)
-									{
-										return "Dispara tres ráfagas";
-									}
-									switch (num4)
-									{
-										case 485:
-										{
-											return "Convierte a su portador en hombre lobo durante la luna llena";
-										}
-										case 486:
-										{
-											return "Dibuja una rejilla en pantalla para colocar los bloques";
-										}
-										case 489:
-										{
-											return "Aumenta el daño mágico en un 15%";
-										}
-										case 490:
-										{
-											return "Aumenta un 15% el daño en el cuerpo a cuerpo";
-										}
-										case 491:
-										{
-											return "Aumenta el daño a distancia en un 15%";
-										}
-										case 492:
-										{
-											return "Permite volar y caer lentamente";
-										}
-										case 493:
-										{
-											return "Permite volar y caer lentamente";
-										}
-										case 495:
-										{
-											return "Lanza un arco iris dirigido";
-										}
-										case 496:
-										{
-											return "Lanza un bloque de hielo";
-										}
-										case 497:
-										{
-											return "Transforma a su portador en un tritón al sumergirse en el agua";
-										}
-										case 506:
-										{
-											return "Utiliza baba como munición";
-										}
-										case 509:
-										{
-											return "Permite colocar alambre";
-										}
-										case 510:
-										{
-											return "Permite cortar alambre";
-										}
-										case 515:
-										{
-											return "Crea varios fragmentos de cristal al impactar";
-										}
-										case 516:
-										{
-											return "Lanza estrellas caídas al impactar";
-										}
-										case 517:
-										{
-											return "Una daga mágica que vuelve al arrojarse";
-										}
-										case 518:
-										{
-											return "Lanza fragmentos de cristal a toda velocidad";
-										}
-										case 519:
-										{
-											return "Lanza bolas de fuego impuras";
-										}
-										case 520:
-										{
-											return "'La esencia de las criaturas de la luz'";
-										}
-										case 521:
-										{
-											return "'La esencia de las criaturas de la oscuridad'";
-										}
-										case 522:
-										{
-											return "'Ni siquiera el agua puede apagarla'";
-										}
-										case 523:
-										{
-											return "Se puede meter en el agua";
-										}
-										case 524:
-										{
-											return "Se usa para fundir mineral de adamantita";
-										}
-										case 525:
-										{
-											return "Se usa para fabricar objetos con lingotes de mithril y adamantita";
-										}
-										case 526:
-										{
-											return "'¡Puntiagudo y mágico!'";
-										}
-										case 527:
-										{
-											return "'A veces lo llevan las criaturas de los desiertos corrompidos'";
-										}
-										case 528:
-										{
-											return "'A veces lo llevan las criaturas de los desiertos de luz'";
-										}
-										case 529:
-										{
-											return "Se activa al pisarla";
-										}
-										case 531:
-										{
-											return "Se puede hechizar";
-										}
-										case 532:
-										{
-											return "Hace que las estrellas caigan cuando te hieren";
-										}
-										case 533:
-										{
-											return "Probabilidad del 50% de no gastar munición";
-										}
-										case 534:
-										{
-											return "Dispara una ráfaga de balas";
-										}
-										case 535:
-										{
-											return "Reduce el tiempo de espera para las pociones curativas";
-										}
-										case 536:
-										{
-											return "Aumenta el retroceso en el cuerpo a cuerpo";
-										}
-										case 541:
-										{
-											return "Se activa al pisarla";
-										}
-										case 542:
-										{
-											return "Se activa al pisarla";
-										}
-										case 543:
-										{
-											return "Se activa al pisarla";
-										}
-										case 544:
-										{
-											return "Invoca a los Gemelos";
-										}
-										case 547:
-										{
-											return "'La esencia del terror en estado puro'";
-										}
-										case 548:
-										{
-											return "'La esencia del Destructor'";
-										}
-										case 549:
-										{
-											return "'La esencia de los observadores omniscientes'";
-										}
-										case 551:
-										{
-											return "Aumenta la probabilidad de ataque crítico en un 7%";
-										}
-										case 552:
-										{
-											return "Aumenta el daño en un 7%";
-										}
-										case 553:
-										{
-											return "Aumenta el daño a distancia en un 15%";
-										}
-										case 554:
-										{
-											return "Aumenta el tiempo de invencibilidad tras recibir daños";
-										}
-										case 555:
-										{
-											return "Reduce el uso de maná en un 8%";
-										}
-										case 556:
-										{
-											return "Invoca El Destructor";
-										}
-										case 557:
-										{
-											return "Invoca al Esqueleto mayor";
-										}
-										case 558:
-										{
-											return "Aumenta al máximo el maná (100)";
-										}
-										case 559:
-										{
-											return "Aumenta un 10% la probabilidad de ataque crítico y daño en el cuerpo a cuerpo";
-										}
-										case 560:
-										{
-											return "Invoca a la Babosa rey";
-										}
-										case 561:
-										{
-											return "No apilar más de 5";
-										}
-										case 575:
-										{
-											return "'La esencia de poderosas criaturas que vuelan'";
-										}
-										case 576:
-										{
-											return "Puedes grabar canciones";
-										}
-										case 579:
-										{
-											return "'No confundir con un cuchillo jamonero'";
-										}
-										case 580:
-										{
-											return "Explota al activarse";
-										}
-										case 581:
-										{
-											return "Envía agua a los colectores de salida";
-										}
-										case 582:
-										{
-											return "Recibe agua de los colectores de entrada";
-										}
-										case 583:
-										{
-											return "Se activa cada segundo";
-										}
-										case 584:
-										{
-											return "Se activa cada 3 segundos";
-										}
-										case 585:
-										{
-											return "Se activa cada 5 segundos";
-										}
-										case 599:
-										{
-											return "Haga clic derecho para abrir";
-										}
-										case 600:
-										{
-											return "Haga clic derecho para abrir";
-										}
-										case 601:
-										{
-											return "Haga clic derecho para abrir";
-										}
-										case 602:
-										{
-											return "Convoca a la Legión de Frost";
-										}
-										case 603:
-										{
-											return "Convoca a un conejo de mascota";
-										}
-									}
-									break;
-								}
-							}
-						}
-					}
-					else if (num4 > 726)
-					{
-						switch (num4)
-						{
-							case 748:
-							{
-								return "Permite el vuelo y la caída lenta";
-							}
-							case 749:
-							{
-								return "Permite el vuelo y la caída lenta";
-							}
-							default:
-							{
-								if (num4 == 753)
-								{
-									return "Invoca una tortuga mascota";
-								}
-								if (num4 == 761)
-								{
-									return "Permite el vuelo y la caída lenta";
-								}
-								break;
-							}
 						}
 					}
 					else
 					{
-						switch (num4)
+						if (l == 332)
 						{
-							case 707:
-							{
-								return "Indica el tiempo";
-							}
-							case 708:
-							{
-								return "Indica el tiempo";
-							}
-							case 709:
-							{
-								return "Indica el tiempo";
-							}
-							default:
-							{
-								if (num4 == 716)
-								{
-									return "Se utiliza para artículos de artesanía a partir de barras de metal";
-								}
-								switch (num4)
-								{
-									case 723:
-									{
-										return "Dispara un rayo de luz";
-									}
-									case 724:
-									{
-										return "Dispara un tornillo de hielo";
-									}
-									case 725:
-									{
-										return "Dispara flechas heladas";
-									}
-									case 726:
-									{
-										return "Dispara un chorro de heladas";
-									}
-								}
-								break;
-							}
+							return "Utilisé pour la fabrication de vêtements";
+						}
+						if (l == 352)
+						{
+							return "Utilisé pour brasser la bière.";
+						}
+						switch (l)
+						{
+							case 357:
+								return "Amélioration mineure de toutes les stats.";
+							case 361:
+								return "Invoque une armée de gobelins";
+							case 363:
+								return "Permet un travail avancé du bois";
+							case 367:
+								return "Suffisamment puissant pour détruire les autels démoniaques";
+							case 371:
+								return "Augmente le maximum de mana de 40";
+							case 372:
+								return "La vitesse de déplacement est augmentée de 7 %";
+							case 373:
+								return "Les dégâts à distance sont augmentés de 10 %";
+							case 376:
+								return "Augmente le maximum de mana de 60";
+							case 377:
+								return "Les chances de coup critique de mêler sont augmentées de 5 %";
+							case 378:
+								return "Les dégâts à distance sont augmentés de 12 %";
+							case 385:
+								return "Permet d'extraire du mythril";
+							case 386:
+								return "Permet d'extraire de l'adamantine";
+							case 389:
+								return "Peut étourdir les ennemis";
+							case 393:
+								return "Indique la position horizontale";
+							case 394:
+								return "Permet de nager";
+							case 395:
+								return "Indique la position";
+							case 396:
+								return "Annule les dégâts de chute";
+							case 397:
+								return "Annule tout effet de recul";
+							case 398:
+								return "Permet de combiner certains accessoires";
+							case 399:
+								return "Permet de faire un double saut";
+							case 400:
+								return "Augmente le maximum de mana de 80";
+							case 401:
+								return "Les chances de coup critique de mêlée sont augmentées de 7 %";
+							case 402:
+								return "Les dégâts à distance sont augmentés de 14 %";
+							case 403:
+								return "Les dégâts sont augmentés de 6 %";
+							case 404:
+								return "Les chances de coup critique sont augmentées de 4 %";
+							case 405:
+								return "Permet de voler";
+							case 407:
+								return "Permet de construire un bloc plus loin";
 						}
 					}
 				}
-				else if (num4 <= 1343)
+				else if (l <= 761)
 				{
-					if (num4 > 832)
+					if (l <= 686)
 					{
-						switch (num4)
+						if (l <= 603)
+						{
+							switch (l)
+							{
+								case 422:
+									return "Purifie certains blocs";
+								case 423:
+									return "Corrompt certains blocs";
+								case 424:
+									break;
+								case 425:
+									return "Invoque une fée magique";
+								default:
+									if (l == 434)
+									{
+										return "Tire des rafales de trois coups";
+									}
+									switch (l)
+									{
+										case 485:
+											return "Transforme le porteur en loup-garou à la pleine lune";
+										case 486:
+											return "Crée une grille à l'écran pour le placement des blocs";
+										case 489:
+											return "Augmente les dégâts magiques de 15 %";
+										case 490:
+											return "Augmente les dégâts de mêlée de 15 %";
+										case 491:
+											return "Dégâts à distance augmentés de 15 %";
+										case 492:
+											return "Permet de voler et de ralentir la chute";
+										case 493:
+											return "Permet de voler et de ralentir la chute";
+										case 495:
+											return "Lance un arc-en-ciel contrôlable";
+										case 496:
+											return "Invoque un bloc de glace";
+										case 497:
+											return "Transforme le porteur en sirène lorsqu'il entre dans l'eau";
+										case 506:
+											return "Utilise du gel comme carburant";
+										case 509:
+											return "Joint les câbles";
+										case 510:
+											return "Coupe les câbles";
+										case 515:
+											return "Crée plusieurs éclats de cristal à l'impact";
+										case 516:
+											return "Invoque des étoiles déchues à l'impact";
+										case 517:
+											return "Une dague qui revient magiquement à son possesseur";
+										case 518:
+											return "Invoque des éclats rapides de cristal de feu";
+										case 519:
+											return "Invoque des boules de feu maudites";
+										case 520:
+											return "'L'essence des créatures de lumière'";
+										case 521:
+											return "'L'essence des créatures sombres'";
+										case 522:
+											return "'Même l'eau ne peut l'éteindre'";
+										case 523:
+											return "Peut être placée dans l'eau";
+										case 524:
+											return "Utilisée pour fondre le minerai d'adamantine";
+										case 525:
+											return "Utilisée pour forger des objets avec du mythril et de l'adamantite";
+										case 526:
+											return "'Magique et coupante'";
+										case 527:
+											return "'Porté parfois par les créatures dans le désert corrompu'";
+										case 528:
+											return "'Porté parfois par les créatures dans le désert de lumière'";
+										case 529:
+											return "S'active en marchant dessus";
+										case 531:
+											return "Peut être enchanté";
+										case 532:
+											return "Des étoiles tombent lorsque le porteur est blessé";
+										case 533:
+											return "50 % de chance de n'utiliser aucune munition";
+										case 534:
+											return "Disperse une salve de balles";
+										case 535:
+											return "Réduit le temps d'utilisation entre les potions de soin";
+										case 536:
+											return "Accroît le recul en mêlée";
+										case 541:
+											return "S'active en marchant dessus";
+										case 542:
+											return "S'active en marchant dessus";
+										case 543:
+											return "S'active en marchant dessus";
+										case 544:
+											return "Invoque les jumeaux";
+										case 547:
+											return "'L'essence de la terreur pure'";
+										case 548:
+											return "'L'essence du destructeur'";
+										case 549:
+											return "'L'essence des observateurs omniscients'";
+										case 551:
+											return "Augmente les chances de coup critique de 7 %";
+										case 552:
+											return "Dégâts augmentés de 7 %";
+										case 553:
+											return "Dégâts à distance augmentés de 15 %";
+										case 554:
+											return "Augmente la durée d'invincibilité après avoir subi des dégâts";
+										case 555:
+											return "Utilisation de mana réduite de 8 %";
+										case 556:
+											return "Invoque l'destructeur";
+										case 557:
+											return "Invoque le squeletron primaire";
+										case 558:
+											return "Augmente le maximum de mana de 100";
+										case 559:
+											return "Les chances de coup critique et les dégâts de mêlée sont augmentés de 10 %";
+										case 560:
+											return "Invoque le roi slime";
+										case 561:
+											return "Possibilité d'en lancer jusqu'à 5";
+										case 575:
+											return "'L'essence des puissantes créatures volantes'";
+										case 576:
+											return "A une chance d'enregistrer un morceau";
+										case 579:
+											return "'À ne pas confondre avec le marteau-scie'";
+										case 580:
+											return "Explosent lorsqu'ils sont activés";
+										case 581:
+											return "Envoie de l'eau aux sorties de pompage";
+										case 582:
+											return "Reçoit de l'eau des postes de pompage";
+										case 583:
+											return "S'active chaque seconde";
+										case 584:
+											return "S'active toutes les 3 secondes";
+										case 585:
+											return "S'active toutes les 5 secondes";
+										case 599:
+											return "Faites un clic droit pour ouvrir";
+										case 600:
+											return "Faites un clic droit pour ouvrir";
+										case 601:
+											return "Faites un clic droit pour ouvrir";
+										case 602:
+											return "Invoque la Légion gel";
+										case 603:
+											return "Convocation d'un lapin de compagnie";
+									}
+									break;
+							}
+						}
+						else
+						{
+							switch (l)
+							{
+								case 665:
+									return "Vous ne devriez pas avoir cette";
+								case 666:
+									return "Vous ne devriez pas avoir cette";
+								case 667:
+									return "Vous ne devriez pas avoir cette";
+								case 668:
+									return "Vous ne devriez pas avoir cette";
+								case 669:
+									return "Invoque un bébé pingouin";
+								default:
+									if (l == 676)
+									{
+										return "Tire sur un boulon de glace";
+									}
+									switch (l)
+									{
+										case 683:
+											return "Invoque trident du diable";
+										case 684:
+											return "16% ont augmenté mêlée et à distance des dégâts";
+										case 685:
+											return "11% ont augmenté mêlée et à distance chances de coup critique";
+										case 686:
+											return "8% a augmenté la vitesse de déplacement";
+									}
+									break;
+							}
+						}
+					}
+					else if (l <= 726)
+					{
+						switch (l)
+						{
+							case 707:
+								return "Indique le temps";
+							case 708:
+								return "Indique le temps";
+							case 709:
+								return "Indique le temps";
+							default:
+								if (l == 716)
+								{
+									return "Utilisé pour des objets d'artisanat à partir de barres de métal";
+								}
+								switch (l)
+								{
+									case 723:
+										return "Tire un faisceau de lumière";
+									case 724:
+										return "Tire sur un boulon de glace";
+									case 725:
+										return "Lance gel flèches";
+									case 726:
+										return "De prendre un flux de gel";
+								}
+								break;
+						}
+					}
+					else
+					{
+						switch (l)
+						{
+							case 748:
+								return "Permet de vol et de chute lente";
+							case 749:
+								return "Permet de vol et de chute lente";
+							default:
+								if (l == 753)
+								{
+									return "Summons a pet turtle";
+								}
+								if (l == 761)
+								{
+									return "Permet de vol et de chute lente";
+								}
+								break;
+						}
+					}
+				}
+				else
+				{
+					if (l > 1343)
+					{
+						if (l > 1595)
+						{
+							if (l <= 3491)
+							{
+								if (l != 3485 && l != 3491)
+								{
+									goto IL_AC2F;
+								}
+							}
+							else if (l != 3521)
+							{
+								if (l != 3643)
+								{
+									goto IL_AC2F;
+								}
+								goto IL_8D87;
+							}
+							return "Permet d'extraire la météorite";
+						}
+						switch (l)
+						{
+							case 1430:
+								return "Utilisé pour fabriquer des flacons de imbuement d'armes";
+							case 1431:
+								goto IL_AC2F;
+							case 1432:
+								return "Utilisé pour fabriquer différents types de munitions";
+							default:
+								switch (l)
+								{
+									case 1444:
+										return "Crée un faisceau d'ombre qui rebondit sur les murs";
+									case 1445:
+										return "Lance une boule de feu qui explose dans un brasier";
+									case 1446:
+										return "Invoque une âme perdue pour chasser vos ennemis";
+									case 1447:
+									case 1448:
+										goto IL_AC2F;
+									case 1449:
+										return "souffle des bulles";
+									case 1450:
+										return "souffle des bulles";
+									default:
+										switch (l)
+										{
+											case 1503:
+												return "Augmente mana maximum de 80 et réduit la consommation de mana de 17%";
+											case 1504:
+												return "7% d'augmentation des dégâts magiques et les chances de coup critique";
+											case 1505:
+												return "8% d'augmentation des dégâts magiques";
+											case 1506:
+											case 1507:
+											case 1508:
+											case 1509:
+											case 1510:
+											case 1511:
+											case 1512:
+											case 1514:
+											case 1516:
+											case 1517:
+											case 1518:
+											case 1519:
+											case 1520:
+											case 1521:
+											case 1528:
+											case 1529:
+											case 1530:
+											case 1531:
+											case 1532:
+											case 1538:
+											case 1539:
+											case 1540:
+											case 1541:
+											case 1542:
+											case 1552:
+											case 1570:
+											case 1573:
+											case 1574:
+											case 1575:
+											case 1576:
+											case 1577:
+											case 1589:
+											case 1590:
+											case 1591:
+											case 1592:
+											case 1593:
+											case 1594:
+												goto IL_AC2F;
+											case 1513:
+												return "Un marteau retour puissant";
+											case 1515:
+												return "Permet de vol et de chute lente";
+											case 1522:
+												break;
+											case 1523:
+												return "Pour capturer le Gem. Il tombe quand vous mourrez";
+											case 1524:
+												return "Pour capturer le Gem. Il tombe quand vous mourrez";
+											case 1525:
+												return "Pour capturer le Gem. Il tombe quand vous mourrez";
+											case 1526:
+												return "Pour capturer le Gem. Il tombe quand vous mourrez";
+											case 1527:
+												return "Pour capturer le Gem. Il tombe quand vous mourrez";
+											case 1533:
+												return "Débloque une jungle poitrine dans le donjon";
+											case 1534:
+												return "Débloque un coffre de la corruption dans le donjon";
+											case 1535:
+												return "Débloque un coffre Crimson dans le donjon";
+											case 1536:
+												return "Débloque un coffre sanctifié dans le donjon";
+											case 1537:
+												return "Débloque un coffre congelés dans le donjon";
+											case 1543:
+												return "Utilisé avec de la peinture à blocs de couleur";
+											case 1544:
+												return "Utilisé avec de la peinture sur les murs de couleur";
+											case 1545:
+												return "Utilisé pour enlever la peinture";
+											case 1546:
+												return "15% de dégâts supplémentaires flèche";
+											case 1547:
+												return "15% de dégâts supplémentaires infligés par balle";
+											case 1548:
+												return "15% de dégâts supplémentaires fusée";
+											case 1549:
+												return "13% ont augmenté varié chances de coup critique";
+											case 1550:
+												return "7% ont augmenté varié chances de coup critique";
+											case 1551:
+												return "Convertit Bars Bars chlorophyte en Shroomite";
+											case 1553:
+												return "50% de chances de ne pas consommer de munitions";
+											case 1554:
+												return "Vous ne devriez pas avoir cette";
+											case 1555:
+												return "Vous ne devriez pas avoir cette";
+											case 1556:
+												return "Vous ne devriez pas avoir cette";
+											case 1557:
+												return "Vous ne devriez pas avoir cette";
+											case 1558:
+												return "Vous ne devriez pas avoir cette";
+											case 1559:
+												return "Vous ne devriez pas avoir cette";
+											case 1560:
+												return "Vous ne devriez pas avoir cette";
+											case 1561:
+												return "Vous ne devriez pas avoir cette";
+											case 1562:
+												return "Vous ne devriez pas avoir cette";
+											case 1563:
+												return "Vous ne devriez pas avoir cette";
+											case 1564:
+												return "Vous ne devriez pas avoir cette";
+											case 1565:
+												return "Vous ne devriez pas avoir cette";
+											case 1566:
+												return "Vous ne devriez pas avoir cette";
+											case 1567:
+												return "Vous ne devriez pas avoir cette";
+											case 1568:
+												return "Vous ne devriez pas avoir cette";
+											case 1569:
+												return "Rapidement jeter des poignards qui volent de la vie";
+											case 1571:
+												return "Un javelot puissant qui libère de minuscules mangeurs";
+											case 1572:
+												return "Invoque un puissant gel hydre à cracher de la glace sur vos ennemis";
+											case 1578:
+												return "Communiqués abeilles et augmente la vitesse de déplacement lorsqu'il a été endommagé";
+											case 1579:
+												return "Le porteur peut fonctionner super rapide";
+											case 1580:
+												return "Vous ne devriez pas avoir cette";
+											case 1581:
+												return "Vous ne devriez pas avoir cette";
+											case 1582:
+												return "Vous ne devriez pas avoir cette";
+											case 1583:
+												return "Vous ne devriez pas avoir cette";
+											case 1584:
+												return "Vous ne devriez pas avoir cette";
+											case 1585:
+												return "Vous ne devriez pas avoir cette";
+											case 1586:
+												return "Vous ne devriez pas avoir cette";
+											case 1587:
+												return "Vous ne devriez pas avoir cette";
+											case 1588:
+												return "Vous ne devriez pas avoir cette";
+											case 1595:
+												return "Augmente mana maximum de 20";
+											default:
+												goto IL_AC2F;
+										}
+										break;
+								}
+								break;
+						}
+						IL_8D87:
+						return "Pour capturer le Gem. Il tombe quand vous mourrez";
+					}
+					if (l <= 832)
+					{
+						switch (l)
+						{
+							case 779:
+								return "Crée et détruit biomes lors de la pulvérisation";
+							case 780:
+								return "Utilisé par le Clentaminator";
+							case 781:
+								return "Utilisé par le Clentaminator";
+							case 782:
+								return "Utilisé par le Clentaminator";
+							case 783:
+								return "Utilisé par le Clentaminator";
+							case 784:
+								return "Utilisé par le Clentaminator";
+							case 785:
+								return "Permet de vol et de chute lente";
+							case 786:
+								return "Permet de vol et de chute lente";
+							case 787:
+								return "Assez fort pour détruire les autels de démon";
+							case 788:
+								return "Invoque une lance d'épines";
+							case 789:
+							case 790:
+							case 791:
+							case 795:
+							case 796:
+							case 797:
+								break;
+							case 792:
+								return "2% de dégâts";
+							case 793:
+								return "2% de dégâts";
+							case 794:
+								return "2% de dégâts";
+							case 798:
+								return "Capable d'exploiter Hellstone";
+							default:
+								switch (l)
+								{
+									case 821:
+										return "Permet de vol et de chute lente";
+									case 822:
+										return "Permet de vol et de chute lente";
+									case 823:
+										return "Permet de vol et de chute lente";
+									default:
+										if (l == 832)
+										{
+											return "Places bois vivant";
+										}
+										break;
+								}
+								break;
+						}
+					}
+					else
+					{
+						switch (l)
 						{
 							case 849:
-							{
-								return "Permite bloques sólidos para activar y desactivar";
-							}
+								return "Permet blocs solides pour être activée ou désactivée";
 							case 850:
-							{
-								return "Lugares cable azul";
-							}
+								return "Places fil bleu";
 							case 851:
-							{
-								return "Lugares cable verde";
-							}
+								return "Places fil vert";
 							case 852:
-							{
-								return "Se activa cuando un jugador pisa";
-							}
+								return "Active quand un joueur marche sur-le";
 							case 853:
-							{
-								return "Se activa cuando cualquier cosa menos que un jugador pisa";
-							}
+								return "Active quand quelque chose mais un joueur marche dessus sur";
 							case 854:
-							{
-								return "Tiendas tienen precios más bajos";
-							}
+								return "Magasins ont des prix plus bas";
 							case 855:
-							{
-								return "Golpear a los enemigos a veces caer más monedas";
-							}
+								return "Ennemis frappeurs parfois tomber des pièces supplémentaires";
 							case 856:
-							{
-								return "'Tener un tiempo maravilloso!'";
-							}
+								return "'Avoir un temps merveilleux!'";
 							case 857:
-							{
-								return "Permite a su titular a hacer un doble salto mejorada";
-							}
+								return "Permet à son détenteur de faire un meilleur saut double";
 							case 858:
 							case 859:
 							case 864:
@@ -56835,1374 +50485,1996 @@ namespace Terraria
 							case 992:
 							case 993:
 							case 999:
-							{
 								break;
-							}
 							case 860:
-							{
-								return "Proporciona regeneración de vida y reduce el tiempo de reutilización de pociones curativas";
-							}
+								return "Fournit la régénération de vie et réduit le temps de recharge de potions de guérison";
 							case 861:
-							{
-								return "Activa el soporte en un hombre lobo en la noche y tritones al entrar en el agua";
-							}
+								return "Active le support en loup-garou la nuit et un merfolk lors de l'entrée d'eau";
 							case 862:
-							{
-								return "Causas estrellas a caer y aumenta la longitud de la invencibilidad tras recibir daño";
-							}
+								return "Provoque étoiles à tomber et augmente la longueur d'invincibilité après prendre des dommages";
 							case 863:
-							{
-								return "Ofrece la posibilidad de caminar sobre el agua";
-							}
+								return "Offre la possibilité de marcher sur l'eau";
 							case 885:
-							{
-								return "inmunidad a sangrado";
-							}
+								return "immunité aux saignements";
 							case 886:
-							{
-								return "inmunidad a la armadura rota";
-							}
+								return "immunité à l'armure brisée";
 							case 887:
-							{
-								return "inmunidad al veneno";
-							}
+								return "immunité au poison";
 							case 888:
-							{
-								return "inmunidad a la oscuridad";
-							}
+								return "immunité à l'obscurité";
 							case 889:
-							{
-								return "inmunidad a reducir la velocidad";
-							}
+								return "immunité à ralentir";
 							case 890:
-							{
-								return "inmunidad para silenciar";
-							}
+								return "immunité au silence";
 							case 891:
-							{
-								return "inmunidad a maldecir";
-							}
+								return "l'immunité de maudire";
 							case 892:
-							{
-								return "inmunidad a la debilidad";
-							}
+								return "l'immunité à la faiblesse";
 							case 893:
-							{
-								return "inmunidad a la confusión";
-							}
+								return "immunité à confusion";
 							case 897:
-							{
-								return "Aumenta melee llamar de nuevo";
-							}
+								return "Augmente repoussement de mêlée";
 							case 898:
-							{
-								return "permite vuelo";
-							}
+								return "permet vol";
 							case 899:
-							{
-								return "Incrementa todas las estadísticas si se usan durante el día";
-							}
+								return "Augmente tous les stats si usé pendant le jour";
 							case 900:
-							{
-								return "Incrementa todas las estadísticas si se usan durante la noche";
-							}
+								return "Augmente tous les stats si usé pendant la nuit";
 							case 901:
-							{
-								return "Inmunidad a la debilidad y la armadura rota";
-							}
+								return "Immunité de la faiblesse et de l'armure brisée";
 							case 902:
-							{
-								return "Inmunidad al veneno y sangrado";
-							}
+								return "Immunité au poison et des saignements";
 							case 903:
-							{
-								return "Inmunidad a disminuir y la confusión";
-							}
+								return "Immunité à ralentir et confusion";
 							case 904:
-							{
-								return "Inmunidad al silencio y la maldición";
-							}
+								return "Immunité au silence et ne maudissez";
 							case 905:
-							{
-								return "Utiliza las monedas de munición";
-							}
+								return "Utilise des pièces de munitions";
 							case 906:
-							{
-								return "Proporciona 7 segundos de inmunidad a la lava";
-							}
+								return "Fournit de 7 secondes d'immunité aux lave";
 							case 907:
-							{
-								return "Ofrece la posibilidad de caminar sobre el agua";
-							}
+								return "Offre la possibilité de marcher sur l'eau";
 							case 908:
-							{
-								return "Ofrece la posibilidad de caminar sobre el agua y la lava";
-							}
+								return "Offre la possibilité de marcher sur l'eau et la lave";
 							case 932:
-							{
-								return "lugares ósea";
-							}
+								return "places os";
 							case 933:
-							{
-								return "lugares hojas";
-							}
+								return "places laisse";
 							case 934:
-							{
-								return "Permite al propietario para flotar durante unos segundos";
-							}
+								return "Permet au propriétaire de flotter pendant quelques secondes";
 							case 935:
-							{
-								return "12% aumentado el daño";
-							}
+								return "12% de dégâts";
 							case 936:
-							{
-								return "Aumenta melee llamar de nuevo";
-							}
+								return "Augmente repoussement de mêlée";
 							case 937:
-							{
-								return "Explota cuando pisó";
-							}
+								return "Explose quand on marche dessus";
 							case 938:
-							{
-								return "Absorbe el 25% del daño hecho a los jugadores de su equipo";
-							}
+								return "Absorbe 25% des dégâts infligés aux joueurs de votre équipe";
 							case 946:
-							{
-								return "Usted caerá más lento, mientras que la celebración de este";
-							}
+								return "Vous allez tomber lentement tout en maintenant cette";
 							case 947:
-							{
-								return "Reacciona a la luz";
-							}
+								return "Réagit à la lumière";
 							case 948:
-							{
-								return "Permite el vuelo y la caída lenta";
-							}
+								return "Permet de vol et de chute lente";
 							case 950:
-							{
-								return "Proporciona una mayor movilidad en el hielo";
-							}
+								return "Fournit la mobilité supplémentaire sur la glace";
 							case 951:
-							{
-								return "Rápidamente lanza bolas de nieve";
-							}
+								return "Lance rapidement des boules de neige";
 							case 953:
-							{
-								return "Permite la posibilidad de deslizarse por las paredes";
-							}
+								return "Permet la possibilité de glisser le long des murs";
 							case 956:
-							{
-								return "7% aumento de la velocidad de cuerpo a cuerpo";
-							}
+								return "7% ont augmenté la vitesse de mêlée";
 							case 957:
-							{
-								return "7% aumento de la velocidad de cuerpo a cuerpo";
-							}
+								return "7% ont augmenté la vitesse de mêlée";
 							case 958:
-							{
-								return "7% aumento de la velocidad de cuerpo a cuerpo";
-							}
+								return "7% ont augmenté la vitesse de mêlée";
 							case 959:
-							{
-								return "4% aumentado el daño a distancia.";
-							}
+								return "4% ont augmenté les dégâts à distance.";
 							case 960:
-							{
-								return "Aumenta el maná máximo por 40";
-							}
+								return "Augmente mana maximum de 40";
 							case 961:
-							{
-								return "Aumenta el maná máximo por 20";
-							}
+								return "Augmente mana maximum de 20";
 							case 962:
-							{
-								return "Aumenta el maná máximo por 20";
-							}
+								return "Augmente mana maximum de 20";
 							case 963:
-							{
-								return "Da la oportunidad de esquivar los ataques";
-							}
+								return "Donne une chance d'esquiver les attaques";
 							case 964:
-							{
-								return "Dispara un diferencial de balas";
-							}
+								return "Lance une propagation de balles";
 							case 965:
-							{
-								return "Puede ser escalado en";
-							}
+								return "Peut être monté sur";
 							case 966:
-							{
-								return "La regeneración de la vida se incrementa cuando cerca de una fogata";
-							}
+								return "Régénération de vie est augmentée lorsque près d'un feu de camp";
 							case 967:
-							{
-								return "Póngalo en un palo y asado sobre un fuego de campamento";
-							}
+								return "Mettez-le sur un bâton et rôti au feu de bois";
 							case 968:
-							{
-								return "Asar es sobre una hoguera!";
-							}
+								return "Rôtir sur un feu de camp!";
 							case 969:
-							{
-								return "Pequeñas mejoras a todas las estadísticas";
-							}
+								return "Améliorations mineures apportées à toutes les carac";
 							case 975:
-							{
-								return "Permite la posibilidad de deslizarse por las paredes";
-							}
+								return "Permet la possibilité de glisser le long des murs";
 							case 976:
-							{
-								return "Permite la posibilidad de escalar paredes";
-							}
+								return "Permet la possibilité d'escalader les murs";
 							case 977:
-							{
-								return "Permite la posibilidad de lanzarse";
-							}
+								return "Permet la possibilité de se lancer";
 							case 982:
-							{
-								return "Aumenta el maná máximo por 20";
-							}
+								return "Augmente mana maximum de 20";
 							case 983:
-							{
-								return "Permite al propietario el doble salto";
-							}
+								return "Permet au titulaire de double saut";
 							case 984:
-							{
-								return "Permite la posibilidad de escalar paredes y guión";
-							}
+								return "Permet la possibilité de grimper aux murs et tableau de bord";
 							case 985:
-							{
-								return "Saque de banda para crear una línea escalable de la cuerda";
-							}
+								return "Jeter de créer une ligne de corde climbable";
 							case 986:
-							{
-								return "Permite la recolección de semillas para munición";
-							}
+								return "Permet la collecte de semences pour munitions";
 							case 987:
-							{
-								return "Permite al propietario el doble salto";
-							}
+								return "Permet au titulaire de double saut";
 							case 989:
-							{
-								return "Dispara un rayo espada encantada";
-							}
+								return "Tire un faisceau d'épée enchantée";
 							case 990:
-							{
-								return "'No se debe confundir con un hamdrill'";
-							}
+								return "'A ne pas confondre avec un hamdrill'";
 							case 994:
-							{
-								return "Invoca una Eater bebé de las Almas";
-							}
+								return "Invoque un mangeur de bébé des âmes";
 							case 995:
-							{
-								return "Se utiliza para elaborar objetos";
-							}
+								return "Utilisé pour fabriquer des objets";
 							case 996:
-							{
-								return "Se utiliza para elaborar objetos";
-							}
+								return "Utilisé pour fabriquer des objets";
 							case 997:
-							{
-								return "Resulta cieno y lodo en algo más útil";
-							}
+								return "Met limon et de boue en quelque chose de plus utile";
 							case 998:
-							{
-								return "Se utiliza para elaborar objetos";
-							}
+								return "Utilisé pour fabriquer des objets";
 							case 1000:
-							{
-								return "Dispara confeti por todas partes!";
-							}
+								return "Lance confettis partout!";
 							case 1001:
-							{
-								return "16% aumentado el daño cuerpo a cuerpo";
-							}
+								return "16% ont augmenté les dégâts de mêlée";
 							case 1002:
-							{
-								return "16% aumentado el daño a distancia";
-							}
+								return "16% ont augmenté les dégâts à distance";
 							case 1003:
-							{
-								return "Aumenta el maná máximo en un 80 y reduce el uso de maná un 17%";
-							}
+								return "Augmente mana maximum de 80 et réduit la consommation de mana de 17%";
 							case 1004:
-							{
-								return "5% aumentado el daño";
-							}
+								return "5% de dégâts";
 							case 1005:
-							{
-								return "8% mayor probabilidad de golpe crítico";
-							}
+								return "8% ont augmenté les chances de coup critique";
 							case 1006:
-							{
-								return "Reacciona a la luz";
-							}
+								return "Réagit à la lumière";
 							default:
-							{
-								switch (num4)
+								switch (l)
 								{
 									case 1071:
-									{
-										return "Utilizado con pintura a los bloques de color";
-									}
+										return "Utilisé avec de la peinture à blocs de couleur";
 									case 1072:
-									{
-										return "Se utiliza con pintura de color a las paredes";
-									}
+										return "Utilisé avec de la peinture sur les murs de couleur";
 									default:
-									{
-										switch (num4)
+										switch (l)
 										{
 											case 1100:
-											{
-												return "Se utiliza para quitar la pintura";
-											}
+												return "Utilisé pour enlever la peinture";
 											case 1107:
-											{
-												return "Used to make teal dye";
-											}
+												return "Utilisé pour faire colorant bleu sarcelle";
 											case 1108:
-											{
-												return "Used to make green dye";
-											}
+												return "Utilisé pour faire colorant vert";
 											case 1109:
-											{
-												return "Se utiliza para hacer tinte verde azulado";
-											}
+												return "Utilisé pour faire colorant bleu ciel";
 											case 1110:
-											{
-												return "Se utiliza para hacer colorante amarillo";
-											}
+												return "Utilisé pour faire colorant jaune";
 											case 1111:
-											{
-												return "Se utiliza para hacer un tinte azul";
-											}
+												return "Utilisé pour faire colorant bleu";
 											case 1112:
-											{
-												return "Se utiliza para hacer tintes cal";
-											}
+												return "Utilisé pour fabriquer des colorants chaux";
 											case 1113:
-											{
-												return "Se utiliza para hacer tinte rosa";
-											}
+												return "Utilisé pour faire colorant rose";
 											case 1114:
-											{
-												return "Se utiliza para hacer tinte naranja";
-											}
+												return "Utilisé pour faire colorant d'orange";
 											case 1115:
-											{
-												return "Se utiliza para hacer tinte rojo";
-											}
+												return "Utilisé pour faire colorant rouge";
 											case 1116:
-											{
-												return "Se utiliza para hacer colorante cian";
-											}
+												return "Utilisé pour faire colorant cyan";
 											case 1117:
-											{
-												return "Se utiliza para hacer tinte violeta";
-											}
+												return "Utilisé pour fabriquer la teinture violette";
 											case 1118:
-											{
-												return "Se utiliza para hacer tinte púrpura";
-											}
+												return "Utilisé pour faire colorant violet";
 											case 1119:
-											{
-												return "Se utiliza para hacer tinte negro";
-											}
+												return "Utilisé pour faire colorant noir";
 											case 1120:
-											{
-												return "Se utiliza para elaborar tintes";
-											}
+												return "Utilisé pour fabriquer des colorants";
 											case 1121:
-											{
-												return "Brotes de abejas que perseguir a su enemigo";
-											}
+												return "Shoots abeilles qui vont chasser vos ennemis";
 											case 1122:
-											{
-												return "Persigue a su enemigo";
-											}
+												return "Poursuites après votre ennemi";
 											case 1123:
-											{
-												return "Invoca abejas asesinas después de golpear a tu enemigo";
-											}
+												return "Invoque abeilles tueuses après avoir frappé votre ennemi";
 											case 1129:
-											{
-												return "Lugares colmenas";
-											}
+												return "Places urticaire";
 											case 1130:
-											{
-												return "Se descompone en un enjambre de abejas";
-											}
+												return "Explose en un essaim d'abeilles";
 											case 1131:
-											{
-												return "Permite al propietario para revertir la gravedad";
-											}
+												return "Permet à son titulaire d'inverser la gravité";
 											case 1132:
-											{
-												return "Libera las abejas cuando está dañado";
-											}
+												return "Libère les abeilles lorsqu'elles sont endommagées";
 											case 1133:
-											{
-												return "Invoca la abeja reina";
-											}
+												return "Invoque le Queen Bee";
 											case 1141:
-											{
-												return "Abre la puerta del templo de la selva";
-											}
+												return "Ouvre la porte du temple de la jungle";
 											case 1145:
-											{
-												return "Se utiliza para la elaboración básicas";
-											}
+												return "Utilisé pour l'artisanat de base";
 											case 1151:
-											{
-												return "Se activa cuando un jugador pisa";
-											}
+												return "Active quand un joueur marche sur-le";
 											case 1156:
-											{
-												return "Prende a los enemigos por los daños continuos";
-											}
+												return "Loquets situés sur les ennemis pour les dommages continu";
 											case 1157:
-											{
-												return "Invoca un pigmeo para luchar por usted";
-											}
+												return "Invoque un pygmée à se battre pour vous";
 											case 1158:
-											{
-												return "Aumenta el número máximo de esbirros";
-											}
+												return "Augmente votre nombre maximum de sous-fifres";
 											case 1159:
-											{
-												return "Aumenta el número máximo de esbirros";
-											}
+												return "Augmente votre nombre maximum de sous-fifres";
 											case 1160:
-											{
-												return "Aumenta el número máximo de esbirros";
-											}
+												return "Augmente votre nombre maximum de sous-fifres";
 											case 1161:
-											{
-												return "Aumenta el número máximo de esbirros";
-											}
+												return "Augmente votre nombre maximum de sous-fifres";
 											case 1162:
-											{
-												return "Permite el vuelo y la caída lenta";
-											}
+												return "Permet de vol et de chute lente";
 											case 1163:
-											{
-												return "Permite al propietario el doble salto";
-											}
+												return "Permet au titulaire de double saut";
 											case 1164:
-											{
-												return "Permite al propietario salto cuádruple";
-											}
+												return "Permet au titulaire de quadruple saut";
 											case 1165:
-											{
-												return "Permite el vuelo y la caída lenta";
-											}
+												return "Permet de vol et de chute lente";
 											case 1167:
-											{
-												return "Aumenta el daño de tus siervos por 15";
-											}
+												return "Augmente les dégâts de vos sbires d'ici le 15";
 											case 1169:
-											{
-												return "Invoca una cabeza Skeletron bebé";
-											}
+												return "Invoque un bébé Skeletron tête";
 											case 1170:
-											{
-												return "Invoca un Hornet bebé";
-											}
+												return "Invoque un Hornet bébé";
 											case 1171:
-											{
-												return "Invoca un espíritu Tiki";
-											}
+												return "Invoque un esprit de Tiki";
 											case 1172:
-											{
-												return "Invoca una lagartija";
-											}
+												return "Invoque un lézard de compagnie";
 											case 1178:
-											{
-												return "Dispara rápidamente hojas afiladas";
-											}
+												return "Pousses rapidement feuilles acérées";
 											case 1179:
-											{
-												return "Persigue a su enemigo";
-											}
+												return "Chases after your enemy";
 											case 1180:
-											{
-												return "Invoca un loro";
-											}
+												return "Invoque un perroquet";
 											case 1181:
-											{
-												return "Invoca una trufa bebé";
-											}
+												return "Invoque un Truffle bébé";
 											case 1182:
-											{
-												return "Invoca un árbol del animal doméstico";
-											}
+												return "Invoque un jeune arbre Pet";
 											case 1183:
-											{
-												return "Invoca un Wisp para proporcionar luz";
-											}
+												return "Invoque un Wisp pour fournir la lumière";
 											case 1188:
-											{
-												return "Puede mina Mythril, Orichalcum, adamantita y Titanium";
-											}
+												return "Peut-mines de mithril, orichalque, adamantite et Titane";
 											case 1189:
-											{
-												return "Puede mina Mythril, Orichalcum, adamantita y Titanium";
-											}
+												return "Peut-mines de mithril, orichalque, adamantite et Titane";
 											case 1195:
-											{
-												return "Puede mina adamantita y Titanio";
-											}
+												return "Peut mien adamantite et Titane";
 											case 1196:
-											{
-												return "Puede mina adamantita y Titanio";
-											}
+												return "Peut mien adamantite et Titane";
 											case 1205:
-											{
-												return "8% aumentado el daño cuerpo a cuerpo";
-											}
+												return "8% ont augmenté les dégâts de mêlée";
 											case 1206:
-											{
-												return "9% aumentado el daño a distancia";
-											}
+												return "9% ont augmenté les dégâts à distance";
 											case 1207:
-											{
-												return "7% aumento de daño mágico y probabilidad de golpe crítico";
-											}
+												return "7% d'augmentation des dégâts magiques et les chances de coup critique";
 											case 1208:
-											{
-												return "3% aumentado el daño";
-											}
+												return "3% de dégâts";
 											case 1209:
-											{
-												return "2% aumentado el daño";
-											}
+												return "2% de dégâts";
 											case 1210:
-											{
-												return "7% aumentado el daño cuerpo a cuerpo";
-											}
+												return "7% ont augmenté les dégâts de mêlée";
 											case 1211:
-											{
-												return "15% mayor distancia probabilidad de golpe crítico";
-											}
+												return "15% ont augmenté varié chances de coup critique";
 											case 1212:
-											{
-												return "18% increased magic critical strike chance";
-											}
+												return "18% ont augmenté magie chances de coup critique";
 											case 1213:
-											{
-												return "6% mayor probabilidad de golpe crítico";
-											}
+												return "6% ont augmenté les chances de coup critique";
 											case 1214:
-											{
-												return "11% increased movement speed";
-											}
+												return "11% augmente la vitesse de déplacement";
 											case 1215:
-											{
-												return "8% increased melee damage and critical strike chance";
-											}
+												return "8% de dégâts au corps à corps et les chances de coup critique";
 											case 1216:
-											{
-												return "16% aumentado el daño a distancia";
-											}
+												return "16% ont augmenté les dégâts à distance";
 											case 1217:
-											{
-												return "16% aumento de daño mágico y el 7% se incrementaron magia probabilidad de golpe crítico";
-											}
+												return "16% d'augmentation des dégâts magiques et 7% ont augmenté magie chances de coup critique";
 											case 1218:
-											{
-												return "4% aumentado el daño";
-											}
+												return "4% de dégâts";
 											case 1219:
-											{
-												return "3% aumentado el daño y la probabilidad de golpe crítico";
-											}
+												return "3% de dégâts et les chances de coup critique";
 											case 1220:
-											{
-												return "Se utiliza para crear objetos de mythril, oricalco, adamantita y barras de titanio";
-											}
+												return "Utilisé pour fabriquer des objets à partir de mithril, orichalque, adamantite, et des barres de titane";
 											case 1221:
-											{
-												return "Se utiliza para adamantite fundir y mineral de titanio";
-											}
+												return "Utilisé pour adamante éperlan et du minerai de titane";
 											case 1226:
-											{
-												return "Dispara un poderoso orbe";
-											}
+												return "Tire un puissant orbe";
 											case 1227:
-											{
-												return "Dispara una nube de esporas";
-											}
+												return "Tire un nuage de spores";
 											case 1228:
-											{
-												return "Dispara una nube de esporas";
-											}
+												return "Tire un nuage de spores";
 											case 1235:
-											{
-												return "Rebota después de golpear una pared";
-											}
+												return "Rebondit après avoir heurté un mur";
 											case 1242:
-											{
-												return "Invoca un dinosaurio bebé";
-											}
+												return "Invoque un bébé dinosaure";
 											case 1244:
-											{
-												return "Invoca una nube lloviendo sobre sus enemigos";
-											}
+												return "Invoque un nuage à pleuvoir sur vos ennemis";
 											case 1247:
-											{
-												return "Causas estrellas a caer y libera abejas cuando se lesionó";
-											}
+												return "Provoque étoiles à tomber et libère les abeilles quand blessés";
 											case 1248:
-											{
-												return "10% mayor probabilidad de golpe crítico";
-											}
+												return "10% ont augmenté les chances de coup critique";
 											case 1249:
-											{
-												return "Aumenta la altura del salto";
-											}
+												return "Augmente la hauteur de saut";
 											case 1250:
-											{
-												return "Permite al propietario el doble salto";
-											}
+												return "Permet au titulaire de double saut";
 											case 1251:
-											{
-												return "Permite al propietario el doble salto";
-											}
+												return "Permet au titulaire de double saut";
 											case 1252:
-											{
-												return "Permite al propietario el doble salto";
-											}
+												return "Permet au titulaire de double saut";
 											case 1253:
-											{
-												return "Pone una capa alrededor del propietario cuando bajo la vida del 50% que reduce el daño";
-											}
+												return "Met une coquille autour de la propriétaire quand la vie dessous de 50% qui réduit les dommages";
 											case 1254:
-											{
-												return "Dispara un potente y de alta velocidad de la bala";
-											}
+												return "Tire une puissante balle à grande vitesse";
 											case 1255:
-											{
-												return "Dispara un potente y de alta velocidad de la bala";
-											}
+												return "Tire une puissante balle à grande vitesse";
 											case 1256:
-											{
-												return "Invoca una nube a llover sangre en tus enemigos";
-											}
+												return "Invoque un nuage à pleuvoir du sang sur vos ennemis";
 											case 1258:
-											{
-												return "Dispara un perno explosivo";
-											}
+												return "Tire un boulon explosif";
 											case 1259:
-											{
-												return "Brotes de afeitar afiladas pétalos de flores a los enemigos cercanos";
-											}
+												return "Pousses rasoir tranchant pétales de fleurs sur les ennemis proches";
 											case 1260:
-											{
-												return "Dispara un arco iris que hace daño continuo";
-											}
+												return "Tire un arc en ciel qui fait des dégâts en continu";
 											case 1261:
-											{
-												return "Se descompone en metralla mortal";
-											}
+												return "Explose en éclats mortels";
 											case 1264:
-											{
-												return "Dispara una bola de hielo";
-											}
+												return "Tire une boule de gel";
 											case 1265:
-											{
-												return "Dispara un potente y de alta velocidad de la bala";
-											}
+												return "Tire une puissante balle à grande vitesse";
 											case 1282:
-											{
-												return "Aumenta el maná máximo por 20";
-											}
+												return "Augmente mana maximum de 20";
 											case 1283:
-											{
-												return "Aumenta el maná máximo por 40";
-											}
+												return "Augmente mana maximum de 40";
 											case 1284:
-											{
-												return "Aumenta el maná máximo por 40";
-											}
+												return "Augmente mana maximum de 40";
 											case 1285:
-											{
-												return "Aumenta el maná máximo por 60";
-											}
+												return "Augmente mana maximum de 60";
 											case 1286:
-											{
-												return "Aumenta el maná máximo por 60";
-											}
+												return "Augmente mana maximum de 60";
 											case 1287:
-											{
-												return "Aumenta el maná máximo por 80";
-											}
+												return "Augmente mana maximum de 80";
 											case 1290:
-											{
-												return "Aumenta la velocidad de movimiento después de ser golpeado";
-											}
+												return "Augmente la vitesse de déplacement après avoir été frappé";
 											case 1291:
-											{
-												return "Permanentemente aumenta la vida útil máxima de 5";
-											}
+												return "Augmente en permanence durée de vie maximale de 5";
 											case 1293:
-											{
-												return "Se utiliza en el Altar Lihzahrd";
-											}
+												return "Utilisé à l'autel Lihzahrd";
 											case 1294:
-											{
-												return "Capaz de minería Lihzahrd Ladrillos";
-											}
+												return "Capable de mines Lihzahrd briques";
 											case 1295:
-											{
-												return "Dispara un rayo penetrante calor";
-											}
+												return "Tire un rayon perçant de chaleur";
 											case 1296:
-											{
-												return "Invoca un poderoso canto rodado";
-											}
+												return "Invoque un puissant rocher";
 											case 1297:
-											{
-												return "Golpes con la fuerza de un golem";
-											}
+												return "Coups de poing avec la force d'un golem";
 											case 1299:
-											{
-												return "Aumenta la gama ver cuando se mantiene";
-											}
+												return "Augmente visualiser gamme lorsqu'il est maintenu";
 											case 1300:
-											{
-												return "Aumenta ver gama de armas de fuego";
-											}
+												return "Augmente Afficher la gamme des pistolets";
 											case 1301:
-											{
-												return "10% aumentado el daño";
-											}
+												return "10% de dégâts";
 											case 1303:
-											{
-												return "Proporciona luz bajo el agua";
-											}
+												return "Fournit de la lumière sous l'eau";
 											case 1306:
-											{
-												return "Dispara una hoz helada";
-											}
+												return "Tire une faucille glacial";
 											case 1307:
-											{
-												return "'Usted es una persona terrible'";
-											}
+												return "'Vous êtes une personne épouvantable'";
 											case 1308:
-											{
-												return "Dispara un veneno colmillo que atraviesa múltiples enemigos";
-											}
+												return "Tire un poison croc qui perce plusieurs ennemis";
 											case 1309:
-											{
-												return "Invoca un limo bebé para luchar por usted";
-											}
+												return "Invoque un bébé bave à se battre pour vous";
 											case 1310:
-											{
-												return "Inflige veneno enemigos";
-											}
+												return "Inflige poison sur les ennemis";
 											case 1311:
-											{
-												return "Convoca a un resorte globo ocular";
-											}
+												return "Invoque un ressort de globe oculaire";
 											case 1312:
-											{
-												return "Invoca un muñeco de nieve del bebé";
-											}
+												return "Invoque un bébé bonhomme de neige";
 											case 1313:
-											{
-												return "Dispara un cráneo";
-											}
+												return "Tire un crâne";
 											case 1314:
-											{
-												return "Dispara un guante de boxeo";
-											}
+												return "Tire un gant de boxe";
 											case 1315:
-											{
-												return "Invoca una invasión pirata";
-											}
+												return "Invoque une invasion de pirates";
 											case 1316:
-											{
-												return "6% aumentado el daño cuerpo a cuerpo";
-											}
+												return "6% ont augmenté les dégâts de mêlée";
 											case 1317:
-											{
-												return "8% aumentado el daño cuerpo a cuerpo y la probabilidad de golpe crítico";
-											}
+												return "8% de dégâts au corps à corps et les chances de coup critique";
 											case 1318:
-											{
-												return "4% mayor probabilidad de golpe crítico cuerpo a cuerpo";
-											}
+												return "4% ont augmenté mêlée chances de coup critique";
 											case 1321:
-											{
-												return "Aumentar la velocidad de la flecha y el daño en un 10%";
-											}
+												return "Augmenter la vitesse de flèche et les dommages de 10%";
 											case 1322:
-											{
-												return "Inflige daño de fuego en el ataque";
-											}
+												return "Inflige des dégâts de feu sur l'attaque";
 											case 1323:
-											{
-												return "Reduce el daño de no tocar la lava";
-											}
+												return "Réduit les dégâts de toucher lave";
 											case 1326:
-											{
-												return "Teletransporta a la posición del ratón";
-											}
+												return "Téléports à la position de la souris";
 											case 1327:
-											{
-												return "Dispara una hoz mortal";
-											}
+												return "Tire une faucille mort";
 											case 1331:
-											{
-												return "Invoca el cerebro de Cthulhu";
-											}
+												return "Invoque le cerveau de Cthulhu";
 											case 1332:
-											{
-												return "'La sangre de los dioses'";
-											}
+												return "'Le sang des dieux'";
 											case 1333:
-											{
-												return "Puede ser colocado en agua";
-											}
+												return "Peut être placé dans l'eau";
 											case 1334:
-											{
-												return "Disminuye la defensa del objetivo";
-											}
+												return "Diminue la défense de la cible";
 											case 1335:
-											{
-												return "Disminuye la defensa del objetivo";
-											}
+												return "Diminue la défense de la cible";
 											case 1336:
-											{
-												return "Aplica una lluvia de icor";
-											}
+												return "Sprays une pluie de ichor";
 											case 1343:
-											{
-												return "Aumenta melee llamar de nuevo e inflige daño de fuego en el ataque";
-											}
+												return "Augmente la mêlée repoussement et inflige des dégâts de feu sur l'attaque";
 										}
 										break;
-									}
 								}
 								break;
+						}
+					}
+				}
+			}
+			else if (Lang.lang == 5)
+			{
+				if (l <= 407)
+				{
+					if (l <= 175)
+					{
+						if (l <= 70)
+						{
+							if (l <= 29)
+							{
+								if (l == 8)
+								{
+									return "Da luz";
+								}
+								switch (l)
+								{
+									case 15:
+										return "Da la hora";
+									case 16:
+										return "Da la hora";
+									case 17:
+										return "Da la hora";
+									case 18:
+										return "indica la profundidad";
+									case 19:
+									case 20:
+									case 21:
+									case 22:
+										break;
+									case 23:
+										return "'Repugnante a la vez que inflamable'";
+									default:
+										if (l == 29)
+										{
+											return "Aumenta al máximo la vida (20) de forma definitiva";
+										}
+										break;
+								}
 							}
+							else
+							{
+								switch (l)
+								{
+									case 33:
+										return "Se usa para fundir mineral";
+									case 34:
+										break;
+									case 35:
+										return "Se usa para fabricar objetos con lingotes de metal";
+									case 36:
+										return "Se usa para creaciones básicas";
+									default:
+										if (l == 43)
+										{
+											return "Invoca al Ojo de Cthulhu";
+										}
+										switch (l)
+										{
+											case 49:
+												return "Regenera la vida poco a poco";
+											case 50:
+												return "Al mirarse en él se regresa al hogar";
+											case 53:
+												return "Su portador salta el doble";
+											case 54:
+												return "Permite correr superrápido";
+											case 56:
+												return "'Late de energía oscura'";
+											case 57:
+												return "'Late de energía oscura'";
+											case 64:
+												return "Lanza una espina vil";
+											case 65:
+												return "Hace que lluevan estrellas del cielo";
+											case 66:
+												return "Limpia la corrupción";
+											case 67:
+												return "Elimina la bendición";
+											case 68:
+												return "'¡Sabe asqueroso!'";
+											case 70:
+												return "Invoca al Devoramundos";
+										}
+										break;
+								}
+							}
+						}
+						else if (l <= 88)
+						{
+							if (l == 75)
+							{
+								return "Desaparece al amanecer";
+							}
+							if (l == 84)
+							{
+								return "'¡Te atrapé!'";
+							}
+							if (l == 88)
+							{
+								return "Da luz a su portador";
+							}
+						}
+						else
+						{
+							switch (l)
+							{
+								case 98:
+									return "Probabilidad del 33% de no gastar munición";
+								case 99:
+								case 104:
+								case 105:
+								case 106:
+								case 107:
+								case 108:
+								case 110:
+								case 116:
+								case 119:
+								case 122:
+								case 126:
+								case 127:
+									break;
+								case 100:
+									return "Aumenta un 7% la velocidad en el cuerpo a cuerpo";
+								case 101:
+									return "Aumenta un 7% la velocidad en el cuerpo a cuerpo";
+								case 102:
+									return "Aumenta un 7% la velocidad en el cuerpo a cuerpo";
+								case 103:
+									return "Puede abrir la piedra infernal";
+								case 109:
+									return "Aumenta al máximo el maná (20) de forma definitiva";
+								case 111:
+									return "Aumenta al máximo el maná (20)";
+								case 112:
+									return "Arroja bolas de fuego";
+								case 113:
+									return "Lanza un misil dirigido";
+								case 114:
+									return "Remueve la tierra por arte de magia";
+								case 115:
+									return "Crea un orbe mágico de luz";
+								case 117:
+									return "'Calienta la antorcha'";
+								case 118:
+									return "A veces lo sueltan esqueletos y pirañas";
+								case 120:
+									return "Enciende las flechas de madera";
+								case 121:
+									return "'¡Hecha de fuego!'";
+								case 123:
+									return "Aumenta el daño mágico en un 5%";
+								case 124:
+									return "Aumenta el daño mágico en un 5%";
+								case 125:
+									return "Aumenta el daño mágico en un 5%";
+								case 128:
+									return "Permite volar";
+								default:
+									switch (l)
+									{
+										case 148:
+											return "Su portador llamará la atención de indeseables";
+										case 149:
+											return "'Contiene extraños símbolos'";
+										case 150:
+										case 154:
+										case 155:
+										case 160:
+										case 161:
+										case 162:
+										case 163:
+										case 164:
+											break;
+										case 151:
+											return "Aumenta el daño a distancia en un 5%";
+										case 152:
+											return "Aumenta el daño a distancia en un 5%";
+										case 153:
+											return "Aumenta el daño a distancia en un 5%";
+										case 156:
+											return "Ofrece inmunidad ante el retroceso";
+										case 157:
+											return "Pulveriza un chorro de agua";
+										case 158:
+											return "Anula el daño al caer";
+										case 159:
+											return "Aumenta la altura al saltar";
+										case 165:
+											return "Lanza un rayo de agua a baja velocidad";
+										case 166:
+											return "Pequeña explosión que rompe varios ladrillos";
+										case 167:
+											return "Gran explosión que rompe casi todos los ladrillos";
+										case 168:
+											return "Pequeña explosión que no rompe ningún ladrillo";
+										default:
+											if (l == 175)
+											{
+												return "'Enciende la antorcha'";
+											}
+											break;
+									}
+									break;
+							}
+						}
+					}
+					else if (l <= 238)
+					{
+						if (l <= 197)
+						{
+							switch (l)
+							{
+								case 186:
+									return "'Está bien eso de no ahogarse'";
+								case 187:
+									return "Permite nadar";
+								default:
+									if (l == 193)
+									{
+										return "Ofrece inmunidad ante los bloques de fuego";
+									}
+									if (l == 197)
+									{
+										return "Dispara estrellas caídas";
+									}
+									break;
+							}
+						}
+						else
+						{
+							switch (l)
+							{
+								case 208:
+									return "'Hermosa, muy hermosa'";
+								case 209:
+								case 210:
+								case 214:
+								case 216:
+								case 217:
+									break;
+								case 211:
+									return "Aumenta un 12% la velocidad en el cuerpo a cuerpo";
+								case 212:
+									return "Aumenta en un 10% la velocidad de movimiento";
+								case 213:
+									return "Genera césped sobre la tierra";
+								case 215:
+									return "'Una molestia para los demás'";
+								case 218:
+									return "Lanza una bola de fuego dirigida";
+								default:
+									switch (l)
+									{
+										case 222:
+											return "Cultiva plantas";
+										case 223:
+											return "Reduce el uso de maná en un 6%";
+										case 224:
+										case 225:
+										case 226:
+										case 227:
+											break;
+										case 228:
+											return "Aumenta al máximo el maná (40)";
+										case 229:
+											return "Aumenta al máximo el maná (20)";
+										case 230:
+											return "Aumenta al máximo el maná (20)";
+										default:
+											switch (l)
+											{
+												case 235:
+													return "'Puede costar lanzarla'";
+												case 237:
+													return "'¡Te quedan muy bien!'";
+												case 238:
+													return "Aumenta el daño mágico en un 15%";
+											}
+											break;
+									}
+									break;
+							}
+						}
+					}
+					else if (l <= 329)
+					{
+						switch (l)
+						{
+							case 261:
+								return "'Sonríe y además es un buen aperitivo'";
+							case 262:
+							case 263:
+							case 264:
+							case 265:
+							case 269:
+							case 270:
+							case 271:
+							case 273:
+							case 274:
+							case 275:
+							case 276:
+							case 277:
+							case 278:
+							case 279:
+							case 280:
+							case 284:
+							case 286:
+							case 287:
+								break;
+							case 266:
+								return "'¡Una buena idea!'";
+							case 267:
+								return "'Eres mala persona'";
+							case 268:
+								return "Permite respirar bajo el agua mucho más tiempo";
+							case 272:
+								return "Lanza una guadaña demoníaca";
+							case 281:
+								return "Permite recoger semillas como munición";
+							case 282:
+								return "Funciona con humedad";
+							case 283:
+								return "Para la cerbatana";
+							case 285:
+								return "Aumenta en un 5% la velocidad de movimiento";
+							case 288:
+								return "Ofrece inmunidad ante la lava";
+							case 289:
+								return "Regenera la vida";
+							case 290:
+								return "Aumenta en un 25% la velocidad de movimiento";
+							case 291:
+								return "Permite respirar agua en lugar de aire";
+							case 292:
+								return "Aumenta la defensa en 8";
+							case 293:
+								return "Aumenta la regeneración de maná";
+							case 294:
+								return "Aumenta el daño mágico en un 20%";
+							case 295:
+								return "Disminuye la velocidad de caída";
+							case 296:
+								return "Muestra la ubicación de tesoros y minerales";
+							case 297:
+								return "Proporciona invisibilidad";
+							case 298:
+								return "Emite un aura de luz";
+							case 299:
+								return "Aumenta la visión nocturna";
+							case 300:
+								return "Aumenta el porcentaje de regeneración del enemigo";
+							case 301:
+								return "Los atacantes también sufren daños";
+							case 302:
+								return "Permite caminar sobre el agua";
+							case 303:
+								return "Aumenta en un 20% la velocidad y el daño de las flechas";
+							case 304:
+								return "Muestra la ubicación de los enemigos";
+							case 305:
+								return "Permite controlar la gravedad";
+							default:
+								if (l == 324)
+								{
+									return "'Prohibidos en casi todas partes'";
+								}
+								switch (l)
+								{
+									case 327:
+										return "Abre un cofre de oro";
+									case 329:
+										return "Abre todos los cofres de las sombras";
+								}
+								break;
 						}
 					}
 					else
 					{
-						switch (num4)
+						if (l == 332)
+						{
+							return "Se usa para confeccionar ropa";
+						}
+						if (l == 352)
+						{
+							return "Se usa para elaborar cerveza";
+						}
+						switch (l)
+						{
+							case 357:
+								return "Pequeñas mejoras de todas las estadísticas";
+							case 361:
+								return "Invoca a un ejército de duendes";
+							case 363:
+								return "Se usa para realizar trabajos de madera avanzados";
+							case 367:
+								return "Lo bastante sólido para destruir los altares demoníacos";
+							case 371:
+								return "Aumenta al máximo el maná (40)";
+							case 372:
+								return "Aumenta en un 7% la velocidad de movimiento";
+							case 373:
+								return "Aumenta el daño a distancia en un 10%";
+							case 376:
+								return "Aumenta al máximo el maná (60)";
+							case 377:
+								return "Aumenta un 5% la probabilidad de ataque crítico en el cuerpo a cuerpo";
+							case 378:
+								return "Aumenta el daño a distancia en un 12%";
+							case 385:
+								return "Puede abrir el mithril";
+							case 386:
+								return "Puede abrir la adamantita";
+							case 389:
+								return "Puede llegar a confundir";
+							case 393:
+								return "Indica el horizonte";
+							case 394:
+								return "Permite nadar";
+							case 395:
+								return "Indica la posición";
+							case 396:
+								return "Anula el daño al caer";
+							case 397:
+								return "Ofrece inmunidad ante el retroceso";
+							case 398:
+								return "Permite combinar varios accesorios";
+							case 399:
+								return "Su portador salta el doble";
+							case 400:
+								return "Aumenta al máximo el maná (80)";
+							case 401:
+								return "Aumenta un 7% la probabilidad de ataque crítico en el cuerpo a cuerpo";
+							case 402:
+								return "Aumenta el daño a distancia en un 14%";
+							case 403:
+								return "Aumenta el daño en un 6%";
+							case 404:
+								return "Aumenta la probabilidad de ataque crítico en un 4%";
+							case 405:
+								return "Permite volar";
+							case 407:
+								return "Aumenta la distancia de colocación de bloques";
+						}
+					}
+				}
+				else if (l <= 761)
+				{
+					if (l <= 686)
+					{
+						if (l <= 603)
+						{
+							switch (l)
+							{
+								case 422:
+									return "Extiende la bendición a algunos bloques";
+								case 423:
+									return "Extiende la corrupción a algunos bloques";
+								case 424:
+									break;
+								case 425:
+									return "Invoca a una hada mágica";
+								default:
+									if (l == 434)
+									{
+										return "Dispara tres ráfagas";
+									}
+									switch (l)
+									{
+										case 485:
+											return "Convierte a su portador en hombre lobo durante la luna llena";
+										case 486:
+											return "Dibuja una rejilla en pantalla para colocar los bloques";
+										case 489:
+											return "Aumenta el daño mágico en un 15%";
+										case 490:
+											return "Aumenta un 15% el daño en el cuerpo a cuerpo";
+										case 491:
+											return "Aumenta el daño a distancia en un 15%";
+										case 492:
+											return "Permite volar y caer lentamente";
+										case 493:
+											return "Permite volar y caer lentamente";
+										case 495:
+											return "Lanza un arco iris dirigido";
+										case 496:
+											return "Lanza un bloque de hielo";
+										case 497:
+											return "Transforma a su portador en un tritón al sumergirse en el agua";
+										case 506:
+											return "Utiliza baba como munición";
+										case 509:
+											return "Permite colocar alambre";
+										case 510:
+											return "Permite cortar alambre";
+										case 515:
+											return "Crea varios fragmentos de cristal al impactar";
+										case 516:
+											return "Lanza estrellas caídas al impactar";
+										case 517:
+											return "Una daga mágica que vuelve al arrojarse";
+										case 518:
+											return "Lanza fragmentos de cristal a toda velocidad";
+										case 519:
+											return "Lanza bolas de fuego impuras";
+										case 520:
+											return "'La esencia de las criaturas de la luz'";
+										case 521:
+											return "'La esencia de las criaturas de la oscuridad'";
+										case 522:
+											return "'Ni siquiera el agua puede apagarla'";
+										case 523:
+											return "Se puede meter en el agua";
+										case 524:
+											return "Se usa para fundir mineral de adamantita";
+										case 525:
+											return "Se usa para fabricar objetos con lingotes de mithril y adamantita";
+										case 526:
+											return "'¡Puntiagudo y mágico!'";
+										case 527:
+											return "'A veces lo llevan las criaturas de los desiertos corrompidos'";
+										case 528:
+											return "'A veces lo llevan las criaturas de los desiertos de luz'";
+										case 529:
+											return "Se activa al pisarla";
+										case 531:
+											return "Se puede hechizar";
+										case 532:
+											return "Hace que las estrellas caigan cuando te hieren";
+										case 533:
+											return "Probabilidad del 50% de no gastar munición";
+										case 534:
+											return "Dispara una ráfaga de balas";
+										case 535:
+											return "Reduce el tiempo de espera para las pociones curativas";
+										case 536:
+											return "Aumenta el retroceso en el cuerpo a cuerpo";
+										case 541:
+											return "Se activa al pisarla";
+										case 542:
+											return "Se activa al pisarla";
+										case 543:
+											return "Se activa al pisarla";
+										case 544:
+											return "Invoca a los Gemelos";
+										case 547:
+											return "'La esencia del terror en estado puro'";
+										case 548:
+											return "'La esencia del Destructor'";
+										case 549:
+											return "'La esencia de los observadores omniscientes'";
+										case 551:
+											return "Aumenta la probabilidad de ataque crítico en un 7%";
+										case 552:
+											return "Aumenta el daño en un 7%";
+										case 553:
+											return "Aumenta el daño a distancia en un 15%";
+										case 554:
+											return "Aumenta el tiempo de invencibilidad tras recibir daños";
+										case 555:
+											return "Reduce el uso de maná en un 8%";
+										case 556:
+											return "Invoca El Destructor";
+										case 557:
+											return "Invoca al Esqueleto mayor";
+										case 558:
+											return "Aumenta al máximo el maná (100)";
+										case 559:
+											return "Aumenta un 10% la probabilidad de ataque crítico y daño en el cuerpo a cuerpo";
+										case 560:
+											return "Invoca a la Babosa rey";
+										case 561:
+											return "No apilar más de 5";
+										case 575:
+											return "'La esencia de poderosas criaturas que vuelan'";
+										case 576:
+											return "Puedes grabar canciones";
+										case 579:
+											return "'No confundir con un cuchillo jamonero'";
+										case 580:
+											return "Explota al activarse";
+										case 581:
+											return "Envía agua a los colectores de salida";
+										case 582:
+											return "Recibe agua de los colectores de entrada";
+										case 583:
+											return "Se activa cada segundo";
+										case 584:
+											return "Se activa cada 3 segundos";
+										case 585:
+											return "Se activa cada 5 segundos";
+										case 599:
+											return "Haga clic derecho para abrir";
+										case 600:
+											return "Haga clic derecho para abrir";
+										case 601:
+											return "Haga clic derecho para abrir";
+										case 602:
+											return "Convoca a la Legión de Frost";
+										case 603:
+											return "Convoca a un conejo de mascota";
+									}
+									break;
+							}
+						}
+						else
+						{
+							switch (l)
+							{
+								case 665:
+									return "Usted no debería tener este";
+								case 666:
+									return "Usted no debería tener este";
+								case 667:
+									return "Usted no debería tener este";
+								case 668:
+									return "Usted no debería tener este";
+								case 669:
+									return "Invoca a un bebé pingüino";
+								default:
+									if (l == 676)
+									{
+										return "Dispara un tornillo de hielo";
+									}
+									switch (l)
+									{
+										case 683:
+											return "Citación tridente del diablo";
+										case 684:
+											return "16% más de daño cuerpo a cuerpo ya distancia";
+										case 685:
+											return "11% más de cuerpo a cuerpo ya distancia probabilidad de golpe críticoe";
+										case 686:
+											return "8% de aumento de la velocidad de movimiento";
+									}
+									break;
+							}
+						}
+					}
+					else if (l <= 726)
+					{
+						switch (l)
+						{
+							case 707:
+								return "Indica el tiempo";
+							case 708:
+								return "Indica el tiempo";
+							case 709:
+								return "Indica el tiempo";
+							default:
+								if (l == 716)
+								{
+									return "Se utiliza para artículos de artesanía a partir de barras de metal";
+								}
+								switch (l)
+								{
+									case 723:
+										return "Dispara un rayo de luz";
+									case 724:
+										return "Dispara un tornillo de hielo";
+									case 725:
+										return "Dispara flechas heladas";
+									case 726:
+										return "Dispara un chorro de heladas";
+								}
+								break;
+						}
+					}
+					else
+					{
+						switch (l)
+						{
+							case 748:
+								return "Permite el vuelo y la caída lenta";
+							case 749:
+								return "Permite el vuelo y la caída lenta";
+							default:
+								if (l == 753)
+								{
+									return "Invoca una tortuga mascota";
+								}
+								if (l == 761)
+								{
+									return "Permite el vuelo y la caída lenta";
+								}
+								break;
+						}
+					}
+				}
+				else
+				{
+					if (l > 1343)
+					{
+						if (l > 1595)
+						{
+							if (l <= 3491)
+							{
+								if (l != 3485 && l != 3491)
+								{
+									goto IL_AC2F;
+								}
+							}
+							else if (l != 3521)
+							{
+								if (l != 3643)
+								{
+									goto IL_AC2F;
+								}
+								goto IL_AAFD;
+							}
+							return "Puede abrir meteoritos";
+						}
+						switch (l)
+						{
+							case 1430:
+								return "Se utiliza para elaborar frascos imbuement armas";
+							case 1431:
+								goto IL_AC2F;
+							case 1432:
+								return "Se utiliza para elaborar distintos tipos de munición";
+							default:
+								switch (l)
+								{
+									case 1444:
+										return "Crea un haz de sombra que rebota en las paredes";
+									case 1445:
+										return "Lanza una bola de fuego que explota en un infierno rugiente";
+									case 1446:
+										return "Invoca un alma en pena para perseguir a sus enemigos";
+									case 1447:
+									case 1448:
+										goto IL_AC2F;
+									case 1449:
+										return "sopla burbujas";
+									case 1450:
+										return "sopla burbujas";
+									default:
+										switch (l)
+										{
+											case 1503:
+												return "Aumenta el maná máximo en un 80 y reduce el uso de maná un 17%";
+											case 1504:
+												return "7% más de daño mágico y la probabilidad de golpe crítico";
+											case 1505:
+												return "8% mayor daño mágico";
+											case 1506:
+											case 1507:
+											case 1508:
+											case 1509:
+											case 1510:
+											case 1511:
+											case 1512:
+											case 1514:
+											case 1516:
+											case 1517:
+											case 1518:
+											case 1519:
+											case 1520:
+											case 1521:
+											case 1528:
+											case 1529:
+											case 1530:
+											case 1531:
+											case 1532:
+											case 1538:
+											case 1539:
+											case 1540:
+											case 1541:
+											case 1542:
+											case 1552:
+											case 1570:
+											case 1573:
+											case 1574:
+											case 1575:
+											case 1576:
+											case 1577:
+											case 1589:
+											case 1590:
+											case 1591:
+											case 1592:
+											case 1593:
+											case 1594:
+												goto IL_AC2F;
+											case 1513:
+												return "Un poderoso martillo regresar";
+											case 1515:
+												return "Permite el vuelo y la caída lenta";
+											case 1522:
+												break;
+											case 1523:
+												return "Para la captura de la gema. Suelta cuando mueras";
+											case 1524:
+												return "Para la captura de la gema. Suelta cuando mueras";
+											case 1525:
+												return "Para la captura de la gema. Suelta cuando mueras";
+											case 1526:
+												return "Para la captura de la gema. Suelta cuando mueras";
+											case 1527:
+												return "Para la captura de la gema. Suelta cuando mueras";
+											case 1533:
+												return "Desbloquea un pecho Jungle en la mazmorra";
+											case 1534:
+												return "Desbloquea un pecho Corrupción en el calabozo";
+											case 1535:
+												return "Desbloquea un pecho carmesí en el calabozo";
+											case 1536:
+												return "Abre un cofre sagrado en el calabozo";
+											case 1537:
+												return "Desbloquea un pecho congelado en el calabozo";
+											case 1543:
+												return "Utilizado con pintura a los bloques de color";
+											case 1544:
+												return "Se utiliza con pintura de color a las paredes";
+											case 1545:
+												return "Se utiliza para quitar la pintura";
+											case 1546:
+												return "15% aumentado el daño flecha";
+											case 1547:
+												return "15% aumentado el daño de bala";
+											case 1548:
+												return "15% aumentado el daño de cohetes";
+											case 1549:
+												return "13% mayor distancia probabilidad de golpe crítico";
+											case 1550:
+												return "7% mayor distancia probabilidad de golpe crítico";
+											case 1551:
+												return "Convierte Bares chlorophyte en Bares Shroomite";
+											case 1553:
+												return "50% oportunidad de no consumir municiones";
+											case 1554:
+												return "Usted no debería tener este";
+											case 1555:
+												return "Usted no debería tener este";
+											case 1556:
+												return "Usted no debería tener este";
+											case 1557:
+												return "Usted no debería tener este";
+											case 1558:
+												return "Usted no debería tener este";
+											case 1559:
+												return "Usted no debería tener este";
+											case 1560:
+												return "Usted no debería tener este";
+											case 1561:
+												return "Usted no debería tener este";
+											case 1562:
+												return "Usted no debería tener este";
+											case 1563:
+												return "Usted no debería tener este";
+											case 1564:
+												return "Usted no debería tener este";
+											case 1565:
+												return "Usted no debería tener este";
+											case 1566:
+												return "Usted no debería tener este";
+											case 1567:
+												return "Usted no debería tener este";
+											case 1568:
+												return "Usted no debería tener este";
+											case 1569:
+												return "Tirar rápidamente dagas robando la vida";
+											case 1571:
+												return "Una poderosa lanza que da rienda suelta a pequeños comedores";
+											case 1572:
+												return "Invoca un poderoso heladas hydra de escupir hielo a sus enemigos";
+											case 1578:
+												return "Lanzamientos abejas y aumenta la velocidad de movimiento cuando está dañado";
+											case 1579:
+												return "El usuario puede correr muy rápido";
+											case 1580:
+												return "Usted no debería tener este";
+											case 1581:
+												return "Usted no debería tener este";
+											case 1582:
+												return "Usted no debería tener este";
+											case 1583:
+												return "Usted no debería tener este";
+											case 1584:
+												return "Usted no debería tener este";
+											case 1585:
+												return "Usted no debería tener este";
+											case 1586:
+												return "Usted no debería tener este";
+											case 1587:
+												return "Usted no debería tener este";
+											case 1588:
+												return "Usted no debería tener este";
+											case 1595:
+												return "Aumenta el maná máximo por 20";
+											default:
+												goto IL_AC2F;
+										}
+										break;
+								}
+								break;
+						}
+						IL_AAFD:
+						return "Para la captura de la gema. Suelta cuando mueras";
+					}
+					if (l <= 832)
+					{
+						switch (l)
 						{
 							case 779:
-							{
 								return "Crea y destruye biomas cuando se pulveriza";
-							}
 							case 780:
-							{
 								return "Utilizado por el Clentaminator";
-							}
 							case 781:
-							{
 								return "Utilizado por el Clentaminator";
-							}
 							case 782:
-							{
 								return "Utilizado por el Clentaminator";
-							}
 							case 783:
-							{
 								return "Utilizado por el Clentaminator";
-							}
 							case 784:
-							{
 								return "Utilizado por el Clentaminator";
-							}
 							case 785:
-							{
 								return "Permite el vuelo y la caída lenta";
-							}
 							case 786:
-							{
 								return "Permite el vuelo y la caída lenta";
-							}
 							case 787:
-							{
 								return "Lo suficientemente fuerte como para destruir los altares Demon";
-							}
 							case 788:
-							{
 								return "Invoca una lanza espina";
-							}
 							case 789:
 							case 790:
 							case 791:
 							case 795:
 							case 796:
 							case 797:
-							{
 								break;
-							}
 							case 792:
-							{
 								return "2% aumentado el daño";
-							}
 							case 793:
-							{
 								return "2% aumentado el daño";
-							}
 							case 794:
-							{
 								return "2% aumentado el daño";
-							}
 							case 798:
-							{
 								return "Capaz de extraer Hellstone";
-							}
 							default:
-							{
-								switch (num4)
+								switch (l)
 								{
 									case 821:
-									{
 										return "Permite el vuelo y la caída lenta";
-									}
 									case 822:
-									{
 										return "Permite el vuelo y la caída lenta";
-									}
 									case 823:
-									{
 										return "Permite el vuelo y la caída lenta";
-									}
 									default:
-									{
-										if (num4 == 832)
+										if (l == 832)
 										{
 											return "Lugares madera viva";
 										}
 										break;
-									}
 								}
 								break;
-							}
 						}
 					}
-				}
-				else if (num4 <= 1595)
-				{
-					switch (num4)
+					else
 					{
-						case 1430:
+						switch (l)
 						{
-							return "Se utiliza para elaborar frascos imbuement armas";
-						}
-						case 1431:
-						{
-							break;
-						}
-						case 1432:
-						{
-							return "Se utiliza para elaborar distintos tipos de munición";
-						}
-						default:
-						{
-							switch (num4)
-							{
-								case 1444:
+							case 849:
+								return "Permite bloques sólidos para activar y desactivar";
+							case 850:
+								return "Lugares cable azul";
+							case 851:
+								return "Lugares cable verde";
+							case 852:
+								return "Se activa cuando un jugador pisa";
+							case 853:
+								return "Se activa cuando cualquier cosa menos que un jugador pisa";
+							case 854:
+								return "Tiendas tienen precios más bajos";
+							case 855:
+								return "Golpear a los enemigos a veces caer más monedas";
+							case 856:
+								return "'Tener un tiempo maravilloso!'";
+							case 857:
+								return "Permite a su titular a hacer un doble salto mejorada";
+							case 858:
+							case 859:
+							case 864:
+							case 865:
+							case 866:
+							case 867:
+							case 868:
+							case 869:
+							case 870:
+							case 871:
+							case 872:
+							case 873:
+							case 874:
+							case 875:
+							case 876:
+							case 877:
+							case 878:
+							case 879:
+							case 880:
+							case 881:
+							case 882:
+							case 883:
+							case 884:
+							case 894:
+							case 895:
+							case 896:
+							case 909:
+							case 910:
+							case 911:
+							case 912:
+							case 913:
+							case 914:
+							case 915:
+							case 916:
+							case 917:
+							case 918:
+							case 919:
+							case 920:
+							case 921:
+							case 922:
+							case 923:
+							case 924:
+							case 925:
+							case 926:
+							case 927:
+							case 928:
+							case 929:
+							case 930:
+							case 931:
+							case 939:
+							case 940:
+							case 941:
+							case 942:
+							case 943:
+							case 944:
+							case 945:
+							case 949:
+							case 952:
+							case 954:
+							case 955:
+							case 970:
+							case 971:
+							case 972:
+							case 973:
+							case 974:
+							case 978:
+							case 979:
+							case 980:
+							case 981:
+							case 988:
+							case 991:
+							case 992:
+							case 993:
+							case 999:
+								break;
+							case 860:
+								return "Proporciona regeneración de vida y reduce el tiempo de reutilización de pociones curativas";
+							case 861:
+								return "Activa el soporte en un hombre lobo en la noche y tritones al entrar en el agua";
+							case 862:
+								return "Causas estrellas a caer y aumenta la longitud de la invencibilidad tras recibir daño";
+							case 863:
+								return "Ofrece la posibilidad de caminar sobre el agua";
+							case 885:
+								return "inmunidad a sangrado";
+							case 886:
+								return "inmunidad a la armadura rota";
+							case 887:
+								return "inmunidad al veneno";
+							case 888:
+								return "inmunidad a la oscuridad";
+							case 889:
+								return "inmunidad a reducir la velocidad";
+							case 890:
+								return "inmunidad para silenciar";
+							case 891:
+								return "inmunidad a maldecir";
+							case 892:
+								return "inmunidad a la debilidad";
+							case 893:
+								return "inmunidad a la confusión";
+							case 897:
+								return "Aumenta melee llamar de nuevo";
+							case 898:
+								return "permite vuelo";
+							case 899:
+								return "Incrementa todas las estadísticas si se usan durante el día";
+							case 900:
+								return "Incrementa todas las estadísticas si se usan durante la noche";
+							case 901:
+								return "Inmunidad a la debilidad y la armadura rota";
+							case 902:
+								return "Inmunidad al veneno y sangrado";
+							case 903:
+								return "Inmunidad a disminuir y la confusión";
+							case 904:
+								return "Inmunidad al silencio y la maldición";
+							case 905:
+								return "Utiliza las monedas de munición";
+							case 906:
+								return "Proporciona 7 segundos de inmunidad a la lava";
+							case 907:
+								return "Ofrece la posibilidad de caminar sobre el agua";
+							case 908:
+								return "Ofrece la posibilidad de caminar sobre el agua y la lava";
+							case 932:
+								return "lugares ósea";
+							case 933:
+								return "lugares hojas";
+							case 934:
+								return "Permite al propietario para flotar durante unos segundos";
+							case 935:
+								return "12% aumentado el daño";
+							case 936:
+								return "Aumenta melee llamar de nuevo";
+							case 937:
+								return "Explota cuando pisó";
+							case 938:
+								return "Absorbe el 25% del daño hecho a los jugadores de su equipo";
+							case 946:
+								return "Usted caerá más lento, mientras que la celebración de este";
+							case 947:
+								return "Reacciona a la luz";
+							case 948:
+								return "Permite el vuelo y la caída lenta";
+							case 950:
+								return "Proporciona una mayor movilidad en el hielo";
+							case 951:
+								return "Rápidamente lanza bolas de nieve";
+							case 953:
+								return "Permite la posibilidad de deslizarse por las paredes";
+							case 956:
+								return "7% aumento de la velocidad de cuerpo a cuerpo";
+							case 957:
+								return "7% aumento de la velocidad de cuerpo a cuerpo";
+							case 958:
+								return "7% aumento de la velocidad de cuerpo a cuerpo";
+							case 959:
+								return "4% aumentado el daño a distancia.";
+							case 960:
+								return "Aumenta el maná máximo por 40";
+							case 961:
+								return "Aumenta el maná máximo por 20";
+							case 962:
+								return "Aumenta el maná máximo por 20";
+							case 963:
+								return "Da la oportunidad de esquivar los ataques";
+							case 964:
+								return "Dispara un diferencial de balas";
+							case 965:
+								return "Puede ser escalado en";
+							case 966:
+								return "La regeneración de la vida se incrementa cuando cerca de una fogata";
+							case 967:
+								return "Póngalo en un palo y asado sobre un fuego de campamento";
+							case 968:
+								return "Asar es sobre una hoguera!";
+							case 969:
+								return "Pequeñas mejoras a todas las estadísticas";
+							case 975:
+								return "Permite la posibilidad de deslizarse por las paredes";
+							case 976:
+								return "Permite la posibilidad de escalar paredes";
+							case 977:
+								return "Permite la posibilidad de lanzarse";
+							case 982:
+								return "Aumenta el maná máximo por 20";
+							case 983:
+								return "Permite al propietario el doble salto";
+							case 984:
+								return "Permite la posibilidad de escalar paredes y guión";
+							case 985:
+								return "Saque de banda para crear una línea escalable de la cuerda";
+							case 986:
+								return "Permite la recolección de semillas para munición";
+							case 987:
+								return "Permite al propietario el doble salto";
+							case 989:
+								return "Dispara un rayo espada encantada";
+							case 990:
+								return "'No se debe confundir con un hamdrill'";
+							case 994:
+								return "Invoca una Eater bebé de las Almas";
+							case 995:
+								return "Se utiliza para elaborar objetos";
+							case 996:
+								return "Se utiliza para elaborar objetos";
+							case 997:
+								return "Resulta cieno y lodo en algo más útil";
+							case 998:
+								return "Se utiliza para elaborar objetos";
+							case 1000:
+								return "Dispara confeti por todas partes!";
+							case 1001:
+								return "16% aumentado el daño cuerpo a cuerpo";
+							case 1002:
+								return "16% aumentado el daño a distancia";
+							case 1003:
+								return "Aumenta el maná máximo en un 80 y reduce el uso de maná un 17%";
+							case 1004:
+								return "5% aumentado el daño";
+							case 1005:
+								return "8% mayor probabilidad de golpe crítico";
+							case 1006:
+								return "Reacciona a la luz";
+							default:
+								switch (l)
 								{
-									return "Crea un haz de sombra que rebota en las paredes";
+									case 1071:
+										return "Utilizado con pintura a los bloques de color";
+									case 1072:
+										return "Se utiliza con pintura de color a las paredes";
+									default:
+										switch (l)
+										{
+											case 1100:
+												return "Se utiliza para quitar la pintura";
+											case 1107:
+												return "Used to make teal dye";
+											case 1108:
+												return "Used to make green dye";
+											case 1109:
+												return "Se utiliza para hacer tinte verde azulado";
+											case 1110:
+												return "Se utiliza para hacer colorante amarillo";
+											case 1111:
+												return "Se utiliza para hacer un tinte azul";
+											case 1112:
+												return "Se utiliza para hacer tintes cal";
+											case 1113:
+												return "Se utiliza para hacer tinte rosa";
+											case 1114:
+												return "Se utiliza para hacer tinte naranja";
+											case 1115:
+												return "Se utiliza para hacer tinte rojo";
+											case 1116:
+												return "Se utiliza para hacer colorante cian";
+											case 1117:
+												return "Se utiliza para hacer tinte violeta";
+											case 1118:
+												return "Se utiliza para hacer tinte púrpura";
+											case 1119:
+												return "Se utiliza para hacer tinte negro";
+											case 1120:
+												return "Se utiliza para elaborar tintes";
+											case 1121:
+												return "Brotes de abejas que perseguir a su enemigo";
+											case 1122:
+												return "Persigue a su enemigo";
+											case 1123:
+												return "Invoca abejas asesinas después de golpear a tu enemigo";
+											case 1129:
+												return "Lugares colmenas";
+											case 1130:
+												return "Se descompone en un enjambre de abejas";
+											case 1131:
+												return "Permite al propietario para revertir la gravedad";
+											case 1132:
+												return "Libera las abejas cuando está dañado";
+											case 1133:
+												return "Invoca la abeja reina";
+											case 1141:
+												return "Abre la puerta del templo de la selva";
+											case 1145:
+												return "Se utiliza para la elaboración básicas";
+											case 1151:
+												return "Se activa cuando un jugador pisa";
+											case 1156:
+												return "Prende a los enemigos por los daños continuos";
+											case 1157:
+												return "Invoca un pigmeo para luchar por usted";
+											case 1158:
+												return "Aumenta el número máximo de esbirros";
+											case 1159:
+												return "Aumenta el número máximo de esbirros";
+											case 1160:
+												return "Aumenta el número máximo de esbirros";
+											case 1161:
+												return "Aumenta el número máximo de esbirros";
+											case 1162:
+												return "Permite el vuelo y la caída lenta";
+											case 1163:
+												return "Permite al propietario el doble salto";
+											case 1164:
+												return "Permite al propietario salto cuádruple";
+											case 1165:
+												return "Permite el vuelo y la caída lenta";
+											case 1167:
+												return "Aumenta el daño de tus siervos por 15";
+											case 1169:
+												return "Invoca una cabeza Skeletron bebé";
+											case 1170:
+												return "Invoca un Hornet bebé";
+											case 1171:
+												return "Invoca un espíritu Tiki";
+											case 1172:
+												return "Invoca una lagartija";
+											case 1178:
+												return "Dispara rápidamente hojas afiladas";
+											case 1179:
+												return "Persigue a su enemigo";
+											case 1180:
+												return "Invoca un loro";
+											case 1181:
+												return "Invoca una trufa bebé";
+											case 1182:
+												return "Invoca un árbol del animal doméstico";
+											case 1183:
+												return "Invoca un Wisp para proporcionar luz";
+											case 1188:
+												return "Puede mina Mythril, Orichalcum, adamantita y Titanium";
+											case 1189:
+												return "Puede mina Mythril, Orichalcum, adamantita y Titanium";
+											case 1195:
+												return "Puede mina adamantita y Titanio";
+											case 1196:
+												return "Puede mina adamantita y Titanio";
+											case 1205:
+												return "8% aumentado el daño cuerpo a cuerpo";
+											case 1206:
+												return "9% aumentado el daño a distancia";
+											case 1207:
+												return "7% aumento de daño mágico y probabilidad de golpe crítico";
+											case 1208:
+												return "3% aumentado el daño";
+											case 1209:
+												return "2% aumentado el daño";
+											case 1210:
+												return "7% aumentado el daño cuerpo a cuerpo";
+											case 1211:
+												return "15% mayor distancia probabilidad de golpe crítico";
+											case 1212:
+												return "18% increased magic critical strike chance";
+											case 1213:
+												return "6% mayor probabilidad de golpe crítico";
+											case 1214:
+												return "11% increased movement speed";
+											case 1215:
+												return "8% increased melee damage and critical strike chance";
+											case 1216:
+												return "16% aumentado el daño a distancia";
+											case 1217:
+												return "16% aumento de daño mágico y el 7% se incrementaron magia probabilidad de golpe crítico";
+											case 1218:
+												return "4% aumentado el daño";
+											case 1219:
+												return "3% aumentado el daño y la probabilidad de golpe crítico";
+											case 1220:
+												return "Se utiliza para crear objetos de mythril, oricalco, adamantita y barras de titanio";
+											case 1221:
+												return "Se utiliza para adamantite fundir y mineral de titanio";
+											case 1226:
+												return "Dispara un poderoso orbe";
+											case 1227:
+												return "Dispara una nube de esporas";
+											case 1228:
+												return "Dispara una nube de esporas";
+											case 1235:
+												return "Rebota después de golpear una pared";
+											case 1242:
+												return "Invoca un dinosaurio bebé";
+											case 1244:
+												return "Invoca una nube lloviendo sobre sus enemigos";
+											case 1247:
+												return "Causas estrellas a caer y libera abejas cuando se lesionó";
+											case 1248:
+												return "10% mayor probabilidad de golpe crítico";
+											case 1249:
+												return "Aumenta la altura del salto";
+											case 1250:
+												return "Permite al propietario el doble salto";
+											case 1251:
+												return "Permite al propietario el doble salto";
+											case 1252:
+												return "Permite al propietario el doble salto";
+											case 1253:
+												return "Pone una capa alrededor del propietario cuando bajo la vida del 50% que reduce el daño";
+											case 1254:
+												return "Dispara un potente y de alta velocidad de la bala";
+											case 1255:
+												return "Dispara un potente y de alta velocidad de la bala";
+											case 1256:
+												return "Invoca una nube a llover sangre en tus enemigos";
+											case 1258:
+												return "Dispara un perno explosivo";
+											case 1259:
+												return "Brotes de afeitar afiladas pétalos de flores a los enemigos cercanos";
+											case 1260:
+												return "Dispara un arco iris que hace daño continuo";
+											case 1261:
+												return "Se descompone en metralla mortal";
+											case 1264:
+												return "Dispara una bola de hielo";
+											case 1265:
+												return "Dispara un potente y de alta velocidad de la bala";
+											case 1282:
+												return "Aumenta el maná máximo por 20";
+											case 1283:
+												return "Aumenta el maná máximo por 40";
+											case 1284:
+												return "Aumenta el maná máximo por 40";
+											case 1285:
+												return "Aumenta el maná máximo por 60";
+											case 1286:
+												return "Aumenta el maná máximo por 60";
+											case 1287:
+												return "Aumenta el maná máximo por 80";
+											case 1290:
+												return "Aumenta la velocidad de movimiento después de ser golpeado";
+											case 1291:
+												return "Permanentemente aumenta la vida útil máxima de 5";
+											case 1293:
+												return "Se utiliza en el Altar Lihzahrd";
+											case 1294:
+												return "Capaz de minería Lihzahrd Ladrillos";
+											case 1295:
+												return "Dispara un rayo penetrante calor";
+											case 1296:
+												return "Invoca un poderoso canto rodado";
+											case 1297:
+												return "Golpes con la fuerza de un golem";
+											case 1299:
+												return "Aumenta la gama ver cuando se mantiene";
+											case 1300:
+												return "Aumenta ver gama de armas de fuego";
+											case 1301:
+												return "10% aumentado el daño";
+											case 1303:
+												return "Proporciona luz bajo el agua";
+											case 1306:
+												return "Dispara una hoz helada";
+											case 1307:
+												return "'Usted es una persona terrible'";
+											case 1308:
+												return "Dispara un veneno colmillo que atraviesa múltiples enemigos";
+											case 1309:
+												return "Invoca un limo bebé para luchar por usted";
+											case 1310:
+												return "Inflige veneno enemigos";
+											case 1311:
+												return "Convoca a un resorte globo ocular";
+											case 1312:
+												return "Invoca un muñeco de nieve del bebé";
+											case 1313:
+												return "Dispara un cráneo";
+											case 1314:
+												return "Dispara un guante de boxeo";
+											case 1315:
+												return "Invoca una invasión pirata";
+											case 1316:
+												return "6% aumentado el daño cuerpo a cuerpo";
+											case 1317:
+												return "8% aumentado el daño cuerpo a cuerpo y la probabilidad de golpe crítico";
+											case 1318:
+												return "4% mayor probabilidad de golpe crítico cuerpo a cuerpo";
+											case 1321:
+												return "Aumentar la velocidad de la flecha y el daño en un 10%";
+											case 1322:
+												return "Inflige daño de fuego en el ataque";
+											case 1323:
+												return "Reduce el daño de no tocar la lava";
+											case 1326:
+												return "Teletransporta a la posición del ratón";
+											case 1327:
+												return "Dispara una hoz mortal";
+											case 1331:
+												return "Invoca el cerebro de Cthulhu";
+											case 1332:
+												return "'La sangre de los dioses'";
+											case 1333:
+												return "Puede ser colocado en agua";
+											case 1334:
+												return "Disminuye la defensa del objetivo";
+											case 1335:
+												return "Disminuye la defensa del objetivo";
+											case 1336:
+												return "Aplica una lluvia de icor";
+											case 1343:
+												return "Aumenta melee llamar de nuevo e inflige daño de fuego en el ataque";
+										}
+										break;
 								}
-								case 1445:
-								{
-									return "Lanza una bola de fuego que explota en un infierno rugiente";
-								}
-								case 1446:
-								{
-									return "Invoca un alma en pena para perseguir a sus enemigos";
-								}
-								case 1447:
-								case 1448:
-								{
-									break;
-								}
-								case 1449:
-								{
-									return "sopla burbujas";
-								}
-								case 1450:
-								{
-									return "sopla burbujas";
-								}
-								default:
-								{
-									switch (num4)
-									{
-										case 1503:
-										{
-											return "Aumenta el maná máximo en un 80 y reduce el uso de maná un 17%";
-										}
-										case 1504:
-										{
-											return "7% más de daño mágico y la probabilidad de golpe crítico";
-										}
-										case 1505:
-										{
-											return "8% mayor daño mágico";
-										}
-										case 1513:
-										{
-											return "Un poderoso martillo regresar";
-										}
-										case 1515:
-										{
-											return "Permite el vuelo y la caída lenta";
-										}
-										case 1522:
-										{
-											return "Para la captura de la gema. Suelta cuando mueras";
-										}
-										case 1523:
-										{
-											return "Para la captura de la gema. Suelta cuando mueras";
-										}
-										case 1524:
-										{
-											return "Para la captura de la gema. Suelta cuando mueras";
-										}
-										case 1525:
-										{
-											return "Para la captura de la gema. Suelta cuando mueras";
-										}
-										case 1526:
-										{
-											return "Para la captura de la gema. Suelta cuando mueras";
-										}
-										case 1527:
-										{
-											return "Para la captura de la gema. Suelta cuando mueras";
-										}
-										case 1533:
-										{
-											return "Desbloquea un pecho Jungle en la mazmorra";
-										}
-										case 1534:
-										{
-											return "Desbloquea un pecho Corrupción en el calabozo";
-										}
-										case 1535:
-										{
-											return "Desbloquea un pecho carmesí en el calabozo";
-										}
-										case 1536:
-										{
-											return "Abre un cofre sagrado en el calabozo";
-										}
-										case 1537:
-										{
-											return "Desbloquea un pecho congelado en el calabozo";
-										}
-										case 1543:
-										{
-											return "Utilizado con pintura a los bloques de color";
-										}
-										case 1544:
-										{
-											return "Se utiliza con pintura de color a las paredes";
-										}
-										case 1545:
-										{
-											return "Se utiliza para quitar la pintura";
-										}
-										case 1546:
-										{
-											return "15% aumentado el daño flecha";
-										}
-										case 1547:
-										{
-											return "15% aumentado el daño de bala";
-										}
-										case 1548:
-										{
-											return "15% aumentado el daño de cohetes";
-										}
-										case 1549:
-										{
-											return "13% mayor distancia probabilidad de golpe crítico";
-										}
-										case 1550:
-										{
-											return "7% mayor distancia probabilidad de golpe crítico";
-										}
-										case 1551:
-										{
-											return "Convierte Bares chlorophyte en Bares Shroomite";
-										}
-										case 1553:
-										{
-											return "50% oportunidad de no consumir municiones";
-										}
-										case 1554:
-										{
-											return "Usted no debería tener este";
-										}
-										case 1555:
-										{
-											return "Usted no debería tener este";
-										}
-										case 1556:
-										{
-											return "Usted no debería tener este";
-										}
-										case 1557:
-										{
-											return "Usted no debería tener este";
-										}
-										case 1558:
-										{
-											return "Usted no debería tener este";
-										}
-										case 1559:
-										{
-											return "Usted no debería tener este";
-										}
-										case 1560:
-										{
-											return "Usted no debería tener este";
-										}
-										case 1561:
-										{
-											return "Usted no debería tener este";
-										}
-										case 1562:
-										{
-											return "Usted no debería tener este";
-										}
-										case 1563:
-										{
-											return "Usted no debería tener este";
-										}
-										case 1564:
-										{
-											return "Usted no debería tener este";
-										}
-										case 1565:
-										{
-											return "Usted no debería tener este";
-										}
-										case 1566:
-										{
-											return "Usted no debería tener este";
-										}
-										case 1567:
-										{
-											return "Usted no debería tener este";
-										}
-										case 1568:
-										{
-											return "Usted no debería tener este";
-										}
-										case 1569:
-										{
-											return "Tirar rápidamente dagas robando la vida";
-										}
-										case 1571:
-										{
-											return "Una poderosa lanza que da rienda suelta a pequeños comedores";
-										}
-										case 1572:
-										{
-											return "Invoca un poderoso heladas hydra de escupir hielo a sus enemigos";
-										}
-										case 1578:
-										{
-											return "Lanzamientos abejas y aumenta la velocidad de movimiento cuando está dañado";
-										}
-										case 1579:
-										{
-											return "El usuario puede correr muy rápido";
-										}
-										case 1580:
-										{
-											return "Usted no debería tener este";
-										}
-										case 1581:
-										{
-											return "Usted no debería tener este";
-										}
-										case 1582:
-										{
-											return "Usted no debería tener este";
-										}
-										case 1583:
-										{
-											return "Usted no debería tener este";
-										}
-										case 1584:
-										{
-											return "Usted no debería tener este";
-										}
-										case 1585:
-										{
-											return "Usted no debería tener este";
-										}
-										case 1586:
-										{
-											return "Usted no debería tener este";
-										}
-										case 1587:
-										{
-											return "Usted no debería tener este";
-										}
-										case 1588:
-										{
-											return "Usted no debería tener este";
-										}
-										case 1595:
-										{
-											return "Aumenta el maná máximo por 20";
-										}
-									}
-									break;
-								}
-							}
-							break;
+								break;
 						}
 					}
 				}
-				else if (num4 == 3485 || num4 == 3491 || num4 == 3521)
-				{
-					return "Puede abrir meteoritos";
-				}
 			}
-			if (english || Lang.lang <= 1)
+			IL_AC2F:
+			if (!english && Lang.lang > 1)
 			{
-				return "";
+				return Lang.toolTip(l, true);
 			}
-			return Lang.toolTip(l, true);
+			return "";
 		}
 
 		public static string toolTip2(int l, bool english = false)
 		{
 			if (Lang.lang <= 1 || english)
 			{
-				int num = l;
-				if (num <= 1613)
+				if (l <= 1834)
 				{
-					if (num <= 953)
+					if (l <= 962)
 					{
-						if (num <= 559)
+						if (l <= 686)
 						{
-							if (num <= 230)
+							if (l <= 230)
 							{
-								if (num > 98)
+								if (l <= 98)
 								{
-									if (num == 213)
-									{
-										return "Increases alchemy plant collection when used to gather";
-									}
-									switch (num)
-									{
-										case 228:
-										{
-											return "4% increased magic critical strike chance";
-										}
-										case 229:
-										{
-											return "4% increased magic critical strike chance";
-										}
-										case 230:
-										{
-											return "4% increased magic critical strike chance";
-										}
-									}
-								}
-								else
-								{
-									if (num == 65)
+									if (l == 65)
 									{
 										return "'Forged with the fury of heaven'";
 									}
-									if (num == 98)
+									if (l == 98)
 									{
 										return "'Half shark, half gun, completely awesome.'";
 									}
 								}
-							}
-							else if (num > 434)
-							{
-								if (num == 533)
+								else
 								{
-									return "'Minishark's older brother'";
-								}
-								switch (num)
-								{
-									case 552:
+									if (l == 213)
 									{
-										return "8% increased movement speed";
+										return "Increases alchemy plant collection when used to gather";
 									}
-									case 553:
+									switch (l)
 									{
-										return "8% increased ranged critical strike chance";
-									}
-									case 555:
-									{
-										return "Automatically use mana potions when needed";
-									}
-									case 558:
-									{
-										return "12% increased magic damage and critical strike chance";
-									}
-									case 559:
-									{
-										return "10% increased melee haste";
+										case 228:
+											return "4% increased magic critical strike chance";
+										case 229:
+											return "4% increased magic critical strike chance";
+										case 230:
+											return "4% increased magic critical strike chance";
 									}
 								}
 							}
-							else
+							else if (l <= 434)
 							{
-								switch (num)
+								switch (l)
 								{
 									case 371:
-									{
 										return "9% increased magic critical strike chance";
-									}
 									case 372:
-									{
 										return "12% increased melee speed";
-									}
 									case 373:
-									{
 										return "6% increased ranged critical strike chance";
-									}
 									case 374:
-									{
 										return "3% increased critical strike chance";
-									}
 									case 375:
-									{
 										return "10% increased movement speed";
-									}
 									case 376:
-									{
 										return "15% increased magic damage";
-									}
 									case 377:
-									{
 										return "10% increased melee damage";
-									}
 									case 378:
-									{
 										return "7% increased ranged critical strike chance";
-									}
 									case 379:
-									{
 										return "5% increased damage";
-									}
 									case 380:
-									{
 										return "3% increased critical strike chance";
-									}
 									case 381:
 									case 382:
 									case 383:
@@ -58217,4159 +52489,2673 @@ namespace Terraria
 									case 393:
 									case 398:
 									case 403:
-									{
 										break;
-									}
 									case 389:
-									{
 										return "'Find your inner pieces'";
-									}
 									case 394:
-									{
 										return "Greatly extends underwater breathing";
-									}
 									case 395:
-									{
 										return "Tells the time";
-									}
 									case 396:
-									{
 										return "Grants immunity to fire blocks";
-									}
 									case 397:
-									{
 										return "Grants immunity to fire blocks";
-									}
 									case 399:
-									{
 										return "Increases jump height";
-									}
 									case 400:
-									{
 										return "11% increased magic damage and critical strike chance";
-									}
 									case 401:
-									{
 										return "14% increased melee damage";
-									}
 									case 402:
-									{
 										return "8% increased ranged critical strike chance";
-									}
 									case 404:
-									{
 										return "5% increased movement speed";
-									}
 									case 405:
-									{
 										return "The wearer can run super fast";
-									}
 									default:
-									{
-										if (num == 434)
+										if (l == 434)
 										{
 											return "Only the first shot consumes ammo";
 										}
 										break;
-									}
-								}
-							}
-						}
-						else if (num <= 898)
-						{
-							if (num > 748)
-							{
-								switch (num)
-								{
-									case 771:
-									{
-										return "Small blast radius. Will not destroy tiles";
-									}
-									case 772:
-									{
-										return "Small blast radius. Will destroy tiles";
-									}
-									case 773:
-									{
-										return "Large blast radius. Will not destroy tiles";
-									}
-									case 774:
-									{
-										return "Large blast radius. Will destroy tiles";
-									}
-									case 775:
-									{
-										return "Increases running speed";
-									}
-									case 776:
-									{
-										return "Can mine Mythril and Orichalcum";
-									}
-									case 777:
-									{
-										return "Can mine Adamantite and Titanium";
-									}
-									case 778:
-									{
-										break;
-									}
-									case 779:
-									{
-										return "Uses colored solution";
-									}
-									case 780:
-									{
-										return "Spreads the Purity";
-									}
-									case 781:
-									{
-										return "Spreads the Hallow";
-									}
-									case 782:
-									{
-										return "Spreads the Corruption";
-									}
-									case 783:
-									{
-										return "Spreads Glowing Mushrooms";
-									}
-									case 784:
-									{
-										return "Spreads the Crimson";
-									}
-									default:
-									{
-										switch (num)
-										{
-											case 897:
-											{
-												return "12% increased melee speed";
-											}
-											case 898:
-											{
-												return "The wearer can run incredibly fast";
-											}
-										}
-										break;
-									}
 								}
 							}
 							else
 							{
-								if (num == 686)
+								if (l == 533)
 								{
-									return "7% increased melee attack speed";
+									return "'Minishark's older brother'";
 								}
-								if (num == 748)
+								switch (l)
+								{
+									case 552:
+										return "8% increased movement speed";
+									case 553:
+										return "8% increased ranged critical strike chance";
+									case 554:
+									case 556:
+									case 557:
+										break;
+									case 555:
+										return "Automatically use mana potions when needed";
+									case 558:
+										return "12% increased magic damage and critical strike chance";
+									case 559:
+										return "10% increased melee haste";
+									default:
+										if (l == 686)
+										{
+											return "7% increased melee attack speed";
+										}
+										break;
+								}
+							}
+						}
+						else if (l <= 908)
+						{
+							if (l <= 784)
+							{
+								if (l == 748)
 								{
 									return "Hold UP to rocket faster";
 								}
-							}
-						}
-						else if (num > 929)
-						{
-							switch (num)
-							{
-								case 936:
+								switch (l)
 								{
-									return "12% increased damage and melee speed";
-								}
-								case 937:
-								{
-									break;
-								}
-								case 938:
-								{
-									return "Only active above 25% life";
-								}
-								default:
-								{
-									if (num == 950)
-									{
-										return "Ice will not break when you fall on it";
-									}
-									if (num == 953)
-									{
-										return "Improved ability if combined with Shoe Spikes";
-									}
-									break;
-								}
-							}
-						}
-						else
-						{
-							switch (num)
-							{
-								case 905:
-								{
-									return "Higher valued coins do more damage";
-								}
-								case 906:
-								{
-									break;
-								}
-								case 907:
-								{
-									return "Grants immunity to fire blocks";
-								}
-								case 908:
-								{
-									return "Grants immunity to fire blocks and 7 seconds of immunity to lava";
-								}
-								default:
-								{
-									if (num == 929)
-									{
-										return "For use with cannon";
-									}
-									break;
-								}
-							}
-						}
-					}
-					else if (num <= 1254)
-					{
-						if (num <= 1005)
-						{
-							if (num > 977)
-							{
-								switch (num)
-								{
-									case 982:
-									{
-										return "Increases mana regeneration rate";
-									}
-									case 983:
-									{
-										return "Increases jump height";
-									}
-									case 984:
-									{
-										return "Gives a chance to dodge attacks";
-									}
-									default:
-									{
-										switch (num)
-										{
-											case 997:
-											{
-												return "'To use: Place silt/slush/fossils in the extractinator'";
-											}
-											case 1001:
-											{
-												return "6% increased melee critical strike chance";
-											}
-											case 1002:
-											{
-												return "20% chance to not consume ammo";
-											}
-											case 1003:
-											{
-												return "16% increased magic damage";
-											}
-											case 1004:
-											{
-												return "7% increased critical strike chance";
-											}
-											case 1005:
-											{
-												return "5% increased movement speed";
-											}
-										}
-										break;
-									}
+									case 771:
+										return "Small blast radius. Will not destroy tiles";
+									case 772:
+										return "Small blast radius. Will destroy tiles";
+									case 773:
+										return "Large blast radius. Will not destroy tiles";
+									case 774:
+										return "Large blast radius. Will destroy tiles";
+									case 775:
+										return "Increases running speed";
+									case 776:
+										return "Can mine Mythril and Orichalcum";
+									case 777:
+										return "Can mine Adamantite and Titanium";
+									case 779:
+										return "Uses colored solution";
+									case 780:
+										return "Spreads the Purity";
+									case 781:
+										return "Spreads the Hallow";
+									case 782:
+										return "Spreads the Corruption";
+									case 783:
+										return "Spreads Glowing Mushrooms";
+									case 784:
+										return "Spreads the Crimson";
 								}
 							}
 							else
 							{
-								switch (num)
+								switch (l)
 								{
-									case 960:
-									{
-										return "4% increased magic critical strike chance";
-									}
-									case 961:
-									{
-										return "4% increased magic critical strike chance";
-									}
-									case 962:
-									{
-										return "4% increased magic critical strike chance";
-									}
+									case 897:
+										return "12% increased melee speed";
+									case 898:
+										return "The wearer can run incredibly fast";
 									default:
-									{
-										switch (num)
+										switch (l)
 										{
-											case 975:
-											{
-												return "Improved ability if combined with Climbing Claws";
-											}
-											case 977:
-											{
-												return "Double tap a direction";
-											}
+											case 905:
+												return "Higher valued coins do more damage";
+											case 907:
+												return "Grants immunity to fire blocks";
+											case 908:
+												return "Grants immunity to fire blocks and 7 seconds of immunity to lava";
 										}
 										break;
-									}
 								}
 							}
 						}
-						else if (num > 1131)
+						else if (l <= 938)
 						{
-							switch (num)
+							if (l == 929)
 							{
-								case 1159:
-								{
-									return "Increases minion damage by 10%";
-								}
-								case 1160:
-								{
-									return "Increases minion damage by 10%";
-								}
-								case 1161:
-								{
-									return "Increases minion damage by 10%";
-								}
-								case 1162:
-								case 1165:
-								case 1166:
-								{
-									break;
-								}
-								case 1163:
-								{
-									return "Increases jump height";
-								}
-								case 1164:
-								{
-									return "Increases jump height";
-								}
-								case 1167:
-								{
-									return "Increases the knockback of your minions";
-								}
-								default:
-								{
-									switch (num)
-									{
-										case 1205:
-										{
-											return "12% increased melee speed";
-										}
-										case 1206:
-										{
-											return "9% increased ranged critical strike chance";
-										}
-										case 1207:
-										{
-											return "Increases maximum mana by 60";
-										}
-										case 1208:
-										{
-											return "2% increased critical strike chance";
-										}
-										case 1209:
-										{
-											return "1% increased critical strike chance";
-										}
-										case 1210:
-										{
-											return "7% increased movement and melee speed";
-										}
-										case 1211:
-										{
-											return "8% increased movement speed";
-										}
-										case 1212:
-										{
-											return "Increases maximum mana by 80";
-										}
-										case 1213:
-										case 1214:
-										{
-											break;
-										}
-										case 1215:
-										{
-											return "8% increased melee speed";
-										}
-										case 1216:
-										{
-											return "7% increased ranged critical strike chance";
-										}
-										case 1217:
-										{
-											return "Increases maximum mana by 100";
-										}
-										case 1218:
-										{
-											return "3% increased critical strike chance";
-										}
-										case 1219:
-										{
-											return "6% increased movement speed";
-										}
-										default:
-										{
-											switch (num)
-											{
-												case 1249:
-												{
-													return "Releases bees when damaged";
-												}
-												case 1250:
-												{
-													return "Increases jump height and negates fall damage";
-												}
-												case 1251:
-												{
-													return "Increases jump height and negates fall damage";
-												}
-												case 1252:
-												{
-													return "Increases jump height and negates fall damage";
-												}
-												case 1254:
-												{
-													return "Right click to zoom out";
-												}
-											}
-											break;
-										}
-									}
-									break;
-								}
+								return "For use with cannon";
+							}
+							switch (l)
+							{
+								case 936:
+									return "12% increased damage and melee speed";
+								case 938:
+									return "Only active above 25% life";
 							}
 						}
 						else
 						{
-							if (num == 1123)
+							if (l == 950)
 							{
-								return "Small chance to cause confusion";
+								return "Ice will not break when you fall on it";
 							}
-							if (num == 1131)
+							if (l == 953)
+							{
+								return "Improved ability if combined with Shoe Spikes";
+							}
+							switch (l)
+							{
+								case 960:
+									return "4% increased magic critical strike chance";
+								case 961:
+									return "4% increased magic critical strike chance";
+								case 962:
+									return "4% increased magic critical strike chance";
+							}
+						}
+					}
+					else if (l <= 1287)
+					{
+						if (l <= 1123)
+						{
+							if (l <= 984)
+							{
+								switch (l)
+								{
+									case 975:
+										return "Improved ability if combined with Climbing Claws";
+									case 976:
+										break;
+									case 977:
+										return "Double tap a direction";
+									default:
+										switch (l)
+										{
+											case 982:
+												return "Increases mana regeneration rate";
+											case 983:
+												return "Increases jump height";
+											case 984:
+												return "Gives a chance to dodge attacks";
+										}
+										break;
+								}
+							}
+							else
+							{
+								switch (l)
+								{
+									case 997:
+										return "'To use: Place silt/slush/fossils in the extractinator'";
+									case 998:
+									case 999:
+									case 1000:
+										break;
+									case 1001:
+										return "6% increased melee critical strike chance";
+									case 1002:
+										return "20% chance to not consume ammo";
+									case 1003:
+										return "16% increased magic damage";
+									case 1004:
+										return "7% increased critical strike chance";
+									case 1005:
+										return "5% increased movement speed";
+									default:
+										if (l == 1123)
+										{
+											return "Small chance to cause confusion";
+										}
+										break;
+								}
+							}
+						}
+						else if (l <= 1167)
+						{
+							if (l == 1131)
 							{
 								return "Press UP to change gravity";
 							}
-						}
-					}
-					else if (num <= 1321)
-					{
-						if (num > 1295)
-						{
-							switch (num)
+							switch (l)
 							{
-								case 1300:
-								{
-									return "Right click to zoom out";
-								}
-								case 1301:
-								{
-									return "8% increased critical strike chance";
-								}
-								default:
-								{
-									switch (num)
-									{
-										case 1316:
-										{
-											return "Enemies are more likely to target you";
-										}
-										case 1317:
-										{
-											return "Enemies are more likely to target you";
-										}
-										case 1318:
-										{
-											return "Enemies are more likely to target you";
-										}
-										case 1321:
-										{
-											return "20% chance to not consume arrows";
-										}
-									}
-									break;
-								}
+								case 1159:
+									return "Increases minion damage by 10%";
+								case 1160:
+									return "Increases minion damage by 10%";
+								case 1161:
+									return "Increases minion damage by 10%";
+								case 1163:
+									return "Increases jump height";
+								case 1164:
+									return "Increases jump height";
+								case 1167:
+									return "Increases the knockback of your minions";
 							}
 						}
 						else
 						{
-							switch (num)
+							switch (l)
 							{
-								case 1282:
-								{
-									return "Reduces mana usage by 5%";
-								}
-								case 1283:
-								{
-									return "Reduces mana usage by 7%";
-								}
-								case 1284:
-								{
-									return "Reduces mana usage by 9%";
-								}
-								case 1285:
-								{
-									return "Reduces mana usage by 11%";
-								}
-								case 1286:
-								{
-									return "Reduces mana usage by 13%";
-								}
-								case 1287:
-								{
-									return "Reduces mana usage by 15%";
-								}
+								case 1205:
+									return "12% increased melee speed";
+								case 1206:
+									return "9% increased ranged critical strike chance";
+								case 1207:
+									return "Increases maximum mana by 60";
+								case 1208:
+									return "2% increased critical strike chance";
+								case 1209:
+									return "1% increased critical strike chance";
+								case 1210:
+									return "7% increased movement and melee speed";
+								case 1211:
+									return "8% increased movement speed";
+								case 1212:
+									return "Increases maximum mana by 80";
+								case 1213:
+								case 1214:
+									break;
+								case 1215:
+									return "8% increased melee speed";
+								case 1216:
+									return "7% increased ranged critical strike chance";
+								case 1217:
+									return "Increases maximum mana by 100";
+								case 1218:
+									return "3% increased critical strike chance";
+								case 1219:
+									return "6% increased movement speed";
 								default:
-								{
-									if (num == 1295)
+									switch (l)
 									{
-										return "'Oolaa!!'";
+										case 1249:
+											return "Releases bees when damaged";
+										case 1250:
+											return "Increases jump height and negates fall damage";
+										case 1251:
+											return "Increases jump height and negates fall damage";
+										case 1252:
+											return "Increases jump height and negates fall damage";
+										case 1253:
+											break;
+										case 1254:
+											return "<right> to zoom out";
+										default:
+											switch (l)
+											{
+												case 1282:
+													return "Reduces mana usage by 5%";
+												case 1283:
+													return "Reduces mana usage by 7%";
+												case 1284:
+													return "Reduces mana usage by 9%";
+												case 1285:
+													return "Reduces mana usage by 11%";
+												case 1286:
+													return "Reduces mana usage by 13%";
+												case 1287:
+													return "Reduces mana usage by 15%";
+											}
+											break;
 									}
 									break;
-								}
 							}
 						}
 					}
-					else if (num > 1505)
+					else if (l <= 1359)
 					{
-						switch (num)
+						if (l <= 1301)
+						{
+							if (l == 1295)
+							{
+								return "'Oolaa!!'";
+							}
+							switch (l)
+							{
+								case 1300:
+									return "<right> to zoom out";
+								case 1301:
+									return "8% increased critical strike chance";
+							}
+						}
+						else
+						{
+							switch (l)
+							{
+								case 1316:
+									return "Enemies are more likely to target you";
+								case 1317:
+									return "Enemies are more likely to target you";
+								case 1318:
+									return "Enemies are more likely to target you";
+								case 1319:
+								case 1320:
+									break;
+								case 1321:
+									return "20% chance to not consume arrows";
+								default:
+									switch (l)
+									{
+										case 1336:
+											return "Decreases target's defense";
+										case 1338:
+											return "For use with bunny cannon";
+										case 1339:
+											return "'Extremely toxic'";
+										case 1340:
+											return "Melee attacks inflict Venom on enemies";
+										case 1341:
+											return "Inflicts target with Venom";
+										case 1342:
+											return "Inflicts target with Venom";
+										case 1343:
+											return "10% increased melee damage and speed";
+										case 1349:
+											return "Explodes into confetti on impact";
+										case 1350:
+											return "Causes confusion";
+										case 1351:
+											return "Explodes on impact";
+										case 1352:
+											return "Enemies killed will drop more money";
+										case 1353:
+											return "Melee attacks inflict enemies with cursed flames";
+										case 1354:
+											return "Melee attacks set enemies on fire";
+										case 1355:
+											return "Melee attacks make enemies drop more gold";
+										case 1356:
+											return "Melee attacks decrease enemies defense";
+										case 1357:
+											return "Melee attacks confuse enemies";
+										case 1358:
+											return "Melee attacks cause confetti to appear";
+										case 1359:
+											return "Melee attacks poison enemies";
+									}
+									break;
+							}
+						}
+					}
+					else if (l <= 1553)
+					{
+						if (l == 1505)
+						{
+							return "8% increased movement speed";
+						}
+						switch (l)
 						{
 							case 1546:
-							{
 								return "5% increased ranged critical strike chance";
-							}
 							case 1547:
-							{
 								return "5% increased ranged critical strike chance";
-							}
 							case 1548:
-							{
 								return "5% increased ranged critical strike chance";
-							}
 							case 1549:
-							{
 								return "20% chance to not consume ammo";
-							}
 							case 1550:
-							{
 								return "12% increased movement speed";
-							}
-							case 1551:
-							case 1552:
-							{
-								break;
-							}
 							case 1553:
-							{
 								return "'It came from the edge of space'";
-							}
-							default:
-							{
-								if (num == 1595)
-								{
-									return "Restores mana when damaged";
-								}
-								if (num == 1613)
-								{
-									return "Grants immunity to most debuffs";
-								}
-								break;
-							}
 						}
 					}
 					else
 					{
-						switch (num)
+						if (l == 1595)
 						{
-							case 1336:
-							{
-								return "Decreases target's defense";
-							}
-							case 1337:
-							case 1344:
-							case 1345:
-							case 1346:
-							case 1347:
-							case 1348:
-							{
-								break;
-							}
-							case 1338:
-							{
-								return "For use with bunny cannon";
-							}
-							case 1339:
-							{
-								return "'Extremely toxic'";
-							}
-							case 1340:
-							{
-								return "Melee attacks inflict Venom on enemies";
-							}
-							case 1341:
-							{
-								return "Inflicts target with Venom";
-							}
-							case 1342:
-							{
-								return "Inflicts target with Venom";
-							}
-							case 1343:
-							{
-								return "10% increased melee damage and speed";
-							}
-							case 1349:
-							{
-								return "Explodes into confetti on impact";
-							}
-							case 1350:
-							{
-								return "Causes confusion";
-							}
-							case 1351:
-							{
-								return "Explodes on impact";
-							}
-							case 1352:
-							{
-								return "Enemies killed will drop more money";
-							}
-							case 1353:
-							{
-								return "Melee attacks inflict enemies with cursed flames";
-							}
-							case 1354:
-							{
-								return "Melee attacks set enemies on fire";
-							}
-							case 1355:
-							{
-								return "Melee attacks make enemies drop more gold";
-							}
-							case 1356:
-							{
-								return "Melee attacks decrease enemies defense";
-							}
-							case 1357:
-							{
-								return "Melee attacks confuse enemies";
-							}
-							case 1358:
-							{
-								return "Melee attacks cause confetti to appear";
-							}
-							case 1359:
-							{
-								return "Melee attacks poison enemies";
-							}
-							default:
-							{
-								if (num == 1505)
-								{
-									return "8% increased movement speed";
-								}
-								break;
-							}
+							return "Restores mana when damaged";
+						}
+						if (l == 1613)
+						{
+							return "Grants immunity to most debuffs";
+						}
+						switch (l)
+						{
+							case 1832:
+								return "Increases minion damage by 11%";
+							case 1833:
+								return "Increases minion damage by 11%";
+							case 1834:
+								return "Increases minion damage by 11%";
 						}
 					}
 				}
-				else if (num <= 2997)
+				else if (l <= 3035)
 				{
-					if (num <= 2279)
+					if (l <= 2362)
 					{
-						if (num <= 2189)
+						if (l <= 2202)
 						{
-							if (num > 1845)
+							if (l <= 1866)
 							{
-								switch (num)
+								if (l == 1845)
+								{
+									return "Increases minion damage by 10%";
+								}
+								switch (l)
 								{
 									case 1858:
-									{
 										return "10% increased ranged damage and critical strike chance";
-									}
-									case 1859:
-									{
-										break;
-									}
 									case 1860:
-									{
 										return "Provides light under water";
-									}
 									case 1861:
-									{
 										return "Provides light under water and extra mobility on ice";
-									}
 									case 1862:
-									{
 										return "7% increased movement speed";
-									}
 									case 1863:
-									{
 										return "Increases jump height";
-									}
 									case 1864:
-									{
 										return "Increases the damage and knockback of your minions";
-									}
 									case 1865:
-									{
 										return "life regeneration, defense, pick speed, and minion knockback";
-									}
 									case 1866:
-									{
 										return "Hold DOWN and JUMP to hover";
-									}
-									default:
-									{
-										if (num == 2189)
-										{
-											return "5% increased magic damage and critical strike chance";
-										}
-										break;
-									}
 								}
 							}
 							else
 							{
-								switch (num)
+								if (l == 2189)
 								{
-									case 1832:
-									{
-										return "Increases minion damage by 11%";
-									}
-									case 1833:
-									{
-										return "Increases minion damage by 11%";
-									}
-									case 1834:
-									{
-										return "Increases minion damage by 11%";
-									}
-									default:
-									{
-										if (num == 1845)
-										{
-											return "Increases minion damage by 10%";
-										}
-										break;
-									}
+									return "5% increased magic damage and critical strike chance";
+								}
+								switch (l)
+								{
+									case 2199:
+										return "Enemies are more likely to target you";
+									case 2200:
+										return "6% increased movement and melee speed";
+									case 2201:
+										return "Enemies are more likely to target you";
+									case 2202:
+										return "Enemies are more likely to target you";
 								}
 							}
 						}
-						else if (num > 2221)
+						else if (l <= 2270)
 						{
-							if (num == 2270)
+							switch (l)
 							{
-								return "Highly inaccurate";
-							}
-							switch (num)
-							{
-								case 2277:
-								{
-									return "10% increased melee and movement speed";
-								}
-								case 2279:
-								{
-									return "Reduces mana usage by 10%";
-								}
+								case 2220:
+									return "15% increased magic damage";
+								case 2221:
+									return "Restores mana when damaged";
+								default:
+									if (l == 2270)
+									{
+										return "Highly inaccurate";
+									}
+									break;
 							}
 						}
 						else
 						{
-							switch (num)
+							switch (l)
 							{
-								case 2199:
-								{
-									return "Enemies are more likely to target you";
-								}
-								case 2200:
-								{
-									return "6% increased movement and melee speed";
-								}
-								case 2201:
-								{
-									return "Enemies are more likely to target you";
-								}
-								case 2202:
-								{
-									return "Enemies are more likely to target you";
-								}
+								case 2277:
+									return "10% increased melee and movement speed";
+								case 2278:
+									break;
+								case 2279:
+									return "Reduces mana usage by 10%";
 								default:
-								{
-									switch (num)
+									if (l == 2340)
 									{
-										case 2220:
-										{
-											return "15% increased magic damage";
-										}
-										case 2221:
-										{
-											return "Restores mana when damaged";
-										}
+										return "Hammer intersections to change direction";
+									}
+									switch (l)
+									{
+										case 2361:
+											return "Increases your max number of minions";
+										case 2362:
+											return "Increases your max number of minions";
 									}
 									break;
-								}
 							}
 						}
 					}
-					else if (num <= 2423)
+					else if (l <= 2590)
 					{
-						if (num > 2362)
+						if (l <= 2423)
 						{
-							switch (num)
+							switch (l)
 							{
 								case 2370:
-								{
 									return "Increases minion damage by 6%";
-								}
 								case 2371:
-								{
 									return "Increases minion damage by 6%";
-								}
 								case 2372:
-								{
 									return "Increases minion damage by 6%";
-								}
 								default:
-								{
-									if (num == 2423)
+									if (l == 2423)
 									{
 										return "Increases fall resistance";
 									}
 									break;
-								}
 							}
 						}
 						else
 						{
-							if (num == 2340)
+							if (l == 2586)
 							{
-								return "Hammer intersections to change direction";
+								return "'Tossing may be difficult.'";
 							}
-							switch (num)
+							if (l == 2590)
 							{
-								case 2361:
-								{
-									return "Increases your max number of minions";
-								}
-								case 2362:
-								{
-									return "Increases your max number of minions";
-								}
+								return "Lights nearby area on fire for a while";
 							}
 						}
 					}
-					else if (num > 2590)
+					else if (l <= 2765)
 					{
-						if (num == 2609)
+						if (l == 2609)
 						{
 							return "Allows quick travel in water";
 						}
-						switch (num)
+						switch (l)
 						{
 							case 2757:
-							{
 								return "7% increased ranged critical strike chance";
-							}
 							case 2758:
-							{
 								return "25% chance not to consume ammo";
-							}
 							case 2759:
-							{
 								return "10% increased movement speed";
-							}
 							case 2760:
-							{
 								return "7% increased magic damage and critical strike chance";
-							}
-							case 2761:
-							{
-								break;
-							}
 							case 2762:
-							{
 								return "10% increased movement speed";
-							}
 							case 2763:
-							{
 								return "Enemies are more likely to target you";
-							}
 							case 2764:
-							{
 								return "Enemies are more likely to target you";
-							}
 							case 2765:
-							{
 								return "Enemies are more likely to target you";
-							}
-							default:
-							{
-								switch (num)
-								{
-									case 2995:
-									{
-										return "'In loving memory'";
-									}
-									case 2997:
-									{
-										return "Click their head on the fullscreen map";
-									}
-								}
-								break;
-							}
 						}
 					}
 					else
 					{
-						if (num == 2586)
+						switch (l)
 						{
-							return "'Tossing may be difficult.'";
-						}
-						if (num == 2590)
-						{
-							return "Lights nearby area on fire for a while";
+							case 2995:
+								return "'In loving memory'";
+							case 2996:
+								break;
+							case 2997:
+								return "Click their head on the fullscreen map";
+							default:
+								if (l == 3015)
+								{
+									return "5% increased damage and critical strike chance";
+								}
+								switch (l)
+								{
+									case 3034:
+										return "Hitting enemies will sometimes drop extra coins";
+									case 3035:
+										return "Hitting enemies will sometimes drop extra coins";
+								}
+								break;
 						}
 					}
 				}
-				else if (num <= 3228)
+				else if (l <= 3245)
 				{
-					if (num <= 3085)
+					if (l <= 3110)
 					{
-						if (num > 3035)
+						if (l <= 3085)
 						{
-							if (num == 3061)
+							if (l == 3061)
 							{
 								return "Automatically paints placed objects";
 							}
-							if (num == 3085)
+							if (l == 3085)
 							{
 								return "Requires a Golden Key";
 							}
 						}
 						else
 						{
-							if (num == 3015)
+							if (l == 3097)
 							{
-								return "5% increased damage and critical strike chance";
+								return "Double tap a direction";
 							}
-							switch (num)
+							if (l == 3110)
 							{
-								case 3034:
-								{
-									return "Hitting enemies will sometimes drop extra coins";
-								}
-								case 3035:
-								{
-									return "Hitting enemies will sometimes drop extra coins";
-								}
+								return "Minor increases to all stats";
 							}
 						}
 					}
-					else if (num > 3110)
+					else if (l <= 3124)
 					{
-						switch (num)
+						switch (l)
 						{
 							case 3115:
-							{
 								return "Very bouncy";
-							}
 							case 3116:
-							{
 								return "Very bouncy";
-							}
 							default:
-							{
-								if (num == 3124)
+								if (l == 3124)
 								{
 									return "Allows you to return home at will";
 								}
-								switch (num)
-								{
-									case 3226:
-									{
-										return "Become the wind, ride the lightning.";
-									}
-									case 3227:
-									{
-										return "Bejeweled and elegant for soaring through the thundering skies";
-									}
-									case 3228:
-									{
-										return "The Valkyrie Satellite Barrier Platform is totally safe. Most of the time.";
-									}
-								}
 								break;
-							}
 						}
 					}
 					else
 					{
-						if (num == 3097)
+						switch (l)
 						{
-							return "Double tap a direction";
-						}
-						if (num == 3110)
-						{
-							return "Minor increases to all stats";
+							case 3226:
+								return "Become the wind, ride the lightning.";
+							case 3227:
+								return "Bejeweled and elegant for soaring through the thundering skies";
+							case 3228:
+								return "The Valkyrie Satellite Barrier Platform is totally safe. Most of the time.";
+							default:
+								if (l == 3241)
+								{
+									return "Allows the holder to double jump";
+								}
+								if (l == 3245)
+								{
+									return "33% chance to not consume bone";
+								}
+								break;
 						}
 					}
 				}
-				else if (num <= 3383)
+				else if (l <= 3475)
 				{
-					if (num > 3245)
+					if (l <= 3368)
 					{
-						switch (num)
+						switch (l)
 						{
 							case 3250:
 							case 3251:
 							case 3252:
-							{
 								return "Increases jump height and negates fall damage";
-							}
 							default:
-							{
-								switch (num)
+								if (l == 3368)
 								{
-									case 3381:
-									{
-										return "Increases minion damage by 22%";
-									}
-									case 3382:
-									{
-										return "Increases minion damage by 22%";
-									}
-									case 3383:
-									{
-										return "Increases minion damage by 22%";
-									}
+									return "'I didn't get this off of a Schmoo'";
 								}
 								break;
-							}
 						}
 					}
 					else
 					{
-						if (num == 3241)
+						switch (l)
 						{
-							return "Allows the holder to double jump";
-						}
-						if (num == 3245)
-						{
-							return "33% chance to not consume bone";
+							case 3381:
+								return "Increases minion damage by 22%";
+							case 3382:
+								return "Increases minion damage by 22%";
+							case 3383:
+								return "Increases minion damage by 22%";
+							default:
+								switch (l)
+								{
+									case 3474:
+										return "'Cultivate the most beautiful cellular infection'";
+									case 3475:
+										return "'The catastrophic mixture of pew pew and boom boom.'";
+								}
+								break;
 						}
 					}
 				}
-				else if (num > 3532)
+				else if (l <= 3571)
 				{
-					if (num == 3571)
+					switch (l)
 					{
-						return "'The colors, Duke, the colors!'";
-					}
-					switch (num)
-					{
-						case 3577:
-						{
-							return "'I know what you're thinking....'";
-						}
-						case 3578:
-						case 3579:
-						{
-							break;
-						}
-						case 3580:
-						{
-							return "Whatever this accessory does to you is not a bug!";
-						}
-						case 3581:
-						{
-							return "If you see this you should probably run away...";
-						}
+						case 3531:
+							return "'Who needs a horde of minions when you have a giant dragon?'";
+						case 3532:
+							return "'Bacon? Bacon.'";
 						default:
-						{
-							switch (num)
+							if (l == 3571)
 							{
-								case 3589:
-								{
-									return "Disorder came from order, fear came from courage, weakness came from strength";
-								}
-								case 3590:
-								{
-									return "Know thy self, know thy enemy. A thousand battles, a thousand victories…";
-								}
-								case 3591:
-								{
-									return "Wheels of justice grind slow but grind fine.";
-								}
-								case 3592:
-								{
-									return "Let your plans be dark and impenetrable as night, and when you move, fall like a thunderbolt.";
-								}
+								return "'The colors, Duke, the colors!'";
 							}
 							break;
-						}
 					}
 				}
 				else
 				{
-					switch (num)
+					switch (l)
 					{
-						case 3474:
-						{
-							return "'Cultivate the most beautiful cellular infection'";
-						}
-						case 3475:
-						{
-							return "'The catastrophic mixture of pew pew and boom boom.'";
-						}
+						case 3577:
+							return "'I know what you're thinking....'";
+						case 3578:
+						case 3579:
+							break;
+						case 3580:
+							return "Whatever this accessory does to you is not a bug!";
+						case 3581:
+							return "If you see this you should probably run away...";
 						default:
-						{
-							switch (num)
+							switch (l)
 							{
-								case 3531:
-								{
-									return "'Who needs a horde of minions when you have a giant dragon?'";
-								}
-								case 3532:
-								{
-									return "'Bacon? Bacon.'";
-								}
+								case 3589:
+									return "Disorder came from order, fear came from courage, weakness came from strength";
+								case 3590:
+									return "Know thy self, know thy enemy. A thousand battles, a thousand victories…";
+								case 3591:
+									return "Wheels of justice grind slow but grind fine.";
+								case 3592:
+									return "Let your plans be dark and impenetrable as night, and when you move, fall like a thunderbolt.";
+								default:
+									switch (l)
+									{
+										case 3603:
+											return "Activates when all lamps are on, Deactivates otherwise";
+										case 3604:
+											return "Activates when any lamp is on, Deactivates otherwise";
+										case 3605:
+											return "Activates when not all lamps are on, Deactivates otherwise";
+										case 3606:
+											return "Activates when no lamp is on, Deactivates otherwise";
+										case 3607:
+											return "Activates when only one lamp is on, Deactivates otherwise";
+										case 3608:
+											return "Activates when the total 'on' lamps is not one, Deactivates otherwise";
+										case 3611:
+											return "<right> while holding to edit wire settings";
+									}
+									break;
 							}
 							break;
-						}
 					}
 				}
 			}
 			else if (Lang.lang == 2)
 			{
-				int num1 = l;
-				if (num1 <= 962)
+				if (l <= 962)
 				{
-					if (num1 <= 686)
+					if (l <= 686)
 					{
-						if (num1 <= 405)
+						if (l <= 405)
 						{
-							if (num1 > 98)
+							if (l <= 98)
 							{
-								switch (num1)
-								{
-									case 228:
-									{
-										return "Um 4% erhoehte kritische Magietrefferchance";
-									}
-									case 229:
-									{
-										return "Um 4% erhoehte kritische Magietrefferchance";
-									}
-									case 230:
-									{
-										return "Um 4% erhoehte kritische Magietrefferchance";
-									}
-									default:
-									{
-										switch (num1)
-										{
-											case 371:
-											{
-												return "Um 9% erhoehte kritische Magietrefferchance";
-											}
-											case 372:
-											{
-												return "Um 12% erhoehtes Nahkampftempo";
-											}
-											case 373:
-											{
-												return "Um 6% erhoehte kritische Fernkampf-Trefferchance";
-											}
-											case 374:
-											{
-												return "Um 3% erhoehte kritische Trefferchance";
-											}
-											case 375:
-											{
-												return "Um 10% erhoehtes Bewegungstempo";
-											}
-											case 376:
-											{
-												return "Um 15% erhoehter magischer Schaden";
-											}
-											case 377:
-											{
-												return "Um 10% erhoehter Nahkampfschaden";
-											}
-											case 378:
-											{
-												return "Um 7% erhoehte kritische Fernkampf-Trefferchance";
-											}
-											case 379:
-											{
-												return "Um 5% erhoehter Schaden";
-											}
-											case 380:
-											{
-												return "Um 3% erhoehte kritische Trefferchance";
-											}
-											case 389:
-											{
-												return "'Sammele dich!'";
-											}
-											case 394:
-											{
-												return "Verlaengert das Atmen unter Wasser deutlich";
-											}
-											case 395:
-											{
-												return "Zeigt die Zeit an";
-											}
-											case 396:
-											{
-												return "Macht immun gegen Feuer-Bloecke";
-											}
-											case 397:
-											{
-												return "Macht immun gegen Feuer-Bloecke";
-											}
-											case 399:
-											{
-												return "Vergroessert die Sprunghoehe";
-											}
-											case 400:
-											{
-												return "Magischer Schaden und kritische Trefferchance um 11% erhoeht";
-											}
-											case 401:
-											{
-												return "Um 14% erhoehter Nahkampfschaden";
-											}
-											case 402:
-											{
-												return "Um 8% erhoehte kritische Fernkampf-Trefferchance";
-											}
-											case 404:
-											{
-												return "Um 5% erhoehtes Bewegungstempo";
-											}
-											case 405:
-											{
-												return "Der Traeger kann superschnell rennen";
-											}
-										}
-										break;
-									}
-								}
-							}
-							else
-							{
-								if (num1 == 65)
+								if (l == 65)
 								{
 									return "'Geschmiedet mit Himmelswut'";
 								}
-								if (num1 == 98)
+								if (l == 98)
 								{
 									return "'Halb Hai, halb Pistole - einfach toll!'";
 								}
 							}
-						}
-						else if (num1 > 533)
-						{
-							switch (num1)
+							else
 							{
-								case 552:
+								switch (l)
 								{
-									return "Um 8% erhoehtes Bewegungstempo";
-								}
-								case 553:
-								{
-									return "Um 8% erhoehte kritische Fernkampf-Trefferchance";
-								}
-								case 554:
-								case 556:
-								case 557:
-								{
-									break;
-								}
-								case 555:
-								{
-									return "Bei Bedarf automatisch Manatraenke verwenden";
-								}
-								case 558:
-								{
-									return "Magischer Schaden und kritische Trefferchance um 12% erhoeht";
-								}
-								case 559:
-								{
-									return "Um 10% erhoehtes Nahkampftempo";
-								}
-								default:
-								{
-									if (num1 == 686)
-									{
-										return "7% erhöht Nahkampfangriffstempo";
-									}
-									break;
+									case 228:
+										return "Um 4% erhoehte kritische Magietrefferchance";
+									case 229:
+										return "Um 4% erhoehte kritische Magietrefferchance";
+									case 230:
+										return "Um 4% erhoehte kritische Magietrefferchance";
+									default:
+										switch (l)
+										{
+											case 371:
+												return "Um 9% erhoehte kritische Magietrefferchance";
+											case 372:
+												return "Um 12% erhoehtes Nahkampftempo";
+											case 373:
+												return "Um 6% erhoehte kritische Fernkampf-Trefferchance";
+											case 374:
+												return "Um 3% erhoehte kritische Trefferchance";
+											case 375:
+												return "Um 10% erhoehtes Bewegungstempo";
+											case 376:
+												return "Um 15% erhoehter magischer Schaden";
+											case 377:
+												return "Um 10% erhoehter Nahkampfschaden";
+											case 378:
+												return "Um 7% erhoehte kritische Fernkampf-Trefferchance";
+											case 379:
+												return "Um 5% erhoehter Schaden";
+											case 380:
+												return "Um 3% erhoehte kritische Trefferchance";
+											case 389:
+												return "'Sammele dich!'";
+											case 394:
+												return "Verlaengert das Atmen unter Wasser deutlich";
+											case 395:
+												return "Zeigt die Zeit an";
+											case 396:
+												return "Macht immun gegen Feuer-Bloecke";
+											case 397:
+												return "Macht immun gegen Feuer-Bloecke";
+											case 399:
+												return "Vergroessert die Sprunghoehe";
+											case 400:
+												return "Magischer Schaden und kritische Trefferchance um 11% erhoeht";
+											case 401:
+												return "Um 14% erhoehter Nahkampfschaden";
+											case 402:
+												return "Um 8% erhoehte kritische Fernkampf-Trefferchance";
+											case 404:
+												return "Um 5% erhoehtes Bewegungstempo";
+											case 405:
+												return "Der Traeger kann superschnell rennen";
+										}
+										break;
 								}
 							}
 						}
-						else
+						else if (l <= 533)
 						{
-							if (num1 == 434)
+							if (l == 434)
 							{
 								return "Nur der erste Schuss verbraucht Munition ";
 							}
-							if (num1 == 533)
+							if (l == 533)
 							{
 								return "'Minihais grosser Bruder'";
 							}
 						}
-					}
-					else if (num1 <= 908)
-					{
-						if (num1 > 784)
+						else
 						{
-							switch (num1)
+							switch (l)
 							{
-								case 897:
-								{
-									return "12% erhöht Nahkampfsangriffstempo";
-								}
-								case 898:
-								{
-									return "Der Träger kann unglaublich schnell laufen";
-								}
+								case 552:
+									return "Um 8% erhoehtes Bewegungstempo";
+								case 553:
+									return "Um 8% erhoehte kritische Fernkampf-Trefferchance";
+								case 554:
+								case 556:
+								case 557:
+									break;
+								case 555:
+									return "Bei Bedarf automatisch Manatraenke verwenden";
+								case 558:
+									return "Magischer Schaden und kritische Trefferchance um 12% erhoeht";
+								case 559:
+									return "Um 10% erhoehtes Nahkampftempo";
 								default:
-								{
-									switch (num1)
+									if (l == 686)
 									{
-										case 905:
-										{
-											return "Höherwertigen Münzen mehr Schaden anrichten";
-										}
-										case 907:
-										{
-											return "Grants Immunität gegen Feuer-Blöcke";
-										}
-										case 908:
-										{
-											return "Grants Immunität gegen Feuer-Blöcke und 7 Sekunden Immunität gegen Lava";
-										}
+										return "7% erhöht Nahkampfangriffstempo";
 									}
 									break;
-								}
+							}
+						}
+					}
+					else if (l <= 908)
+					{
+						if (l <= 784)
+						{
+							if (l == 748)
+							{
+								return "Halten bis zu Rakete schneller";
+							}
+							switch (l)
+							{
+								case 771:
+									return "Kleine Explosion. Wird nicht zerstören Fliesen";
+								case 772:
+									return "Kleine Explosion. Will Fliesen zu zerstören";
+								case 773:
+									return "Große Sprengradius. Wird nicht zerstören Fliesen";
+								case 774:
+									return "Große Sprengradius. Will Fliesen zu zerstören";
+								case 775:
+									return "Erhöht Laufgeschwindigkeit";
+								case 776:
+									return "Kann mir Mithril und Orichalcum";
+								case 777:
+									return "Kann mir Adamantitbeschlagene und Titanium";
+								case 779:
+									return "Verwendet gefärbte Lösung";
+								case 780:
+									return "Verbreitet die Reinheit";
+								case 781:
+									return "Verteilt den Hallow";
+								case 782:
+									return "Verbreitet die Korruption";
+								case 783:
+									return "Verbreitet leuchtende Pilze";
+								case 784:
+									return "Verbreitet Crimson";
 							}
 						}
 						else
 						{
-							if (num1 == 748)
+							switch (l)
 							{
-								return "Halten bis zu Rakete schneller";
-							}
-							switch (num1)
-							{
-								case 771:
-								{
-									return "Kleine Explosion. Wird nicht zerstören Fliesen";
-								}
-								case 772:
-								{
-									return "Kleine Explosion. Will Fliesen zu zerstören";
-								}
-								case 773:
-								{
-									return "Große Sprengradius. Wird nicht zerstören Fliesen";
-								}
-								case 774:
-								{
-									return "Große Sprengradius. Will Fliesen zu zerstören";
-								}
-								case 775:
-								{
-									return "Erhöht Laufgeschwindigkeit";
-								}
-								case 776:
-								{
-									return "Kann mir Mithril und Orichalcum";
-								}
-								case 777:
-								{
-									return "Kann mir Adamantitbeschlagene und Titanium";
-								}
-								case 779:
-								{
-									return "Verwendet gefärbte Lösung";
-								}
-								case 780:
-								{
-									return "Verbreitet die Reinheit";
-								}
-								case 781:
-								{
-									return "Verteilt den Hallow";
-								}
-								case 782:
-								{
-									return "Verbreitet die Korruption";
-								}
-								case 783:
-								{
-									return "Verbreitet leuchtende Pilze";
-								}
-								case 784:
-								{
-									return "Verbreitet Crimson";
-								}
+								case 897:
+									return "12% erhöht Nahkampfsangriffstempo";
+								case 898:
+									return "Der Träger kann unglaublich schnell laufen";
+								default:
+									switch (l)
+									{
+										case 905:
+											return "Höherwertigen Münzen mehr Schaden anrichten";
+										case 907:
+											return "Grants Immunität gegen Feuer-Blöcke";
+										case 908:
+											return "Grants Immunität gegen Feuer-Blöcke und 7 Sekunden Immunität gegen Lava";
+									}
+									break;
 							}
 						}
 					}
-					else if (num1 > 938)
+					else if (l <= 938)
 					{
-						if (num1 == 953)
+						if (l == 929)
 						{
-							return "Verbesserte Fähigkeit, wenn sie mit Schuh Spikes kombiniert";
+							return "Für den Einsatz mit Kanone";
 						}
-						switch (num1)
+						switch (l)
 						{
-							case 960:
-							{
-								return "4% Magie erhöht Chance auf kritische Treffer";
-							}
-							case 961:
-							{
-								return "4% Magie erhöht Chance auf kritische Treffer";
-							}
-							case 962:
-							{
-								return "4% Magie erhöht Chance auf kritische Treffer";
-							}
+							case 936:
+								return "10% mehr Schaden und Nahkampfsangriffstempo";
+							case 938:
+								return "Nur aktiv, über 25% Leben";
 						}
 					}
 					else
 					{
-						if (num1 == 929)
+						if (l == 953)
 						{
-							return "Für den Einsatz mit Kanone";
+							return "Verbesserte Fähigkeit, wenn sie mit Schuh Spikes kombiniert";
 						}
-						switch (num1)
+						switch (l)
 						{
-							case 936:
-							{
-								return "10% mehr Schaden und Nahkampfsangriffstempo";
-							}
-							case 938:
-							{
-								return "Nur aktiv, über 25% Leben";
-							}
+							case 960:
+								return "4% Magie erhöht Chance auf kritische Treffer";
+							case 961:
+								return "4% Magie erhöht Chance auf kritische Treffer";
+							case 962:
+								return "4% Magie erhöht Chance auf kritische Treffer";
 						}
 					}
 				}
-				else if (num1 <= 1254)
+				else if (l <= 1254)
 				{
-					if (num1 <= 1123)
+					if (l <= 1123)
 					{
-						if (num1 > 984)
+						if (l <= 984)
 						{
-							switch (num1)
+							switch (l)
+							{
+								case 975:
+									return "Verbesserte Fähigkeit, wenn sie mit Klettern Claws kombiniert";
+								case 976:
+									break;
+								case 977:
+									return "Tippen Sie zweimal auf eine Richtung";
+								default:
+									switch (l)
+									{
+										case 982:
+											return "Erhöht Manaregenerationsrate";
+										case 983:
+											return "Erhöht Sprunghöhe";
+										case 984:
+											return "Gewährt Euch eine Chance, Angriffe auszuweichen";
+									}
+									break;
+							}
+						}
+						else
+						{
+							switch (l)
 							{
 								case 997:
-								{
 									return "'So verwenden: Platz Schlick und Matsch in der extractinator'";
-								}
 								case 998:
 								case 999:
 								case 1000:
-								{
 									break;
-								}
 								case 1001:
-								{
 									return "6% erhöht Nahkampf kritische Trefferchance";
-								}
 								case 1002:
-								{
 									return "20% Chance, nicht verbrauchen Munition";
-								}
 								case 1003:
-								{
 									return "16% erhöht magischen Schaden";
-								}
 								case 1004:
-								{
 									return "7% erhöhte Chance auf kritische Treffer";
-								}
 								case 1005:
-								{
 									return "5% erhöhte Bewegungsgeschwindigkeit";
-								}
 								default:
-								{
-									if (num1 == 1123)
+									if (l == 1123)
 									{
 										return "Geringe Chance zu Verwechslungen führen";
 									}
 									break;
-								}
-							}
-						}
-						else
-						{
-							switch (num1)
-							{
-								case 975:
-								{
-									return "Verbesserte Fähigkeit, wenn sie mit Klettern Claws kombiniert";
-								}
-								case 976:
-								{
-									break;
-								}
-								case 977:
-								{
-									return "Tippen Sie zweimal auf eine Richtung";
-								}
-								default:
-								{
-									switch (num1)
-									{
-										case 982:
-										{
-											return "Erhöht Manaregenerationsrate";
-										}
-										case 983:
-										{
-											return "Erhöht Sprunghöhe";
-										}
-										case 984:
-										{
-											return "Gewährt Euch eine Chance, Angriffe auszuweichen";
-										}
-									}
-									break;
-								}
 							}
 						}
 					}
-					else if (num1 > 1167)
+					else if (l <= 1167)
 					{
-						switch (num1)
-						{
-							case 1205:
-							{
-								return "12% erhöht Nahkampfsangriffstempo";
-							}
-							case 1206:
-							{
-								return "9% erhöhte Chance auf kritische Treffer reichte";
-							}
-							case 1207:
-							{
-								return "Erhöht die maximale Mana um 60";
-							}
-							case 1208:
-							{
-								return "2% erhöhte Chance auf kritische Treffer";
-							}
-							case 1209:
-							{
-								return "1% erhöhte Chance auf kritische Treffer";
-							}
-							case 1210:
-							{
-								return "7% increased Bewegung und Nahkampfsangriffstempo";
-							}
-							case 1211:
-							{
-								return "8% erhöhte Bewegungsgeschwindigkeit";
-							}
-							case 1212:
-							{
-								return "Iincreases maximalen Manas um 80";
-							}
-							case 1213:
-							case 1214:
-							{
-								break;
-							}
-							case 1215:
-							{
-								return "8% erhöht Nahkampfsangriffstempo";
-							}
-							case 1216:
-							{
-								return "7% erhöhte Chance auf kritische Treffer reichte";
-							}
-							case 1217:
-							{
-								return "Erhöht maximales Mana um 100";
-							}
-							case 1218:
-							{
-								return "3% erhöhte Chance auf kritische Treffer";
-							}
-							case 1219:
-							{
-								return "6% erhöhte Bewegungsgeschwindigkeit";
-							}
-							default:
-							{
-								switch (num1)
-								{
-									case 1249:
-									{
-										return "Gibt Bienen, wenn sie beschädigt";
-									}
-									case 1250:
-									{
-										return "Erhöht Sprunghöhe und negiert fallen Schäden";
-									}
-									case 1251:
-									{
-										return "Erhöht Sprunghöhe und negiert fallen Schäden";
-									}
-									case 1252:
-									{
-										return "Erhöht Sprunghöhe und negiert fallen Schäden";
-									}
-									case 1254:
-									{
-										return "Rechts klicken, um zu verkleinern";
-									}
-								}
-								break;
-							}
-						}
-					}
-					else
-					{
-						if (num1 == 1131)
+						if (l == 1131)
 						{
 							return "Drücken Sie UP, um die Schwerkraft zu ändern";
 						}
-						switch (num1)
+						switch (l)
 						{
 							case 1159:
-							{
 								return "Erhöht Günstling Schäden, die durch 10%";
-							}
 							case 1160:
-							{
 								return "Erhöht Günstling Schäden, die durch 10%";
-							}
 							case 1161:
-							{
 								return "Erhöht Günstling Schäden, die durch 10%";
-							}
 							case 1163:
-							{
 								return "Erhöht Sprunghöhe";
-							}
 							case 1164:
-							{
 								return "Erhöht Sprunghöhe";
-							}
 							case 1167:
-							{
 								return "Erhöht das Klopfen Rückseite Ihrer Schergen";
-							}
-						}
-					}
-				}
-				else if (num1 <= 1321)
-				{
-					if (num1 > 1295)
-					{
-						switch (num1)
-						{
-							case 1300:
-							{
-								return "Rechts klicken, um zu verkleinern";
-							}
-							case 1301:
-							{
-								return "8% Chance auf kritische Treffer";
-							}
-							default:
-							{
-								switch (num1)
-								{
-									case 1316:
-									{
-										return "Feinde sind eher Sie als Ziel";
-									}
-									case 1317:
-									{
-										return "Feinde sind eher Sie als Ziel";
-									}
-									case 1318:
-									{
-										return "Feinde sind eher Sie als Ziel";
-									}
-									case 1321:
-									{
-										return "20% Chance, nicht verbrauchen arrow";
-									}
-								}
-								break;
-							}
 						}
 					}
 					else
 					{
-						switch (num1)
+						switch (l)
+						{
+							case 1205:
+								return "12% erhöht Nahkampfsangriffstempo";
+							case 1206:
+								return "9% erhöhte Chance auf kritische Treffer reichte";
+							case 1207:
+								return "Erhöht die maximale Mana um 60";
+							case 1208:
+								return "2% erhöhte Chance auf kritische Treffer";
+							case 1209:
+								return "1% erhöhte Chance auf kritische Treffer";
+							case 1210:
+								return "7% increased Bewegung und Nahkampfsangriffstempo";
+							case 1211:
+								return "8% erhöhte Bewegungsgeschwindigkeit";
+							case 1212:
+								return "Iincreases maximalen Manas um 80";
+							case 1213:
+							case 1214:
+								break;
+							case 1215:
+								return "8% erhöht Nahkampfsangriffstempo";
+							case 1216:
+								return "7% erhöhte Chance auf kritische Treffer reichte";
+							case 1217:
+								return "Erhöht maximales Mana um 100";
+							case 1218:
+								return "3% erhöhte Chance auf kritische Treffer";
+							case 1219:
+								return "6% erhöhte Bewegungsgeschwindigkeit";
+							default:
+								switch (l)
+								{
+									case 1249:
+										return "Gibt Bienen, wenn sie beschädigt";
+									case 1250:
+										return "Erhöht Sprunghöhe und negiert fallen Schäden";
+									case 1251:
+										return "Erhöht Sprunghöhe und negiert fallen Schäden";
+									case 1252:
+										return "Erhöht Sprunghöhe und negiert fallen Schäden";
+									case 1254:
+										return "Rechts klicken, um zu verkleinern";
+								}
+								break;
+						}
+					}
+				}
+				else if (l <= 1321)
+				{
+					if (l <= 1295)
+					{
+						switch (l)
 						{
 							case 1282:
-							{
 								return "Verringert Manaverbrauchs um 5%";
-							}
 							case 1283:
-							{
 								return "Verringert Manaverbrauchs um 7%";
-							}
 							case 1284:
-							{
 								return "Verringert Manaverbrauchs um 9%";
-							}
 							case 1285:
-							{
 								return "Verringert Manaverbrauchs um 11%";
-							}
 							case 1286:
-							{
 								return "Verringert Manaverbrauchs um 13%";
-							}
 							case 1287:
-							{
 								return "Verringert Manaverbrauchs um 15%";
-							}
 							default:
-							{
-								if (num1 == 1295)
+								if (l == 1295)
 								{
 									return "'Oolaa!!'";
 								}
 								break;
-							}
 						}
 					}
-				}
-				else if (num1 > 1505)
-				{
-					switch (num1)
+					else
 					{
-						case 1546:
+						switch (l)
 						{
-							return "5% erhöhte Chance auf kritische Treffer reichte";
-						}
-						case 1547:
-						{
-							return "5% erhöhte Chance auf kritische Treffer reichte";
-						}
-						case 1548:
-						{
-							return "5% erhöhte Chance auf kritische Treffer reichte";
-						}
-						case 1549:
-						{
-							return "20% Chance, nicht verbrauchen Munition";
-						}
-						case 1550:
-						{
-							return "12% erhöhte Bewegungsgeschwindigkeit";
-						}
-						case 1551:
-						case 1552:
-						{
-							break;
-						}
-						case 1553:
-						{
-							return "'Es kam aus den Rand des Weltraums'";
-						}
-						default:
-						{
-							if (num1 == 1595)
-							{
-								return "Mana wieder her, wenn sie beschädigt";
-							}
-							break;
+							case 1300:
+								return "Rechts klicken, um zu verkleinern";
+							case 1301:
+								return "8% Chance auf kritische Treffer";
+							default:
+								switch (l)
+								{
+									case 1316:
+										return "Feinde sind eher Sie als Ziel";
+									case 1317:
+										return "Feinde sind eher Sie als Ziel";
+									case 1318:
+										return "Feinde sind eher Sie als Ziel";
+									case 1321:
+										return "20% Chance, nicht verbrauchen arrow";
+								}
+								break;
 						}
 					}
 				}
-				else
+				else if (l <= 1505)
 				{
-					switch (num1)
+					switch (l)
 					{
 						case 1336:
-						{
 							return "Verringert Verteidigung des Ziels";
-						}
 						case 1337:
 						case 1344:
 						case 1345:
 						case 1346:
 						case 1347:
 						case 1348:
-						{
 							break;
-						}
 						case 1338:
-						{
 							return "Für den Einsatz mit Hase Kanone";
-						}
 						case 1339:
-						{
 							return "'Extrem giftig'";
-						}
 						case 1340:
-						{
 							return "Nahkampfangriffe verursachen Venom auf Feinde";
-						}
 						case 1341:
-						{
 							return "Fügt Ziel mit Gift";
-						}
 						case 1342:
-						{
 							return "Fügt Ziel mit Gift";
-						}
 						case 1343:
-						{
 							return "10% erhöht Nahkampfschaden und Geschwindigkeit";
-						}
 						case 1349:
-						{
 							return "Explodiert in Konfetti auf Auswirkungen";
-						}
 						case 1350:
-						{
 							return "Verursacht Verwirrung";
-						}
 						case 1351:
-						{
 							return "Explodiert beim Aufprall";
-						}
 						case 1352:
-						{
 							return "Getötete Feinde sinkt mehr Geld";
-						}
 						case 1353:
-						{
 							return "Nahkampfangriffe verursachen Feinde verflucht mit Flammen";
-						}
 						case 1354:
-						{
 							return "Nahkampfangriffe gesetzt Feinde";
-						}
 						case 1355:
-						{
 							return "Nahkampfangriffe Feinde machen fallen mehr Gold";
-						}
 						case 1356:
-						{
 							return "Nahkampfangriffe verringern Feinde Verteidigung";
-						}
 						case 1357:
-						{
 							return "Nahkampfangriffe verwirren Feinde";
-						}
 						case 1358:
-						{
 							return "Nahkampfangriffe verursachen Konfetti zu erscheinen";
-						}
 						case 1359:
-						{
 							return "Nahkampfangriffe Gift Feinde";
-						}
 						default:
-						{
-							switch (num1)
+							switch (l)
 							{
 								case 1503:
-								{
 									return "10% erhöht magischen Schaden und kritische Trefferchance";
-								}
 								case 1505:
-								{
 									return "8% erhöhte Bewegungsgeschwindigkeit";
-								}
 							}
 							break;
-						}
+					}
+				}
+				else
+				{
+					switch (l)
+					{
+						case 1546:
+							return "5% erhöhte Chance auf kritische Treffer reichte";
+						case 1547:
+							return "5% erhöhte Chance auf kritische Treffer reichte";
+						case 1548:
+							return "5% erhöhte Chance auf kritische Treffer reichte";
+						case 1549:
+							return "20% Chance, nicht verbrauchen Munition";
+						case 1550:
+							return "12% erhöhte Bewegungsgeschwindigkeit";
+						case 1551:
+						case 1552:
+							break;
+						case 1553:
+							return "'Es kam aus den Rand des Weltraums'";
+						default:
+							if (l == 1595)
+							{
+								return "Mana wieder her, wenn sie beschädigt";
+							}
+							break;
 					}
 				}
 			}
 			else if (Lang.lang == 3)
 			{
-				int num2 = l;
-				if (num2 <= 962)
+				if (l <= 962)
 				{
-					if (num2 <= 686)
+					if (l <= 686)
 					{
-						if (num2 <= 405)
+						if (l <= 405)
 						{
-							if (num2 > 98)
+							if (l <= 98)
 							{
-								switch (num2)
-								{
-									case 228:
-									{
-										return "Aumenta la possibilità di colpo critico magico del 4%";
-									}
-									case 229:
-									{
-										return "Aumenta la possibilità di colpo critico magico del 4%";
-									}
-									case 230:
-									{
-										return "Aumenta la possibilità di colpo critico magico del 4%";
-									}
-									default:
-									{
-										switch (num2)
-										{
-											case 371:
-											{
-												return "Possibilità colpo critico magico aumentate del 9%";
-											}
-											case 372:
-											{
-												return "Velocità del corpo a corpo aumentata del 12%";
-											}
-											case 373:
-											{
-												return "Possibilità di colpo critico magico aumentata del 6%";
-											}
-											case 374:
-											{
-												return "Possibilità di colpo critico aumentata del 3%";
-											}
-											case 375:
-											{
-												return "Velocità di movimento aumentata del 10%";
-											}
-											case 376:
-											{
-												return "Danno magico aumentato del 15%";
-											}
-											case 377:
-											{
-												return "Danno nel corpo a corpo aumentato del 10%";
-											}
-											case 378:
-											{
-												return "Possibilità di colpo critico a distanza aumentata del 7%";
-											}
-											case 379:
-											{
-												return "Danno aumentato del 5%";
-											}
-											case 380:
-											{
-												return "Possibilità di colpo critico aumentata del 3%";
-											}
-											case 389:
-											{
-												return "'Trova i pezzi interni'";
-											}
-											case 394:
-											{
-												return "Aumenta moltissimo il respiro sott'acqua";
-											}
-											case 395:
-											{
-												return "Indica il tempo";
-											}
-											case 396:
-											{
-												return "Permette immunità ai blocchi di fuoco";
-											}
-											case 397:
-											{
-												return "Permette immunità ai blocchi di fuoco";
-											}
-											case 399:
-											{
-												return "Aumenta l'altezza del salto";
-											}
-											case 400:
-											{
-												return "Possibilità di colpo critico e danno magico aumentata del 11%";
-											}
-											case 401:
-											{
-												return "Danno del corpo a corpo aumentato del 14%";
-											}
-											case 402:
-											{
-												return "Possibilità di colpo critico a distanza aumentata dell'8%";
-											}
-											case 404:
-											{
-												return "Velocità di movimento aumentata del 5%";
-											}
-											case 405:
-											{
-												return "Colui che li indossa può correre velocissimo";
-											}
-										}
-										break;
-									}
-								}
-							}
-							else
-							{
-								if (num2 == 65)
+								if (l == 65)
 								{
 									return "'Forgiato con la furia del cielo'";
 								}
-								if (num2 == 98)
+								if (l == 98)
 								{
 									return "'Mezzo squalo, mezza arma, assolutamente terrificante.'";
 								}
 							}
-						}
-						else if (num2 > 533)
-						{
-							switch (num2)
+							else
 							{
-								case 552:
+								switch (l)
 								{
-									return "Velocità di movimento aumentata del 8%";
-								}
-								case 553:
-								{
-									return "Possibilità di colpo critico a distanza aumentata dell'8%";
-								}
-								case 554:
-								case 556:
-								case 557:
-								{
-									break;
-								}
-								case 555:
-								{
-									return "Usa le pozioni mana automaticamente in caso di bisogno";
-								}
-								case 558:
-								{
-									return "Possibilità di danno magico e colpo critico aumentata del 12%";
-								}
-								case 559:
-								{
-									return "Velocità del corpo a corpo aumentata del 10%";
-								}
-								default:
-								{
-									if (num2 == 686)
-									{
-										return "7% nella velocità di attacco in mischia";
-									}
-									break;
+									case 228:
+										return "Aumenta la possibilità di colpo critico magico del 4%";
+									case 229:
+										return "Aumenta la possibilità di colpo critico magico del 4%";
+									case 230:
+										return "Aumenta la possibilità di colpo critico magico del 4%";
+									default:
+										switch (l)
+										{
+											case 371:
+												return "Possibilità colpo critico magico aumentate del 9%";
+											case 372:
+												return "Velocità del corpo a corpo aumentata del 12%";
+											case 373:
+												return "Possibilità di colpo critico magico aumentata del 6%";
+											case 374:
+												return "Possibilità di colpo critico aumentata del 3%";
+											case 375:
+												return "Velocità di movimento aumentata del 10%";
+											case 376:
+												return "Danno magico aumentato del 15%";
+											case 377:
+												return "Danno nel corpo a corpo aumentato del 10%";
+											case 378:
+												return "Possibilità di colpo critico a distanza aumentata del 7%";
+											case 379:
+												return "Danno aumentato del 5%";
+											case 380:
+												return "Possibilità di colpo critico aumentata del 3%";
+											case 389:
+												return "'Trova i pezzi interni'";
+											case 394:
+												return "Aumenta moltissimo il respiro sott'acqua";
+											case 395:
+												return "Indica il tempo";
+											case 396:
+												return "Permette immunità ai blocchi di fuoco";
+											case 397:
+												return "Permette immunità ai blocchi di fuoco";
+											case 399:
+												return "Aumenta l'altezza del salto";
+											case 400:
+												return "Possibilità di colpo critico e danno magico aumentata del 11%";
+											case 401:
+												return "Danno del corpo a corpo aumentato del 14%";
+											case 402:
+												return "Possibilità di colpo critico a distanza aumentata dell'8%";
+											case 404:
+												return "Velocità di movimento aumentata del 5%";
+											case 405:
+												return "Colui che li indossa può correre velocissimo";
+										}
+										break;
 								}
 							}
 						}
-						else
+						else if (l <= 533)
 						{
-							if (num2 == 434)
+							if (l == 434)
 							{
 								return "Solo il primo colpo consuma munizioni";
 							}
-							if (num2 == 533)
+							if (l == 533)
 							{
 								return "'Fratello maggiore del Minishark'";
 							}
 						}
-					}
-					else if (num2 <= 908)
-					{
-						if (num2 > 784)
+						else
 						{
-							switch (num2)
+							switch (l)
 							{
-								case 897:
-								{
-									return "12% nella velocità di mischia";
-								}
-								case 898:
-								{
-									return "Chi lo indossa può funzionare incredibilmente veloce";
-								}
+								case 552:
+									return "Velocità di movimento aumentata del 8%";
+								case 553:
+									return "Possibilità di colpo critico a distanza aumentata dell'8%";
+								case 554:
+								case 556:
+								case 557:
+									break;
+								case 555:
+									return "Usa le pozioni mana automaticamente in caso di bisogno";
+								case 558:
+									return "Possibilità di danno magico e colpo critico aumentata del 12%";
+								case 559:
+									return "Velocità del corpo a corpo aumentata del 10%";
 								default:
-								{
-									switch (num2)
+									if (l == 686)
 									{
-										case 905:
-										{
-											return "Higher valued coins do more damage";
-										}
-										case 907:
-										{
-											return "Borse di immunità ai blocchi di fuoco";
-										}
-										case 908:
-										{
-											return "Borse di immunità ai blocchi di fuoco e 7 secondi di immunità ai lavica";
-										}
+										return "7% nella velocità di attacco in mischia";
 									}
 									break;
-								}
+							}
+						}
+					}
+					else if (l <= 908)
+					{
+						if (l <= 784)
+						{
+							if (l == 748)
+							{
+								return "Contenere fino a razzo più veloce";
+							}
+							switch (l)
+							{
+								case 771:
+									return "Piccolo raggio di esplosione. Non distruggerà le piastrelle";
+								case 772:
+									return "Piccolo raggio di esplosione. Distruggerà le piastrelle";
+								case 773:
+									return "Ampio raggio di esplosione. Non distruggerà le piastrelle";
+								case 774:
+									return "Ampio raggio di esplosione. Distruggerà le piastrelle";
+								case 775:
+									return "Aumenta la velocità di corsa";
+								case 776:
+									return "Can miniera Mythril e oricalco";
+								case 777:
+									return "Possono miniera Adamantite e Titanio";
+								case 779:
+									return "Utilizza soluzione colorata";
+								case 780:
+									return "Distribuisce il Purezza";
+								case 781:
+									return "Distribuisce il Hallow";
+								case 782:
+									return "Diffonde la corruzione";
+								case 783:
+									return "Spreads Funghi Incandescente";
+								case 784:
+									return "Distribuisce il Crimson";
 							}
 						}
 						else
 						{
-							if (num2 == 748)
+							switch (l)
 							{
-								return "Contenere fino a razzo più veloce";
-							}
-							switch (num2)
-							{
-								case 771:
-								{
-									return "Piccolo raggio di esplosione. Non distruggerà le piastrelle";
-								}
-								case 772:
-								{
-									return "Piccolo raggio di esplosione. Distruggerà le piastrelle";
-								}
-								case 773:
-								{
-									return "Ampio raggio di esplosione. Non distruggerà le piastrelle";
-								}
-								case 774:
-								{
-									return "Ampio raggio di esplosione. Distruggerà le piastrelle";
-								}
-								case 775:
-								{
-									return "Aumenta la velocità di corsa";
-								}
-								case 776:
-								{
-									return "Can miniera Mythril e oricalco";
-								}
-								case 777:
-								{
-									return "Possono miniera Adamantite e Titanio";
-								}
-								case 779:
-								{
-									return "Utilizza soluzione colorata";
-								}
-								case 780:
-								{
-									return "Distribuisce il Purezza";
-								}
-								case 781:
-								{
-									return "Distribuisce il Hallow";
-								}
-								case 782:
-								{
-									return "Diffonde la corruzione";
-								}
-								case 783:
-								{
-									return "Spreads Funghi Incandescente";
-								}
-								case 784:
-								{
-									return "Distribuisce il Crimson";
-								}
+								case 897:
+									return "12% nella velocità di mischia";
+								case 898:
+									return "Chi lo indossa può funzionare incredibilmente veloce";
+								default:
+									switch (l)
+									{
+										case 905:
+											return "Higher valued coins do more damage";
+										case 907:
+											return "Borse di immunità ai blocchi di fuoco";
+										case 908:
+											return "Borse di immunità ai blocchi di fuoco e 7 secondi di immunità ai lavica";
+									}
+									break;
 							}
 						}
 					}
-					else if (num2 > 938)
+					else if (l <= 938)
 					{
-						if (num2 == 953)
+						if (l == 929)
 						{
-							return "Miglioramento della capacità, se combinato con Spikes scarpe";
+							return "Per l'utilizzo con cannone";
 						}
-						switch (num2)
+						switch (l)
 						{
-							case 960:
-							{
-								return "4% aumento magico possibilità di critico";
-							}
-							case 961:
-							{
-								return "4% aumento magico possibilità di critico";
-							}
-							case 962:
-							{
-								return "4% aumento magico possibilità di critico";
-							}
+							case 936:
+								return "10% maggiore danno e la velocità mischia";
+							case 938:
+								return "Solo attivo superiore al 25% della vita";
 						}
 					}
 					else
 					{
-						if (num2 == 929)
+						if (l == 953)
 						{
-							return "Per l'utilizzo con cannone";
+							return "Miglioramento della capacità, se combinato con Spikes scarpe";
 						}
-						switch (num2)
+						switch (l)
 						{
-							case 936:
-							{
-								return "10% maggiore danno e la velocità mischia";
-							}
-							case 938:
-							{
-								return "Solo attivo superiore al 25% della vita";
-							}
+							case 960:
+								return "4% aumento magico possibilità di critico";
+							case 961:
+								return "4% aumento magico possibilità di critico";
+							case 962:
+								return "4% aumento magico possibilità di critico";
 						}
 					}
 				}
-				else if (num2 <= 1254)
+				else if (l <= 1254)
 				{
-					if (num2 <= 1123)
+					if (l <= 1123)
 					{
-						if (num2 > 984)
+						if (l <= 984)
 						{
-							switch (num2)
+							switch (l)
+							{
+								case 975:
+									return "Miglioramento della capacità, se combinato con artigli Arrampicata";
+								case 976:
+									break;
+								case 977:
+									return "Toccare due volte una direzione";
+								default:
+									switch (l)
+									{
+										case 982:
+											return "Aumenta la velocità di rigenerazione di mana";
+										case 983:
+											return "Aumenta salto altezza";
+										case 984:
+											return "Dà la possibilità di schivare gli attacchi";
+									}
+									break;
+							}
+						}
+						else
+						{
+							switch (l)
 							{
 								case 997:
-								{
 									return "'Per utilizzare: Luogo limo o fango nel extractinator'";
-								}
 								case 998:
 								case 999:
 								case 1000:
-								{
 									break;
-								}
 								case 1001:
-								{
 									return "6% aumento mischia possibilità di critico";
-								}
 								case 1002:
-								{
 									return "20% di possibilità di non consumare munizioni";
-								}
 								case 1003:
-								{
 									return "16% in più di danno magico";
-								}
 								case 1004:
-								{
 									return "7% maggiore probabilità di critico";
-								}
 								case 1005:
-								{
 									return "5% nella velocità di movimento";
-								}
 								default:
-								{
-									if (num2 == 1123)
+									if (l == 1123)
 									{
 										return "Small chance to cause confusion";
 									}
 									break;
-								}
-							}
-						}
-						else
-						{
-							switch (num2)
-							{
-								case 975:
-								{
-									return "Miglioramento della capacità, se combinato con artigli Arrampicata";
-								}
-								case 976:
-								{
-									break;
-								}
-								case 977:
-								{
-									return "Toccare due volte una direzione";
-								}
-								default:
-								{
-									switch (num2)
-									{
-										case 982:
-										{
-											return "Aumenta la velocità di rigenerazione di mana";
-										}
-										case 983:
-										{
-											return "Aumenta salto altezza";
-										}
-										case 984:
-										{
-											return "Dà la possibilità di schivare gli attacchi";
-										}
-									}
-									break;
-								}
 							}
 						}
 					}
-					else if (num2 > 1167)
+					else if (l <= 1167)
 					{
-						switch (num2)
-						{
-							case 1205:
-							{
-								return "12% nella velocità di mischia";
-							}
-							case 1206:
-							{
-								return "9% ha aumentato spaziato possibilità di critico";
-							}
-							case 1207:
-							{
-								return "Aumenta mana massimo del 60";
-							}
-							case 1208:
-							{
-								return "2% maggiore possibilità di critico";
-							}
-							case 1209:
-							{
-								return "1% maggiore possibilità di critico";
-							}
-							case 1210:
-							{
-								return "7% increased movement and melee speed";
-							}
-							case 1211:
-							{
-								return "8% increased movement speed";
-							}
-							case 1212:
-							{
-								return "Aumenta mana massimo del 80";
-							}
-							case 1213:
-							case 1214:
-							{
-								break;
-							}
-							case 1215:
-							{
-								return "8% increased melee speed";
-							}
-							case 1216:
-							{
-								return "7% increased ranged critical strike chance";
-							}
-							case 1217:
-							{
-								return "Aumenta mana massimo del 100";
-							}
-							case 1218:
-							{
-								return "3% maggiore possibilità di critico";
-							}
-							case 1219:
-							{
-								return "6% maggiore velocità di movimento";
-							}
-							default:
-							{
-								switch (num2)
-								{
-									case 1249:
-									{
-										return "Rilascia le api se danneggiato";
-									}
-									case 1250:
-									{
-										return "Aumenta saltano altezza e nega danno da caduta";
-									}
-									case 1251:
-									{
-										return "Aumenta saltano altezza e nega danno da caduta";
-									}
-									case 1252:
-									{
-										return "Aumenta saltano altezza e nega danno da caduta";
-									}
-									case 1254:
-									{
-										return "Fare clic destro per rimpicciolire";
-									}
-								}
-								break;
-							}
-						}
-					}
-					else
-					{
-						if (num2 == 1131)
+						if (l == 1131)
 						{
 							return "Premere fino a cambiare la gravità";
 						}
-						switch (num2)
+						switch (l)
 						{
 							case 1159:
-							{
 								return "Aumenta il danno minion del 10%";
-							}
 							case 1160:
-							{
 								return "Aumenta il danno minion del 10%";
-							}
 							case 1161:
-							{
 								return "Aumenta il danno minion del 10%";
-							}
 							case 1163:
-							{
 								return "Aumenta salto altezza";
-							}
 							case 1164:
-							{
 								return "Aumenta salto altezza";
-							}
 							case 1167:
-							{
 								return "Aumenta il knock back dei tuoi servitori";
-							}
-						}
-					}
-				}
-				else if (num2 <= 1321)
-				{
-					if (num2 > 1295)
-					{
-						switch (num2)
-						{
-							case 1300:
-							{
-								return "Fare clic destro per rimpicciolire";
-							}
-							case 1301:
-							{
-								return "8% maggiore possibilità di critico";
-							}
-							default:
-							{
-								switch (num2)
-								{
-									case 1316:
-									{
-										return "I nemici sono più propensi a indirizzare voi";
-									}
-									case 1317:
-									{
-										return "I nemici sono più propensi a indirizzare voi";
-									}
-									case 1318:
-									{
-										return "I nemici sono più propensi a indirizzare voi";
-									}
-									case 1321:
-									{
-										return "20% di possibilità di non consumare freccia";
-									}
-								}
-								break;
-							}
 						}
 					}
 					else
 					{
-						switch (num2)
+						switch (l)
+						{
+							case 1205:
+								return "12% nella velocità di mischia";
+							case 1206:
+								return "9% ha aumentato spaziato possibilità di critico";
+							case 1207:
+								return "Aumenta mana massimo del 60";
+							case 1208:
+								return "2% maggiore possibilità di critico";
+							case 1209:
+								return "1% maggiore possibilità di critico";
+							case 1210:
+								return "7% increased movement and melee speed";
+							case 1211:
+								return "8% increased movement speed";
+							case 1212:
+								return "Aumenta mana massimo del 80";
+							case 1213:
+							case 1214:
+								break;
+							case 1215:
+								return "8% increased melee speed";
+							case 1216:
+								return "7% increased ranged critical strike chance";
+							case 1217:
+								return "Aumenta mana massimo del 100";
+							case 1218:
+								return "3% maggiore possibilità di critico";
+							case 1219:
+								return "6% maggiore velocità di movimento";
+							default:
+								switch (l)
+								{
+									case 1249:
+										return "Rilascia le api se danneggiato";
+									case 1250:
+										return "Aumenta saltano altezza e nega danno da caduta";
+									case 1251:
+										return "Aumenta saltano altezza e nega danno da caduta";
+									case 1252:
+										return "Aumenta saltano altezza e nega danno da caduta";
+									case 1254:
+										return "Fare clic destro per rimpicciolire";
+								}
+								break;
+						}
+					}
+				}
+				else if (l <= 1321)
+				{
+					if (l <= 1295)
+					{
+						switch (l)
 						{
 							case 1282:
-							{
 								return "Riduce l'uso di mana del 5%";
-							}
 							case 1283:
-							{
 								return "Riduce l'uso di mana del 7%";
-							}
 							case 1284:
-							{
 								return "Riduce l'uso di mana del 9%";
-							}
 							case 1285:
-							{
 								return "Riduce l'uso di mana del 11%";
-							}
 							case 1286:
-							{
 								return "Riduce l'uso di mana del 13%";
-							}
 							case 1287:
-							{
 								return "Riduce l'uso di mana del 15%";
-							}
 							default:
-							{
-								if (num2 == 1295)
+								if (l == 1295)
 								{
 									return "'Oolaa!!'";
 								}
 								break;
-							}
 						}
 					}
-				}
-				else if (num2 > 1505)
-				{
-					switch (num2)
+					else
 					{
-						case 1546:
+						switch (l)
 						{
-							return "5% aumentato spaziato possibilità di critico";
-						}
-						case 1547:
-						{
-							return "5% aumentato spaziato possibilità di critico";
-						}
-						case 1548:
-						{
-							return "5% aumentato spaziato possibilità di critico";
-						}
-						case 1549:
-						{
-							return "20% di possibilità di non consumare munizioni";
-						}
-						case 1550:
-						{
-							return "12% nella velocità di movimento";
-						}
-						case 1551:
-						case 1552:
-						{
-							break;
-						}
-						case 1553:
-						{
-							return "'E 'venuto dal bordo dello spazio'";
-						}
-						default:
-						{
-							if (num2 == 1595)
-							{
-								return "Ripristina mana se danneggiato";
-							}
-							break;
+							case 1300:
+								return "Fare clic destro per rimpicciolire";
+							case 1301:
+								return "8% maggiore possibilità di critico";
+							default:
+								switch (l)
+								{
+									case 1316:
+										return "I nemici sono più propensi a indirizzare voi";
+									case 1317:
+										return "I nemici sono più propensi a indirizzare voi";
+									case 1318:
+										return "I nemici sono più propensi a indirizzare voi";
+									case 1321:
+										return "20% di possibilità di non consumare freccia";
+								}
+								break;
 						}
 					}
 				}
-				else
+				else if (l <= 1505)
 				{
-					switch (num2)
+					switch (l)
 					{
 						case 1336:
-						{
 							return "Diminuisce la Difesa del bersaglio";
-						}
 						case 1337:
 						case 1344:
 						case 1345:
 						case 1346:
 						case 1347:
 						case 1348:
-						{
 							break;
-						}
 						case 1338:
-						{
 							return "Per l'uso con il coniglietto di cannone";
-						}
 						case 1339:
-						{
 							return "'estremamente tossico'";
-						}
 						case 1340:
-						{
 							return "Attacchi in mischia infliggono Venom sui nemici";
-						}
 						case 1341:
-						{
 							return "Infligge bersaglio con veleno";
-						}
 						case 1342:
-						{
 							return "Infligge bersaglio con veleno";
-						}
 						case 1343:
-						{
 							return "10% ha aumentato i danni melee e velocità";
-						}
 						case 1349:
-						{
 							return "Esplode in coriandoli di impatto";
-						}
 						case 1350:
-						{
 							return "provoca confusione";
-						}
 						case 1351:
-						{
 							return "Esplode al momento dell'impatto";
-						}
 						case 1352:
-						{
 							return "Nemici uccisi scenderanno più soldi";
-						}
 						case 1353:
-						{
 							return "Attacchi in mischia infliggono nemici con fiamme maledette";
-						}
 						case 1354:
-						{
 							return "Attacchi corpo a corpo impostati nemici in fiamme";
-						}
 						case 1355:
-						{
 							return "Attacchi corpo a corpo i nemici fanno cadere più oro";
-						}
 						case 1356:
-						{
 							return "Attacchi corpo a corpo diminuiscono nemici difesa";
-						}
 						case 1357:
-						{
 							return "Attacchi corpo a corpo confondono i nemici";
-						}
 						case 1358:
-						{
 							return "Attacchi melee causano appaia coriandoli";
-						}
 						case 1359:
-						{
 							return "Mischia attacca nemici veleno";
-						}
 						default:
-						{
-							switch (num2)
+							switch (l)
 							{
 								case 1503:
-								{
 									return "10% aumento danno magico e possibilità di critico";
-								}
 								case 1505:
-								{
 									return "8% in più di velocità di movimento";
-								}
 							}
 							break;
-						}
+					}
+				}
+				else
+				{
+					switch (l)
+					{
+						case 1546:
+							return "5% aumentato spaziato possibilità di critico";
+						case 1547:
+							return "5% aumentato spaziato possibilità di critico";
+						case 1548:
+							return "5% aumentato spaziato possibilità di critico";
+						case 1549:
+							return "20% di possibilità di non consumare munizioni";
+						case 1550:
+							return "12% nella velocità di movimento";
+						case 1551:
+						case 1552:
+							break;
+						case 1553:
+							return "'E 'venuto dal bordo dello spazio'";
+						default:
+							if (l == 1595)
+							{
+								return "Ripristina mana se danneggiato";
+							}
+							break;
 					}
 				}
 			}
 			else if (Lang.lang == 4)
 			{
-				int num3 = l;
-				if (num3 <= 962)
+				if (l <= 962)
 				{
-					if (num3 <= 686)
+					if (l <= 686)
 					{
-						if (num3 <= 405)
+						if (l <= 405)
 						{
-							if (num3 > 98)
+							if (l <= 98)
 							{
-								switch (num3)
-								{
-									case 228:
-									{
-										return "Chance de coup critique magique augmenté de 4 %";
-									}
-									case 229:
-									{
-										return "Chance de coup critique magique augmenté de 4 %";
-									}
-									case 230:
-									{
-										return "Chance de coup critique magique augmenté de 4 %";
-									}
-									default:
-									{
-										switch (num3)
-										{
-											case 371:
-											{
-												return "Les chances de coup critique magique sont augmentées de 9 %";
-											}
-											case 372:
-											{
-												return "La vitesse de mêlée est augmentée de 12 %";
-											}
-											case 373:
-											{
-												return "Les chances de coup critique des attaques à distance sont augmentées de 6 %";
-											}
-											case 374:
-											{
-												return "Les chances de coup critique sont augmentées de 3 %";
-											}
-											case 375:
-											{
-												return "La vitesse de déplacement est augmentée de 10 %";
-											}
-											case 376:
-											{
-												return "Augmente les dégâts magiques de 15 %";
-											}
-											case 377:
-											{
-												return "Les dégâts de mêlée sont augmentés de 10 %";
-											}
-											case 378:
-											{
-												return "Les chances de coup critique des attaques à distance sont augmentées de 7 %";
-											}
-											case 379:
-											{
-												return "Les dégâts sont augmentés de 5 %";
-											}
-											case 380:
-											{
-												return "Les chances de coup critique sont augmentées de 3 %";
-											}
-											case 389:
-											{
-												return "'Pour trouver la paix intérieure'";
-											}
-											case 394:
-											{
-												return "Améliore grandement la respiration sous l'eau";
-											}
-											case 395:
-											{
-												return "Donne l'heure";
-											}
-											case 396:
-											{
-												return "Permet de résister aux blocs de feu";
-											}
-											case 397:
-											{
-												return "Permet de résister aux blocs de feu";
-											}
-											case 399:
-											{
-												return "Augmente la hauteur des sauts";
-											}
-											case 400:
-											{
-												return "Les dégâts et les chances de coup critique de magie sont augmentés de 11 %";
-											}
-											case 401:
-											{
-												return "Les dégâts de mêlée sont augmentés de 14 %";
-											}
-											case 402:
-											{
-												return "Chances de coup critique des attaques à distance augmentées de 8 %";
-											}
-											case 404:
-											{
-												return "La vitesse de déplacement est augmentée de 5 %";
-											}
-											case 405:
-											{
-												return "Le porteur peur courir super vite";
-											}
-										}
-										break;
-									}
-								}
-							}
-							else
-							{
-								if (num3 == 65)
+								if (l == 65)
 								{
 									return "'Forgée dans la furie du ciel'";
 								}
-								if (num3 == 98)
+								if (l == 98)
 								{
 									return "'Moitié requin, moitié fusil, c'est de la balle !'";
 								}
 							}
-						}
-						else if (num3 > 533)
-						{
-							switch (num3)
+							else
 							{
-								case 552:
+								switch (l)
 								{
-									return "Vitesse de mouvement augmentée de 8 %";
-								}
-								case 553:
-								{
-									return "Chances de coup critique des attaques à distance augmentées de 8 %";
-								}
-								case 554:
-								case 556:
-								case 557:
-								{
-									break;
-								}
-								case 555:
-								{
-									return "Utilise des potions de mana automatiquement si besoin";
-								}
-								case 558:
-								{
-									return "Les chances de coup critique et les dégâts magiques sont augmentés de 12 %";
-								}
-								case 559:
-								{
-									return "Vitesse de mêlée augmentée de 10%";
-								}
-								default:
-								{
-									if (num3 == 686)
-									{
-										return "7% ont augmenté la vitesse d'attaque en mêlée";
-									}
-									break;
+									case 228:
+										return "Chance de coup critique magique augmenté de 4 %";
+									case 229:
+										return "Chance de coup critique magique augmenté de 4 %";
+									case 230:
+										return "Chance de coup critique magique augmenté de 4 %";
+									default:
+										switch (l)
+										{
+											case 371:
+												return "Les chances de coup critique magique sont augmentées de 9 %";
+											case 372:
+												return "La vitesse de mêlée est augmentée de 12 %";
+											case 373:
+												return "Les chances de coup critique des attaques à distance sont augmentées de 6 %";
+											case 374:
+												return "Les chances de coup critique sont augmentées de 3 %";
+											case 375:
+												return "La vitesse de déplacement est augmentée de 10 %";
+											case 376:
+												return "Augmente les dégâts magiques de 15 %";
+											case 377:
+												return "Les dégâts de mêlée sont augmentés de 10 %";
+											case 378:
+												return "Les chances de coup critique des attaques à distance sont augmentées de 7 %";
+											case 379:
+												return "Les dégâts sont augmentés de 5 %";
+											case 380:
+												return "Les chances de coup critique sont augmentées de 3 %";
+											case 389:
+												return "'Pour trouver la paix intérieure'";
+											case 394:
+												return "Améliore grandement la respiration sous l'eau";
+											case 395:
+												return "Donne l'heure";
+											case 396:
+												return "Permet de résister aux blocs de feu";
+											case 397:
+												return "Permet de résister aux blocs de feu";
+											case 399:
+												return "Augmente la hauteur des sauts";
+											case 400:
+												return "Les dégâts et les chances de coup critique de magie sont augmentés de 11 %";
+											case 401:
+												return "Les dégâts de mêlée sont augmentés de 14 %";
+											case 402:
+												return "Chances de coup critique des attaques à distance augmentées de 8 %";
+											case 404:
+												return "La vitesse de déplacement est augmentée de 5 %";
+											case 405:
+												return "Le porteur peur courir super vite";
+										}
+										break;
 								}
 							}
 						}
-						else
+						else if (l <= 533)
 						{
-							if (num3 == 434)
+							if (l == 434)
 							{
 								return "Seul le premier tir utilise des munitions";
 							}
-							if (num3 == 533)
+							if (l == 533)
 							{
 								return "'La version améliorée du minishark'";
 							}
 						}
-					}
-					else if (num3 <= 908)
-					{
-						if (num3 > 784)
+						else
 						{
-							switch (num3)
+							switch (l)
 							{
-								case 897:
-								{
-									return "12% ont augmenté la vitesse de mêlée";
-								}
-								case 898:
-								{
-									return "Le porteur peut courir à une vitesse incroyable";
-								}
+								case 552:
+									return "Vitesse de mouvement augmentée de 8 %";
+								case 553:
+									return "Chances de coup critique des attaques à distance augmentées de 8 %";
+								case 554:
+								case 556:
+								case 557:
+									break;
+								case 555:
+									return "Utilise des potions de mana automatiquement si besoin";
+								case 558:
+									return "Les chances de coup critique et les dégâts magiques sont augmentés de 12 %";
+								case 559:
+									return "Vitesse de mêlée augmentée de 10%";
 								default:
-								{
-									switch (num3)
+									if (l == 686)
 									{
-										case 905:
-										{
-											return "Pièces de plus grande valeur font plus de dégâts";
-										}
-										case 907:
-										{
-											return "Accorde l'immunité à des blocs d'incendie";
-										}
-										case 908:
-										{
-											return "Accorde l'immunité à des blocs d'incendie et de 7 secondes d'immunité de lave";
-										}
+										return "7% ont augmenté la vitesse d'attaque en mêlée";
 									}
 									break;
-								}
+							}
+						}
+					}
+					else if (l <= 908)
+					{
+						if (l <= 784)
+						{
+							if (l == 748)
+							{
+								return "contenir jusqu'à fusée rapide";
+							}
+							switch (l)
+							{
+								case 771:
+									return "Petit rayon de souffle. Ne va pas détruire tuiles";
+								case 772:
+									return "Petit rayon de souffle. Détruira tuiles";
+								case 773:
+									return "Grand rayon d'explosion. Ne va pas détruire tuiles";
+								case 774:
+									return "Grand rayon d'explosion. Détruira tuiles";
+								case 775:
+									return "Augmente la vitesse en cours d'exécution";
+								case 776:
+									return "Can mine de mithril et orichalque";
+								case 777:
+									return "Peut mien adamantite et Titane";
+								case 779:
+									return "Utilise solution colorée";
+								case 780:
+									return "Les spreads de la pureté";
+								case 781:
+									return "Spreads le Hallow";
+								case 782:
+									return "Répand la corruption";
+								case 783:
+									return "Spreads Champignons rougeoyants";
+								case 784:
+									return "Spreads le Crimson";
 							}
 						}
 						else
 						{
-							if (num3 == 748)
+							switch (l)
 							{
-								return "contenir jusqu'à fusée rapide";
-							}
-							switch (num3)
-							{
-								case 771:
-								{
-									return "Petit rayon de souffle. Ne va pas détruire tuiles";
-								}
-								case 772:
-								{
-									return "Petit rayon de souffle. Détruira tuiles";
-								}
-								case 773:
-								{
-									return "Grand rayon d'explosion. Ne va pas détruire tuiles";
-								}
-								case 774:
-								{
-									return "Grand rayon d'explosion. Détruira tuiles";
-								}
-								case 775:
-								{
-									return "Augmente la vitesse en cours d'exécution";
-								}
-								case 776:
-								{
-									return "Can mine de mithril et orichalque";
-								}
-								case 777:
-								{
-									return "Peut mien adamantite et Titane";
-								}
-								case 779:
-								{
-									return "Utilise solution colorée";
-								}
-								case 780:
-								{
-									return "Les spreads de la pureté";
-								}
-								case 781:
-								{
-									return "Spreads le Hallow";
-								}
-								case 782:
-								{
-									return "Répand la corruption";
-								}
-								case 783:
-								{
-									return "Spreads Champignons rougeoyants";
-								}
-								case 784:
-								{
-									return "Spreads le Crimson";
-								}
+								case 897:
+									return "12% ont augmenté la vitesse de mêlée";
+								case 898:
+									return "Le porteur peut courir à une vitesse incroyable";
+								default:
+									switch (l)
+									{
+										case 905:
+											return "Pièces de plus grande valeur font plus de dégâts";
+										case 907:
+											return "Accorde l'immunité à des blocs d'incendie";
+										case 908:
+											return "Accorde l'immunité à des blocs d'incendie et de 7 secondes d'immunité de lave";
+									}
+									break;
 							}
 						}
 					}
-					else if (num3 > 938)
+					else if (l <= 938)
 					{
-						if (num3 == 953)
+						if (l == 929)
 						{
-							return "Amélioration de la capacité si elle est combinée avec des pointes de chaussures";
+							return "Pour une utilisation avec des canons";
 						}
-						switch (num3)
+						switch (l)
 						{
-							case 960:
-							{
-								return "4% ont augmenté magie chances de coup critique";
-							}
-							case 961:
-							{
-								return "4% ont augmenté magie chances de coup critique";
-							}
-							case 962:
-							{
-								return "4% ont augmenté magie chances de coup critique";
-							}
+							case 936:
+								return "10% de dégâts supplémentaires et la vitesse de mêlée";
+							case 938:
+								return "Seulement actif au-dessus de 25% vie";
 						}
 					}
 					else
 					{
-						if (num3 == 929)
+						if (l == 953)
 						{
-							return "Pour une utilisation avec des canons";
+							return "Amélioration de la capacité si elle est combinée avec des pointes de chaussures";
 						}
-						switch (num3)
+						switch (l)
 						{
-							case 936:
-							{
-								return "10% de dégâts supplémentaires et la vitesse de mêlée";
-							}
-							case 938:
-							{
-								return "Seulement actif au-dessus de 25% vie";
-							}
+							case 960:
+								return "4% ont augmenté magie chances de coup critique";
+							case 961:
+								return "4% ont augmenté magie chances de coup critique";
+							case 962:
+								return "4% ont augmenté magie chances de coup critique";
 						}
 					}
 				}
-				else if (num3 <= 1254)
+				else if (l <= 1254)
 				{
-					if (num3 <= 1123)
+					if (l <= 1123)
 					{
-						if (num3 > 984)
+						if (l <= 984)
 						{
-							switch (num3)
+							switch (l)
+							{
+								case 975:
+									return "Amélioration de la capacité si elle est combinée avec des griffes d'escalade";
+								case 976:
+									break;
+								case 977:
+									return "Appuyez deux fois sur une direction";
+								default:
+									switch (l)
+									{
+										case 982:
+											return "Augmente la vitesse de régénération de mana";
+										case 983:
+											return "Augmente la hauteur de saut";
+										case 984:
+											return "Donne une chance d'esquiver les attaques";
+									}
+									break;
+							}
+						}
+						else
+						{
+							switch (l)
 							{
 								case 997:
-								{
 									return "'Pour utiliser: La place limon ou de neige fondante dans la extractinator'";
-								}
 								case 998:
 								case 999:
 								case 1000:
-								{
 									break;
-								}
 								case 1001:
-								{
 									return "6% ont augmenté mêlée chances de coup critique";
-								}
 								case 1002:
-								{
 									return "20% de chances de ne pas consommer de munitions";
-								}
 								case 1003:
-								{
 									return "16% d'augmentation des dégâts magiques";
-								}
 								case 1004:
-								{
 									return "7% ont augmenté les chances de coup critique";
-								}
 								case 1005:
-								{
 									return "5% ont augmenté la vitesse de déplacement";
-								}
 								default:
-								{
-									if (num3 == 1123)
+									if (l == 1123)
 									{
 										return "Petite chance de causer de la confusion";
 									}
 									break;
-								}
-							}
-						}
-						else
-						{
-							switch (num3)
-							{
-								case 975:
-								{
-									return "Amélioration de la capacité si elle est combinée avec des griffes d'escalade";
-								}
-								case 976:
-								{
-									break;
-								}
-								case 977:
-								{
-									return "Appuyez deux fois sur une direction";
-								}
-								default:
-								{
-									switch (num3)
-									{
-										case 982:
-										{
-											return "Augmente la vitesse de régénération de mana";
-										}
-										case 983:
-										{
-											return "Augmente la hauteur de saut";
-										}
-										case 984:
-										{
-											return "Donne une chance d'esquiver les attaques";
-										}
-									}
-									break;
-								}
 							}
 						}
 					}
-					else if (num3 > 1167)
+					else if (l <= 1167)
 					{
-						switch (num3)
-						{
-							case 1205:
-							{
-								return "12% ont augmenté la vitesse de mêlée";
-							}
-							case 1206:
-							{
-								return "9% ont augmenté varié chances de coup critique";
-							}
-							case 1207:
-							{
-								return "Augmente mana maximum de 60";
-							}
-							case 1208:
-							{
-								return "2% ont augmenté les chances de coup critique";
-							}
-							case 1209:
-							{
-								return "1% ont augmenté les chances de coup critique";
-							}
-							case 1210:
-							{
-								return "7% ont augmenté mouvement et la vitesse de mêlée";
-							}
-							case 1211:
-							{
-								return "8% a augmenté la vitesse de déplacement";
-							}
-							case 1212:
-							{
-								return "Augmente mana maximum de 80";
-							}
-							case 1213:
-							case 1214:
-							{
-								break;
-							}
-							case 1215:
-							{
-								return "8% ont augmenté la vitesse de mêlée";
-							}
-							case 1216:
-							{
-								return "7% ont augmenté varié chances de coup critique";
-							}
-							case 1217:
-							{
-								return "Augmente mana maximum de 100";
-							}
-							case 1218:
-							{
-								return "3% ont augmenté les chances de coup critique";
-							}
-							case 1219:
-							{
-								return "6% ont augmenté la vitesse de déplacement";
-							}
-							default:
-							{
-								switch (num3)
-								{
-									case 1249:
-									{
-										return "Libère les abeilles lorsqu'elles sont endommagées";
-									}
-									case 1250:
-									{
-										return "Augmente la hauteur de saut et nie dégâts de chute";
-									}
-									case 1251:
-									{
-										return "Augmente la hauteur de saut et nie dégâts de chute";
-									}
-									case 1252:
-									{
-										return "Augmente la hauteur de saut et nie dégâts de chute";
-									}
-									case 1254:
-									{
-										return "Faites un clic droit pour dézoomer";
-									}
-								}
-								break;
-							}
-						}
-					}
-					else
-					{
-						if (num3 == 1131)
+						if (l == 1131)
 						{
 							return "Appuyez jusqu'à changer la gravité";
 						}
-						switch (num3)
+						switch (l)
 						{
 							case 1159:
-							{
 								return "Augmente les dégâts des familiers de 10%";
-							}
 							case 1160:
-							{
 								return "Augmente les dégâts des familiers de 10%";
-							}
 							case 1161:
-							{
 								return "Augmente les dégâts des familiers de 10%";
-							}
 							case 1163:
-							{
 								return "Augmente la hauteur de saut";
-							}
 							case 1164:
-							{
 								return "Augmente la hauteur de saut";
-							}
 							case 1167:
-							{
 								return "Augmente l'arrière coup de vos serviteurs";
-							}
-						}
-					}
-				}
-				else if (num3 <= 1321)
-				{
-					if (num3 > 1295)
-					{
-						switch (num3)
-						{
-							case 1300:
-							{
-								return "Faites un clic droit pour dézoomer";
-							}
-							case 1301:
-							{
-								return "8% ont augmenté les chances de coup critique";
-							}
-							default:
-							{
-								switch (num3)
-								{
-									case 1316:
-									{
-										return "Les ennemis sont plus enclins à vous cibler";
-									}
-									case 1317:
-									{
-										return "Les ennemis sont plus enclins à vous cibler";
-									}
-									case 1318:
-									{
-										return "Les ennemis sont plus enclins à vous cibler";
-									}
-									case 1321:
-									{
-										return "20% de chances de ne pas consommer les flèches";
-									}
-								}
-								break;
-							}
 						}
 					}
 					else
 					{
-						switch (num3)
+						switch (l)
+						{
+							case 1205:
+								return "12% ont augmenté la vitesse de mêlée";
+							case 1206:
+								return "9% ont augmenté varié chances de coup critique";
+							case 1207:
+								return "Augmente mana maximum de 60";
+							case 1208:
+								return "2% ont augmenté les chances de coup critique";
+							case 1209:
+								return "1% ont augmenté les chances de coup critique";
+							case 1210:
+								return "7% ont augmenté mouvement et la vitesse de mêlée";
+							case 1211:
+								return "8% a augmenté la vitesse de déplacement";
+							case 1212:
+								return "Augmente mana maximum de 80";
+							case 1213:
+							case 1214:
+								break;
+							case 1215:
+								return "8% ont augmenté la vitesse de mêlée";
+							case 1216:
+								return "7% ont augmenté varié chances de coup critique";
+							case 1217:
+								return "Augmente mana maximum de 100";
+							case 1218:
+								return "3% ont augmenté les chances de coup critique";
+							case 1219:
+								return "6% ont augmenté la vitesse de déplacement";
+							default:
+								switch (l)
+								{
+									case 1249:
+										return "Libère les abeilles lorsqu'elles sont endommagées";
+									case 1250:
+										return "Augmente la hauteur de saut et nie dégâts de chute";
+									case 1251:
+										return "Augmente la hauteur de saut et nie dégâts de chute";
+									case 1252:
+										return "Augmente la hauteur de saut et nie dégâts de chute";
+									case 1254:
+										return "Faites un clic droit pour dézoomer";
+								}
+								break;
+						}
+					}
+				}
+				else if (l <= 1321)
+				{
+					if (l <= 1295)
+					{
+						switch (l)
 						{
 							case 1282:
-							{
 								return "Réduit la consommation de mana de 5%";
-							}
 							case 1283:
-							{
 								return "Réduit la consommation de mana de 7%";
-							}
 							case 1284:
-							{
 								return "Réduit la consommation de mana de 9%";
-							}
 							case 1285:
-							{
 								return "Réduit la consommation de mana de 11%";
-							}
 							case 1286:
-							{
 								return "Réduit la consommation de mana de 13%";
-							}
 							case 1287:
-							{
 								return "Réduit la consommation de mana de 15%";
-							}
 							default:
-							{
-								if (num3 == 1295)
+								if (l == 1295)
 								{
 									return "'Oolaa!!'";
 								}
 								break;
-							}
 						}
 					}
-				}
-				else if (num3 > 1505)
-				{
-					switch (num3)
+					else
 					{
-						case 1546:
+						switch (l)
 						{
-							return "5% ont augmenté varié chances de coup critique";
-						}
-						case 1547:
-						{
-							return "5% ont augmenté varié chances de coup critique";
-						}
-						case 1548:
-						{
-							return "5% ont augmenté varié chances de coup critique";
-						}
-						case 1549:
-						{
-							return "20% de chances de ne pas consommer de munitions";
-						}
-						case 1550:
-						{
-							return "12% ont augmenté la vitesse de déplacement";
-						}
-						case 1551:
-						case 1552:
-						{
-							break;
-						}
-						case 1553:
-						{
-							return "'Il venait de la frontière de l'espace'";
-						}
-						default:
-						{
-							if (num3 == 1595)
-							{
-								return "Restaure mana lorsqu'il est endommagé";
-							}
-							break;
+							case 1300:
+								return "Faites un clic droit pour dézoomer";
+							case 1301:
+								return "8% ont augmenté les chances de coup critique";
+							default:
+								switch (l)
+								{
+									case 1316:
+										return "Les ennemis sont plus enclins à vous cibler";
+									case 1317:
+										return "Les ennemis sont plus enclins à vous cibler";
+									case 1318:
+										return "Les ennemis sont plus enclins à vous cibler";
+									case 1321:
+										return "20% de chances de ne pas consommer les flèches";
+								}
+								break;
 						}
 					}
 				}
-				else
+				else if (l <= 1505)
 				{
-					switch (num3)
+					switch (l)
 					{
 						case 1336:
-						{
 							return "Diminue la défense de la cible";
-						}
 						case 1337:
 						case 1344:
 						case 1345:
 						case 1346:
 						case 1347:
 						case 1348:
-						{
 							break;
-						}
 						case 1338:
-						{
 							return "Pour une utilisation avec le lapin canon";
-						}
 						case 1339:
-						{
 							return "'extrêmement toxique'";
-						}
 						case 1340:
-						{
 							return "Melee attacks inflict venom on enemies";
-						}
 						case 1341:
-						{
 							return "Inflige cible avec du venin";
-						}
 						case 1342:
-						{
 							return "Inflige cible avec du venin";
-						}
 						case 1343:
-						{
 							return "10% de dégâts de mêlée et de la vitesse";
-						}
 						case 1349:
-						{
 							return "Explose en confettis sur l'impact";
-						}
 						case 1350:
-						{
 							return "Provoque une confusion";
-						}
 						case 1351:
-						{
 							return "Explose à l'impact";
-						}
 						case 1352:
-						{
 							return "Ennemis tués tomberont plus d'argent";
-						}
 						case 1353:
-						{
 							return "Les attaques de mêlée infligent des ennemis avec des flammes maudits";
-						}
 						case 1354:
-						{
 							return "Les attaques de mêlée des ennemis mis le feu";
-						}
 						case 1355:
-						{
 							return "Les attaques de mêlée rendent ennemis laissent tomber plus d'or";
-						}
 						case 1356:
-						{
 							return "Les attaques de mêlée réduire la défense des ennemis";
-						}
 						case 1357:
-						{
 							return "Les attaques de mêlée confondent ennemis";
-						}
 						case 1358:
-						{
 							return "Les attaques de mêlée causent des confettis à comparaître";
-						}
 						case 1359:
-						{
 							return "Attaques de mêlée des ennemis de poison";
-						}
 						default:
-						{
-							switch (num3)
+							switch (l)
 							{
 								case 1503:
-								{
 									return "10% d'augmentation des dégâts magiques et les chances de coup critique";
-								}
 								case 1505:
-								{
 									return "8% a augmenté la vitesse de déplacement";
-								}
 							}
 							break;
-						}
+					}
+				}
+				else
+				{
+					switch (l)
+					{
+						case 1546:
+							return "5% ont augmenté varié chances de coup critique";
+						case 1547:
+							return "5% ont augmenté varié chances de coup critique";
+						case 1548:
+							return "5% ont augmenté varié chances de coup critique";
+						case 1549:
+							return "20% de chances de ne pas consommer de munitions";
+						case 1550:
+							return "12% ont augmenté la vitesse de déplacement";
+						case 1551:
+						case 1552:
+							break;
+						case 1553:
+							return "'Il venait de la frontière de l'espace'";
+						default:
+							if (l == 1595)
+							{
+								return "Restaure mana lorsqu'il est endommagé";
+							}
+							break;
 					}
 				}
 			}
 			else if (Lang.lang == 5)
 			{
-				int num4 = l;
-				if (num4 <= 962)
+				if (l <= 962)
 				{
-					if (num4 <= 686)
+					if (l <= 686)
 					{
-						if (num4 <= 405)
+						if (l <= 405)
 						{
-							if (num4 > 98)
+							if (l <= 98)
 							{
-								switch (num4)
-								{
-									case 228:
-									{
-										return "Aumenta la probabilidad de ataque mágico crítico en un 4%";
-									}
-									case 229:
-									{
-										return "Aumenta la probabilidad de ataque mágico crítico en un 4%";
-									}
-									case 230:
-									{
-										return "Aumenta la probabilidad de ataque mágico crítico en un 4%";
-									}
-									default:
-									{
-										switch (num4)
-										{
-											case 371:
-											{
-												return "Aumenta la probabilidad de ataque mágico crítico en un 9%";
-											}
-											case 372:
-											{
-												return "Aumenta un 12% la velocidad en el cuerpo a cuerpo";
-											}
-											case 373:
-											{
-												return "Aumenta la probabilidad de ataque a distancia crítico en un 6%";
-											}
-											case 374:
-											{
-												return "Aumenta la probabilidad de ataque crítico en un 3%";
-											}
-											case 375:
-											{
-												return "Aumenta en un 10% la velocidad de movimiento";
-											}
-											case 376:
-											{
-												return "Aumenta el daño mágico en un 15%";
-											}
-											case 377:
-											{
-												return "Aumenta un 10% el daño en el cuerpo a cuerpo";
-											}
-											case 378:
-											{
-												return "Aumenta la probabilidad de ataque a distancia crítico en un 7%";
-											}
-											case 379:
-											{
-												return "Aumenta el daño en un 5%";
-											}
-											case 380:
-											{
-												return "Aumenta la probabilidad de ataque crítico en un 3%";
-											}
-											case 389:
-											{
-												return "'Busca en tu interior'";
-											}
-											case 394:
-											{
-												return "Permite respirar bajo el agua mucho más tiempo";
-											}
-											case 395:
-											{
-												return "Da la hora";
-											}
-											case 396:
-											{
-												return "Ofrece inmunidad ante los bloques de fuego";
-											}
-											case 397:
-											{
-												return "Ofrece inmunidad ante los bloques de fuego";
-											}
-											case 399:
-											{
-												return "Aumenta la altura al saltar";
-											}
-											case 400:
-											{
-												return "Aumenta la probabilidad de ataque crítico y daño mágico en un 11%";
-											}
-											case 401:
-											{
-												return "Aumenta un 14% el daño en el cuerpo a cuerpo";
-											}
-											case 402:
-											{
-												return "Aumenta la probabilidad de ataque a distancia crítico en un 8%";
-											}
-											case 404:
-											{
-												return "Aumenta en un 5% la velocidad de movimiento";
-											}
-											case 405:
-											{
-												return "Permite correr superrápido";
-											}
-										}
-										break;
-									}
-								}
-							}
-							else
-							{
-								if (num4 == 65)
+								if (l == 65)
 								{
 									return "'Forjada por la furia del cielo'";
 								}
-								if (num4 == 98)
+								if (l == 98)
 								{
 									return "'Mitad tiburón, mitad arma; realmente asombroso'";
 								}
 							}
-						}
-						else if (num4 > 533)
-						{
-							switch (num4)
+							else
 							{
-								case 552:
+								switch (l)
 								{
-									return "Aumenta en un 8% la velocidad de movimiento";
-								}
-								case 553:
-								{
-									return "Aumenta la probabilidad de ataque a distancia crítico en un 8%";
-								}
-								case 554:
-								case 556:
-								case 557:
-								{
-									break;
-								}
-								case 555:
-								{
-									return "Usa de forma automática pociones de maná cuando se necesitan";
-								}
-								case 558:
-								{
-									return "Aumenta la probabilidad de ataque crítico y daño mágico en un 12%";
-								}
-								case 559:
-								{
-									return "Aumenta un 10% la anticipación en el cuerpo a cuerpo";
-								}
-								default:
-								{
-									if (num4 == 686)
-									{
-										return "7% más de velocidad de ataque cuerpo a cuerpo";
-									}
-									break;
+									case 228:
+										return "Aumenta la probabilidad de ataque mágico crítico en un 4%";
+									case 229:
+										return "Aumenta la probabilidad de ataque mágico crítico en un 4%";
+									case 230:
+										return "Aumenta la probabilidad de ataque mágico crítico en un 4%";
+									default:
+										switch (l)
+										{
+											case 371:
+												return "Aumenta la probabilidad de ataque mágico crítico en un 9%";
+											case 372:
+												return "Aumenta un 12% la velocidad en el cuerpo a cuerpo";
+											case 373:
+												return "Aumenta la probabilidad de ataque a distancia crítico en un 6%";
+											case 374:
+												return "Aumenta la probabilidad de ataque crítico en un 3%";
+											case 375:
+												return "Aumenta en un 10% la velocidad de movimiento";
+											case 376:
+												return "Aumenta el daño mágico en un 15%";
+											case 377:
+												return "Aumenta un 10% el daño en el cuerpo a cuerpo";
+											case 378:
+												return "Aumenta la probabilidad de ataque a distancia crítico en un 7%";
+											case 379:
+												return "Aumenta el daño en un 5%";
+											case 380:
+												return "Aumenta la probabilidad de ataque crítico en un 3%";
+											case 389:
+												return "'Busca en tu interior'";
+											case 394:
+												return "Permite respirar bajo el agua mucho más tiempo";
+											case 395:
+												return "Da la hora";
+											case 396:
+												return "Ofrece inmunidad ante los bloques de fuego";
+											case 397:
+												return "Ofrece inmunidad ante los bloques de fuego";
+											case 399:
+												return "Aumenta la altura al saltar";
+											case 400:
+												return "Aumenta la probabilidad de ataque crítico y daño mágico en un 11%";
+											case 401:
+												return "Aumenta un 14% el daño en el cuerpo a cuerpo";
+											case 402:
+												return "Aumenta la probabilidad de ataque a distancia crítico en un 8%";
+											case 404:
+												return "Aumenta en un 5% la velocidad de movimiento";
+											case 405:
+												return "Permite correr superrápido";
+										}
+										break;
 								}
 							}
 						}
-						else
+						else if (l <= 533)
 						{
-							if (num4 == 434)
+							if (l == 434)
 							{
 								return "Solo gasta munición el primer disparo";
 							}
-							if (num4 == 533)
+							if (l == 533)
 							{
 								return "'El hermano mayor del minitiburón'";
 							}
 						}
-					}
-					else if (num4 <= 908)
-					{
-						if (num4 > 784)
+						else
 						{
-							switch (num4)
+							switch (l)
 							{
-								case 897:
-								{
-									return "12% más de velocidad de cuerpo a cuerpo";
-								}
-								case 898:
-								{
-									return "El usuario puede correr muy rápido";
-								}
+								case 552:
+									return "Aumenta en un 8% la velocidad de movimiento";
+								case 553:
+									return "Aumenta la probabilidad de ataque a distancia crítico en un 8%";
+								case 554:
+								case 556:
+								case 557:
+									break;
+								case 555:
+									return "Usa de forma automática pociones de maná cuando se necesitan";
+								case 558:
+									return "Aumenta la probabilidad de ataque crítico y daño mágico en un 12%";
+								case 559:
+									return "Aumenta un 10% la anticipación en el cuerpo a cuerpo";
 								default:
-								{
-									switch (num4)
+									if (l == 686)
 									{
-										case 905:
-										{
-											return "Monedas de mayor valor hacen más daño";
-										}
-										case 907:
-										{
-											return "Otorga inmunidad a los bloques de fuego";
-										}
-										case 908:
-										{
-											return "Otorga inmunidad a los bloques de fuego y 7 segundos de inmunidad a la lava";
-										}
+										return "7% más de velocidad de ataque cuerpo a cuerpo";
 									}
 									break;
-								}
+							}
+						}
+					}
+					else if (l <= 908)
+					{
+						if (l <= 784)
+						{
+							if (l == 748)
+							{
+								return "Sostenga hasta cohete más rápido";
+							}
+							switch (l)
+							{
+								case 771:
+									return "Pequeño radio de explosión. No la destruiré azulejos";
+								case 772:
+									return "Pequeño radio de explosión. Destruirá azulejos";
+								case 773:
+									return "Radio de la explosión grande. No la destruiré azulejos";
+								case 774:
+									return "Radio de la explosión grande. Destruirá azulejos";
+								case 775:
+									return "Aumenta la velocidad de carrera";
+								case 776:
+									return "Puede mina Mythril y Orichalcum";
+								case 777:
+									return "Puede mina adamantita y Titanio";
+								case 779:
+									return "Utiliza solución de color";
+								case 780:
+									return "Extiende la Pureza";
+								case 781:
+									return "Extiende el Hallow";
+								case 782:
+									return "Extiende la Corrupción";
+								case 783:
+									return "Spreads Setas que brillan intensamente";
+								case 784:
+									return "Extiende el carmesí";
 							}
 						}
 						else
 						{
-							if (num4 == 748)
+							switch (l)
 							{
-								return "Sostenga hasta cohete más rápido";
-							}
-							switch (num4)
-							{
-								case 771:
-								{
-									return "Pequeño radio de explosión. No la destruiré azulejos";
-								}
-								case 772:
-								{
-									return "Pequeño radio de explosión. Destruirá azulejos";
-								}
-								case 773:
-								{
-									return "Radio de la explosión grande. No la destruiré azulejos";
-								}
-								case 774:
-								{
-									return "Radio de la explosión grande. Destruirá azulejos";
-								}
-								case 775:
-								{
-									return "Aumenta la velocidad de carrera";
-								}
-								case 776:
-								{
-									return "Puede mina Mythril y Orichalcum";
-								}
-								case 777:
-								{
-									return "Puede mina adamantita y Titanio";
-								}
-								case 779:
-								{
-									return "Utiliza solución de color";
-								}
-								case 780:
-								{
-									return "Extiende la Pureza";
-								}
-								case 781:
-								{
-									return "Extiende el Hallow";
-								}
-								case 782:
-								{
-									return "Extiende la Corrupción";
-								}
-								case 783:
-								{
-									return "Spreads Setas que brillan intensamente";
-								}
-								case 784:
-								{
-									return "Extiende el carmesí";
-								}
+								case 897:
+									return "12% más de velocidad de cuerpo a cuerpo";
+								case 898:
+									return "El usuario puede correr muy rápido";
+								default:
+									switch (l)
+									{
+										case 905:
+											return "Monedas de mayor valor hacen más daño";
+										case 907:
+											return "Otorga inmunidad a los bloques de fuego";
+										case 908:
+											return "Otorga inmunidad a los bloques de fuego y 7 segundos de inmunidad a la lava";
+									}
+									break;
 							}
 						}
 					}
-					else if (num4 > 938)
+					else if (l <= 938)
 					{
-						if (num4 == 953)
+						if (l == 929)
 						{
-							return "Mejora de la capacidad si se combina con picos de zapatos";
+							return "Para el uso con el cañón";
 						}
-						switch (num4)
+						switch (l)
 						{
-							case 960:
-							{
-								return "4% más de probabilidad de golpe crítico mágico";
-							}
-							case 961:
-							{
-								return "4% más de probabilidad de golpe crítico mágico";
-							}
-							case 962:
-							{
-								return "4% más de probabilidad de golpe crítico mágico";
-							}
+							case 936:
+								return "10% más de daño y velocidad de cuerpo a cuerpo";
+							case 938:
+								return "Sólo se activa por encima de la vida 25%";
 						}
 					}
 					else
 					{
-						if (num4 == 929)
+						if (l == 953)
 						{
-							return "Para el uso con el cañón";
+							return "Mejora de la capacidad si se combina con picos de zapatos";
 						}
-						switch (num4)
+						switch (l)
 						{
-							case 936:
-							{
-								return "10% más de daño y velocidad de cuerpo a cuerpo";
-							}
-							case 938:
-							{
-								return "Sólo se activa por encima de la vida 25%";
-							}
+							case 960:
+								return "4% más de probabilidad de golpe crítico mágico";
+							case 961:
+								return "4% más de probabilidad de golpe crítico mágico";
+							case 962:
+								return "4% más de probabilidad de golpe crítico mágico";
 						}
 					}
 				}
-				else if (num4 <= 1254)
+				else if (l <= 1254)
 				{
-					if (num4 <= 1123)
+					if (l <= 1123)
 					{
-						if (num4 > 984)
+						if (l <= 984)
 						{
-							switch (num4)
+							switch (l)
+							{
+								case 975:
+									return "Mejora de la capacidad si se combina con Garras Escalada";
+								case 976:
+									break;
+								case 977:
+									return "Doble toque en una dirección";
+								default:
+									switch (l)
+									{
+										case 982:
+											return "Aumenta la tasa de regeneración de maná";
+										case 983:
+											return "Aumenta la altura del salto";
+										case 984:
+											return "Da la oportunidad de esquivar los ataques";
+									}
+									break;
+							}
+						}
+						else
+						{
+							switch (l)
 							{
 								case 997:
-								{
 									return "'Modo de empleo: Colocar cieno o lodo en el extractinator'";
-								}
 								case 998:
 								case 999:
 								case 1000:
-								{
 									break;
-								}
 								case 1001:
-								{
 									return "6% más de probabilidad de golpe crítico cuerpo a cuerpo";
-								}
 								case 1002:
-								{
 									return "20% de probabilidad de no consumir municiones";
-								}
 								case 1003:
-								{
 									return "16% más de daño mágico";
-								}
 								case 1004:
-								{
 									return "7% más de probabilidad de golpe crítico";
-								}
 								case 1005:
-								{
 									return "5% de aumento de la velocidad de movimiento";
-								}
 								default:
-								{
-									if (num4 == 1123)
+									if (l == 1123)
 									{
 										return "Pocas posibilidades de causar confusión";
 									}
 									break;
-								}
-							}
-						}
-						else
-						{
-							switch (num4)
-							{
-								case 975:
-								{
-									return "Mejora de la capacidad si se combina con Garras Escalada";
-								}
-								case 976:
-								{
-									break;
-								}
-								case 977:
-								{
-									return "Doble toque en una dirección";
-								}
-								default:
-								{
-									switch (num4)
-									{
-										case 982:
-										{
-											return "Aumenta la tasa de regeneración de maná";
-										}
-										case 983:
-										{
-											return "Aumenta la altura del salto";
-										}
-										case 984:
-										{
-											return "Da la oportunidad de esquivar los ataques";
-										}
-									}
-									break;
-								}
 							}
 						}
 					}
-					else if (num4 > 1167)
+					else if (l <= 1167)
 					{
-						switch (num4)
-						{
-							case 1205:
-							{
-								return "12% más de velocidad de cuerpo a cuerpo";
-							}
-							case 1206:
-							{
-								return "9% más de probabilidad de golpe crítico a distancia";
-							}
-							case 1207:
-							{
-								return "Aumenta el maná máximo en un 60";
-							}
-							case 1208:
-							{
-								return "2% increased critical strike chance";
-							}
-							case 1209:
-							{
-								return "1% increased critical strike chance";
-							}
-							case 1210:
-							{
-								return "7% increased movement and melee speed";
-							}
-							case 1211:
-							{
-								return "8% increased movement speed";
-							}
-							case 1212:
-							{
-								return "Aumenta el maná máximo en un 80";
-							}
-							case 1213:
-							case 1214:
-							{
-								break;
-							}
-							case 1215:
-							{
-								return "8% increased melee speed";
-							}
-							case 1216:
-							{
-								return "7% increased ranged critical strike chance";
-							}
-							case 1217:
-							{
-								return "Aumenta el maná máximo en un 100";
-							}
-							case 1218:
-							{
-								return "3% más de probabilidad de golpe crítico";
-							}
-							case 1219:
-							{
-								return "6% de aumento de la velocidad de movimiento";
-							}
-							default:
-							{
-								switch (num4)
-								{
-									case 1249:
-									{
-										return "Libera las abejas cuando está dañado";
-									}
-									case 1250:
-									{
-										return "Aumenta saltar altura y niega daño por caída";
-									}
-									case 1251:
-									{
-										return "Aumenta saltar altura y niega daño por caída";
-									}
-									case 1252:
-									{
-										return "Aumenta saltar altura y niega daño por caída";
-									}
-									case 1254:
-									{
-										return "Haga clic derecho para alejar";
-									}
-								}
-								break;
-							}
-						}
-					}
-					else
-					{
-						if (num4 == 1131)
+						if (l == 1131)
 						{
 							return "Pulse para cambiar la gravedad";
 						}
-						switch (num4)
+						switch (l)
 						{
 							case 1159:
-							{
 								return "Aumenta el daño minion en un 10%";
-							}
 							case 1160:
-							{
 								return "Aumenta el daño minion en un 10%";
-							}
 							case 1161:
-							{
 								return "Aumenta el daño minion en un 10%";
-							}
 							case 1163:
-							{
 								return "Aumenta la altura del salto";
-							}
 							case 1164:
-							{
 								return "Aumenta la altura del salto";
-							}
 							case 1167:
-							{
 								return "Aumenta la parte posterior golpe de sus secuaces";
-							}
-						}
-					}
-				}
-				else if (num4 <= 1321)
-				{
-					if (num4 > 1295)
-					{
-						switch (num4)
-						{
-							case 1300:
-							{
-								return "Haga clic derecho para alejar";
-							}
-							case 1301:
-							{
-								return "8% más de probabilidad de golpe crítico";
-							}
-							default:
-							{
-								switch (num4)
-								{
-									case 1316:
-									{
-										return "Los enemigos son más propensos a que se dirige";
-									}
-									case 1317:
-									{
-										return "Los enemigos son más propensos a que se dirige";
-									}
-									case 1318:
-									{
-										return "Los enemigos son más propensos a que se dirige";
-									}
-									case 1321:
-									{
-										return "20% de probabilidad de no consumir flechas";
-									}
-								}
-								break;
-							}
 						}
 					}
 					else
 					{
-						switch (num4)
+						switch (l)
+						{
+							case 1205:
+								return "12% más de velocidad de cuerpo a cuerpo";
+							case 1206:
+								return "9% más de probabilidad de golpe crítico a distancia";
+							case 1207:
+								return "Aumenta el maná máximo en un 60";
+							case 1208:
+								return "2% increased critical strike chance";
+							case 1209:
+								return "1% increased critical strike chance";
+							case 1210:
+								return "7% increased movement and melee speed";
+							case 1211:
+								return "8% increased movement speed";
+							case 1212:
+								return "Aumenta el maná máximo en un 80";
+							case 1213:
+							case 1214:
+								break;
+							case 1215:
+								return "8% increased melee speed";
+							case 1216:
+								return "7% increased ranged critical strike chance";
+							case 1217:
+								return "Aumenta el maná máximo en un 100";
+							case 1218:
+								return "3% más de probabilidad de golpe crítico";
+							case 1219:
+								return "6% de aumento de la velocidad de movimiento";
+							default:
+								switch (l)
+								{
+									case 1249:
+										return "Libera las abejas cuando está dañado";
+									case 1250:
+										return "Aumenta saltar altura y niega daño por caída";
+									case 1251:
+										return "Aumenta saltar altura y niega daño por caída";
+									case 1252:
+										return "Aumenta saltar altura y niega daño por caída";
+									case 1254:
+										return "Haga clic derecho para alejar";
+								}
+								break;
+						}
+					}
+				}
+				else if (l <= 1321)
+				{
+					if (l <= 1295)
+					{
+						switch (l)
 						{
 							case 1282:
-							{
 								return "Reduce el uso de maná un 5%";
-							}
 							case 1283:
-							{
 								return "Reduce el uso de maná un 7%";
-							}
 							case 1284:
-							{
 								return "Reduce el uso de maná un 9%";
-							}
 							case 1285:
-							{
 								return "Reduce el uso de maná un 11%";
-							}
 							case 1286:
-							{
 								return "Reduce el uso de maná un 13%";
-							}
 							case 1287:
-							{
 								return "Reduce el uso de maná un 15%";
-							}
 							default:
-							{
-								if (num4 == 1295)
+								if (l == 1295)
 								{
 									return "'Oolaa!!'";
 								}
 								break;
-							}
 						}
 					}
-				}
-				else if (num4 > 1505)
-				{
-					switch (num4)
+					else
 					{
-						case 1546:
+						switch (l)
 						{
-							return "5% más de probabilidad de golpe crítico a distancia";
-						}
-						case 1547:
-						{
-							return "5% más de probabilidad de golpe crítico a distancia";
-						}
-						case 1548:
-						{
-							return "5% más de probabilidad de golpe crítico a distancia";
-						}
-						case 1549:
-						{
-							return "20% de probabilidad de no consumir municiones";
-						}
-						case 1550:
-						{
-							return "12% de aumento de la velocidad de movimiento";
-						}
-						case 1551:
-						case 1552:
-						{
-							break;
-						}
-						case 1553:
-						{
-							return "'Venía del borde del espacio'";
-						}
-						default:
-						{
-							if (num4 == 1595)
-							{
-								return "Restaura mana cuando está dañado";
-							}
-							break;
+							case 1300:
+								return "Haga clic derecho para alejar";
+							case 1301:
+								return "8% más de probabilidad de golpe crítico";
+							default:
+								switch (l)
+								{
+									case 1316:
+										return "Los enemigos son más propensos a que se dirige";
+									case 1317:
+										return "Los enemigos son más propensos a que se dirige";
+									case 1318:
+										return "Los enemigos son más propensos a que se dirige";
+									case 1321:
+										return "20% de probabilidad de no consumir flechas";
+								}
+								break;
 						}
 					}
 				}
-				else
+				else if (l <= 1505)
 				{
-					switch (num4)
+					switch (l)
 					{
 						case 1336:
-						{
 							return "Disminuye la defensa del objetivo";
-						}
 						case 1337:
 						case 1344:
 						case 1345:
 						case 1346:
 						case 1347:
 						case 1348:
-						{
 							break;
-						}
 						case 1338:
-						{
 							return "Para el uso con el conejito de cañón";
-						}
 						case 1339:
-						{
 							return "'Extremadamente tóxico'";
-						}
 						case 1340:
-						{
 							return "Ataques cuerpo a cuerpo infligen veneno a los enemigos";
-						}
 						case 1341:
-						{
 							return "Inflige objetivo con veneno";
-						}
 						case 1342:
-						{
 							return "Inflige objetivo con veneno";
-						}
 						case 1343:
-						{
 							return "10% más de daño cuerpo a cuerpo y la velocidad";
-						}
 						case 1349:
-						{
 							return "Se descompone en confeti sobre el impacto";
-						}
 						case 1350:
-						{
 							return "provoca confusión";
-						}
 						case 1351:
-						{
 							return "Explota por impacto";
-						}
 						case 1352:
-						{
 							return "Enemigos muertos caerán más dinero";
-						}
 						case 1353:
-						{
 							return "Ataques cuerpo a cuerpo infligen los enemigos con llamas malditos";
-						}
 						case 1354:
-						{
 							return "Ataques cuerpo a cuerpo establecen enemigos en llamas";
-						}
 						case 1355:
-						{
 							return "Ataques cuerpo a cuerpo hacen enemigos caen más oro";
-						}
 						case 1356:
-						{
 							return "Ataques cuerpo a cuerpo disminuyen defensa enemigos";
-						}
 						case 1357:
-						{
 							return "Ataques cuerpo a cuerpo confunde enemigos";
-						}
 						case 1358:
-						{
 							return "Ataques cuerpo a cuerpo infligen confetti que aparezca";
-						}
 						case 1359:
-						{
 							return "Cuerpo a cuerpo ataca a los enemigos de veneno";
-						}
 						default:
-						{
-							switch (num4)
+							switch (l)
 							{
 								case 1503:
-								{
 									return "10% más de daño mágico y la probabilidad de golpe crítico";
-								}
 								case 1505:
-								{
 									return "8% de aumento de la velocidad de movimiento";
-								}
 							}
 							break;
-						}
+					}
+				}
+				else
+				{
+					switch (l)
+					{
+						case 1546:
+							return "5% más de probabilidad de golpe crítico a distancia";
+						case 1547:
+							return "5% más de probabilidad de golpe crítico a distancia";
+						case 1548:
+							return "5% más de probabilidad de golpe crítico a distancia";
+						case 1549:
+							return "20% de probabilidad de no consumir municiones";
+						case 1550:
+							return "12% de aumento de la velocidad de movimiento";
+						case 1551:
+						case 1552:
+							break;
+						case 1553:
+							return "'Venía del borde del espacio'";
+						default:
+							if (l == 1595)
+							{
+								return "Restaura mana cuando está dañado";
+							}
+							break;
 					}
 				}
 			}
-			if (english || Lang.lang <= 1)
+			if (!english && Lang.lang > 1)
 			{
-				return "";
+				return Lang.toolTip2(l, true);
 			}
-			return Lang.toolTip2(l, true);
+			return "";
 		}
 
 		public static void tTip()

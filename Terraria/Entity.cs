@@ -47,6 +47,30 @@ namespace Terraria
 			}
 		}
 
+		public Vector2 BottomLeft
+		{
+			get
+			{
+				return new Vector2(this.position.X, this.position.Y + (float)this.height);
+			}
+			set
+			{
+				this.position = new Vector2(value.X, value.Y - (float)this.height);
+			}
+		}
+
+		public Vector2 BottomRight
+		{
+			get
+			{
+				return new Vector2(this.position.X + (float)this.width, this.position.Y + (float)this.height);
+			}
+			set
+			{
+				this.position = new Vector2(value.X - (float)this.width, value.Y - (float)this.height);
+			}
+		}
+
 		public Vector2 Center
 		{
 			get
@@ -119,6 +143,30 @@ namespace Terraria
 			set
 			{
 				this.position = new Vector2(value.X - (float)(this.width / 2), value.Y);
+			}
+		}
+
+		public Vector2 TopLeft
+		{
+			get
+			{
+				return this.position;
+			}
+			set
+			{
+				this.position = value;
+			}
+		}
+
+		public Vector2 TopRight
+		{
+			get
+			{
+				return new Vector2(this.position.X + (float)this.width, this.position.Y);
+			}
+			set
+			{
+				this.position = new Vector2(value.X - (float)this.width, value.Y);
 			}
 		}
 

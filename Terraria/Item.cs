@@ -14,9 +14,9 @@ namespace Terraria
 		public static int potionDelay = 3600;
 		public static int restorationDelay = 3000;
 		public bool questItem;
-		public static int[] headType = new int[194];
+		public static int[] headType = new int[195];
 		public static int[] bodyType = new int[195];
-		public static int[] legType = new int[135];
+		public static int[] legType = new int[138];
 		public static bool[] staff = new bool[Main.maxItemTypes];
 		public static bool[] claw = new bool[Main.maxItemTypes];
 		public bool flame;
@@ -36859,7 +36859,7 @@ namespace Terraria
 												this.createTile = 334;
 												this.width = 30;
 												this.height = 30;
-												this.value = Item.sellPrice(0, 0, 10, 0);
+												this.value = Item.sellPrice(0, 0, 0, 50);
 												return;
 											}
 											if (type == 2700)
@@ -45406,7 +45406,7 @@ namespace Terraria
 				this.owner = Main.myPlayer;
 			}
 			this.ResetStats(Type);
-			if (this.type >= 3730)
+			if (this.type >= Main.maxItemTypes)
 			{
 				this.type = 0;
 			}
@@ -45623,7 +45623,7 @@ namespace Terraria
 			}
 			this.name = Lang.itemName(this.netID, false);
 			this.CheckTip();
-			if (this.type > 0 && this.type < 3730 && ItemID.Sets.Deprecated[this.type])
+			if (this.type > 0 && this.type < Main.maxItemTypes && ItemID.Sets.Deprecated[this.type])
 			{
 				this.netID = 0;
 				this.type = 0;
