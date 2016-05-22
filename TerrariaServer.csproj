@@ -93,12 +93,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.IO.Compression.FileSystem" />
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\prebuilts\Newtonsoft.Json.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -159,6 +160,7 @@
     <Compile Include="TerrariaApi.Server\TerrariaPlugin.cs" />
     <Compile Include="TerrariaApi.Server\TileProvider.cs" />
     <Compile Include="Terraria\GameContent\PressurePlateHelper.cs" />
+    <Compile Include="Terraria\GameContent\UI\WiresUI.cs" />
     <Compile Include="Terraria\ID\NPCID.cs" />
     <Compile Include="Terraria\IStaticPortMapping.cs" />
     <Compile Include="Terraria\IStaticPortMappingCollection.cs" />
@@ -1001,6 +1003,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="TerrariaApi.Server\Framework\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
