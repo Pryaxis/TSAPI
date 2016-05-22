@@ -158,6 +158,7 @@
     <Compile Include="TerrariaApi.Server\TaskExt.cs" />
     <Compile Include="TerrariaApi.Server\TerrariaPlugin.cs" />
     <Compile Include="TerrariaApi.Server\TileProvider.cs" />
+    <Compile Include="Terraria\GameContent\PressurePlateHelper.cs" />
     <Compile Include="Terraria\ID\NPCID.cs" />
     <Compile Include="Terraria\IStaticPortMapping.cs" />
     <Compile Include="Terraria\IStaticPortMappingCollection.cs" />
