@@ -34549,7 +34549,7 @@ namespace Terraria
 		}
 
 		// Token: 0x0600115D RID: 4445 RVA: 0x0039DD80 File Offset: 0x0039BF80
-		public void FindFrame()
+	/*	public void FindFrame()
 		{
 			int num = 1;
 			if (!Main.dedServ)
@@ -41946,6 +41946,7 @@ namespace Terraria
 				}
 			}
 		}
+		*/
 
 		// Token: 0x06001148 RID: 4424 RVA: 0x0031E060 File Offset: 0x0031C260
 		public static string firstNPCName(int npcType)
@@ -63957,7 +63958,7 @@ namespace Terraria
 			}
 			else if (Main.NPCLoaded[this.type])
 			{
-				this.frame = new Rectangle(0, 0, Main.npcTexture[this.type].Width, Main.npcTexture[this.type].Height / Main.npcFrameCount[this.type]);
+			//	this.frame = new Rectangle(0, 0, Main.npcTexture[this.type].Width, Main.npcTexture[this.type].Height / Main.npcFrameCount[this.type]);
 			}
 			else
 			{
@@ -70442,7 +70443,7 @@ namespace Terraria
 					this.ai[1] = 400f;
 					this.ai[2] = 0f;
 				}
-				this.FindFrame();
+				//this.FindFrame();
 				if (this.type == 439 || this.type == 440)
 				{
 					if (this.localAI[3] <= 0f)

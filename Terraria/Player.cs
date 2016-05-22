@@ -21,6 +21,29 @@ namespace Terraria
 {
 	public class Player : Entity
 	{
+		public static class Hooks
+		{
+			public static event Action<Player> OnEnterWorld;
+
+			public static void PlayerConnect(int playerIndex)
+			{
+				PressurePlateHelper.ResetPlayer(playerIndex);
+			}
+
+			public static void PlayerDisconnect(int playerIndex)
+			{
+				PressurePlateHelper.ResetPlayer(playerIndex);
+			}
+
+			public static void EnterWorld(int playerIndex)
+			{
+				if (Player.Hooks.OnEnterWorld != null)
+				{
+					Player.Hooks.OnEnterWorld(Main.player[playerIndex]);
+				}
+			}
+		}
+
 		// Token: 0x04000F9C RID: 3996
 		public bool accCalendar;
 

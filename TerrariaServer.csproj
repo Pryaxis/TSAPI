@@ -163,9 +163,11 @@
     <Compile Include="Terraria\GameContent\Tile_Entities\TELogicSensor.cs" />
     <Compile Include="Terraria\GameContent\UI\WiresUI.cs" />
     <Compile Include="Terraria\ID\NPCID.cs" />
+    <Compile Include="Terraria\ID\RecipeGroupID.cs" />
     <Compile Include="Terraria\IStaticPortMapping.cs" />
     <Compile Include="Terraria\IStaticPortMappingCollection.cs" />
     <Compile Include="Terraria\Net\Sockets\EventArgs\WriteFailedEventArgs.cs" />
+    <Compile Include="Terraria\RecipeGroup.cs" />
     <Compile Include="Terraria\StreamExt.cs" />
     <Compile Include="Terraria\StreamGenericExt.cs" />
     <Compile Include="Terraria\Terraria.GameContent.UI\EmoteBubble.cs" />

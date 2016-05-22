@@ -438,7 +438,12 @@ namespace Terraria
 							Netplay.Clients[k].StatusText2 = "";
 							if (k < 255)
 							{
+								bool active = Main.player[k].active;
 								Main.player[k].active = false;
+								if (active)
+								{
+									Player.Hooks.PlayerDisconnect(k);
+								}
 							}
 						}
 					}

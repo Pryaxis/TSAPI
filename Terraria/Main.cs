@@ -159,6 +159,10 @@ namespace Terraria
 
 		public static string versionNumber2;
 
+		public static bool AnnouncementBoxDisabled = false;
+
+		public static int AnnouncementBoxRange = -1;
+
 		public static Vector2 destroyerHB;
 
 		public static FileMetadata WorldFileMetadata;
@@ -9479,6 +9483,7 @@ namespace Terraria
 		public static void NewText(string newText, byte R = 255, byte G = 255, byte B = 255, bool force = false)
 		{
 		}
+
 
 		public static float NPCAddHeight(int i)
 		{

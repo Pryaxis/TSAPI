@@ -1,18 +1,19 @@
 using System;
 using System.Collections.Generic;
 using Terraria.GameContent.Achievements;
+using Terraria.ID;
 
 namespace Terraria
 {
 	public class Recipe
 	{
-		public static int maxRequirements;
+		public static int maxRequirements = 15;
 
-		public static int maxRecipes;
+		public static int maxRecipes = 2000;
 
-		public static int numRecipes;
+		public static int numRecipes = 0;
 
-		private static Recipe newRecipe;
+		private static Recipe newRecipe = new Recipe();
 
 		public Item createItem = new Item();
 
@@ -38,12 +39,41 @@ namespace Terraria
 
 		public bool alchemy;
 
-		static Recipe()
+		public List<int> acceptedGroups = new List<int>();
+
+		public void RequireGroup(string name)
 		{
-			Recipe.maxRequirements = 15;
-			Recipe.maxRecipes = 2000;
-			Recipe.numRecipes = 0;
-			Recipe.newRecipe = new Recipe();
+			int item;
+			if (RecipeGroup.recipeGroupIDs.TryGetValue(name, out item))
+			{
+				this.acceptedGroups.Add(item);
+			}
+		}
+
+		public bool ProcessGroupsForText(int type, out string theText)
+		{
+			foreach (int current in this.acceptedGroups)
+			{
+				if (RecipeGroup.recipeGroups[current].ValidItems.Contains(type))
+				{
+					theText = RecipeGroup.recipeGroups[current].GetText();
+					return true;
+				}
+			}
+			theText = "";
+			return false;
+		}
+
+		public bool AcceptedByItemGroups(int invType, int reqType)
+		{
+			foreach (int current in this.acceptedGroups)
+			{
+				if (RecipeGroup.recipeGroups[current].ValidItems.Contains(invType) && RecipeGroup.recipeGroups[current].ValidItems.Contains(reqType))
+				{
+					return true;
+				}
+			}
+			return false;
 		}
 
 		public Recipe()
@@ -55,43 +85,29 @@ namespace Terraria
 			}
 		}
 
-		private static void AddRecipe()
-		{
-			if (Recipe.newRecipe.requiredTile[0] == 13)
-			{
-				Recipe.newRecipe.alchemy = true;
-			}
-			Main.recipe[Recipe.numRecipes] = Recipe.newRecipe;
-			Recipe.newRecipe = new Recipe();
-			Recipe.numRecipes = Recipe.numRecipes + 1;
-		}
-
 		public void Create()
 		{
-			Item[] item = null;
-			Item item1 = null;
-			Item item2 = null;
 			for (int i = 0; i < Recipe.maxRequirements; i++)
 			{
-				item2 = this.requiredItem[i];
-				if (item2.type == 0)
+				Item item = this.requiredItem[i];
+				if (item.type == 0)
 				{
 					break;
 				}
-				int num = item2.stack;
+				int num = item.stack;
 				if (this.alchemy && Main.player[Main.myPlayer].alchemyTable)
 				{
 					if (num > 1)
 					{
-						int num1 = 0;
+						int num2 = 0;
 						for (int j = 0; j < num; j++)
 						{
 							if (Main.rand.Next(3) == 0)
 							{
-								num1++;
+								num2++;
 							}
 						}
-						num = num - num1;
+						num -= num2;
 					}
 					else if (Main.rand.Next(3) == 0)
 					{
@@ -100,26 +116,25 @@ namespace Terraria
 				}
 				if (num > 0)
 				{
-					item = Main.player[Main.myPlayer].inventory;
+					Item[] array = Main.player[Main.myPlayer].inventory;
 					for (int k = 0; k < 58; k++)
 					{
-						item1 = item[k];
+						Item item2 = array[k];
 						if (num <= 0)
 						{
 							break;
 						}
-						if (item1.IsTheSameAs(item2) || this.useWood(item1.type, item2.type) || this.useSand(item1.type, item2.type) || this.useFragment(item1.type, item2.type) || this.useIronBar(item1.type, item2.type) || this.usePressurePlate(item1.type, item2.type))
+						if (item2.IsTheSameAs(item) || this.useWood(item2.type, item.type) || this.useSand(item2.type, item.type) || this.useFragment(item2.type, item.type) || this.useIronBar(item2.type, item.type) || this.usePressurePlate(item2.type, item.type) || this.AcceptedByItemGroups(item2.type, item.type))
 						{
-							if (item1.stack <= num)
+							if (item2.stack > num)
 							{
-								num = num - item1.stack;
-								item[k] = new Item();
+								item2.stack -= num;
+								num = 0;
 							}
 							else
 							{
-								Item item3 = item1;
-								item3.stack = item3.stack - num;
-								num = 0;
+								num -= item2.stack;
+								array[k] = new Item();
 							}
 						}
 					}
@@ -127,43 +142,42 @@ namespace Terraria
 					{
 						if (Main.player[Main.myPlayer].chest > -1)
 						{
-							item = Main.chest[Main.player[Main.myPlayer].chest].item;
+							array = Main.chest[Main.player[Main.myPlayer].chest].item;
 						}
 						else if (Main.player[Main.myPlayer].chest == -2)
 						{
-							item = Main.player[Main.myPlayer].bank.item;
+							array = Main.player[Main.myPlayer].bank.item;
 						}
 						else if (Main.player[Main.myPlayer].chest == -3)
 						{
-							item = Main.player[Main.myPlayer].bank2.item;
+							array = Main.player[Main.myPlayer].bank2.item;
 						}
 						for (int l = 0; l < 40; l++)
 						{
-							item1 = item[l];
+							Item item2 = array[l];
 							if (num <= 0)
 							{
 								break;
 							}
-							if (item1.IsTheSameAs(item2) || this.useWood(item1.type, item2.type) || this.useSand(item1.type, item2.type) || this.useIronBar(item1.type, item2.type) || this.usePressurePlate(item1.type, item2.type) || this.useFragment(item1.type, item2.type))
+							if (item2.IsTheSameAs(item) || this.useWood(item2.type, item.type) || this.useSand(item2.type, item.type) || this.useIronBar(item2.type, item.type) || this.usePressurePlate(item2.type, item.type) || this.useFragment(item2.type, item.type) || this.AcceptedByItemGroups(item2.type, item.type))
 							{
-								if (item1.stack <= num)
+								if (item2.stack > num)
 								{
-									num = num - item1.stack;
-									item[l] = new Item();
-									if (Main.netMode == 1 && Main.player[Main.myPlayer].chest >= 0)
-									{
-										NetMessage.SendData(32, -1, -1, "", Main.player[Main.myPlayer].chest, (float)l, 0f, 0f, 0, 0, 0);
-									}
-								}
-								else
-								{
-									Item item4 = item1;
-									item4.stack = item4.stack - num;
+									item2.stack -= num;
 									if (Main.netMode == 1 && Main.player[Main.myPlayer].chest >= 0)
 									{
 										NetMessage.SendData(32, -1, -1, "", Main.player[Main.myPlayer].chest, (float)l, 0f, 0f, 0, 0, 0);
 									}
 									num = 0;
+								}
+								else
+								{
+									num -= item2.stack;
+									array[l] = new Item();
+									if (Main.netMode == 1 && Main.player[Main.myPlayer].chest >= 0)
+									{
+										NetMessage.SendData(32, -1, -1, "", Main.player[Main.myPlayer].chest, (float)l, 0f, 0f, 0, 0, 0);
+									}
 								}
 							}
 						}
@@ -175,38 +189,205 @@ namespace Terraria
 			Recipe.FindRecipes();
 		}
 
+		public bool useWood(int invType, int reqType)
+		{
+			if (!this.anyWood)
+			{
+				return false;
+			}
+			if (reqType <= 621)
+			{
+				if (reqType == 9)
+				{
+					goto IL_59;
+				}
+				switch (reqType)
+				{
+					case 619:
+					case 620:
+					case 621:
+						goto IL_59;
+				}
+			}
+			else
+			{
+				if (reqType == 911 || reqType == 1729)
+				{
+					goto IL_59;
+				}
+				switch (reqType)
+				{
+					case 2503:
+					case 2504:
+						goto IL_59;
+				}
+			}
+			return false;
+			IL_59:
+			if (invType <= 621)
+			{
+				if (invType == 9)
+				{
+					return true;
+				}
+				switch (invType)
+				{
+					case 619:
+					case 620:
+					case 621:
+						return true;
+				}
+			}
+			else
+			{
+				if (invType == 911 || invType == 1729)
+				{
+					return true;
+				}
+				switch (invType)
+				{
+					case 2503:
+					case 2504:
+						return true;
+				}
+			}
+			return false;
+		}
+
+		public bool useIronBar(int invType, int reqType)
+		{
+			return this.anyIronBar && (reqType == 22 || reqType == 704) && (invType == 22 || invType == 704);
+		}
+
+		public bool useSand(int invType, int reqType)
+		{
+			return (reqType == 169 || reqType == 408 || reqType == 1246 || reqType == 370 || reqType == 3272) && (this.anySand && (invType == 169 || invType == 408 || invType == 1246 || invType == 370 || invType == 3272));
+		}
+
+		public bool useFragment(int invType, int reqType)
+		{
+			return (reqType == 3458 || reqType == 3456 || reqType == 3457 || reqType == 3459) && (this.anyFragment && (invType == 3458 || invType == 3456 || invType == 3457 || invType == 3459));
+		}
+
+		public bool usePressurePlate(int invType, int reqType)
+		{
+			if (!this.anyPressurePlate)
+			{
+				return false;
+			}
+			if (reqType <= 543)
+			{
+				if (reqType == 529)
+				{
+					goto IL_54;
+				}
+				switch (reqType)
+				{
+					case 541:
+					case 542:
+					case 543:
+						goto IL_54;
+				}
+			}
+			else
+			{
+				switch (reqType)
+				{
+					case 852:
+					case 853:
+						goto IL_54;
+					default:
+						if (reqType == 1151)
+						{
+							goto IL_54;
+						}
+						break;
+				}
+			}
+			return false;
+			IL_54:
+			if (invType <= 543)
+			{
+				if (invType == 529)
+				{
+					return true;
+				}
+				switch (invType)
+				{
+					case 541:
+					case 542:
+					case 543:
+						return true;
+				}
+			}
+			else
+			{
+				switch (invType)
+				{
+					case 852:
+					case 853:
+						return true;
+					default:
+						if (invType == 1151)
+						{
+							return true;
+						}
+						break;
+				}
+			}
+			return false;
+		}
+
 		public static void FindRecipes()
 		{
-			bool flag;
 			int num = Main.availableRecipe[Main.focusRecipe];
-			float single = Main.availableRecipeY[Main.focusRecipe];
+			float num2 = Main.availableRecipeY[Main.focusRecipe];
 			for (int i = 0; i < Recipe.maxRecipes; i++)
 			{
 				Main.availableRecipe[i] = 0;
 			}
 			Main.numAvailableRecipes = 0;
-			if ((Main.guideItem.type <= 0 || Main.guideItem.stack <= 0 ? true : Main.guideItem.name == ""))
+			bool flag = Main.guideItem.type > 0 && Main.guideItem.stack > 0 && Main.guideItem.name != "";
+			if (flag)
 			{
-				Dictionary<int, int> nums = new Dictionary<int, int>();
-				Item[] itemArray = null;
-				Item item = null;
-				itemArray = Main.player[Main.myPlayer].inventory;
-				for (int j = 0; j < 58; j++)
+				for (int j = 0; j < Recipe.maxRecipes; j++)
 				{
-					item = itemArray[j];
+					if (Main.recipe[j].createItem.type == 0)
+					{
+						break;
+					}
+					int num3 = 0;
+					while (num3 < Recipe.maxRequirements && Main.recipe[j].requiredItem[num3].type != 0)
+					{
+						if (Main.guideItem.IsTheSameAs(Main.recipe[j].requiredItem[num3]) || Main.recipe[j].useWood(Main.guideItem.type, Main.recipe[j].requiredItem[num3].type) || Main.recipe[j].useSand(Main.guideItem.type, Main.recipe[j].requiredItem[num3].type) || Main.recipe[j].useIronBar(Main.guideItem.type, Main.recipe[j].requiredItem[num3].type) || Main.recipe[j].useFragment(Main.guideItem.type, Main.recipe[j].requiredItem[num3].type) || Main.recipe[j].AcceptedByItemGroups(Main.guideItem.type, Main.recipe[j].requiredItem[num3].type) || Main.recipe[j].usePressurePlate(Main.guideItem.type, Main.recipe[j].requiredItem[num3].type))
+						{
+							Main.availableRecipe[Main.numAvailableRecipes] = j;
+							Main.numAvailableRecipes++;
+							break;
+						}
+						num3++;
+					}
+				}
+			}
+			else
+			{
+				Dictionary<int, int> dictionary = new Dictionary<int, int>();
+				Item item = null;
+				Item[] array = Main.player[Main.myPlayer].inventory;
+				for (int k = 0; k < 58; k++)
+				{
+					item = array[k];
 					if (item.stack > 0)
 					{
-						if (!nums.ContainsKey(item.netID))
+						if (dictionary.ContainsKey(item.netID))
 						{
-							nums[item.netID] = item.stack;
+							Dictionary<int, int> dictionary2;
+							int netID;
+							(dictionary2 = dictionary)[netID = item.netID] = dictionary2[netID] + item.stack;
 						}
 						else
 						{
-							Dictionary<int, int> item1 = nums;
-							Dictionary<int, int> nums1 = item1;
-							int num1 = item.netID;
-							int num2 = num1;
-							item1[num1] = nums1[num2] + item.stack;
+							dictionary[item.netID] = item.stack;
 						}
 					}
 				}
@@ -214,150 +395,104 @@ namespace Terraria
 				{
 					if (Main.player[Main.myPlayer].chest > -1)
 					{
-						itemArray = Main.chest[Main.player[Main.myPlayer].chest].item;
+						array = Main.chest[Main.player[Main.myPlayer].chest].item;
 					}
 					else if (Main.player[Main.myPlayer].chest == -2)
 					{
-						itemArray = Main.player[Main.myPlayer].bank.item;
+						array = Main.player[Main.myPlayer].bank.item;
 					}
 					else if (Main.player[Main.myPlayer].chest == -3)
 					{
-						itemArray = Main.player[Main.myPlayer].bank2.item;
+						array = Main.player[Main.myPlayer].bank2.item;
 					}
-					for (int k = 0; k < 40; k++)
+					for (int l = 0; l < 40; l++)
 					{
-						item = itemArray[k];
+						item = array[l];
 						if (item.stack > 0)
 						{
-							if (!nums.ContainsKey(item.netID))
+							if (dictionary.ContainsKey(item.netID))
 							{
-								nums[item.netID] = item.stack;
+								Dictionary<int, int> dictionary3;
+								int netID2;
+								(dictionary3 = dictionary)[netID2 = item.netID] = dictionary3[netID2] + item.stack;
 							}
 							else
 							{
-								Dictionary<int, int> item2 = nums;
-								Dictionary<int, int> nums2 = item2;
-								int num3 = item.netID;
-								int num4 = num3;
-								item2[num3] = nums2[num4] + item.stack;
+								dictionary[item.netID] = item.stack;
 							}
 						}
 					}
 				}
-				for (int l = 0; l < Recipe.maxRecipes && Main.recipe[l].createItem.type != 0; l++)
+				int num4 = 0;
+				while (num4 < Recipe.maxRecipes && Main.recipe[num4].createItem.type != 0)
 				{
-					bool flag1 = true;
-					if (flag1)
+					bool flag2 = true;
+					if (flag2)
 					{
 						int num5 = 0;
-						while (num5 < Recipe.maxRequirements && Main.recipe[l].requiredTile[num5] != -1)
+						while (num5 < Recipe.maxRequirements && Main.recipe[num4].requiredTile[num5] != -1)
 						{
-							if (Main.player[Main.myPlayer].adjTile[Main.recipe[l].requiredTile[num5]])
+							if (!Main.player[Main.myPlayer].adjTile[Main.recipe[num4].requiredTile[num5]])
 							{
-								num5++;
-							}
-							else
-							{
-								flag1 = false;
+								flag2 = false;
 								break;
 							}
+							num5++;
 						}
 					}
-					if (flag1)
+					if (flag2)
 					{
-						int num6 = 0;
-						while (num6 < Recipe.maxRequirements)
+						for (int m = 0; m < Recipe.maxRequirements; m++)
 						{
-							item = Main.recipe[l].requiredItem[num6];
+							item = Main.recipe[num4].requiredItem[m];
 							if (item.type == 0)
 							{
 								break;
 							}
-							int item3 = item.stack;
-							bool flag2 = false;
-							foreach (int key in nums.Keys)
+							int num6 = item.stack;
+							bool flag3 = false;
+							foreach (int current in dictionary.Keys)
 							{
-								if (!Main.recipe[l].useWood(key, item.type) && !Main.recipe[l].useSand(key, item.type) && !Main.recipe[l].useIronBar(key, item.type) && !Main.recipe[l].useFragment(key, item.type) && !Main.recipe[l].usePressurePlate(key, item.type))
+								if (Main.recipe[num4].useWood(current, item.type) || Main.recipe[num4].useSand(current, item.type) || Main.recipe[num4].useIronBar(current, item.type) || Main.recipe[num4].useFragment(current, item.type) || Main.recipe[num4].AcceptedByItemGroups(current, item.type) || Main.recipe[num4].usePressurePlate(current, item.type))
 								{
-									continue;
+									num6 -= dictionary[current];
+									flag3 = true;
 								}
-								item3 = item3 - nums[key];
-								flag2 = true;
 							}
-							if (!flag2 && nums.ContainsKey(item.netID))
+							if (!flag3 && dictionary.ContainsKey(item.netID))
 							{
-								item3 = item3 - nums[item.netID];
+								num6 -= dictionary[item.netID];
 							}
-							if (item3 <= 0)
+							if (num6 > 0)
 							{
-								num6++;
-							}
-							else
-							{
-								flag1 = false;
+								flag2 = false;
 								break;
 							}
 						}
 					}
-					if (flag1)
+					if (flag2)
 					{
-						if (!Main.recipe[l].needWater)
+						bool flag4 = !Main.recipe[num4].needWater || Main.player[Main.myPlayer].adjWater || Main.player[Main.myPlayer].adjTile[172];
+						bool flag5 = !Main.recipe[num4].needHoney || Main.recipe[num4].needHoney == Main.player[Main.myPlayer].adjHoney;
+						bool flag6 = !Main.recipe[num4].needLava || Main.recipe[num4].needLava == Main.player[Main.myPlayer].adjLava;
+						if (!flag4 || !flag5 || !flag6)
 						{
-							flag = true;
-						}
-						else
-						{
-							flag = (Main.player[Main.myPlayer].adjWater ? true : Main.player[Main.myPlayer].adjTile[172]);
-						}
-						bool flag3 = flag;
-						bool flag4 = (!Main.recipe[l].needHoney ? true : Main.recipe[l].needHoney == Main.player[Main.myPlayer].adjHoney);
-						if (!flag3 || !flag4 || (!Main.recipe[l].needLava ? false : Main.recipe[l].needLava != Main.player[Main.myPlayer].adjLava))
-						{
-							flag1 = false;
+							flag2 = false;
 						}
 					}
-					if (flag1)
+					if (flag2)
 					{
-						Main.availableRecipe[Main.numAvailableRecipes] = l;
-						Main.numAvailableRecipes = Main.numAvailableRecipes + 1;
+						Main.availableRecipe[Main.numAvailableRecipes] = num4;
+						Main.numAvailableRecipes++;
 					}
+					num4++;
 				}
 			}
-			else
+			for (int n = 0; n < Main.numAvailableRecipes; n++)
 			{
-				for (int m = 0; m < Recipe.maxRecipes; m++)
+				if (num == Main.availableRecipe[n])
 				{
-					if (Main.recipe[m].createItem.type == 0)
-					{
-						goto Label0;
-					}
-					int num7 = 0;
-					while (num7 < Recipe.maxRequirements && Main.recipe[m].requiredItem[num7].type != 0)
-					{
-						if (Main.guideItem.IsTheSameAs(Main.recipe[m].requiredItem[num7]) || Main.recipe[m].useWood(Main.guideItem.type, Main.recipe[m].requiredItem[num7].type) || Main.recipe[m].useSand(Main.guideItem.type, Main.recipe[m].requiredItem[num7].type) || Main.recipe[m].useIronBar(Main.guideItem.type, Main.recipe[m].requiredItem[num7].type) || Main.recipe[m].useFragment(Main.guideItem.type, Main.recipe[m].requiredItem[num7].type) || Main.recipe[m].usePressurePlate(Main.guideItem.type, Main.recipe[m].requiredItem[num7].type))
-						{
-							Main.availableRecipe[Main.numAvailableRecipes] = m;
-							Main.numAvailableRecipes = Main.numAvailableRecipes + 1;
-							break;
-						}
-						else
-						{
-							num7++;
-						}
-					}
-				}
-			}
-		Label0:
-			int num8 = 0;
-			while (num8 < Main.numAvailableRecipes)
-			{
-				if (num != Main.availableRecipe[num8])
-				{
-					num8++;
-				}
-				else
-				{
-					Main.focusRecipe = num8;
+					Main.focusRecipe = n;
 					break;
 				}
 			}
@@ -369,43 +504,78 @@ namespace Terraria
 			{
 				Main.focusRecipe = 0;
 			}
-			float single1 = Main.availableRecipeY[Main.focusRecipe] - single;
-			for (int n = 0; n < Recipe.maxRecipes; n++)
+			float num7 = Main.availableRecipeY[Main.focusRecipe] - num2;
+			for (int num8 = 0; num8 < Recipe.maxRecipes; num8++)
 			{
-				Main.availableRecipeY[n] = Main.availableRecipeY[n] - single1;
+				Main.availableRecipeY[num8] -= num7;
 			}
 		}
 
-		private static void PlatformReturn()
+		public static void SetupRecipeGroups()
 		{
-			int num = Recipe.numRecipes;
-			for (int i = 0; i < num; i++)
+			RecipeGroup rec = new RecipeGroup(() => Lang.misc[37] + " " + Main.npcName[74], new int[]
 			{
-				if (Main.recipe[i].createItem.createTile == 19 && Main.recipe[i].requiredItem[1].type == 0)
-				{
-					Recipe.newRecipe.createItem.SetDefaults(Main.recipe[i].requiredItem[0].type, false);
-					Recipe.newRecipe.createItem.stack = Main.recipe[i].requiredItem[0].stack;
-					Recipe.newRecipe.requiredItem[0].SetDefaults(Main.recipe[i].createItem.type, false);
-					Recipe.newRecipe.requiredItem[0].stack = Main.recipe[i].createItem.stack;
-					for (int j = 0; j < (int)Recipe.newRecipe.requiredTile.Length; j++)
-					{
-						Recipe.newRecipe.requiredTile[j] = Main.recipe[i].requiredTile[j];
-					}
-					Recipe.AddRecipe();
-					Recipe recipe = Main.recipe[Recipe.numRecipes - 1];
-					for (int k = Recipe.numRecipes - 2; k > i; k--)
-					{
-						Main.recipe[k + 1] = Main.recipe[k];
-					}
-					Main.recipe[i + 1] = recipe;
-				}
-			}
+				2015,
+				2016,
+				2017
+			});
+			RecipeGroupID.Birds = RecipeGroup.RegisterGroup("Birds", rec);
+			rec = new RecipeGroup(() => Lang.misc[37] + " " + Main.npcName[367], new int[]
+			{
+				2157,
+				2156
+			});
+			RecipeGroupID.Scorpions = RecipeGroup.RegisterGroup("Scorpions", rec);
+			rec = new RecipeGroup(() => Lang.misc[37] + " " + Main.npcName[299], new int[]
+			{
+				2018,
+				3563
+			});
+			RecipeGroupID.Squirrels = RecipeGroup.RegisterGroup("Squirrels", rec);
+			rec = new RecipeGroup(() => Lang.misc[37] + " " + Lang.misc[85], new int[]
+			{
+				3194,
+				3192,
+				3193
+			});
+			RecipeGroupID.Bugs = RecipeGroup.RegisterGroup("Bugs", rec);
+			rec = new RecipeGroup(() => Lang.misc[37] + " " + Lang.misc[86], new int[]
+			{
+				2123,
+				2122
+			});
+			RecipeGroupID.Ducks = RecipeGroup.RegisterGroup("Ducks", rec);
+			rec = new RecipeGroup(() => Lang.misc[37] + " " + Lang.misc[87], new int[]
+			{
+				1998,
+				2001,
+				1994,
+				1995,
+				1996,
+				1999,
+				1997,
+				2000
+			});
+			RecipeGroupID.Butterflies = RecipeGroup.RegisterGroup("Butterflies", rec);
+			rec = new RecipeGroup(() => Lang.misc[37] + " " + Lang.misc[88], new int[]
+			{
+				1992,
+				2004
+			});
+			RecipeGroupID.Fireflies = RecipeGroup.RegisterGroup("Fireflies", rec);
+			rec = new RecipeGroup(() => Lang.misc[37] + " " + Lang.misc[95], new int[]
+			{
+				2006,
+				2007
+			});
+			RecipeGroupID.Snails = RecipeGroup.RegisterGroup("Snails", rec);
 		}
 
 		public static void SetupRecipes()
 		{
-			int num = 5;
-			int num1 = 2;
+			int stack = 5;
+			int stack2 = 2;
+			Recipe.SetupRecipeGroups();
 			Recipe.newRecipe.createItem.SetDefaults(8, false);
 			Recipe.newRecipe.createItem.stack = 3;
 			Recipe.newRecipe.requiredItem[0].SetDefaults(23, false);
@@ -531,6 +701,20 @@ namespace Terraria
 			Recipe.newRecipe.requiredItem[0].SetDefaults(9, false);
 			Recipe.newRecipe.requiredItem[0].stack = 10;
 			Recipe.newRecipe.requiredItem[1].SetDefaults(3045, false);
+			Recipe.newRecipe.requiredItem[1].stack = 5;
+			Recipe.newRecipe.anyWood = true;
+			Recipe.AddRecipe();
+			Recipe.newRecipe.createItem.SetDefaults(3723, false);
+			Recipe.newRecipe.requiredItem[0].SetDefaults(9, false);
+			Recipe.newRecipe.requiredItem[0].stack = 10;
+			Recipe.newRecipe.requiredItem[1].SetDefaults(2274, false);
+			Recipe.newRecipe.requiredItem[1].stack = 5;
+			Recipe.newRecipe.anyWood = true;
+			Recipe.AddRecipe();
+			Recipe.newRecipe.createItem.SetDefaults(3724, false);
+			Recipe.newRecipe.requiredItem[0].SetDefaults(9, false);
+			Recipe.newRecipe.requiredItem[0].stack = 10;
+			Recipe.newRecipe.requiredItem[1].SetDefaults(3004, false);
 			Recipe.newRecipe.requiredItem[1].stack = 5;
 			Recipe.newRecipe.anyWood = true;
 			Recipe.AddRecipe();
@@ -1717,9 +1901,6 @@ namespace Terraria
 			Recipe.newRecipe.requiredItem[5].SetDefaults(178, false);
 			Recipe.newRecipe.requiredTile[0] = 18;
 			Recipe.AddRecipe();
-			int num2 = 0;
-			int num3 = 0;
-			int num4 = 0;
 			Recipe.newRecipe.createItem.SetDefaults(1970, false);
 			Recipe.newRecipe.createItem.stack = 20;
 			Recipe.newRecipe.requiredItem[0].SetDefaults(170, false);
@@ -1727,17 +1908,17 @@ namespace Terraria
 			Recipe.newRecipe.requiredItem[1].SetDefaults(181, false);
 			Recipe.newRecipe.requiredTile[0] = 18;
 			Recipe.AddRecipe();
-			num2 = 1970;
-			num3 = 2679;
-			num4 = 2680;
-			Recipe.newRecipe.createItem.SetDefaults(num3, false);
+			int type = 1970;
+			int type2 = 2679;
+			int type3 = 2680;
+			Recipe.newRecipe.createItem.SetDefaults(type2, false);
 			Recipe.newRecipe.createItem.stack = 4;
-			Recipe.newRecipe.requiredItem[0].SetDefaults(num2, false);
+			Recipe.newRecipe.requiredItem[0].SetDefaults(type, false);
 			Recipe.newRecipe.requiredTile[0] = 18;
 			Recipe.AddRecipe();
-			Recipe.newRecipe.createItem.SetDefaults(num4, false);
+			Recipe.newRecipe.createItem.SetDefaults(type3, false);
 			Recipe.newRecipe.createItem.stack = 4;
-			Recipe.newRecipe.requiredItem[0].SetDefaults(num2, false);
+			Recipe.newRecipe.requiredItem[0].SetDefaults(type, false);
 			Recipe.newRecipe.requiredTile[0] = 18;
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(1971, false);
@@ -1747,17 +1928,17 @@ namespace Terraria
 			Recipe.newRecipe.requiredItem[1].SetDefaults(180, false);
 			Recipe.newRecipe.requiredTile[0] = 18;
 			Recipe.AddRecipe();
-			num2 = 1971;
-			num3 = 2689;
-			num4 = 2690;
-			Recipe.newRecipe.createItem.SetDefaults(num3, false);
+			type = 1971;
+			type2 = 2689;
+			type3 = 2690;
+			Recipe.newRecipe.createItem.SetDefaults(type2, false);
 			Recipe.newRecipe.createItem.stack = 4;
-			Recipe.newRecipe.requiredItem[0].SetDefaults(num2, false);
+			Recipe.newRecipe.requiredItem[0].SetDefaults(type, false);
 			Recipe.newRecipe.requiredTile[0] = 18;
 			Recipe.AddRecipe();
-			Recipe.newRecipe.createItem.SetDefaults(num4, false);
+			Recipe.newRecipe.createItem.SetDefaults(type3, false);
 			Recipe.newRecipe.createItem.stack = 4;
-			Recipe.newRecipe.requiredItem[0].SetDefaults(num2, false);
+			Recipe.newRecipe.requiredItem[0].SetDefaults(type, false);
 			Recipe.newRecipe.requiredTile[0] = 18;
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(1972, false);
@@ -1767,17 +1948,17 @@ namespace Terraria
 			Recipe.newRecipe.requiredItem[1].SetDefaults(177, false);
 			Recipe.newRecipe.requiredTile[0] = 18;
 			Recipe.AddRecipe();
-			num2 = 1972;
-			num3 = 2687;
-			num4 = 2688;
-			Recipe.newRecipe.createItem.SetDefaults(num3, false);
+			type = 1972;
+			type2 = 2687;
+			type3 = 2688;
+			Recipe.newRecipe.createItem.SetDefaults(type2, false);
 			Recipe.newRecipe.createItem.stack = 4;
-			Recipe.newRecipe.requiredItem[0].SetDefaults(num2, false);
+			Recipe.newRecipe.requiredItem[0].SetDefaults(type, false);
 			Recipe.newRecipe.requiredTile[0] = 18;
 			Recipe.AddRecipe();
-			Recipe.newRecipe.createItem.SetDefaults(num4, false);
+			Recipe.newRecipe.createItem.SetDefaults(type3, false);
 			Recipe.newRecipe.createItem.stack = 4;
-			Recipe.newRecipe.requiredItem[0].SetDefaults(num2, false);
+			Recipe.newRecipe.requiredItem[0].SetDefaults(type, false);
 			Recipe.newRecipe.requiredTile[0] = 18;
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(1973, false);
@@ -1787,17 +1968,17 @@ namespace Terraria
 			Recipe.newRecipe.requiredItem[1].SetDefaults(179, false);
 			Recipe.newRecipe.requiredTile[0] = 18;
 			Recipe.AddRecipe();
-			num2 = 1973;
-			num3 = 2683;
-			num4 = 2684;
-			Recipe.newRecipe.createItem.SetDefaults(num3, false);
+			type = 1973;
+			type2 = 2683;
+			type3 = 2684;
+			Recipe.newRecipe.createItem.SetDefaults(type2, false);
 			Recipe.newRecipe.createItem.stack = 4;
-			Recipe.newRecipe.requiredItem[0].SetDefaults(num2, false);
+			Recipe.newRecipe.requiredItem[0].SetDefaults(type, false);
 			Recipe.newRecipe.requiredTile[0] = 18;
 			Recipe.AddRecipe();
-			Recipe.newRecipe.createItem.SetDefaults(num4, false);
+			Recipe.newRecipe.createItem.SetDefaults(type3, false);
 			Recipe.newRecipe.createItem.stack = 4;
-			Recipe.newRecipe.requiredItem[0].SetDefaults(num2, false);
+			Recipe.newRecipe.requiredItem[0].SetDefaults(type, false);
 			Recipe.newRecipe.requiredTile[0] = 18;
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(1974, false);
@@ -1807,17 +1988,17 @@ namespace Terraria
 			Recipe.newRecipe.requiredItem[1].SetDefaults(178, false);
 			Recipe.newRecipe.requiredTile[0] = 18;
 			Recipe.AddRecipe();
-			num2 = 1974;
-			num3 = 2685;
-			num4 = 2686;
-			Recipe.newRecipe.createItem.SetDefaults(num3, false);
+			type = 1974;
+			type2 = 2685;
+			type3 = 2686;
+			Recipe.newRecipe.createItem.SetDefaults(type2, false);
 			Recipe.newRecipe.createItem.stack = 4;
-			Recipe.newRecipe.requiredItem[0].SetDefaults(num2, false);
+			Recipe.newRecipe.requiredItem[0].SetDefaults(type, false);
 			Recipe.newRecipe.requiredTile[0] = 18;
 			Recipe.AddRecipe();
-			Recipe.newRecipe.createItem.SetDefaults(num4, false);
+			Recipe.newRecipe.createItem.SetDefaults(type3, false);
 			Recipe.newRecipe.createItem.stack = 4;
-			Recipe.newRecipe.requiredItem[0].SetDefaults(num2, false);
+			Recipe.newRecipe.requiredItem[0].SetDefaults(type, false);
 			Recipe.newRecipe.requiredTile[0] = 18;
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(1975, false);
@@ -1827,17 +2008,17 @@ namespace Terraria
 			Recipe.newRecipe.requiredItem[1].SetDefaults(182, false);
 			Recipe.newRecipe.requiredTile[0] = 18;
 			Recipe.AddRecipe();
-			num2 = 1975;
-			num3 = 2681;
-			num4 = 2682;
-			Recipe.newRecipe.createItem.SetDefaults(num3, false);
+			type = 1975;
+			type2 = 2681;
+			type3 = 2682;
+			Recipe.newRecipe.createItem.SetDefaults(type2, false);
 			Recipe.newRecipe.createItem.stack = 4;
-			Recipe.newRecipe.requiredItem[0].SetDefaults(num2, false);
+			Recipe.newRecipe.requiredItem[0].SetDefaults(type, false);
 			Recipe.newRecipe.requiredTile[0] = 18;
 			Recipe.AddRecipe();
-			Recipe.newRecipe.createItem.SetDefaults(num4, false);
+			Recipe.newRecipe.createItem.SetDefaults(type3, false);
 			Recipe.newRecipe.createItem.stack = 4;
-			Recipe.newRecipe.requiredItem[0].SetDefaults(num2, false);
+			Recipe.newRecipe.requiredItem[0].SetDefaults(type, false);
 			Recipe.newRecipe.requiredTile[0] = 18;
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(1976, false);
@@ -1847,17 +2028,17 @@ namespace Terraria
 			Recipe.newRecipe.requiredItem[1].SetDefaults(999, false);
 			Recipe.newRecipe.requiredTile[0] = 18;
 			Recipe.AddRecipe();
-			num2 = 1976;
-			num3 = 2677;
-			num4 = 2678;
-			Recipe.newRecipe.createItem.SetDefaults(num3, false);
+			type = 1976;
+			type2 = 2677;
+			type3 = 2678;
+			Recipe.newRecipe.createItem.SetDefaults(type2, false);
 			Recipe.newRecipe.createItem.stack = 4;
-			Recipe.newRecipe.requiredItem[0].SetDefaults(num2, false);
+			Recipe.newRecipe.requiredItem[0].SetDefaults(type, false);
 			Recipe.newRecipe.requiredTile[0] = 18;
 			Recipe.AddRecipe();
-			Recipe.newRecipe.createItem.SetDefaults(num4, false);
+			Recipe.newRecipe.createItem.SetDefaults(type3, false);
 			Recipe.newRecipe.createItem.stack = 4;
-			Recipe.newRecipe.requiredItem[0].SetDefaults(num2, false);
+			Recipe.newRecipe.requiredItem[0].SetDefaults(type, false);
 			Recipe.newRecipe.requiredTile[0] = 18;
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(2119, false);
@@ -2580,9 +2761,9 @@ namespace Terraria
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(2527, false);
 			Recipe.newRecipe.requiredItem[0].SetDefaults(2504, false);
-			Recipe.newRecipe.requiredItem[0].stack = num;
+			Recipe.newRecipe.requiredItem[0].stack = stack;
 			Recipe.newRecipe.requiredItem[1].SetDefaults(225, false);
-			Recipe.newRecipe.requiredItem[1].stack = num1;
+			Recipe.newRecipe.requiredItem[1].stack = stack2;
 			Recipe.newRecipe.requiredTile[0] = 106;
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(2850, false);
@@ -2695,9 +2876,9 @@ namespace Terraria
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(858, false);
 			Recipe.newRecipe.requiredItem[0].SetDefaults(2503, false);
-			Recipe.newRecipe.requiredItem[0].stack = num;
+			Recipe.newRecipe.requiredItem[0].stack = stack;
 			Recipe.newRecipe.requiredItem[1].SetDefaults(225, false);
-			Recipe.newRecipe.requiredItem[1].stack = num1;
+			Recipe.newRecipe.requiredItem[1].stack = stack2;
 			Recipe.newRecipe.requiredTile[0] = 106;
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(2852, false);
@@ -2825,9 +3006,9 @@ namespace Terraria
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults("Rich Mahogany Sofa");
 			Recipe.newRecipe.requiredItem[0].SetDefaults(620, false);
-			Recipe.newRecipe.requiredItem[0].stack = num;
+			Recipe.newRecipe.requiredItem[0].stack = stack;
 			Recipe.newRecipe.requiredItem[1].SetDefaults(225, false);
-			Recipe.newRecipe.requiredItem[1].stack = num1;
+			Recipe.newRecipe.requiredItem[1].stack = stack2;
 			Recipe.newRecipe.requiredTile[0] = 106;
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(650, false);
@@ -2940,9 +3121,9 @@ namespace Terraria
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults("Ebonwood Sofa");
 			Recipe.newRecipe.requiredItem[0].SetDefaults(619, false);
-			Recipe.newRecipe.requiredItem[0].stack = num;
+			Recipe.newRecipe.requiredItem[0].stack = stack;
 			Recipe.newRecipe.requiredItem[1].SetDefaults(225, false);
-			Recipe.newRecipe.requiredItem[1].stack = num1;
+			Recipe.newRecipe.requiredItem[1].stack = stack2;
 			Recipe.newRecipe.requiredTile[0] = 106;
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(2604, false);
@@ -3055,9 +3236,9 @@ namespace Terraria
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults("Shadewood Sofa");
 			Recipe.newRecipe.requiredItem[0].SetDefaults(911, false);
-			Recipe.newRecipe.requiredItem[0].stack = num;
+			Recipe.newRecipe.requiredItem[0].stack = stack;
 			Recipe.newRecipe.requiredItem[1].SetDefaults(225, false);
-			Recipe.newRecipe.requiredItem[1].stack = num1;
+			Recipe.newRecipe.requiredItem[1].stack = stack2;
 			Recipe.newRecipe.requiredTile[0] = 106;
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(2602, false);
@@ -3170,9 +3351,9 @@ namespace Terraria
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults("Pearlwood Sofa");
 			Recipe.newRecipe.requiredItem[0].SetDefaults(621, false);
-			Recipe.newRecipe.requiredItem[0].stack = num;
+			Recipe.newRecipe.requiredItem[0].stack = stack;
 			Recipe.newRecipe.requiredItem[1].SetDefaults(225, false);
-			Recipe.newRecipe.requiredItem[1].stack = num1;
+			Recipe.newRecipe.requiredItem[1].stack = stack2;
 			Recipe.newRecipe.requiredTile[0] = 106;
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(2537, false);
@@ -3275,9 +3456,9 @@ namespace Terraria
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(2413, false);
 			Recipe.newRecipe.requiredItem[0].SetDefaults(183, false);
-			Recipe.newRecipe.requiredItem[0].stack = num;
+			Recipe.newRecipe.requiredItem[0].stack = stack;
 			Recipe.newRecipe.requiredItem[1].SetDefaults(225, false);
-			Recipe.newRecipe.requiredItem[1].stack = num1;
+			Recipe.newRecipe.requiredItem[1].stack = stack2;
 			Recipe.newRecipe.requiredTile[0] = 106;
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(2851, false);
@@ -3390,9 +3571,9 @@ namespace Terraria
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(2582, false);
 			Recipe.newRecipe.requiredItem[0].SetDefaults(762, false);
-			Recipe.newRecipe.requiredItem[0].stack = num;
+			Recipe.newRecipe.requiredItem[0].stack = stack;
 			Recipe.newRecipe.requiredItem[1].SetDefaults(225, false);
-			Recipe.newRecipe.requiredItem[1].stack = num1;
+			Recipe.newRecipe.requiredItem[1].stack = stack2;
 			Recipe.newRecipe.requiredTile[0] = 220;
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(2853, false);
@@ -3505,9 +3686,9 @@ namespace Terraria
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(3150, false);
 			Recipe.newRecipe.requiredItem[0].SetDefaults(3100, false);
-			Recipe.newRecipe.requiredItem[0].stack = num;
+			Recipe.newRecipe.requiredItem[0].stack = stack;
 			Recipe.newRecipe.requiredItem[1].SetDefaults(225, false);
-			Recipe.newRecipe.requiredItem[1].stack = num1;
+			Recipe.newRecipe.requiredItem[1].stack = stack2;
 			Recipe.newRecipe.requiredTile[0] = 106;
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(3147, false);
@@ -3634,9 +3815,9 @@ namespace Terraria
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(3151, false);
 			Recipe.newRecipe.requiredItem[0].SetDefaults(3066, false);
-			Recipe.newRecipe.requiredItem[0].stack = num;
+			Recipe.newRecipe.requiredItem[0].stack = stack;
 			Recipe.newRecipe.requiredItem[1].SetDefaults(225, false);
-			Recipe.newRecipe.requiredItem[1].stack = num1;
+			Recipe.newRecipe.requiredItem[1].stack = stack2;
 			Recipe.newRecipe.requiredTile[0] = 106;
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(3148, false);
@@ -3763,9 +3944,9 @@ namespace Terraria
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(3152, false);
 			Recipe.newRecipe.requiredItem[0].SetDefaults(3087, false);
-			Recipe.newRecipe.requiredItem[0].stack = num;
+			Recipe.newRecipe.requiredItem[0].stack = stack;
 			Recipe.newRecipe.requiredItem[1].SetDefaults(225, false);
-			Recipe.newRecipe.requiredItem[1].stack = num1;
+			Recipe.newRecipe.requiredItem[1].stack = stack2;
 			Recipe.newRecipe.requiredTile[0] = 106;
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(3149, false);
@@ -3878,9 +4059,9 @@ namespace Terraria
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(2823, false);
 			Recipe.newRecipe.requiredItem[0].SetDefaults(2860, false);
-			Recipe.newRecipe.requiredItem[0].stack = num;
+			Recipe.newRecipe.requiredItem[0].stack = stack;
 			Recipe.newRecipe.requiredItem[1].SetDefaults(225, false);
-			Recipe.newRecipe.requiredItem[1].stack = num1;
+			Recipe.newRecipe.requiredItem[1].stack = stack2;
 			Recipe.newRecipe.requiredTile[0] = 106;
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(2855, false);
@@ -3958,6 +4139,15 @@ namespace Terraria
 			Recipe.newRecipe.requiredItem[0].stack = 1;
 			Recipe.newRecipe.requiredTile[0] = 16;
 			Recipe.AddRecipe();
+			for (int i = 3665; i <= 3704; i++)
+			{
+				Recipe.newRecipe.createItem.SetDefaults(i, false);
+				//Recipe.newRecipe.requiredItem[0].SetDefaults(ItemID.Sets.TextureCopyLoad[i], false);
+				Recipe.newRecipe.requiredItem[1].SetDefaults(530, false);
+				Recipe.newRecipe.requiredItem[1].stack = 10;
+				Recipe.newRecipe.requiredTile[0] = 283;
+				Recipe.AddRecipe();
+			}
 			Recipe.newRecipe.createItem.SetDefaults(2340, false);
 			Recipe.newRecipe.createItem.stack = 50;
 			Recipe.newRecipe.requiredItem[0].SetDefaults(22, false);
@@ -4055,9 +4245,9 @@ namespace Terraria
 			Recipe.newRecipe.requiredTile[0] = 106;
 			Recipe.newRecipe.anyWood = true;
 			Recipe.AddRecipe();
-			for (int i = 2114; i <= 2118; i++)
+			for (int j = 2114; j <= 2118; j++)
 			{
-				Recipe.newRecipe.createItem.SetDefaults(i, false);
+				Recipe.newRecipe.createItem.SetDefaults(j, false);
 				Recipe.newRecipe.requiredItem[0].SetDefaults(9, false);
 				Recipe.newRecipe.requiredItem[0].stack = 12;
 				Recipe.newRecipe.requiredItem[1].SetDefaults(22, false);
@@ -4093,9 +4283,9 @@ namespace Terraria
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(2397, false);
 			Recipe.newRecipe.requiredItem[0].SetDefaults(9, false);
-			Recipe.newRecipe.requiredItem[0].stack = num;
+			Recipe.newRecipe.requiredItem[0].stack = stack;
 			Recipe.newRecipe.requiredItem[1].SetDefaults(225, false);
-			Recipe.newRecipe.requiredItem[1].stack = num1;
+			Recipe.newRecipe.requiredItem[1].stack = stack2;
 			Recipe.newRecipe.requiredTile[0] = 106;
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(363, false);
@@ -4564,9 +4754,9 @@ namespace Terraria
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(2636, false);
 			Recipe.newRecipe.requiredItem[0].SetDefaults(9, false);
-			Recipe.newRecipe.requiredItem[0].stack = num;
+			Recipe.newRecipe.requiredItem[0].stack = stack;
 			Recipe.newRecipe.requiredItem[1].SetDefaults(225, false);
-			Recipe.newRecipe.requiredItem[1].stack = num1;
+			Recipe.newRecipe.requiredItem[1].stack = stack2;
 			Recipe.newRecipe.requiredTile[0] = 304;
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(2633, false);
@@ -4683,9 +4873,9 @@ namespace Terraria
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults("Glass Sofa");
 			Recipe.newRecipe.requiredItem[0].SetDefaults(170, false);
-			Recipe.newRecipe.requiredItem[0].stack = num;
+			Recipe.newRecipe.requiredItem[0].stack = stack;
 			Recipe.newRecipe.requiredItem[1].SetDefaults(225, false);
-			Recipe.newRecipe.requiredItem[1].stack = num1;
+			Recipe.newRecipe.requiredItem[1].stack = stack2;
 			Recipe.newRecipe.requiredTile[0] = 302;
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(2632, false);
@@ -4813,9 +5003,9 @@ namespace Terraria
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults("Honey Sofa");
 			Recipe.newRecipe.requiredItem[0].SetDefaults(1125, false);
-			Recipe.newRecipe.requiredItem[0].stack = num;
+			Recipe.newRecipe.requiredItem[0].stack = stack;
 			Recipe.newRecipe.requiredItem[1].SetDefaults(225, false);
-			Recipe.newRecipe.requiredItem[1].stack = num1;
+			Recipe.newRecipe.requiredItem[1].stack = stack2;
 			Recipe.newRecipe.requiredTile[0] = 308;
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(1924, false);
@@ -4869,7 +5059,7 @@ namespace Terraria
 			Recipe.newRecipe.requiredItem[0].SetDefaults(824, false);
 			Recipe.newRecipe.requiredItem[0].stack = 6;
 			Recipe.newRecipe.requiredItem[1].SetDefaults(206, false);
-			Recipe.newRecipe.requiredTile[0] = 304;
+			Recipe.newRecipe.requiredTile[0] = 305;
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(830, false);
 			Recipe.newRecipe.requiredItem[0].SetDefaults(824, false);
@@ -4943,9 +5133,9 @@ namespace Terraria
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults("Skyware Sofa");
 			Recipe.newRecipe.requiredItem[0].SetDefaults(824, false);
-			Recipe.newRecipe.requiredItem[0].stack = num;
+			Recipe.newRecipe.requiredItem[0].stack = stack;
 			Recipe.newRecipe.requiredItem[1].SetDefaults(225, false);
-			Recipe.newRecipe.requiredItem[1].stack = num1;
+			Recipe.newRecipe.requiredItem[1].stack = stack2;
 			Recipe.newRecipe.requiredTile[0] = 305;
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(2631, false);
@@ -5051,9 +5241,9 @@ namespace Terraria
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults("Lihzahrd Sofa");
 			Recipe.newRecipe.requiredItem[0].SetDefaults(1101, false);
-			Recipe.newRecipe.requiredItem[0].stack = num;
+			Recipe.newRecipe.requiredItem[0].stack = stack;
 			Recipe.newRecipe.requiredItem[1].SetDefaults(225, false);
-			Recipe.newRecipe.requiredItem[1].stack = num1;
+			Recipe.newRecipe.requiredItem[1].stack = stack2;
 			Recipe.newRecipe.requiredTile[0] = 303;
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(2848, false);
@@ -5069,9 +5259,9 @@ namespace Terraria
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(2635, false);
 			Recipe.newRecipe.requiredItem[0].SetDefaults(664, false);
-			Recipe.newRecipe.requiredItem[0].stack = num;
+			Recipe.newRecipe.requiredItem[0].stack = stack;
 			Recipe.newRecipe.requiredItem[1].SetDefaults(225, false);
-			Recipe.newRecipe.requiredItem[1].stack = num1;
+			Recipe.newRecipe.requiredItem[1].stack = stack2;
 			Recipe.newRecipe.requiredTile[0] = 306;
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(2252, false);
@@ -5270,9 +5460,9 @@ namespace Terraria
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults("Steampunk Sofa");
 			Recipe.newRecipe.requiredItem[0].SetDefaults(1344, false);
-			Recipe.newRecipe.requiredItem[0].stack = num;
+			Recipe.newRecipe.requiredItem[0].stack = stack;
 			Recipe.newRecipe.requiredItem[1].SetDefaults(225, false);
-			Recipe.newRecipe.requiredItem[1].stack = num1;
+			Recipe.newRecipe.requiredItem[1].stack = stack2;
 			Recipe.newRecipe.requiredTile[0] = 307;
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(894, false);
@@ -5400,13 +5590,13 @@ namespace Terraria
 			Recipe.newRecipe.createItem.SetDefaults("Cactus Dresser");
 			Recipe.newRecipe.requiredItem[0].SetDefaults(276, false);
 			Recipe.newRecipe.requiredItem[0].stack = 16;
-			Recipe.newRecipe.requiredTile[0] = 18;
+			Recipe.newRecipe.requiredTile[0] = 106;
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults("Cactus Sofa");
 			Recipe.newRecipe.requiredItem[0].SetDefaults(276, false);
-			Recipe.newRecipe.requiredItem[0].stack = num;
+			Recipe.newRecipe.requiredItem[0].stack = stack;
 			Recipe.newRecipe.requiredItem[1].SetDefaults(225, false);
-			Recipe.newRecipe.requiredItem[1].stack = num1;
+			Recipe.newRecipe.requiredItem[1].stack = stack2;
 			Recipe.newRecipe.requiredTile[0] = 106;
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(2854, false);
@@ -5464,7 +5654,7 @@ namespace Terraria
 			Recipe.newRecipe.createItem.SetDefaults(2637, false);
 			Recipe.newRecipe.requiredItem[0].SetDefaults(1725, false);
 			Recipe.newRecipe.requiredItem[0].stack = 16;
-			Recipe.newRecipe.requiredTile[0] = 18;
+			Recipe.newRecipe.requiredTile[0] = 106;
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(1792, false);
 			Recipe.newRecipe.requiredItem[0].SetDefaults(1725, false);
@@ -5549,9 +5739,9 @@ namespace Terraria
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults("Pumpkin Sofa");
 			Recipe.newRecipe.requiredItem[0].SetDefaults(1725, false);
-			Recipe.newRecipe.requiredItem[0].stack = num;
+			Recipe.newRecipe.requiredItem[0].stack = stack;
 			Recipe.newRecipe.requiredItem[1].SetDefaults(225, false);
-			Recipe.newRecipe.requiredItem[1].stack = num1;
+			Recipe.newRecipe.requiredItem[1].stack = stack2;
 			Recipe.newRecipe.requiredTile[0] = 106;
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(1731, false);
@@ -5679,9 +5869,9 @@ namespace Terraria
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults("Spooky Sofa");
 			Recipe.newRecipe.requiredItem[0].SetDefaults(1729, false);
-			Recipe.newRecipe.requiredItem[0].stack = num;
+			Recipe.newRecipe.requiredItem[0].stack = stack;
 			Recipe.newRecipe.requiredItem[1].SetDefaults(225, false);
-			Recipe.newRecipe.requiredItem[1].stack = num1;
+			Recipe.newRecipe.requiredItem[1].stack = stack2;
 			Recipe.newRecipe.requiredTile[0] = 106;
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(763, false);
@@ -5805,9 +5995,9 @@ namespace Terraria
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(2634, false);
 			Recipe.newRecipe.requiredItem[0].SetDefaults(763, false);
-			Recipe.newRecipe.requiredItem[0].stack = num;
+			Recipe.newRecipe.requiredItem[0].stack = stack;
 			Recipe.newRecipe.requiredItem[1].SetDefaults(225, false);
-			Recipe.newRecipe.requiredItem[1].stack = num1;
+			Recipe.newRecipe.requiredItem[1].stack = stack2;
 			Recipe.newRecipe.requiredTile[0] = 301;
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(762, false);
@@ -5941,9 +6131,9 @@ namespace Terraria
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults("Bone Sofa");
 			Recipe.newRecipe.requiredItem[0].SetDefaults(154, false);
-			Recipe.newRecipe.requiredItem[0].stack = num;
+			Recipe.newRecipe.requiredItem[0].stack = stack;
 			Recipe.newRecipe.requiredItem[1].SetDefaults(225, false);
-			Recipe.newRecipe.requiredItem[1].stack = num1;
+			Recipe.newRecipe.requiredItem[1].stack = stack2;
 			Recipe.newRecipe.requiredTile[0] = 300;
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(2618, false);
@@ -6206,12 +6396,12 @@ namespace Terraria
 			Recipe.newRecipe.requiredItem[0].SetDefaults(3306, false);
 			Recipe.newRecipe.requiredItem[1].SetDefaults(1066, false);
 			Recipe.AddRecipe();
-			for (int j = 3309; j <= 3314; j++)
+			for (int k = 3309; k <= 3314; k++)
 			{
 				Recipe.newRecipe.createItem.SetDefaults(3366, false);
 				Recipe.newRecipe.requiredItem[0].SetDefaults(3306, false);
 				Recipe.newRecipe.requiredItem[1].SetDefaults(3334, false);
-				Recipe.newRecipe.requiredItem[2].SetDefaults(j, false);
+				Recipe.newRecipe.requiredItem[2].SetDefaults(k, false);
 				Recipe.newRecipe.requiredTile[0] = 114;
 				Recipe.AddRecipe();
 			}
@@ -6278,11 +6468,116 @@ namespace Terraria
 			Recipe.newRecipe.requiredItem[0].stack = 50;
 			Recipe.newRecipe.requiredTile[0] = 18;
 			Recipe.AddRecipe();
-			for (int k = 0; k < 36; k++)
+			for (int l = 0; l < 36; l++)
 			{
-				Recipe.newRecipe.createItem.SetDefaults(2702 + k, false);
+				Recipe.newRecipe.createItem.SetDefaults(2702 + l, false);
 				Recipe.newRecipe.requiredItem[0].SetDefaults(3, false);
 				Recipe.newRecipe.requiredItem[0].stack = 50;
+				Recipe.newRecipe.requiredTile[0] = 283;
+				Recipe.AddRecipe();
+			}
+			int[,] array = new int[,]
+			{
+				{
+					444,
+					-1,
+					261
+				},
+				{
+					3653,
+					-1,
+					2002
+				},
+				{
+					3651,
+					0,
+					-1
+				},
+				{
+					3652,
+					0,
+					-1
+				},
+				{
+					3654,
+					0,
+					-1
+				},
+				{
+					3655,
+					0,
+					-1
+				},
+				{
+					3656,
+					0,
+					-1
+				},
+				{
+					3658,
+					-1,
+					2003
+				},
+				{
+					3659,
+					0,
+					-1
+				},
+				{
+					3660,
+					-1,
+					2205
+				},
+				{
+					3661,
+					-1,
+					2121
+				},
+				{
+					3662,
+					0,
+					-1
+				},
+				{
+					445,
+					-1,
+					2019
+				},
+				{
+					464,
+					0,
+					-1
+				}
+			};
+			array[2, 1] = RecipeGroupID.Squirrels;
+			array[3, 1] = RecipeGroupID.Butterflies;
+			array[4, 1] = RecipeGroupID.Fireflies;
+			array[5, 1] = RecipeGroupID.Scorpions;
+			array[6, 1] = RecipeGroupID.Snails;
+			array[8, 1] = RecipeGroupID.Ducks;
+			array[11, 1] = RecipeGroupID.Bugs;
+			array[13, 1] = RecipeGroupID.Birds;
+			int[,] array2 = array;
+			for (int m = 0; m < array2.GetLength(0); m++)
+			{
+				Recipe.newRecipe.createItem.SetDefaults(array2[m, 0], false);
+				int num = 0;
+				Recipe.newRecipe.requiredItem[num].SetDefaults(3, false);
+				Recipe.newRecipe.requiredItem[num].stack = 50;
+				int num2 = array2[m, 1];
+				if (num2 != -1)
+				{
+					RecipeGroup recipeGroup = RecipeGroup.recipeGroups[num2];
+					Recipe.newRecipe.requiredItem[++num].SetDefaults(recipeGroup.ValidItems[recipeGroup.IconicItemIndex], false);
+					Recipe.newRecipe.requiredItem[num].stack = 5;
+					Recipe.newRecipe.acceptedGroups.Add(num2);
+				}
+				int num3 = array2[m, 2];
+				if (num3 != -1)
+				{
+					Recipe.newRecipe.requiredItem[++num].SetDefaults(num3, false);
+					Recipe.newRecipe.requiredItem[num].stack = 5;
+				}
 				Recipe.newRecipe.requiredTile[0] = 283;
 				Recipe.AddRecipe();
 			}
@@ -7245,6 +7540,60 @@ namespace Terraria
 			Recipe.newRecipe.requiredItem[0].SetDefaults(182, false);
 			Recipe.newRecipe.requiredItem[0].stack = 15;
 			Recipe.newRecipe.requiredTile[0] = 16;
+			Recipe.AddRecipe();
+			Recipe.newRecipe.createItem.SetDefaults(3643, false);
+			Recipe.newRecipe.requiredItem[0].SetDefaults(999, false);
+			Recipe.newRecipe.requiredItem[0].stack = 15;
+			Recipe.newRecipe.requiredTile[0] = 16;
+			Recipe.AddRecipe();
+			Recipe.newRecipe.createItem.SetDefaults(3648, false);
+			Recipe.newRecipe.requiredItem[0].SetDefaults(181, false);
+			Recipe.newRecipe.requiredItem[0].stack = 5;
+			Recipe.newRecipe.requiredItem[1].SetDefaults(3, false);
+			Recipe.newRecipe.requiredItem[1].stack = 10;
+			Recipe.newRecipe.requiredTile[0] = 283;
+			Recipe.AddRecipe();
+			Recipe.newRecipe.createItem.SetDefaults(3647, false);
+			Recipe.newRecipe.requiredItem[0].SetDefaults(180, false);
+			Recipe.newRecipe.requiredItem[0].stack = 5;
+			Recipe.newRecipe.requiredItem[1].SetDefaults(3, false);
+			Recipe.newRecipe.requiredItem[1].stack = 10;
+			Recipe.newRecipe.requiredTile[0] = 283;
+			Recipe.AddRecipe();
+			Recipe.newRecipe.createItem.SetDefaults(3646, false);
+			Recipe.newRecipe.requiredItem[0].SetDefaults(179, false);
+			Recipe.newRecipe.requiredItem[0].stack = 5;
+			Recipe.newRecipe.requiredItem[1].SetDefaults(3, false);
+			Recipe.newRecipe.requiredItem[1].stack = 10;
+			Recipe.newRecipe.requiredTile[0] = 283;
+			Recipe.AddRecipe();
+			Recipe.newRecipe.createItem.SetDefaults(3645, false);
+			Recipe.newRecipe.requiredItem[0].SetDefaults(177, false);
+			Recipe.newRecipe.requiredItem[0].stack = 5;
+			Recipe.newRecipe.requiredItem[1].SetDefaults(3, false);
+			Recipe.newRecipe.requiredItem[1].stack = 10;
+			Recipe.newRecipe.requiredTile[0] = 283;
+			Recipe.AddRecipe();
+			Recipe.newRecipe.createItem.SetDefaults(3644, false);
+			Recipe.newRecipe.requiredItem[0].SetDefaults(178, false);
+			Recipe.newRecipe.requiredItem[0].stack = 5;
+			Recipe.newRecipe.requiredItem[1].SetDefaults(3, false);
+			Recipe.newRecipe.requiredItem[1].stack = 10;
+			Recipe.newRecipe.requiredTile[0] = 283;
+			Recipe.AddRecipe();
+			Recipe.newRecipe.createItem.SetDefaults(3649, false);
+			Recipe.newRecipe.requiredItem[0].SetDefaults(182, false);
+			Recipe.newRecipe.requiredItem[0].stack = 5;
+			Recipe.newRecipe.requiredItem[1].SetDefaults(3, false);
+			Recipe.newRecipe.requiredItem[1].stack = 10;
+			Recipe.newRecipe.requiredTile[0] = 283;
+			Recipe.AddRecipe();
+			Recipe.newRecipe.createItem.SetDefaults(3650, false);
+			Recipe.newRecipe.requiredItem[0].SetDefaults(999, false);
+			Recipe.newRecipe.requiredItem[0].stack = 5;
+			Recipe.newRecipe.requiredItem[1].SetDefaults(3, false);
+			Recipe.newRecipe.requiredItem[1].stack = 10;
+			Recipe.newRecipe.requiredTile[0] = 283;
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(117, false);
 			Recipe.newRecipe.requiredItem[0].SetDefaults(116, false);
@@ -8827,10 +9176,10 @@ namespace Terraria
 			Recipe.newRecipe.requiredItem[0].stack = 1;
 			Recipe.newRecipe.requiredItem[1].SetDefaults(126, false);
 			Recipe.AddRecipe();
-			for (int l = 0; l < 8; l++)
+			for (int n = 0; n < 8; n++)
 			{
-				Recipe.newRecipe.createItem.SetDefaults(2178 + l, false);
-				Recipe.newRecipe.requiredItem[0].SetDefaults(1994 + l, false);
+				Recipe.newRecipe.createItem.SetDefaults(2178 + n, false);
+				Recipe.newRecipe.requiredItem[0].SetDefaults(1994 + n, false);
 				Recipe.newRecipe.requiredItem[0].stack = 1;
 				Recipe.newRecipe.requiredItem[1].SetDefaults(31, false);
 				Recipe.AddRecipe();
@@ -9714,6 +10063,12 @@ namespace Terraria
 			Recipe.newRecipe.requiredItem[3].SetDefaults(2217, false);
 			Recipe.newRecipe.requiredTile[0] = 114;
 			Recipe.AddRecipe();
+			Recipe.newRecipe.createItem.SetDefaults(3721, false);
+			Recipe.newRecipe.requiredItem[0].SetDefaults(2373, false);
+			Recipe.newRecipe.requiredItem[1].SetDefaults(2375, false);
+			Recipe.newRecipe.requiredItem[2].SetDefaults(2374, false);
+			Recipe.newRecipe.requiredTile[0] = 114;
+			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(901, false);
 			Recipe.newRecipe.requiredItem[0].SetDefaults(886, false);
 			Recipe.newRecipe.requiredItem[1].SetDefaults(892, false);
@@ -9845,6 +10200,32 @@ namespace Terraria
 			Recipe.newRecipe.requiredItem[0].SetDefaults(75, false);
 			Recipe.newRecipe.requiredItem[0].stack = 3;
 			Recipe.AddRecipe();
+			Recipe.newRecipe.createItem.SetDefaults(3625, false);
+			Recipe.newRecipe.requiredItem[0].SetDefaults(509, false);
+			Recipe.newRecipe.requiredItem[1].SetDefaults(851, false);
+			Recipe.newRecipe.requiredItem[2].SetDefaults(850, false);
+			Recipe.newRecipe.requiredItem[3].SetDefaults(3612, false);
+			Recipe.newRecipe.requiredItem[4].SetDefaults(510, false);
+			Recipe.newRecipe.requiredTile[0] = 114;
+			Recipe.AddRecipe();
+			Recipe.newRecipe.createItem.SetDefaults(3611, false);
+			Recipe.newRecipe.requiredItem[0].SetDefaults(3625, false);
+			Recipe.newRecipe.requiredItem[1].SetDefaults(3619, false);
+			Recipe.newRecipe.requiredItem[2].SetDefaults(486, false);
+			Recipe.newRecipe.requiredItem[3].SetDefaults(530, false);
+			Recipe.newRecipe.requiredItem[3].stack = 60;
+			Recipe.newRecipe.requiredTile[0] = 114;
+			Recipe.AddRecipe();
+			Recipe.newRecipe.createItem.SetDefaults(3620, false);
+			Recipe.newRecipe.requiredItem[0].SetDefaults(849, false);
+			Recipe.newRecipe.requiredItem[0].stack = 50;
+			Recipe.newRecipe.requiredItem[1].SetDefaults(22, false);
+			Recipe.newRecipe.requiredItem[1].stack = 10;
+			Recipe.newRecipe.requiredItem[2].SetDefaults(530, false);
+			Recipe.newRecipe.requiredItem[2].stack = 10;
+			Recipe.newRecipe.requiredTile[0] = 16;
+			Recipe.newRecipe.anyIronBar = true;
+			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(511, false);
 			Recipe.newRecipe.requiredItem[0].SetDefaults(3, false);
 			Recipe.newRecipe.requiredItem[1].SetDefaults(530, false);
@@ -9854,10 +10235,14 @@ namespace Terraria
 			Recipe.newRecipe.requiredItem[0].stack = 4;
 			Recipe.newRecipe.requiredItem[1].SetDefaults(530, false);
 			Recipe.AddRecipe();
-			Recipe.newRecipe.createItem.SetDefaults(580, false);
-			Recipe.newRecipe.requiredItem[0].SetDefaults(167, false);
-			Recipe.newRecipe.requiredItem[0].stack = 3;
-			Recipe.newRecipe.requiredItem[1].SetDefaults(530, false);
+			Recipe.newRecipe.createItem.SetDefaults(3617, false);
+			Recipe.newRecipe.requiredItem[0].SetDefaults(171, false);
+			Recipe.newRecipe.requiredItem[1].SetDefaults(22, false);
+			Recipe.newRecipe.requiredItem[1].stack = 4;
+			Recipe.newRecipe.requiredItem[2].SetDefaults(530, false);
+			Recipe.newRecipe.requiredItem[2].stack = 4;
+			Recipe.newRecipe.requiredTile[0] = 16;
+			Recipe.newRecipe.anyIronBar = true;
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(581, false);
 			Recipe.newRecipe.requiredItem[0].SetDefaults(22, false);
@@ -9911,6 +10296,125 @@ namespace Terraria
 			Recipe.newRecipe.requiredItem[1].stack = 1;
 			Recipe.newRecipe.requiredTile[0] = 16;
 			Recipe.AddRecipe();
+			Recipe.newRecipe.createItem.SetDefaults(3632, false);
+			Recipe.newRecipe.requiredItem[0].SetDefaults(542, false);
+			Recipe.newRecipe.requiredItem[1].SetDefaults(22, false);
+			Recipe.newRecipe.requiredItem[1].stack = 2;
+			Recipe.newRecipe.requiredItem[2].SetDefaults(530, false);
+			Recipe.newRecipe.requiredItem[2].stack = 1;
+			Recipe.newRecipe.requiredTile[0] = 114;
+			Recipe.newRecipe.anyIronBar = true;
+			Recipe.newRecipe.anyPressurePlate = true;
+			Recipe.AddRecipe();
+			Recipe.newRecipe.createItem.SetDefaults(3630, false);
+			Recipe.newRecipe.requiredItem[0].SetDefaults(542, false);
+			Recipe.newRecipe.requiredItem[1].SetDefaults(22, false);
+			Recipe.newRecipe.requiredItem[1].stack = 2;
+			Recipe.newRecipe.requiredItem[2].SetDefaults(530, false);
+			Recipe.newRecipe.requiredItem[2].stack = 1;
+			Recipe.newRecipe.requiredTile[0] = 114;
+			Recipe.newRecipe.anyIronBar = true;
+			Recipe.newRecipe.anyPressurePlate = true;
+			Recipe.AddRecipe();
+			Recipe.newRecipe.createItem.SetDefaults(3626, false);
+			Recipe.newRecipe.requiredItem[0].SetDefaults(542, false);
+			Recipe.newRecipe.requiredItem[1].SetDefaults(22, false);
+			Recipe.newRecipe.requiredItem[1].stack = 2;
+			Recipe.newRecipe.requiredItem[2].SetDefaults(530, false);
+			Recipe.newRecipe.requiredItem[2].stack = 1;
+			Recipe.newRecipe.requiredTile[0] = 114;
+			Recipe.newRecipe.anyIronBar = true;
+			Recipe.newRecipe.anyPressurePlate = true;
+			Recipe.AddRecipe();
+			Recipe.newRecipe.createItem.SetDefaults(3631, false);
+			Recipe.newRecipe.requiredItem[0].SetDefaults(542, false);
+			Recipe.newRecipe.requiredItem[1].SetDefaults(22, false);
+			Recipe.newRecipe.requiredItem[1].stack = 2;
+			Recipe.newRecipe.requiredItem[2].SetDefaults(530, false);
+			Recipe.newRecipe.requiredItem[2].stack = 1;
+			Recipe.newRecipe.requiredTile[0] = 114;
+			Recipe.newRecipe.anyIronBar = true;
+			Recipe.newRecipe.anyPressurePlate = true;
+			Recipe.AddRecipe();
+			Recipe.newRecipe.createItem.SetDefaults(3613, false);
+			Recipe.newRecipe.requiredItem[0].SetDefaults(520, false);
+			Recipe.newRecipe.requiredItem[0].stack = 5;
+			Recipe.newRecipe.requiredItem[1].SetDefaults(22, false);
+			Recipe.newRecipe.requiredItem[1].stack = 1;
+			Recipe.newRecipe.requiredItem[2].SetDefaults(530, false);
+			Recipe.newRecipe.requiredItem[2].stack = 1;
+			Recipe.newRecipe.requiredTile[0] = 134;
+			Recipe.newRecipe.anyIronBar = true;
+			Recipe.AddRecipe();
+			Recipe.newRecipe.createItem.SetDefaults(3614, false);
+			Recipe.newRecipe.requiredItem[0].SetDefaults(521, false);
+			Recipe.newRecipe.requiredItem[0].stack = 5;
+			Recipe.newRecipe.requiredItem[1].SetDefaults(22, false);
+			Recipe.newRecipe.requiredItem[1].stack = 1;
+			Recipe.newRecipe.requiredItem[2].SetDefaults(530, false);
+			Recipe.newRecipe.requiredItem[2].stack = 1;
+			Recipe.newRecipe.requiredTile[0] = 134;
+			Recipe.newRecipe.anyIronBar = true;
+			Recipe.AddRecipe();
+			Recipe.newRecipe.createItem.SetDefaults(3615, false);
+			Recipe.newRecipe.requiredItem[0].SetDefaults(549, false);
+			Recipe.newRecipe.requiredItem[0].stack = 1;
+			Recipe.newRecipe.requiredItem[1].SetDefaults(22, false);
+			Recipe.newRecipe.requiredItem[1].stack = 1;
+			Recipe.newRecipe.requiredItem[2].SetDefaults(530, false);
+			Recipe.newRecipe.requiredItem[2].stack = 1;
+			Recipe.newRecipe.requiredTile[0] = 134;
+			Recipe.newRecipe.anyIronBar = true;
+			Recipe.AddRecipe();
+			Recipe.newRecipe.createItem.SetDefaults(3726, false);
+			Recipe.newRecipe.requiredItem[0].SetDefaults(1344, false);
+			Recipe.newRecipe.requiredItem[0].stack = 5;
+			Recipe.newRecipe.requiredItem[1].SetDefaults(3182, false);
+			Recipe.newRecipe.requiredItem[1].stack = 1;
+			Recipe.newRecipe.requiredItem[2].SetDefaults(530, false);
+			Recipe.newRecipe.requiredItem[2].stack = 1;
+			Recipe.newRecipe.requiredTile[0] = 134;
+			Recipe.newRecipe.anyIronBar = true;
+			Recipe.AddRecipe();
+			Recipe.newRecipe.createItem.SetDefaults(3727, false);
+			Recipe.newRecipe.requiredItem[0].SetDefaults(1344, false);
+			Recipe.newRecipe.requiredItem[0].stack = 5;
+			Recipe.newRecipe.requiredItem[1].SetDefaults(3184, false);
+			Recipe.newRecipe.requiredItem[1].stack = 1;
+			Recipe.newRecipe.requiredItem[2].SetDefaults(530, false);
+			Recipe.newRecipe.requiredItem[2].stack = 1;
+			Recipe.newRecipe.requiredTile[0] = 134;
+			Recipe.newRecipe.anyIronBar = true;
+			Recipe.AddRecipe();
+			Recipe.newRecipe.createItem.SetDefaults(3728, false);
+			Recipe.newRecipe.requiredItem[0].SetDefaults(1344, false);
+			Recipe.newRecipe.requiredItem[0].stack = 5;
+			Recipe.newRecipe.requiredItem[1].SetDefaults(3185, false);
+			Recipe.newRecipe.requiredItem[1].stack = 1;
+			Recipe.newRecipe.requiredItem[2].SetDefaults(530, false);
+			Recipe.newRecipe.requiredItem[2].stack = 1;
+			Recipe.newRecipe.requiredTile[0] = 134;
+			Recipe.newRecipe.anyIronBar = true;
+			Recipe.AddRecipe();
+			Recipe.newRecipe.createItem.SetDefaults(3729, false);
+			Recipe.newRecipe.requiredItem[0].SetDefaults(1344, false);
+			Recipe.newRecipe.requiredItem[0].stack = 5;
+			Recipe.newRecipe.requiredItem[1].SetDefaults(3182, false);
+			Recipe.newRecipe.requiredItem[1].stack = 1;
+			Recipe.newRecipe.requiredItem[2].SetDefaults(3184, false);
+			Recipe.newRecipe.requiredItem[2].stack = 1;
+			Recipe.newRecipe.requiredItem[3].SetDefaults(3185, false);
+			Recipe.newRecipe.requiredItem[3].stack = 1;
+			Recipe.newRecipe.requiredItem[4].SetDefaults(530, false);
+			Recipe.newRecipe.requiredItem[4].stack = 1;
+			Recipe.newRecipe.requiredTile[0] = 134;
+			Recipe.newRecipe.anyIronBar = true;
+			Recipe.AddRecipe();
+			Recipe.newRecipe.createItem.SetDefaults(580, false);
+			Recipe.newRecipe.requiredItem[0].SetDefaults(167, false);
+			Recipe.newRecipe.requiredItem[0].stack = 3;
+			Recipe.newRecipe.requiredItem[1].SetDefaults(530, false);
+			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(540, false);
 			Recipe.newRecipe.requiredItem[0].SetDefaults(3, false);
 			Recipe.newRecipe.requiredItem[0].stack = 6;
@@ -9944,8 +10448,10 @@ namespace Terraria
 			Recipe.newRecipe.requiredTile[0] = 26;
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(1331, false);
-			Recipe.newRecipe.requiredItem[0].SetDefaults(1330, false);
-			Recipe.newRecipe.requiredItem[0].stack = 15;
+			Recipe.newRecipe.requiredItem[0].SetDefaults(2886, false);
+			Recipe.newRecipe.requiredItem[0].stack = 30;
+			Recipe.newRecipe.requiredItem[1].SetDefaults(1330, false);
+			Recipe.newRecipe.requiredItem[1].stack = 15;
 			Recipe.newRecipe.requiredTile[0] = 26;
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(1133, false);
@@ -10033,6 +10539,17 @@ namespace Terraria
 			Recipe.newRecipe.requiredItem[0].stack = 8;
 			Recipe.newRecipe.requiredTile[0] = 134;
 			Recipe.AddRecipe();
+			Recipe.newRecipe.createItem.SetDefaults(3601, false);
+			Recipe.newRecipe.requiredItem[0].SetDefaults(3458, false);
+			Recipe.newRecipe.requiredItem[0].stack = 20;
+			Recipe.newRecipe.requiredItem[1].SetDefaults(3456, false);
+			Recipe.newRecipe.requiredItem[1].stack = 20;
+			Recipe.newRecipe.requiredItem[2].SetDefaults(3457, false);
+			Recipe.newRecipe.requiredItem[2].stack = 20;
+			Recipe.newRecipe.requiredItem[3].SetDefaults(3459, false);
+			Recipe.newRecipe.requiredItem[3].stack = 20;
+			Recipe.newRecipe.requiredTile[0] = 412;
+			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(71, false);
 			Recipe.newRecipe.createItem.stack = 100;
 			Recipe.newRecipe.requiredItem[0].SetDefaults(72, false);
@@ -10062,226 +10579,43 @@ namespace Terraria
 			Recipe.AddRecipe();
 			Recipe.WallReturn();
 			Recipe.PlatformReturn();
-			for (int m = 0; m < Recipe.numRecipes; m++)
+			for (int num4 = 0; num4 < Recipe.numRecipes; num4++)
 			{
-				for (int n = 0; Main.recipe[m].requiredItem[n].type > 0; n++)
+				int num5 = 0;
+				while (Main.recipe[num4].requiredItem[num5].type > 0)
 				{
-					Main.recipe[m].requiredItem[n].checkMat();
+					Main.recipe[num4].requiredItem[num5].checkMat();
+					num5++;
 				}
-				Main.recipe[m].createItem.checkMat();
+				Main.recipe[num4].createItem.checkMat();
 			}
-			int num5 = Recipe.numRecipes;
+			int arg_29008_0 = Recipe.numRecipes;
 		}
 
-		public bool useFragment(int invType, int reqType)
+		private static void PlatformReturn()
 		{
-			if (reqType != 3458 && reqType != 3456 && reqType != 3457 && reqType != 3459)
+			int num = Recipe.numRecipes;
+			for (int i = 0; i < num; i++)
 			{
-				return false;
-			}
-			if (this.anyFragment && (invType == 3458 || invType == 3456 || invType == 3457 || invType == 3459))
-			{
-				return true;
-			}
-			return false;
-		}
-
-		public bool useIronBar(int invType, int reqType)
-		{
-			if (!this.anyIronBar)
-			{
-				return false;
-			}
-			int num = reqType;
-			if (num != 22 && num != 704)
-			{
-				return false;
-			}
-			int num1 = invType;
-			if (num1 != 22 && num1 != 704)
-			{
-				return false;
-			}
-			return true;
-		}
-
-		public bool usePressurePlate(int invType, int reqType)
-		{
-			if (!this.anyPressurePlate)
-			{
-				return false;
-			}
-			int num = reqType;
-			if (num > 543)
-			{
-				switch (num)
+				if (Main.recipe[i].createItem.createTile >= 0 && TileID.Sets.Platforms[Main.recipe[i].createItem.createTile] && Main.recipe[i].requiredItem[1].type == 0)
 				{
-					case 852:
-					case 853:
+					Recipe.newRecipe.createItem.SetDefaults(Main.recipe[i].requiredItem[0].type, false);
+					Recipe.newRecipe.createItem.stack = Main.recipe[i].requiredItem[0].stack;
+					Recipe.newRecipe.requiredItem[0].SetDefaults(Main.recipe[i].createItem.type, false);
+					Recipe.newRecipe.requiredItem[0].stack = Main.recipe[i].createItem.stack;
+					for (int j = 0; j < Recipe.newRecipe.requiredTile.Length; j++)
 					{
-						break;
+						Recipe.newRecipe.requiredTile[j] = Main.recipe[i].requiredTile[j];
 					}
-					default:
+					Recipe.AddRecipe();
+					Recipe recipe = Main.recipe[Recipe.numRecipes - 1];
+					for (int k = Recipe.numRecipes - 2; k > i; k--)
 					{
-						if (num == 1151)
-						{
-							break;
-						}
-						else
-						{
-							return false;
-						}
+						Main.recipe[k + 1] = Main.recipe[k];
 					}
+					Main.recipe[i + 1] = recipe;
 				}
 			}
-			else if (num != 529)
-			{
-				switch (num)
-				{
-					case 541:
-					case 542:
-					case 543:
-					{
-						break;
-					}
-					default:
-					{
-						return false;
-					}
-				}
-			}
-			int num1 = invType;
-			if (num1 > 543)
-			{
-				switch (num1)
-				{
-					case 852:
-					case 853:
-					{
-						break;
-					}
-					default:
-					{
-						if (num1 == 1151)
-						{
-							break;
-						}
-						else
-						{
-							return false;
-						}
-					}
-				}
-			}
-			else if (num1 != 529)
-			{
-				switch (num1)
-				{
-					case 541:
-					case 542:
-					case 543:
-					{
-						break;
-					}
-					default:
-					{
-						return false;
-					}
-				}
-			}
-			return true;
-		}
-
-		public bool useSand(int invType, int reqType)
-		{
-			if (reqType != 169 && reqType != 408 && reqType != 1246 && reqType != 370 && reqType != 3272)
-			{
-				return false;
-			}
-			if (this.anySand && (invType == 169 || invType == 408 || invType == 1246 || invType == 370 || invType == 3272))
-			{
-				return true;
-			}
-			return false;
-		}
-
-		public bool useWood(int invType, int reqType)
-		{
-			if (!this.anyWood)
-			{
-				return false;
-			}
-			int num = reqType;
-			if (num <= 621)
-			{
-				if (num != 9)
-				{
-					switch (num)
-					{
-						case 619:
-						case 620:
-						case 621:
-						{
-							break;
-						}
-						default:
-						{
-							return false;
-						}
-					}
-				}
-			}
-			else if (num != 911 && num != 1729)
-			{
-				switch (num)
-				{
-					case 2503:
-					case 2504:
-					{
-						break;
-					}
-					default:
-					{
-						return false;
-					}
-				}
-			}
-			int num1 = invType;
-			if (num1 <= 621)
-			{
-				if (num1 != 9)
-				{
-					switch (num1)
-					{
-						case 619:
-						case 620:
-						case 621:
-						{
-							break;
-						}
-						default:
-						{
-							return false;
-						}
-					}
-				}
-			}
-			else if (num1 != 911 && num1 != 1729)
-			{
-				switch (num1)
-				{
-					case 2503:
-					case 2504:
-					{
-						break;
-					}
-					default:
-					{
-						return false;
-					}
-				}
-			}
-			return true;
 		}
 
 		private static void WallReturn()
@@ -10295,7 +10629,7 @@ namespace Terraria
 					Recipe.newRecipe.createItem.stack = Main.recipe[i].requiredItem[0].stack;
 					Recipe.newRecipe.requiredItem[0].SetDefaults(Main.recipe[i].createItem.type, false);
 					Recipe.newRecipe.requiredItem[0].stack = Main.recipe[i].createItem.stack;
-					for (int j = 0; j < (int)Recipe.newRecipe.requiredTile.Length; j++)
+					for (int j = 0; j < Recipe.newRecipe.requiredTile.Length; j++)
 					{
 						Recipe.newRecipe.requiredTile[j] = Main.recipe[i].requiredTile[j];
 					}
@@ -10308,6 +10642,17 @@ namespace Terraria
 					Main.recipe[i + 1] = recipe;
 				}
 			}
+		}
+
+		private static void AddRecipe()
+		{
+			if (Recipe.newRecipe.requiredTile[0] == 13)
+			{
+				Recipe.newRecipe.alchemy = true;
+			}
+			Main.recipe[Recipe.numRecipes] = Recipe.newRecipe;
+			Recipe.newRecipe = new Recipe();
+			Recipe.numRecipes++;
 		}
 	}
 }

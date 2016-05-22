@@ -538,22 +538,9 @@ namespace Terraria
 							{
 								if (Main.AnnouncementBoxRange == -1)
 								{
-									if (Main.netMode == 0)
-									{
-										Main.NewTextMultiline(Main.sign[num18].text, false, pink);
-										return;
-									}
 									if (Main.netMode == 2)
 									{
 										NetMessage.SendData(107, -1, -1, Main.sign[num18].text, (int)pink.R, (float)pink.G, (float)pink.B, 0f, 0, 0, 0);
-										return;
-									}
-								}
-								else if (Main.netMode == 0)
-								{
-									if (Main.player[Main.myPlayer].Distance(new Vector2((float)(num14 * 16 + 16), (float)(num15 * 16 + 16))) <= (float)Main.AnnouncementBoxRange)
-									{
-										Main.NewTextMultiline(Main.sign[num18].text, false, pink);
 										return;
 									}
 								}
