@@ -1,4 +1,4 @@
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -31,19 +31,19 @@ namespace Terraria
 	{
 		public const int offLimitBorderTiles = 40;
 
-		public const int maxItemTypes = 3602;
+		public const int maxItemTypes = 3730;
 
-		public const int maxProjectileTypes = 651;
+		public const int maxProjectileTypes = 656;
 
 		public const int maxNPCTypes = 540;
 
-		public const int maxTileSets = 419;
+		public const int maxTileSets = 446;
 
 		public const int maxWallTypes = 225;
 
-		public const int maxBuffTypes = 191;
+		public const int maxBuffTypes = 192;
 
-		public const int maxGlowMasks = 214;
+		public const int maxGlowMasks = 216;
 
 		public const int maxExtras = 69;
 
@@ -55,7 +55,7 @@ namespace Terraria
 
 		public const int numArmorBody = 195;
 
-		public const int numArmorLegs = 135;
+		public const int numArmorLegs = 138;
 
 		public const int numAccHandsOn = 19;
 
@@ -63,7 +63,7 @@ namespace Terraria
 
 		public const int numAccNeck = 9;
 
-		public const int numAccBack = 10;
+		public const int numAccBack = 11;
 
 		public const int numAccFront = 5;
 
@@ -434,6 +434,14 @@ namespace Terraria
 		public static long txMsg;
 
 		public static long rxMsg;
+
+		public static int[] rxMsgType = new int[Main.maxMsg];
+
+		public static int[] rxDataType = new int[Main.maxMsg];
+
+		public static int[] txMsgType = new int[Main.maxMsg];
+
+		public static int[] txDataType = new int[Main.maxMsg];
 
 		public static float uCarry;
 
@@ -1703,9 +1711,9 @@ namespace Terraria
 
 		static Main()
 		{
-			Main.curRelease = 156;
-			Main.versionNumber = "v1.3.0.8";
-			Main.versionNumber2 = "v1.3.0.8";
+			Main.curRelease = 168;
+			Main.versionNumber = "v1.3.1";
+			Main.versionNumber2 = "v1.3.1";
 			Main.destroyerHB = new Vector2(0f, 0f);
 			Main.drawBackGore = false;
 			Main.expertLife = 2f;
@@ -1717,7 +1725,7 @@ namespace Terraria
 			Main.damageMultiplier = 1f;
 			Main.ServerSideCharacter = false;
 			Main.ContentLoaded = false;
-			Main.maxMsg = 106;
+			Main.maxMsg = 112;
 			Main.GlobalTime = 0f;
 			Main.GlobalTimerPaused = false;
 			Main._tileFrameSeed = (ulong)Guid.NewGuid().GetHashCode();
@@ -1841,19 +1849,19 @@ namespace Terraria
 			Main.zoneX = 99;
 			Main.zoneY = 87;
 			Main.harpNote = 0f;
-			Main.projHostile = new bool[651];
-			Main.projHook = new bool[651];
-			Main.pvpBuff = new bool[191];
-			Main.persistentBuff = new bool[191];
-			Main.vanityPet = new bool[191];
-			Main.lightPet = new bool[191];
-			Main.meleeBuff = new bool[191];
-			Main.debuff = new bool[191];
-			Main.buffName = new string[191];
-			Main.buffTip = new string[191];
-			Main.buffNoSave = new bool[191];
-			Main.buffNoTimeDisplay = new bool[191];
-			Main.buffDoubleApply = new bool[191];
+			Main.projHostile = new bool[656];
+			Main.projHook = new bool[656];
+			Main.pvpBuff = new bool[192];
+			Main.persistentBuff = new bool[192];
+			Main.vanityPet = new bool[192];
+			Main.lightPet = new bool[192];
+			Main.meleeBuff = new bool[192];
+			Main.debuff = new bool[192];
+			Main.buffName = new string[192];
+			Main.buffTip = new string[192];
+			Main.buffNoSave = new bool[192];
+			Main.buffNoTimeDisplay = new bool[192];
+			Main.buffDoubleApply = new bool[192];
 			Main.maxMP = 10;
 			Main.recentWorld = new string[Main.maxMP];
 			Main.recentIP = new string[Main.maxMP];
@@ -1918,7 +1926,7 @@ namespace Terraria
 			Main.armorHide = false;
 			Main.craftingAlpha = 1f;
 			Main.armorAlpha = 1f;
-			Main.buffAlpha = new float[191];
+			Main.buffAlpha = new float[192];
 			Main.trashItem = new Item();
 			Main.hardMode = false;
 			Main.sceneWaterPos = Vector2.Zero;
@@ -2019,8 +2027,8 @@ namespace Terraria
 			Main.helpText = 0;
 			Main.autoGen = false;
 			Main.autoPause = false;
-			Main.projFrames = new int[651];
-			Main.projPet = new bool[651];
+			Main.projFrames = new int[656];
+			Main.projPet = new bool[656];
 			Main.demonTorch = 1f;
 			Main.demonTorchDir = 1;
 			Main.martianLight = 1f;
@@ -2055,45 +2063,45 @@ namespace Terraria
 			Main.ambientVolume = 0.75f;
 			Main.soundVolume = 1f;
 			Main.MenuServerMode = ServerSocialMode.None;
-			Main.tileLighted = new bool[419];
-			Main.tileMergeDirt = new bool[419];
-			Main.tileCut = new bool[419];
-			Main.tileAlch = new bool[419];
-			Main.tileShine = new int[419];
-			Main.tileShine2 = new bool[419];
+			Main.tileLighted = new bool[446];
+			Main.tileMergeDirt = new bool[446];
+			Main.tileCut = new bool[446];
+			Main.tileAlch = new bool[446];
+			Main.tileShine = new int[446];
+			Main.tileShine2 = new bool[446];
 			Main.wallHouse = new bool[225];
 			Main.wallDungeon = new bool[225];
 			Main.wallLight = new bool[225];
 			Main.wallBlend = new int[225];
-			Main.tileStone = new bool[419];
-			Main.tileAxe = new bool[419];
-			Main.tileHammer = new bool[419];
-			Main.tileWaterDeath = new bool[419];
-			Main.tileLavaDeath = new bool[419];
-			Main.tileTable = new bool[419];
-			Main.tileBlockLight = new bool[419];
-			Main.tileNoSunLight = new bool[419];
-			Main.tileDungeon = new bool[419];
-			Main.tileSpelunker = new bool[419];
-			Main.tileSolidTop = new bool[419];
-			Main.tileSolid = new bool[419];
-			Main.tileBouncy = new bool[419];
-			Main.tileValue = new short[419];
-			Main.tileLargeFrames = new byte[419];
+			Main.tileStone = new bool[446];
+			Main.tileAxe = new bool[446];
+			Main.tileHammer = new bool[446];
+			Main.tileWaterDeath = new bool[446];
+			Main.tileLavaDeath = new bool[446];
+			Main.tileTable = new bool[446];
+			Main.tileBlockLight = new bool[446];
+			Main.tileNoSunLight = new bool[446];
+			Main.tileDungeon = new bool[446];
+			Main.tileSpelunker = new bool[446];
+			Main.tileSolidTop = new bool[446];
+			Main.tileSolid = new bool[446];
+			Main.tileBouncy = new bool[446];
+			Main.tileValue = new short[446];
+			Main.tileLargeFrames = new byte[446];
 			Main.wallLargeFrames = new byte[225];
-			Main.tileRope = new bool[419];
-			Main.tileBrick = new bool[419];
-			Main.tileMoss = new bool[419];
-			Main.tileNoAttach = new bool[419];
-			Main.tileNoFail = new bool[419];
-			Main.tileObsidianKill = new bool[419];
-			Main.tileFrameImportant = new bool[419];
-			Main.tilePile = new bool[419];
-			Main.tileBlendAll = new bool[419];
-			Main.tileGlowMask = new short[419];
-			Main.tileContainer = new bool[419];
-			Main.tileSign = new bool[419];
-			Main.tileMerge = new bool[419][];
+			Main.tileRope = new bool[446];
+			Main.tileBrick = new bool[446];
+			Main.tileMoss = new bool[446];
+			Main.tileNoAttach = new bool[446];
+			Main.tileNoFail = new bool[446];
+			Main.tileObsidianKill = new bool[446];
+			Main.tileFrameImportant = new bool[446];
+			Main.tilePile = new bool[446];
+			Main.tileBlendAll = new bool[446];
+			Main.tileGlowMask = new short[446];
+			Main.tileContainer = new bool[446];
+			Main.tileSign = new bool[446];
+			Main.tileMerge = new bool[446][];
 			Main.cageFrames = 25;
 			Main.critterCage = false;
 			Main.bunnyCageFrame = new int[Main.cageFrames];
@@ -2139,19 +2147,19 @@ namespace Terraria
 			Main.slugCageFrameCounter = new int[3, Main.cageFrames];
 			Main.grasshopperCageFrame = new int[Main.cageFrames];
 			Main.grasshopperCageFrameCounter = new int[Main.cageFrames];
-			Main.tileSand = new bool[419];
-			Main.tileFlame = new bool[419];
+			Main.tileSand = new bool[446];
+			Main.tileFlame = new bool[446];
 			Main.npcCatchable = new bool[540];
-			Main.tileFrame = new int[419];
-			Main.tileFrameCounter = new int[419];
+			Main.tileFrame = new int[446];
+			Main.tileFrameCounter = new int[446];
 			Main.wallFrame = new byte[225];
 			Main.wallFrameCounter = new byte[225];
 			Main.backgroundWidth = new int[207];
 			Main.backgroundHeight = new int[207];
 			Main.tilesLoaded = false;
 			//Main.Map = new WorldMap(Main.maxTilesX, Main.maxTilesY);
-            //Main.tile = new Tile[Main.maxTilesX, Main.maxTilesY];
-            Main.tile = new TileProvider();
+			//Main.tile = new Tile[Main.maxTilesX, Main.maxTilesY];
+			Main.tile = new TileProvider();
 			Main.star = new Star[130];
 			Main.item = new Item[401];
 			Main.itemLockoutTime = new int[401];
@@ -5378,20 +5386,20 @@ namespace Terraria
 #endif
 						}
 
-                        int oldProgress = 0;
-                        int oldValue = 0;
+						int oldProgress = 0;
+						int oldValue = 0;
 
 						while (Main.serverGenLock)
 						{
 
-                            if ((int)(generationProgress.TotalProgress * 100) != oldProgress || (int)(generationProgress.Value * 100) != oldValue)
-                            {
-                                Main.statusText = string.Format(string.Concat("{0:0%} - ", generationProgress.Message, " - {1:0%}"), generationProgress.TotalProgress, generationProgress.Value);
-                                Main.oldStatusText = Main.statusText;
-                                oldProgress = (int)(generationProgress.TotalProgress * 100);
-                                oldValue = (int)(generationProgress.Value * 100);
-                                Console.Write("\r" + Main.statusText);
-                            }
+							if ((int)(generationProgress.TotalProgress * 100) != oldProgress || (int)(generationProgress.Value * 100) != oldValue)
+							{
+								Main.statusText = string.Format(string.Concat("{0:0%} - ", generationProgress.Message, " - {1:0%}"), generationProgress.TotalProgress, generationProgress.Value);
+								Main.oldStatusText = Main.statusText;
+								oldProgress = (int)(generationProgress.TotalProgress * 100);
+								oldValue = (int)(generationProgress.Value * 100);
+								Console.Write("\r" + Main.statusText);
+							}
 						}
 					}
 					else
@@ -6305,7 +6313,7 @@ namespace Terraria
 			Main.bgAlpha[0] = 1f;
 			Main.bgAlpha2[0] = 1f;
 			this.invBottom = 258;
-			for (int i = 0; i < 651; i++)
+			for (int i = 0; i < 656; i++)
 			{
 				Main.projFrames[i] = 1;
 			}
@@ -6332,6 +6340,7 @@ namespace Terraria
 			Main.projFrames[633] = 5;
 			Main.projFrames[645] = 7;
 			Main.projFrames[650] = 4;
+			Main.projFrames[652] = 6;
 			Main.projFrames[384] = 6;
 			Main.projFrames[385] = 3;
 			Main.projFrames[386] = 6;
@@ -6438,6 +6447,7 @@ namespace Terraria
 			Main.projPet[492] = true;
 			Main.projPet[499] = true;
 			Main.projPet[319] = true;
+			Main.projPet[653] = true;
 			Main.projPet[334] = true;
 			Main.projPet[324] = true;
 			Main.projPet[266] = true;
@@ -6735,6 +6745,7 @@ namespace Terraria
 			Main.vanityPet[92] = true;
 			Main.vanityPet[127] = true;
 			Main.vanityPet[136] = true;
+			Main.vanityPet[191] = true;
 			Main.lightPet[19] = true;
 			Main.lightPet[155] = true;
 			Main.lightPet[27] = true;
@@ -9808,10 +9819,10 @@ namespace Terraria
 				return;
 			}
 			WorldGen.SaveAndQuit(() =>
-				{
-					Main.LoadPlayers();
-					Main.menuMode = 1;
-				});
+			{
+				Main.LoadPlayers();
+				Main.menuMode = 1;
+			});
 		}
 
 		protected void OpenRecent()
@@ -10276,7 +10287,7 @@ namespace Terraria
 
 		public static void SetupTileMerge()
 		{
-			int num = 419;
+			int num = 446;
 			Main.tileMerge = new bool[num][];
 			for (int i = 0; i < (int)Main.tileMerge.Length; i++)
 			{
@@ -10516,12 +10527,12 @@ namespace Terraria
 				Console.WriteLine("TerrariaServer is running in the background and input is disabled.");
 				return;
 			}
-			
+
 			Thread t = new Thread(Main.startDedInputCallBack);
 			t.Name = "Console Input Thread";
 			t.IsBackground = true;
 			t.Start();
-			
+
 			//ThreadPool.QueueUserWorkItem(new WaitCallback(Main.startDedInputCallBack), 1);
 		}
 
@@ -10871,10 +10882,10 @@ namespace Terraria
 				{
 					Main.invasionType = type;
 
-					if (invasionSize.HasValue == true) 
+					if (invasionSize.HasValue == true)
 					{
 						Main.invasionSize = invasionSize.Value;
-					} 
+					}
 					else
 					{
 						Main.invasionSize = 80 + 40 * num;
