@@ -973,6 +973,8 @@
     </Compile>
     <Compile Include="XNA\Color.cs" />
     <Compile Include="IPackedVector.cs" />
+    <Compile Include="XNA\HalfUtils.cs" />
+    <Compile Include="XNA\HalfVector2.cs" />
     <Compile Include="XNA\MathHelper.cs" />
     <Compile Include="XNA\Matrix.cs" />
     <Compile Include="XNA\PackUtils.cs" />

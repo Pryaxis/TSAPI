@@ -1125,7 +1125,6 @@ namespace Terraria
 					break;
 				case 106:
 					{
-						// Needs xna export
 						HalfVector2 halfVector = new HalfVector2((float) number, number2);
 						writer.Write(halfVector.PackedValue);
 						break;
