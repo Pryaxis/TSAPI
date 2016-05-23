@@ -1,17 +1,14 @@
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using Terraria.DataStructures;
-using Terraria.GameContent.Achievements;
 using Terraria.GameContent.Tile_Entities;
 using Terraria.ID;
 using Terraria.IO;
 using Terraria.Net.Sockets;
 using TerrariaApi.Server;
 using System.Text;
-using System.Net;
 
 namespace Terraria
 {
@@ -1170,11 +1167,11 @@ namespace Terraria
 				{
 					for (int num20 = 0; num20 < 256; num20++)
 					{
-						if (num20 != ignoreClient && NetMessage.buffer[num20].broadcast && Netplay.Clients[num20].Socket.IsConnected())
+						if (num20 != ignoreClient && buffer[num20].broadcast && Netplay.Clients[num20].Socket.IsConnected())
 						{
 							try
 							{
-								NetMessage.buffer[num20].spamCount++;
+								buffer[num20].spamCount++;
 								Main.txMsg++;
 								Main.txData += num19;
 								Main.txMsgType[msgType]++;
@@ -1198,12 +1195,12 @@ namespace Terraria
 				{
 					for (int num21 = 0; num21 < 256; num21++)
 					{
-						if (num21 != ignoreClient && NetMessage.buffer[num21].broadcast && Netplay.Clients[num21].Socket.IsConnected() &&
+						if (num21 != ignoreClient && buffer[num21].broadcast && Netplay.Clients[num21].Socket.IsConnected() &&
 						    Netplay.Clients[num21].SectionRange(number, (int) number2, (int) number3))
 						{
 							try
 							{
-								NetMessage.buffer[num21].spamCount++;
+								buffer[num21].spamCount++;
 								Main.txMsg++;
 								Main.txData += num19;
 								Main.txMsgType[msgType]++;
@@ -1228,7 +1225,7 @@ namespace Terraria
 					NPC nPC3 = Main.npc[number];
 					for (int num22 = 0; num22 < 256; num22++)
 					{
-						if (num22 != ignoreClient && NetMessage.buffer[num22].broadcast && Netplay.Clients[num22].Socket.IsConnected())
+						if (num22 != ignoreClient && buffer[num22].broadcast && Netplay.Clients[num22].Socket.IsConnected())
 						{
 							bool flag3 = false;
 							if (nPC3.boss || nPC3.netAlways || nPC3.townNPC || !nPC3.active)
@@ -1256,7 +1253,7 @@ namespace Terraria
 							{
 								try
 								{
-									NetMessage.buffer[num22].spamCount++;
+									buffer[num22].spamCount++;
 									Main.txMsg++;
 									Main.txData += num19;
 									Main.txMsgType[msgType]++;
@@ -1287,7 +1284,7 @@ namespace Terraria
 					NPC nPC4 = Main.npc[number];
 					for (int num23 = 0; num23 < 256; num23++)
 					{
-						if (num23 != ignoreClient && NetMessage.buffer[num23].broadcast && Netplay.Clients[num23].Socket.IsConnected())
+						if (num23 != ignoreClient && buffer[num23].broadcast && Netplay.Clients[num23].Socket.IsConnected())
 						{
 							bool flag4 = false;
 							if (nPC4.life <= 0)
@@ -1311,7 +1308,7 @@ namespace Terraria
 							{
 								try
 								{
-									NetMessage.buffer[num23].spamCount++;
+									buffer[num23].spamCount++;
 									Main.txMsg++;
 									Main.txData += num19;
 									Main.txMsgType[msgType]++;
@@ -1336,11 +1333,11 @@ namespace Terraria
 				{
 					for (int num24 = 0; num24 < 256; num24++)
 					{
-						if (num24 != ignoreClient && NetMessage.buffer[num24].broadcast && Netplay.Clients[num24].Socket.IsConnected())
+						if (num24 != ignoreClient && buffer[num24].broadcast && Netplay.Clients[num24].Socket.IsConnected())
 						{
 							try
 							{
-								NetMessage.buffer[num24].spamCount++;
+								buffer[num24].spamCount++;
 								Main.txMsg++;
 								Main.txData += num19;
 								Main.txMsgType[msgType]++;
@@ -1370,7 +1367,7 @@ namespace Terraria
 					Projectile projectile2 = Main.projectile[number];
 					for (int num25 = 0; num25 < 256; num25++)
 					{
-						if (num25 != ignoreClient && NetMessage.buffer[num25].broadcast && Netplay.Clients[num25].Socket.IsConnected())
+						if (num25 != ignoreClient && buffer[num25].broadcast && Netplay.Clients[num25].Socket.IsConnected())
 						{
 							bool flag5 = false;
 							if (projectile2.type == 12 || Main.projPet[projectile2.type] || projectile2.aiStyle == 11 ||
@@ -1395,7 +1392,7 @@ namespace Terraria
 							{
 								try
 								{
-									NetMessage.buffer[num25].spamCount++;
+									buffer[num25].spamCount++;
 									Main.txMsg++;
 									Main.txData += num19;
 									Main.txMsgType[msgType]++;
@@ -1421,12 +1418,12 @@ namespace Terraria
 					for (int num26 = 0; num26 < 256; num26++)
 					{
 						if (num26 != ignoreClient &&
-						    (NetMessage.buffer[num26].broadcast || (Netplay.Clients[num26].State >= 3 && msgType == 10)) &&
+						    (buffer[num26].broadcast || (Netplay.Clients[num26].State >= 3 && msgType == 10)) &&
 						    Netplay.Clients[num26].Socket.IsConnected())
 						{
 							try
 							{
-								NetMessage.buffer[num26].spamCount++;
+								buffer[num26].spamCount++;
 								Main.txMsg++;
 								Main.txData += num19;
 								Main.txMsgType[msgType]++;
@@ -1451,7 +1448,7 @@ namespace Terraria
 			{
 				try
 				{
-					NetMessage.buffer[remoteClient].spamCount++;
+					buffer[remoteClient].spamCount++;
 					Main.txMsg++;
 					Main.txData += num19;
 					Main.txMsgType[msgType]++;
@@ -1467,17 +1464,6 @@ namespace Terraria
 							System.Diagnostics.Debugger.Break();
 
 #endif
-				}
-			}
-			// IL_2D9B:
-			if (Main.verboseNetplay)
-			{
-				for (int num27 = 0; num27 < num19; num27++)
-				{
-				}
-				for (int num28 = 0; num28 < num19; num28++)
-				{
-					byte arg_2DC7_0 = buffer[num].writeBuffer[num28];
 				}
 			}
 
@@ -2106,7 +2092,7 @@ namespace Terraria
 			lock (buffer[bufferIndex])
 			{
 				int num = 0;
-				int i = NetMessage.buffer[bufferIndex].totalData;
+				int i = buffer[bufferIndex].totalData;
 				string packetDump = null;
 
 				while (i >= 2)
@@ -2142,15 +2128,15 @@ namespace Terraria
 					}
 				}
 
-				if (i != NetMessage.buffer[bufferIndex].totalData)
+				if (i != buffer[bufferIndex].totalData)
 				{
 					for (int j = 0; j < i; j++)
 					{
-						NetMessage.buffer[bufferIndex].readBuffer[j] = NetMessage.buffer[bufferIndex].readBuffer[j + num];
+						buffer[bufferIndex].readBuffer[j] = buffer[bufferIndex].readBuffer[j + num];
 					}
-					NetMessage.buffer[bufferIndex].totalData = i;
+					buffer[bufferIndex].totalData = i;
 				}
-				NetMessage.buffer[bufferIndex].checkBytes = false;
+				buffer[bufferIndex].checkBytes = false;
 			}
 		}
 		public static void BootPlayer(int plr, string msg)
