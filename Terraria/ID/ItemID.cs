@@ -4329,9 +4329,9 @@ namespace Terraria.ID
 
 		public const short GoldenCandle = 2155;
 
-		public const short BlackScropion = 2156;
+		public const short BlackScorpion = 2156;
 
-		public const short Scropion = 2157;
+		public const short Scorpion = 2157;
 
 		public const short BubbleWallpaper = 2158;
 
@@ -5551,7 +5551,7 @@ namespace Terraria.ID
 
 		public const short LunarTabletFragment = 2766;
 
-		public const short LunarTablet = 2767;
+		public const short SolarTablet = 2767;
 
 		public const short DrillContainmentUnit = 2768;
 
@@ -5871,6 +5871,8 @@ namespace Terraria.ID
 
 		public const short GingerbreadManBanner = 2926;
 
+		public const short GoblinArcherBanner = 2927;
+
 		public const short GreenSlimeBanner = 2928;
 
 		public const short HeadlessHorsemanBanner = 2929;
@@ -6009,7 +6011,7 @@ namespace Terraria.ID
 
 		public const short VineRope = 2996;
 
-		public const short UnityPotion = 2997;
+		public const short WormholePotion = 2997;
 
 		public const short SummonerEmblem = 2998;
 
@@ -6769,7 +6771,7 @@ namespace Terraria.ID
 
 		public const short FossilPants = 3376;
 
-		public const short EmberStaff = 3377;
+		public const short AmberStaff = 3377;
 
 		public const short BoneJavelin = 3378;
 
@@ -7219,7 +7221,263 @@ namespace Terraria.ID
 
 		public const short CelestialSigil = 3601;
 
-		public const short Count = 3602;
+		public const short LogicGateLamp_Off = 3602;
+
+		public const short LogicGate_AND = 3603;
+
+		public const short LogicGate_OR = 3604;
+
+		public const short LogicGate_NAND = 3605;
+
+		public const short LogicGate_NOR = 3606;
+
+		public const short LogicGate_XOR = 3607;
+
+		public const short LogicGate_NXOR = 3608;
+
+		public const short ConveyorBeltLeft = 3609;
+
+		public const short ConveyorBeltRight = 3610;
+
+		public const short WireKite = 3611;
+
+		public const short YellowWrench = 3612;
+
+		public const short LogicSensor_Sun = 3613;
+
+		public const short LogicSensor_Moon = 3614;
+
+		public const short LogicSensor_Above = 3615;
+
+		public const short WirePipe = 3616;
+
+		public const short AnnouncementBox = 3617;
+
+		public const short LogicGateLamp_On = 3618;
+
+		public const short MechanicalLens = 3619;
+
+		public const short ActuationRod = 3620;
+
+		public const short TeamBlockRed = 3621;
+
+		public const short TeamBlockRedPlatform = 3622;
+
+		public const short StaticHook = 3623;
+
+		public const short ActuationAccessory = 3624;
+
+		public const short MulticolorWrench = 3625;
+
+		public const short WeightedPressurePlatePink = 3626;
+
+		public const short EngineeringHelmet = 3627;
+
+		public const short CompanionCube = 3628;
+
+		public const short WireBulb = 3629;
+
+		public const short WeightedPressurePlateOrange = 3630;
+
+		public const short WeightedPressurePlatePurple = 3631;
+
+		public const short WeightedPressurePlateCyan = 3632;
+
+		public const short TeamBlockGreen = 3633;
+
+		public const short TeamBlockBlue = 3634;
+
+		public const short TeamBlockYellow = 3635;
+
+		public const short TeamBlockPink = 3636;
+
+		public const short TeamBlockWhite = 3637;
+
+		public const short TeamBlockGreenPlatform = 3638;
+
+		public const short TeamBlockBluePlatform = 3639;
+
+		public const short TeamBlockYellowPlatform = 3640;
+
+		public const short TeamBlockPinkPlatform = 3641;
+
+		public const short TeamBlockWhitePlatform = 3642;
+
+		public const short LargeAmber = 3643;
+
+		public const short GemLockRuby = 3644;
+
+		public const short GemLockSapphire = 3645;
+
+		public const short GemLockEmerald = 3646;
+
+		public const short GemLockTopaz = 3647;
+
+		public const short GemLockAmethyst = 3648;
+
+		public const short GemLockDiamond = 3649;
+
+		public const short GemLockAmber = 3650;
+
+		public const short SquirrelStatue = 3651;
+
+		public const short ButterflyStatue = 3652;
+
+		public const short WormStatue = 3653;
+
+		public const short FireflyStatue = 3654;
+
+		public const short ScorpionStatue = 3655;
+
+		public const short SnailStatue = 3656;
+
+		public const short GrasshopperStatue = 3657;
+
+		public const short MouseStatue = 3658;
+
+		public const short DuckStatue = 3659;
+
+		public const short PenguinStatue = 3660;
+
+		public const short FrogStatue = 3661;
+
+		public const short BuggyStatue = 3662;
+
+		public const short LogicGateLamp_Faulty = 3663;
+
+		public const short PortalGunStation = 3664;
+
+		public const short Fake_Chest = 3665;
+
+		public const short Fake_GoldChest = 3666;
+
+		public const short Fake_ShadowChest = 3667;
+
+		public const short Fake_EbonwoodChest = 3668;
+
+		public const short Fake_RichMahoganyChest = 3669;
+
+		public const short Fake_PearlwoodChest = 3670;
+
+		public const short Fake_IvyChest = 3671;
+
+		public const short Fake_IceChest = 3672;
+
+		public const short Fake_LivingWoodChest = 3673;
+
+		public const short Fake_SkywareChest = 3674;
+
+		public const short Fake_ShadewoodChest = 3675;
+
+		public const short Fake_WebCoveredChest = 3676;
+
+		public const short Fake_LihzahrdChest = 3677;
+
+		public const short Fake_WaterChest = 3678;
+
+		public const short Fake_JungleChest = 3679;
+
+		public const short Fake_CorruptionChest = 3680;
+
+		public const short Fake_CrimsonChest = 3681;
+
+		public const short Fake_HallowedChest = 3682;
+
+		public const short Fake_FrozenChest = 3683;
+
+		public const short Fake_DynastyChest = 3684;
+
+		public const short Fake_HoneyChest = 3685;
+
+		public const short Fake_SteampunkChest = 3686;
+
+		public const short Fake_PalmWoodChest = 3687;
+
+		public const short Fake_MushroomChest = 3688;
+
+		public const short Fake_BorealWoodChest = 3689;
+
+		public const short Fake_SlimeChest = 3690;
+
+		public const short Fake_GreenDungeonChest = 3691;
+
+		public const short Fake_PinkDungeonChest = 3692;
+
+		public const short Fake_BlueDungeonChest = 3693;
+
+		public const short Fake_BoneChest = 3694;
+
+		public const short Fake_CactusChest = 3695;
+
+		public const short Fake_FleshChest = 3696;
+
+		public const short Fake_ObsidianChest = 3697;
+
+		public const short Fake_PumpkinChest = 3698;
+
+		public const short Fake_SpookyChest = 3699;
+
+		public const short Fake_GlassChest = 3700;
+
+		public const short Fake_MartianChest = 3701;
+
+		public const short Fake_MeteoriteChest = 3702;
+
+		public const short Fake_GraniteChest = 3703;
+
+		public const short Fake_MarbleChest = 3704;
+
+		public const short Fake_newchest1 = 3705;
+
+		public const short Fake_newchest2 = 3706;
+
+		public const short ProjectilePressurePad = 3707;
+
+		public const short WallCreeperStatue = 3708;
+
+		public const short UnicornStatue = 3709;
+
+		public const short DripplerStatue = 3710;
+
+		public const short WraithStatue = 3711;
+
+		public const short BoneSkeletonStatue = 3712;
+
+		public const short UndeadVikingStatue = 3713;
+
+		public const short MedusaStatue = 3714;
+
+		public const short HarpyStatue = 3715;
+
+		public const short PigronStatue = 3716;
+
+		public const short HopliteStatue = 3717;
+
+		public const short GraniteGolemStatue = 3718;
+
+		public const short ZombieArmStatue = 3719;
+
+		public const short BloodZombieStatue = 3720;
+
+		public const short AnglerTackleBag = 3721;
+
+		public const short GeyserTrap = 3722;
+
+		public const short UltraBrightCampfire = 3723;
+
+		public const short BoneCampfire = 3724;
+
+		public const short PixelBox = 3725;
+
+		public const short LogicSensor_Water = 3726;
+
+		public const short LogicSensor_Lava = 3727;
+
+		public const short LogicSensor_Honey = 3728;
+
+		public const short LogicSensor_Liquid = 3729;
+
+		public const short Count = 3730;
 
 		public static bool Any(int match)
 		{
