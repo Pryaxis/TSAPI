@@ -2377,65 +2377,69 @@ namespace Terraria
 			}
 			Main.anglerWhoFinishedToday.Clear();
 			Main.anglerQuestFinished = false;
-			bool flag = true;
-			while (flag)
+			bool flag = NPC.downedBoss1 || NPC.downedBoss2 || NPC.downedBoss3 || Main.hardMode || NPC.downedSlimeKing || NPC.downedQueenBee;
+			bool flag2 = true;
+			while (flag2)
 			{
-				flag = false;
-				Main.anglerQuest = Main.rand.Next((int)Main.anglerQuestItemNetIDs.Length);
+				flag2 = false;
+				Main.anglerQuest = Main.rand.Next(Main.anglerQuestItemNetIDs.Length);
 				int num = Main.anglerQuestItemNetIDs[Main.anglerQuest];
 				if (num == 2454 && (!Main.hardMode || WorldGen.crimson))
 				{
-					flag = true;
+					flag2 = true;
 				}
 				if (num == 2457 && WorldGen.crimson)
 				{
-					flag = true;
+					flag2 = true;
 				}
 				if (num == 2462 && !Main.hardMode)
 				{
-					flag = true;
+					flag2 = true;
 				}
 				if (num == 2463 && (!Main.hardMode || !WorldGen.crimson))
 				{
-					flag = true;
+					flag2 = true;
 				}
 				if (num == 2465 && !Main.hardMode)
 				{
-					flag = true;
+					flag2 = true;
 				}
 				if (num == 2468 && !Main.hardMode)
 				{
-					flag = true;
+					flag2 = true;
 				}
 				if (num == 2471 && !Main.hardMode)
 				{
-					flag = true;
+					flag2 = true;
 				}
 				if (num == 2473 && !Main.hardMode)
 				{
-					flag = true;
+					flag2 = true;
 				}
 				if (num == 2477 && !WorldGen.crimson)
 				{
-					flag = true;
+					flag2 = true;
 				}
 				if (num == 2480 && !Main.hardMode)
 				{
-					flag = true;
+					flag2 = true;
 				}
 				if (num == 2483 && !Main.hardMode)
 				{
-					flag = true;
+					flag2 = true;
 				}
 				if (num == 2484 && !Main.hardMode)
 				{
-					flag = true;
+					flag2 = true;
 				}
-				if (num != 2485 || !WorldGen.crimson)
+				if (num == 2485 && WorldGen.crimson)
 				{
-					continue;
+					flag2 = true;
 				}
-				flag = true;
+				if ((num == 2476 || num == 2453 || num == 2473) && !flag)
+				{
+					flag2 = true;
+				}
 			}
 			NetMessage.SendAnglerQuest();
 		}
@@ -6446,6 +6450,7 @@ namespace Terraria
 			Main.projFrames[602] = 4;
 			Main.projPet[492] = true;
 			Main.projPet[499] = true;
+			Main.projPet[653] = true;
 			Main.projPet[319] = true;
 			Main.projPet[653] = true;
 			Main.projPet[334] = true;
@@ -6843,6 +6848,7 @@ namespace Terraria
 			Main.tileSpelunker[37] = true;
 			Main.tileSpelunker[407] = true;
 			Main.tileSpelunker[227] = true;
+			Main.tileSpelunker[441] = true;
 			Main.SetupTileMerge();
 			Main.tileSolid[379] = true;
 			Main.tileSolid[371] = true;
@@ -6914,6 +6920,7 @@ namespace Terraria
 			Main.tileFrameImportant[394] = true;
 			Main.tileFrameImportant[356] = true;
 			Main.tileFrameImportant[334] = true;
+			Main.tileFrameImportant[440] = true;
 			Main.tileFrameImportant[300] = true;
 			Main.tileFrameImportant[301] = true;
 			Main.tileFrameImportant[302] = true;
@@ -6928,6 +6935,16 @@ namespace Terraria
 			Main.tileFrameImportant[324] = true;
 			Main.tileObsidianKill[324] = true;
 			Main.tileLavaDeath[324] = true;
+			Main.tileFrameImportant[419] = true;
+			Main.tileFrameImportant[442] = true;
+			Main.tileFrameImportant[443] = true;
+			Main.tileFrameImportant[444] = true;
+			Main.tileFrameImportant[420] = true;
+			Main.tileFrameImportant[423] = true;
+			Main.tileFrameImportant[424] = true;
+			Main.tileFrameImportant[428] = true;
+			Main.tileFrameImportant[429] = true;
+			Main.tileFrameImportant[445] = true;
 			Main.tileFrameImportant[283] = true;
 			Main.tileFrameImportant[288] = true;
 			Main.tileFrameImportant[289] = true;
@@ -6994,6 +7011,39 @@ namespace Terraria
 			Main.tileLighted[343] = true;
 			Main.tileLighted[344] = true;
 			Main.tileLighted[349] = true;
+			Main.tileSolid[421] = true;
+			Main.tileBlockLight[421] = true;
+			Main.tileSolid[422] = true;
+			Main.tileBlockLight[422] = true;
+			Main.tileSolid[426] = true;
+			Main.tileBlockLight[426] = true;
+			Main.tileSolid[430] = true;
+			Main.tileBlockLight[430] = true;
+			Main.tileSolid[431] = true;
+			Main.tileBlockLight[431] = true;
+			Main.tileSolid[432] = true;
+			Main.tileBlockLight[432] = true;
+			Main.tileSolid[433] = true;
+			Main.tileBlockLight[433] = true;
+			Main.tileSolid[434] = true;
+			Main.tileBlockLight[434] = true;
+			Main.tileFrameImportant[427] = true;
+			Main.tileSolidTop[427] = true;
+			Main.tileSolid[427] = true;
+			Main.tileNoAttach[427] = true;
+			Main.tileTable[427] = true;
+			Main.tileLavaDeath[427] = true;
+			Main.tileNoSunLight[427] = false;
+			for (int m = 435; m <= 439; m++)
+			{
+				Main.tileFrameImportant[m] = true;
+				Main.tileSolidTop[m] = true;
+				Main.tileSolid[m] = true;
+				Main.tileNoAttach[m] = true;
+				Main.tileTable[m] = true;
+				Main.tileLavaDeath[m] = true;
+				Main.tileNoSunLight[m] = false;
+			}
 			Main.tileSolid[284] = true;
 			Main.tileBlockLight[284] = true;
 			Main.tileSolid[346] = true;
@@ -7027,6 +7077,11 @@ namespace Terraria
 			Main.tileGlowMask[381] = 126;
 			Main.tileGlowMask[370] = 111;
 			Main.tileGlowMask[391] = 131;
+			Main.tileGlowMask[429] = 214;
+			Main.tileGlowMask[209] = 215;
+			Main.tileGlowMask[445] = 214;
+			Main.tileLighted[429] = true;
+			Main.tileLighted[209] = true;
 			Main.tileGlowMask[410] = 201;
 			Main.tileSolid[370] = true;
 			Main.tileBlockLight[370] = true;
@@ -7039,6 +7094,7 @@ namespace Terraria
 			Main.tileContainer[88] = true;
 			Main.tileSign[55] = true;
 			Main.tileSign[85] = true;
+			Main.tileSign[425] = true;
 			Main.tileSolid[383] = true;
 			Main.tileBrick[383] = true;
 			Main.tileBlockLight[383] = true;
@@ -7224,7 +7280,6 @@ namespace Terraria
 				}
 			}
 			Main.tileFrameImportant[269] = true;
-			Main.tileFrameImportant[334] = true;
 			Main.tileFrameImportant[390] = true;
 			Main.tileNoAttach[390] = true;
 			Main.tileLavaDeath[390] = true;
@@ -7773,6 +7828,8 @@ namespace Terraria
 			Main.tileFrameImportant[19] = true;
 			Main.tileFrameImportant[20] = true;
 			Main.tileFrameImportant[21] = true;
+			Main.tileFrameImportant[441] = true;
+			Main.tileFrameImportant[425] = true;
 			Main.tileFrameImportant[24] = true;
 			Main.tileFrameImportant[26] = true;
 			Main.tileFrameImportant[27] = true;
@@ -7869,6 +7926,7 @@ namespace Terraria
 			Main.tileCut[205] = true;
 			Main.tileCut[352] = true;
 			Main.tileCut[382] = true;
+			Main.tileCut[444] = true;
 			Main.tileAlch[82] = true;
 			Main.tileAlch[83] = true;
 			Main.tileAlch[84] = true;
@@ -8053,10 +8111,10 @@ namespace Terraria
 			Main.tileNoAttach[134] = true;
 			Main.tileNoAttach[17] = true;
 			Main.tileNoAttach[18] = true;
-			Main.tileNoAttach[19] = true;
 			Main.tileNoAttach[21] = true;
 			Main.tileNoAttach[27] = true;
 			Main.tileNoAttach[114] = true;
+			Main.tileNoAttach[441] = true;
 			Main.tileTable[14] = true;
 			Main.tileTable[18] = true;
 			Main.tileTable[19] = true;
@@ -8239,10 +8297,11 @@ namespace Terraria
 			Main.tileLavaDeath[339] = true;
 			Main.tileLavaDeath[352] = true;
 			Main.tileLavaDeath[382] = true;
+			Main.tileLavaDeath[425] = true;
 			Main.tileLighted[316] = true;
 			Main.tileLighted[317] = true;
 			Main.tileLighted[318] = true;
-			for (int r = 0; r < 419; r++)
+			for (int r = 0; r < 446; r++)
 			{
 				if (Main.tileLavaDeath[r])
 				{
@@ -8375,7 +8434,7 @@ namespace Terraria
 			Main.tileFrameImportant[389] = true;
 			Main.tileLavaDeath[389] = true;
 			Main.tileNoSunLight[389] = true;
-			for (int t = 0; t < 419; t++)
+			for (int t = 0; t < 446; t++)
 			{
 				if (Main.tileSolid[t])
 				{
@@ -12463,6 +12522,10 @@ namespace Terraria
 #endif
 					}
 				}
+				if (Main.netMode != 1)
+				{
+					PressurePlateHelper.Update();
+				}
 				for (int s = 0; s < 255; s++)
 				{
 					Main.player[s].activeNPCs = 0f;
@@ -12485,6 +12548,8 @@ namespace Terraria
 					NPC.crimsonBoss = -1;
 				}
 				NPC.taxCollector = false;
+				NPC.ClearFoundActiveNPCs();
+				NPC.UpdateFoundActiveNPCs();
 				for (int t = 0; t < 200; t++)
 				{
 					if (!Main.ignoreErrors)
