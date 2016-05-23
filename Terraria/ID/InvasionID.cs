@@ -1,5 +1,3 @@
-using System;
-
 namespace Terraria.ID
 {
 	public static class InvasionID

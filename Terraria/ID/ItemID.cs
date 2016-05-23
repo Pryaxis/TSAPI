@@ -1,8 +1,5 @@
-using System;
-
 namespace Terraria.ID
 {
-
 	public class ItemID
 	{
 		public const short YellowPhasesaber = -24;

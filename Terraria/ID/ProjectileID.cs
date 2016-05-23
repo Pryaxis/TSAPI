@@ -1,9 +1,255 @@
-using System;
-
 namespace Terraria.ID
 {
 	public class ProjectileID
 	{
+		public static class Sets
+		{
+			public static SetFactory Factory = new SetFactory(656);
+
+			public static bool?[] ForcePlateDetection = Factory.CreateCustomSet<bool?>(null, new object[]
+			{
+				397,
+				true,
+				37,
+				true,
+				470,
+				true,
+				53,
+				true,
+				519,
+				true,
+				171,
+				true,
+				505,
+				true,
+				475,
+				true,
+				506,
+				true,
+				186,
+				true,
+				80,
+				true,
+				40,
+				true,
+				241,
+				true,
+				411,
+				true,
+				56,
+				true,
+				413,
+				true,
+				67,
+				true,
+				414,
+				true,
+				31,
+				true,
+				412,
+				true,
+				17,
+				true,
+				166,
+				true,
+				109,
+				true,
+				354,
+				true,
+				65,
+				true,
+				68,
+				true,
+				42,
+				true,
+				99,
+				false,
+				655,
+				false
+			});
+
+			public static int[] TrailingMode;
+
+			public static int[] TrailCacheLength;
+
+			public static bool[] LightPet;
+
+			public static bool[] Homing;
+
+			public static bool[] MinionSacrificable;
+
+			public static bool[] DontAttachHideToAlpha;
+
+			public static bool[] NeedsUUID;
+
+			public static bool[] StardustDragon;
+
+			static Sets()
+			{
+				// Note: this type is marked as 'beforefieldinit'.
+				SetFactory arg_3E9_0 = Factory;
+				int arg_3E9_1 = -1;
+				int[] array = new int[64];
+				array[0] = 94;
+				array[2] = 301;
+				array[4] = 388;
+				array[6] = 385;
+				array[8] = 408;
+				array[10] = 409;
+				array[12] = 435;
+				array[14] = 436;
+				array[16] = 437;
+				array[18] = 438;
+				array[20] = 452;
+				array[22] = 459;
+				array[24] = 462;
+				array[26] = 502;
+				array[28] = 503;
+				array[30] = 466;
+				array[31] = 1;
+				array[32] = 532;
+				array[34] = 533;
+				array[36] = 573;
+				array[38] = 580;
+				array[39] = 1;
+				array[40] = 582;
+				array[42] = 585;
+				array[44] = 592;
+				array[46] = 601;
+				array[48] = 617;
+				array[50] = 636;
+				array[52] = 638;
+				array[54] = 639;
+				array[56] = 640;
+				array[58] = 424;
+				array[60] = 425;
+				array[62] = 426;
+				TrailingMode = arg_3E9_0.CreateIntSet(arg_3E9_1, array);
+				TrailCacheLength = Factory.CreateIntSet(10, new int[]
+				{
+					466,
+					20,
+					502,
+					25,
+					580,
+					20,
+					636,
+					20,
+					640,
+					20
+				});
+				LightPet = Factory.CreateBoolSet(new int[]
+				{
+					18,
+					500,
+					72,
+					87,
+					86,
+					211,
+					492,
+					650
+				});
+				Homing = Factory.CreateBoolSet(new int[]
+				{
+					207,
+					182,
+					247,
+					338,
+					339,
+					340,
+					341,
+					191,
+					192,
+					193,
+					194,
+					266,
+					390,
+					391,
+					392,
+					307,
+					316,
+					190,
+					227,
+					226,
+					254,
+					255,
+					297,
+					308,
+					317,
+					321,
+					407,
+					423,
+					375,
+					373,
+					376,
+					374,
+					379,
+					387,
+					408,
+					389,
+					388,
+					405,
+					409,
+					451,
+					535,
+					536,
+					483,
+					484,
+					477
+				});
+				MinionSacrificable = Factory.CreateBoolSet(new int[]
+				{
+					191,
+					192,
+					193,
+					194,
+					266,
+					317,
+					373,
+					375,
+					387,
+					388,
+					390,
+					393,
+					407,
+					423,
+					533,
+					613,
+					625,
+					626,
+					627,
+					628
+				});
+				DontAttachHideToAlpha = Factory.CreateBoolSet(new int[]
+				{
+					598,
+					641,
+					617,
+					636,
+					579,
+					578,
+					625,
+					626,
+					627,
+					628
+				});
+				NeedsUUID = Factory.CreateBoolSet(new int[]
+				{
+					625,
+					626,
+					627,
+					628
+				});
+				StardustDragon = Factory.CreateBoolSet(new int[]
+				{
+					625,
+					626,
+					627,
+					628
+				});
+			}
+		}
+
 		public const short None = 0;
 
 		public const short WoodenArrowFriendly = 1;
@@ -1198,7 +1444,7 @@ namespace Terraria.ID
 
 		public const short DesertDjinnCurse = 596;
 
-		public const short EmberBolt = 597;
+		public const short AmberBolt = 597;
 
 		public const short BoneJavelin = 598;
 
@@ -1306,152 +1552,16 @@ namespace Terraria.ID
 
 		public const short SuspiciousTentacle = 650;
 
-		public const short Count = 651;
+		public const short WireKite = 651;
 
-		public ProjectileID()
-		{
-		}
+		public const short StaticHook = 652;
 
-		public static class Sets
-		{
-			public static bool?[] ForcePlateDetection = ProjectileID.Sets.Factory.CreateCustomSet<bool?>(null, new object[]
-			{
-				397,
-				true,
-				37,
-				true,
-				470,
-				true,
-				53,
-				true,
-				519,
-				true,
-				171,
-				true,
-				505,
-				true,
-				475,
-				true,
-				506,
-				true,
-				186,
-				true,
-				80,
-				true,
-				40,
-				true,
-				241,
-				true,
-				411,
-				true,
-				56,
-				true,
-				413,
-				true,
-				67,
-				true,
-				414,
-				true,
-				31,
-				true,
-				412,
-				true,
-				17,
-				true,
-				166,
-				true,
-				109,
-				true,
-				354,
-				true,
-				65,
-				true,
-				68,
-				true,
-				42,
-				true,
-				99,
-				false,
-				655,
-				false
-			});
+		public const short CompanionCube = 653;
 
-			public static SetFactory Factory;
+		public const short GeyserTrap = 654;
 
-			public static int[] TrailingMode;
+		public const short BeeHive = 655;
 
-			public static int[] TrailCacheLength;
-
-			public static bool[] LightPet;
-
-			public static bool[] Homing;
-
-			public static bool[] MinionSacrificable;
-
-			public static bool[] DontAttachHideToAlpha;
-
-			public static bool[] NeedsUUID;
-
-			public static bool[] StardustDragon;
-
-			static Sets()
-			{
-				ProjectileID.Sets.Factory = new SetFactory(651);
-				SetFactory factory = ProjectileID.Sets.Factory;
-				int[] numArray = new int[64];
-				numArray[0] = 94;
-				numArray[2] = 301;
-				numArray[4] = 388;
-				numArray[6] = 385;
-				numArray[8] = 408;
-				numArray[10] = 409;
-				numArray[12] = 435;
-				numArray[14] = 436;
-				numArray[16] = 437;
-				numArray[18] = 438;
-				numArray[20] = 452;
-				numArray[22] = 459;
-				numArray[24] = 462;
-				numArray[26] = 502;
-				numArray[28] = 503;
-				numArray[30] = 466;
-				numArray[31] = 1;
-				numArray[32] = 532;
-				numArray[34] = 533;
-				numArray[36] = 573;
-				numArray[38] = 580;
-				numArray[39] = 1;
-				numArray[40] = 582;
-				numArray[42] = 585;
-				numArray[44] = 592;
-				numArray[46] = 601;
-				numArray[48] = 617;
-				numArray[50] = 636;
-				numArray[52] = 638;
-				numArray[54] = 639;
-				numArray[56] = 640;
-				numArray[58] = 424;
-				numArray[60] = 425;
-				numArray[62] = 426;
-				ProjectileID.Sets.TrailingMode = factory.CreateIntSet(-1, numArray);
-				SetFactory setFactory = ProjectileID.Sets.Factory;
-				int[] numArray1 = new int[] { 466, 20, 502, 25, 580, 20, 636, 20, 640, 20 };
-				ProjectileID.Sets.TrailCacheLength = setFactory.CreateIntSet(10, numArray1);
-				SetFactory factory1 = ProjectileID.Sets.Factory;
-				int[] numArray2 = new int[] { 18, 500, 72, 87, 86, 211, 492, 650 };
-				ProjectileID.Sets.LightPet = factory1.CreateBoolSet(numArray2);
-				SetFactory setFactory1 = ProjectileID.Sets.Factory;
-				int[] numArray3 = new int[] { 207, 182, 247, 338, 339, 340, 341, 191, 192, 193, 194, 266, 390, 391, 392, 307, 316, 190, 227, 226, 254, 255, 297, 308, 317, 321, 407, 423, 375, 373, 376, 374, 379, 387, 408, 389, 388, 405, 409, 451, 535, 536, 483, 484, 477 };
-				ProjectileID.Sets.Homing = setFactory1.CreateBoolSet(numArray3);
-				SetFactory factory2 = ProjectileID.Sets.Factory;
-				int[] numArray4 = new int[] { 191, 192, 193, 194, 266, 317, 373, 375, 387, 388, 390, 393, 407, 423, 533, 613, 625, 626, 627, 628 };
-				ProjectileID.Sets.MinionSacrificable = factory2.CreateBoolSet(numArray4);
-				SetFactory setFactory2 = ProjectileID.Sets.Factory;
-				int[] numArray5 = new int[] { 598, 641, 617, 636, 579, 578, 625, 626, 627, 628 };
-				ProjectileID.Sets.DontAttachHideToAlpha = setFactory2.CreateBoolSet(numArray5);
-				ProjectileID.Sets.NeedsUUID = ProjectileID.Sets.Factory.CreateBoolSet(new int[] { 625, 626, 627, 628 });
-				ProjectileID.Sets.StardustDragon = ProjectileID.Sets.Factory.CreateBoolSet(new int[] { 625, 626, 627, 628 });
-			}
-		}
+		public const short Count = 656;
 	}
 }

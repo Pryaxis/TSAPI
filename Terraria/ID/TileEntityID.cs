@@ -1,5 +1,3 @@
-using System;
-
 namespace Terraria.ID
 {
 	public class TileEntityID
@@ -8,8 +6,6 @@ namespace Terraria.ID
 
 		public const byte ItemFrame = 1;
 
-		public TileEntityID()
-		{
-		}
+		public const byte LogicSensor = 2;
 	}
 }

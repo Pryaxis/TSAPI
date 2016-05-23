@@ -1,9 +1,85 @@
-using System;
-
 namespace Terraria.ID
 {
 	public class WallID
 	{
+		public static class Sets
+		{
+			public static class Conversion
+			{
+				public static bool[] Grass = Factory.CreateBoolSet(new int[]
+				{
+					63,
+					64,
+					65,
+					66,
+					67,
+					68,
+					69,
+					70,
+					81
+				});
+
+				public static bool[] Stone = Factory.CreateBoolSet(new int[]
+				{
+					1,
+					3,
+					28,
+					83
+				});
+
+				public static bool[] Sandstone = Factory.CreateBoolSet(new int[]
+				{
+					187,
+					220,
+					222,
+					221
+				});
+
+				public static bool[] HardenedSand = Factory.CreateBoolSet(new int[]
+				{
+					216,
+					217,
+					219,
+					218
+				});
+			}
+
+			public static SetFactory Factory = new SetFactory(225);
+
+			public static bool[] Transparent = Factory.CreateBoolSet(new int[]
+			{
+				88,
+				89,
+				90,
+				91,
+				92
+			});
+
+			public static bool[] Corrupt = Factory.CreateBoolSet(new int[]
+			{
+				69,
+				217,
+				220,
+				3
+			});
+
+			public static bool[] Crimson = Factory.CreateBoolSet(new int[]
+			{
+				83,
+				81,
+				218,
+				221
+			});
+
+			public static bool[] Hallow = Factory.CreateBoolSet(new int[]
+			{
+				70,
+				219,
+				222,
+				28
+			});
+		}
+
 		public const byte None = 0;
 
 		public const byte Stone = 1;
@@ -455,66 +531,5 @@ namespace Terraria.ID
 		public const byte LunarBrickWall = 224;
 
 		public const byte Count = 225;
-
-		public WallID()
-		{
-		}
-
-		public static class Sets
-		{
-			public static SetFactory Factory;
-
-			public static bool[] Transparent;
-
-			public static bool[] Corrupt;
-
-			public static bool[] Crimson;
-
-			public static bool[] Hallow;
-
-			static Sets()
-			{
-				WallID.Sets.Factory = new SetFactory(225);
-				SetFactory factory = WallID.Sets.Factory;
-				int[] numArray = new int[] { 88, 89, 90, 91, 92 };
-				WallID.Sets.Transparent = factory.CreateBoolSet(numArray);
-				SetFactory setFactory = WallID.Sets.Factory;
-				int[] numArray1 = new int[] { 69, 217, 220, 3 };
-				WallID.Sets.Corrupt = setFactory.CreateBoolSet(numArray1);
-				SetFactory factory1 = WallID.Sets.Factory;
-				int[] numArray2 = new int[] { 83, 81, 218, 221 };
-				WallID.Sets.Crimson = factory1.CreateBoolSet(numArray2);
-				SetFactory setFactory1 = WallID.Sets.Factory;
-				int[] numArray3 = new int[] { 70, 219, 222, 28 };
-				WallID.Sets.Hallow = setFactory1.CreateBoolSet(numArray3);
-			}
-
-			public static class Conversion
-			{
-				public static bool[] Grass;
-
-				public static bool[] Stone;
-
-				public static bool[] Sandstone;
-
-				public static bool[] HardenedSand;
-
-				static Conversion()
-				{
-					SetFactory factory = WallID.Sets.Factory;
-					int[] numArray = new int[] { 63, 64, 65, 66, 67, 68, 69, 70, 81 };
-					WallID.Sets.Conversion.Grass = factory.CreateBoolSet(numArray);
-					SetFactory setFactory = WallID.Sets.Factory;
-					int[] numArray1 = new int[] { 1, 3, 28, 83 };
-					WallID.Sets.Conversion.Stone = setFactory.CreateBoolSet(numArray1);
-					SetFactory factory1 = WallID.Sets.Factory;
-					int[] numArray2 = new int[] { 187, 220, 222, 221 };
-					WallID.Sets.Conversion.Sandstone = factory1.CreateBoolSet(numArray2);
-					SetFactory setFactory1 = WallID.Sets.Factory;
-					int[] numArray3 = new int[] { 216, 217, 219, 218 };
-					WallID.Sets.Conversion.HardenedSand = setFactory1.CreateBoolSet(numArray3);
-				}
-			}
-		}
 	}
 }

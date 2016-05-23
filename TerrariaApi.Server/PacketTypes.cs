@@ -107,10 +107,10 @@ public enum PacketTypes
 	NebulaLevelUp = 102,
 	MoonLordCountdown = 103,
 	NpcShopItem = 104,
-	GemLock = 105,
+	GemLockToggle = 105,
 	PoofOfSmoke = 106,
-	ServerChatText = 107,
+	SmartTextMessage = 107,
 	WiredCannonShot = 108,
 	MassWireOperation = 109,
-	MassWireOperationConsume = 110
+	MassWireOperationPay = 110
 }

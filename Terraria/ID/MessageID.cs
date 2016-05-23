@@ -1,5 +1,3 @@
-using System;
-
 namespace Terraria.ID
 {
 	public class MessageID
@@ -214,10 +212,18 @@ namespace Terraria.ID
 
 		public const byte ShopOverride = 104;
 
-		public const byte Count = 105;
+		public const byte GemLockToggle = 105;
 
-		public MessageID()
-		{
-		}
+		public const byte PoofOfSmoke = 106;
+
+		public const byte SmartTextMessage = 107;
+
+		public const byte WiredCannonShot = 108;
+
+		public const byte MassWireOperation = 109;
+
+		public const byte MassWireOperationPay = 110;
+
+		public const byte Count = 111;
 	}
 }

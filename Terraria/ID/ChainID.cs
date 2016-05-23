@@ -1,5 +1,3 @@
-using System;
-
 namespace Terraria.ID
 {
 	public static class ChainID
@@ -36,6 +34,8 @@ namespace Terraria.ID
 
 		public const short LunarStardustGlow = 15;
 
-		public const short Count = 16;
+		public const short StaticHook = 16;
+
+		public const short Count = 17;
 	}
 }

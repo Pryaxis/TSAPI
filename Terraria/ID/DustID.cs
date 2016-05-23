@@ -1,5 +1,3 @@
-using System;
-
 namespace Terraria.ID
 {
 	public static class DustID
@@ -100,7 +98,7 @@ namespace Terraria.ID
 
 		public const short AncientLight = 261;
 
-		public const short EmberBolt = 262;
+		public const short AmberBolt = 262;
 
 		public const short PortalBolt = 263;
 

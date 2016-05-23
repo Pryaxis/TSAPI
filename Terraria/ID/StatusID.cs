@@ -1,5 +1,3 @@
-using System;
-
 namespace Terraria.ID
 {
 	public class StatusID
@@ -17,9 +15,5 @@ namespace Terraria.ID
 		public const int BadSectionPointer = 5;
 
 		public const int BadFooter = 6;
-
-		public StatusID()
-		{
-		}
 	}
 }

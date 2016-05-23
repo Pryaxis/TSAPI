@@ -1,118 +1,104 @@
-
-using System;
-using Terraria;
-
 namespace Terraria.ID
 {
 	public static class Colors
 	{
-		public readonly static Color RarityAmber;
+		public static readonly Color RarityAmber = new Color(255, 175, 0);
 
-		public readonly static Color RarityTrash;
+		public static readonly Color RarityTrash = new Color(130, 130, 130);
 
-		public readonly static Color RarityNormal;
+		public static readonly Color RarityNormal = Color.White;
 
-		public readonly static Color RarityBlue;
+		public static readonly Color RarityBlue = new Color(150, 150, 255);
 
-		public readonly static Color RarityGreen;
+		public static readonly Color RarityGreen = new Color(150, 255, 150);
 
-		public readonly static Color RarityOrange;
+		public static readonly Color RarityOrange = new Color(255, 200, 150);
 
-		public readonly static Color RarityRed;
+		public static readonly Color RarityRed = new Color(255, 150, 150);
 
-		public readonly static Color RarityPink;
+		public static readonly Color RarityPink = new Color(255, 150, 255);
 
-		public readonly static Color RarityPurple;
+		public static readonly Color RarityPurple = new Color(210, 160, 255);
 
-		public readonly static Color RarityLime;
+		public static readonly Color RarityLime = new Color(150, 255, 10);
 
-		public readonly static Color RarityYellow;
+		public static readonly Color RarityYellow = new Color(255, 255, 10);
 
-		public readonly static Color RarityCyan;
+		public static readonly Color RarityCyan = new Color(5, 200, 255);
 
-		public readonly static Color CoinPlatinum;
+		public static readonly Color CoinPlatinum = new Color(220, 220, 198);
 
-		public readonly static Color CoinGold;
+		public static readonly Color CoinGold = new Color(224, 201, 92);
 
-		public readonly static Color CoinSilver;
+		public static readonly Color CoinSilver = new Color(181, 192, 193);
 
-		public readonly static Color CoinCopper;
+		public static readonly Color CoinCopper = new Color(246, 138, 96);
 
-		public readonly static Color[] _waterfallColors;
+		public static readonly Color[] _waterfallColors = new Color[]
+		{
+			new Color(9, 61, 191),
+			new Color(253, 32, 3),
+			new Color(143, 143, 143),
+			new Color(59, 29, 131),
+			new Color(7, 145, 142),
+			new Color(171, 11, 209),
+			new Color(9, 137, 191),
+			new Color(168, 106, 32),
+			new Color(36, 60, 148),
+			new Color(65, 59, 101),
+			new Color(200, 0, 0),
+			new Color(),
+			new Color(),
+			new Color(177, 54, 79),
+			new Color(255, 156, 12),
+			new Color(91, 34, 104),
+			new Color(102, 104, 34),
+			new Color(34, 43, 104),
+			new Color(34, 104, 38),
+			new Color(104, 34, 34),
+			new Color(76, 79, 102),
+			new Color(104, 61, 34)
+		};
 
-		public readonly static Color[] _liquidColors;
+		public static readonly Color[] _liquidColors = new Color[]
+		{
+			new Color(9, 61, 191),
+			new Color(253, 32, 3),
+			new Color(59, 29, 131),
+			new Color(7, 145, 142),
+			new Color(171, 11, 209),
+			new Color(9, 137, 191),
+			new Color(168, 106, 32),
+			new Color(36, 60, 148),
+			new Color(65, 59, 101),
+			new Color(200, 0, 0),
+			new Color(177, 54, 79),
+			new Color(255, 156, 12)
+		};
 
 		public static Color CurrentLiquidColor
 		{
 			get
 			{
-				Color transparent = Color.Transparent;
+				Color color = Color.Transparent;
 				bool flag = true;
 				for (int i = 0; i < 11; i++)
 				{
 					if (Main.liquidAlpha[i] > 0f)
 					{
-						if (!flag)
+						if (flag)
 						{
-							transparent = Color.Lerp(transparent, Colors._liquidColors[i], Main.liquidAlpha[i]);
+							flag = false;
+							color = _liquidColors[i];
 						}
 						else
 						{
-							flag = false;
-							transparent = Colors._liquidColors[i];
+							color = Color.Lerp(color, _liquidColors[i], Main.liquidAlpha[i]);
 						}
 					}
 				}
-				return transparent;
+				return color;
 			}
-		}
-
-		static Colors()
-		{
-			Colors.RarityAmber = new Color(255, 175, 0);
-			Colors.RarityTrash = new Color(130, 130, 130);
-			Colors.RarityNormal = Color.White;
-			Colors.RarityBlue = new Color(150, 150, 255);
-			Colors.RarityGreen = new Color(150, 255, 150);
-			Colors.RarityOrange = new Color(255, 200, 150);
-			Colors.RarityRed = new Color(255, 150, 150);
-			Colors.RarityPink = new Color(255, 150, 255);
-			Colors.RarityPurple = new Color(210, 160, 255);
-			Colors.RarityLime = new Color(150, 255, 10);
-			Colors.RarityYellow = new Color(255, 255, 10);
-			Colors.RarityCyan = new Color(5, 200, 255);
-			Colors.CoinPlatinum = new Color(220, 220, 198);
-			Colors.CoinGold = new Color(224, 201, 92);
-			Colors.CoinSilver = new Color(181, 192, 193);
-			Colors.CoinCopper = new Color(246, 138, 96);
-			Color[] color = new Color[22];
-			color[0] = new Color(9, 61, 191);
-			color[1] = new Color(253, 32, 3);
-			color[2] = new Color(143, 143, 143);
-			color[3] = new Color(59, 29, 131);
-			color[4] = new Color(7, 145, 142);
-			color[5] = new Color(171, 11, 209);
-			color[6] = new Color(9, 137, 191);
-			color[7] = new Color(168, 106, 32);
-			color[8] = new Color(36, 60, 148);
-			color[9] = new Color(65, 59, 101);
-			color[10] = new Color(200, 0, 0);
-			Color color1 = new Color();
-			color[11] = color1;
-			Color color2 = new Color();
-			color[12] = color2;
-			color[13] = new Color(177, 54, 79);
-			color[14] = new Color(255, 156, 12);
-			color[15] = new Color(91, 34, 104);
-			color[16] = new Color(102, 104, 34);
-			color[17] = new Color(34, 43, 104);
-			color[18] = new Color(34, 104, 38);
-			color[19] = new Color(104, 34, 34);
-			color[20] = new Color(76, 79, 102);
-			color[21] = new Color(104, 61, 34);
-			Colors._waterfallColors = color;
-			Color[] colorArray = new Color[] { new Color(9, 61, 191), new Color(253, 32, 3), new Color(59, 29, 131), new Color(7, 145, 142), new Color(171, 11, 209), new Color(9, 137, 191), new Color(168, 106, 32), new Color(36, 60, 148), new Color(65, 59, 101), new Color(200, 0, 0), new Color(177, 54, 79), new Color(255, 156, 12) };
-			Colors._liquidColors = colorArray;
 		}
 
 		public static Color AlphaDarken(Color input)

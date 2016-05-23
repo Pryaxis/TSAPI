@@ -1,5 +1,3 @@
-using System;
-
 namespace Terraria.ID
 {
 	public static class BuffID
@@ -382,6 +380,8 @@ namespace Terraria.ID
 
 		public const int SuspiciousTentacle = 190;
 
-		public const int Count = 191;
+		public const int CompanionCube = 191;
+
+		public const int Count = 192;
 	}
 }
