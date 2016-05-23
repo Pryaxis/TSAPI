@@ -70,6 +70,7 @@ namespace Terraria
 		public int frame;
 		public bool manualDirectionChange;
 		public int projUUID = -1;
+		private static float[] _CompanionCubeScreamCooldown = new float[255];
 		public float Opacity
 		{
 			get
@@ -4025,6 +4026,7 @@ namespace Terraria
 				this.ownerHitCheck = true;
 				this.melee = true;
 				this.coldDamage = true;
+				this.tileCollide = false;
 			}
 			else if (this.type == 343)
 			{
@@ -5967,8 +5969,8 @@ namespace Terraria
 			{
 				this.extraUpdates = 0;
 				this.name = "Terrarian";
-				this.width = 16;
-				this.height = 16;
+				this.width = 14;
+				this.height = 14;
 				this.aiStyle = 115;
 				this.friendly = true;
 				this.penetrate = -1;
@@ -6288,6 +6290,7 @@ namespace Terraria
 				this.aiStyle = 1;
 				this.alpha = 255;
 				this.friendly = true;
+				this.ranged = true;
 			}
 			else if (this.type == 588)
 			{
@@ -6297,6 +6300,7 @@ namespace Terraria
 				this.aiStyle = 16;
 				this.friendly = true;
 				this.penetrate = -1;
+				this.thrown = true;
 			}
 			else if (this.type == 590)
 			{
@@ -6380,7 +6384,7 @@ namespace Terraria
 			}
 			else if (this.type == 597)
 			{
-				this.name = "Ember Bolt";
+				this.name = "Amber Bolt";
 				this.width = 10;
 				this.height = 10;
 				this.aiStyle = 29;
@@ -6925,6 +6929,67 @@ namespace Terraria
 				this.tileCollide = false;
 				this.manualDirectionChange = true;
 			}
+			else if (this.type == 651)
+			{
+				this.name = "Wire Kite";
+				this.width = 10;
+				this.height = 10;
+				this.aiStyle = 125;
+				this.friendly = true;
+				this.ignoreWater = true;
+				this.tileCollide = false;
+				this.penetrate = -1;
+			}
+			else if (this.type == 652)
+			{
+				this.name = "Static Hook";
+				this.width = 18;
+				this.height = 18;
+				this.aiStyle = 7;
+				this.friendly = true;
+				this.penetrate = -1;
+				this.tileCollide = false;
+				this.timeLeft *= 10;
+			}
+			else if (this.type == 653)
+			{
+				this.name = "Companion Cube";
+				this.width = 30;
+				this.height = 30;
+				this.aiStyle = 67;
+				this.penetrate = -1;
+				this.netImportant = true;
+				this.timeLeft *= 5;
+				this.friendly = true;
+				this.ignoreWater = true;
+				this.scale = 0.8f;
+			}
+			else if (this.type == 654)
+			{
+				this.name = "Geyser";
+				this.width = 30;
+				this.height = 30;
+				this.aiStyle = 126;
+				this.alpha = 255;
+				this.tileCollide = false;
+				this.ignoreWater = true;
+				this.timeLeft = 120;
+				this.friendly = true;
+				this.hostile = true;
+				this.penetrate = -1;
+				this.trap = true;
+			}
+			else if (this.type == 655)
+			{
+				this.name = "Bee Hive";
+				this.width = 31;
+				this.height = 31;
+				this.aiStyle = 25;
+				this.friendly = true;
+				this.hostile = true;
+				this.penetrate = -1;
+				this.trap = true;
+			}
 			else
 			{
 				this.active = false;
@@ -7020,7 +7085,7 @@ namespace Terraria
 				projectile.ai[0] = projectile.position.X;
 				projectile.ai[1] = projectile.position.Y;
 			}
-			if (Type > 0 && Type < 651)
+			if (Type > 0 && Type < 656)
 			{
 				if (ProjectileID.Sets.NeedsUUID[Type])
 				{
@@ -7943,9 +8008,15 @@ namespace Terraria
 				}
 			}
 		}
+
+		public bool CanHit(Entity ent)
+		{
+			return Collision.CanHit(Main.player[this.owner].position, Main.player[this.owner].width, Main.player[this.owner].height, ent.position, ent.width, ent.height) || Collision.CanHitLine(Main.player[this.owner].Center + new Vector2((float)(Main.player[this.owner].direction * Main.player[this.owner].width / 2), Main.player[this.owner].gravDir * (float)(-(float)Main.player[this.owner].height) / 3f), 0, 0, ent.Center + new Vector2(0f, (float)(-(float)ent.height / 3)), 0, 0) || Collision.CanHitLine(Main.player[this.owner].Center + new Vector2((float)(Main.player[this.owner].direction * Main.player[this.owner].width / 2), Main.player[this.owner].gravDir * (float)(-(float)Main.player[this.owner].height) / 3f), 0, 0, ent.Center, 0, 0) || Collision.CanHitLine(Main.player[this.owner].Center + new Vector2((float)(Main.player[this.owner].direction * Main.player[this.owner].width / 2), 0f), 0, 0, ent.Center + new Vector2(0f, (float)(ent.height / 3)), 0, 0);
+		}
+
 		public void Damage()
 		{
-			if (this.type == 18 || this.type == 72 || this.type == 86 || this.type == 87 || this.aiStyle == 31 || this.aiStyle == 32 || this.type == 226 || this.type == 378 || this.type == 613 || this.type == 650 || (this.type == 434 && this.localAI[0] != 0f) || this.type == 439 || this.type == 444 || (this.type == 451 && ((int)(this.ai[0] - 1f) / this.penetrate == 0 || this.ai[1] < 5f) && this.ai[0] != 0f) || this.type == 500 || this.type == 460 || this.type == 633 || this.type == 600 || this.type == 601 || this.type == 602 || this.type == 535 || (this.type == 631 && this.localAI[1] == 0f))
+			if (this.type == 18 || this.type == 72 || this.type == 86 || this.type == 87 || this.aiStyle == 31 || this.aiStyle == 32 || this.type == 226 || this.type == 378 || this.type == 613 || this.type == 650 || (this.type == 434 && this.localAI[0] != 0f) || this.type == 439 || this.type == 444 || (this.type == 451 && ((int)(this.ai[0] - 1f) / this.penetrate == 0 || this.ai[1] < 5f) && this.ai[0] != 0f) || (this.type == 500 || this.type == 653 || this.type == 460 || this.type == 633 || this.type == 600 || this.type == 601 || this.type == 602 || this.type == 535 || (this.type == 631 && this.localAI[1] == 0f)) || this.type == 651)
 			{
 				return;
 			}
@@ -7991,7 +8062,7 @@ namespace Terraria
 				if ((this.aiStyle == 16 && this.type != 338 && this.type != 339 && this.type != 340 && this.type != 341 && (this.timeLeft <= 1 || this.type == 108 || this.type == 164)) || (this.type == 286 && this.localAI[1] == -1f))
 				{
 					int myPlayer = Main.myPlayer;
-					if (Main.player[myPlayer].active && !Main.player[myPlayer].dead && !Main.player[myPlayer].immune && (!this.ownerHitCheck || Collision.CanHit(Main.player[this.owner].position, Main.player[this.owner].width, Main.player[this.owner].height, Main.player[myPlayer].position, Main.player[myPlayer].width, Main.player[myPlayer].height)))
+					if (Main.player[myPlayer].active && !Main.player[myPlayer].dead && !Main.player[myPlayer].immune && (!this.ownerHitCheck || this.CanHit(Main.player[myPlayer])))
 					{
 						Rectangle rectangle = new Rectangle((int)Main.player[myPlayer].position.X, (int)Main.player[myPlayer].position.Y, Main.player[myPlayer].width, Main.player[myPlayer].height);
 						if (myRect.Intersects(rectangle))
@@ -8014,10 +8085,6 @@ namespace Terraria
 								{
 									AchievementsHelper.HandleSpecialEvent(Main.player[myPlayer], 4);
 								}
-							}
-							if (Main.netMode != 0)
-							{
-								NetMessage.SendData(26, -1, -1, Lang.deathMsg(this.owner, -1, this.whoAmI, -1), myPlayer, (float)this.direction, (float)num4, 1f, 0, 0, 0);
 							}
 						}
 					}
@@ -8096,7 +8163,7 @@ namespace Terraria
 							{
 								flag2 = true;
 							}
-							if (!flag2 && (Main.npc[k].noTileCollide || !this.ownerHitCheck || Collision.CanHit(Main.player[this.owner].position, Main.player[this.owner].width, Main.player[this.owner].height, Main.npc[k].position, Main.npc[k].width, Main.npc[k].height)))
+							if (!flag2 && (Main.npc[k].noTileCollide || !this.ownerHitCheck || this.CanHit(Main.npc[k])))
 							{
 								bool flag3;
 								if (Main.npc[k].type == 414)
@@ -8124,7 +8191,7 @@ namespace Terraria
 										Main.npc[k].ReflectProjectile(this.whoAmI);
 										return;
 									}
-									if (this.type > 0 && this.type < 651 && ProjectileID.Sets.StardustDragon[this.type])
+									if (this.type > 0 && this.type < 656 && ProjectileID.Sets.StardustDragon[this.type])
 									{
 										float num11 = (this.scale - 1f) * 100f;
 										num11 = Utils.Clamp<float>(num11, 0f, 50f);
@@ -8377,7 +8444,7 @@ namespace Terraria
 											num10 = (int)((double)num10 * 0.75);
 										}
 									}
-									if (Main.netMode != 2 && Main.npc[k].type == 439 && this.type >= 0 && this.type <= 651 && ProjectileID.Sets.Homing[this.type])
+									if (Main.netMode != 2 && Main.npc[k].type == 439 && this.type >= 0 && this.type <= 656 && ProjectileID.Sets.Homing[this.type])
 									{
 										num10 = (int)((float)num10 * 0.75f);
 									}
