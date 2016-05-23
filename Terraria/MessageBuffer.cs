@@ -9,9 +9,7 @@ using Terraria.GameContent.Achievements;
 using Terraria.GameContent.Tile_Entities;
 using Terraria.GameContent.UI;
 using Terraria.ID;
-using Terraria.IO;
 using Terraria.Net;
-using Terraria.Net.Sockets;
 using TerrariaApi.Server;
 
 namespace Terraria
