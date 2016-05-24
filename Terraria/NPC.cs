@@ -70808,10 +70808,10 @@ namespace Terraria
 		public bool daybreak;
 
 		// Token: 0x04002F3C RID: 12092
-		private static int defaultMaxSpawns = 5;
+		public static int defaultMaxSpawns = 5;
 
 		// Token: 0x04002F3B RID: 12091
-		private static int defaultSpawnRate = 600;
+		public static int defaultSpawnRate = 600;
 
 		// Token: 0x04002F94 RID: 12180
 		public int defDamage;

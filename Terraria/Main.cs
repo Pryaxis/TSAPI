@@ -199,7 +199,7 @@ namespace Terraria
 
 		public static bool ContentLoaded;
 
-		public static int maxMsg;
+		public static int maxMsg = 112;
 
 		public static float GlobalTime;
 

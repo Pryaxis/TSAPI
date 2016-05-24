@@ -7659,7 +7659,21 @@ namespace Terraria.ID
 				3273,
 				2881
 			});
-
+			public static bool[] Explosives = ItemID.Sets.Factory.CreateBoolSet(new int[]
+			{
+				Bomb,
+				Dynamite,
+				StickyBomb,
+				ItemID.Explosives,
+				GrenadeLauncher,
+				RocketLauncher,
+				RocketII,
+				RocketIV,
+				SnowmanCannon,
+				StickyDynamite,
+				BouncyBomb,
+				BombFish
+			});
 			public static bool[] NeverShiny = ItemID.Sets.Factory.CreateBoolSet(new int[]
 			{
 				71,
