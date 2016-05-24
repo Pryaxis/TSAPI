@@ -5410,7 +5410,8 @@ namespace Terraria
 					{
 						try
 						{
-							int num3 = Convert.ToInt32(str2);
+							int num3;
+							int.TryParse(str2, out num3);
 							num3--;
 							if (num3 >= 0 && num3 < Main.WorldList.Count)
 							{

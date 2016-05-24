@@ -2097,6 +2097,8 @@ namespace Terraria
 							num3 = 0;
 							break;
 						}
+						if (num4 == 40)
+							break;
 						if (num3 == 3637)
 						{
 							switch (Main.travelShop[num4])
