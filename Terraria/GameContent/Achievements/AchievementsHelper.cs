@@ -257,7 +257,7 @@ namespace Terraria.GameContent.Achievements
 
 		public static void Initialize()
 		{
-			Player.OnEnterWorld += new Action<Player>(AchievementsHelper.OnPlayerEnteredWorld);
+			Player.Hooks.OnEnterWorld += new Action<Player>(AchievementsHelper.OnPlayerEnteredWorld);
 		}
 
 		public static void NotifyItemCraft(Recipe recipe)

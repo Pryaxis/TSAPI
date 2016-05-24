@@ -42185,7 +42185,7 @@ namespace Terraria
 						}
 						if (!flag && TileID.Sets.CanBeClearedDuringGeneration[(int)Main.tile[i, j].type])
 						{
-							if (grass != 23 || Main.tile[i, j - 1].type != 27)
+							if (grass != 23 || grass != 199 || Main.tile[i, j - 1].type != 27)
 							{
 								Main.tile[i, j].type = (ushort)grass;
 								Main.tile[i, j].color(color);
@@ -43074,6 +43074,8 @@ namespace Terraria
 				{
 					int num3 = (int)value.X;
 					int num4 = (int)value.Y;
+					num3 = Utils.Clamp<int>(num3, 10, Main.maxTilesX - 10);
+					num4 = Utils.Clamp<int>(num4, 10, Main.maxTilesY - 10);
 					if (num4 < 5)
 					{
 						num4 = 5;

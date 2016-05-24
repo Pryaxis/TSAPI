@@ -35,7 +35,8 @@ namespace Terraria.GameContent.Biomes
 			WorldUtils.Gen(new Point(origin.X - (int)(num * -5.0), origin.Y - 5), (GenShape)new Shapes.Circle(5), Actions.Chain((GenAction)new Modifiers.Blotches(2, 0.3), (GenAction)new Actions.ClearTile(true)));
 			Point result1;
 			Point result2;
-			if (((((true ? 1 : 0) & (WorldUtils.Find(new Point(origin.X - (num > 0.0 ? 3 : -3), origin.Y - 3), Searches.Chain((GenSearch)new Searches.Down(10), (GenCondition)new Conditions.IsSolid()), out result1) ? 1 : 0)) != 0 ? 1 : 0) & (WorldUtils.Find(new Point(origin.X - (num > 0.0 ? -3 : 3), origin.Y - 3), Searches.Chain((GenSearch)new Searches.Down(10), (GenCondition)new Conditions.IsSolid()), out result2) ? 1 : 0)) == 0)
+			int num2 = (GenBase._random.Next(4) == 0) ? 3 : 7;
+			if (((((true ? 1 : 0) & (WorldUtils.Find(new Point(origin.X - (num > 0.0 ? (-num2) : num2), origin.Y - 3), Searches.Chain((GenSearch)new Searches.Down(10), (GenCondition)new Conditions.IsSolid()), out result1) ? 1 : 0)) != 0 ? 1 : 0) & (WorldUtils.Find(new Point(origin.X - (num > 0.0 ? -3 : 3), origin.Y - 3), Searches.Chain((GenSearch)new Searches.Down(10), (GenCondition)new Conditions.IsSolid()), out result2) ? 1 : 0)) == 0)
 				return false;
 			--result1.Y;
 			--result2.Y;
