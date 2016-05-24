@@ -32580,8 +32580,6 @@ namespace Terraria
 			}
 			return false;
 		}
-
-		public static System.IO.StreamWriter file = new System.IO.StreamWriter("test.txt");
 		public static bool PlaceTile(int i, int j, int type, bool mute = false, bool forced = false, int plr = -1, int style = 0)
 		{
 			if (type >= 446)
@@ -32973,8 +32971,6 @@ namespace Terraria
 					else if (type == 165)
 					{
 						WorldGen.PlaceTight(i, j, (ushort)type, false);
-						Console.WriteLine(i + ", " + j);
-						file.WriteLine(i + ", " + j);
 						WorldGen.SquareTileFrame(i, j, true);
 					}
 					else if (type == 235)
