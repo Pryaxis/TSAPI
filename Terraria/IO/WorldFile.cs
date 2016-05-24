@@ -6,6 +6,7 @@ using System.IO;
 using System.Threading;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.GameContent;
 using Terraria.GameContent.Events;
 using Terraria.ID;
 using Terraria.Utilities;
@@ -766,29 +767,43 @@ namespace Terraria.IO
 
 		private static void LoadSigns(BinaryReader reader)
 		{
-			Sign sign;
-			int i;
 			short num = reader.ReadInt16();
-			for (i = 0; i < num; i++)
+			int i;
+			for (i = 0; i < (int)num; i++)
 			{
-				string str = reader.ReadString();
-				int num1 = reader.ReadInt32();
+				string text = reader.ReadString();
 				int num2 = reader.ReadInt32();
-				Tile tile = Main.tile[num1, num2];
-				if (!tile.active() || tile.type != 55 && tile.type != 85)
+				int num3 = reader.ReadInt32();
+				Tile tile = Main.tile[num2, num3];
+				Sign sign;
+				if (tile.active() && Main.tileSign[(int)tile.type])
 				{
-					sign = null;
+					sign = new Sign();
+					sign.text = text;
+					sign.x = num2;
+					sign.y = num3;
 				}
 				else
 				{
-					sign = new Sign()
-					{
-						text = str,
-						x = num1,
-						y = num2
-					};
+					sign = null;
 				}
 				Main.sign[i] = sign;
+			}
+			List<Point16> list = new List<Point16>();
+			for (int j = 0; j < 1000; j++)
+			{
+				if (Main.sign[j] != null)
+				{
+					Point16 item = new Point16(Main.sign[j].x, Main.sign[j].y);
+					if (list.Contains(item))
+					{
+						Main.sign[j] = null;
+					}
+					else
+					{
+						list.Add(item);
+					}
+				}
 			}
 			while (i < 1000)
 			{
@@ -808,11 +823,36 @@ namespace Terraria.IO
 				TileEntity tileEntity = TileEntity.Read(reader);
 				int num2 = num1;
 				num1 = num2 + 1;
-				tileEntity.ID = num2;
-				TileEntity.ByID[tileEntity.ID] = tileEntity;
+				TileEntity tileEntity2;
+				if (TileEntity.ByPosition.TryGetValue(tileEntity.Position, out tileEntity2))
+				{
+					TileEntity.ByID.Remove(tileEntity2.ID);
+				}
 				TileEntity.ByPosition[tileEntity.Position] = tileEntity;
 			}
 			TileEntity.TileEntitiesNextID = num;
+		}
+		private static int SaveWeightedPressurePlates(BinaryWriter writer)
+		{
+			writer.Write(PressurePlateHelper.PressurePlatesPressed.Count);
+			foreach (KeyValuePair<Point, bool[]> current in PressurePlateHelper.PressurePlatesPressed)
+			{
+				writer.Write(current.Key.X);
+				writer.Write(current.Key.Y);
+			}
+			return (int)writer.BaseStream.Position;
+		}
+
+		private static void LoadWeightedPressurePlates(BinaryReader reader)
+		{
+			PressurePlateHelper.Reset();
+			PressurePlateHelper.NeedsFirstUpdate = true;
+			int num = reader.ReadInt32();
+			for (int i = 0; i < num; i++)
+			{
+				Point key = new Point(reader.ReadInt32(), reader.ReadInt32());
+				PressurePlateHelper.PressurePlatesPressed.Add(key, new bool[255]);
+			}
 		}
 
 		public static void loadWorld()
@@ -1526,49 +1566,47 @@ namespace Terraria.IO
 
 		private static void LoadWorldTiles(BinaryReader reader, bool[] importance)
 		{
-			byte num;
-			int num1;
 			for (int i = 0; i < Main.maxTilesX; i++)
 			{
-				float single = (float)i / (float)Main.maxTilesX;
-				object[] objArray = new object[] { Lang.gen[51], " ", (int)((double)single * 100 + 1), "%" };
-				Main.statusText = string.Concat(objArray);
+				float num = (float)i / (float)Main.maxTilesX;
+				Main.statusText = string.Concat(new object[]
+				{
+					Lang.gen[51],
+					" ",
+					(int)((double)num * 100.0 + 1.0),
+					"%"
+				});
 				for (int j = 0; j < Main.maxTilesY; j++)
 				{
 					int num2 = -1;
-					int num3 = 0;
-					byte num4 = (byte)num3;
-					byte num5 = (byte)num3;
+					byte b2;
+					byte b = b2 = 0;
 					Tile tile = Main.tile[i, j];
-					byte num6 = reader.ReadByte();
-					if ((num6 & 1) == 1)
+					byte b3 = reader.ReadByte();
+					if ((b3 & 1) == 1)
 					{
-						num5 = reader.ReadByte();
-						if ((num5 & 1) == 1)
+						b2 = reader.ReadByte();
+						if ((b2 & 1) == 1)
 						{
-							num4 = reader.ReadByte();
+							b = reader.ReadByte();
 						}
 					}
-					if ((num6 & 2) == 2)
+					byte b4;
+					if ((b3 & 2) == 2)
 					{
 						tile.active(true);
-						if ((num6 & 32) != 32)
+						if ((b3 & 32) == 32)
 						{
-							num2 = reader.ReadByte();
+							b4 = reader.ReadByte();
+							num2 = (int)reader.ReadByte();
+							num2 = (num2 << 8 | (int)b4);
 						}
 						else
 						{
-							num = reader.ReadByte();
-							num2 = reader.ReadByte();
-							num2 = num2 << 8 | num;
+							num2 = (int)reader.ReadByte();
 						}
 						tile.type = (ushort)num2;
-						if (!importance[num2])
-						{
-							tile.frameX = -1;
-							tile.frameY = -1;
-						}
-						else
+						if (importance[num2])
 						{
 							tile.frameX = reader.ReadInt16();
 							tile.frameY = reader.ReadInt16();
@@ -1577,108 +1615,121 @@ namespace Terraria.IO
 								tile.frameY = 0;
 							}
 						}
-						if ((num4 & 8) == 8)
+						else
+						{
+							tile.frameX = -1;
+							tile.frameY = -1;
+						}
+						if ((b & 8) == 8)
 						{
 							tile.color(reader.ReadByte());
 						}
 					}
-					if ((num6 & 4) == 4)
+					if ((b3 & 4) == 4)
 					{
 						tile.wall = reader.ReadByte();
-						if ((num4 & 16) == 16)
+						if ((b & 16) == 16)
 						{
 							tile.wallColor(reader.ReadByte());
 						}
 					}
-					num = (byte)((num6 & 24) >> 3);
-					if (num != 0)
+					b4 = (byte)((b3 & 24) >> 3);
+					if (b4 != 0)
 					{
 						tile.liquid = reader.ReadByte();
-						if (num > 1)
+						if (b4 > 1)
 						{
-							if (num != 2)
-							{
-								tile.honey(true);
-							}
-							else
+							if (b4 == 2)
 							{
 								tile.lava(true);
 							}
+							else
+							{
+								tile.honey(true);
+							}
 						}
 					}
-					if (num5 > 1)
+					if (b2 > 1)
 					{
-						if ((num5 & 2) == 2)
+						if ((b2 & 2) == 2)
 						{
 							tile.wire(true);
 						}
-						if ((num5 & 4) == 4)
+						if ((b2 & 4) == 4)
 						{
 							tile.wire2(true);
 						}
-						if ((num5 & 8) == 8)
+						if ((b2 & 8) == 8)
 						{
 							tile.wire3(true);
 						}
-						num = (byte)((num5 & 112) >> 4);
-						if (num != 0 && Main.tileSolid[tile.type])
+						b4 = (byte)((b2 & 112) >> 4);
+						if (b4 != 0 && Main.tileSolid[(int)tile.type])
 						{
-							if (num != 1)
-							{
-								tile.slope((byte)(num - 1));
-							}
-							else
+							if (b4 == 1)
 							{
 								tile.halfBrick(true);
 							}
+							else
+							{
+								tile.slope((byte)(b4 - 1));
+							}
 						}
 					}
-					if (num4 > 0)
+					if (b > 0)
 					{
-						if ((num4 & 2) == 2)
+						if ((b & 2) == 2)
 						{
 							tile.actuator(true);
 						}
-						if ((num4 & 4) == 4)
+						if ((b & 4) == 4)
 						{
 							tile.inActive(true);
 						}
+						if ((b & 32) == 32)
+						{
+							tile.wire4(true);
+						}
 					}
-					num = (byte)((num6 & 192) >> 6);
-					if (num == 0)
+					b4 = (byte)((b3 & 192) >> 6);
+					int k;
+					if (b4 == 0)
 					{
-						num1 = 0;
+						k = 0;
 					}
-					else if (num != 1)
+					else if (b4 == 1)
 					{
-						num1 = reader.ReadInt16();
+						k = (int)reader.ReadByte();
 					}
 					else
 					{
-						num1 = reader.ReadByte();
+						k = (int)reader.ReadInt16();
 					}
 					if (num2 != -1)
 					{
-						if ((double)j > Main.worldSurface)
+						if ((double)j <= Main.worldSurface)
 						{
-							WorldGen.tileCounts[num2] = WorldGen.tileCounts[num2] + num1 + 1;
-						}
-						else if ((double)(j + num1) > Main.worldSurface)
-						{
-							int num7 = (int)(Main.worldSurface - (double)j + 1);
-							int num8 = num1 + 1 - num7;
-							WorldGen.tileCounts[num2] = WorldGen.tileCounts[num2] + num7 * 5 + num8;
+							if ((double)(j + k) <= Main.worldSurface)
+							{
+								WorldGen.tileCounts[num2] += (k + 1) * 5;
+							}
+							else
+							{
+								int num3 = (int)(Main.worldSurface - (double)j + 1.0);
+								int num4 = k + 1 - num3;
+								WorldGen.tileCounts[num2] += num3 * 5 + num4;
+							}
 						}
 						else
 						{
-							WorldGen.tileCounts[num2] = WorldGen.tileCounts[num2] + (num1 + 1) * 5;
+							WorldGen.tileCounts[num2] += k + 1;
 						}
 					}
-					while (num1 > 0)
+					while (k > 0)
 					{
 						j++;
 						Main.tile[i, j].CopyFrom(tile);
-						num1--;
+						k--;
 					}
 				}
 			}
@@ -1815,39 +1866,38 @@ namespace Terraria.IO
 
 		private static int SaveFileFormatHeader(BinaryWriter writer)
 		{
-			int i;
-			short num = 419;
-			short num1 = 10;
+			short num = 446;
+			short num2 = 10;
 			writer.Write(Main.curRelease);
 			Main.WorldFileMetadata.IncrementAndWrite(writer);
-			writer.Write(num1);
-			for (i = 0; i < num1; i++)
+			writer.Write(num2);
+			for (int i = 0; i < (int)num2; i++)
 			{
 				writer.Write(0);
 			}
 			writer.Write(num);
-			byte num2 = 0;
-			byte num3 = 1;
-			for (i = 0; i < num; i++)
+			byte b = 0;
+			byte b2 = 1;
+			for (int i = 0; i < (int)num; i++)
 			{
 				if (Main.tileFrameImportant[i])
 				{
-					num2 = (byte)(num2 | num3);
+					b |= b2;
 				}
-				if (num3 != 128)
+				if (b2 == 128)
 				{
-					num3 = (byte)(num3 << 1);
+					writer.Write(b);
+					b = 0;
+					b2 = 1;
 				}
 				else
 				{
-					writer.Write(num2);
-					num2 = 0;
-					num3 = 1;
+					b2 = (byte)(b2 << 1);
 				}
 			}
-			if (num3 != 1)
+			if (b2 != 1)
 			{
-				writer.Write(num2);
+				writer.Write(b);
 			}
 			return (int)writer.BaseStream.Position;
 		}
@@ -2212,21 +2262,24 @@ namespace Terraria.IO
 
 		private static int SaveWorldTiles(BinaryWriter writer)
 		{
-			int num;
-			byte[] numArray = new byte[13];
+			byte[] array = new byte[13];
 			for (int i = 0; i < Main.maxTilesX; i++)
 			{
-				float single = (float)i / (float)Main.maxTilesX;
-				object[] objArray = new object[] { Lang.gen[49], " ", (int)(single * 100f + 1f), "%" };
-				Main.statusText = string.Concat(objArray);
+				float num = (float)i / (float)Main.maxTilesX;
+				Main.statusText = string.Concat(new object[]
+				{
+					Lang.gen[49],
+					" ",
+					(int)(num * 100f + 1f),
+					"%"
+				});
 				for (int j = 0; j < Main.maxTilesY; j++)
 				{
 					Tile tile = Main.tile[i, j];
-					int num1 = 3;
-					int num2 = 0;
-					byte num3 = (byte)num2;
-					byte num4 = (byte)num2;
-					byte num5 = (byte)num2;
+					int num2 = 3;
+					byte b3;
+					byte b2;
+					byte b = b2 = (b3 = 0);
 					bool flag = false;
 					if (tile.active())
 					{
@@ -2246,7 +2299,7 @@ namespace Terraria.IO
 					}
 					if (flag)
 					{
-						num5 = (byte)(num5 | 2);
+						b2 |= 2;
 						if (tile.type == 127)
 						{
 							WorldGen.KillTile(i, j, false, false, false);
@@ -2255,126 +2308,139 @@ namespace Terraria.IO
 								NetMessage.SendData(17, -1, -1, "", 0, (float)i, (float)j, 0f, 0, 0, 0);
 							}
 						}
-						numArray[num1] = (byte)tile.type;
-						num1++;
+						array[num2] = (byte)tile.type;
+						num2++;
 						if (tile.type > 255)
 						{
-							numArray[num1] = (byte)(tile.type >> 8);
-							num1++;
-							num5 = (byte)(num5 | 32);
+							array[num2] = (byte)(tile.type >> 8);
+							num2++;
+							b2 |= 32;
 						}
-						if (Main.tileFrameImportant[tile.type])
+						if (Main.tileFrameImportant[(int)tile.type])
 						{
-							numArray[num1] = (byte)(tile.frameX & 255);
-							num1++;
-							numArray[num1] = (byte)((tile.frameX & 65280) >> 8);
-							num1++;
-							numArray[num1] = (byte)(tile.frameY & 255);
-							num1++;
-							numArray[num1] = (byte)((tile.frameY & 65280) >> 8);
-							num1++;
+							array[num2] = (byte)(tile.frameX & 255);
+							num2++;
+							array[num2] = (byte)(((int)tile.frameX & 65280) >> 8);
+							num2++;
+							array[num2] = (byte)(tile.frameY & 255);
+							num2++;
+							array[num2] = (byte)(((int)tile.frameY & 65280) >> 8);
+							num2++;
 						}
 						if (tile.color() != 0)
 						{
-							num3 = (byte)(num3 | 8);
-							numArray[num1] = tile.color();
-							num1++;
+							b3 |= 8;
+							array[num2] = tile.color();
+							num2++;
 						}
 					}
 					if (tile.wall != 0)
 					{
-						num5 = (byte)(num5 | 4);
-						numArray[num1] = tile.wall;
-						num1++;
+						b2 |= 4;
+						array[num2] = tile.wall;
+						num2++;
 						if (tile.wallColor() != 0)
 						{
-							num3 = (byte)(num3 | 16);
-							numArray[num1] = tile.wallColor();
-							num1++;
+							b3 |= 16;
+							array[num2] = tile.wallColor();
+							num2++;
 						}
 					}
 					if (tile.liquid != 0)
 					{
-						if (!tile.lava())
+						if (tile.lava())
 						{
-							num5 = (!tile.honey() ? (byte)(num5 | 8) : (byte)(num5 | 24));
+							b2 |= 16;
+						}
+						else if (tile.honey())
+						{
+							b2 |= 24;
 						}
 						else
 						{
-							num5 = (byte)(num5 | 16);
+							b2 |= 8;
 						}
-						numArray[num1] = tile.liquid;
-						num1++;
+						array[num2] = tile.liquid;
+						num2++;
 					}
 					if (tile.wire())
 					{
-						num4 = (byte)(num4 | 2);
+						b |= 2;
 					}
 					if (tile.wire2())
 					{
-						num4 = (byte)(num4 | 4);
+						b |= 4;
 					}
 					if (tile.wire3())
 					{
-						num4 = (byte)(num4 | 8);
+						b |= 8;
 					}
-					if (!tile.halfBrick())
+					int num3;
+					if (tile.halfBrick())
 					{
-						num = (tile.slope() == 0 ? 0 : tile.slope() + 1 << 4);
+						num3 = 16;
+					}
+					else if (tile.slope() != 0)
+					{
+						num3 = (int)(tile.slope() + 1) << 4;
 					}
 					else
 					{
-						num = 16;
+						num3 = 0;
 					}
-					num4 = (byte)(num4 | (byte)num);
+					b |= (byte)num3;
 					if (tile.actuator())
 					{
-						num3 = (byte)(num3 | 2);
+						b3 |= 2;
 					}
 					if (tile.inActive())
 					{
-						num3 = (byte)(num3 | 4);
+						b3 |= 4;
 					}
-					int num6 = 2;
-					if (num3 != 0)
+					if (tile.wire4())
 					{
-						num4 = (byte)(num4 | 1);
-						numArray[num6] = num3;
-						num6--;
+						b3 |= 32;
 					}
-					if (num4 != 0)
+					int num4 = 2;
+					if (b3 != 0)
 					{
-						num5 = (byte)(num5 | 1);
-						numArray[num6] = num4;
-						num6--;
+						b |= 1;
+						array[num4] = b3;
+						num4--;
 					}
-					short num7 = 0;
-					int num8 = j + 1;
-					int num9 = Main.maxTilesY - j - 1;
-					while (num9 > 0 && tile.isTheSameAs(Main.tile[i, num8]))
+					if (b != 0)
 					{
-						num7 = (short)(num7 + 1);
-						num9--;
-						num8++;
+						b2 |= 1;
+						array[num4] = b;
+						num4--;
 					}
-					j = j + num7;
-					if (num7 > 0)
+					short num5 = 0;
+					int num6 = j + 1;
+					int num7 = Main.maxTilesY - j - 1;
+					while (num7 > 0 && tile.isTheSameAs(Main.tile[i, num6]))
 					{
-						numArray[num1] = (byte)(num7 & 255);
-						num1++;
-						if (num7 <= 255)
+						num5 += 1;
+						num7--;
+						num6++;
+					}
+					j += (int)num5;
+					if (num5 > 0)
+					{
+						array[num2] = (byte)(num5 & 255);
+						num2++;
+						if (num5 > 255)
 						{
-							num5 = (byte)(num5 | 64);
+							b2 |= 128;
+							array[num2] = (byte)(((int)num5 & 65280) >> 8);
+							num2++;
 						}
 						else
 						{
-							num5 = (byte)(num5 | 128);
-							numArray[num1] = (byte)((num7 & 65280) >> 8);
-							num1++;
+							b2 |= 64;
 						}
 					}
-					numArray[num6] = num5;
-					writer.Write(numArray, num6, num1 - num6);
+					array[num4] = b2;
+					writer.Write(array, num4, num2 - num4);
 				}
 			}
 			return (int)writer.BaseStream.Position;
