@@ -49,9 +49,10 @@ namespace Terraria
             char barFull = '\u2588';
 
             Console.Write($"{percent} % ");
+            int pc = (int)(((decimal)percent / 100) * barWidth);
             for (int i = 0; i < barWidth; i++)
             {
-                if (i < percent)
+                if (i < pc)
                 {
                     Console.Write(barFull);
                 }
