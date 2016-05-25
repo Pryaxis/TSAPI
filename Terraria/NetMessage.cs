@@ -1750,6 +1750,10 @@ namespace Terraria
 							b3 |= 4;
 						}
 						num6 = 2;
+                        if (tile2.wire4())
+                        {
+                            b3 |= 32;
+                        }
 						if (b3 != 0)
 						{
 							b2 |= 1;
