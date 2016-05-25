@@ -481,6 +481,7 @@ namespace Terraria
 
 					writer.Write((short) number);
 					writer.WriteVector2(nPC.position);
+
 					writer.WriteVector2(nPC.velocity);
 					writer.Write((byte) nPC.target);
 					int num8 = nPC.life;

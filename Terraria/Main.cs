@@ -7,6 +7,7 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using Terraria.Achievements;
 using Terraria.DataStructures;
@@ -5393,16 +5394,27 @@ namespace Terraria
 						int oldProgress = 0;
 						int oldValue = 0;
 
-						while (Main.serverGenLock)
-						{
+                        int barWidth = Console.WindowWidth / 3;
 
-							if ((int)(generationProgress.TotalProgress * 100) != oldProgress || (int)(generationProgress.Value * 100) != oldValue)
+                        Console.WriteLine("Generating World...");
+                        while (Main.serverGenLock)
+						{
+							if ((int)(generationProgress.TotalProgress * 100) != oldProgress)
 							{
 								Main.statusText = string.Format(string.Concat("{0:0%} - ", generationProgress.Message, " - {1:0%}"), generationProgress.TotalProgress, generationProgress.Value);
 								Main.oldStatusText = Main.statusText;
 								oldProgress = (int)(generationProgress.TotalProgress * 100);
 								oldValue = (int)(generationProgress.Value * 100);
-								Console.Write("\r" + Main.statusText);
+
+
+								Console.Write($"\r{generationProgress.Message}");
+
+                                for (int i = Console.CursorLeft; i < Console.WindowWidth / 3; i++)
+                                {
+                                    Console.Write(" ");
+                                }
+
+                                Utils.WriteConsoleBar(barWidth, oldProgress);
 							}
 						}
 					}
@@ -5545,6 +5557,9 @@ namespace Terraria
 			WorldGen.serverLoadWorld();
 			Console.WriteLine(string.Concat("Terraria Server ", Main.versionNumber));
 			Console.WriteLine("");
+
+            Regex completePercent = new Regex(@"(\d?\d?\d)%");
+
 			while (!Netplay.IsServerRunning)
 			{
 				if (Main.oldStatusText == Main.statusText)
@@ -5552,10 +5567,21 @@ namespace Terraria
 					continue;
 				}
 				Main.oldStatusText = Main.statusText;
-				if (Console.IsOutputRedirected == false)
-					Console.Write("\r" + Main.statusText);
+				if (Console.IsOutputRedirected == false && completePercent.IsMatch(Main.statusText))
+                {
+                    Match percentMatch = completePercent.Match(Main.statusText);
+                    int percent = int.Parse(percentMatch.Groups[1].Value);
+
+                    Console.Write($"\r{completePercent.Replace(Main.statusText, "")}");
+                    for (int i = Console.CursorLeft; i < Console.WindowWidth / 3; i++)
+                        Console.Write(" ");
+
+                    Utils.WriteConsoleBar(Console.WindowWidth / 3, percent);
+                }
 				else
-					Console.WriteLine(Main.statusText);
+                {
+					Console.Write("\r" + Main.statusText);
+                }
 			}
 			try
 			{

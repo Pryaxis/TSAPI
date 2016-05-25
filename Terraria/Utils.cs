@@ -43,7 +43,26 @@ namespace Terraria
 			return MathHelper.WrapAngle(single1);
 		}
 
-		public static float AngleTowards(this float curAngle, float targetAngle, float maxChange)
+        public static void WriteConsoleBar(int barWidth, int percent)
+        {
+            char barShade = '\u2592';
+            char barFull = '\u2588';
+
+            Console.Write($"{percent} % ");
+            for (int i = 0; i < barWidth; i++)
+            {
+                if (i < percent)
+                {
+                    Console.Write(barFull);
+                }
+                else
+                {
+                    Console.Write(barShade);
+                }
+            }
+        }
+
+        public static float AngleTowards(this float curAngle, float targetAngle, float maxChange)
 		{
 			curAngle = MathHelper.WrapAngle(curAngle);
 			targetAngle = MathHelper.WrapAngle(targetAngle);
