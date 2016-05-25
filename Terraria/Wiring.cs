@@ -1970,7 +1970,6 @@ namespace Terraria
 			}
 		}
 
-
 		public static void Initialize()
 		{
 			Wiring._wireSkip = new Dictionary<Point16, bool>();
@@ -2037,20 +2036,23 @@ namespace Terraria
 				{
 					vector2 = new Vector2((float)(x[0].X - x[1].X), (float)(x[0].Y - x[1].Y));
 				}
-				for (int j = 0; j < 255; j++)
+				if (!Wiring.blockPlayerTeleportationForOneIteration)
 				{
-					if (Main.player[j].active && !Main.player[j].dead && !Main.player[j].teleporting && x[i].Intersects(Main.player[j].getRect()))
+					for (int j = 0; j < 255; j++)
 					{
-						Vector2 vector21 = Main.player[j].position + vector2;
-						Main.player[j].teleporting = true;
-						if (Main.netMode == 2)
+						if (Main.player[j].active && !Main.player[j].dead && !Main.player[j].teleporting && x[i].Intersects(Main.player[j].getRect()))
 						{
-							RemoteClient.CheckSection(j, vector21, 1);
-						}
-						Main.player[j].Teleport(vector21, 0, 0);
-						if (Main.netMode == 2)
-						{
-							NetMessage.SendData(65, -1, -1, "", 0, (float)j, vector21.X, vector21.Y, 0, 0, 0);
+							Vector2 vector21 = Main.player[j].position + vector2;
+							Main.player[j].teleporting = true;
+							if (Main.netMode == 2)
+							{
+								RemoteClient.CheckSection(j, vector21, 1);
+							}
+							Main.player[j].Teleport(vector21, 0, 0);
+							if (Main.netMode == 2)
+							{
+								NetMessage.SendData(65, -1, -1, "", 0, (float)j, vector21.X, vector21.Y, 0, 0, 0);
+							}
 						}
 					}
 				}
@@ -2073,7 +2075,6 @@ namespace Terraria
 			}
 		}
 
-		// Token: 0x06000E86 RID: 3718 RVA: 0x0025C710 File Offset: 0x0025A910
 		private static void TripWire(int left, int top, int width, int height)
 		{
 			if (Main.netMode == 1)
@@ -2442,7 +2443,6 @@ namespace Terraria
 			}
 		}
 
-		// Token: 0x06000E8F RID: 3727 RVA: 0x002608DC File Offset: 0x0025EADC
 		private static void MassWireOperationInner(Point ps, Point pe, Vector2 dropPoint, bool dir, ref int wireCount, ref int actuatorCount)
 		{
 			Math.Abs(ps.X - pe.X);
@@ -2531,7 +2531,6 @@ namespace Terraria
 			Item.DropCache(dropPoint, Vector2.Zero, 849, true);
 		}
 
-		// Token: 0x06000E90 RID: 3728 RVA: 0x00260AD8 File Offset: 0x0025ECD8
 		private static bool? MassWireOperationStep(Point pt, WiresUI.Settings.MultiToolMode mode, ref int wiresLeftToConsume, ref int actuatorsLeftToConstume)
 		{
 			if (!WorldGen.InWorld(pt.X, pt.Y, 1))
@@ -2795,7 +2794,6 @@ namespace Terraria
 		}
 
 
-		// Token: 0x06000E7A RID: 3706 RVA: 0x0025BAD3 File Offset: 0x00259CD3
 		public static void SetCurrentUser(int plr = -1)
 		{
 			if (plr < 0 || plr >= 255)
