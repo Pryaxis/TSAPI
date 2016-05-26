@@ -70,10 +70,6 @@ namespace Terraria.DataStructures
         {
         }
 
-        public virtual void ReadExtraData(BinaryReader reader)
-        {
-        }
-
 		private void ReadInner(BinaryReader reader, bool networkSend)
 		{
 			if (!networkSend)

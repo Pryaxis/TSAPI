@@ -122,7 +122,7 @@ namespace Terraria.GameContent.Tile_Entities
 			return tETrainingDummy.ID;
 		}
 
-		public override void ReadExtraData(BinaryReader reader)
+		public override void ReadExtraData(BinaryReader reader, bool networkSend)
 		{
 			this.npc = reader.ReadInt16();
 		}
