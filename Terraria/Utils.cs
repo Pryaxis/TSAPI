@@ -43,27 +43,27 @@ namespace Terraria
 			return MathHelper.WrapAngle(single1);
 		}
 
-        public static void WriteConsoleBar(int barWidth, int percent)
-        {
-            char barShade = '\u2592';
-            char barFull = '\u2588';
+		public static void WriteConsoleBar(int barWidth, int percent)
+		{
+			char barShade = '\u2592';
+			char barFull = '\u2588';
 
-            Console.Write($"{percent} % ");
-            int pc = (int)(((decimal)percent / 100) * barWidth);
-            for (int i = 0; i < barWidth; i++)
-            {
-                if (i < pc)
-                {
-                    Console.Write(barFull);
-                }
-                else
-                {
-                    Console.Write(barShade);
-                }
-            }
-        }
+			Console.Write($"{percent} % ");
+			int pc = (int)(((decimal)percent / 100) * barWidth);
+			for (int i = 0; i < barWidth; i++)
+			{
+				if (i < pc)
+				{
+					Console.Write(barFull);
+				}
+				else
+				{
+					Console.Write(barShade);
+				}
+			}
+		}
 
-        public static float AngleTowards(this float curAngle, float targetAngle, float maxChange)
+		public static float AngleTowards(this float curAngle, float targetAngle, float maxChange)
 		{
 			curAngle = MathHelper.WrapAngle(curAngle);
 			targetAngle = MathHelper.WrapAngle(targetAngle);
@@ -158,25 +158,25 @@ namespace Terraria
 					switch (inv[i].type)
 					{
 						case 71:
-						{
-							num = num + (long)inv[i].stack;
-							break;
-						}
+							{
+								num = num + (long)inv[i].stack;
+								break;
+							}
 						case 72:
-						{
-							num = num + (long)(inv[i].stack * 100);
-							break;
-						}
+							{
+								num = num + (long)(inv[i].stack * 100);
+								break;
+							}
 						case 73:
-						{
-							num = num + (long)(inv[i].stack * 10000);
-							break;
-						}
+							{
+								num = num + (long)(inv[i].stack * 10000);
+								break;
+							}
 						case 74:
-						{
-							num = num + (long)(inv[i].stack * 1000000);
-							break;
-						}
+							{
+								num = num + (long)(inv[i].stack * 1000000);
+								break;
+							}
 					}
 					if (num >= (long)999999999)
 					{
@@ -549,13 +549,15 @@ namespace Terraria
 			Point point3 = start.ToTileCoordinates();
 			Point point4 = end.ToTileCoordinates();
 			int num = 0;
-			Utils.PlotLine(point3.X, point3.Y, point4.X, point4.Y, (int x, int y) => {
+			Utils.PlotLine(point3.X, point3.Y, point4.X, point4.Y, (int x, int y) =>
+			{
 				num++;
 				return true;
 			}, true);
 			num--;
 			int num1 = 0;
-			return Utils.PlotLine(point3.X, point3.Y, point4.X, point4.Y, (int x, int y) => {
+			return Utils.PlotLine(point3.X, point3.Y, point4.X, point4.Y, (int x, int y) =>
+			{
 				float single = 1f - (float)num1 / (float)num;
 				num1++;
 				Point tileCoordinates = (start - ((vector22 * single1) * single)).ToTileCoordinates();
@@ -622,6 +624,13 @@ namespace Terraria
 		public static Vector2 ReadVector2(this BinaryReader bb)
 		{
 			return new Vector2(bb.ReadSingle(), bb.ReadSingle());
+		}
+
+		public static Vector2 ReadPackedVector2(this BinaryReader bb)
+		{
+			HalfVector2 halfVector = new HalfVector2();
+			halfVector.PackedValue = bb.ReadUInt32();
+			return halfVector.ToVector2();
 		}
 
 		public static Vector2 Right(this Rectangle r)
@@ -708,6 +717,15 @@ namespace Terraria
 			return new Point((int)v.X, (int)v.Y);
 		}
 
+		public static Vector2 SafeNormalize(this Vector2 v, Vector2 defaultValue)
+		{
+			if (v == Vector2.Zero)
+			{
+				return defaultValue;
+			}
+			return Vector2.Normalize(v);
+		}
+
 		public static Vector2 TopRight(this Rectangle r)
 		{
 			return new Vector2((float)(r.X + r.Width), (float)r.Y);
@@ -774,6 +792,12 @@ namespace Terraria
 		{
 			bb.Write(v.X);
 			bb.Write(v.Y);
+		}
+
+		public static void WritePackedVector2(this BinaryWriter bb, Vector2 v)
+		{
+			HalfVector2 halfVector = new HalfVector2(v.X, v.Y);
+			bb.Write(halfVector.PackedValue);
 		}
 
 		public static Vector2 XY(this Vector4 vec)
