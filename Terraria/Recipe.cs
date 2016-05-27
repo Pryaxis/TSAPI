@@ -381,13 +381,11 @@ namespace Terraria
 					{
 						if (dictionary.ContainsKey(item.netID))
 						{
-							Dictionary<int, int> dictionary2;
-							int netID;
-							(dictionary2 = dictionary)[netID = item.netID] = dictionary2[netID] + item.stack;
+							dictionary[item.netID] = dictionary[item.netID] + item.stack;
 						}
 						else
 						{
-							dictionary[item.netID] = item.stack;
+							dictionary.Add(item.netID, item.stack);
 						}
 					}
 				}
@@ -412,13 +410,11 @@ namespace Terraria
 						{
 							if (dictionary.ContainsKey(item.netID))
 							{
-								Dictionary<int, int> dictionary3;
-								int netID2;
-								(dictionary3 = dictionary)[netID2 = item.netID] = dictionary3[netID2] + item.stack;
+								dictionary[item.netID] = dictionary[item.netID] + item.stack;
 							}
 							else
 							{
-								dictionary[item.netID] = item.stack;
+								dictionary.Add(item.netID, item.stack);
 							}
 						}
 					}
