@@ -381,8 +381,8 @@ namespace Terraria
 					{
 						if (dictionary.ContainsKey(item.netID))
 						{
-							Dictionary<int, int> dictionary2;
-							int netID;
+                            Dictionary<int, int> dictionary2 = new Dictionary<int, int>();
+							int netID = 0;
 							(dictionary2 = dictionary)[netID = item.netID] = dictionary2[netID] + item.stack;
 						}
 						else
@@ -412,8 +412,8 @@ namespace Terraria
 						{
 							if (dictionary.ContainsKey(item.netID))
 							{
-								Dictionary<int, int> dictionary3;
-								int netID2;
+                                Dictionary<int, int> dictionary3 = new Dictionary<int, int>();
+								int netID2 = 0;
 								(dictionary3 = dictionary)[netID2 = item.netID] = dictionary3[netID2] + item.stack;
 							}
 							else

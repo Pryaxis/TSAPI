@@ -339,8 +339,8 @@ namespace Terraria
 									}
 									if (Wiring._PixelBoxTriggers.ContainsKey(point2))
 									{
-										Dictionary<Point16, byte> pixelBoxTriggers;
-										Point16 key;
+                                        Dictionary<Point16, byte> pixelBoxTriggers = new Dictionary<Point16, byte>();
+                                        Point16 key = new Point16();
 										(pixelBoxTriggers = Wiring._PixelBoxTriggers)[key = point2] = (byte)(pixelBoxTriggers[key] | ((j == 0 | j == 1) ? 2 : 1));
 									}
 									else
