@@ -6,7 +6,7 @@ using Terraria.DataStructures;
 
 namespace Terraria.GameContent.Tile_Entities
 {
-	internal class TEItemFrame : TileEntity
+	public class TEItemFrame : TileEntity
 	{
 		public Item item;
 
