@@ -6,7 +6,7 @@ using Terraria.DataStructures;
 namespace Terraria.GameContent.Tile_Entities
 {
 	// Token: 0x0200021C RID: 540
-	internal class TELogicSensor : TileEntity
+	public class TELogicSensor : TileEntity
 	{
 		// Token: 0x0600127C RID: 4732 RVA: 0x00422A73 File Offset: 0x00420C73
 		public TELogicSensor()

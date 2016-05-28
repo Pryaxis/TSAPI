@@ -7,7 +7,7 @@ using Terraria.DataStructures;
 
 namespace Terraria.GameContent.Tile_Entities
 {
-	internal class TETrainingDummy : TileEntity
+	public class TETrainingDummy : TileEntity
 	{
 		private static Dictionary<int, Rectangle> playerBox;
 
