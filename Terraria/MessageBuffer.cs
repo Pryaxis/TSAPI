@@ -2011,23 +2011,20 @@ namespace Terraria
 					Chest.ServerPlaceItem(this.whoAmI, (int)num205);
 					return;
 				}
-				case 86:
+				case 87:
 				{
-					int num206 = this.reader.ReadInt32();
-					if (this.reader.ReadBoolean())
-					{
-						TileEntity tileEntity1 = TileEntity.Read(this.reader, true);
-						tileEntity1.ID = num206;
-						TileEntity.ByID[tileEntity1.ID] = tileEntity1;
-						TileEntity.ByPosition[tileEntity1.Position] = tileEntity1;
-						return;
-					}
-					if (!TileEntity.ByID.TryGetValue(num206, out tileEntity) || !(tileEntity is TETrainingDummy) && !(tileEntity is TEItemFrame) && !(tileEntity is TELogicSensor))
+					int x6 = (int)this.reader.ReadInt16();
+					int y6 = (int)this.reader.ReadInt16();
+					int type9 = (int)this.reader.ReadByte();
+					if (!WorldGen.InWorld(x6, y6, 0))
 					{
 						return;
 					}
-					TileEntity.ByID.Remove(num206);
-					TileEntity.ByPosition.Remove(tileEntity.Position);
+					if (TileEntity.ByPosition.ContainsKey(new Point16(x6, y6)))
+					{
+						return;
+					}
+					TileEntity.PlaceEntityNet(x6, y6, type9);
 					return;
 				}
 				case 89:
