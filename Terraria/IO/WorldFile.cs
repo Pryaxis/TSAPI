@@ -821,8 +821,8 @@ namespace Terraria.IO
 			for (int i = 0; i < num; i++)
 			{
 				TileEntity tileEntity = TileEntity.Read(reader);
-				int num2 = num1;
-				num1 = num2 + 1;
+				tileEntity.ID = num1++;
+				TileEntity.ByID[tileEntity.ID] = tileEntity;
 				TileEntity tileEntity2;
 				if (TileEntity.ByPosition.TryGetValue(tileEntity.Position, out tileEntity2))
 				{
