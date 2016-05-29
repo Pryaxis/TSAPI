@@ -10,6 +10,25 @@ namespace Terraria.GameContent.Tile_Entities
 	{
 		public Item item;
 
+		public static void Initialize()
+		{
+			TileEntity._NetPlaceEntity += new Action<int, int, int>(TEItemFrame.NetPlaceEntity);
+		}
+
+		public static void NetPlaceEntity(int x, int y, int type)
+		{
+			if (type != 1)
+			{
+				return;
+			}
+			if (!TEItemFrame.ValidTile(x, y))
+			{
+				return;
+			}
+			int number = TEItemFrame.Place(x, y);
+			NetMessage.SendData(86, -1, -1, "", number, (float)x, (float)y, 0f, 0, 0, 0);
+		}
+
 		public TEItemFrame()
 		{
 			this.item = new Item();
@@ -34,7 +53,7 @@ namespace Terraria.GameContent.Tile_Entities
 			return tileEntity.ID;
 		}
 
-		public static int Hook_AfterPlacement(int x, int y, int type = 21, int style = 0, int direction = 1)
+		public static int Hook_AfterPlacement(int x, int y, int type = 395, int style = 0, int direction = 1)
 		{
 			if (Main.netMode != 1)
 			{

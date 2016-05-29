@@ -2,6 +2,7 @@
 using System;
 using Terraria.DataStructures;
 using Terraria.Enums;
+using Terraria.ID;
 using Terraria.ObjectData;
 
 namespace Terraria
@@ -250,7 +251,7 @@ namespace Terraria
 							}
 							if (!flag3 && ((anchorDatum.type & AnchorType.SolidWithTop) == AnchorType.SolidWithTop || (anchorDatum.type & AnchorType.Table) == AnchorType.Table))
 							{
-								if (tileSafely.type == 19)
+								if (TileID.Sets.Platforms[tileSafely.type])
 								{
 									int num14 = tileSafely.frameX / TileObjectData.PlatformFrameWidth();
 									if (!tileSafely.halfBrick() && num14 >= 0 && num14 <= 7 || num14 >= 12 && num14 <= 16 || num14 >= 25 && num14 <= 26)
@@ -263,7 +264,7 @@ namespace Terraria
 									flag3 = true;
 								}
 							}
-							if (!flag3 && (anchorDatum.type & AnchorType.Table) == AnchorType.Table && tileSafely.type != 19 && Main.tileTable[tileSafely.type] && tileSafely.blockType() == 0)
+							if (!flag3 && (anchorDatum.type & AnchorType.Table) == AnchorType.Table && !TileID.Sets.Platforms[tileSafely.type] && Main.tileTable[tileSafely.type] && tileSafely.blockType() == 0)
 							{
 								flag3 = true;
 							}
@@ -318,7 +319,7 @@ namespace Terraria
 							{
 								flag4 = tileData1.isValidTileAnchor((int)tileSafely.type);
 							}
-							if (!flag4 && (anchorDatum.type & AnchorType.SolidBottom) == AnchorType.SolidBottom && (Main.tileSolid[tileSafely.type] && (!Main.tileSolidTop[tileSafely.type] || tileSafely.type == 19 && (tileSafely.halfBrick() || tileSafely.topSlope())) || tileSafely.halfBrick() || tileSafely.topSlope()) && !tileSafely.bottomSlope())
+							if (!flag4 && (anchorDatum.type & AnchorType.SolidBottom) == AnchorType.SolidBottom && (Main.tileSolid[tileSafely.type] && (!Main.tileSolidTop[tileSafely.type] || TileID.Sets.Platforms[tileSafely.type] && (tileSafely.halfBrick() || tileSafely.topSlope())) || tileSafely.halfBrick() || tileSafely.topSlope()) && !tileSafely.bottomSlope())
 							{
 								flag4 = tileData1.isValidTileAnchor((int)tileSafely.type);
 							}
@@ -551,6 +552,11 @@ namespace Terraria
 				}
 				float single5 = single3 / single4;
 				float single6 = single2 / width;
+				if (single6 == 1f && single4 == 0f)
+				{
+					single5 = 1f;
+					single6 = 1f;
+				}
 				if (single5 != 1f || single6 != 1f)
 				{
 					if (single5 <= single && (single5 != single || single6 <= single1))
