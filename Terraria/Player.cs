@@ -21760,6 +21760,7 @@ namespace Terraria
 					num = this.lastPortalColorIndex;
 				}
 				Main.TeleportEffect(this.getRect(), Style, num);
+				PressurePlateHelper.UpdatePlayerPosition(this);
 				this.position = newPos;
 				this.fallStart = (int)(this.position.Y / 16f);
 				if (this.whoAmI == Main.myPlayer)
@@ -21783,6 +21784,7 @@ namespace Terraria
 					this.portalPhysicsFlag = true;
 					this.gravity = 0f;
 				}
+				PressurePlateHelper.UpdatePlayerPosition(this);
 				for (int j = 0; j < 3; j++)
 				{
 					this.UpdateSocialShadow();
@@ -27097,6 +27099,7 @@ namespace Terraria
 				this.FloorVisuals(flag40);
 			}
 			Collision.SwitchTiles(this.position, this.width, this.height, this.oldPosition, 1);
+			PressurePlateHelper.UpdatePlayerPosition(this);
 			this.BordersMovement();
 			this.numMinions = 0;
 			this.slotsMinions = 0f;
