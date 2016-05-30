@@ -27098,7 +27098,7 @@ namespace Terraria
 			{
 				this.FloorVisuals(flag40);
 			}
-			Collision.SwitchTiles(this.position, this.width, this.height, this.oldPosition, 1);
+			//Collision.SwitchTiles(this.position, this.width, this.height, this.oldPosition, 1);
 			PressurePlateHelper.UpdatePlayerPosition(this);
 			this.BordersMovement();
 			this.numMinions = 0;
