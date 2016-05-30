@@ -46118,7 +46118,7 @@ namespace Terraria
 			}
 			if (acceptNonOpposing)
 			{
-				if (Main.tile[x + num4, y + num5].active() && Main.tile[x + num4, y + num5].type == 19 && (int)Main.tile[x + num4, y + num5].slope() != num2)
+				if (Main.tile[x + num4, y + num5].active() && TileID.Sets.Platforms[(int)Main.tile[x + num4, y + num5].type] && (int)Main.tile[x + num4, y + num5].slope() != num2)
 				{
 					num3++;
 				}
