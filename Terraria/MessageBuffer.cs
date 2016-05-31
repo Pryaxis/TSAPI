@@ -1637,12 +1637,9 @@ namespace Terraria
 						return;
 					if (num156 < 0 || num156 >= Main.maxTilesY)
 						return;
-					if (Main.tile[num155, num156].type != 135)
-					{
-						Wiring.SetCurrentUser(this.whoAmI);
-						Wiring.HitSwitch(num155, num156);
-						Wiring.SetCurrentUser(-1);
-					}
+					Wiring.SetCurrentUser(this.whoAmI);
+					Wiring.HitSwitch(num155, num156);
+					Wiring.SetCurrentUser(-1);
 					NetMessage.SendData(59, -1, this.whoAmI, "", num155, (float)num156, 0f, 0f, 0, 0, 0);
 					return;
 				}
