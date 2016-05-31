@@ -6543,6 +6543,11 @@ namespace Terraria
 					464,
 					0,
 					-1
+				},
+				{
+					3657,
+					-1,
+					2740
 				}
 			};
 			array[2, 1] = RecipeGroupID.Squirrels;

@@ -25524,11 +25524,11 @@ namespace Terraria
 				bool flag7 = true;
 				for (int l = 0; l < width; l++)
 				{
-					if (!WorldGen.AnchorValid(Framing.GetTileSafely(num2 + l, num3 + height), AnchorType.SolidTile))
+					if (!WorldGen.AnchorValid(Framing.GetTileSafely(num2 + l, num3 + height), AnchorType.SolidTile | AnchorType.SolidWithTop | AnchorType.SolidSide))
 					{
 						flag7 = false;
 					}
-					if (!WorldGen.AnchorValid(Framing.GetTileSafely(num2 + l, num3 - 1), AnchorType.SolidTile))
+					if (!WorldGen.AnchorValid(Framing.GetTileSafely(num2 + l, num3 - 1), AnchorType.SolidBottom))
 					{
 						flag6 = false;
 					}
@@ -26335,7 +26335,7 @@ namespace Terraria
 						flag = true;
 					}
 				}
-				else if (!WorldGen.SolidTileAllowBottomSlope(l, num7) && (!Main.tile[l, num7].active() || !TileID.Sets.Platforms[(int)Main.tile[l, num7].type]))
+				else if (!WorldGen.SolidTileAllowBottomSlope(l, num7))
 				{
 					flag = true;
 				}
@@ -27446,10 +27446,14 @@ namespace Terraria
 			num7 = num / num7;
 			num5 *= num7;
 			num6 *= num7;
-			if (Main.myPlayer != owner && Main.netMode == 2)
+			if (Main.myPlayer != owner && Main.netMode == 2 && (ammo == 4 || ammo == 5))
 			{
 				NetMessage.SendData(108, owner, -1, "", Damage, KnockBack, (float)x, (float)y, angle, ammo, owner);
 				return;
+			}
+			if (Main.netMode == 2)
+			{
+				owner = Main.myPlayer;
 			}
 			Projectile.NewProjectile(vector.X, vector.Y, num5, num6, type, Damage, KnockBack, owner, (float)num4, 0f);
 		}
@@ -28469,7 +28473,7 @@ namespace Terraria
 				{
 					flag = true;
 				}
-				if ((anchor & AnchorType.SolidBottom) == AnchorType.SolidBottom && !Main.tileNoAttach[(int)tileCache.type] && ((Main.tileSolid[(int)tileCache.type] && (!Main.tileSolidTop[(int)tileCache.type] || (TileID.Sets.Platforms[(int)tileCache.type] && (tileCache.halfBrick() || tileCache.topSlope())))) || tileCache.topSlope() || tileCache.halfBrick()) && !TileID.Sets.NotReallySolid[(int)tileCache.type] && !tileCache.bottomSlope())
+				if ((anchor & AnchorType.SolidBottom) == AnchorType.SolidBottom && ((Main.tileSolid[(int)tileCache.type] && (!Main.tileSolidTop[(int)tileCache.type] || (TileID.Sets.Platforms[(int)tileCache.type] && (tileCache.halfBrick() || tileCache.topSlope())))) || tileCache.topSlope() || tileCache.halfBrick()) && !TileID.Sets.NotReallySolid[(int)tileCache.type] && !tileCache.bottomSlope())
 				{
 					flag = true;
 				}
@@ -29656,7 +29660,7 @@ namespace Terraria
 					{
 						Main.tile[n, num6 + 3] = new Tile();
 					}
-					if (!WorldGen.SolidTileAllowBottomSlope(n, num6 + 3) && (!Main.tile[n, num6 + 3].active() || !TileID.Sets.Platforms[(int)Main.tile[n, num6 + 3].type]))
+					if (!WorldGen.SolidTileAllowBottomSlope(n, num6 + 3))
 					{
 						flag = true;
 						break;
@@ -38609,6 +38613,12 @@ namespace Terraria
 			}
 		}
 
+		public static bool PlatformProperTopFrame(short frameX)
+		{
+			int num = (int)frameX / TileObjectData.PlatformFrameWidth();
+			return (num >= 0 && num <= 7) || (num >= 12 && num <= 16) || (num >= 25 && num <= 26);
+		}
+
 		public static bool PlayerLOS(int x, int y)
 		{
 			Rectangle rectangle = new Rectangle(x * 16, y * 16, 16, 16);
@@ -39285,12 +39295,13 @@ namespace Terraria
 		{
 			try
 			{
-				if (Main.tile[i, j] == null)
+				Tile tile = Main.tile[i, j];
+				if (tile == null)
 				{
 					bool result = true;
 					return result;
 				}
-				if (Main.tile[i, j].active() && (Main.tileSolid[(int)Main.tile[i, j].type] || Main.tileSolidTop[(int)Main.tile[i, j].type]) && !Main.tile[i, j].topSlope() && !Main.tile[i, j].halfBrick() && !Main.tile[i, j].inActive())
+				if (tile.active() && (Main.tileSolid[(int)tile.type] || Main.tileSolidTop[(int)tile.type]) && (!tile.topSlope() || (TileID.Sets.Platforms[(int)tile.type] && WorldGen.PlatformProperTopFrame(tile.frameX))) && !tile.halfBrick() && !tile.inActive())
 				{
 					bool result = true;
 					return result;
@@ -46505,7 +46516,7 @@ namespace Terraria
 								{
 									num9 = (int)tile9.type;
 								}
-								if (num3 >= 0 && Main.tileSolid[num3] && (!Main.tileNoAttach[num3] || num3 == 19))
+								if (num3 >= 0 && Main.tileSolid[num3] && (!Main.tileNoAttach[num3] || TileID.Sets.Platforms[num3]))
 								{
 									tile.frameX = num2;
 								}

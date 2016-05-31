@@ -8,6 +8,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.GameContent.Events;
+using Terraria.GameContent.Tile_Entities;
 using Terraria.ID;
 using Terraria.Utilities;
 using TerrariaApi.Server;
@@ -831,6 +832,40 @@ namespace Terraria.IO
 				TileEntity.ByPosition[tileEntity.Position] = tileEntity;
 			}
 			TileEntity.TileEntitiesNextID = num;
+			List<Point16> list = new List<Point16>();
+			foreach (KeyValuePair<Point16, TileEntity> current in TileEntity.ByPosition)
+			{
+				if (current.Value.type == 0 && !TETrainingDummy.ValidTile((int)current.Value.Position.X, (int)current.Value.Position.Y))
+				{
+					list.Add(current.Value.Position);
+				}
+				if (current.Value.type == 2 && !TELogicSensor.ValidTile((int)current.Value.Position.X, (int)current.Value.Position.Y))
+				{
+					list.Add(current.Value.Position);
+				}
+				if (current.Value.type == 1 && !TEItemFrame.ValidTile((int)current.Value.Position.X, (int)current.Value.Position.Y))
+				{
+					list.Add(current.Value.Position);
+				}
+			}
+			try
+			{
+				foreach (Point16 current2 in list)
+				{
+					TileEntity tileEntity3 = TileEntity.ByPosition[current2];
+					if (TileEntity.ByID.ContainsKey(tileEntity3.ID))
+					{
+						TileEntity.ByID.Remove(tileEntity3.ID);
+					}
+					if (TileEntity.ByPosition.ContainsKey(current2))
+					{
+						TileEntity.ByPosition.Remove(current2);
+					}
+				}
+			}
+			catch
+			{
+			}
 		}
 		private static int SaveWeightedPressurePlates(BinaryWriter writer)
 		{
