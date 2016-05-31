@@ -1045,7 +1045,7 @@ namespace Terraria
 			else if (tile4.liquid > 0 && !tile4.lava())
 			{
 				bool flag = false;
-				if (TileID.Sets.ForceObsidianKill[(int)tile5.type] && !TileID.Sets.ForceObsidianKill[(int)tile4.type])
+				if (tile5.active() && TileID.Sets.ForceObsidianKill[(int)tile5.type] && !TileID.Sets.ForceObsidianKill[(int)tile4.type])
 				{
 					flag = true;
 				}

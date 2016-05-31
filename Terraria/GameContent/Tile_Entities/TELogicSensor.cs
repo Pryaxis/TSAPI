@@ -30,7 +30,7 @@ namespace Terraria.GameContent.Tile_Entities
 			}
 			if (TripWire && Main.netMode != 1)
 			{
-				TELogicSensor.tripPoints.Add(this.Position);
+				TELogicSensor.tripPoints.Add(Tuple.Create<Point16, bool>(this.Position, this.logicCheck == TELogicSensor.LogicCheckType.PlayerAbove));
 			}
 		}
 
@@ -243,7 +243,7 @@ namespace Terraria.GameContent.Tile_Entities
 			TileEntity tileEntity;
 			if (TileEntity.ByPosition.TryGetValue(new Point16(x, y), out tileEntity) && tileEntity.type == 2)
 			{
-				Wiring.blockPlayerTeleportationForOneIteration = true;
+				Wiring.blockPlayerTeleportationForOneIteration = (((TELogicSensor)tileEntity).logicCheck == TELogicSensor.LogicCheckType.PlayerAbove);
 				if (((TELogicSensor)tileEntity).logicCheck == TELogicSensor.LogicCheckType.PlayerAbove && ((TELogicSensor)tileEntity).On)
 				{
 					Wiring.HitSwitch((int)tileEntity.Position.X, (int)tileEntity.Position.Y);
@@ -374,10 +374,10 @@ namespace Terraria.GameContent.Tile_Entities
 		private static void UpdateEndInternal()
 		{
 			TELogicSensor.inUpdateLoop = false;
-			foreach (Point16 current in TELogicSensor.tripPoints)
+			foreach (Tuple<Point16, bool> current in TELogicSensor.tripPoints)
 			{
-				Wiring.blockPlayerTeleportationForOneIteration = true;
-				Wiring.HitSwitch((int)current.X, (int)current.Y);
+				Wiring.blockPlayerTeleportationForOneIteration = current.Item2;
+				Wiring.HitSwitch((int)current.Item1.X, (int)current.Item1.Y);
 			}
 			Wiring.blockPlayerTeleportationForOneIteration = false;
 			TELogicSensor.tripPoints.Clear();
@@ -441,7 +441,7 @@ namespace Terraria.GameContent.Tile_Entities
 		private static bool playerBoxFilled = false;
 
 		// Token: 0x04003258 RID: 12888
-		private static List<Point16> tripPoints = new List<Point16>();
+		private static List<Tuple<Point16, bool>> tripPoints = new List<Tuple<Point16, bool>>();
 
 		// Token: 0x0200021D RID: 541
 		public enum LogicCheckType

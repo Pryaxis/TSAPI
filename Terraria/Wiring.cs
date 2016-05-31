@@ -1603,7 +1603,8 @@ namespace Terraria
 													int num127 = (num123 + 3) * 16;
 													int num128 = -1;
 													int num129 = -1;
-													bool flag11 = false;
+													bool flag11 = true;
+													bool flag12 = false;
 													switch (num125)
 													{
 													case 51:
@@ -1672,10 +1673,11 @@ namespace Terraria
 														break;
 													case 63:
 														num129 = 164;
+														flag11 &= NPC.MechSpawn((float)num126, (float)num127, 165);
 														break;
 													case 64:
 														num129 = 86;
-														flag11 = true;
+														flag12 = true;
 														break;
 													case 65:
 														num129 = 490;
@@ -1702,7 +1704,7 @@ namespace Terraria
 															180,
 															171
 														});
-														flag11 = true;
+														flag12 = true;
 														break;
 													case 72:
 														num129 = 481;
@@ -1717,9 +1719,9 @@ namespace Terraria
 														num129 = 489;
 														break;
 													}
-													if (num129 != -1 && Wiring.CheckMech(num124, num123, 30) && NPC.MechSpawn((float)num126, (float)num127, num129))
+													if (num129 != -1 && Wiring.CheckMech(num124, num123, 30) && NPC.MechSpawn((float)num126, (float)num127, num129) && flag11)
 													{
-														if (!flag11 || !Collision.SolidTiles(num124 - 2, num124 + 3, num123, num123 + 2))
+														if (!flag12 || !Collision.SolidTiles(num124 - 2, num124 + 3, num123, num123 + 2))
 														{
 															num128 = NPC.NewNPC(num126, num127 - 12, num129, 0, 0f, 0f, 0f, 0f, 255);
 														}
