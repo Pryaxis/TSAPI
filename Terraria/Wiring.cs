@@ -5,6 +5,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using System.Threading;
 using Terraria.GameContent.UI;
+using System.Collections.Concurrent;
 
 namespace Terraria
 {
@@ -16,11 +17,11 @@ namespace Terraria
 
 		public static bool running;
 
-		private static Dictionary<Point16, bool> _wireSkip;
+		private static ConcurrentDictionary<Point16, bool> _wireSkip;
 
 		private static DoubleStack<Point16> _wireList;
 
-		private static Dictionary<Point16, byte> _toProcess;
+		private static ConcurrentDictionary<Point16, byte> _toProcess;
 
 		public static Vector2[] _teleport;
 
@@ -244,7 +245,7 @@ namespace Terraria
 			{
 				Point16 point = next.PopFront();
 				Wiring.SkipWire(point);
-				Wiring._toProcess.Add(point, 4);
+				Wiring._toProcess.TryAdd(point, 4);
 				next.PushBack(point);
 				Wiring._wireDirectionList.PushBack(0);
 			}
@@ -261,7 +262,6 @@ namespace Terraria
 				}
 				for (int j = 0; j < 4; j++)
 				{
-				for_start:
 					int num2;
 					int num3;
 					switch (j)
@@ -374,7 +374,8 @@ namespace Terraria
 										b2 -= 1;
 										if (b2 == 0)
 										{
-											Wiring._toProcess.Remove(point3);
+                                            byte val;
+											Wiring._toProcess.TryRemove(point3, out val);
 										}
 										else
 										{
@@ -387,13 +388,14 @@ namespace Terraria
 										Wiring._wireDirectionList.PushBack((byte)j);
 										if (b > 0)
 										{
-											Wiring._toProcess.Add(point3, b);
+											Wiring._toProcess.TryAdd(point3, b);
 										}
 									}
 								}
 							}
 						}
 					}
+                    for_start:;
 				}
 			}
 			Wiring._wireSkip.Clear();
@@ -1972,9 +1974,9 @@ namespace Terraria
 
 		public static void Initialize()
 		{
-			Wiring._wireSkip = new Dictionary<Point16, bool>();
+			Wiring._wireSkip = new ConcurrentDictionary<Point16, bool>();
 			Wiring._wireList = new DoubleStack<Point16>(1024, 0);
-			Wiring._toProcess = new Dictionary<Point16, byte>();
+			Wiring._toProcess = new ConcurrentDictionary<Point16, byte>();
 			Wiring._inPumpX = new int[20];
 			Wiring._inPumpY = new int[20];
 			Wiring._outPumpX = new int[20];
