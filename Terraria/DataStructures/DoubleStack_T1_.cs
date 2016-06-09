@@ -94,10 +94,8 @@ namespace Terraria.DataStructures
 			int num = this._end % this._segmentSize;
 			T1 t1 = t1Array[num];
 			t1Array[num] = default(T1);
-			DoubleStack<T1> doubleStack = this;
-			doubleStack._end = doubleStack._end - 1;
-			DoubleStack<T1> doubleStack1 = this;
-			doubleStack1._size = doubleStack1._size - 1;
+			this._end--;
+			this._size--;
 			if (this._size == 0)
 			{
 				this._start = this._segmentSize / 2;
@@ -116,10 +114,8 @@ namespace Terraria.DataStructures
 			int num = this._start % this._segmentSize;
 			T1 t1 = t1Array[num];
 			t1Array[num] = default(T1);
-			DoubleStack<T1> doubleStack = this;
-			doubleStack._start = doubleStack._start + 1;
-			DoubleStack<T1> doubleStack1 = this;
-			doubleStack1._size = doubleStack1._size - 1;
+			this._start++;
+			this._size--;
 			if (this._start >= this._segmentShiftPosition)
 			{
 				T1[] t1Array1 = this._segmentList[0];
@@ -128,10 +124,8 @@ namespace Terraria.DataStructures
 					this._segmentList[i] = this._segmentList[i + 1];
 				}
 				this._segmentList[this._segmentCount - 1] = t1Array1;
-				DoubleStack<T1> doubleStack2 = this;
-				doubleStack2._start = doubleStack2._start - this._segmentSize;
-				DoubleStack<T1> doubleStack3 = this;
-				doubleStack3._end = doubleStack3._end - this._segmentSize;
+				this._start -= this._segmentSize;
+				this._end -= this._segmentSize;
 			}
 			if (this._size == 0)
 			{
@@ -151,18 +145,14 @@ namespace Terraria.DataStructures
 					t1Array[i] = this._segmentList[i];
 				}
 				t1Array[this._segmentCount] = new T1[this._segmentSize];
-				DoubleStack<T1> doubleStack = this;
-				doubleStack._segmentCount = doubleStack._segmentCount + 1;
+				this._segmentCount++;
 				this._segmentList = t1Array;
-				DoubleStack<T1> doubleStack1 = this;
-				doubleStack1._last = doubleStack1._last + this._segmentSize;
+				this._last += this._segmentSize;
 			}
 			T1[] t1Array1 = this._segmentList[this._end / this._segmentSize];
 			t1Array1[this._end % this._segmentSize] = back;
-			DoubleStack<T1> doubleStack2 = this;
-			doubleStack2._end = doubleStack2._end + 1;
-			DoubleStack<T1> doubleStack3 = this;
-			doubleStack3._size = doubleStack3._size + 1;
+			this._end++;
+			this._size++;
 		}
 
 		public void PushFront(T1 front)
@@ -176,21 +166,15 @@ namespace Terraria.DataStructures
 				}
 				t1Array[0] = new T1[this._segmentSize];
 				this._segmentList = t1Array;
-				DoubleStack<T1> doubleStack = this;
-				doubleStack._segmentCount = doubleStack._segmentCount + 1;
-				DoubleStack<T1> doubleStack1 = this;
-				doubleStack1._start = doubleStack1._start + this._segmentSize;
-				DoubleStack<T1> doubleStack2 = this;
-				doubleStack2._end = doubleStack2._end + this._segmentSize;
-				DoubleStack<T1> doubleStack3 = this;
-				doubleStack3._last = doubleStack3._last + this._segmentSize;
+				this._segmentCount++;
+				this._start += this._segmentSize;
+				this._end += this._segmentSize;
+				this._last += this._segmentSize;
 			}
-			DoubleStack<T1> doubleStack4 = this;
-			doubleStack4._start = doubleStack4._start - 1;
+			this._start--;
 			T1[] t1Array1 = this._segmentList[this._start / this._segmentSize];
 			t1Array1[this._start % this._segmentSize] = front;
-			DoubleStack<T1> doubleStack5 = this;
-			doubleStack5._size = doubleStack5._size + 1;
+			this._size++;
 		}
 	}
 }
