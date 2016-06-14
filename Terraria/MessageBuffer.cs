@@ -1638,6 +1638,13 @@ namespace Terraria
 					if (num156 < 0 || num156 >= Main.maxTilesY)
 						return;
 					Wiring.SetCurrentUser(this.whoAmI);
+					bool handled = false;
+					if (Main.tile[num155, num156].type != TileID.ProjectilePressurePad)
+					{
+							handled = ServerApi.Hooks.InvokePlayerTriggerPressurePlate((Player)Main.player[this.whoAmI], num155, num156);
+					}
+					if (handled)
+						return;
 					Wiring.HitSwitch(num155, num156);
 					Wiring.SetCurrentUser(-1);
 					NetMessage.SendData(59, -1, this.whoAmI, "", num155, (float)num156, 0f, 0f, 0, 0, 0);

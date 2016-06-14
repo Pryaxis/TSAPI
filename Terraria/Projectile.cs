@@ -9426,7 +9426,7 @@ namespace Terraria
 						}
 						if (Main.netMode != 1 && (this.type == 99 || this.type == 444))
 						{
-							Collision.SwitchTiles(this.position, this.width, this.height, this.oldPosition, 3);
+							Collision.SwitchTiles(this, this.position, this.width, this.height, this.oldPosition, 3);
 						}
 						if (ProjectileID.Sets.TrailingMode[this.type] == 0)
 						{
@@ -10423,7 +10423,7 @@ namespace Terraria
 									flag2 = true;
 									if (this.owner == Main.myPlayer && vector != vector6 && !flag4)
 									{
-										Collision.SwitchTiles(vector, num, num2, vector6, 4);
+										Collision.SwitchTiles(this, vector, num, num2, vector6, 4);
 									}
 									vector7 = this.velocity;
 									vector4 += vector7;
@@ -11387,7 +11387,7 @@ namespace Terraria
 					position = new Vector2(this.position.X + (float)(this.width / 2) - (float)(num22 / 2), this.position.Y + (float)(this.height / 2) - (float)(num23 / 2));
 					oldPosition = new Vector2(this.oldPosition.X + (float)(this.width / 2) - (float)(num22 / 2), this.oldPosition.Y + (float)(this.height / 2) - (float)(num23 / 2));
 				}
-				Collision.SwitchTiles(position, num22, num23, oldPosition, 4);
+				Collision.SwitchTiles(this, position, num22, num23, oldPosition, 4);
 			}
 		}
 
