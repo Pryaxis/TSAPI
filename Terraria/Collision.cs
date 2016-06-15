@@ -2465,7 +2465,7 @@ namespace Terraria
 			return new Vector2(-1f, -1f);
 		}
 
-		public static bool SwitchTiles(Vector2 Position, int Width, int Height, Vector2 oldPosition, int objType)
+		public static bool SwitchTiles(Entity TriggeringObject, Vector2 Position, int Width, int Height, Vector2 oldPosition, int objType)
 		{
 			int num = (int)(Position.X / 16f) - 1;
 			int num2 = (int)((Position.X + (float)Width) / 16f) + 2;
@@ -2537,8 +2537,20 @@ namespace Terraria
 									}
 									if (Utils.FloatIntersect(r1StartX, r1StartY, r1Width, r1Height, Position.X, Position.Y, (float)Width, (float)Height) && !Utils.FloatIntersect(r1StartX, r1StartY, r1Width, r1Height, oldPosition.X, oldPosition.Y, (float)Width, (float)Height))
 									{
-										Wiring.HitSwitch(i, j);
-										NetMessage.SendData(59, -1, -1, "", i, (float)j, 0f, 0f, 0, 0, 0);
+										bool handled = false;
+										if (TriggeringObject is NPC)
+										{
+											handled = ServerApi.Hooks.InvokeNpcTriggerPressurePlate((NPC)TriggeringObject, i, j);
+										}
+										else if (TriggeringObject is Projectile)
+										{
+											handled = ServerApi.Hooks.InvokeProjectileTriggerPressurePlate((Projectile)TriggeringObject, i, j);
+										}
+										if (!handled)
+										{
+											Wiring.HitSwitch(i, j);
+											NetMessage.SendData(59, -1, -1, "", i, (float)j, 0f, 0f, 0, 0, 0);
+										}
 										return true;
 									}
 								}
@@ -2564,8 +2576,20 @@ namespace Terraria
 									}
 									if (flag2)
 									{
-										Wiring.HitSwitch(i, j);
-										NetMessage.SendData(59, -1, -1, "", i, (float)j, 0f, 0f, 0, 0, 0);
+										bool handled = false;
+										if (TriggeringObject is NPC)
+										{
+											handled = ServerApi.Hooks.InvokeNpcTriggerPressurePlate((NPC)TriggeringObject, i, j);
+										}
+										else if (TriggeringObject is Projectile)
+										{
+											handled = ServerApi.Hooks.InvokeProjectileTriggerPressurePlate((Projectile)TriggeringObject, i, j);
+										}
+										if (!handled)
+										{
+											Wiring.HitSwitch(i, j);
+											NetMessage.SendData(59, -1, -1, "", i, (float)j, 0f, 0f, 0, 0, 0);
+										}
 										return true;
 									}
 								}
