@@ -38797,6 +38797,12 @@ namespace Terraria
 								}
 							}
 						}
+
+						if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(i + num2, j + num3, 129))
+						{
+							return;
+						}
+
 						if (num4 < 2)
 						{
 							WorldGen.PlaceTile(i + num2, j + num3, 129, true, false, -1, 0);
@@ -38944,6 +38950,11 @@ namespace Terraria
 						{
 							if (Main.tile[num11, num12].type == 2)
 							{
+								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num11, num12, 23))
+								{
+									return;
+								}
+
 								if (WorldGen.genRand.Next(2) == 0)
 								{
 									flag2 = true;
@@ -38954,6 +38965,11 @@ namespace Terraria
 							}
 							else if (Main.tile[num11, num12].type == 1 || Main.tileMoss[(int)Main.tile[num11, num12].type])
 							{
+								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num11, num12, 25))
+								{
+									return;
+								}
+
 								if (WorldGen.genRand.Next(2) == 0)
 								{
 									flag2 = true;
@@ -38964,6 +38980,11 @@ namespace Terraria
 							}
 							else if (Main.tile[num11, num12].type == 53)
 							{
+								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num11, num12, 112))
+								{
+									return;
+								}
+
 								if (WorldGen.genRand.Next(2) == 0)
 								{
 									flag2 = true;
@@ -38974,6 +38995,11 @@ namespace Terraria
 							}
 							else if (Main.tile[num11, num12].type == 396)
 							{
+								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num11, num12, 400))
+								{
+									return;
+								}
+
 								if (WorldGen.genRand.Next(2) == 0)
 								{
 									flag2 = true;
@@ -38984,6 +39010,11 @@ namespace Terraria
 							}
 							else if (Main.tile[num11, num12].type == 397)
 							{
+								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num11, num12, 398))
+								{
+									return;
+								}
+
 								if (WorldGen.genRand.Next(2) == 0)
 								{
 									flag2 = true;
@@ -38994,6 +39025,11 @@ namespace Terraria
 							}
 							else if (Main.tile[num11, num12].type == 59)
 							{
+								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num11, num12, 0))
+								{
+									return;
+								}
+
 								if (WorldGen.genRand.Next(2) == 0)
 								{
 									flag2 = true;
@@ -39004,6 +39040,11 @@ namespace Terraria
 							}
 							else if (Main.tile[num11, num12].type == 60)
 							{
+								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num11, num12, 23))
+								{
+									return;
+								}
+
 								if (WorldGen.genRand.Next(2) == 0)
 								{
 									flag2 = true;
@@ -39014,6 +39055,11 @@ namespace Terraria
 							}
 							else if (Main.tile[num11, num12].type == 69)
 							{
+								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num11, num12, 32))
+								{
+									return;
+								}
+
 								if (WorldGen.genRand.Next(2) == 0)
 								{
 									flag2 = true;
@@ -39024,6 +39070,11 @@ namespace Terraria
 							}
 							else if (Main.tile[num11, num12].type == 161)
 							{
+								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num11, num12, 163))
+								{
+									return;
+								}
+
 								if (WorldGen.genRand.Next(2) == 0)
 								{
 									flag2 = true;
@@ -39048,6 +39099,11 @@ namespace Terraria
 						{
 							if (Main.tile[num15, num16].type == 2)
 							{
+								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num15, num16, 199))
+								{
+									return;
+								}
+
 								if (WorldGen.genRand.Next(2) == 0)
 								{
 									flag5 = true;
@@ -39058,6 +39114,11 @@ namespace Terraria
 							}
 							else if (Main.tile[num15, num16].type == 1 || Main.tileMoss[(int)Main.tile[num15, num16].type])
 							{
+								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num15, num16, 203))
+								{
+									return;
+								}
+
 								if (WorldGen.genRand.Next(2) == 0)
 								{
 									flag5 = true;
@@ -39068,6 +39129,11 @@ namespace Terraria
 							}
 							else if (Main.tile[num15, num16].type == 53)
 							{
+								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num15, num16, 234))
+								{
+									return;
+								}
+
 								if (WorldGen.genRand.Next(2) == 0)
 								{
 									flag5 = true;
@@ -39078,6 +39144,11 @@ namespace Terraria
 							}
 							else if (Main.tile[num15, num16].type == 396)
 							{
+								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num15, num16, 401))
+								{
+									return;
+								}
+
 								if (WorldGen.genRand.Next(2) == 0)
 								{
 									flag5 = true;
@@ -39088,6 +39159,11 @@ namespace Terraria
 							}
 							else if (Main.tile[num15, num16].type == 397)
 							{
+								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num15, num16, 399))
+								{
+									return;
+								}
+
 								if (WorldGen.genRand.Next(2) == 0)
 								{
 									flag5 = true;
@@ -39098,6 +39174,11 @@ namespace Terraria
 							}
 							else if (Main.tile[num15, num16].type == 59)
 							{
+								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num15, num16, 0))
+								{
+									return;
+								}
+
 								if (WorldGen.genRand.Next(2) == 0)
 								{
 									flag5 = true;
@@ -39108,6 +39189,11 @@ namespace Terraria
 							}
 							else if (Main.tile[num15, num16].type == 60)
 							{
+								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num15, num16, 199))
+								{
+									return;
+								}
+
 								if (WorldGen.genRand.Next(2) == 0)
 								{
 									flag5 = true;
@@ -39118,6 +39204,11 @@ namespace Terraria
 							}
 							else if (Main.tile[num15, num16].type == 69)
 							{
+								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num15, num16, 352))
+								{
+									return;
+								}
+
 								if (WorldGen.genRand.Next(2) == 0)
 								{
 									flag5 = true;
@@ -39128,6 +39219,11 @@ namespace Terraria
 							}
 							else if (Main.tile[num15, num16].type == 161)
 							{
+								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num15, num16, 200))
+								{
+									return;
+								}
+
 								if (WorldGen.genRand.Next(2) == 0)
 								{
 									flag5 = true;
@@ -39149,6 +39245,11 @@ namespace Terraria
 						int num18 = j + WorldGen.genRand.Next(-3, 4);
 						if (Main.tile[num17, num18].type == 2)
 						{
+							if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num17, num18, 109))
+							{
+								return;
+							}
+
 							if (WorldGen.genRand.Next(2) == 0)
 							{
 								flag7 = true;
@@ -39159,6 +39260,11 @@ namespace Terraria
 						}
 						else if (Main.tile[num17, num18].type == 1 || Main.tileMoss[(int)Main.tile[num17, num18].type])
 						{
+							if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num17, num18, 117))
+							{
+								return;
+							}
+
 							if (WorldGen.genRand.Next(2) == 0)
 							{
 								flag7 = true;
@@ -39169,6 +39275,11 @@ namespace Terraria
 						}
 						else if (Main.tile[num17, num18].type == 53)
 						{
+							if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num17, num18, 116))
+							{
+								return;
+							}
+
 							if (WorldGen.genRand.Next(2) == 0)
 							{
 								flag7 = true;
@@ -39179,6 +39290,11 @@ namespace Terraria
 						}
 						else if (Main.tile[num17, num18].type == 396)
 						{
+							if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num17, num18, 403))
+							{
+								return;
+							}
+
 							if (WorldGen.genRand.Next(2) == 0)
 							{
 								flag7 = true;
@@ -39189,6 +39305,11 @@ namespace Terraria
 						}
 						else if (Main.tile[num17, num18].type == 397)
 						{
+							if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num17, num18, 402))
+							{
+								return;
+							}
+
 							if (WorldGen.genRand.Next(2) == 0)
 							{
 								flag7 = true;
@@ -39199,6 +39320,11 @@ namespace Terraria
 						}
 						else if (Main.tile[num17, num18].type == 161)
 						{
+							if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num17, num18, 164))
+							{
+								return;
+							}
+
 							if (WorldGen.genRand.Next(2) == 0)
 							{
 								flag7 = true;
