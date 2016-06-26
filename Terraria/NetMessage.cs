@@ -2301,7 +2301,7 @@ namespace Terraria
 				}
 			}
 		}
-		public static void syncPlayers(bool sendInventory = true, bool sendPlayerActive = true, bool sendPlayerInfo = true)
+		public static void syncPlayers(bool sendInventory = true, bool sendPlayerActive = true, bool sendPlayerInfo = true, bool ghostUpdate = true, int leavingPlayer = -1)
 		{
 			bool flag = false;
 			for (int i = 0; i < 255; i++)
@@ -2373,7 +2373,8 @@ namespace Terraria
 				else
 				{
 					num = 0;
-					SendData(14, -1, i, "", i, (float)num, 0f, 0f, 0, 0, 0);
+					if (ghostUpdate && leavingPlayer == -1)
+						SendData(14, -1, i, "", i, (float)num, 0f, 0f, 0, 0, 0);
 					if (Netplay.Clients[i].IsAnnouncementCompleted)
 					{
 						Netplay.Clients[i].IsAnnouncementCompleted = false;
@@ -2381,6 +2382,8 @@ namespace Terraria
 					}
 				}
 			}
+			if (ghostUpdate && leavingPlayer != -1)
+				SendData(14, -1, leavingPlayer, "", leavingPlayer, 0, 0f, 0f, 0, 0, 0);
 			bool flag2 = false;
 			for (int num5 = 0; num5 < 200; num5++)
 			{
