@@ -2301,6 +2301,147 @@ namespace Terraria
 				}
 			}
 		}
+
+
+
+		public static void joinSyncPlayer(int i)
+		{
+			int num = 0;
+			if (Main.player[i].active)
+			{
+				num = 1;
+			}
+
+			SendData(14, -1, i, "", i, (float)num, 0f, 0f, 0, 0, 0);
+
+			SendData(4, -1, i, Main.player[i].name, i, 0f, 0f, 0f, 0, 0, 0);
+			SendData(13, -1, i, "", i, 0f, 0f, 0f, 0, 0, 0);
+			SendData(16, -1, i, "", i, 0f, 0f, 0f, 0, 0, 0);
+			SendData(30, -1, i, "", i, 0f, 0f, 0f, 0, 0, 0);
+			SendData(45, -1, i, "", i, 0f, 0f, 0f, 0, 0, 0);
+			SendData(42, -1, i, "", i, 0f, 0f, 0f, 0, 0, 0);
+			SendData(50, -1, i, "", i, 0f, 0f, 0f, 0, 0, 0);
+
+
+
+			for (int j = 0; j < 1 /*59*/; j++)
+			{
+				if (Main.player[i].inventory[j].name != "")
+				{
+					SendData(5, -1, i, Main.player[i].inventory[j].name, i, (float)j,
+					(float)Main.player[i].inventory[j].prefix, 0f, 0, 0, 0);
+				}
+			}
+			for (int k = 0; k < Main.player[i].armor.Length; k++)
+			{
+				if (Main.player[i].armor[k].name != "")
+				{
+					SendData(5, -1, i, Main.player[i].armor[k].name, i, (float)(59 + k),
+					(float)Main.player[i].armor[k].prefix, 0f, 0, 0, 0);
+				}
+
+			}
+			for (int l = 0; l < Main.player[i].dye.Length; l++)
+			{
+				if (Main.player[i].dye[l].name != "")
+				{
+					SendData(5, -1, i, Main.player[i].dye[l].name, i, (float)(58 + Main.player[i].armor.Length + 1 + l),
+						(float)Main.player[i].dye[l].prefix, 0f, 0, 0, 0);
+				}
+
+			}
+			for (int m = 0; m < Main.player[i].miscEquips.Length; m++)
+			{
+				if (Main.player[i].miscEquips[m].name != "")
+				{
+					SendData(5, -1, i, "", i,
+						(float)(58 + Main.player[i].armor.Length + Main.player[i].dye.Length + 1 + m),
+						(float)Main.player[i].miscEquips[m].prefix, 0f, 0, 0, 0);
+				}
+
+			}
+			for (int n = 0; n < Main.player[i].miscDyes.Length; n++)
+			{
+				if (Main.player[i].miscDyes[n].name != "")
+				{
+					SendData(5, -1, i, "", i,
+					(float)
+						(58 + Main.player[i].armor.Length + Main.player[i].dye.Length + Main.player[i].miscEquips.Length + 1 + n),
+					(float)Main.player[i].miscDyes[n].prefix, 0f, 0, 0, 0);
+				}
+			}
+
+
+
+			for (int o = 0; o < 255; o++)
+			{
+				if (o == i)
+					continue;
+				int num2 = 0;
+				if (Main.player[o].active)
+				{
+					num2 = 1;
+				}
+
+				SendData(14, i, o, "", o, (float)num2, 0f, 0f, 0, 0, 0);
+
+				SendData(4, i, o, Main.player[o].name, o, 0f, 0f, 0f, 0, 0, 0);
+				SendData(13, i, o, "", o, 0f, 0f, 0f, 0, 0, 0);
+				SendData(16, i, o, "", o, 0f, 0f, 0f, 0, 0, 0);
+				SendData(30, i, o, "", o, 0f, 0f, 0f, 0, 0, 0);
+				SendData(45, i, o, "", o, 0f, 0f, 0f, 0, 0, 0);
+				SendData(42, i, o, "", o, 0f, 0f, 0f, 0, 0, 0);
+				SendData(50, i, o, "", o, 0f, 0f, 0f, 0, 0, 0);
+
+				for (int j = 0; j < 1 /*59*/; j++)
+				{
+					if (Main.player[o].inventory[j].name != "")
+					{
+						SendData(5, i, o, Main.player[o].inventory[j].name, o, (float)j,
+						(float)Main.player[o].inventory[j].prefix, 0f, 0, 0, 0);
+					}
+				}
+				for (int k = 0; k < Main.player[o].armor.Length; k++)
+				{
+					if (Main.player[o].armor[k].name != "")
+					{
+						SendData(5, i, o, Main.player[o].armor[k].name, o, (float)(59 + k),
+						(float)Main.player[o].armor[k].prefix, 0f, 0, 0, 0);
+					}
+
+				}
+				for (int l = 0; l < Main.player[o].dye.Length; l++)
+				{
+					if (Main.player[o].dye[l].name != "")
+					{
+						SendData(5, i, o, Main.player[o].dye[l].name, o, (float)(58 + Main.player[o].armor.Length + 1 + l),
+							(float)Main.player[o].dye[l].prefix, 0f, 0, 0, 0);
+					}
+
+				}
+				for (int m = 0; m < Main.player[o].miscEquips.Length; m++)
+				{
+					if (Main.player[o].miscEquips[m].name != "")
+					{
+						SendData(5, i, o, "", o,
+							(float)(58 + Main.player[o].armor.Length + Main.player[o].dye.Length + 1 + m),
+							(float)Main.player[o].miscEquips[m].prefix, 0f, 0, 0, 0);
+					}
+
+				}
+				for (int n = 0; n < Main.player[o].miscDyes.Length; n++)
+				{
+					if (Main.player[o].miscDyes[n].name != "")
+					{
+						SendData(5, i, o, "", o,
+						(float)
+							(58 + Main.player[o].armor.Length + Main.player[o].dye.Length + Main.player[o].miscEquips.Length + 1 + n),
+						(float)Main.player[o].miscDyes[n].prefix, 0f, 0, 0, 0);
+					}
+				}
+			}
+		}
+
 		public static void syncPlayers(bool sendInventory = true, bool sendPlayerActive = true, bool sendPlayerInfo = true, bool ghostUpdate = true, int leavingPlayer = -1)
 		{
 			bool flag = false;
@@ -2338,31 +2479,50 @@ namespace Terraria
 					{
 						for (int j = 0; j < 1 /*59*/; j++)
 						{
-							SendData(5, -1, i, Main.player[i].inventory[j].name, i, (float) j,
-								(float) Main.player[i].inventory[j].prefix, 0f, 0, 0, 0);
+							if (Main.player[i].inventory[j].name != "")
+							{
+								SendData(5, -1, i, Main.player[i].inventory[j].name, i, (float)j,
+								(float)Main.player[i].inventory[j].prefix, 0f, 0, 0, 0);
+							}
 						}
 						for (int k = 0; k < Main.player[i].armor.Length; k++)
 						{
-							SendData(5, -1, i, Main.player[i].armor[k].name, i, (float) (59 + k),
-								(float) Main.player[i].armor[k].prefix, 0f, 0, 0, 0);
+							if (Main.player[i].armor[k].name != "")
+							{
+								SendData(5, -1, i, Main.player[i].armor[k].name, i, (float)(59 + k),
+								(float)Main.player[i].armor[k].prefix, 0f, 0, 0, 0);
+							}
+							
 						}
 						for (int l = 0; l < Main.player[i].dye.Length; l++)
 						{
-							SendData(5, -1, i, Main.player[i].dye[l].name, i, (float) (58 + Main.player[i].armor.Length + 1 + l),
-								(float) Main.player[i].dye[l].prefix, 0f, 0, 0, 0);
+							if (Main.player[i].dye[l].name != "")
+							{
+								SendData(5, -1, i, Main.player[i].dye[l].name, i, (float)(58 + Main.player[i].armor.Length + 1 + l),
+									(float)Main.player[i].dye[l].prefix, 0f, 0, 0, 0);
+							}
+
 						}
 						for (int m = 0; m < Main.player[i].miscEquips.Length; m++)
 						{
-							SendData(5, -1, i, "", i,
-								(float) (58 + Main.player[i].armor.Length + Main.player[i].dye.Length + 1 + m),
-								(float) Main.player[i].miscEquips[m].prefix, 0f, 0, 0, 0);
+							if (Main.player[i].miscEquips[m].name != "")
+							{
+								SendData(5, -1, i, "", i,
+									(float)(58 + Main.player[i].armor.Length + Main.player[i].dye.Length + 1 + m),
+									(float)Main.player[i].miscEquips[m].prefix, 0f, 0, 0, 0);
+							}
+
 						}
 						for (int n = 0; n < Main.player[i].miscDyes.Length; n++)
 						{
-							SendData(5, -1, i, "", i,
+							if (Main.player[i].miscDyes[n].name != "")
+							{
+								SendData(5, -1, i, "", i,
 								(float)
 									(58 + Main.player[i].armor.Length + Main.player[i].dye.Length + Main.player[i].miscEquips.Length + 1 + n),
-								(float) Main.player[i].miscDyes[n].prefix, 0f, 0, 0, 0);
+								(float)Main.player[i].miscDyes[n].prefix, 0f, 0, 0, 0);
+							}
+
 						}
 					}
 					if (!Netplay.Clients[i].IsAnnouncementCompleted)
