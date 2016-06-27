@@ -542,6 +542,7 @@ namespace TerrariaApi.Server
 			crit = args.Critical;
 			noEffect = args.NoEffect;
 			fromNet = args.FromNet;
+			player = args.Player;
 			return args.Handled;
 		}
 		#endregion
