@@ -13167,8 +13167,10 @@ namespace Terraria
 			}
 			Main.hardMode = true;
 			Main.InitLifeBytes();
-			WorldGen.smCallBack(null);
-			//ThreadPool.QueueUserWorkItem(new WaitCallback(WorldGen.smCallBack), 1);
+
+			Thread thread = new Thread(WorldGen.smCallBack);
+			thread.Name = "Start Hardmode";
+			thread.Start();
 		}
 
 		public static void smCallBack(object threadContext)
