@@ -88,35 +88,8 @@ namespace Terraria
 			}
 			return false;
 		}
-		public static void newRecent()
-		{
-			if (Connection.Socket.GetRemoteAddress().Type != AddressType.Tcp)
-			{
-				return;
-			}
-			for (int i = 0; i < Main.maxMP; i++)
-			{
-				if (Main.recentIP[i].ToLower() == ServerIPText.ToLower() && Main.recentPort[i] == ListenPort)
-				{
-					for (int j = i; j < Main.maxMP - 1; j++)
-					{
-						Main.recentIP[j] = Main.recentIP[j + 1];
-						Main.recentPort[j] = Main.recentPort[j + 1];
-						Main.recentWorld[j] = Main.recentWorld[j + 1];
-					}
-				}
-			}
-			for (int k = Main.maxMP - 1; k > 0; k--)
-			{
-				Main.recentIP[k] = Main.recentIP[k - 1];
-				Main.recentPort[k] = Main.recentPort[k - 1];
-				Main.recentWorld[k] = Main.recentWorld[k - 1];
-			}
-			Main.recentIP[0] = ServerIPText;
-			Main.recentPort[0] = ListenPort;
-			Main.recentWorld[0] = Main.worldName;
-			Main.SaveRecent();
-		}
+		public static void newRecent() { }
+
 		public static void SocialClientLoop(object threadContext)
 		{
 			ISocket socket = (ISocket)threadContext;

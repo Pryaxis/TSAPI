@@ -2476,17 +2476,10 @@ namespace Terraria
 
 		public void AutoHost()
 		{
-			Main.menuMultiplayer = true;
-			Main.menuServer = true;
-			Main.menuMode = 1;
 		}
 
 		public void AutoJoin(string IP)
 		{
-			Main.defaultIP = IP;
-			Main.getIP = IP;
-			Netplay.SetRemoteIP(Main.defaultIP);
-			Main.autoJoin = true;
 		}
 
 		public void AutoPass()
@@ -2510,121 +2503,14 @@ namespace Terraria
 
 		public static void BuyHairWindow()
 		{
-			Main.hairWindow = false;
-			Main.player[Main.myPlayer].talkNPC = -1;
-			Main.npcChatCornerItem = 0;
-			NetMessage.SendData(4, -1, -1, Main.player[Main.myPlayer].name, Main.myPlayer, 0f, 0f, 0f, 0, 0, 0);
 		}
 
 		protected void CacheNPCDraws()
 		{
-			this.DrawCacheNPCsMoonMoon.Clear();
-			this.DrawCacheNPCsOverPlayers.Clear();
-			this.DrawCacheNPCProjectiles.Clear();
-			for (int i = 0; i < 200; i++)
-			{
-				if (Main.npc[i].active)
-				{
-					if (Main.npc[i].type == 398 && Main.npc[i].ai[0] >= 0f)
-					{
-						int num = i;
-						int num1 = -1;
-						int num2 = -1;
-						int num3 = -1;
-						for (int j = 0; j < 200; j++)
-						{
-							if (Main.npc[j].active && Main.npc[j].ai[3] == (float)num)
-							{
-								if (num1 == -1 && Main.npc[j].type == 397 && Main.npc[j].ai[2] == 0f)
-								{
-									num1 = j;
-								}
-								if (num2 == -1 && Main.npc[j].type == 397 && Main.npc[j].ai[2] == 1f)
-								{
-									num2 = j;
-								}
-								if (num3 == -1 && Main.npc[j].type == 396)
-								{
-									num3 = j;
-								}
-								if (num1 != -1 && num2 != -1 && num3 != -1)
-								{
-									break;
-								}
-							}
-						}
-						if (num1 != -1 && num2 != -1 && num3 != -1)
-						{
-							this.DrawCacheNPCsMoonMoon.Add(num);
-							if (num1 != -1)
-							{
-								this.DrawCacheNPCsMoonMoon.Add(num1);
-							}
-							if (num2 != -1)
-							{
-								this.DrawCacheNPCsMoonMoon.Add(num2);
-							}
-							if (num3 != -1)
-							{
-								this.DrawCacheNPCsMoonMoon.Add(num3);
-							}
-						}
-					}
-					else if (Main.npc[i].type == 421 && Main.npc[i].ai[0] == 5f)
-					{
-						this.DrawCacheNPCsOverPlayers.Add(i);
-					}
-					else if (Main.npc[i].type == 516 || Main.npc[i].type == 519)
-					{
-						this.DrawCacheNPCProjectiles.Add(i);
-					}
-				}
-			}
 		}
 
 		protected void CacheProjDraws()
 		{
-			this.DrawCacheProjsBehindNPCsAndTiles.Clear();
-			this.DrawCacheProjsBehindNPCs.Clear();
-			this.DrawCacheProjsBehindProjectiles.Clear();
-			for (int i = 0; i < 1000; i++)
-			{
-				if (Main.projectile[i].active)
-				{
-					if (Main.projectile[i].type == 578 || Main.projectile[i].type == 579 || Main.projectile[i].type == 641 || Main.projectile[i].type == 598 || Main.projectile[i].type == 617 || Main.projectile[i].type == 636)
-					{
-						this.DrawCacheProjsBehindNPCsAndTiles.Add(i);
-					}
-					if (Main.projectile[i].type == 625 || Main.projectile[i].type == 626 || Main.projectile[i].type == 627 || Main.projectile[i].type == 628)
-					{
-						this.DrawCacheProjsBehindProjectiles.Add(i);
-					}
-					if (Main.projectile[i].type == 636 || Main.projectile[i].type == 598)
-					{
-						bool flag = true;
-						if (Main.projectile[i].ai[0] == 1f)
-						{
-							int num = (int)Main.projectile[i].ai[1];
-							if (num >= 0 && num < 200 && Main.npc[num].active)
-							{
-								if (Main.npc[num].behindTiles)
-								{
-									this.DrawCacheProjsBehindNPCsAndTiles.Add(i);
-								}
-								else
-								{
-									this.DrawCacheProjsBehindNPCs.Add(i);
-								}
-								flag = false;
-							}
-						}
-						if (flag)
-						{
-							this.DrawCacheProjsBehindProjectiles.Add(i);
-						}
-					}
-				}
-			}
 		}
 
 		public static double CalculateDamage(int Damage, int Defense)
@@ -2653,28 +2539,10 @@ namespace Terraria
 
 		public static void CancelClothesWindow(bool quiet = false)
 		{
-			if (!Main.clothesWindow)
-			{
-				return;
-			}
-			Main.clothesWindow = false;
-			Main.player[Main.myPlayer].shirtColor = Main.oldClothesColor[0];
-			Main.player[Main.myPlayer].underShirtColor = Main.oldClothesColor[1];
-			Main.player[Main.myPlayer].pantsColor = Main.oldClothesColor[2];
-			Main.player[Main.myPlayer].shoeColor = Main.oldClothesColor[3];
 		}
 
 		public static void CancelHairWindow()
 		{
-			if (!Main.hairWindow)
-			{
-				return;
-			}
-			Main.hairWindow = false;
-			if (Main.player[Main.myPlayer].talkNPC > -1 && Main.npc[Main.player[Main.myPlayer].talkNPC].type == 353)
-			{
-				Main.player[Main.myPlayer].talkNPC = -1;
-			}
 		}
 
 		public static bool canDrawColorTile(int i, int j)
@@ -2750,19 +2618,6 @@ namespace Terraria
 
 		protected void CheckBunny()
 		{
-			try
-			{
-				RegistryKey currentUser = Registry.CurrentUser;
-				currentUser = currentUser.CreateSubKey("Software\\Terraria");
-				if (currentUser != null && currentUser.GetValue("Bunny") != null && currentUser.GetValue("Bunny").ToString() == "1")
-				{
-					Main.cEd = true;
-				}
-			}
-			catch
-			{
-				Main.cEd = false;
-			}
 		}
 
 		public static void checkHalloween()
@@ -5099,24 +4954,6 @@ namespace Terraria
 
 		public static void CursorColor()
 		{
-			Main.cursorAlpha = Main.cursorAlpha + (float)Main.cursorColorDirection * 0.015f;
-			if (Main.cursorAlpha >= 1f)
-			{
-				Main.cursorAlpha = 1f;
-				Main.cursorColorDirection = -1;
-			}
-			if ((double)Main.cursorAlpha <= 0.6)
-			{
-				Main.cursorAlpha = 0.6f;
-				Main.cursorColorDirection = 1;
-			}
-			float single = Main.cursorAlpha * 0.3f + 0.7f;
-			byte r = (byte)((float)Main.mouseColor.R * Main.cursorAlpha);
-			byte g = (byte)((float)Main.mouseColor.G * Main.cursorAlpha);
-			byte b = (byte)((float)Main.mouseColor.B * Main.cursorAlpha);
-			byte num = (byte)(255f * single);
-			Main.cursorColor = new Color((int)r, (int)g, (int)b, (int)num);
-			Main.cursorScale = Main.cursorAlpha * 0.3f + 0.7f + 0.1f;
 		}
 
 		public static int DamageVar(float dmg)
@@ -6066,113 +5903,16 @@ namespace Terraria
 
 		public static string GetPlayerPathFromName(string playerName)
 		{
-			string str = "";
-			for (int i = 0; i < playerName.Length; i++)
-			{
-				string str1 = playerName.Substring(i, 1);
-				string str2 = "";
-				if (str1 == "a" || str1 == "b" || str1 == "c" || str1 == "d" || str1 == "e" || str1 == "f" || str1 == "g" || str1 == "h" || str1 == "i" || str1 == "j" || str1 == "k" || str1 == "l" || str1 == "m" || str1 == "n" || str1 == "o" || str1 == "p" || str1 == "q" || str1 == "r" || str1 == "s" || str1 == "t" || str1 == "u" || str1 == "v" || str1 == "w" || str1 == "x" || str1 == "y" || str1 == "z" || str1 == "A" || str1 == "B" || str1 == "C" || str1 == "D" || str1 == "E" || str1 == "F" || str1 == "G" || str1 == "H" || str1 == "I" || str1 == "J" || str1 == "K" || str1 == "L" || str1 == "M" || str1 == "N" || str1 == "O" || str1 == "P" || str1 == "Q" || str1 == "R" || str1 == "S" || str1 == "T" || str1 == "U" || str1 == "V" || str1 == "W" || str1 == "X" || str1 == "Y" || str1 == "Z" || str1 == "1" || str1 == "2" || str1 == "3" || str1 == "4" || str1 == "5" || str1 == "6" || str1 == "7" || str1 == "8" || str1 == "9" || str1 == "0")
-				{
-					str2 = str1;
-				}
-				else
-				{
-					str2 = (str1 != " " ? "-" : "_");
-				}
-				str = string.Concat(str, str2);
-			}
-			string str3 = Main.PlayerPath;
-			object[] directorySeparatorChar = new object[] { str3, Path.DirectorySeparatorChar, str, ".plr" };
-			if (FileUtilities.GetFullPath(string.Concat(directorySeparatorChar)).StartsWith("\\\\.\\", StringComparison.Ordinal))
-			{
-				str = string.Concat(str, "_");
-			}
-			object[] objArray = new object[] { str3, Path.DirectorySeparatorChar, str, ".plr" };
-			if (FileUtilities.Exists(string.Concat(objArray)))
-			{
-				int num = 2;
-				while (true)
-				{
-					object[] directorySeparatorChar1 = new object[] { str3, Path.DirectorySeparatorChar, str, num, ".plr" };
-					if (!FileUtilities.Exists(string.Concat(directorySeparatorChar1)))
-					{
-						break;
-					}
-					num++;
-				}
-				str = string.Concat(str, num);
-			}
-			object[] objArray1 = new object[] { str3, Path.DirectorySeparatorChar, str, ".plr" };
-			return string.Concat(objArray1);
+			return "";
 		}
 
 		public static int GetTreeStyle(int X)
 		{
-			int num = 0;
-			if (X <= Main.treeX[0])
-			{
-				num = Main.treeStyle[0];
-			}
-			else if (X > Main.treeX[1])
-			{
-				num = (X > Main.treeX[2] ? Main.treeStyle[3] : Main.treeStyle[2]);
-			}
-			else
-			{
-				num = Main.treeStyle[1];
-			}
-			if (num == 0)
-			{
-				return 0;
-			}
-			if (num == 5)
-			{
-				return 10;
-			}
-			return 5 + num;
+			return -1;
 		}
 
 		protected static int GetTreeVariant(int x, int y)
 		{
-			if (Main.tile[x, y] == null || !Main.tile[x, y].active())
-			{
-				return -1;
-			}
-			int num = Main.tile[x, y].type;
-			if (num > 70)
-			{
-				if (num == 109)
-				{
-					return 2;
-				}
-				if (num == 147)
-				{
-					return 3;
-				}
-				if (num == 199)
-				{
-					return 4;
-				}
-			}
-			else
-			{
-				if (num == 23)
-				{
-					return 0;
-				}
-				if (num == 60)
-				{
-					if ((double)y <= Main.worldSurface)
-					{
-						return 1;
-					}
-					return 5;
-				}
-				if (num == 70)
-				{
-					return 6;
-				}
-			}
 			return -1;
 		}
 
@@ -6182,7 +5922,7 @@ namespace Terraria
 			string str1 = "";
 			for (int i = 0; i < str.Length; i++)
 			{
-				string str2 = str.Substring(i, 1);
+				string str2 = new string(str[i], 1);
 				string str3 = "";
 				if (str2 == "a" || str2 == "b" || str2 == "c" || str2 == "d" || str2 == "e" || str2 == "f" || str2 == "g" || str2 == "h" || str2 == "i" || str2 == "j" || str2 == "k" || str2 == "l" || str2 == "m" || str2 == "n" || str2 == "o" || str2 == "p" || str2 == "q" || str2 == "r" || str2 == "s" || str2 == "t" || str2 == "u" || str2 == "v" || str2 == "w" || str2 == "x" || str2 == "y" || str2 == "z" || str2 == "A" || str2 == "B" || str2 == "C" || str2 == "D" || str2 == "E" || str2 == "F" || str2 == "G" || str2 == "H" || str2 == "I" || str2 == "J" || str2 == "K" || str2 == "L" || str2 == "M" || str2 == "N" || str2 == "O" || str2 == "P" || str2 == "Q" || str2 == "R" || str2 == "S" || str2 == "T" || str2 == "U" || str2 == "V" || str2 == "W" || str2 == "X" || str2 == "Y" || str2 == "Z" || str2 == "1" || str2 == "2" || str2 == "3" || str2 == "4" || str2 == "5" || str2 == "6" || str2 == "7" || str2 == "8" || str2 == "9" || str2 == "0")
 				{
@@ -6221,21 +5961,6 @@ namespace Terraria
 
 		public void GUIBarsDraw()
 		{
-			if (!Main.ignoreErrors)
-			{
-				this.GUIBarsDrawInner();
-			}
-			else
-			{
-				try
-				{
-					this.GUIBarsDrawInner();
-				}
-				catch (Exception exception)
-				{
-					TimeLogger.DrawException(exception);
-				}
-			}
 		}
 
 		protected void GUIBarsDrawInner()
@@ -8690,16 +8415,14 @@ namespace Terraria
 				this.shop[k1] = new Chest(false);
 				this.shop[k1].SetupShop(k1);
 			}
+
 			Main.teamColor[0] = Color.White;
 			Main.teamColor[1] = new Color(218, 59, 59);
 			Main.teamColor[2] = new Color(59, 218, 85);
 			Main.teamColor[3] = new Color(59, 149, 218);
 			Main.teamColor[4] = new Color(242, 221, 100);
 			Main.teamColor[5] = new Color(224, 100, 242);
-			if (Main.menuMode == 1)
-			{
-				Main.LoadPlayers();
-			}
+
 			for (int l1 = 1; l1 < 651; l1++)
 			{
 				Projectile projectile = new Projectile();
@@ -8715,41 +8438,13 @@ namespace Terraria
 			}
 			Netplay.Initialize();
 			NetworkInitializer.Load();
-			/*if (!Main.skipMenu)
-			{
-			}
-			else
-			{
-				WorldGen.clearWorld();
-				Main.gameMenu = false;
-				Main.LoadPlayers();
-				Main.PlayerList[0].SetAsActive();
-				Main.LoadWorlds();
-				WorldGen.generateWorld(-1, null);
-				WorldGen.EveryTileFrame();
-				Main.player[Main.myPlayer].Spawn();
-				Main.ActivePlayerFileData.StartPlayTimer();
-				Player.EnterWorld(Main.player[Main.myPlayer]);
-			}*/
+
 			if (Main.dedServ)
 			{
 				Main.clientUUID = Guid.NewGuid().ToString();
 				return;
 			}
-			/*
-			if (Lang.lang > 1)
-			{
-				Lang.setLang(true);
-			}
-			Lang.setLang(false);
-			if (Lang.lang == 0)
-			{
-				Main.menuMode = 1212;
-			}
-			this.SetTitle();
-			Star.SpawnStars();
-			WorldGen.RandomizeWeather();
-			return;*/
+
 			Label0:
 			num++;
 			goto Label3;
@@ -8896,114 +8591,58 @@ namespace Terraria
 
 		protected void LoadAccBack(int i)
 		{
-			if (!Main.accBackLoaded[i])
-			{
-				Main.accBackLoaded[i] = true;
-			}
 		}
 
 		protected void LoadAccBalloon(int i)
 		{
-			if (!Main.accballoonLoaded[i])
-			{
-				Main.accballoonLoaded[i] = true;
-			}
 		}
 
 		protected void LoadAccFace(int i)
 		{
-			if (!Main.accFaceLoaded[i])
-			{
-				Main.accFaceLoaded[i] = true;
-			}
 		}
 
 		protected void LoadAccFront(int i)
 		{
-			if (!Main.accFrontLoaded[i])
-			{
-				Main.accFrontLoaded[i] = true;
-			}
 		}
 
 		protected void LoadAccHandsOff(int i)
 		{
-			if (!Main.accHandsOffLoaded[i])
-			{
-				Main.accHandsOffLoaded[i] = true;
-			}
 		}
 
 		protected void LoadAccHandsOn(int i)
 		{
-			if (!Main.accHandsOnLoaded[i])
-			{
-				Main.accHandsOnLoaded[i] = true;
-			}
 		}
 
 		protected void LoadAccNeck(int i)
 		{
-			if (!Main.accNeckLoaded[i])
-			{
-				Main.accNeckLoaded[i] = true;
-			}
 		}
 
 		protected void LoadAccShield(int i)
 		{
-			if (!Main.accShieldLoaded[i])
-			{
-				Main.accShieldLoaded[i] = true;
-			}
 		}
 
 		protected void LoadAccShoes(int i)
 		{
-			if (!Main.accShoesLoaded[i])
-			{
-				Main.accShoesLoaded[i] = true;
-			}
 		}
 
 		protected void LoadAccWaist(int i)
 		{
-			if (!Main.accWaistLoaded[i])
-			{
-				Main.accWaistLoaded[i] = true;
-			}
 		}
 
 		protected void LoadArmorBody(int i)
 		{
-			if (!Main.armorBodyLoaded[i])
-			{
-				Main.armorBodyLoaded[i] = true;
-			}
 		}
 
 		protected void LoadArmorHead(int i)
 		{
-			if (!Main.armorHeadLoaded[i])
-			{
-				Main.armorHeadLoaded[i] = true;
-			}
 		}
 
 		protected void LoadArmorLegs(int i)
 		{
-			if (!Main.armorLegsLoaded[i])
-			{
-				Main.armorLegsLoaded[i] = true;
-			}
 		}
 
 		public void LoadBackground(int i)
 		{
-			if (i >= 0 && !Main.backgroundLoaded[i])
-			{
-				Main.backgroundLoaded[i] = true;
-			}
 		}
 
 		protected void LoadContent()
@@ -9207,45 +8846,14 @@ namespace Terraria
 
 		protected void LoadFlameRing()
 		{
-			if (!Main.flameRingLoaded)
-			{
-				Main.flameRingLoaded = true;
-			}
 		}
-
-		/*protected void LoadGore(int i)
-		{
-			if (!Main.goreLoaded[i])
-			{
-				Main.goreLoaded[i] = true;
-			}
-		}*/
 
 		protected void LoadHair(int i)
 		{
-			if (!Main.hairLoaded[i])
-			{
-				Main.hairLoaded[i] = true;
-			}
 		}
 
 		protected void LoadItemFlames(int i)
 		{
-			if (!Main.itemFlameLoaded[i])
-			{
-				try
-				{
-				}
-				catch (Exception ex)
-				{
-#if DEBUG
-					Console.WriteLine(ex);
-					System.Diagnostics.Debugger.Break();
-
-#endif
-				}
-				Main.itemFlameLoaded[i] = true;
-			}
 		}
 
 		public void loadLib(string path)
@@ -9254,60 +8862,26 @@ namespace Terraria
 
 		protected void LoadNPC(int i)
 		{
-			if (!Main.NPCLoaded[i])
-			{
-				Main.NPCLoaded[i] = true;
-			}
 		}
 
 		public static void LoadPlayers()
 		{
-			Main.PlayerList.Clear();
-			Directory.CreateDirectory(Main.PlayerPath);
-			string[] files = Directory.GetFiles(Main.PlayerPath, "*.plr");
-			int num = Math.Min(Main.maxLoadPlayer, (int)files.Length);
-			for (int i = 0; i < num; i++)
-			{
-				PlayerFileData fileData = Player.GetFileData(files[i]);
-				if (fileData != null)
-				{
-					Main.PlayerList.Add(fileData);
-				}
-			}
-
-			Main.PlayerList.Sort(new Comparison<PlayerFileData>(Main.PlayerListSortMethod));
 		}
 
 		protected void LoadProjectile(int i)
 		{
-			if (!Main.projectileLoaded[i])
-			{
-				Main.projectileLoaded[i] = true;
-			}
 		}
 
 		protected void LoadTiles(int i)
 		{
-			if (!Main.tileSetsLoaded[i])
-			{
-				Main.tileSetsLoaded[i] = true;
-			}
 		}
 
 		protected void LoadWall(int i)
 		{
-			if (!Main.wallLoaded[i])
-			{
-				Main.wallLoaded[i] = true;
-			}
 		}
 
 		protected void LoadWings(int i)
 		{
-			if (!Main.wingsLoaded[i])
-			{
-				Main.wingsLoaded[i] = true;
-			}
 		}
 
 		public static void LoadWorlds()
@@ -9329,54 +8903,6 @@ namespace Terraria
 
 		protected void lookForColorTiles()
 		{
-			int x = (int)(Main.screenPosition.X / 16f - 2f);
-			int num = (int)((Main.screenPosition.X + (float)Main.screenWidth) / 16f) + 3;
-			int y = (int)(Main.screenPosition.Y / 16f - 2f);
-			int y1 = (int)((Main.screenPosition.Y + (float)Main.screenHeight) / 16f) + 3;
-			if (x < 1)
-			{
-				x = 1;
-			}
-			if (num > Main.maxTilesX - 2)
-			{
-				num = Main.maxTilesX - 2;
-			}
-			for (int i = x; i < num; i++)
-			{
-				if (i > 0)
-				{
-					for (int j = y; j < y1; j++)
-					{
-						if (Main.tile[i, j] != null)
-						{
-							int treeVariant = Main.GetTreeVariant(i, j);
-							if (treeVariant != -1)
-							{
-								this.woodColorCheck(treeVariant, (int)Main.tile[i, j].color());
-							}
-							if (Main.tile[i, j].active() && Main.tile[i, j].color() > 0)
-							{
-								this.tileColorCheck((int)Main.tile[i, j].type, (int)Main.tile[i, j].color());
-							}
-							if (Main.tile[i, j].wall > 0 && Main.tile[i, j].wallColor() > 0)
-							{
-								this.wallColorCheck((int)Main.tile[i, j].wall, (int)Main.tile[i, j].wallColor());
-							}
-						}
-					}
-				}
-			}
-			for (int k = 0; k < Main.numTreeStyles; k++)
-			{
-				for (int l = 0; l < Main.numTileColors; l++)
-				{
-					if (Main.checkTreeAlt[k, l])
-					{
-						this.treeColorCheck(k, l);
-						Main.checkTreeAlt[k, l] = false;
-					}
-				}
-			}
 		}
 
 		public void MouseText(string cursorText, int rare = 0, byte diff = 0)
@@ -9385,191 +8911,6 @@ namespace Terraria
 
 		public static void MoveCoins(Item[] pInv, Item[] cInv)
 		{
-			int[] numArray = new int[4];
-			List<int> nums = new List<int>();
-			List<int> nums1 = new List<int>();
-			bool flag = false;
-			int[] numArray1 = new int[40];
-			for (int i = 0; i < (int)cInv.Length; i++)
-			{
-				numArray1[i] = -1;
-				if (cInv[i].stack < 1 || cInv[i].type < 1)
-				{
-					nums1.Add(i);
-					cInv[i] = new Item();
-				}
-				if (cInv[i] != null && cInv[i].stack > 0)
-				{
-					int num = 0;
-					if (cInv[i].type == 71)
-					{
-						num = 1;
-					}
-					if (cInv[i].type == 72)
-					{
-						num = 2;
-					}
-					if (cInv[i].type == 73)
-					{
-						num = 3;
-					}
-					if (cInv[i].type == 74)
-					{
-						num = 4;
-					}
-					numArray1[i] = num - 1;
-					if (num > 0)
-					{
-						numArray[num - 1] = numArray[num - 1] + cInv[i].stack;
-						nums1.Add(i);
-						cInv[i] = new Item();
-						flag = true;
-					}
-				}
-			}
-			if (!flag)
-			{
-				return;
-			}
-			for (int j = 0; j < (int)pInv.Length; j++)
-			{
-				if (j != 58 && pInv[j] != null && pInv[j].stack > 0)
-				{
-					int num1 = 0;
-					if (pInv[j].type == 71)
-					{
-						num1 = 1;
-					}
-					if (pInv[j].type == 72)
-					{
-						num1 = 2;
-					}
-					if (pInv[j].type == 73)
-					{
-						num1 = 3;
-					}
-					if (pInv[j].type == 74)
-					{
-						num1 = 4;
-					}
-					if (num1 > 0)
-					{
-						numArray[num1 - 1] = numArray[num1 - 1] + pInv[j].stack;
-						nums.Add(j);
-						pInv[j] = new Item();
-					}
-				}
-			}
-			for (int k = 0; k < 3; k++)
-			{
-				while (numArray[k] >= 100)
-				{
-					numArray[k] = numArray[k] - 100;
-					numArray[k + 1] = numArray[k + 1] + 1;
-				}
-			}
-			for (int l = 0; l < 40; l++)
-			{
-				if (numArray1[l] >= 0 && cInv[l].type == 0)
-				{
-					int num2 = l;
-					int num3 = numArray1[l];
-					if (numArray[num3] > 0)
-					{
-						cInv[num2].SetDefaults(71 + num3, false);
-						cInv[num2].stack = numArray[num3];
-						if (cInv[num2].stack > cInv[num2].maxStack)
-						{
-							cInv[num2].stack = cInv[num2].maxStack;
-						}
-						numArray[num3] = numArray[num3] - cInv[num2].stack;
-						numArray1[l] = -1;
-					}
-					if (Main.netMode == 1 && Main.player[Main.myPlayer].chest > -1)
-					{
-						NetMessage.SendData(32, -1, -1, "", Main.player[Main.myPlayer].chest, (float)num2, 0f, 0f, 0, 0, 0);
-					}
-					nums1.Remove(num2);
-				}
-			}
-			for (int m = 0; m < 40; m++)
-			{
-				if (numArray1[m] >= 0 && cInv[m].type == 0)
-				{
-					int num4 = m;
-					int num5 = 3;
-					while (num5 >= 0)
-					{
-						if (numArray[num5] <= 0)
-						{
-							num5--;
-						}
-						else
-						{
-							cInv[num4].SetDefaults(71 + num5, false);
-							cInv[num4].stack = numArray[num5];
-							if (cInv[num4].stack > cInv[num4].maxStack)
-							{
-								cInv[num4].stack = cInv[num4].maxStack;
-							}
-							numArray[num5] = numArray[num5] - cInv[num4].stack;
-							numArray1[m] = -1;
-							break;
-						}
-					}
-					if (Main.netMode == 1 && Main.player[Main.myPlayer].chest > -1)
-					{
-						NetMessage.SendData(32, -1, -1, "", Main.player[Main.myPlayer].chest, (float)num4, 0f, 0f, 0, 0, 0);
-					}
-					nums1.Remove(num4);
-				}
-			}
-			while (nums1.Count > 0)
-			{
-				int item = nums1[0];
-				int num6 = 3;
-				while (num6 >= 0)
-				{
-					if (numArray[num6] <= 0)
-					{
-						num6--;
-					}
-					else
-					{
-						cInv[item].SetDefaults(71 + num6, false);
-						cInv[item].stack = numArray[num6];
-						if (cInv[item].stack > cInv[item].maxStack)
-						{
-							cInv[item].stack = cInv[item].maxStack;
-						}
-						numArray[num6] = numArray[num6] - cInv[item].stack;
-						break;
-					}
-				}
-				if (Main.netMode == 1 && Main.player[Main.myPlayer].chest > -1)
-				{
-					NetMessage.SendData(32, -1, -1, "", Main.player[Main.myPlayer].chest, (float)nums1[0], 0f, 0f, 0, 0, 0);
-				}
-				nums1.RemoveAt(0);
-			}
-			while (nums.Count > 0)
-			{
-				int item1 = nums[0];
-				for (int n = 3; n >= 0; n--)
-				{
-					if (numArray[n] > 0)
-					{
-						pInv[item1].SetDefaults(71 + n, false);
-						pInv[item1].stack = numArray[n];
-						if (pInv[item1].stack > pInv[item1].maxStack)
-						{
-							pInv[item1].stack = pInv[item1].maxStack;
-						}
-						numArray[n] = numArray[n] - pInv[item1].stack;
-					}
-				}
-				nums.RemoveAt(0);
-			}
 		}
 
 		public void NewMOTD(string newMOTD)
@@ -9584,161 +8925,7 @@ namespace Terraria
 
 		public static float NPCAddHeight(int i)
 		{
-			float single = 0f;
-			if (Main.npc[i].type == 125)
-			{
-				single = 30f;
-			}
-			else if (Main.npc[i].type == 54)
-			{
-				single = 2f;
-			}
-			else if (Main.npc[i].type == 205)
-			{
-				single = 8f;
-			}
-			else if (Main.npc[i].type == 182)
-			{
-				single = 24f;
-			}
-			else if (Main.npc[i].type == 178)
-			{
-				single = 2f;
-			}
-			else if (Main.npc[i].type == 126)
-			{
-				single = 30f;
-			}
-			else if (Main.npc[i].type == 6 || Main.npc[i].type == 173)
-			{
-				single = 26f;
-			}
-			else if (Main.npc[i].type == 94)
-			{
-				single = 14f;
-			}
-			else if (Main.npc[i].type == 7 || Main.npc[i].type == 8 || Main.npc[i].type == 9)
-			{
-				single = 13f;
-			}
-			else if (Main.npc[i].type == 98 || Main.npc[i].type == 99 || Main.npc[i].type == 100)
-			{
-				single = 13f;
-			}
-			else if (Main.npc[i].type == 95 || Main.npc[i].type == 96 || Main.npc[i].type == 97)
-			{
-				single = 13f;
-			}
-			else if (Main.npc[i].type == 10 || Main.npc[i].type == 11 || Main.npc[i].type == 12)
-			{
-				single = 8f;
-			}
-			else if (Main.npc[i].type == 13 || Main.npc[i].type == 14 || Main.npc[i].type == 15)
-			{
-				single = 26f;
-			}
-			else if (Main.npc[i].type == 175)
-			{
-				single = 4f;
-			}
-			else if (Main.npc[i].type == 520)
-			{
-				single = 2f;
-			}
-			else if (Main.npc[i].type >= 412 && Main.npc[i].type <= 414)
-			{
-				single = 18f;
-			}
-			else if (Main.npc[i].type == 48)
-			{
-				single = 32f;
-			}
-			else if (Main.npc[i].type == 49 || Main.npc[i].type == 51)
-			{
-				single = 4f;
-			}
-			else if (Main.npc[i].type == 60)
-			{
-				single = 10f;
-			}
-			else if (Main.npc[i].type == 62 || Main.npc[i].type == 66 || Main.npc[i].type == 156)
-			{
-				single = 14f;
-			}
-			else if (Main.npc[i].type == 63 || Main.npc[i].type == 64 || Main.npc[i].type == 103)
-			{
-				single = 4f;
-			}
-			else if (Main.npc[i].type == 65)
-			{
-				single = 14f;
-			}
-			else if (Main.npc[i].type == 69)
-			{
-				single = 4f;
-			}
-			else if (Main.npc[i].type == 70)
-			{
-				single = -4f;
-			}
-			else if (Main.npc[i].type == 72)
-			{
-				single = -2f;
-			}
-			else if (Main.npc[i].type == 83 || Main.npc[i].type == 84)
-			{
-				single = 20f;
-			}
-			else if (Main.npc[i].type == 150 || Main.npc[i].type == 151 || Main.npc[i].type == 158)
-			{
-				single = 10f;
-			}
-			else if (Main.npc[i].type == 152)
-			{
-				single = 6f;
-			}
-			else if (Main.npc[i].type == 153 || Main.npc[i].type == 154)
-			{
-				single = 4f;
-			}
-			else if (Main.npc[i].type == 165 || Main.npc[i].type == 237 || Main.npc[i].type == 238 || Main.npc[i].type == 240)
-			{
-				single = 10f;
-			}
-			else if (Main.npc[i].type == 39 || Main.npc[i].type == 40 || Main.npc[i].type == 41)
-			{
-				single = 26f;
-			}
-			else if (Main.npc[i].type >= 87 && Main.npc[i].type <= 92)
-			{
-				single = 56f;
-			}
-			else if (Main.npc[i].type >= 134 && Main.npc[i].type <= 136)
-			{
-				single = 30f;
-			}
-			else if (Main.npc[i].type == 169)
-			{
-				single = 8f;
-			}
-			else if (Main.npc[i].type == 174)
-			{
-				single = 6f;
-			}
-			else if (Main.npc[i].type == 369)
-			{
-				single = 2f;
-			}
-			else if (Main.npc[i].type == 376)
-			{
-				single = 6f;
-			}
-			if (Main.npc[i].townNPC && Main.npc[i].ai[0] == 5f)
-			{
-				single = single - 4f;
-			}
-			single = single * Main.npc[i].scale;
-			return single;
+			return 0;
 		}
 
 		protected void OldDrawBackground()
@@ -9759,258 +8946,40 @@ namespace Terraria
 
 		protected void OpenLegacySettings()
 		{
-			try
-			{
-				if (File.Exists(string.Concat(Main.SavePath, Path.DirectorySeparatorChar, "config.dat")))
-				{
-					using (FileStream fileStream = new FileStream(string.Concat(Main.SavePath, Path.DirectorySeparatorChar, "config.dat"), FileMode.Open))
-					{
-						using (BinaryReader binaryReader = new BinaryReader(fileStream))
-						{
-							int num = binaryReader.ReadInt32();
-							if (num >= 68)
-							{
-								if (num >= 67)
-								{
-									Main.clientUUID = binaryReader.ReadString();
-								}
-								bool flag = binaryReader.ReadBoolean();
-								Main.mouseColor.R = binaryReader.ReadByte();
-								Main.mouseColor.G = binaryReader.ReadByte();
-								Main.mouseColor.B = binaryReader.ReadByte();
-								Main.soundVolume = binaryReader.ReadSingle();
-								if (num >= 90)
-								{
-									Main.ambientVolume = binaryReader.ReadSingle();
-								}
-								Main.musicVolume = binaryReader.ReadSingle();
-								Main.cUp = binaryReader.ReadString();
-								Main.cDown = binaryReader.ReadString();
-								Main.cLeft = binaryReader.ReadString();
-								Main.cRight = binaryReader.ReadString();
-								Main.cJump = binaryReader.ReadString();
-								Main.cThrowItem = binaryReader.ReadString();
-								if (num >= 1)
-								{
-									Main.cInv = binaryReader.ReadString();
-								}
-								if (num >= 12)
-								{
-									Main.cHeal = binaryReader.ReadString();
-									Main.cMana = binaryReader.ReadString();
-									Main.cBuff = binaryReader.ReadString();
-								}
-								if (num >= 13)
-								{
-									Main.cHook = binaryReader.ReadString();
-								}
-								Main.caveParallax = binaryReader.ReadSingle();
-								if (num >= 2)
-								{
-									Main.fixedTiming = binaryReader.ReadBoolean();
-								}
-								if (num >= 91)
-								{
-									binaryReader.ReadBoolean();
-								}
-								if (num >= 4)
-								{
-									Main.SetDisplayMode(binaryReader.ReadInt32(), binaryReader.ReadInt32(), flag);
-								}
-								if (num >= 8)
-								{
-									Main.autoSave = binaryReader.ReadBoolean();
-								}
-								if (num >= 9)
-								{
-									Main.autoPause = binaryReader.ReadBoolean();
-								}
-								if (num >= 19)
-								{
-									Main.showItemText = binaryReader.ReadBoolean();
-								}
-								if (num >= 30)
-								{
-									Main.cTorch = binaryReader.ReadString();
-									binaryReader.ReadByte();
-									Main.qaStyle = binaryReader.ReadByte();
-								}
-								if (num >= 37)
-								{
-									Main.owBack = binaryReader.ReadBoolean();
-								}
-								if (num >= 39)
-								{
-									Lang.lang = binaryReader.ReadByte();
-								}
-								if (num >= 46)
-								{
-									Main.mapEnabled = binaryReader.ReadBoolean();
-									Main.cMapStyle = binaryReader.ReadString();
-									Main.cMapFull = binaryReader.ReadString();
-									Main.cMapZoomIn = binaryReader.ReadString();
-									Main.cMapZoomOut = binaryReader.ReadString();
-									Main.cMapAlphaUp = binaryReader.ReadString();
-									Main.cMapAlphaDown = binaryReader.ReadString();
-								}
-								if (num >= 89)
-								{
-									binaryReader.ReadInt32();
-								}
-								if (num >= 100)
-								{
-									Main.cSmart = binaryReader.ReadString();
-									Main.cSmartToggle = binaryReader.ReadBoolean();
-								}
-								if (num >= 107)
-								{
-									Main.invasionProgressMode = binaryReader.ReadByte();
-								}
-								if (num >= 111)
-								{
-									Main.placementPreview = binaryReader.ReadBoolean();
-								}
-								if (num >= 111)
-								{
-									Main.placementPreview = binaryReader.ReadBoolean();
-								}
-								Main.SetFullScreen(flag);
-							}
-							binaryReader.Close();
-						}
-					}
-				}
-			}
-			catch (Exception ex)
-			{
-#if DEBUG
-				Console.WriteLine(ex);
-				System.Diagnostics.Debugger.Break();
-
-#endif
-			}
 		}
 
 		public static void OpenPlayerSelect(Main.OnPlayerSelected method)
 		{
-			if (Main.gameMenu && (Main.menuMode == 10 || Main.menuMode == 14))
-			{
-				return;
-			}
-			Main._pendingCharacterSelect = method;
-			if (Main.gameMenu)
-			{
-				Main.LoadPlayers();
-				Main.menuMode = 1;
-				return;
-			}
-			WorldGen.SaveAndQuit(() =>
-			{
-				Main.LoadPlayers();
-				Main.menuMode = 1;
-			});
 		}
 
 		protected void OpenRecent()
 		{
-			try
-			{
-				if (File.Exists(string.Concat(Main.SavePath, Path.DirectorySeparatorChar, "servers.dat")))
-				{
-					using (FileStream fileStream = new FileStream(string.Concat(Main.SavePath, Path.DirectorySeparatorChar, "servers.dat"), FileMode.Open))
-					{
-						using (BinaryReader binaryReader = new BinaryReader(fileStream))
-						{
-							binaryReader.ReadInt32();
-							for (int i = 0; i < 10; i++)
-							{
-								Main.recentWorld[i] = binaryReader.ReadString();
-								Main.recentIP[i] = binaryReader.ReadString();
-								Main.recentPort[i] = binaryReader.ReadInt32();
-							}
-						}
-					}
-				}
-			}
-			catch (Exception ex)
-			{
-#if DEBUG
-				Console.WriteLine(ex);
-				System.Diagnostics.Debugger.Break();
-
-#endif
-			}
 		}
 
 		protected void OpenSettings()
 		{
-			if (File.Exists(string.Concat(Main.SavePath, Path.DirectorySeparatorChar, "config.dat")))
-			{
-				this.OpenLegacySettings();
-				if (Main.SaveSettings())
-				{
-					File.Delete(string.Concat(Main.SavePath, Path.DirectorySeparatorChar, "config.dat"));
-				}
-				return;
-			}
-			Main.Configuration.Load();
-			Main.Configuration.Get<bool>("SmartCursorToggle", ref Main.cSmartToggle);
-			Main.Configuration.Get<bool>("MapEnabled", ref Main.mapEnabled);
-			Main.Configuration.Get<int>("InvasionBarMode", ref Main.invasionProgressMode);
-			Main.Configuration.Get<bool>("AutoSave", ref Main.autoSave);
-			Main.Configuration.Get<bool>("AutoPause", ref Main.autoPause);
-			Main.Configuration.Get<int>("Language", ref Lang.lang);
-			Main.Configuration.Get<bool>("PlacementPreview", ref Main.placementPreview);
-			Main.Configuration.Get<bool>("GoreVisualsAllowed", ref ChildSafety.Disabled);
-			Main.Configuration.Get<float>("VolumeSound", ref Main.soundVolume);
-			Main.Configuration.Get<float>("VolumeAmbient", ref Main.ambientVolume);
-			Main.Configuration.Get<float>("VolumeMusic", ref Main.musicVolume);
-			Main.Configuration.Get<string>("KeyUp", ref Main.cUp);
-			Main.Configuration.Get<string>("KeyDown", ref Main.cDown);
-			Main.Configuration.Get<string>("KeyLeft", ref Main.cLeft);
-			Main.Configuration.Get<string>("KeyRight", ref Main.cRight);
-			Main.Configuration.Get<string>("KeyJump", ref Main.cJump);
-			Main.Configuration.Get<string>("KeyThrowItem", ref Main.cThrowItem);
-			Main.Configuration.Get<string>("KeyInventory", ref Main.cInv);
-			Main.Configuration.Get<string>("KeyQuickHeal", ref Main.cHeal);
-			Main.Configuration.Get<string>("KeyQuickMana", ref Main.cMana);
-			Main.Configuration.Get<string>("KeyQuickBuff", ref Main.cBuff);
-			Main.Configuration.Get<string>("KeyUseHook", ref Main.cHook);
-			Main.Configuration.Get<string>("KeyAutoSelect", ref Main.cTorch);
-			Main.Configuration.Get<string>("KeySmartCursor", ref Main.cSmart);
-			Main.Configuration.Get<string>("KeyMount", ref Main.cMount);
-			Main.Configuration.Get<string>("KeyMapStyle", ref Main.cMapStyle);
-			Main.Configuration.Get<string>("KeyFullscreenMap", ref Main.cMapFull);
-			Main.Configuration.Get<string>("KeyMapZoomIn", ref Main.cMapZoomIn);
-			Main.Configuration.Get<string>("KeyMapZoomOut", ref Main.cMapZoomOut);
-			Main.Configuration.Get<string>("KeyMapAlphaUp", ref Main.cMapAlphaUp);
-			Main.Configuration.Get<string>("KeyMapAlphaDown", ref Main.cMapAlphaDown);
-			Main.Configuration.Get<bool>("WindowMaximized", ref Main.screenMaximized);
-			Main.Configuration.Get<int>("GraphicsQuality", ref Main.qaStyle);
-			Main.Configuration.Get<bool>("BackgroundEnabled", ref Main.owBack);
-			Main.Configuration.Get<bool>("FrameSkip", ref Main.fixedTiming);
-			Main.Configuration.Get<float>("Parallax", ref Main.caveParallax);
-			Main.Configuration.Get<bool>("ShowItemText", ref Main.showItemText);
-			Main.Configuration.Get<bool>("UseSmartCursorForCommonBlocks", ref Player.SmartCursorSettings.SmartBlocksEnabled);
-			bool flag = false;
-			Main.Configuration.Get<bool>("Fullscreen", ref flag);
-			int preferredBackBufferWidth = 0, preferredBackBufferHeight = 0;
-			Main.Configuration.Get<int>("DisplayWidth", ref preferredBackBufferWidth);
-			Main.Configuration.Get<int>("DisplayHeight", ref preferredBackBufferHeight);
-			Main.mouseColor.R = Main.Configuration.Get<byte>("MouseColorR", Main.mouseColor.R);
-			Main.mouseColor.G = Main.Configuration.Get<byte>("MouseColorG", Main.mouseColor.G);
-			Main.mouseColor.B = Main.Configuration.Get<byte>("MouseColorB", Main.mouseColor.B);
-			Main.SetDisplayMode(preferredBackBufferWidth, preferredBackBufferHeight, flag);
-			int num = 0;
-			Main.Configuration.Get<int>("LastLaunchedVersion", ref num);
-			if (num != Main.curRelease)
-			{
-				Main.SaveSettings();
-			}
 		}
 
 		private static int PlayerListSortMethod(PlayerFileData data1, PlayerFileData data2)
 		{
+			if (data1 == null && data2 == null)
+			{
+				//Equal objects should return 0
+				return 0;
+			}
+
+			if (data1 == null)
+			{
+				//data1 is null, so data2 should come first
+				return -1;
+			}
+
+			if (data2 == null)
+			{
+				//data2 is null, so data1 should come first
+				return 1;
+			}
+
 			return data1.Name.CompareTo(data2.Name);
 		}
 
@@ -10107,31 +9076,16 @@ namespace Terraria
 
 		public static Vector2 ReverseGravitySupport(Vector2 pos, float height = 0f)
 		{
-			if (Main.player[Main.myPlayer].gravDir != -1f)
-			{
-				return pos;
-			}
-			pos.Y = (float)Main.screenHeight - pos.Y - height;
 			return pos;
 		}
 
 		public static Point ReverseGravitySupport(Point pos, int height = 0)
 		{
-			if (Main.player[Main.myPlayer].gravDir != -1f)
-			{
-				return pos;
-			}
-			pos.Y = Main.screenHeight - pos.Y - height;
 			return pos;
 		}
 
 		public static Rectangle ReverseGravitySupport(Rectangle box)
 		{
-			if (Main.player[Main.myPlayer].gravDir != -1f)
-			{
-				return box;
-			}
-			box.Y = Main.screenHeight - box.Y - box.Height;
 			return box;
 		}
 
@@ -10183,52 +9137,9 @@ namespace Terraria
 			return new Vector3(single3, single, single4);
 		}
 
-		public static void SaveClothesWindow()
-		{
-			Main.clothesWindow = false;
-			NetMessage.SendData(4, -1, -1, Main.player[Main.myPlayer].name, Main.myPlayer, 0f, 0f, 0f, 0, 0, 0);
-		}
+		public static void SaveClothesWindow() { }
 
-		public static void SaveRecent()
-		{
-			Directory.CreateDirectory(Main.SavePath);
-			try
-			{
-				File.SetAttributes(string.Concat(Main.SavePath, Path.DirectorySeparatorChar, "servers.dat"), FileAttributes.Normal);
-			}
-			catch (Exception ex)
-			{
-#if DEBUG
-				Console.WriteLine(ex);
-				System.Diagnostics.Debugger.Break();
-
-#endif
-			}
-			try
-			{
-				using (FileStream fileStream = new FileStream(string.Concat(Main.SavePath, Path.DirectorySeparatorChar, "servers.dat"), FileMode.Create))
-				{
-					using (BinaryWriter binaryWriter = new BinaryWriter(fileStream))
-					{
-						binaryWriter.Write(Main.curRelease);
-						for (int i = 0; i < 10; i++)
-						{
-							binaryWriter.Write(Main.recentWorld[i]);
-							binaryWriter.Write(Main.recentIP[i]);
-							binaryWriter.Write(Main.recentPort[i]);
-						}
-					}
-				}
-			}
-			catch (Exception ex)
-			{
-#if DEBUG
-				Console.WriteLine(ex);
-				System.Diagnostics.Debugger.Break();
-
-#endif
-			}
-		}
+		public static void SaveRecent() { }
 
 		public static bool SaveSettings()
 		{
@@ -10280,54 +9191,11 @@ namespace Terraria
 			return Main.Configuration.Save(true);
 		}
 
-		public static void SelectPlayer(PlayerFileData data)
-		{
-			if (Main._pendingCharacterSelect != null)
-			{
-				Main._pendingCharacterSelect(data);
-				Main._pendingCharacterSelect = null;
-				return;
-			}
-			if (!Main.menuMultiplayer)
-			{
-				Main.ServerSideCharacter = false;
-				Main.myPlayer = 0;
-				data.SetAsActive();
-				Main.player[Main.myPlayer].position = Vector2.Zero;
-				Main.LoadWorlds();
-				Main.menuMode = 6;
-				return;
-			}
-			Main.ServerSideCharacter = false;
-			data.SetAsActive();
-			if (Main.autoJoin)
-			{
-				if (Netplay.SetRemoteIP(Main.getIP))
-				{
-					Main.menuMode = 10;
-					Netplay.StartTcpClient();
-				}
-				Main.autoJoin = false;
-				return;
-			}
-			if (Main.menuServer)
-			{
-				Main.LoadWorlds();
-				Main.menuMode = 6;
-				return;
-			}
-			Main.menuMode = 13;
-			Main.ClearInput();
-		}
+		public static void SelectPlayer(PlayerFileData data) { }
 
-		public static void SetDisplayMode(int width, int height, bool fullscreen)
-		{
-		}
+		public static void SetDisplayMode(int width, int height, bool fullscreen) { }
 
-		public static void SetFullScreen(bool fullscreen)
-		{
-			Main.SetDisplayMode(Main.PendingResolutionWidth, Main.PendingResolutionHeight, fullscreen);
-		}
+		public static void SetFullScreen(bool fullscreen) { }
 
 		public void SetNetPlayers(int mPlayers)
 		{
@@ -10394,101 +9262,7 @@ namespace Terraria
 
 		public static Color shine(Color newColor, int type)
 		{
-			int r = newColor.R;
-			int g = newColor.G;
-			int b = newColor.B;
-			float single = 0.6f;
-			if (type == 25)
-			{
-				r = (int)((float)newColor.R * 0.95f);
-				g = (int)((float)newColor.G * 0.85f);
-				b = (int)((double)((float)newColor.B) * 1.1);
-			}
-			else if (type != 117)
-			{
-				if (type == 204)
-				{
-					single = 0.3f + (float)Main.mouseTextColor / 300f;
-					r = (int)((float)newColor.R * (1.3f * single));
-					if (r > 255)
-					{
-						r = 255;
-					}
-					return new Color(r, g, b, 255);
-				}
-				if (type == 211)
-				{
-					single = 0.3f + (float)Main.mouseTextColor / 300f;
-					g = (int)((float)newColor.G * (1.5f * single));
-					b = (int)((float)newColor.B * (1.1f * single));
-				}
-				else if (type == 147 || type == 161)
-				{
-					r = (int)((float)newColor.R * 1.1f);
-					g = (int)((float)newColor.G * 1.12f);
-					b = (int)((double)((float)newColor.B) * 1.15);
-				}
-				else if (type == 163)
-				{
-					r = (int)((float)newColor.R * 1.05f);
-					g = (int)((float)newColor.G * 1.1f);
-					b = (int)((double)((float)newColor.B) * 1.15);
-				}
-				else if (type == 164)
-				{
-					r = (int)((float)newColor.R * 1.1f);
-					g = (int)((float)newColor.G * 1.1f);
-					b = (int)((double)((float)newColor.B) * 1.2);
-				}
-				else if (type == 178)
-				{
-					single = 0.5f;
-					r = (int)((float)newColor.R * (1f + single));
-					g = (int)((float)newColor.G * (1f + single));
-					b = (int)((float)newColor.B * (1f + single));
-				}
-				else if (type == 185 || type == 186)
-				{
-					single = 0.3f;
-					r = (int)((float)newColor.R * (1f + single));
-					g = (int)((float)newColor.G * (1f + single));
-					b = (int)((float)newColor.B * (1f + single));
-				}
-				else if (type < 262 || type > 268)
-				{
-					r = (int)((float)newColor.R * (1f + single));
-					g = (int)((float)newColor.G * (1f + single));
-					b = (int)((float)newColor.B * (1f + single));
-				}
-				else
-				{
-					b = b + 100;
-					r = r + 100;
-					g = g + 100;
-				}
-			}
-			else
-			{
-				r = (int)((float)newColor.R * 1.1f);
-				g = (int)((float)newColor.G * 1f);
-				b = (int)((double)((float)newColor.B) * 1.2);
-			}
-			if (r > 255)
-			{
-				r = 255;
-			}
-			if (g > 255)
-			{
-				g = 255;
-			}
-			if (b > 255)
-			{
-				b = 255;
-			}
-			newColor.R = (byte)r;
-			newColor.G = (byte)g;
-			newColor.B = (byte)b;
-			return new Color((int)r, (int)g, (int)b, (int)newColor.A);
+			return new Color();
 		}
 
 		public static void snowing()
@@ -10548,63 +9322,7 @@ namespace Terraria
 			}
 		}
 
-		protected void SortDrawCacheWorms()
-		{
-			List<int> drawCacheProjsBehindProjectiles = this.DrawCacheProjsBehindProjectiles;
-			if (drawCacheProjsBehindProjectiles.Count == 0)
-			{
-				return;
-			}
-			List<List<int>> list = new List<List<int>>();
-			for (int i = 0; i < drawCacheProjsBehindProjectiles.Count; i++)
-			{
-				int num = drawCacheProjsBehindProjectiles[i];
-				if (Main.projectile[num].type == 628)
-				{
-					drawCacheProjsBehindProjectiles.Remove(num);
-					List<int> list2 = new List<int>();
-					list2.Insert(0, num);
-					int byUUID = Projectile.GetByUUID(Main.projectile[num].owner, Main.projectile[num].ai[0]);
-					while (byUUID >= 0 && !list2.Contains(byUUID) && Main.projectile[byUUID].active && Main.projectile[byUUID].type >= 625 && Main.projectile[byUUID].type <= 627)
-					{
-						list2.Insert(0, byUUID);
-						drawCacheProjsBehindProjectiles.Remove(byUUID);
-						byUUID = Projectile.GetByUUID(Main.projectile[byUUID].owner, Main.projectile[byUUID].ai[0]);
-					}
-					list.Add(list2);
-					i = -1;
-				}
-			}
-			List<int> list3 = new List<int>(this.DrawCacheProjsBehindProjectiles);
-			list.Add(list3);
-			this.DrawCacheProjsBehindProjectiles.Clear();
-			for (int j = 0; j < list.Count; j++)
-			{
-				for (int k = 0; k < list[j].Count; k++)
-				{
-					this.DrawCacheProjsBehindProjectiles.Add(list[j][k]);
-				}
-			}
-			for (int l = 0; l < this.DrawCacheProjsBehindProjectiles.Count; l++)
-			{
-				Projectile projectile = Main.projectile[this.DrawCacheProjsBehindProjectiles[l]];
-				int byUUID2 = Projectile.GetByUUID(projectile.owner, projectile.ai[0]);
-				if (projectile.type >= 626 && projectile.type <= 628 && byUUID2 >= 0 && ProjectileID.Sets.StardustDragon[Main.projectile[byUUID2].type])
-				{
-					Vector2 vector = Main.projectile[byUUID2].Center - projectile.Center;
-					if (vector != Vector2.Zero)
-					{
-						float num2 = Main.projectile[byUUID2].scale * 16f;
-						float num3 = vector.Length();
-						float num4 = num2 - num3;
-						if (num4 != 0f)
-						{
-							projectile.Center += Vector2.Normalize(vector) * -num4;
-						}
-					}
-				}
-			}
-		}
+		protected void SortDrawCacheWorms() { }
 
 		public static void startDedInput()
 		{
@@ -10618,8 +9336,6 @@ namespace Terraria
 			t.Name = "Console Input Thread";
 			t.IsBackground = true;
 			t.Start();
-
-			//ThreadPool.QueueUserWorkItem(new WaitCallback(Main.startDedInputCallBack), 1);
 		}
 
 		public static void startDedInputCallBack(object threadContext)
@@ -11336,10 +10052,6 @@ namespace Terraria
 			Stopwatch stopwatch = new Stopwatch();
 			stopwatch.Start();
 			WorldGen.destroyObject = false;
-			if (Main.gameMenu)
-			{
-				Main.mapFullscreen = false;
-			}
 			if (Main.dedServ)
 			{
 				if (!Main.dedServFPS)
@@ -11352,7 +10064,7 @@ namespace Terraria
 				}
 				else
 				{
-					Main.updateTime = Main.updateTime + 1;
+					Main.updateTime++;
 					if (!Main.fpsTimer.IsRunning)
 					{
 						Main.fpsTimer.Restart();
@@ -11369,1146 +10081,10 @@ namespace Terraria
 					}
 				}
 			}
-			if (!Main.dedServ)
-			{
-
-				if (Main.treeMntBG[1] == 94 || Main.treeMntBG[1] >= 114 && Main.treeMntBG[1] <= 116)
-				{
-					Main.bgFrameCounter[0] = Main.bgFrameCounter[0] + 1;
-					if (Main.bgFrameCounter[0] >= 6)
-					{
-						Main.bgFrameCounter[0] = 0;
-						Main.bgFrame[0] = Main.bgFrame[0] + 1;
-						if (Main.bgFrame[0] >= 4)
-						{
-							Main.bgFrame[0] = 0;
-						}
-					}
-					if (Main.bgFrame[0] == 0)
-					{
-						Main.treeMntBG[1] = 94;
-					}
-					else if (Main.bgFrame[0] == 1)
-					{
-						Main.treeMntBG[1] = 114;
-					}
-					else if (Main.bgFrame[0] != 2)
-					{
-						Main.treeMntBG[1] = 116;
-					}
-					else
-					{
-						Main.treeMntBG[1] = 115;
-					}
-					if (Main.bgFrame[0] == 0)
-					{
-						Main.treeMntBG[0] = 93;
-					}
-					else if (Main.bgFrame[0] == 1)
-					{
-						Main.treeMntBG[0] = 168;
-					}
-					else if (Main.bgFrame[0] != 2)
-					{
-						Main.treeMntBG[0] = 170;
-					}
-					else
-					{
-						Main.treeMntBG[0] = 169;
-					}
-				}
-				if (Main.treeMntBG[1] >= 180 && Main.treeMntBG[1] <= 183)
-				{
-					Main.bgFrameCounter[0] = Main.bgFrameCounter[0] + 1;
-					if (Main.bgFrameCounter[0] >= 6)
-					{
-						Main.bgFrameCounter[0] = 0;
-						Main.bgFrame[0] = Main.bgFrame[0] + 1;
-						if (Main.bgFrame[0] >= 4)
-						{
-							Main.bgFrame[0] = 0;
-						}
-					}
-					if (Main.bgFrame[0] == 0)
-					{
-						Main.treeMntBG[1] = 180;
-					}
-					else if (Main.bgFrame[0] == 1)
-					{
-						Main.treeMntBG[1] = 181;
-					}
-					else if (Main.bgFrame[0] != 2)
-					{
-						Main.treeMntBG[1] = 183;
-					}
-					else
-					{
-						Main.treeMntBG[1] = 182;
-					}
-				}
-				Animation.UpdateAll();
-				this.UpdateMusic();
-				if (Main.showSplash)
-				{
-					return;
-				}
-				if (!Main.gameMenu && Main.netMode == 1)
-				{
-					if (!Main.saveTime.IsRunning)
-					{
-						Main.saveTime.Start();
-					}
-					if (Main.saveTime.ElapsedMilliseconds > (long)300000)
-					{
-						Main.saveTime.Reset();
-						WorldGen.saveToonWhilePlaying();
-					}
-				}
-				else if (!Main.gameMenu && Main.autoSave)
-				{
-					if (!Main.saveTime.IsRunning)
-					{
-						Main.saveTime.Start();
-					}
-					if (Main.saveTime.ElapsedMilliseconds > (long)600000)
-					{
-						Main.saveTime.Reset();
-						WorldGen.saveToonWhilePlaying();
-						WorldGen.saveAndPlay();
-					}
-				}
-				else if (Main.saveTime.IsRunning)
-				{
-					Main.saveTime.Stop();
-				}
-				if (Main.teamCooldown > 0)
-				{
-					Main.teamCooldown = Main.teamCooldown - 1;
-				}
-				Main.updateTime = Main.updateTime + 1;
-				if (Main.fpsTimer.ElapsedMilliseconds >= (long)1000)
-				{
-					if ((float)Main.fpsCount >= 30f + 30f * Main.gfxQuality)
-					{
-						Main.gfxQuality = Main.gfxQuality + Main.gfxRate;
-						Main.gfxRate = Main.gfxRate + 0.005f;
-					}
-					else if ((float)Main.fpsCount < 29f + 30f * Main.gfxQuality)
-					{
-						Main.gfxRate = 0.01f;
-						Main.gfxQuality = Main.gfxQuality - 0.1f;
-					}
-					if (Main.gfxQuality < 0f)
-					{
-						Main.gfxQuality = 0f;
-					}
-					if (Main.gfxQuality > 1f)
-					{
-						Main.gfxQuality = 1f;
-					}
-					Main.updateRate = Main.uCount;
-					Main.frameRate = Main.fpsCount;
-					Main.fpsCount = 0;
-					Main.fpsTimer.Restart();
-					Main.updateTime = 0;
-					Main.drawTime = 0;
-					Main.uCount = 0;
-					if ((double)Main.gfxQuality >= 0.8)
-					{
-						Main.mapTimeMax = 0;
-					}
-					else
-					{
-						Main.mapTimeMax = (int)((1f - Main.gfxQuality) * 60f);
-					}
-					int num = Main.netMode;
-				}
-				if (Main.fixedTiming)
-				{
-					float single1 = 16f;
-					float elapsedMilliseconds = (float)Main.updateTimer.ElapsedMilliseconds;
-					if (elapsedMilliseconds + Main.uCarry < single1 && !Main.superFast)
-					{
-						Main.drawSkip = true;
-						return;
-					}
-					Main.uCarry = Main.uCarry + (elapsedMilliseconds - single1);
-					if (Main.uCarry > 1000f)
-					{
-						Main.uCarry = 1000f;
-					}
-					Main.updateTimer.Restart();
-				}
-				Main.uCount = Main.uCount + 1;
-				Main.drawSkip = false;
-				if (Main.qaStyle == 1)
-				{
-					Main.gfxQuality = 1f;
-				}
-				else if (Main.qaStyle == 2)
-				{
-					Main.gfxQuality = 0.5f;
-				}
-				else if (Main.qaStyle == 3)
-				{
-					Main.gfxQuality = 0f;
-				}
-				Main.numDust = (int)(6000f * (Main.gfxQuality * 0.7f + 0.3f));
-				if ((double)Main.gfxQuality < 0.9)
-				{
-					Main.numDust = (int)((float)Main.numDust * Main.gfxQuality);
-				}
-				if (Main.numDust < 1000)
-				{
-					Main.numDust = 1000;
-				}
-				Liquid.maxLiquid = (int)(2500f + 2500f * Main.gfxQuality);
-				Liquid.cycles = (int)(17f - 10f * Main.gfxQuality);
-				if (Liquid.quickSettle)
-				{
-					Liquid.maxLiquid = Liquid.resLiquid;
-					Liquid.cycles = 1;
-				}
-				Main.hasFocus = true;
-				if (!Main.gameMenu || Main.netMode == 2)
-				{
-					WorldFile.tempRaining = Main.raining;
-					WorldFile.tempRainTime = Main.rainTime;
-					WorldFile.tempMaxRain = Main.maxRaining;
-				}
-				ScreenObstruction.Update();
-				ScreenDarkness.Update();
-				MoonlordDeathDrama.Update();
-				Main.CursorColor();
-				Main.mouseTextColor = (byte)(Main.mouseTextColor + (byte)Main.mouseTextColorChange);
-				if (Main.mouseTextColor >= 250)
-				{
-					Main.mouseTextColorChange = -4;
-				}
-				if (Main.mouseTextColor <= 175)
-				{
-					Main.mouseTextColorChange = 4;
-				}
-				Main.demonTorch = Main.demonTorch + (float)Main.demonTorchDir * 0.01f;
-				if (Main.demonTorch > 1f)
-				{
-					Main.demonTorch = 1f;
-					Main.demonTorchDir = -1;
-				}
-				if (Main.demonTorch < 0f)
-				{
-					Main.demonTorch = 0f;
-					Main.demonTorchDir = 1;
-				}
-				Main.martianLight = Main.martianLight + (float)Main.martianLightDir * 0.015f;
-				if (Main.martianLight > 1f)
-				{
-					Main.martianLight = 1f;
-					Main.martianLightDir = -1;
-				}
-				if (Main.martianLight < 0f)
-				{
-					Main.martianLight = 0f;
-					Main.martianLightDir = 1;
-				}
-				int num1 = 7;
-				if (this.DiscoStyle == 0)
-				{
-					Main.DiscoG = Main.DiscoG + num1;
-					if (Main.DiscoG >= 255)
-					{
-						Main.DiscoG = 255;
-						Main discoStyle = this;
-						discoStyle.DiscoStyle = discoStyle.DiscoStyle + 1;
-					}
-				}
-				if (this.DiscoStyle == 1)
-				{
-					Main.DiscoR = Main.DiscoR - num1;
-					if (Main.DiscoR <= 0)
-					{
-						Main.DiscoR = 0;
-						Main main = this;
-						main.DiscoStyle = main.DiscoStyle + 1;
-					}
-				}
-				if (this.DiscoStyle == 2)
-				{
-					Main.DiscoB = Main.DiscoB + num1;
-					if (Main.DiscoB >= 255)
-					{
-						Main.DiscoB = 255;
-						Main discoStyle1 = this;
-						discoStyle1.DiscoStyle = discoStyle1.DiscoStyle + 1;
-					}
-				}
-				if (this.DiscoStyle == 3)
-				{
-					Main.DiscoG = Main.DiscoG - num1;
-					if (Main.DiscoG <= 0)
-					{
-						Main.DiscoG = 0;
-						Main main1 = this;
-						main1.DiscoStyle = main1.DiscoStyle + 1;
-					}
-				}
-				if (this.DiscoStyle == 4)
-				{
-					Main.DiscoR = Main.DiscoR + num1;
-					if (Main.DiscoR >= 255)
-					{
-						Main.DiscoR = 255;
-						Main discoStyle2 = this;
-						discoStyle2.DiscoStyle = discoStyle2.DiscoStyle + 1;
-					}
-				}
-				if (this.DiscoStyle == 5)
-				{
-					Main.DiscoB = Main.DiscoB - num1;
-					if (Main.DiscoB <= 0)
-					{
-						Main.DiscoB = 0;
-						this.DiscoStyle = 0;
-					}
-				}
-				if (Main.gFadeDir != 1)
-				{
-					Main.gFader = Main.gFader - 0.1f;
-					Main.gFade = (byte)Main.gFader;
-					if (Main.gFade < 100)
-					{
-						Main.gFadeDir = 1;
-					}
-				}
-				else
-				{
-					Main.gFader = Main.gFader + 0.1f;
-					Main.gFade = (byte)Main.gFader;
-					if (Main.gFade > 150)
-					{
-						Main.gFadeDir = 0;
-					}
-				}
-				Main.wFrCounter = Main.wFrCounter + Main.windSpeed * 2f;
-				if (Main.wFrCounter > 4f)
-				{
-					Main.wFrCounter = 0f;
-					Main.wFrame = Main.wFrame + 1f;
-				}
-				if (Main.wFrCounter < 0f)
-				{
-					Main.wFrCounter = 4f;
-					Main.wFrame = Main.wFrame - 1f;
-				}
-				if (Main.wFrame > 16f)
-				{
-					Main.wFrame = 1f;
-				}
-				if (Main.wFrame < 1f)
-				{
-					Main.wFrame = 16f;
-				}
-				this.waterfallManager.UpdateFrame();
-				Main.wallFrameCounter[136] = (byte)(Main.wallFrameCounter[136] + 1);
-				if (Main.wallFrameCounter[136] >= 5)
-				{
-					Main.wallFrameCounter[136] = 0;
-					Main.wallFrame[136] = (byte)(Main.wallFrame[136] + 1);
-					if (Main.wallFrame[136] > 7)
-					{
-						Main.wallFrame[136] = 0;
-					}
-				}
-				Main.wallFrameCounter[137] = (byte)(Main.wallFrameCounter[137] + 1);
-				if (Main.wallFrameCounter[137] >= 10)
-				{
-					Main.wallFrameCounter[137] = 0;
-					Main.wallFrame[137] = (byte)(Main.wallFrame[137] + 1);
-					if (Main.wallFrame[137] > 7)
-					{
-						Main.wallFrame[137] = 0;
-					}
-				}
-				Main.wallFrameCounter[172] = (byte)(Main.wallFrameCounter[172] + 1);
-				if (Main.wallFrameCounter[172] >= 10)
-				{
-					Main.wallFrameCounter[172] = 0;
-					Main.wallFrame[172] = (byte)(Main.wallFrame[172] + 1);
-					if (Main.wallFrame[172] > 7)
-					{
-						Main.wallFrame[172] = 0;
-					}
-				}
-				Main.wallFrameCounter[168] = (byte)(Main.wallFrameCounter[168] + 1);
-				if (Main.wallFrameCounter[168] >= 5)
-				{
-					Main.wallFrameCounter[168] = 0;
-					Main.wallFrame[168] = (byte)(Main.wallFrame[168] + 1);
-					if (Main.wallFrame[168] > 7)
-					{
-						Main.wallFrame[168] = 0;
-					}
-				}
-				Main.wallFrameCounter[169] = (byte)(Main.wallFrameCounter[169] + 1);
-				if (Main.wallFrameCounter[169] >= 5)
-				{
-					Main.wallFrameCounter[169] = 0;
-					Main.wallFrame[169] = (byte)(Main.wallFrame[169] + 1);
-					if (Main.wallFrame[169] > 7)
-					{
-						Main.wallFrame[169] = 0;
-					}
-				}
-				Main.wallFrameCounter[144] = (byte)(Main.wallFrameCounter[144] + 1);
-				int num2 = 5;
-				int num3 = 10;
-				if (Main.wallFrameCounter[144] < num2)
-				{
-					Main.wallFrame[144] = 0;
-				}
-				else if (Main.wallFrameCounter[144] < num2)
-				{
-					Main.wallFrame[144] = 1;
-				}
-				else if (Main.wallFrameCounter[144] < num2 * 2)
-				{
-					Main.wallFrame[144] = 2;
-				}
-				else if (Main.wallFrameCounter[144] < num2 * 3)
-				{
-					Main.wallFrame[144] = 3;
-				}
-				else if (Main.wallFrameCounter[144] < num2 * 4)
-				{
-					Main.wallFrame[144] = 4;
-				}
-				else if (Main.wallFrameCounter[144] < num2 * 5)
-				{
-					Main.wallFrame[144] = 5;
-				}
-				else if (Main.wallFrameCounter[144] < num2 * 6)
-				{
-					Main.wallFrame[144] = 6;
-				}
-				else if (Main.wallFrameCounter[144] < num2 * 7)
-				{
-					Main.wallFrame[144] = 7;
-				}
-				else if (Main.wallFrameCounter[144] < num2 * (8 + num3))
-				{
-					Main.wallFrame[144] = 8;
-				}
-				else if (Main.wallFrameCounter[144] < num2 * (9 + num3))
-				{
-					Main.wallFrame[144] = 7;
-				}
-				else if (Main.wallFrameCounter[144] < num2 * (10 + num3))
-				{
-					Main.wallFrame[144] = 6;
-				}
-				else if (Main.wallFrameCounter[144] < num2 * (11 + num3))
-				{
-					Main.wallFrame[144] = 5;
-				}
-				else if (Main.wallFrameCounter[144] < num2 * (12 + num3))
-				{
-					Main.wallFrame[144] = 4;
-				}
-				else if (Main.wallFrameCounter[144] < num2 * (13 + num3))
-				{
-					Main.wallFrame[144] = 3;
-				}
-				else if (Main.wallFrameCounter[144] < num2 * (14 + num3))
-				{
-					Main.wallFrame[144] = 2;
-				}
-				else if (Main.wallFrameCounter[144] >= num2 * (15 + num3))
-				{
-					Main.wallFrame[144] = 0;
-					if (Main.wallFrameCounter[144] > num2 * (16 + num3 * 2))
-					{
-						Main.wallFrameCounter[144] = 0;
-					}
-				}
-				else
-				{
-					Main.wallFrame[144] = 1;
-				}
-				Main.tileFrameCounter[12] = Main.tileFrameCounter[12] + 1;
-				if (Main.tileFrameCounter[12] > 5)
-				{
-					Main.tileFrameCounter[12] = 0;
-					Main.tileFrame[12] = Main.tileFrame[12] + 1;
-					if (Main.tileFrame[12] >= 10)
-					{
-						Main.tileFrame[12] = 0;
-					}
-				}
-				Main.tileFrameCounter[17] = Main.tileFrameCounter[17] + 1;
-				if (Main.tileFrameCounter[17] > 5)
-				{
-					Main.tileFrameCounter[17] = 0;
-					Main.tileFrame[17] = Main.tileFrame[17] + 1;
-					if (Main.tileFrame[17] >= 12)
-					{
-						Main.tileFrame[17] = 0;
-					}
-				}
-				int num4 = Main.tileFrameCounter[133] + 1;
-				int num5 = num4;
-				Main.tileFrameCounter[133] = num4;
-				if (num5 >= 4)
-				{
-					Main.tileFrameCounter[133] = 0;
-					int num6 = Main.tileFrame[133] + 1;
-					int num7 = num6;
-					Main.tileFrame[133] = num6;
-					if (num7 >= 6)
-					{
-						Main.tileFrame[133] = 0;
-					}
-				}
-				Main.tileFrameCounter[31] = Main.tileFrameCounter[31] + 1;
-				if (Main.tileFrameCounter[31] > 10)
-				{
-					Main.tileFrameCounter[31] = 0;
-					Main.tileFrame[31] = Main.tileFrame[31] + 1;
-					if (Main.tileFrame[31] > 1)
-					{
-						Main.tileFrame[31] = 0;
-					}
-				}
-				Main.tileFrameCounter[77] = Main.tileFrameCounter[77] + 1;
-				if (Main.tileFrameCounter[77] > 5)
-				{
-					Main.tileFrameCounter[77] = 0;
-					Main.tileFrame[77] = Main.tileFrame[77] + 1;
-					if (Main.tileFrame[77] >= 12)
-					{
-						Main.tileFrame[77] = 0;
-					}
-				}
-				Main.tileFrameCounter[106] = Main.tileFrameCounter[106] + 1;
-				if (Main.tileFrameCounter[106] > 4)
-				{
-					Main.tileFrameCounter[106] = 0;
-					Main.tileFrame[106] = Main.tileFrame[106] + 1;
-					if (Main.tileFrame[106] >= 2)
-					{
-						Main.tileFrame[106] = 0;
-					}
-				}
-				Main.tileFrameCounter[207] = Main.tileFrameCounter[207] + 1;
-				if (Main.tileFrameCounter[207] > 4)
-				{
-					Main.tileFrameCounter[207] = 0;
-					Main.tileFrame[207] = Main.tileFrame[207] + 1;
-					if (Main.tileFrame[207] >= 6)
-					{
-						Main.tileFrame[207] = 0;
-					}
-				}
-				Main.tileFrameCounter[215] = Main.tileFrameCounter[215] + 1;
-				if (Main.tileFrameCounter[215] >= 4)
-				{
-					Main.tileFrameCounter[215] = 0;
-					Main.tileFrame[215] = Main.tileFrame[215] + 1;
-					if (Main.tileFrame[215] >= 8)
-					{
-						Main.tileFrame[215] = 0;
-					}
-				}
-				Main.tileFrameCounter[217] = Main.tileFrameCounter[217] + 1;
-				if (Main.tileFrameCounter[217] > 4)
-				{
-					Main.tileFrameCounter[217] = 0;
-					Main.tileFrame[217] = Main.tileFrame[217] + 1;
-					if (Main.tileFrame[217] >= 5)
-					{
-						Main.tileFrame[217] = 0;
-					}
-				}
-				Main.tileFrameCounter[218] = Main.tileFrameCounter[218] + 1;
-				if (Main.tileFrameCounter[218] > 4)
-				{
-					Main.tileFrameCounter[218] = 0;
-					Main.tileFrame[218] = Main.tileFrame[218] + 1;
-					if (Main.tileFrame[218] >= 2)
-					{
-						Main.tileFrame[218] = 0;
-					}
-				}
-				Main.tileFrameCounter[219] = Main.tileFrameCounter[219] + 1;
-				if (Main.tileFrameCounter[219] > 4)
-				{
-					Main.tileFrameCounter[219] = 0;
-					Main.tileFrame[219] = Main.tileFrame[219] + 1;
-					if (Main.tileFrame[219] >= 10)
-					{
-						Main.tileFrame[219] = 0;
-					}
-				}
-				Main.tileFrameCounter[220] = Main.tileFrameCounter[220] + 1;
-				if (Main.tileFrameCounter[220] > 4)
-				{
-					Main.tileFrameCounter[220] = 0;
-					Main.tileFrame[220] = Main.tileFrame[220] + 1;
-					if (Main.tileFrame[220] >= 4)
-					{
-						Main.tileFrame[220] = 0;
-					}
-				}
-				Main.tileFrameCounter[231] = Main.tileFrameCounter[231] + 1;
-				if (Main.tileFrameCounter[231] > 16)
-				{
-					Main.tileFrameCounter[231] = 0;
-					Main.tileFrame[231] = Main.tileFrame[231] + 1;
-					if (Main.tileFrame[231] >= 7)
-					{
-						Main.tileFrame[231] = 0;
-					}
-				}
-				Main.tileFrameCounter[235] = Main.tileFrameCounter[235] + 1;
-				if (Main.tileFrameCounter[235] > 20)
-				{
-					Main.tileFrameCounter[235] = 0;
-					Main.tileFrame[235] = Main.tileFrame[235] + 1;
-					if (Main.tileFrame[235] >= 4)
-					{
-						Main.tileFrame[235] = 0;
-					}
-					if (Main.tileFrame[235] <= 1)
-					{
-						Main.tileLighted[235] = false;
-					}
-					else
-					{
-						Main.tileLighted[235] = true;
-					}
-				}
-				Main.tileFrameCounter[238] = Main.tileFrameCounter[238] + 1;
-				if (Main.tileFrameCounter[238] > 20)
-				{
-					Main.tileFrameCounter[238] = 0;
-					Main.tileFrame[238] = Main.tileFrame[238] + 1;
-					if (Main.tileFrame[238] >= 4)
-					{
-						Main.tileFrame[238] = 0;
-					}
-				}
-				Main.tileFrameCounter[243] = Main.tileFrameCounter[243] + 1;
-				if (Main.tileFrameCounter[243] > 4)
-				{
-					Main.tileFrameCounter[243] = 0;
-					Main.tileFrame[243] = Main.tileFrame[243] + 1;
-					if (Main.tileFrame[243] >= 6)
-					{
-						Main.tileFrame[243] = 0;
-					}
-				}
-				Main.tileFrameCounter[244] = Main.tileFrameCounter[244] + 1;
-				if (Main.tileFrameCounter[244] > 4)
-				{
-					Main.tileFrameCounter[244] = 0;
-					Main.tileFrame[244] = Main.tileFrame[244] + 1;
-					if (Main.tileFrame[244] >= 6)
-					{
-						Main.tileFrame[244] = 0;
-					}
-				}
-				Main.tileFrameCounter[247] = Main.tileFrameCounter[247] + 1;
-				if (Main.tileFrameCounter[247] > 4)
-				{
-					Main.tileFrameCounter[247] = 0;
-					Main.tileFrame[247] = Main.tileFrame[247] + 1;
-					if (Main.tileFrame[247] > 7)
-					{
-						Main.tileFrame[247] = 0;
-					}
-				}
-				Main.tileFrameCounter[96] = Main.tileFrameCounter[96] + 1;
-				if (Main.tileFrameCounter[96] > 4)
-				{
-					Main.tileFrameCounter[96] = 0;
-					Main.tileFrame[96] = Main.tileFrame[96] + 1;
-					if (Main.tileFrame[96] > 3)
-					{
-						Main.tileFrame[96] = 0;
-					}
-				}
-				Main.tileFrameCounter[171] = Main.tileFrameCounter[171] + 1;
-				if (Main.tileFrameCounter[171] > 16)
-				{
-					Main.tileFrameCounter[171] = 0;
-					Main.tileFrame[171] = Main.tileFrame[171] + 1;
-					if (Main.tileFrame[171] > 3)
-					{
-						Main.tileFrame[171] = 0;
-					}
-				}
-				Main.tileFrameCounter[270] = Main.tileFrameCounter[270] + 1;
-				if (Main.tileFrameCounter[270] > 8)
-				{
-					Main.tileFrameCounter[270] = 0;
-					Main.tileFrame[270] = Main.tileFrame[270] + 1;
-					if (Main.tileFrame[270] > 5)
-					{
-						Main.tileFrame[270] = 0;
-					}
-				}
-				Main.tileFrame[271] = Main.tileFrame[270];
-				Main.tileFrameCounter[272] = Main.tileFrameCounter[272] + 1;
-				if (Main.tileFrameCounter[272] >= 10)
-				{
-					Main.tileFrameCounter[272] = 0;
-					Main.tileFrame[272] = Main.tileFrame[272] + 1;
-					if (Main.tileFrame[272] > 1)
-					{
-						Main.tileFrame[272] = 0;
-					}
-				}
-				Main.tileFrameCounter[300] = Main.tileFrameCounter[300] + 1;
-				if (Main.tileFrameCounter[300] >= 5)
-				{
-					Main.tileFrameCounter[300] = 0;
-					Main.tileFrame[300] = Main.tileFrame[300] + 1;
-					if (Main.tileFrame[300] > 6)
-					{
-						Main.tileFrame[300] = 0;
-					}
-				}
-				Main.tileFrameCounter[301] = Main.tileFrameCounter[301] + 1;
-				if (Main.tileFrameCounter[301] >= 5)
-				{
-					Main.tileFrameCounter[301] = 0;
-					Main.tileFrame[301] = Main.tileFrame[301] + 1;
-					if (Main.tileFrame[301] > 7)
-					{
-						Main.tileFrame[301] = 0;
-					}
-				}
-				Main.tileFrameCounter[302] = Main.tileFrameCounter[302] + 1;
-				if (Main.tileFrameCounter[302] >= 5)
-				{
-					Main.tileFrameCounter[302] = 0;
-					Main.tileFrame[302] = Main.tileFrame[302] + 1;
-					if (Main.tileFrame[302] > 3)
-					{
-						Main.tileFrame[302] = 0;
-					}
-				}
-				Main.tileFrameCounter[303] = Main.tileFrameCounter[303] + 1;
-				if (Main.tileFrameCounter[303] >= 5)
-				{
-					Main.tileFrameCounter[303] = 0;
-					Main.tileFrame[303] = Main.tileFrame[303] + 1;
-					if (Main.tileFrame[303] > 4)
-					{
-						Main.tileFrame[303] = 0;
-					}
-				}
-				Main.tileFrameCounter[305] = Main.tileFrameCounter[305] + 1;
-				if (Main.tileFrameCounter[305] >= 5)
-				{
-					Main.tileFrameCounter[305] = 0;
-					Main.tileFrame[305] = Main.tileFrame[305] + 1;
-					if (Main.tileFrame[305] > 11)
-					{
-						Main.tileFrame[305] = 0;
-					}
-				}
-				Main.tileFrameCounter[306] = Main.tileFrameCounter[306] + 1;
-				if (Main.tileFrameCounter[306] >= 5)
-				{
-					Main.tileFrameCounter[306] = 0;
-					Main.tileFrame[306] = Main.tileFrame[306] + 1;
-					if (Main.tileFrame[306] > 11)
-					{
-						Main.tileFrame[306] = 0;
-					}
-				}
-				Main.tileFrameCounter[307] = Main.tileFrameCounter[307] + 1;
-				if (Main.tileFrameCounter[307] >= 5)
-				{
-					Main.tileFrameCounter[307] = 0;
-					Main.tileFrame[307] = Main.tileFrame[307] + 1;
-					if (Main.tileFrame[307] > 1)
-					{
-						Main.tileFrame[307] = 0;
-					}
-				}
-				Main.tileFrameCounter[308] = Main.tileFrameCounter[308] + 1;
-				if (Main.tileFrameCounter[308] >= 5)
-				{
-					Main.tileFrameCounter[308] = 0;
-					Main.tileFrame[308] = Main.tileFrame[308] + 1;
-					if (Main.tileFrame[308] > 7)
-					{
-						Main.tileFrame[308] = 0;
-					}
-				}
-				Main.tileFrameCounter[314] = Main.tileFrameCounter[314] + 1;
-				if (Main.tileFrameCounter[314] >= 10)
-				{
-					Main.tileFrameCounter[314] = 0;
-					Main.tileFrame[314] = Main.tileFrame[314] + 1;
-					if (Main.tileFrame[314] > 4)
-					{
-						Main.tileFrame[314] = 0;
-					}
-				}
-				Main.tileFrameCounter[326] = Main.tileFrameCounter[326] + 1;
-				if (Main.tileFrameCounter[326] >= 5)
-				{
-					Main.tileFrameCounter[326] = 0;
-					Main.tileFrame[326] = Main.tileFrame[326] + 1;
-					if (Main.tileFrame[326] > 7)
-					{
-						Main.tileFrame[326] = 0;
-					}
-				}
-				Main.tileFrameCounter[327] = Main.tileFrameCounter[327] + 1;
-				if (Main.tileFrameCounter[327] >= 10)
-				{
-					Main.tileFrameCounter[327] = 0;
-					Main.tileFrame[327] = Main.tileFrame[327] + 1;
-					if (Main.tileFrame[327] > 7)
-					{
-						Main.tileFrame[327] = 0;
-					}
-				}
-				Main.tileFrameCounter[345] = Main.tileFrameCounter[345] + 1;
-				if (Main.tileFrameCounter[345] >= 10)
-				{
-					Main.tileFrameCounter[345] = 0;
-					Main.tileFrame[345] = Main.tileFrame[345] + 1;
-					if (Main.tileFrame[345] > 7)
-					{
-						Main.tileFrame[345] = 0;
-					}
-				}
-				Main.tileFrameCounter[336] = Main.tileFrameCounter[336] + 1;
-				if (Main.tileFrameCounter[336] >= 5)
-				{
-					Main.tileFrameCounter[336] = 0;
-					Main.tileFrame[336] = Main.tileFrame[336] + 1;
-					if (Main.tileFrame[336] > 3)
-					{
-						Main.tileFrame[336] = 0;
-					}
-				}
-				Main.tileFrameCounter[328] = Main.tileFrameCounter[328] + 1;
-				if (Main.tileFrameCounter[328] >= 5)
-				{
-					Main.tileFrameCounter[328] = 0;
-					Main.tileFrame[328] = Main.tileFrame[328] + 1;
-					if (Main.tileFrame[328] > 7)
-					{
-						Main.tileFrame[328] = 0;
-					}
-				}
-				Main.tileFrameCounter[329] = Main.tileFrameCounter[329] + 1;
-				if (Main.tileFrameCounter[329] >= 5)
-				{
-					Main.tileFrameCounter[329] = 0;
-					Main.tileFrame[329] = Main.tileFrame[329] + 1;
-					if (Main.tileFrame[329] > 7)
-					{
-						Main.tileFrame[329] = 0;
-					}
-				}
-				for (int i = 340; i <= 344; i++)
-				{
-					Main.tileFrameCounter[i] = Main.tileFrameCounter[i] + 1;
-					if (Main.tileFrameCounter[i] >= 5)
-					{
-						Main.tileFrameCounter[i] = 0;
-						Main.tileFrame[i] = Main.tileFrame[i] + 1;
-						if (Main.tileFrame[i] > 3)
-						{
-							Main.tileFrame[i] = 0;
-						}
-					}
-				}
-				Main.tileFrameCounter[351] = Main.tileFrameCounter[351] + 1;
-				if (Main.tileFrameCounter[351] >= 5)
-				{
-					Main.tileFrameCounter[351] = 0;
-					Main.tileFrame[351] = Main.tileFrame[351] + 1;
-					if (Main.tileFrame[351] > 2)
-					{
-						Main.tileFrame[351] = 0;
-					}
-				}
-				Main.tileFrameCounter[354] = Main.tileFrameCounter[354] + 1;
-				if (Main.tileFrameCounter[354] >= 5)
-				{
-					Main.tileFrameCounter[354] = 0;
-					Main.tileFrame[354] = Main.tileFrame[354] + 1;
-					if (Main.tileFrame[354] >= 8)
-					{
-						Main.tileFrame[354] = 0;
-					}
-				}
-				Main.tileFrame[355] = Main.tileFrame[354];
-				Main.tileFrameCounter[377] = Main.tileFrameCounter[377] + 1;
-				if (Main.tileFrameCounter[377] >= 5)
-				{
-					Main.tileFrameCounter[377] = 0;
-					Main.tileFrame[377] = Main.tileFrame[377] + 1;
-					if (Main.tileFrame[377] >= 4)
-					{
-						Main.tileFrame[377] = 0;
-					}
-				}
-				Main.tileFrameCounter[379] = Main.tileFrameCounter[379] + 1;
-				if (Main.tileFrameCounter[379] >= 10)
-				{
-					Main.tileFrameCounter[379] = 0;
-					Main.tileFrame[379] = Main.tileFrame[379] + 1;
-					if (Main.tileFrame[379] >= 4)
-					{
-						Main.tileFrame[379] = 0;
-					}
-				}
-				int num8 = Main.tileFrameCounter[390] + 1;
-				int num9 = num8;
-				Main.tileFrameCounter[390] = num8;
-				if (num9 >= 8)
-				{
-					Main.tileFrameCounter[390] = 0;
-					int num10 = Main.tileFrame[390] + 1;
-					int num11 = num10;
-					Main.tileFrame[390] = num10;
-					if (num11 >= 7)
-					{
-						Main.tileFrame[390] = 0;
-					}
-				}
-				int num12 = Main.tileFrameCounter[228] + 1;
-				int num13 = num12;
-				Main.tileFrameCounter[228] = num12;
-				if (num13 >= 5)
-				{
-					Main.tileFrameCounter[228] = 0;
-					int num14 = Main.tileFrame[228] + 1;
-					int num15 = num14;
-					Main.tileFrame[228] = num14;
-					if (num15 >= 3)
-					{
-						Main.tileFrame[228] = 0;
-					}
-				}
-				int num16 = Main.tileFrameCounter[405] + 1;
-				int num17 = num16;
-				Main.tileFrameCounter[405] = num16;
-				if (num17 >= 5)
-				{
-					Main.tileFrameCounter[405] = 0;
-					int num18 = Main.tileFrame[405] + 1;
-					int num19 = num18;
-					Main.tileFrame[405] = num18;
-					if (num19 >= 8)
-					{
-						Main.tileFrame[405] = 0;
-					}
-				}
-				int num20 = Main.tileFrameCounter[406] + 1;
-				int num21 = num20;
-				Main.tileFrameCounter[406] = num20;
-				if (num21 >= 8)
-				{
-					Main.tileFrameCounter[406] = 0;
-					int num22 = Main.tileFrame[406] + 1;
-					int num23 = num22;
-					Main.tileFrame[406] = num22;
-					if (num23 >= 6)
-					{
-						Main.tileFrame[406] = 0;
-					}
-				}
-				int num24 = Main.tileFrame[412] + 1;
-				int num25 = num24;
-				Main.tileFrame[412] = num24;
-				if (num25 >= 240)
-				{
-					Main.tileFrame[412] = 0;
-				}
-				int num26 = Main.tileFrameCounter[410] + 1;
-				num5 = num26;
-				Main.tileFrameCounter[410] = num26;
-				if (num5 >= 8)
-				{
-					Main.tileFrameCounter[410] = 0;
-					int num27 = Main.tileFrame[410] + 1;
-					num5 = num27;
-					Main.tileFrame[410] = num27;
-					if (num5 >= 8)
-					{
-						Main.tileFrame[410] = 0;
-					}
-				}
-				Main.CritterCages();
-				Main.UpdateDrawAnimations();
-
-				if (!Main.gamePad || Main.gameMenu)
-				{
-
-				}
-				Main.CheckInvasionProgressDisplay();
-			}
-			if (Main.netMode == 1)
-			{
-				for (int j = 0; j < 59; j++)
-				{
-					if (Main.player[Main.myPlayer].inventory[j].IsNotTheSameAs(Main.clientPlayer.inventory[j]))
-					{
-						NetMessage.SendData(5, -1, -1, Main.player[Main.myPlayer].inventory[j].name, Main.myPlayer, (float)j, (float)Main.player[Main.myPlayer].inventory[j].prefix, 0f, 0, 0, 0);
-					}
-				}
-				for (int k = 0; k < (int)Main.player[Main.myPlayer].armor.Length; k++)
-				{
-					if (Main.player[Main.myPlayer].armor[k].IsNotTheSameAs(Main.clientPlayer.armor[k]))
-					{
-						NetMessage.SendData(5, -1, -1, Main.player[Main.myPlayer].armor[k].name, Main.myPlayer, (float)(59 + k), (float)Main.player[Main.myPlayer].armor[k].prefix, 0f, 0, 0, 0);
-					}
-				}
-				for (int l = 0; l < (int)Main.player[Main.myPlayer].miscEquips.Length; l++)
-				{
-					if (Main.player[Main.myPlayer].miscEquips[l].IsNotTheSameAs(Main.clientPlayer.miscEquips[l]))
-					{
-						NetMessage.SendData(5, -1, -1, "", Main.myPlayer, (float)(58 + (int)Main.player[Main.myPlayer].armor.Length + (int)Main.player[Main.myPlayer].dye.Length + 1 + l), (float)Main.player[Main.myPlayer].miscEquips[l].prefix, 0f, 0, 0, 0);
-					}
-				}
-				for (int m = 0; m < (int)Main.player[Main.myPlayer].miscDyes.Length; m++)
-				{
-					if (Main.player[Main.myPlayer].miscDyes[m].IsNotTheSameAs(Main.clientPlayer.miscDyes[m]))
-					{
-						NetMessage.SendData(5, -1, -1, "", Main.myPlayer, (float)(58 + (int)Main.player[Main.myPlayer].armor.Length + (int)Main.player[Main.myPlayer].dye.Length + (int)Main.player[Main.myPlayer].miscEquips.Length + 1 + m), (float)Main.player[Main.myPlayer].miscDyes[m].prefix, 0f, 0, 0, 0);
-					}
-				}
-				for (int n = 0; n < (int)Main.player[Main.myPlayer].bank.item.Length; n++)
-				{
-					if (Main.player[Main.myPlayer].bank.item[n].IsNotTheSameAs(Main.clientPlayer.bank.item[n]))
-					{
-						NetMessage.SendData(5, -1, -1, "", Main.myPlayer, (float)(58 + (int)Main.player[Main.myPlayer].armor.Length + (int)Main.player[Main.myPlayer].dye.Length + (int)Main.player[Main.myPlayer].miscEquips.Length + (int)Main.player[Main.myPlayer].miscDyes.Length + 1 + n), (float)Main.player[Main.myPlayer].bank.item[n].prefix, 0f, 0, 0, 0);
-					}
-				}
-				for (int o = 0; o < (int)Main.player[Main.myPlayer].bank2.item.Length; o++)
-				{
-					if (Main.player[Main.myPlayer].bank2.item[o].IsNotTheSameAs(Main.clientPlayer.bank2.item[o]))
-					{
-						NetMessage.SendData(5, -1, -1, "", Main.myPlayer, (float)(58 + (int)Main.player[Main.myPlayer].armor.Length + (int)Main.player[Main.myPlayer].dye.Length + (int)Main.player[Main.myPlayer].miscEquips.Length + (int)Main.player[Main.myPlayer].miscDyes.Length + (int)Main.player[Main.myPlayer].bank.item.Length + 1 + o), (float)Main.player[Main.myPlayer].bank2.item[o].prefix, 0f, 0, 0, 0);
-					}
-				}
-				for (int p = 0; p < (int)Main.player[Main.myPlayer].dye.Length; p++)
-				{
-					if (Main.player[Main.myPlayer].dye[p].IsNotTheSameAs(Main.clientPlayer.dye[p]))
-					{
-						NetMessage.SendData(5, -1, -1, Main.player[Main.myPlayer].dye[0].name, Main.myPlayer, (float)(58 + (int)Main.player[Main.myPlayer].armor.Length + 1 + p), (float)Main.player[Main.myPlayer].dye[p].prefix, 0f, 0, 0, 0);
-					}
-				}
-				if (Main.player[Main.myPlayer].chest != Main.clientPlayer.chest && Main.player[Main.myPlayer].chest < 0)
-				{
-					if (!Main.player[Main.myPlayer].editedChestName)
-					{
-						NetMessage.SendData(33, -1, -1, "", Main.player[Main.myPlayer].chest, 0f, 0f, 0f, 0, 0, 0);
-					}
-					else
-					{
-						if (Main.chest[Main.clientPlayer.chest] == null)
-						{
-							NetMessage.SendData(33, -1, -1, "", Main.player[Main.myPlayer].chest, 0f, 0f, 0f, 0, 0, 0);
-						}
-						else
-						{
-							NetMessage.SendData(33, -1, -1, Main.chest[Main.clientPlayer.chest].name, Main.player[Main.myPlayer].chest, 1f, 0f, 0f, 0, 0, 0);
-						}
-						Main.player[Main.myPlayer].editedChestName = false;
-					}
-				}
-				if (Main.player[Main.myPlayer].talkNPC != Main.clientPlayer.talkNPC)
-				{
-					NetMessage.SendData(40, -1, -1, "", Main.myPlayer, 0f, 0f, 0f, 0, 0, 0);
-				}
-				bool flag = false;
-				if (Main.player[Main.myPlayer].zone1 != Main.clientPlayer.zone1)
-				{
-					flag = true;
-				}
-				if (Main.player[Main.myPlayer].zone2 != Main.clientPlayer.zone2)
-				{
-					flag = true;
-				}
-				if (flag)
-				{
-					NetMessage.SendData(36, -1, -1, "", Main.myPlayer, 0f, 0f, 0f, 0, 0, 0);
-				}
-				if (Main.player[Main.myPlayer].statLife != Main.clientPlayer.statLife || Main.player[Main.myPlayer].statLifeMax != Main.clientPlayer.statLifeMax)
-				{
-					Main.player[Main.myPlayer].netLife = true;
-				}
-				if (Main.player[Main.myPlayer].netLifeTime > 0)
-				{
-					Player player = Main.player[Main.myPlayer];
-					player.netLifeTime = player.netLifeTime - 1;
-				}
-				else if (Main.player[Main.myPlayer].netLife)
-				{
-					Main.player[Main.myPlayer].netLife = false;
-					Main.player[Main.myPlayer].netLifeTime = 60;
-					NetMessage.SendData(16, -1, -1, "", Main.myPlayer, 0f, 0f, 0f, 0, 0, 0);
-				}
-				if (Main.player[Main.myPlayer].statMana != Main.clientPlayer.statMana || Main.player[Main.myPlayer].statManaMax != Main.clientPlayer.statManaMax)
-				{
-					Main.player[Main.myPlayer].netMana = true;
-				}
-				if (Main.player[Main.myPlayer].netManaTime > 0)
-				{
-					Player player1 = Main.player[Main.myPlayer];
-					player1.netManaTime = player1.netManaTime - 1;
-				}
-				else if (Main.player[Main.myPlayer].netMana)
-				{
-					Main.player[Main.myPlayer].netMana = false;
-					Main.player[Main.myPlayer].netManaTime = 60;
-					NetMessage.SendData(42, -1, -1, "", Main.myPlayer, 0f, 0f, 0f, 0, 0, 0);
-				}
-				bool flag1 = false;
-				for (int q = 0; q < 22; q++)
-				{
-					if (Main.player[Main.myPlayer].buffType[q] != Main.clientPlayer.buffType[q])
-					{
-						flag1 = true;
-					}
-				}
-				if (flag1)
-				{
-					NetMessage.SendData(50, -1, -1, "", Main.myPlayer, 0f, 0f, 0f, 0, 0, 0);
-					NetMessage.SendData(13, -1, -1, "", Main.myPlayer, 0f, 0f, 0f, 0, 0, 0);
-				}
-				bool flag2 = false;
-				if (Main.player[Main.myPlayer].MinionTargetPoint != Main.clientPlayer.MinionTargetPoint)
-				{
-					flag2 = true;
-				}
-				if (flag2)
-				{
-					NetMessage.SendData(99, -1, -1, "", Main.myPlayer, 0f, 0f, 0f, 0, 0, 0);
-				}
-			}
-			if (Main.netMode == 1)
-			{
-				Main.clientPlayer = (Player)Main.player[Main.myPlayer].clientClone();
-			}
 			if (Main.netMode != 0 || !Main.playerInventory && !(Main.npcChatText != "") && Main.player[Main.myPlayer].sign < 0 && !Main.ingameOptionsWindow && !Main.achievementsWindow || !Main.autoPause)
 			{
 				Main.gamePaused = false;
-				if (!Main.dedServ && (double)Main.screenPosition.Y < Main.worldSurface * 16 + 16 && Main.netMode != 2)
-				{
-					Star.UpdateStars();
-					Cloud.UpdateClouds();
-				}
+				
 				PortalHelper.UpdatePortalPoints();
 				Main.tileSolid[379] = false;
 				Main.numPlayers = 0;
@@ -12655,12 +10231,7 @@ namespace Terraria
 						}
 					}
 				}
-
-				if (Main.netMode != 2)
-				{
-					CombatText.UpdateCombatText();
-					ItemText.UpdateItemText();
-				}
+				
 				if (!Main.ignoreErrors)
 				{
 					Main.UpdateTime();
@@ -12707,10 +10278,6 @@ namespace Terraria
 					{
 						Main.UpdateServer();
 					}
-					if (Main.netMode == 1)
-					{
-						Main.UpdateClient();
-					}
 				}
 				else
 				{
@@ -12719,10 +10286,6 @@ namespace Terraria
 						if (Main.netMode == 2)
 						{
 							Main.UpdateServer();
-						}
-						if (Main.netMode == 1)
-						{
-							Main.UpdateClient();
 						}
 					}
 					catch
@@ -12749,45 +10312,7 @@ namespace Terraria
 			}
 		}
 
-		private static void UpdateClient()
-		{
-			if (Main.myPlayer == 255)
-			{
-				Netplay.disconnect = true;
-			}
-			Main.netPlayCounter = Main.netPlayCounter + 1;
-			if (Main.netPlayCounter > 3600)
-			{
-				Main.netPlayCounter = 0;
-			}
-			if (Main.netPlayCounter % 420 == 0)
-			{
-				NetMessage.SendData(13, -1, -1, "", Main.myPlayer, 0f, 0f, 0f, 0, 0, 0);
-			}
-			if (Main.netPlayCounter % 900 == 0)
-			{
-				NetMessage.SendData(36, -1, -1, "", Main.myPlayer, 0f, 0f, 0f, 0, 0, 0);
-				NetMessage.SendData(16, -1, -1, "", Main.myPlayer, 0f, 0f, 0f, 0, 0, 0);
-				NetMessage.SendData(40, -1, -1, "", Main.myPlayer, 0f, 0f, 0f, 0, 0, 0);
-			}
-			if (Netplay.Connection.IsActive)
-			{
-				RemoteServer connection = Netplay.Connection;
-				connection.TimeOutTimer = connection.TimeOutTimer + 1;
-				if (!Main.stopTimeOuts && Netplay.Connection.TimeOutTimer > 7200)
-				{
-					Main.statusText = Lang.inter[43];
-					Netplay.disconnect = true;
-				}
-			}
-			for (int i = 0; i < 400; i++)
-			{
-				if (Main.item[i].active && Main.item[i].owner == Main.myPlayer)
-				{
-					Main.item[i].FindOwner(i);
-				}
-			}
-		}
+		private static void UpdateClient() { }
 
 		public void updateCloudLayer()
 		{
@@ -12850,21 +10375,9 @@ namespace Terraria
 			}
 		}
 
-		public void UpdateDisplaySettings()
-		{
-		}
+		public void UpdateDisplaySettings() { }
 
-		public static void UpdateDrawAnimations()
-		{
-			for (int i = 0; i < Main.itemAnimationsRegistered.Count; i++)
-			{
-				int item = Main.itemAnimationsRegistered[i];
-				if (Main.itemAnimations[item] != null)
-				{
-					Main.itemAnimations[item].Update();
-				}
-			}
-		}
+		public static void UpdateDrawAnimations() { }
 
 		private static void UpdateInvasion()
 		{
@@ -12939,820 +10452,9 @@ namespace Terraria
 			}
 		}
 
-		private static void UpdateMenu()
-		{
-			Main.playerInventory = false;
-			if (Main.netMode == 0)
-			{
-				Main.maxRaining = 0f;
-				Main.raining = false;
-				if (!Main.grabSky)
-				{
-					Main.time = Main.time + 86.4;
-					if (!Main.dayTime)
-					{
-						if (Main.time > 32400)
-						{
-							Main.bloodMoon = false;
-							Main.time = 0;
-							Main.dayTime = true;
-							Main.moonPhase = Main.moonPhase + 1;
-							if (Main.moonPhase >= 8)
-							{
-								Main.moonPhase = 0;
-								return;
-							}
-						}
-					}
-					else if (Main.time > 54000)
-					{
-						Main.time = 0;
-						Main.dayTime = false;
-						return;
-					}
-				}
-			}
-			else if (Main.netMode == 1)
-			{
-				Main.UpdateTime();
-			}
-		}
+		private static void UpdateMenu() { }
 
-		protected void UpdateMusic()
-		{
-			int num;
-			if (Main.musicVolume == 0f)
-			{
-				Main.curMusic = 0;
-			}
-			try
-			{
-				if (!Main.dedServ)
-				{
-					if (Main.curMusic > 0)
-					{
-					}
-					bool flag = false;
-					bool flag1 = false;
-					bool flag2 = false;
-					bool flag3 = false;
-					bool flag4 = false;
-					bool flag5 = false;
-					bool flag6 = false;
-					bool flag7 = false;
-					bool flag8 = false;
-					bool flag9 = false;
-					bool flag10 = false;
-					Rectangle rectangle = new Rectangle((int)Main.screenPosition.X, (int)Main.screenPosition.Y, Main.screenWidth, Main.screenHeight);
-					int num1 = 5000;
-					for (int k = 0; k < 200; k++)
-					{
-						if (Main.npc[k].active)
-						{
-							num = 0;
-							int num2 = Main.npc[k].type;
-							if (num2 > 245)
-							{
-								if (num2 <= 439)
-								{
-									if (num2 > 398)
-									{
-										if (num2 == 422)
-										{
-											goto Label4;
-										}
-										switch (num2)
-										{
-											case 438:
-												{
-													if (Main.npc[k].ai[1] != 1f)
-													{
-														goto Label3;
-													}
-													num = 4;
-													goto Label3;
-												}
-											case 439:
-												{
-													num = 4;
-													goto Label3;
-												}
-											default:
-												{
-													goto Label3;
-												}
-										}
-									}
-									else
-									{
-										switch (num2)
-										{
-											case 262:
-											case 263:
-											case 264:
-												{
-													num = 6;
-													goto Label3;
-												}
-											case 265:
-												{
-													goto Label3;
-												}
-											case 266:
-												{
-													num = 3;
-													goto Label3;
-												}
-											case 381:
-											case 382:
-											case 383:
-											case 385:
-											case 386:
-											case 388:
-											case 389:
-											case 390:
-											case 391:
-											case 395:
-												{
-													num = 9;
-													goto Label3;
-												}
-											case 398:
-												{
-													num = 7;
-													goto Label3;
-												}
-											default:
-												{
-													goto Label3;
-												}
-										}
-									}
-								}
-								else if (num2 > 507)
-								{
-									if (num2 == 517)
-									{
-										goto Label4;
-									}
-									if (num2 == 520)
-									{
-										num = 9;
-									}
-									goto Label3;
-								}
-								else
-								{
-									switch (num2)
-									{
-										case 491:
-											{
-												num = 8;
-												goto Label3;
-											}
-										case 492:
-											{
-												goto Label3;
-											}
-										case 493:
-											{
-												break;
-											}
-										case 507:
-											{
-												break;
-											}
-										default:
-											{
-												goto Label3;
-											}
-									}
-								}
-								Label4:
-								num = 10;
-							}
-							else if (num2 <= 126)
-							{
-								if (num2 > 29)
-								{
-									switch (num2)
-									{
-										case 111:
-											{
-												break;
-											}
-										case 112:
-											{
-												goto Label3;
-											}
-										case 113:
-										case 114:
-											{
-												num = 2;
-												goto Label3;
-											}
-										case 125:
-										case 126:
-											{
-												goto case 113;
-											}
-										default:
-											{
-												goto Label3;
-											}
-									}
-								}
-								else
-								{
-									switch (num2)
-									{
-										case 13:
-										case 14:
-										case 15:
-											{
-												num = 1;
-												goto Label3;
-											}
-										case 26:
-										case 27:
-										case 28:
-										case 29:
-											{
-												break;
-											}
-										default:
-											{
-												goto Label3;
-											}
-									}
-									break;
-								}
-								num = 11;
-							}
-							else if (num2 > 145)
-							{
-								switch (num2)
-								{
-									case 212:
-									case 213:
-									case 214:
-									case 215:
-									case 216:
-										{
-											num = 8;
-											goto Label3;
-										}
-									case 217:
-									case 218:
-									case 219:
-									case 220:
-									case 221:
-										{
-											break;
-										}
-									case 222:
-										{
-											num = 5;
-											break;
-										}
-									case 245:
-										{
-											num = 4;
-											break;
-										}
-									default:
-										{
-											break;
-										}
-								}
-							}
-							else if (num2 != 134)
-							{
-								switch (num2)
-								{
-									case 143:
-									case 144:
-									case 145:
-										{
-											num = 3;
-											goto Label3;
-										}
-								}
-							}
-							else
-							{
-								num = 3;
-								goto Label3;
-							}
-							Label3:
-							if (num == 0 && Main.npc[k].boss)
-							{
-								num = 1;
-							}
-							if (num != 0)
-							{
-								Rectangle rectangle1 = new Rectangle((int)(Main.npc[k].position.X + (float)(Main.npc[k].width / 2)) - num1, (int)(Main.npc[k].position.Y + (float)(Main.npc[k].height / 2)) - num1, num1 * 2, num1 * 2);
-								if (rectangle.Intersects(rectangle1))
-								{
-									if (num == 1)
-									{
-										flag = true;
-										break;
-									}
-									else if (num == 2)
-									{
-										flag1 = true;
-										break;
-									}
-									else if (num == 3)
-									{
-										flag2 = true;
-										break;
-									}
-									else if (num == 4)
-									{
-										flag3 = true;
-										break;
-									}
-									else if (num == 5)
-									{
-										flag4 = true;
-										break;
-									}
-									else if (num == 6)
-									{
-										flag5 = true;
-										break;
-									}
-									else if (num == 7)
-									{
-										flag6 = true;
-										break;
-									}
-									else if (num == 8)
-									{
-										flag7 = true;
-										break;
-									}
-									else if (num == 9)
-									{
-										flag8 = true;
-										break;
-									}
-									else if (num != 10)
-									{
-										if (num != 11)
-										{
-											break;
-										}
-										flag10 = true;
-										break;
-									}
-									else
-									{
-										flag9 = true;
-										break;
-									}
-								}
-							}
-						}
-					}
-					int x = (int)((Main.screenPosition.X + (float)(Main.screenWidth / 2)) / 16f);
-					if (Main.musicVolume == 0f)
-					{
-						this.newMusic = 0;
-					}
-					else if (!Main.gameMenu)
-					{
-						float single = (float)(Main.maxTilesX / 4200);
-						single = single * single;
-						float y = (float)((double)((Main.screenPosition.Y + (float)(Main.screenHeight / 2)) / 16f - (65f + 10f * single)) / (Main.worldSurface / 5));
-						if (flag6)
-						{
-							this.newMusic = 38;
-						}
-						else if (flag8)
-						{
-							this.newMusic = 37;
-						}
-						else if (flag9)
-						{
-							this.newMusic = 34;
-						}
-						else if (flag5)
-						{
-							this.newMusic = 24;
-						}
-						else if (flag1)
-						{
-							this.newMusic = 12;
-						}
-						else if (flag)
-						{
-							this.newMusic = 5;
-						}
-						else if (flag2)
-						{
-							this.newMusic = 13;
-						}
-						else if (flag3)
-						{
-							this.newMusic = 17;
-						}
-						else if (flag4)
-						{
-							this.newMusic = 25;
-						}
-						else if (flag7)
-						{
-							this.newMusic = 35;
-						}
-						else if (flag10)
-						{
-							this.newMusic = 39;
-						}
-						else if (Main.player[Main.myPlayer].position.Y > (float)((Main.maxTilesY - 200) * 16))
-						{
-							this.newMusic = 36;
-						}
-						else if (Main.eclipse && (double)Main.player[Main.myPlayer].position.Y < Main.worldSurface * 16 + (double)(Main.screenHeight / 2))
-						{
-							this.newMusic = 27;
-						}
-						else if (y < 1f)
-						{
-							this.newMusic = 15;
-						}
-						else if (Main.tile[(int)(Main.player[Main.myPlayer].Center.X / 16f), (int)(Main.player[Main.myPlayer].Center.Y / 16f)].wall == 87)
-						{
-							this.newMusic = 26;
-						}
-						else if (Main.bgStyle == 9 && (double)Main.player[Main.myPlayer].position.Y < Main.worldSurface * 16 + (double)(Main.screenHeight / 2) || Main.ugBack == 2)
-						{
-							this.newMusic = 29;
-						}
-						else if (Main.player[Main.myPlayer].ZoneCorrupt)
-						{
-							if ((double)Main.player[Main.myPlayer].position.Y <= Main.worldSurface * 16 + (double)(Main.screenHeight / 2))
-							{
-								this.newMusic = 8;
-							}
-							else
-							{
-								this.newMusic = 10;
-							}
-						}
-						else if (Main.player[Main.myPlayer].ZoneCrimson)
-						{
-							if ((double)Main.player[Main.myPlayer].position.Y <= Main.worldSurface * 16 + (double)(Main.screenHeight / 2))
-							{
-								this.newMusic = 16;
-							}
-							else
-							{
-								this.newMusic = 33;
-							}
-						}
-						else if (Main.player[Main.myPlayer].ZoneDungeon)
-						{
-							this.newMusic = 23;
-						}
-						else if (Main.player[Main.myPlayer].ZoneMeteor)
-						{
-							this.newMusic = 2;
-						}
-						else if (Main.player[Main.myPlayer].ZoneJungle)
-						{
-							this.newMusic = 7;
-						}
-						else if (Main.player[Main.myPlayer].ZoneSnow)
-						{
-							if ((double)Main.player[Main.myPlayer].position.Y <= Main.worldSurface * 16 + (double)(Main.screenHeight / 2))
-							{
-								this.newMusic = 14;
-							}
-							else
-							{
-								this.newMusic = 20;
-							}
-						}
-						else if ((double)Main.player[Main.myPlayer].position.Y > Main.worldSurface * 16 + (double)(Main.screenHeight / 2))
-						{
-							if (Main.player[Main.myPlayer].ZoneHoly)
-							{
-								this.newMusic = 11;
-							}
-							else if (Main.sandTiles <= 2200)
-							{
-								if (Main.ugMusic == 0)
-								{
-									Main.ugMusic = 4;
-								}
-
-								this.newMusic = Main.ugMusic;
-							}
-							else
-							{
-								this.newMusic = 21;
-							}
-						}
-						else if (Main.dayTime && Main.player[Main.myPlayer].ZoneHoly)
-						{
-							if (Main.cloudAlpha <= 0f || Main.gameMenu)
-							{
-								this.newMusic = 9;
-							}
-							else
-							{
-								this.newMusic = 19;
-							}
-						}
-						else if ((double)(Main.screenPosition.Y / 16f) < Main.worldSurface + 10 && (x < 380 || x > Main.maxTilesX - 380))
-						{
-							this.newMusic = 22;
-						}
-						else if (Main.sandTiles > 1000)
-						{
-							this.newMusic = 21;
-						}
-						else if (Main.dayTime)
-						{
-							if (Main.cloudAlpha <= 0f || Main.gameMenu)
-							{
-								if (Main.dayMusic == 0)
-								{
-									Main.dayMusic = 1;
-								}
-
-								this.newMusic = Main.dayMusic;
-							}
-							else
-							{
-								this.newMusic = 19;
-							}
-						}
-						else if (!Main.dayTime)
-						{
-							if (Main.bloodMoon)
-							{
-								this.newMusic = 2;
-							}
-							else if (Main.cloudAlpha <= 0f || Main.gameMenu)
-							{
-								this.newMusic = 3;
-							}
-							else
-							{
-								this.newMusic = 19;
-							}
-						}
-						if ((double)(Main.screenPosition.Y / 16f) < Main.worldSurface + 10 && Main.pumpkinMoon)
-						{
-							this.newMusic = 30;
-						}
-						if ((double)(Main.screenPosition.Y / 16f) < Main.worldSurface + 10 && Main.snowMoon)
-						{
-							this.newMusic = 32;
-						}
-					}
-					else if (Main.netMode == 2)
-					{
-						this.newMusic = 0;
-					}
-					else
-					{
-						this.newMusic = 6;
-					}
-					if (Main.gameMenu || Main.musicVolume == 0f)
-					{
-						Main.musicBox2 = -1;
-						Main.musicBox = -1;
-					}
-					if (Main.musicBox2 >= 0)
-					{
-						Main.musicBox = Main.musicBox2;
-					}
-					if (Main.musicBox >= 0)
-					{
-						if (Main.musicBox == 0)
-						{
-							this.newMusic = 1;
-						}
-						if (Main.musicBox == 1)
-						{
-							this.newMusic = 2;
-						}
-						if (Main.musicBox == 2)
-						{
-							this.newMusic = 3;
-						}
-						if (Main.musicBox == 4)
-						{
-							this.newMusic = 4;
-						}
-						if (Main.musicBox == 5)
-						{
-							this.newMusic = 5;
-						}
-						if (Main.musicBox == 3)
-						{
-							this.newMusic = 6;
-						}
-						if (Main.musicBox == 6)
-						{
-							this.newMusic = 7;
-						}
-						if (Main.musicBox == 7)
-						{
-							this.newMusic = 8;
-						}
-						if (Main.musicBox == 9)
-						{
-							this.newMusic = 9;
-						}
-						if (Main.musicBox == 8)
-						{
-							this.newMusic = 10;
-						}
-						if (Main.musicBox == 11)
-						{
-							this.newMusic = 11;
-						}
-						if (Main.musicBox == 10)
-						{
-							this.newMusic = 12;
-						}
-						if (Main.musicBox == 12)
-						{
-							this.newMusic = 13;
-						}
-						if (Main.musicBox == 13)
-						{
-							this.newMusic = 14;
-						}
-						if (Main.musicBox == 14)
-						{
-							this.newMusic = 15;
-						}
-						if (Main.musicBox == 15)
-						{
-							this.newMusic = 16;
-						}
-						if (Main.musicBox == 16)
-						{
-							this.newMusic = 17;
-						}
-						if (Main.musicBox == 17)
-						{
-							this.newMusic = 18;
-						}
-						if (Main.musicBox == 18)
-						{
-							this.newMusic = 19;
-						}
-						if (Main.musicBox == 19)
-						{
-							this.newMusic = 20;
-						}
-						if (Main.musicBox == 20)
-						{
-							this.newMusic = 21;
-						}
-						if (Main.musicBox == 21)
-						{
-							this.newMusic = 22;
-						}
-						if (Main.musicBox == 22)
-						{
-							this.newMusic = 23;
-						}
-						if (Main.musicBox == 23)
-						{
-							this.newMusic = 24;
-						}
-						if (Main.musicBox == 24)
-						{
-							this.newMusic = 25;
-						}
-						if (Main.musicBox == 25)
-						{
-							this.newMusic = 26;
-						}
-						if (Main.musicBox == 26)
-						{
-							this.newMusic = 27;
-						}
-						if (Main.musicBox == 27)
-						{
-							this.newMusic = 29;
-						}
-						if (Main.musicBox == 28)
-						{
-							this.newMusic = 30;
-						}
-						if (Main.musicBox == 29)
-						{
-							this.newMusic = 31;
-						}
-						if (Main.musicBox == 30)
-						{
-							this.newMusic = 32;
-						}
-						if (Main.musicBox == 31)
-						{
-							this.newMusic = 33;
-						}
-						if (Main.musicBox == 32)
-						{
-							this.newMusic = 38;
-						}
-						if (Main.musicBox == 33)
-						{
-							this.newMusic = 37;
-						}
-						if (Main.musicBox == 34)
-						{
-							this.newMusic = 35;
-						}
-						if (Main.musicBox == 35)
-						{
-							this.newMusic = 36;
-						}
-						if (Main.musicBox == 36)
-						{
-							this.newMusic = 34;
-						}
-						if (Main.musicBox == 37)
-						{
-							this.newMusic = 39;
-						}
-					}
-					Main.curMusic = this.newMusic;
-					float moonLordCountdown = 1f;
-					if (NPC.MoonLordCountdown > 0)
-					{
-						moonLordCountdown = (float)NPC.MoonLordCountdown / 3600f;
-						moonLordCountdown = moonLordCountdown * moonLordCountdown;
-						if (NPC.MoonLordCountdown <= 720)
-						{
-							moonLordCountdown = 0f;
-							Main.curMusic = 0;
-						}
-						else
-						{
-							moonLordCountdown = MathHelper.Lerp(0f, 1f, moonLordCountdown);
-						}
-						if (NPC.MoonLordCountdown == 1 && Main.curMusic >= 1 && Main.curMusic < 40)
-						{
-							Main.musicFade[Main.curMusic] = 0f;
-						}
-					}
-					for (int l = 1; l < 40; l++)
-					{
-						if (l != 28)
-						{
-							if (l == Main.curMusic)
-							{
-
-							}
-							else
-							{
-								if (Main.musicFade[Main.curMusic] > 0.25f)
-								{
-									Main.musicFade[l] = Main.musicFade[l] - 0.005f;
-								}
-								else if (Main.curMusic == 0)
-								{
-									Main.musicFade[l] = 0f;
-								}
-
-							}
-						}
-						else if (Main.cloudAlpha <= 0f || (double)Main.player[Main.myPlayer].position.Y >= Main.worldSurface * 16 + (double)(Main.screenHeight / 2) || Main.player[Main.myPlayer].ZoneSnow)
-						{
-
-						}
-						else if (Main.ambientVolume == 0f)
-						{
-						}
-					}
-					if (Main.musicError > 0)
-					{
-						Main.musicError = Main.musicError - 1;
-					}
-				}
-			}
-			catch
-			{
-				Main.musicError = Main.musicError + 1;
-				if (Main.musicError >= 100)
-				{
-					Main.musicError = 0;
-					Main.musicVolume = 0f;
-				}
-			}
-			return;
-		}
+		protected void UpdateMusic() { }
 
 		/// <summary>
 		/// Syncs players, world info, and items with connected clients
