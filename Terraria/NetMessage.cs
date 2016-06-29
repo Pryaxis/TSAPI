@@ -2302,263 +2302,256 @@ namespace Terraria
 			}
 		}
 
-
-
-		public static void joinSyncPlayer(int i)
+		public static void UpdateJoiningPlayer(int joiningPlayer)
 		{
-			int num = 0;
-			if (Main.player[i].active)
+			int index = joiningPlayer;
+
+			for (int sender = 0; sender < 255; sender++)
 			{
-				num = 1;
-			}
-
-			SendData(14, -1, i, "", i, (float)num, 0f, 0f, 0, 0, 0);
-
-			SendData(4, -1, i, Main.player[i].name, i, 0f, 0f, 0f, 0, 0, 0);
-			SendData(13, -1, i, "", i, 0f, 0f, 0f, 0, 0, 0);
-			SendData(16, -1, i, "", i, 0f, 0f, 0f, 0, 0, 0);
-			SendData(30, -1, i, "", i, 0f, 0f, 0f, 0, 0, 0);
-			SendData(45, -1, i, "", i, 0f, 0f, 0f, 0, 0, 0);
-			SendData(42, -1, i, "", i, 0f, 0f, 0f, 0, 0, 0);
-			SendData(50, -1, i, "", i, 0f, 0f, 0f, 0, 0, 0);
-
-
-
-			for (int j = 0; j < 1 /*59*/; j++)
-			{
-				if (Main.player[i].inventory[j].name != "")
-				{
-					SendData(5, -1, i, Main.player[i].inventory[j].name, i, (float)j,
-					(float)Main.player[i].inventory[j].prefix, 0f, 0, 0, 0);
-				}
-			}
-			for (int k = 0; k < Main.player[i].armor.Length; k++)
-			{
-				if (Main.player[i].armor[k].name != "")
-				{
-					SendData(5, -1, i, Main.player[i].armor[k].name, i, (float)(59 + k),
-					(float)Main.player[i].armor[k].prefix, 0f, 0, 0, 0);
-				}
-
-			}
-			for (int l = 0; l < Main.player[i].dye.Length; l++)
-			{
-				if (Main.player[i].dye[l].name != "")
-				{
-					SendData(5, -1, i, Main.player[i].dye[l].name, i, (float)(58 + Main.player[i].armor.Length + 1 + l),
-						(float)Main.player[i].dye[l].prefix, 0f, 0, 0, 0);
-				}
-
-			}
-			for (int m = 0; m < Main.player[i].miscEquips.Length; m++)
-			{
-				if (Main.player[i].miscEquips[m].name != "")
-				{
-					SendData(5, -1, i, "", i,
-						(float)(58 + Main.player[i].armor.Length + Main.player[i].dye.Length + 1 + m),
-						(float)Main.player[i].miscEquips[m].prefix, 0f, 0, 0, 0);
-				}
-
-			}
-			for (int n = 0; n < Main.player[i].miscDyes.Length; n++)
-			{
-				if (Main.player[i].miscDyes[n].name != "")
-				{
-					SendData(5, -1, i, "", i,
-					(float)
-						(58 + Main.player[i].armor.Length + Main.player[i].dye.Length + Main.player[i].miscEquips.Length + 1 + n),
-					(float)Main.player[i].miscDyes[n].prefix, 0f, 0, 0, 0);
-				}
-			}
-
-
-
-			for (int o = 0; o < 255; o++)
-			{
-				if (o == i)
+				if (sender == index)
 					continue;
 				int num2 = 0;
-				if (Main.player[o].active)
+				if (Main.player[sender].active)
 				{
 					num2 = 1;
 				}
 
-				SendData(14, i, o, "", o, (float)num2, 0f, 0f, 0, 0, 0);
+				SendData((int)PacketTypes.PlayerActive, index, sender, "", sender, (float)num2, 0f, 0f, 0, 0, 0);
 
-				SendData(4, i, o, Main.player[o].name, o, 0f, 0f, 0f, 0, 0, 0);
-				SendData(13, i, o, "", o, 0f, 0f, 0f, 0, 0, 0);
-				SendData(16, i, o, "", o, 0f, 0f, 0f, 0, 0, 0);
-				SendData(30, i, o, "", o, 0f, 0f, 0f, 0, 0, 0);
-				SendData(45, i, o, "", o, 0f, 0f, 0f, 0, 0, 0);
-				SendData(42, i, o, "", o, 0f, 0f, 0f, 0, 0, 0);
-				SendData(50, i, o, "", o, 0f, 0f, 0f, 0, 0, 0);
+				SendData((int)PacketTypes.PlayerInfo, index, sender, Main.player[sender].name, sender, 0f, 0f, 0f, 0, 0, 0);
+				SendData((int)PacketTypes.PlayerUpdate, index, sender, "", sender, 0f, 0f, 0f, 0, 0, 0);
+				SendData((int)PacketTypes.PlayerHp, index, sender, "", sender, 0f, 0f, 0f, 0, 0, 0);
+				SendData((int)PacketTypes.TogglePvp, index, sender, "", sender, 0f, 0f, 0f, 0, 0, 0);
+				SendData((int)PacketTypes.PlayerTeam, index, sender, "", sender, 0f, 0f, 0f, 0, 0, 0);
+				SendData((int)PacketTypes.PlayerMana, index, sender, "", sender, 0f, 0f, 0f, 0, 0, 0);
+				SendData((int)PacketTypes.PlayerBuff, index, sender, "", sender, 0f, 0f, 0f, 0, 0, 0);
 
-				for (int j = 0; j < 1 /*59*/; j++)
+				if (Main.player[sender].inventory[0].name != "")
 				{
-					if (Main.player[o].inventory[j].name != "")
-					{
-						SendData(5, i, o, Main.player[o].inventory[j].name, o, (float)j,
-						(float)Main.player[o].inventory[j].prefix, 0f, 0, 0, 0);
-					}
+					SendData((int)PacketTypes.PlayerSlot, index, sender, Main.player[sender].inventory[0].name, sender, (float)0,
+					(float)Main.player[sender].inventory[0].prefix, 0f, 0, 0, 0);
 				}
-				for (int k = 0; k < Main.player[o].armor.Length; k++)
+				for (int slot = 0; slot < Main.player[sender].armor.Length; slot++)
 				{
-					if (Main.player[o].armor[k].name != "")
+					if (Main.player[sender].armor[slot].name != "")
 					{
-						SendData(5, i, o, Main.player[o].armor[k].name, o, (float)(59 + k),
-						(float)Main.player[o].armor[k].prefix, 0f, 0, 0, 0);
+						SendData((int)PacketTypes.PlayerSlot, index, sender, Main.player[sender].armor[slot].name, sender, (float)(59 + slot),
+						(float)Main.player[sender].armor[slot].prefix, 0f, 0, 0, 0);
 					}
 
 				}
-				for (int l = 0; l < Main.player[o].dye.Length; l++)
+				for (int slot = 0; slot < Main.player[sender].dye.Length; slot++)
 				{
-					if (Main.player[o].dye[l].name != "")
+					if (Main.player[sender].dye[slot].name != "")
 					{
-						SendData(5, i, o, Main.player[o].dye[l].name, o, (float)(58 + Main.player[o].armor.Length + 1 + l),
-							(float)Main.player[o].dye[l].prefix, 0f, 0, 0, 0);
+						SendData((int)PacketTypes.PlayerSlot, index, sender, Main.player[sender].dye[slot].name, sender, (float)(58 + Main.player[sender].armor.Length + 1 + slot),
+							(float)Main.player[sender].dye[slot].prefix, 0f, 0, 0, 0);
 					}
 
 				}
-				for (int m = 0; m < Main.player[o].miscEquips.Length; m++)
+				for (int slot = 0; slot < Main.player[sender].miscEquips.Length; slot++)
 				{
-					if (Main.player[o].miscEquips[m].name != "")
+					if (Main.player[sender].miscEquips[slot].name != "")
 					{
-						SendData(5, i, o, "", o,
-							(float)(58 + Main.player[o].armor.Length + Main.player[o].dye.Length + 1 + m),
-							(float)Main.player[o].miscEquips[m].prefix, 0f, 0, 0, 0);
+						SendData((int)PacketTypes.PlayerSlot, index, sender, "", sender,
+							(float)(58 + Main.player[sender].armor.Length + Main.player[sender].dye.Length + 1 + slot),
+							(float)Main.player[sender].miscEquips[slot].prefix, 0f, 0, 0, 0);
 					}
 
 				}
-				for (int n = 0; n < Main.player[o].miscDyes.Length; n++)
+				for (int slot = 0; slot < Main.player[sender].miscDyes.Length; slot++)
 				{
-					if (Main.player[o].miscDyes[n].name != "")
+					if (Main.player[sender].miscDyes[slot].name != "")
 					{
-						SendData(5, i, o, "", o,
+						SendData((int)PacketTypes.PlayerSlot, index, sender, "", sender,
 						(float)
-							(58 + Main.player[o].armor.Length + Main.player[o].dye.Length + Main.player[o].miscEquips.Length + 1 + n),
-						(float)Main.player[o].miscDyes[n].prefix, 0f, 0, 0, 0);
+							(58 + Main.player[sender].armor.Length + Main.player[sender].dye.Length + Main.player[sender].miscEquips.Length + 1 + slot),
+						(float)Main.player[sender].miscDyes[slot].prefix, 0f, 0, 0, 0);
 					}
 				}
 			}
+		}
+		public static void joinSyncPlayers(int joiningPlayer)
+		{
+			int index = joiningPlayer;
+
+			int active = 0;
+			if (Main.player[index].active)
+			{
+				active = 1;
+			}
+
+			SendData((int)PacketTypes.PlayerActive, -1, index, "", index, (float)active, 0f, 0f, 0, 0, 0);
+
+			SendData((int)PacketTypes.PlayerInfo, -1, index, Main.player[index].name, index, 0f, 0f, 0f, 0, 0, 0);
+			SendData((int)PacketTypes.PlayerUpdate, -1, index, "", index, 0f, 0f, 0f, 0, 0, 0);
+			SendData((int)PacketTypes.PlayerHp, -1, index, "", index, 0f, 0f, 0f, 0, 0, 0);
+			SendData((int)PacketTypes.TogglePvp, -1, index, "", index, 0f, 0f, 0f, 0, 0, 0);
+			SendData((int)PacketTypes.PlayerTeam, -1, index, "", index, 0f, 0f, 0f, 0, 0, 0);
+			SendData((int)PacketTypes.PlayerMana, -1, index, "", index, 0f, 0f, 0f, 0, 0, 0);
+			SendData((int)PacketTypes.PlayerBuff, -1, index, "", index, 0f, 0f, 0f, 0, 0, 0);
+
+
+
+			if (Main.player[index].inventory[0].name != "")
+			{
+				SendData((int)PacketTypes.PlayerSlot, -1, index, Main.player[index].inventory[0].name, index, (float)0,
+				(float)Main.player[index].inventory[0].prefix, 0f, 0, 0, 0);
+			}
+			for (int slot = 0; slot < Main.player[index].armor.Length; slot++)
+			{
+				if (Main.player[index].armor[slot].name != "")
+				{
+					SendData((int)PacketTypes.PlayerSlot, -1, index, Main.player[index].armor[slot].name, index, (float)(59 + slot),
+					(float)Main.player[index].armor[slot].prefix, 0f, 0, 0, 0);
+				}
+
+			}
+			for (int slot = 0; slot < Main.player[index].dye.Length; slot++)
+			{
+				if (Main.player[index].dye[slot].name != "")
+				{
+					SendData((int)PacketTypes.PlayerSlot, -1, index, Main.player[index].dye[slot].name, index, (float)(58 + Main.player[index].armor.Length + 1 + slot),
+						(float)Main.player[index].dye[slot].prefix, 0f, 0, 0, 0);
+				}
+
+			}
+			for (int slot = 0; slot < Main.player[index].miscEquips.Length; slot++)
+			{
+				if (Main.player[index].miscEquips[slot].name != "")
+				{
+					SendData((int)PacketTypes.PlayerSlot, -1, index, "", index,
+						(float)(58 + Main.player[index].armor.Length + Main.player[index].dye.Length + 1 + slot),
+						(float)Main.player[index].miscEquips[slot].prefix, 0f, 0, 0, 0);
+				}
+
+			}
+			for (int n = 0; n < Main.player[index].miscDyes.Length; n++)
+			{
+				if (Main.player[index].miscDyes[n].name != "")
+				{
+					SendData((int)PacketTypes.PlayerSlot, -1, index, "", index,
+					(float)
+						(58 + Main.player[index].armor.Length + Main.player[index].dye.Length + Main.player[index].miscEquips.Length + 1 + n),
+					(float)Main.player[index].miscDyes[n].prefix, 0f, 0, 0, 0);
+				}
+			}
+
+			UpdateJoiningPlayer(joiningPlayer);
 		}
 
 		public static void syncPlayers(bool sendInventory = true, bool sendPlayerActive = true, bool sendPlayerInfo = true, bool ghostUpdate = true, int leavingPlayer = -1)
 		{
 			bool flag = false;
-			for (int i = 0; i < 255; i++)
+			for (int index = 0; index < 255; index++)
 			{
 				int num = 0;
-				if (Main.player[i].active)
+				if (Main.player[index].active)
 				{
 					num = 1;
 				}
-				if (Netplay.Clients[i].State == 10)
+				if (Netplay.Clients[index].State == 10)
 				{
-					if (Main.autoShutdown && !flag && Netplay.Clients[i].Socket.GetRemoteAddress().IsLocalHost())
+					if (Main.autoShutdown && !flag && Netplay.Clients[index].Socket.GetRemoteAddress().IsLocalHost())
 					{
 						flag = true;
 					}
 
 					if (sendPlayerActive)
 					{
-						SendData(14, -1, i, "", i, (float) num, 0f, 0f, 0, 0, 0);
+						SendData((int)PacketTypes.PlayerActive, -1, index, "", index, (float) num, 0f, 0f, 0, 0, 0);
 					}
 
 					if (sendPlayerInfo)
 					{
-						SendData(4, -1, i, Main.player[i].name, i, 0f, 0f, 0f, 0, 0, 0);
-						SendData(13, -1, i, "", i, 0f, 0f, 0f, 0, 0, 0);
-						SendData(16, -1, i, "", i, 0f, 0f, 0f, 0, 0, 0);
-						SendData(30, -1, i, "", i, 0f, 0f, 0f, 0, 0, 0);
-						SendData(45, -1, i, "", i, 0f, 0f, 0f, 0, 0, 0);
-						SendData(42, -1, i, "", i, 0f, 0f, 0f, 0, 0, 0);
-						SendData(50, -1, i, "", i, 0f, 0f, 0f, 0, 0, 0);
+						SendData((int)PacketTypes.PlayerInfo, -1, index, Main.player[index].name, index, 0f, 0f, 0f, 0, 0, 0);
+						SendData((int)PacketTypes.PlayerUpdate, -1, index, "", index, 0f, 0f, 0f, 0, 0, 0);
+						SendData((int)PacketTypes.PlayerHp, -1, index, "", index, 0f, 0f, 0f, 0, 0, 0);
+						SendData((int)PacketTypes.TogglePvp, -1, index, "", index, 0f, 0f, 0f, 0, 0, 0);
+						SendData((int)PacketTypes.PlayerTeam, -1, index, "", index, 0f, 0f, 0f, 0, 0, 0);
+						SendData((int)PacketTypes.PlayerMana, -1, index, "", index, 0f, 0f, 0f, 0, 0, 0);
+						SendData((int)PacketTypes.PlayerBuff, -1, index, "", index, 0f, 0f, 0f, 0, 0, 0);
 					}
 
 					if (sendInventory)
 					{
-						for (int j = 0; j < 1 /*59*/; j++)
+						//Sending first slot. This is okay when joining. Since held item is always first slot.
+						//But what's the point in sending first slot in UpdateServer every interval?
+						if (Main.player[index].inventory[0].name != "")
 						{
-							if (Main.player[i].inventory[j].name != "")
+							SendData((int)PacketTypes.PlayerSlot, -1, index, Main.player[index].inventory[0].name, index, (float)0,
+							(float)Main.player[index].inventory[0].prefix, 0f, 0, 0, 0);
+						}
+						for (int slot = 0; slot < Main.player[index].armor.Length; slot++)
+						{
+							if (Main.player[index].armor[slot].name != "")
 							{
-								SendData(5, -1, i, Main.player[i].inventory[j].name, i, (float)j,
-								(float)Main.player[i].inventory[j].prefix, 0f, 0, 0, 0);
+								SendData((int)PacketTypes.PlayerSlot, -1, index, Main.player[index].armor[slot].name, index, (float)(59 + slot),
+								(float)Main.player[index].armor[slot].prefix, 0f, 0, 0, 0);
 							}
 						}
-						for (int k = 0; k < Main.player[i].armor.Length; k++)
+						for (int slot = 0; slot < Main.player[index].dye.Length; slot++)
 						{
-							if (Main.player[i].armor[k].name != "")
+							if (Main.player[index].dye[slot].name != "")
 							{
-								SendData(5, -1, i, Main.player[i].armor[k].name, i, (float)(59 + k),
-								(float)Main.player[i].armor[k].prefix, 0f, 0, 0, 0);
+								SendData((int)PacketTypes.PlayerSlot, -1, index, Main.player[index].dye[slot].name, index, (float)(58 + Main.player[index].armor.Length + 1 + slot),
+									(float)Main.player[index].dye[slot].prefix, 0f, 0, 0, 0);
 							}
-							
 						}
-						for (int l = 0; l < Main.player[i].dye.Length; l++)
+						for (int slot = 0; slot < Main.player[index].miscEquips.Length; slot++)
 						{
-							if (Main.player[i].dye[l].name != "")
+							if (Main.player[index].miscEquips[slot].name != "")
 							{
-								SendData(5, -1, i, Main.player[i].dye[l].name, i, (float)(58 + Main.player[i].armor.Length + 1 + l),
-									(float)Main.player[i].dye[l].prefix, 0f, 0, 0, 0);
+								SendData((int)PacketTypes.PlayerSlot, -1, index, "", index,
+									(float)(58 + Main.player[index].armor.Length + Main.player[index].dye.Length + 1 + slot),
+									(float)Main.player[index].miscEquips[slot].prefix, 0f, 0, 0, 0);
 							}
-
 						}
-						for (int m = 0; m < Main.player[i].miscEquips.Length; m++)
+						for (int slot = 0; slot < Main.player[index].miscDyes.Length; slot++)
 						{
-							if (Main.player[i].miscEquips[m].name != "")
+							if (Main.player[index].miscDyes[slot].name != "")
 							{
-								SendData(5, -1, i, "", i,
-									(float)(58 + Main.player[i].armor.Length + Main.player[i].dye.Length + 1 + m),
-									(float)Main.player[i].miscEquips[m].prefix, 0f, 0, 0, 0);
-							}
-
-						}
-						for (int n = 0; n < Main.player[i].miscDyes.Length; n++)
-						{
-							if (Main.player[i].miscDyes[n].name != "")
-							{
-								SendData(5, -1, i, "", i,
+								SendData((int)PacketTypes.PlayerSlot, -1, index, "", index,
 								(float)
-									(58 + Main.player[i].armor.Length + Main.player[i].dye.Length + Main.player[i].miscEquips.Length + 1 + n),
-								(float)Main.player[i].miscDyes[n].prefix, 0f, 0, 0, 0);
+									(58 + Main.player[index].armor.Length + Main.player[index].dye.Length + Main.player[index].miscEquips.Length + 1 + slot),
+								(float)Main.player[index].miscDyes[slot].prefix, 0f, 0, 0, 0);
 							}
-
 						}
 					}
-					if (!Netplay.Clients[i].IsAnnouncementCompleted)
+					if (!Netplay.Clients[index].IsAnnouncementCompleted)
 					{
-						Netplay.Clients[i].IsAnnouncementCompleted = true;
+						Netplay.Clients[index].IsAnnouncementCompleted = true;
 					}
 				}
 				else
 				{
 					num = 0;
 					if (ghostUpdate && leavingPlayer == -1)
-						SendData(14, -1, i, "", i, (float)num, 0f, 0f, 0, 0, 0);
-					if (Netplay.Clients[i].IsAnnouncementCompleted)
+						SendData((int)PacketTypes.PlayerActive, -1, index, "", index, (float)num, 0f, 0f, 0, 0, 0);
+					if (Netplay.Clients[index].IsAnnouncementCompleted)
 					{
-						Netplay.Clients[i].IsAnnouncementCompleted = false;
-						Netplay.Clients[i].Name = "Anonymous";
+						Netplay.Clients[index].IsAnnouncementCompleted = false;
+						Netplay.Clients[index].Name = "Anonymous";
 					}
 				}
 			}
 			if (ghostUpdate && leavingPlayer != -1)
-				SendData(14, -1, leavingPlayer, "", leavingPlayer, 0, 0f, 0f, 0, 0, 0);
+				SendData((int)PacketTypes.PlayerActive, -1, leavingPlayer, "", leavingPlayer, 0, 0f, 0f, 0, 0, 0);
 			bool flag2 = false;
-			for (int num5 = 0; num5 < 200; num5++)
+			for (int npcIndex = 0; npcIndex < 200; npcIndex++)
 			{
-				if (Main.npc[num5].active && Main.npc[num5].townNPC && NPC.TypeToNum(Main.npc[num5].type) != -1)
+				if (Main.npc[npcIndex].active && Main.npc[npcIndex].townNPC && NPC.TypeToNum(Main.npc[npcIndex].type) != -1)
 				{
-					if (!flag2 && Main.npc[num5].type == 368)
+					if (!flag2 && Main.npc[npcIndex].type == 368)
 					{
 						flag2 = true;
 					}
 					int num6 = 0;
-					if (Main.npc[num5].homeless)
+					if (Main.npc[npcIndex].homeless)
 					{
 						num6 = 1;
 					}
-					SendData(60, -1, -1, "", num5, (float)Main.npc[num5].homeTileX, (float)Main.npc[num5].homeTileY, (float)num6, 0, 0, 0);
+					SendData((int)PacketTypes.UpdateNPCHome, -1, -1, "", npcIndex, (float)Main.npc[npcIndex].homeTileX, (float)Main.npc[npcIndex].homeTileY, (float)num6, 0, 0, 0);
 				}
 			}
 			if (flag2)
