@@ -13157,6 +13157,10 @@ namespace Terraria
 
 		public static void StartHardmode()
 		{
+            Thread t = new Thread(() => smCallBack(null));
+            t.IsBackground = true;
+            t.Name = "Hardmode Update Thread";
+
 			if (Main.netMode == 1 || Main.hardMode)
 			{
 				return;
@@ -13167,8 +13171,8 @@ namespace Terraria
 			}
 			Main.hardMode = true;
 			Main.InitLifeBytes();
-			WorldGen.smCallBack(null);
-			//ThreadPool.QueueUserWorkItem(new WaitCallback(WorldGen.smCallBack), 1);
+
+            t.Start();
 		}
 
 		public static void smCallBack(object threadContext)
