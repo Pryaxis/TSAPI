@@ -13756,11 +13756,14 @@ namespace Terraria
 
 		private static void UpdateServer()
 		{
-			Main.netPlayCounter = Main.netPlayCounter + 1;
-			if (Main.netPlayCounter > 3600)
+			Main.netPlayCounter++;
+			if (Main.netPlayCounter % 3600 == 0)
 			{
 				NetMessage.SendData(7, -1, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
-				NetMessage.syncPlayers();
+			}
+			if (Main.netPlayCounter >= 10800)
+			{
+				NetMessage.syncPlayers(ghostUpdate: false);
 				Main.netPlayCounter = 0;
 			}
 			for (int i = 0; i < Main.maxNetPlayers; i++)
