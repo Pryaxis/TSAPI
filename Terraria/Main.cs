@@ -13754,15 +13754,30 @@ namespace Terraria
 			return;
 		}
 
+		/// <summary>
+		/// Syncs players, world info, and items with connected clients
+		/// </summary>
 		private static void UpdateServer()
 		{
+			if (!Netplay.anyClients)
+			{
+				//Don't update if no one is connected
+				return;
+			}
+
 			Main.netPlayCounter++;
 			if (Main.netPlayCounter % 3600 == 0)
 			{
-				NetMessage.SendData(7, -1, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
+				//Syncs world info every minute
+				//This could probably be improved upon by sending individual packets for things that may
+				//actually need syncing
+				NetMessage.SendData((int)PacketTypes.WorldInfo);
 			}
 			if (Main.netPlayCounter >= 10800)
 			{
+				//Syncs players every 3 minutes
+				//This could probably be improved - clients should update each other when
+				//performing most activities
 				NetMessage.syncPlayers(ghostUpdate: false);
 				Main.netPlayCounter = 0;
 			}
@@ -13773,30 +13788,37 @@ namespace Terraria
 					Netplay.Clients[i].SpamUpdate();
 				}
 			}
-			if (Math.IEEERemainder((double)Main.netPlayCounter, 900) == 0)
+			if (Main.netPlayCounter % 900 == 0)
 			{
+				//Every 15 seconds, update some items
+
 				bool flag = true;
-				int num = Main.lastItemUpdate;
-				int num1 = 0;
+				int itemId = Main.lastItemUpdate;
+				int updatedItems = 0;
+
+				//Starts at Main.lastItemUpdate and loops through Main.maxItemUpdates (default 5) items
+				//If it reaches the end of the Main.item array, loops around
+				//Any inactive or ownerless items are sent with an ItemDrop packet
 				while (flag)
 				{
-					num++;
-					if (num >= 400)
+					itemId++;
+					if (itemId >= Main.item.Length)
 					{
-						num = 0;
+						itemId = 0;
 					}
-					num1++;
-					if (!Main.item[num].active || Main.item[num].owner == 255)
+					updatedItems++;
+
+					if (!Main.item[itemId].active || Main.item[itemId].owner == 255)
 					{
-						NetMessage.SendData(21, -1, -1, "", num, 0f, 0f, 0f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.ItemDrop, -1, -1, "", itemId);
 					}
-					if (num1 < Main.maxItemUpdates && num != Main.lastItemUpdate)
+					if (updatedItems < Main.maxItemUpdates && itemId != Main.lastItemUpdate)
 					{
 						continue;
 					}
 					flag = false;
 				}
-				Main.lastItemUpdate = num;
+				Main.lastItemUpdate = itemId;
 			}
 			for (int j = 0; j < 400; j++)
 			{
@@ -13805,20 +13827,20 @@ namespace Terraria
 					Main.item[j].FindOwner(j);
 				}
 			}
-			for (int k = 0; k < 255; k++)
+			for (int index = 0; index < 255; index++)
 			{
-				if (Netplay.Clients[k].IsActive)
+				if (Netplay.Clients[index].IsActive)
 				{
-					RemoteClient clients = Netplay.Clients[k];
-					clients.TimeOutTimer = clients.TimeOutTimer + 1;
-					if (!Main.stopTimeOuts && Netplay.Clients[k].TimeOutTimer > 7200)
+					Netplay.Clients[index].TimeOutTimer++;
+					if (!Main.stopTimeOuts && Netplay.Clients[index].TimeOutTimer > 7200)
 					{
-						Netplay.Clients[k].PendingTermination = true;
+						//If the client has been timed out for 2 minutes, mark them for disconnection
+						Netplay.Clients[index].PendingTermination = true;
 					}
 				}
-				if (Main.player[k].active)
+				if (Main.player[index].active)
 				{
-					RemoteClient.CheckSection(k, Main.player[k].position, 1);
+					RemoteClient.CheckSection(index, Main.player[index].position, 1);
 				}
 			}
 		}
