@@ -11943,6 +11943,22 @@ namespace Terraria
 			}
 		}
 
+		private void ItemCheckWrapped(int i)
+		{
+			if (Main.ignoreErrors)
+			{
+				try
+				{
+					this.ItemCheck(i);
+				}
+				catch
+				{
+				}
+			}
+			else
+				this.ItemCheck(i);
+		}
+
 		public bool ItemFitsItemFrame(Item i)
 		{
 			return i.stack > 0;
@@ -25900,6 +25916,7 @@ namespace Terraria
 			{
 				this.altFunctionUse = 0;
 			}
+			this.ItemCheckWrapped(i);
 			this.PlayerFrame();
 			if (this.mount.Type == 8)
 			{
