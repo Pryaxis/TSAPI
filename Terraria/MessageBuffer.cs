@@ -1118,7 +1118,7 @@ namespace Terraria
 					}
 					else
 					{
-						Main.npc[num71].StrikeNPC(num72, single5, num73, num74 == 1, false, true);
+						Main.npc[num71].StrikeNPC(num72, single5, num73, num74 == 1, false, true, Main.player[this.whoAmI]);
 					}
 					NetMessage.SendData(28, -1, this.whoAmI, "", num71, (float)num72, single5, (float)num73, (int)num74, 0, 0);
 					if (Main.npc[num71].life > 0)
