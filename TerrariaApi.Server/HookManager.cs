@@ -340,12 +340,25 @@ namespace TerrariaApi.Server
 
 						break;
 
+						//Making sure packet length is 38, otherwise it's not a valid UUID packet length.
+						//We copy the bytes of the UUID then convert it to string. Then validating the GUID so its the correct format.
+						//Then the bytes get hashed, and set as ClientUUID (and gets written in DB for auto-login)
+						//length minus 2 = 36, the length of a UUID.
 					case PacketTypes.ClientUUID:
-						byte[] uuid = new byte[length - 5];
-						Buffer.BlockCopy(buffer.readBuffer, index + 4, uuid, 0, length - 5);
-						SHA512 shaM = new SHA512Managed();
-						var result = shaM.ComputeHash(uuid);
-						Netplay.Clients[buffer.whoAmI].ClientUUID = result.Aggregate("", (s, b) => s + b.ToString("X2"));;
+						if (length == 38)
+						{
+							byte[] uuid = new byte[length - 2];
+							Buffer.BlockCopy(buffer.readBuffer, index + 1, uuid, 0, length - 2);
+							Guid guid = new Guid();
+							if (Guid.TryParse(Encoding.Default.GetString(uuid, 0, uuid.Length), out guid))
+							{
+								SHA512 shaM = new SHA512Managed();
+								var result = shaM.ComputeHash(uuid);
+								Netplay.Clients[buffer.whoAmI].ClientUUID = result.Aggregate("", (s, b) => s + b.ToString("X2"));
+								return true;
+							}
+						}
+						Netplay.Clients[buffer.whoAmI].ClientUUID = "";
 						return true;
 				}
 			}
