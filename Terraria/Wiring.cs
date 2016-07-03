@@ -439,14 +439,12 @@ namespace Terraria
 					if (!tile.actuator())
 					{
 						if (type >= 262)
-						{
-							Tile expr_CE = tile;
-							expr_CE.type -= 7;
+						{							
+							tile.type -= 7;
 						}
 						else
 						{
-							Tile expr_DF = tile;
-							expr_DF.type += 7;
+							tile.type += 7;
 						}
 						WorldGen.SquareTileFrame(i, j, true);
 						NetMessage.SendTileSquare(-1, i, j, 1);
@@ -887,9 +885,7 @@ namespace Terraria
 											Wiring._teleport[0].Y = (float)j;
 											if (tile.halfBrick())
 											{
-												Vector2[] expr_E14_cp_0 = Wiring._teleport;
-												int expr_E14_cp_1 = 0;
-												expr_E14_cp_0[expr_E14_cp_1].Y = expr_E14_cp_0[expr_E14_cp_1].Y + 0.5f;
+												Wiring._teleport[0].Y += 0.5f;
 												return;
 											}
 										}
@@ -899,9 +895,7 @@ namespace Terraria
 											Wiring._teleport[1].Y = (float)j;
 											if (tile.halfBrick())
 											{
-												Vector2[] expr_E8D_cp_0 = Wiring._teleport;
-												int expr_E8D_cp_1 = 1;
-												expr_E8D_cp_0[expr_E8D_cp_1].Y = expr_E8D_cp_0[expr_E8D_cp_1].Y + 0.5f;
+												Wiring._teleport[1].Y += 0.5f;
 												return;
 											}
 										}
@@ -912,13 +906,11 @@ namespace Terraria
 										{
 											if (tile.frameX < 66)
 											{
-												Tile expr_EAE = tile;
-												expr_EAE.frameX += 66;
+												tile.frameX += 66;
 											}
 											else
 											{
-												Tile expr_EC0 = tile;
-												expr_EC0.frameX -= 66;
+												tile.frameX -= 66;
 											}
 											NetMessage.SendTileSquare(-1, i, j, 1);
 											return;
@@ -953,13 +945,11 @@ namespace Terraria
 											}
 											if (flag10)
 											{
-												Tile expr_F8D = tile;
-												expr_F8D.frameX += num70;
+												tile.frameX += num70;
 											}
 											else
 											{
-												Tile expr_F9F = tile;
-												expr_F9F.frameX -= num70;
+												tile.frameX -= num70;
 											}
 											NetMessage.SendTileSquare(-1, i, j, 1);
 											return;
@@ -968,13 +958,11 @@ namespace Terraria
 										{
 											if (tile.frameX < 54)
 											{
-												Tile expr_FCB = tile;
-												expr_FCB.frameX += 54;
+												tile.frameX += 54;
 											}
 											else
 											{
-												Tile expr_FDD = tile;
-												expr_FDD.frameX -= 54;
+												tile.frameX -= 54;
 											}
 											NetMessage.SendTileSquare(-1, i, j, 1);
 											return;
@@ -1019,10 +1007,8 @@ namespace Terraria
 											{
 												num80 = -18;
 											}
-											Tile expr_110B = Main.tile[i, num79];
-											expr_110B.frameX += num80;
-											Tile expr_1129 = Main.tile[i, num79 + 1];
-											expr_1129.frameX += num80;
+											Main.tile[i, num79].frameX += num80;
+											Main.tile[i, num79 + 1].frameX += num80;
 											Wiring.SkipWire(i, num79);
 											Wiring.SkipWire(i, num79 + 1);
 											NetMessage.SendTileSquare(-1, i, j, 2);
@@ -1040,12 +1026,9 @@ namespace Terraria
 											{
 												num82 = -18;
 											}
-											Tile expr_1198 = Main.tile[i, num81];
-											expr_1198.frameX += num82;
-											Tile expr_11B6 = Main.tile[i, num81 + 1];
-											expr_11B6.frameX += num82;
-											Tile expr_11D4 = Main.tile[i, num81 + 2];
-											expr_11D4.frameX += num82;
+											Main.tile[i, num81].frameX += num82;
+											Main.tile[i, num81 + 1].frameX += num82;
+											Main.tile[i, num81 + 2].frameX += num82;
 											Wiring.SkipWire(i, num81);
 											Wiring.SkipWire(i, num81 + 1);
 											Wiring.SkipWire(i, num81 + 2);
@@ -1070,14 +1053,9 @@ namespace Terraria
 											{
 												num85 = -36;
 											}
-											Tile expr_128C = Main.tile[num84, num83];
-											expr_128C.frameX += num85;
-											Tile expr_12AB = Main.tile[num84, num83 + 1];
-											expr_12AB.frameX += num85;
-											Tile expr_12CA = Main.tile[num84 + 1, num83];
-											expr_12CA.frameX += num85;
-											Tile expr_12EB = Main.tile[num84 + 1, num83 + 1];
-											expr_12EB.frameX += num85;
+											Main.tile[num84, num83].frameX += num85;
+											Main.tile[num84 + 1, num83].frameX += num85;
+											Main.tile[num84 + 1, num83 + 1].frameX += num85;
 											Wiring.SkipWire(num84, num83);
 											Wiring.SkipWire(num84 + 1, num83);
 											Wiring.SkipWire(num84, num83 + 1);
@@ -1107,8 +1085,7 @@ namespace Terraria
 											{
 												for (int num91 = num87; num91 < num87 + 3; num91++)
 												{
-													Tile expr_13AC = Main.tile[num90, num91];
-													expr_13AC.frameX += num89;
+													Main.tile[num90, num91].frameX += num89;
 													Wiring.SkipWire(num90, num91);
 												}
 											}
@@ -1132,8 +1109,7 @@ namespace Terraria
 												{
 													num92 = -18;
 												}
-												Tile expr_142C = tile;
-												expr_142C.frameX += num92;
+												tile.frameX += num92;
 												NetMessage.SendTileSquare(-1, i, j, 3);
 												return;
 											}
@@ -1147,8 +1123,7 @@ namespace Terraria
 												}
 												for (int num95 = num93; num95 < num93 + 6; num95++)
 												{
-													Tile expr_147B = Main.tile[i, num95];
-													expr_147B.frameX += num94;
+													Main.tile[i, num95].frameX += num94;
 													Wiring.SkipWire(i, num95);
 												}
 												NetMessage.SendTileSquare(-1, i, num93 + 3, 7);
