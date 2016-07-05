@@ -12365,6 +12365,10 @@ namespace Terraria
 				}
 				if (this.velocity.Y == 0f)
 				{
+					if (this.collideY && this.oldVelocity.Y != 0f && Collision.SolidCollision(this.position, this.width, this.height))
+					{
+						this.position.X = this.position.X - (this.velocity.X + (float)this.direction);
+					}
 					if (this.ai[3] == this.position.X)
 					{
 						this.direction *= -1;
@@ -12495,6 +12499,14 @@ namespace Terraria
 				}
 				else if (this.target < 255 && ((this.direction == 1 && this.velocity.X < 3f) || (this.direction == -1 && this.velocity.X > -3f)))
 				{
+					if (this.collideX && Math.Abs(this.velocity.X) == 0.2f)
+					{
+						this.position.X = this.position.X - 1.4f * (float)this.direction;
+					}
+					if (this.collideY && this.oldVelocity.Y != 0f && Collision.SolidCollision(this.position, this.width, this.height))
+					{
+						this.position.X = this.position.X - (this.velocity.X + (float)this.direction);
+					}
 					if ((this.direction == -1 && (double)this.velocity.X < 0.1) || (this.direction == 1 && (double)this.velocity.X > -0.1))
 					{
 						this.velocity.X = this.velocity.X + 0.2f * (float)this.direction;
@@ -17938,13 +17950,17 @@ namespace Terraria
 				{
 					this.realLife = (int)this.ai[3];
 				}
-				if (this.target < 0 || this.target == 255 || Main.player[this.target].dead)
+				if (this.target < 0 || this.target == 255 || Main.player[this.target].dead || (double)Main.player[this.target].position.Y < Main.worldSurface * 16.0)
 				{
 					this.TargetClosest(true);
 				}
-				if (Main.player[this.target].dead && this.timeLeft > 300)
+				if (Main.player[this.target].dead || (double)Main.player[this.target].position.Y < Main.worldSurface * 16.0)
 				{
-					this.timeLeft = 300;
+					if (this.timeLeft > 300)
+					{
+						this.timeLeft = 300;
+					}
+					this.velocity.Y = this.velocity.Y + 0.2f;
 				}
 				if (Main.netMode != 1)
 				{
@@ -25620,6 +25636,11 @@ namespace Terraria
 							this.velocity.Y = 1f;
 						}
 						this.velocity.Y = 0f;
+						int posY = (Main.maxTilesY - 180) * 16;
+						if (num766 < (float)posY)
+						{
+							num766 = (float)posY;
+						}
 						this.position.Y = num766;
 						float num767 = 1.5f;
 						if ((double)this.life < (double)this.lifeMax * 0.75)
@@ -30696,7 +30717,19 @@ namespace Terraria
 						if (this.velocity.Y > num1081)
 						{
 							this.velocity.Y = num1081;
-							return;
+						}
+						if (this.wet)
+						{
+							if (this.velocity.Y > 0f)
+							{
+								this.velocity.Y = this.velocity.Y * 0.95f;
+							}
+							this.velocity.Y = this.velocity.Y - 0.5f;
+							if (this.velocity.Y < -4f)
+							{
+								this.velocity.Y = -4f;
+								return;
+							}
 						}
 					}
 					else if (this.aiStyle == 45)
@@ -32532,6 +32565,25 @@ namespace Terraria
 										return;
 									}
 								}
+							}
+							if (Main.player[this.target].dead || !Main.player[this.target].ZoneCrimson)
+							{
+								if (this.localAI[3] < 120f)
+								{
+									this.localAI[3] += 1f;
+								}
+								if (this.localAI[3] > 60f)
+								{
+									this.velocity.Y = this.velocity.Y + (this.localAI[3] - 60f) * 0.25f;
+								}
+								this.ai[0] = 2f;
+								this.alpha = 10;
+								return;
+							}
+							if (this.localAI[3] > 0f)
+							{
+								this.localAI[3] -= 1f;
+								return;
 							}
 						}
 						else if (this.aiStyle == 55)
@@ -36304,6 +36356,24 @@ namespace Terraria
 															}
 														}
 													}
+													if (Main.npc[num1535].ai[3] % 200f == 0f && Main.npc[num1535].ai[0] != 1f)
+													{
+														for (int num1540 = 0; num1540 < 2; num1540++)
+														{
+															if (Main.npc[(int)this.localAI[num1540]].active && Main.npc[(int)this.localAI[num1540]].type == 393)
+															{
+																Main.npc[(int)this.localAI[num1540]].netUpdate = true;
+															}
+														}
+														for (int num1541 = 2; num1541 < 4; num1541++)
+														{
+															if (Main.npc[(int)this.localAI[num1541]].active && Main.npc[(int)this.localAI[num1541]].type == 394)
+															{
+																Main.npc[(int)this.localAI[num1541]].netUpdate = true;
+															}
+														}
+														this.netUpdate = true;
+													}
 													if (flag140)
 													{
 														Main.npc[num1535].ai[0] = 1f;
@@ -37100,23 +37170,22 @@ namespace Terraria
 												this.netUpdate = true;
 												return;
 											}
-											if (this.ai[1] < 40f)
+											else if (this.ai[1] < 40f)
 											{
 												this.rotation = Vector2.UnitY.RotatedBy((double)(this.ai[1] / 40f * 6.28318548f), default(Vector2)).Y * 0.2f;
-												return;
 											}
-											if (this.ai[1] < 80f)
+											else if (this.ai[1] < 80f)
 											{
 												this.rotation = Vector2.UnitY.RotatedBy((double)(this.ai[1] / 20f * 6.28318548f), default(Vector2)).Y * 0.3f;
-												return;
 											}
-											if (this.ai[1] < 120f)
+											else if (this.ai[1] < 120f)
 											{
 												this.rotation = Vector2.UnitY.RotatedBy((double)(this.ai[1] / 10f * 6.28318548f), default(Vector2)).Y * 0.4f;
-												return;
 											}
-											this.rotation = (this.ai[1] - 120f) / 30f * 6.28318548f;
-											return;
+											else
+											{
+												this.rotation = (this.ai[1] - 120f) / 30f * 6.28318548f;
+											}
 										}
 										else if (this.ai[0] == 2f)
 										{
@@ -37205,6 +37274,29 @@ namespace Terraria
 												this.velocity.X = 8f * this.ai[2];
 											}
 											this.rotation = 0f;
+										}
+										bool flag159 = false;
+										if (this.position.Y < -100f)
+										{
+											flag159 = true;
+										}
+										if (this.position.X < -100f)
+										{
+											flag159 = true;
+										}
+										if (this.position.Y > (float)(Main.maxTilesY * 16 + 100))
+										{
+											flag159 = true;
+										}
+										if (this.position.X > (float)(Main.maxTilesX * 16 + 100))
+										{
+											flag159 = true;
+										}
+										if (flag159)
+										{
+											this.position = Vector2.Clamp(this.position, new Vector2(-100f), new Vector2(100f) + new Vector2((float)Main.maxTilesX, (float)Main.maxTilesY) * 16f);
+											this.active = false;
+											this.netUpdate = true;
 											return;
 										}
 									}
@@ -38486,9 +38578,15 @@ namespace Terraria
 										{
 											if (this.ai[0] == 0f)
 											{
+												if (this.direction == 0)
+												{
+													this.TargetClosest(true);
+													this.netUpdate = true;
+												}
 												if (this.collideX)
 												{
-													this.direction = 1 - this.direction;
+													this.direction = -this.direction;
+													this.netUpdate = true;
 												}
 												this.velocity.X = 3f * (float)((this.direction == 0) ? -1 : 1);
 												Vector2 center26 = base.Center;
