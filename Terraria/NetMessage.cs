@@ -2107,9 +2107,22 @@ namespace Terraria
 						break;
 					}
 
+					//I'm not sure what's the origin of  - 2, it's been like that since 1.2.4. Was -4 before that.
+					int length = num2 - 2;
+
+					//Fix for having negative length.
+					if (length < 0)
+					{
+						//Reset the client slot. So server won't get full at a spam attack.
+						if (bufferIndex != 256)
+							Netplay.Clients[bufferIndex].Reset();
+						break;
+					}
+						
+
 					try
 					{
-						buffer[bufferIndex].GetData(num + 2, num2 - 2);
+						buffer[bufferIndex].GetData(num + 2, length);
 						i -= num2;
 						num += num2;
 					}
