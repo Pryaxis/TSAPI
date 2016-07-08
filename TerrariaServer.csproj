@@ -135,6 +135,7 @@
     <Compile Include="TerrariaApi.Server\EventArgs\SetDefaultsEventArgs.cs" />
     <Compile Include="TerrariaApi.Server\EventArgs\SocketResetEventArgs.cs" />
     <Compile Include="TerrariaApi.Server\EventArgs\StatueSpawnEventArgs.cs" />
+    <Compile Include="TerrariaApi.Server\EventArgs\TriggerAnnouncementBoxEventArgs.cs" />
     <Compile Include="TerrariaApi.Server\EventArgs\TriggerPressurePlateEventArgs.cs" />
     <Compile Include="TerrariaApi.Server\EventArgs\UpdatePhysicsEventArgs.cs" />
     <Compile Include="TerrariaApi.Server\EventArgs\WorldSaveEventArgs.cs" />

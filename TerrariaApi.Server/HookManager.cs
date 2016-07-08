@@ -1091,5 +1091,33 @@ namespace TerrariaApi.Server
 		}
 		#endregion
 		#endregion
+
+		#region Wire Hooks
+		#region WireTriggerAnnouncementBox
+		private readonly HandlerCollection<TriggerAnnouncementBoxEventArgs> wireTriggerAnnouncementBox =
+			new HandlerCollection<TriggerAnnouncementBoxEventArgs>("WireTriggerAnnouncementBox");
+
+		public HandlerCollection<TriggerAnnouncementBoxEventArgs> WireTriggerAnnouncementBox
+		{
+			get { return this.wireTriggerAnnouncementBox; }
+		}
+
+		internal bool InvokeWireTriggerAnnouncementBox(int player, int tileX, int tileY, int signIndex, string text) 
+		{
+			TriggerAnnouncementBoxEventArgs args = new TriggerAnnouncementBoxEventArgs
+			{
+				Who = player,
+				TileX = tileX,
+				TileY = tileY,
+				Sign = signIndex,
+				Text = text
+			};
+
+			this.WireTriggerAnnouncementBox.Invoke(args);
+
+			return args.Handled;
+		}
+		#endregion
+		#endregion
 	}
 }
