@@ -350,34 +350,41 @@ namespace Terraria.ID
 
 			public static bool[] Corrupt = Factory.CreateBoolSet(new int[]
 			{
-				23,
-				25,
-				112,
-				163,
-				398,
-				400
+				CorruptGrass,
+				CorruptPlants,
+				CorruptThorns,
+				Ebonstone,
+				Ebonsand,
+				CorruptIce,
+				CorruptHardenedSand,
+				CorruptSandstone
 			});
 
 			public static bool[] Hallow = Factory.CreateBoolSet(new int[]
 			{
-				109,
-				117,
-				116,
-				164,
-				402,
-				403,
-				115
+				HallowedGrass,
+				HallowedPlants,
+				HallowedPlants2,
+				HallowedVines,
+				Pearlsand,
+				Pearlstone,
+				HallowedIce,
+				HallowHardenedSand,
+				HallowSandstone
 			});
 
 			public static bool[] Crimson = Factory.CreateBoolSet(new int[]
 			{
-				199,
-				203,
-				234,
-				200,
-				399,
-				401,
-				205
+				FleshBlock,
+				FleshGrass,
+				FleshIce,
+				FleshWeeds,
+				Crimstone,
+				CrimsonVines,
+				Crimsand,
+				CrimtaneThorns,
+				CrimsonHardenedSand,
+				CrimsonSandstone,
 			});
 
 			public static bool[] BlocksStairs = Factory.CreateBoolSet(new int[]
