@@ -6,6 +6,7 @@ using System.IO;
 using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.GameContent.Achievements;
+using Terraria.GameContent.Events;
 using Terraria.GameContent.Tile_Entities;
 using Terraria.GameContent.UI;
 using Terraria.ID;
@@ -498,7 +499,8 @@ namespace Terraria
 					Netplay.Clients[this.whoAmI].State = 10;
 					NetMessage.greetPlayer(this.whoAmI);
 					NetMessage.buffer[this.whoAmI].broadcast = true;
-					NetMessage.joinSyncPlayers(this.whoAmI);
+					NetMessage.SyncConnectedPlayer(this.whoAmI);
+					NetMessage.SyncPlayersJustInCase();
 					NetMessage.SendData(12, -1, this.whoAmI, "", this.whoAmI, 0f, 0f, 0f, 0, 0, 0);
 					NetMessage.SendData(74, this.whoAmI, -1, Main.player[this.whoAmI].name, Main.anglerQuest, 0f, 0f, 0f, 0, 0, 0);
 					return;
@@ -1603,7 +1605,7 @@ namespace Terraria
 				{
 					int num149 = this.reader.ReadByte();
 					int num150 = this.reader.ReadByte();
-					int num151 = this.reader.ReadInt16();
+					int num151 = this.reader.ReadInt32();
 					if (num149 != this.whoAmI && !Main.pvpBuff[num150])
 					{
 						return;
@@ -1673,7 +1675,7 @@ namespace Terraria
 				{
 					int num161 = this.reader.ReadInt16();
 					int num162 = this.reader.ReadInt16();
-					if (num162 >= 0 && num162 < 540 && NPCID.Sets.MPAllowedEnemies[num162])
+					if (num162 >= 0 && num162 < Main.maxNPCTypes && NPCID.Sets.MPAllowedEnemies[num162])
 					{
 						if (num162 == 75)
 						{
@@ -2136,6 +2138,29 @@ namespace Terraria
 				{
 					return;
 				}
+				case 111:
+				{
+					if (Main.netMode != 2)
+					{
+						return;
+					}
+					BirthdayParty.ToggleManualParty();
+					return;
+				}
+				case 112:
+					{
+						int num212 = (int)this.reader.ReadByte();
+						int num213 = (int)this.reader.ReadInt16();
+						int num214 = (int)this.reader.ReadInt16();
+						int num215 = (int)this.reader.ReadByte();
+						int num216 = (int)this.reader.ReadInt16();
+						if (num212 != 1)
+						{
+							return;
+						}
+						NetMessage.SendData(num1, -1, -1, "", num212, (float)num213, (float)num214, (float)num215, num216, 0, 0);
+						return;
+					}
 			}
 		}
 

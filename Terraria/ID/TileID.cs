@@ -127,11 +127,17 @@ namespace Terraria.ID
 					387,
 					386,
 					388,
-					389
+					389,
+					436,
+					435,
+					438,
+					427,
+					439,
+					437
 				};
 			}
 
-			public static SetFactory Factory = new SetFactory(446);
+			public static SetFactory Factory = new SetFactory(461);
 
 			public static bool[] Platforms = Factory.CreateBoolSet(new int[]
 			{
@@ -175,7 +181,13 @@ namespace Terraria.ID
 				261,
 				261,
 				385,
-				385
+				385,
+				446,
+				446,
+				447,
+				447,
+				448,
+				448
 			});
 
 			public static bool[] TeamTiles = Factory.CreateBoolSet(new int[]
@@ -251,7 +263,8 @@ namespace Terraria.ID
 				410,
 				411,
 				425,
-				441
+				441,
+				455
 			});
 
 			public static bool[] AllTiles = Factory.CreateBoolSet(true, new int[0]);
@@ -541,7 +554,11 @@ namespace Terraria.ID
 				411,
 				425,
 				209,
-				441
+				441,
+				452,
+				454,
+				455,
+				457
 			});
 
 			public static bool[] HousingWalls = Factory.CreateBoolSet(new int[]
@@ -1542,6 +1559,36 @@ namespace Terraria.ID
 
 		public const ushort PixelBox = 445;
 
-		public const ushort Count = 446;
+		public const ushort SillyBalloonPink = 446;
+
+		public const ushort SillyBalloonPurple = 447;
+
+		public const ushort SillyBalloonGreen = 448;
+
+		public const ushort SillyStreamerBlue = 449;
+
+		public const ushort SillyStreamerGreen = 450;
+
+		public const ushort SillyStreamerPink = 451;
+
+		public const ushort SillyBalloonMachine = 452;
+
+		public const ushort SillyBalloonTile = 453;
+
+		public const ushort Pigronata = 454;
+
+		public const ushort PartyMonolith = 455;
+
+		public const ushort PartyBundleOfBalloonTile = 456;
+
+		public const ushort PartyPresent = 457;
+
+		public const ushort SandFallBlock = 458;
+
+		public const ushort SnowFallBlock = 459;
+
+		public const ushort SnowCloud = 460;
+
+		public const ushort Count = 461;
 	}
 }

@@ -3405,7 +3405,7 @@ namespace Terraria.ObjectData
 			this.HookPostPlaceEveryone = new PlacementHook();
 			this.HookPostPlaceMyPlayer = new PlacementHook();
 			this.HookPlaceOverride = new PlacementHook();
-			this.SubTiles = new List<TileObjectData>(446);
+			this.SubTiles = new List<TileObjectData>(Main.maxTileSets);
 			this._tileObjectBase = new TileObjectBaseModule(null);
 			this._hasOwnTileObjectBase = true;
 			this.Width = 1;

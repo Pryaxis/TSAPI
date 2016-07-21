@@ -2,17 +2,17 @@ namespace Terraria.ID
 {
 	public class ItemID
 	{
-		public const short YellowPhasesaber = -24;
+		public const short YellowPhasesaberOld = -24;
 
-		public const short WhitePhasesaber = -23;
+		public const short WhitePhasesaberOld = -23;
 
-		public const short PurplePhasesaber = -22;
+		public const short PurplePhasesaberOld = -22;
 
-		public const short GreenPhasesaber = -21;
+		public const short GreenPhasesaberOld = -21;
 
-		public const short RedPhasesaber = -20;
+		public const short RedPhasesaberOld = -20;
 
-		public const short BluePhasesaber = -19;
+		public const short BluePhasesaberOld = -19;
 
 		public const short None = 0;
 
@@ -7474,7 +7474,87 @@ namespace Terraria.ID
 
 		public const short LogicSensor_Liquid = 3729;
 
-		public const short Count = 3730;
+		public const short PartyBundleOfBalloonsAccessory = 3730;
+
+		public const short PartyBalloonAnimal = 3731;
+
+		public const short PartyHat = 3732;
+
+		public const short FlowerBoyHat = 3733;
+
+		public const short FlowerBoyShirt = 3734;
+
+		public const short FlowerBoyPants = 3735;
+
+		public const short SillyBalloonPink = 3736;
+
+		public const short SillyBalloonPurple = 3737;
+
+		public const short SillyBalloonGreen = 3738;
+
+		public const short SillyStreamerBlue = 3739;
+
+		public const short SillyStreamerGreen = 3740;
+
+		public const short SillyStreamerPink = 3741;
+
+		public const short SillyBalloonMachine = 3742;
+
+		public const short SillyBalloonTiedPink = 3743;
+
+		public const short SillyBalloonTiedPurple = 3744;
+
+		public const short SillyBalloonTiedGreen = 3745;
+
+		public const short Pigronata = 3746;
+
+		public const short PartyMonolith = 3747;
+
+		public const short PartyBundleOfBalloonTile = 3748;
+
+		public const short PartyPresent = 3749;
+
+		public const short SliceOfCake = 3750;
+
+		public const short CogWall = 3751;
+
+		public const short SandFallWall = 3752;
+
+		public const short SnowFallWall = 3753;
+
+		public const short SandFallBlock = 3754;
+
+		public const short SnowFallBlock = 3755;
+
+		public const short SnowCloudBlock = 3756;
+
+		public const short PedguinHat = 3757;
+
+		public const short PedguinShirt = 3758;
+
+		public const short PedguinPants = 3759;
+
+		public const short SillyBalloonPinkWall = 3760;
+
+		public const short SillyBalloonPurpleWall = 3761;
+
+		public const short SillyBalloonGreenWall = 3762;
+
+		public const short AviatorSunglasses = 3763;
+
+		public const short BluePhasesaber = 3764;
+
+		public const short RedPhasesaber = 3765;
+
+		public const short GreenPhasesaber = 3766;
+
+		public const short PurplePhasesaber = 3767;
+
+		public const short WhitePhasesaber = 3768;
+
+		public const short YellowPhasesaber = 3769;
+
+		public const short Count = 3770;
 
 		public static bool Any(int match)
 		{
@@ -7495,7 +7575,7 @@ namespace Terraria.ID
 
 		public class Sets
 		{
-			public static SetFactory Factory = new SetFactory(3730);
+			public static SetFactory Factory = new SetFactory(3770);
 
 			public static int[] TextureCopyLoad = ItemID.Sets.Factory.CreateIntSet(-1, new int[]
 			{
@@ -7657,7 +7737,8 @@ namespace Terraria.ID
 				3345,
 				3346,
 				3273,
-				2881
+				2881,
+				3750
 			});
 			public static bool[] Explosives = ItemID.Sets.Factory.CreateBoolSet(new int[]
 			{

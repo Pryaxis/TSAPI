@@ -1827,12 +1827,26 @@ namespace Terraria
 						NPC nPC = Main.npc[i];
 						if (nPC.CanBeChasedBy(this, false))
 						{
-							float single1 = Vector2.Distance(nPC.Center, vector2);
-							if ((Vector2.Distance(vector2, vector2) > single1 && single1 < single || !flag) && Collision.CanHitLine(center, 0, 0, nPC.position, nPC.width, nPC.height))
+							Vector2 v = nPC.Center - center;
+							float num2 = v.Length();
+							if ((Vector2.Distance(vector2, center) > num2 && num2 < single) || !flag)
 							{
-								single = single1;
-								vector2 = nPC.Center;
-								flag = true;
+								bool flag2 = true;
+								float num3 = Math.Abs(v.ToRotation());
+								if (mountedPlayer.direction == 1 && (double)num3 > 1.0471975949079879)
+								{
+									flag2 = false;
+								}
+								else if (mountedPlayer.direction == -1 && (double)num3 < 2.0943951461045853)
+								{
+									flag2 = false;
+								}
+								if (Collision.CanHitLine(center, 0, 0, nPC.position, nPC.width, nPC.height) && flag2)
+								{
+										single = num2;
+										vector2 = nPC.Center;
+									flag = true;
+								}
 							}
 						}
 					}

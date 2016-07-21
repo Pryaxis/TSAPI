@@ -382,6 +382,8 @@ namespace Terraria.ID
 
 		public const int CompanionCube = 191;
 
-		public const int Count = 192;
+		public const int SugarRush = 192;
+
+		public const int Count = 193;
 	}
 }

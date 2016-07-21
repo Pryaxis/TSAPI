@@ -41,6 +41,14 @@ namespace Terraria.IO
 
 		public static bool IsWorldOnCloud;
 
+		public static bool tempPartyGenuine = false;
+
+		public static bool tempPartyManual = false;
+
+		public static int tempPartyCooldown = 0;
+
+		public static List<int> tempPartyCelebratingNPCs = new List<int>();
+
 		private static bool HasCache;
 
 		private static bool? CachedDayTime;
@@ -54,6 +62,14 @@ namespace Terraria.IO
 		private static bool? CachedEclipse;
 
 		private static int? CachedCultistDelay;
+
+		private static bool? CachedPartyGenuine = null;
+
+		private static bool? CachedPartyManual = null;
+
+		private static int? CachedPartyDaysOnCooldown = null;
+
+		private static List<int> CachedCelebratingNPCs = new List<int>();
 
 		static WorldFile()
 		{
@@ -90,6 +106,11 @@ namespace Terraria.IO
 			WorldFile.CachedBloodMoon = new bool?(Main.bloodMoon);
 			WorldFile.CachedEclipse = new bool?(Main.eclipse);
 			WorldFile.CachedCultistDelay = new int?(CultistRitual.delay);
+			WorldFile.CachedPartyGenuine = new bool?(BirthdayParty.GenuineParty);
+			WorldFile.CachedPartyManual = new bool?(BirthdayParty.ManualParty);
+			WorldFile.CachedPartyDaysOnCooldown = new int?(BirthdayParty.PartyDaysOnCooldown);
+			WorldFile.CachedCelebratingNPCs.Clear();
+			WorldFile.CachedCelebratingNPCs.AddRange(BirthdayParty.CelebratingNPCs);
 		}
 
 		public static WorldFileData CreateMetadata(string name, bool isExpertMode)
@@ -677,7 +698,7 @@ namespace Terraria.IO
 			int num1 = reader.ReadInt16();
 			for (int j = 0; j < num1; j++)
 			{
-				if (j >= 540)
+				if (j >= Main.maxNPCTypes)
 				{
 					reader.ReadInt32();
 				}
@@ -733,6 +754,23 @@ namespace Terraria.IO
 			if (NPC.TowerActiveStardust)
 			{
 				NPC.ShieldStrengthTowerStardust = NPC.ShieldStrengthTowerMax;
+			}
+			if (num < 170)
+			{
+				WorldFile.tempPartyManual = false;
+				WorldFile.tempPartyGenuine = false;
+				WorldFile.tempPartyCooldown = 0;
+				WorldFile.tempPartyCelebratingNPCs.Clear();
+				return;
+			}
+			WorldFile.tempPartyManual = reader.ReadBoolean();
+			WorldFile.tempPartyGenuine = reader.ReadBoolean();
+			WorldFile.tempPartyCooldown = reader.ReadInt32();
+			int num3 = reader.ReadInt32();
+			WorldFile.tempPartyCelebratingNPCs.Clear();
+			for (int k = 0; k < num3; k++)
+			{
+				WorldFile.tempPartyCelebratingNPCs.Add(reader.ReadInt32());
 			}
 		}
 
@@ -835,17 +873,24 @@ namespace Terraria.IO
 			List<Point16> list = new List<Point16>();
 			foreach (KeyValuePair<Point16, TileEntity> current in TileEntity.ByPosition)
 			{
-				if (current.Value.type == 0 && !TETrainingDummy.ValidTile((int)current.Value.Position.X, (int)current.Value.Position.Y))
+				if (!WorldGen.InWorld((int)current.Value.Position.X, (int)current.Value.Position.Y, 1))
 				{
 					list.Add(current.Value.Position);
 				}
-				if (current.Value.type == 2 && !TELogicSensor.ValidTile((int)current.Value.Position.X, (int)current.Value.Position.Y))
+				else
 				{
-					list.Add(current.Value.Position);
-				}
-				if (current.Value.type == 1 && !TEItemFrame.ValidTile((int)current.Value.Position.X, (int)current.Value.Position.Y))
-				{
-					list.Add(current.Value.Position);
+					if (current.Value.type == 0 && !TETrainingDummy.ValidTile((int)current.Value.Position.X, (int)current.Value.Position.Y))
+					{
+						list.Add(current.Value.Position);
+					}
+					if (current.Value.type == 2 && !TELogicSensor.ValidTile((int)current.Value.Position.X, (int)current.Value.Position.Y))
+					{
+						list.Add(current.Value.Position);
+					}
+					if (current.Value.type == 1 && !TEItemFrame.ValidTile((int)current.Value.Position.X, (int)current.Value.Position.Y))
+					{
+						list.Add(current.Value.Position);
+					}
 				}
 			}
 			try
@@ -893,7 +938,7 @@ namespace Terraria.IO
 		public static void loadWorld()
 		{
 			int num;
-			Main.CheckXMas();
+			Main.checkXMas();
 			Main.checkHalloween();
 			if (!FileUtilities.Exists(Main.worldPathName) && Main.autoGen)
 			{
@@ -1596,6 +1641,14 @@ namespace Terraria.IO
 					}
 				}
 			}
+			if (WorldFile.versionNumber >= 170)
+			{
+				WorldFile.LoadWeightedPressurePlates(reader);
+				if (reader.BaseStream.Position != (long)numArray[7])
+				{
+					return 5;
+				}
+			}
 			return WorldFile.LoadFooter(reader);
 		}
 
@@ -1901,7 +1954,7 @@ namespace Terraria.IO
 
 		private static int SaveFileFormatHeader(BinaryWriter writer)
 		{
-			short num = 446;
+			short num = Main.maxTileSets;
 			short num2 = 10;
 			writer.Write(Main.curRelease);
 			Main.WorldFileMetadata.IncrementAndWrite(writer);
@@ -2077,6 +2130,11 @@ namespace Terraria.IO
 						WorldFile.tempBloodMoon = Main.bloodMoon;
 						WorldFile.tempEclipse = Main.eclipse;
 						WorldFile.tempCultistDelay = CultistRitual.delay;
+						WorldFile.tempPartyManual = BirthdayParty.ManualParty;
+						WorldFile.tempPartyGenuine = BirthdayParty.GenuineParty;
+						WorldFile.tempPartyCooldown = BirthdayParty.PartyDaysOnCooldown;
+						WorldFile.tempPartyCelebratingNPCs.Clear();
+						WorldFile.tempPartyCelebratingNPCs.AddRange(BirthdayParty.CelebratingNPCs);
 					}
 					else
 					{
@@ -2087,6 +2145,11 @@ namespace Terraria.IO
 						WorldFile.tempBloodMoon = WorldFile.CachedBloodMoon.Value;
 						WorldFile.tempEclipse = WorldFile.CachedEclipse.Value;
 						WorldFile.tempCultistDelay = WorldFile.CachedCultistDelay.Value;
+						WorldFile.tempPartyManual = WorldFile.CachedPartyManual.Value;
+						WorldFile.tempPartyGenuine = WorldFile.CachedPartyGenuine.Value;
+						WorldFile.tempPartyCooldown = WorldFile.CachedPartyDaysOnCooldown.Value;
+						WorldFile.tempPartyCelebratingNPCs.Clear();
+						WorldFile.tempPartyCelebratingNPCs.AddRange(WorldFile.CachedCelebratingNPCs);
 					}
 					if (resetTime)
 					{
@@ -2152,21 +2215,17 @@ namespace Terraria.IO
 
 		public static void SaveWorld_Version2(BinaryWriter writer)
 		{
-			int[] numArray = new int[] 
-			{ 
-				WorldFile.SaveFileFormatHeader(writer),
-				WorldFile.SaveWorldHeader(writer), 
-				WorldFile.SaveWorldTiles(writer), 
-				WorldFile.SaveChests(writer), 
-				WorldFile.SaveSigns(writer), 
-				WorldFile.SaveNPCs(writer),
-				WorldFile.SaveTileEntities(writer),
-				0,
-				0, 
-				0 
-			};
+			int[] array = new int[10];
+			array[0] = WorldFile.SaveFileFormatHeader(writer);
+			array[1] = WorldFile.SaveWorldHeader(writer);
+			array[2] = WorldFile.SaveWorldTiles(writer);
+			array[3] = WorldFile.SaveChests(writer);
+			array[4] = WorldFile.SaveSigns(writer);
+			array[5] = WorldFile.SaveNPCs(writer);
+			array[6] = WorldFile.SaveTileEntities(writer);
+			array[7] = WorldFile.SaveWeightedPressurePlates(writer);
 			WorldFile.SaveFooter(writer);
-			WorldFile.SaveHeaderPointers(writer, numArray);
+			WorldFile.SaveHeaderPointers(writer, array);
 		}
 
 		private static int SaveWorldHeader(BinaryWriter writer)
@@ -2268,8 +2327,8 @@ namespace Terraria.IO
 			writer.Write(NPC.savedTaxCollector);
 			writer.Write(Main.invasionSizeStart);
 			writer.Write(WorldFile.tempCultistDelay);
-			writer.Write((short)540);
-			for (int j = 0; j < 540; j++)
+			writer.Write((short)Main.maxNPCTypes);
+			for (int j = 0; j < Main.maxNPCTypes; j++)
 			{
 				writer.Write(NPC.killCount[j]);
 			}
@@ -2292,6 +2351,14 @@ namespace Terraria.IO
 			writer.Write(NPC.TowerActiveNebula);
 			writer.Write(NPC.TowerActiveStardust);
 			writer.Write(NPC.LunarApocalypseIsUp);
+			writer.Write(WorldFile.tempPartyManual);
+			writer.Write(WorldFile.tempPartyGenuine);
+			writer.Write(WorldFile.tempPartyCooldown);
+			writer.Write(WorldFile.tempPartyCelebratingNPCs.Count);
+			for (int k = 0; k < WorldFile.tempPartyCelebratingNPCs.Count; k++)
+			{
+				writer.Write(WorldFile.tempPartyCelebratingNPCs[k]);
+			}
 			return (int)writer.BaseStream.Position;
 		}
 
@@ -2483,134 +2550,160 @@ namespace Terraria.IO
 
 		public static bool validateWorld(BinaryReader fileIO)
 		{
-			bool[] flagArray;
-			int[] numArray;
-			byte num;
-			int num1;
-			int num2;
-			bool n;
-			bool flag;
+			Stopwatch stopwatch = new Stopwatch();
+			stopwatch.Start();
 			if (WorldGen.genRand == null)
 			{
 				WorldGen.genRand = new Random((int)DateTime.Now.Ticks);
 			}
+			bool result;
 			try
 			{
 				Stream baseStream = fileIO.BaseStream;
-				int num3 = fileIO.ReadInt32();
-				if (num3 == 0 || num3 > Main.curRelease)
+				int num = fileIO.ReadInt32();
+				if (num == 0 || num > Main.curRelease)
 				{
-					flag = false;
+					result = false;
 				}
 				else
 				{
-					baseStream.Position = (long)0;
-					if (WorldFile.LoadFileFormatHeader(fileIO, out flagArray, out numArray))
+					baseStream.Position = 0L;
+					bool[] array;
+					int[] array2;
+					if (!WorldFile.LoadFileFormatHeader(fileIO, out array, out array2))
 					{
-						string str = fileIO.ReadString();
+						result = false;
+					}
+					else
+					{
+						string b = fileIO.ReadString();
+						int num2 = fileIO.ReadInt32();
+						fileIO.ReadInt32();
+						fileIO.ReadInt32();
+						fileIO.ReadInt32();
+						fileIO.ReadInt32();
+						int num3 = fileIO.ReadInt32();
 						int num4 = fileIO.ReadInt32();
-						fileIO.ReadInt32();
-						fileIO.ReadInt32();
-						fileIO.ReadInt32();
-						fileIO.ReadInt32();
-						int num5 = fileIO.ReadInt32();
-						int num6 = fileIO.ReadInt32();
-						baseStream.Position = (long)numArray[1];
-						for (int i = 0; i < num6; i++)
+						baseStream.Position = (long)array2[1];
+						for (int i = 0; i < num4; i++)
 						{
-							float single = (float)i / (float)Main.maxTilesX;
-							object[] objArray = new object[] { Lang.gen[73], " ", (int)(single * 100f + 1f), "%" };
-							Main.statusText = string.Concat(objArray);
-							for (int j = 0; j < num5; j++)
+							float num5 = (float)i / (float)Main.maxTilesX;
+							Main.statusText = string.Concat(new object[]
 							{
-								int num7 = 0;
-								byte num8 = (byte)num7;
-								byte num9 = (byte)num7;
-								byte num10 = fileIO.ReadByte();
-								if ((num10 & 1) == 1 && (fileIO.ReadByte() & 1) == 1)
+								Lang.gen[73],
+								" ",
+								(int)(num5 * 100f + 1f),
+								"%"
+							});
+							for (int j = 0; j < num3; j++)
+							{
+								byte b2 = 0;
+								byte b3 = fileIO.ReadByte();
+								if ((b3 & 1) == 1)
 								{
-									num8 = fileIO.ReadByte();
-								}
-								if ((num10 & 2) == 2)
-								{
-									if ((num10 & 32) != 32)
+									byte b4 = fileIO.ReadByte();
+									if ((b4 & 1) == 1)
 									{
-										num1 = fileIO.ReadByte();
+										b2 = fileIO.ReadByte();
+									}
+								}
+								byte b5;
+								if ((b3 & 2) == 2)
+								{
+									int num6;
+									if ((b3 & 32) == 32)
+									{
+										b5 = fileIO.ReadByte();
+										num6 = (int)fileIO.ReadByte();
+										num6 = (num6 << 8 | (int)b5);
 									}
 									else
 									{
-										num = fileIO.ReadByte();
-										num1 = fileIO.ReadByte();
-										num1 = num1 << 8 | num;
+										num6 = (int)fileIO.ReadByte();
 									}
-									if (flagArray[num1])
+									if (array[num6])
 									{
 										fileIO.ReadInt16();
 										fileIO.ReadInt16();
 									}
-									if ((num8 & 8) == 8)
+									if ((b2 & 8) == 8)
 									{
 										fileIO.ReadByte();
 									}
 								}
-								if ((num10 & 4) == 4)
+								if ((b3 & 4) == 4)
 								{
 									fileIO.ReadByte();
-									if ((num8 & 16) == 16)
+									if ((b2 & 16) == 16)
 									{
 										fileIO.ReadByte();
 									}
 								}
-								if ((num10 & 24) >> 3 != 0)
+								if ((b3 & 24) >> 3 != 0)
 								{
 									fileIO.ReadByte();
 								}
-								num = (byte)((num10 & 192) >> 6);
-								if (num == 0)
+								b5 = (byte)((b3 & 192) >> 6);
+								int num7;
+								if (b5 == 0)
 								{
-									num2 = 0;
+									num7 = 0;
 								}
-								else if (num != 1)
+								else if (b5 == 1)
 								{
-									num2 = fileIO.ReadInt16();
+									num7 = (int)fileIO.ReadByte();
 								}
 								else
 								{
-									num2 = fileIO.ReadByte();
+									num7 = (int)fileIO.ReadInt16();
 								}
-								j = j + num2;
+								j += num7;
 							}
 						}
-						if (baseStream.Position == (long)numArray[2])
+						if (baseStream.Position != (long)array2[2])
 						{
-							int num11 = fileIO.ReadInt16();
-							int num12 = fileIO.ReadInt16();
-							for (int k = 0; k < num11; k++)
+							result = false;
+						}
+						else
+						{
+							int num8 = (int)fileIO.ReadInt16();
+							int num9 = (int)fileIO.ReadInt16();
+							for (int k = 0; k < num8; k++)
 							{
 								fileIO.ReadInt32();
 								fileIO.ReadInt32();
 								fileIO.ReadString();
-								for (int l = 0; l < num12; l++)
+								for (int l = 0; l < num9; l++)
 								{
-									if (fileIO.ReadInt16() > 0)
+									int num10 = (int)fileIO.ReadInt16();
+									if (num10 > 0)
 									{
 										fileIO.ReadInt32();
 										fileIO.ReadByte();
 									}
 								}
 							}
-							if (baseStream.Position == (long)numArray[3])
+							if (baseStream.Position != (long)array2[3])
 							{
-								int num13 = fileIO.ReadInt16();
-								for (int m = 0; m < num13; m++)
+								result = false;
+							}
+							else
+							{
+								int num11 = (int)fileIO.ReadInt16();
+								for (int m = 0; m < num11; m++)
 								{
 									fileIO.ReadString();
 									fileIO.ReadInt32();
 									fileIO.ReadInt32();
 								}
-								if (baseStream.Position == (long)numArray[4])
+								if (baseStream.Position != (long)array2[4])
 								{
-									for (n = fileIO.ReadBoolean(); n; n = fileIO.ReadBoolean())
+									result = false;
+								}
+								else
+								{
+									bool flag = fileIO.ReadBoolean();
+									while (flag)
 									{
 										fileIO.ReadString();
 										fileIO.ReadString();
@@ -2619,70 +2712,65 @@ namespace Terraria.IO
 										fileIO.ReadBoolean();
 										fileIO.ReadInt32();
 										fileIO.ReadInt32();
+										flag = fileIO.ReadBoolean();
 									}
-									for (n = fileIO.ReadBoolean(); n; n = fileIO.ReadBoolean())
+									flag = fileIO.ReadBoolean();
+									while (flag)
 									{
 										fileIO.ReadString();
 										fileIO.ReadSingle();
 										fileIO.ReadSingle();
+										flag = fileIO.ReadBoolean();
 									}
-									if (baseStream.Position == (long)numArray[5])
+									if (baseStream.Position != (long)array2[5])
+									{
+										result = false;
+									}
+									else
 									{
 										if (WorldFile.versionNumber >= 116 && WorldFile.versionNumber <= 121)
 										{
-											int num14 = fileIO.ReadInt32();
-											for (int o = 0; o < num14; o++)
+											int num12 = fileIO.ReadInt32();
+											for (int n = 0; n < num12; n++)
 											{
 												fileIO.ReadInt16();
 												fileIO.ReadInt16();
 											}
-											if (baseStream.Position != (long)numArray[6])
+											if (baseStream.Position != (long)array2[6])
 											{
-												flag = false;
-												return flag;
+												result = false;
+												return result;
 											}
 										}
 										if (WorldFile.versionNumber >= 122)
 										{
-											int num15 = fileIO.ReadInt32();
-											for (int p = 0; p < num15; p++)
+											int num13 = fileIO.ReadInt32();
+											for (int num14 = 0; num14 < num13; num14++)
 											{
-												TileEntity.Read(fileIO);
+												TileEntity.Read(fileIO, false);
 											}
 										}
-										bool flag1 = fileIO.ReadBoolean();
-										string str1 = fileIO.ReadString();
-										int num16 = fileIO.ReadInt32();
-										bool flag2 = false;
-										if (flag1 && (str1 == str || num16 == num4))
+										if (WorldFile.versionNumber >= 170)
 										{
-											flag2 = true;
+											int num15 = fileIO.ReadInt32();
+											for (int num16 = 0; num16 < num15; num16++)
+											{
+												fileIO.ReadInt64();
+											}
 										}
-										flag = flag2;
-									}
-									else
-									{
-										flag = false;
+										bool flag2 = fileIO.ReadBoolean();
+										string a = fileIO.ReadString();
+										int num17 = fileIO.ReadInt32();
+										bool flag3 = false;
+										if (flag2 && (a == b || num17 == num2))
+										{
+											flag3 = true;
+										}
+										result = flag3;
 									}
 								}
-								else
-								{
-									flag = false;
-								}
-							}
-							else
-							{
-								flag = false;
 							}
 						}
-						else
-						{
-							flag = false;
-						}
-					}
-					else
-					{
-						flag = false;
 					}
 				}
 			}
@@ -2695,9 +2783,9 @@ namespace Terraria.IO
 					streamWriter.WriteLine(exception);
 					streamWriter.WriteLine("");
 				}
-				flag = false;
+				result = false;
 			}
-			return flag;
+			return result;
 		}
 
 		public static event Action OnWorldLoad;

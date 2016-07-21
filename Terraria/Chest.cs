@@ -2,6 +2,7 @@
 using System;
 using Terraria.DataStructures;
 using Terraria.GameContent.Achievements;
+using Terraria.GameContent.Events;
 using Terraria.ObjectData;
 
 namespace Terraria
@@ -1099,6 +1100,14 @@ namespace Terraria
 					num = num17 + 1;
 					this.item[num17].SetDefaults(3247, false);
 				}
+				if (BirthdayParty.PartyIsUp)
+				{
+					this.item[num++].SetDefaults(3730, false);
+					this.item[num++].SetDefaults(3731, false);
+					this.item[num++].SetDefaults(3733, false);
+					this.item[num++].SetDefaults(3734, false);
+					this.item[num++].SetDefaults(3735, false);
+				}
 			}
 			else if (type == 6)
 			{
@@ -1388,6 +1397,23 @@ namespace Terraria
 					num++;
 					this.item[num].SetDefaults(973, false);
 					num++;
+				}
+				this.item[num++].SetDefaults(3747, false);
+				this.item[num++].SetDefaults(3732, false);
+				this.item[num++].SetDefaults(3742, false);
+				if (BirthdayParty.PartyIsUp)
+				{
+					this.item[num++].SetDefaults(3749, false);
+					this.item[num++].SetDefaults(3746, false);
+					this.item[num++].SetDefaults(3739, false);
+					this.item[num++].SetDefaults(3740, false);
+					this.item[num++].SetDefaults(3741, false);
+					this.item[num++].SetDefaults(3737, false);
+					this.item[num++].SetDefaults(3738, false);
+					this.item[num++].SetDefaults(3736, false);
+					this.item[num++].SetDefaults(3745, false);
+					this.item[num++].SetDefaults(3744, false);
+					this.item[num++].SetDefaults(3743, false);
 				}
 			}
 			else if (type == 14)
