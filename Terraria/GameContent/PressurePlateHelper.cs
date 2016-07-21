@@ -24,6 +24,7 @@ namespace Terraria.GameContent
 				PressurePlateHelper.PokeLocation(current);
 			}
 			PressurePlateHelper.PressurePlatesPressed.Clear();
+			PressurePlateHelper.NeedsFirstUpdate = false;
 		}
 
 		public static void Reset()

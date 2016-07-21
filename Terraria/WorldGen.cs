@@ -34060,6 +34060,10 @@ namespace Terraria
 					{
 						num4 = 3752;
 					}
+					if (tile.wall == 227)
+					{
+						num4 = 3753;
+					}
 					if (tile.wall == 228)
 					{
 						num4 = 3760;
