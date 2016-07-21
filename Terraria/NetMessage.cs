@@ -9,6 +9,7 @@ using Terraria.IO;
 using Terraria.Net.Sockets;
 using TerrariaApi.Server;
 using System.Text;
+using Terraria.GameContent.Events;
 
 namespace Terraria
 {
@@ -265,6 +266,12 @@ namespace Terraria
 					bb7[4] = NPC.downedChristmasSantank;
 					bb7[5] = NPC.downedChristmasTree;
 					bb7[6] = NPC.downedGolemBoss; 
+					bb7[7] = BirthdayParty.PartyIsUp;
+					BitsByte bb8 = 0;
+					bb8[0] = NPC.downedPirates;
+					bb8[1] = NPC.downedFrost;
+					bb8[2] = NPC.downedGoblins;
+					writer.Write(bb8);
 					writer.Write(bb7);
 					writer.Write((sbyte) Main.invasionType);
 					writer.Write(Main.LobbyId);
@@ -549,7 +556,6 @@ namespace Terraria
 					writer.Write((byte) number2);
 					break;
 				case 25:
-				case 107:
 					if (remoteClient == -1
 						&& ServerApi.Hooks.InvokeServerBroadcast(ref text, ref number2, ref number3, ref number4))
 					{
@@ -790,7 +796,7 @@ namespace Terraria
 				case 55:
 					writer.Write((byte) number);
 					writer.Write((byte) number2);
-					writer.Write((short) number3);
+					writer.Write((int) number3);
 					break;
 				case 56:
 				{
@@ -1130,6 +1136,14 @@ namespace Terraria
 						writer.Write(halfVector.PackedValue);
 						break;
 					}
+				case 107:
+					writer.Write((byte)number);
+					writer.Write((byte)number2);
+					writer.Write((byte)number3);
+					writer.Write((byte)number4);
+					writer.Write(text);
+					writer.Write((short)number5);
+					break;
 				case 108:
 					writer.Write((short) number);
 					writer.Write(number2);
@@ -1150,6 +1164,13 @@ namespace Terraria
 					writer.Write((short) number);
 					writer.Write((short) number2);
 					writer.Write((byte) number3);
+					break;
+				case 112:
+					writer.Write((byte)number);
+					writer.Write((short)number2);
+					writer.Write((short)number3);
+					writer.Write((byte)number4);
+					writer.Write((short)number5);
 					break;
 			}
 			int num19 = (int) writer.BaseStream.Position;
@@ -2314,268 +2335,143 @@ namespace Terraria
 				}
 			}
 		}
-
-		public static void UpdateJoiningPlayer(int joiningPlayer)
+		public static void SyncDisconnectedPlayer(int plr)
 		{
-			int index = joiningPlayer;
-
-			for (int sender = 0; sender < 255; sender++)
-			{
-				if (sender == index)
-					continue;
-				int num2 = 0;
-				if (Main.player[sender].active)
-				{
-					num2 = 1;
-				}
-
-				SendData((int)PacketTypes.PlayerActive, index, sender, "", sender, (float)num2, 0f, 0f, 0, 0, 0);
-
-				SendData((int)PacketTypes.PlayerInfo, index, sender, Main.player[sender].name, sender, 0f, 0f, 0f, 0, 0, 0);
-				SendData((int)PacketTypes.PlayerUpdate, index, sender, "", sender, 0f, 0f, 0f, 0, 0, 0);
-				SendData((int)PacketTypes.PlayerHp, index, sender, "", sender, 0f, 0f, 0f, 0, 0, 0);
-				SendData((int)PacketTypes.TogglePvp, index, sender, "", sender, 0f, 0f, 0f, 0, 0, 0);
-				SendData((int)PacketTypes.PlayerTeam, index, sender, "", sender, 0f, 0f, 0f, 0, 0, 0);
-				SendData((int)PacketTypes.PlayerMana, index, sender, "", sender, 0f, 0f, 0f, 0, 0, 0);
-				SendData((int)PacketTypes.PlayerBuff, index, sender, "", sender, 0f, 0f, 0f, 0, 0, 0);
-
-				if (Main.player[sender].inventory[0].name != "")
-				{
-					SendData((int)PacketTypes.PlayerSlot, index, sender, Main.player[sender].inventory[0].name, sender, (float)0,
-					(float)Main.player[sender].inventory[0].prefix, 0f, 0, 0, 0);
-				}
-				for (int slot = 0; slot < Main.player[sender].armor.Length; slot++)
-				{
-					if (Main.player[sender].armor[slot].name != "")
-					{
-						SendData((int)PacketTypes.PlayerSlot, index, sender, Main.player[sender].armor[slot].name, sender, (float)(59 + slot),
-						(float)Main.player[sender].armor[slot].prefix, 0f, 0, 0, 0);
-					}
-
-				}
-				for (int slot = 0; slot < Main.player[sender].dye.Length; slot++)
-				{
-					if (Main.player[sender].dye[slot].name != "")
-					{
-						SendData((int)PacketTypes.PlayerSlot, index, sender, Main.player[sender].dye[slot].name, sender, (float)(58 + Main.player[sender].armor.Length + 1 + slot),
-							(float)Main.player[sender].dye[slot].prefix, 0f, 0, 0, 0);
-					}
-
-				}
-				for (int slot = 0; slot < Main.player[sender].miscEquips.Length; slot++)
-				{
-					if (Main.player[sender].miscEquips[slot].name != "")
-					{
-						SendData((int)PacketTypes.PlayerSlot, index, sender, "", sender,
-							(float)(58 + Main.player[sender].armor.Length + Main.player[sender].dye.Length + 1 + slot),
-							(float)Main.player[sender].miscEquips[slot].prefix, 0f, 0, 0, 0);
-					}
-
-				}
-				for (int slot = 0; slot < Main.player[sender].miscDyes.Length; slot++)
-				{
-					if (Main.player[sender].miscDyes[slot].name != "")
-					{
-						SendData((int)PacketTypes.PlayerSlot, index, sender, "", sender,
-						(float)
-							(58 + Main.player[sender].armor.Length + Main.player[sender].dye.Length + Main.player[sender].miscEquips.Length + 1 + slot),
-						(float)Main.player[sender].miscDyes[slot].prefix, 0f, 0, 0, 0);
-					}
-				}
-			}
+			NetMessage.SyncOnePlayer(plr, -1, plr);
+			NetMessage.EnsureLocalPlayerIsPresent();
 		}
-		public static void joinSyncPlayers(int joiningPlayer)
+		public static void SyncConnectedPlayer(int plr)
 		{
-			int index = joiningPlayer;
-
-			int active = 0;
-			if (Main.player[index].active)
+			NetMessage.SyncOnePlayer(plr, -1, plr);
+			for (int i = 0; i < 255; i++)
 			{
-				active = 1;
-			}
-
-			SendData((int)PacketTypes.PlayerActive, -1, index, "", index, (float)active, 0f, 0f, 0, 0, 0);
-
-			SendData((int)PacketTypes.PlayerInfo, -1, index, Main.player[index].name, index, 0f, 0f, 0f, 0, 0, 0);
-			SendData((int)PacketTypes.PlayerUpdate, -1, index, "", index, 0f, 0f, 0f, 0, 0, 0);
-			SendData((int)PacketTypes.PlayerHp, -1, index, "", index, 0f, 0f, 0f, 0, 0, 0);
-			SendData((int)PacketTypes.TogglePvp, -1, index, "", index, 0f, 0f, 0f, 0, 0, 0);
-			SendData((int)PacketTypes.PlayerTeam, -1, index, "", index, 0f, 0f, 0f, 0, 0, 0);
-			SendData((int)PacketTypes.PlayerMana, -1, index, "", index, 0f, 0f, 0f, 0, 0, 0);
-			SendData((int)PacketTypes.PlayerBuff, -1, index, "", index, 0f, 0f, 0f, 0, 0, 0);
-
-
-
-			if (Main.player[index].inventory[0].name != "")
-			{
-				SendData((int)PacketTypes.PlayerSlot, -1, index, Main.player[index].inventory[0].name, index, (float)0,
-				(float)Main.player[index].inventory[0].prefix, 0f, 0, 0, 0);
-			}
-			for (int slot = 0; slot < Main.player[index].armor.Length; slot++)
-			{
-				if (Main.player[index].armor[slot].name != "")
+				if (plr != i)
 				{
-					SendData((int)PacketTypes.PlayerSlot, -1, index, Main.player[index].armor[slot].name, index, (float)(59 + slot),
-					(float)Main.player[index].armor[slot].prefix, 0f, 0, 0, 0);
-				}
-
-			}
-			for (int slot = 0; slot < Main.player[index].dye.Length; slot++)
-			{
-				if (Main.player[index].dye[slot].name != "")
-				{
-					SendData((int)PacketTypes.PlayerSlot, -1, index, Main.player[index].dye[slot].name, index, (float)(58 + Main.player[index].armor.Length + 1 + slot),
-						(float)Main.player[index].dye[slot].prefix, 0f, 0, 0, 0);
-				}
-
-			}
-			for (int slot = 0; slot < Main.player[index].miscEquips.Length; slot++)
-			{
-				if (Main.player[index].miscEquips[slot].name != "")
-				{
-					SendData((int)PacketTypes.PlayerSlot, -1, index, "", index,
-						(float)(58 + Main.player[index].armor.Length + Main.player[index].dye.Length + 1 + slot),
-						(float)Main.player[index].miscEquips[slot].prefix, 0f, 0, 0, 0);
-				}
-
-			}
-			for (int n = 0; n < Main.player[index].miscDyes.Length; n++)
-			{
-				if (Main.player[index].miscDyes[n].name != "")
-				{
-					SendData((int)PacketTypes.PlayerSlot, -1, index, "", index,
-					(float)
-						(58 + Main.player[index].armor.Length + Main.player[index].dye.Length + Main.player[index].miscEquips.Length + 1 + n),
-					(float)Main.player[index].miscDyes[n].prefix, 0f, 0, 0, 0);
+					NetMessage.SyncOnePlayer(i, plr, -1);
 				}
 			}
-
-			UpdateJoiningPlayer(joiningPlayer);
+			NetMessage.SendNPCHousesAndTravelShop();
+			NetMessage.SendAnglerQuest();
+			NetMessage.EnsureLocalPlayerIsPresent();
 		}
-
-		public static void syncPlayers(bool sendInventory = true, bool sendPlayerActive = true, bool sendPlayerInfo = true, bool ghostUpdate = true, int leavingPlayer = -1)
+		public static void SyncPlayersJustInCase()
+		{
+			for (int i = 0; i < 255; i++)
+			{
+				NetMessage.SyncOnePlayer(i, -1, i);
+			}
+			NetMessage.SendNPCHousesAndTravelShop();
+			NetMessage.SendAnglerQuest();
+			NetMessage.EnsureLocalPlayerIsPresent();
+		}
+		private static void SendNPCHousesAndTravelShop()
 		{
 			bool flag = false;
-			for (int index = 0; index < 255; index++)
+			for (int i = 0; i < 200; i++)
 			{
-				int num = 0;
-				if (Main.player[index].active)
+				if (Main.npc[i].active && Main.npc[i].townNPC && NPC.TypeToNum(Main.npc[i].type) != -1)
 				{
-					num = 1;
-				}
-				if (Netplay.Clients[index].State == 10)
-				{
-					if (Main.autoShutdown && !flag && Netplay.Clients[index].Socket.GetRemoteAddress().IsLocalHost())
+					if (!flag && Main.npc[i].type == 368)
 					{
 						flag = true;
 					}
-
-					if (sendPlayerActive)
+					int num = 0;
+					if (Main.npc[i].homeless)
 					{
-						SendData((int)PacketTypes.PlayerActive, -1, index, "", index, (float) num, 0f, 0f, 0, 0, 0);
+						num = 1;
 					}
-
-					if (sendPlayerInfo)
-					{
-						SendData((int)PacketTypes.PlayerInfo, -1, index, Main.player[index].name, index, 0f, 0f, 0f, 0, 0, 0);
-						SendData((int)PacketTypes.PlayerUpdate, -1, index, "", index, 0f, 0f, 0f, 0, 0, 0);
-						SendData((int)PacketTypes.PlayerHp, -1, index, "", index, 0f, 0f, 0f, 0, 0, 0);
-						SendData((int)PacketTypes.TogglePvp, -1, index, "", index, 0f, 0f, 0f, 0, 0, 0);
-						SendData((int)PacketTypes.PlayerTeam, -1, index, "", index, 0f, 0f, 0f, 0, 0, 0);
-						SendData((int)PacketTypes.PlayerMana, -1, index, "", index, 0f, 0f, 0f, 0, 0, 0);
-						SendData((int)PacketTypes.PlayerBuff, -1, index, "", index, 0f, 0f, 0f, 0, 0, 0);
-					}
-
-					if (sendInventory)
-					{
-						//Sending first slot. This is okay when joining. Since held item is always first slot.
-						//But what's the point in sending first slot in UpdateServer every interval?
-						if (Main.player[index].inventory[0].name != "")
-						{
-							SendData((int)PacketTypes.PlayerSlot, -1, index, Main.player[index].inventory[0].name, index, (float)0,
-							(float)Main.player[index].inventory[0].prefix, 0f, 0, 0, 0);
-						}
-						for (int slot = 0; slot < Main.player[index].armor.Length; slot++)
-						{
-							if (Main.player[index].armor[slot].name != "")
-							{
-								SendData((int)PacketTypes.PlayerSlot, -1, index, Main.player[index].armor[slot].name, index, (float)(59 + slot),
-								(float)Main.player[index].armor[slot].prefix, 0f, 0, 0, 0);
-							}
-						}
-						for (int slot = 0; slot < Main.player[index].dye.Length; slot++)
-						{
-							if (Main.player[index].dye[slot].name != "")
-							{
-								SendData((int)PacketTypes.PlayerSlot, -1, index, Main.player[index].dye[slot].name, index, (float)(58 + Main.player[index].armor.Length + 1 + slot),
-									(float)Main.player[index].dye[slot].prefix, 0f, 0, 0, 0);
-							}
-						}
-						for (int slot = 0; slot < Main.player[index].miscEquips.Length; slot++)
-						{
-							if (Main.player[index].miscEquips[slot].name != "")
-							{
-								SendData((int)PacketTypes.PlayerSlot, -1, index, "", index,
-									(float)(58 + Main.player[index].armor.Length + Main.player[index].dye.Length + 1 + slot),
-									(float)Main.player[index].miscEquips[slot].prefix, 0f, 0, 0, 0);
-							}
-						}
-						for (int slot = 0; slot < Main.player[index].miscDyes.Length; slot++)
-						{
-							if (Main.player[index].miscDyes[slot].name != "")
-							{
-								SendData((int)PacketTypes.PlayerSlot, -1, index, "", index,
-								(float)
-									(58 + Main.player[index].armor.Length + Main.player[index].dye.Length + Main.player[index].miscEquips.Length + 1 + slot),
-								(float)Main.player[index].miscDyes[slot].prefix, 0f, 0, 0, 0);
-							}
-						}
-					}
-					if (!Netplay.Clients[index].IsAnnouncementCompleted)
-					{
-						Netplay.Clients[index].IsAnnouncementCompleted = true;
-					}
+					NetMessage.SendData(60, -1, -1, "", i, (float)Main.npc[i].homeTileX, (float)Main.npc[i].homeTileY, (float)num, 0, 0, 0);
 				}
-				else
+			}
+			if (flag)
+			{
+				NetMessage.SendTravelShop();
+			}
+		}
+		private static void EnsureLocalPlayerIsPresent()
+		{
+			if (!Main.autoShutdown)
+			{
+				return;
+			}
+			bool flag = false;
+			for (int i = 0; i < 255; i++)
+			{
+				if (Netplay.Clients[i].State == 10 && Netplay.Clients[i].Socket.GetRemoteAddress().IsLocalHost())
 				{
-					num = 0;
-					if (ghostUpdate && leavingPlayer == -1)
-						SendData((int)PacketTypes.PlayerActive, -1, index, "", index, (float)num, 0f, 0f, 0, 0, 0);
-					if (Netplay.Clients[index].IsAnnouncementCompleted)
-					{
-						Netplay.Clients[index].IsAnnouncementCompleted = false;
-						Netplay.Clients[index].Name = "Anonymous";
-					}
+					flag = true;
+					break;
 				}
 			}
-			if (ghostUpdate && leavingPlayer != -1)
-				SendData((int)PacketTypes.PlayerActive, -1, leavingPlayer, "", leavingPlayer, 0, 0f, 0f, 0, 0, 0);
-			bool flag2 = false;
-			for (int npcIndex = 0; npcIndex < 200; npcIndex++)
+			if (!flag)
 			{
-				if (Main.npc[npcIndex].active && Main.npc[npcIndex].townNPC && NPC.TypeToNum(Main.npc[npcIndex].type) != -1)
-				{
-					if (!flag2 && Main.npc[npcIndex].type == 368)
-					{
-						flag2 = true;
-					}
-					int num6 = 0;
-					if (Main.npc[npcIndex].homeless)
-					{
-						num6 = 1;
-					}
-					SendData((int)PacketTypes.UpdateNPCHome, -1, -1, "", npcIndex, (float)Main.npc[npcIndex].homeTileX, (float)Main.npc[npcIndex].homeTileY, (float)num6, 0, 0, 0);
-				}
-			}
-			if (flag2)
-			{
-				SendTravelShop();
-			}
-			SendAnglerQuest();
-			if (Main.autoShutdown && !flag)
-			{
+				Console.WriteLine("Local player left. Autoshutdown starting.");
 				WorldFile.saveWorld();
 				Netplay.disconnect = true;
+			}
+		}
+		private static void SyncOnePlayer(int plr, int toWho, int fromWho)
+		{
+			int num = 0;
+			if (Main.player[plr].active)
+			{
+				num = 1;
+			}
+			if (Netplay.Clients[plr].State == 10)
+			{
+				NetMessage.SendData(14, toWho, fromWho, "", plr, (float)num, 0f, 0f, 0, 0, 0);
+				NetMessage.SendData(4, toWho, fromWho, Main.player[plr].name, plr, 0f, 0f, 0f, 0, 0, 0);
+				NetMessage.SendData(13, toWho, fromWho, "", plr, 0f, 0f, 0f, 0, 0, 0);
+				NetMessage.SendData(16, toWho, fromWho, "", plr, 0f, 0f, 0f, 0, 0, 0);
+				NetMessage.SendData(30, toWho, fromWho, "", plr, 0f, 0f, 0f, 0, 0, 0);
+				NetMessage.SendData(45, toWho, fromWho, "", plr, 0f, 0f, 0f, 0, 0, 0);
+				NetMessage.SendData(42, toWho, fromWho, "", plr, 0f, 0f, 0f, 0, 0, 0);
+				NetMessage.SendData(50, toWho, fromWho, "", plr, 0f, 0f, 0f, 0, 0, 0);
+				for (int i = 0; i < 59; i++)
+				{
+					NetMessage.SendData(5, toWho, fromWho, Main.player[plr].inventory[i].name, plr, (float)i, (float)Main.player[plr].inventory[i].prefix, 0f, 0, 0, 0);
+				}
+				for (int j = 0; j < Main.player[plr].armor.Length; j++)
+				{
+					NetMessage.SendData(5, toWho, fromWho, Main.player[plr].armor[j].name, plr, (float)(59 + j), (float)Main.player[plr].armor[j].prefix, 0f, 0, 0, 0);
+				}
+				for (int k = 0; k < Main.player[plr].dye.Length; k++)
+				{
+					NetMessage.SendData(5, toWho, fromWho, Main.player[plr].dye[k].name, plr, (float)(58 + Main.player[plr].armor.Length + 1 + k), (float)Main.player[plr].dye[k].prefix, 0f, 0, 0, 0);
+				}
+				for (int l = 0; l < Main.player[plr].miscEquips.Length; l++)
+				{
+					NetMessage.SendData(5, toWho, fromWho, "", plr, (float)(58 + Main.player[plr].armor.Length + Main.player[plr].dye.Length + 1 + l), (float)Main.player[plr].miscEquips[l].prefix, 0f, 0, 0, 0);
+				}
+				for (int m = 0; m < Main.player[plr].miscDyes.Length; m++)
+				{
+					NetMessage.SendData(5, toWho, fromWho, "", plr, (float)(58 + Main.player[plr].armor.Length + Main.player[plr].dye.Length + Main.player[plr].miscEquips.Length + 1 + m), (float)Main.player[plr].miscDyes[m].prefix, 0f, 0, 0, 0);
+				}
+				if (!Netplay.Clients[plr].IsAnnouncementCompleted)
+				{
+					Netplay.Clients[plr].IsAnnouncementCompleted = true;
+					NetMessage.SendData(25, -1, plr, Main.player[plr].name + " " + Lang.mp[19], 255, 255f, 240f, 20f, 0, 0, 0);
+					if (Main.dedServ)
+					{
+						Console.WriteLine(Main.player[plr].name + " " + Lang.mp[19]);
+						return;
+					}
+				}
+			}
+			else
+			{
+				num = 0;
+				NetMessage.SendData(14, -1, plr, "", plr, (float)num, 0f, 0f, 0, 0, 0);
+				if (Netplay.Clients[plr].IsAnnouncementCompleted)
+				{
+					Netplay.Clients[plr].IsAnnouncementCompleted = false;
+					NetMessage.SendData(25, -1, plr, Netplay.Clients[plr].Name + " " + Lang.mp[20], 255, 255f, 240f, 20f, 0, 0, 0);
+					if (Main.dedServ)
+					{
+						Console.WriteLine(Netplay.Clients[plr].Name + " " + Lang.mp[20]);
+					}
+					Netplay.Clients[plr].Name = "Anonymous";
+				}
 			}
 		}
 	}

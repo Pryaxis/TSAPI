@@ -140,6 +140,14 @@ namespace Terraria.ID
 
 		public const short LaserGrid2 = 68;
 
-		public const short Count = 69;
+		public const short PartyBalloonsSmall = 69;
+
+		public const short PartyBalloonsBig = 70;
+
+		public const short PartyBalloonsTriplet = 71;
+
+		public const short TownNPCHats = 72;
+
+		public const short Count = 73;
 	}
 }

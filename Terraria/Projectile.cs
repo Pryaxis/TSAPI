@@ -17181,7 +17181,7 @@ namespace Terraria
 														Rectangle rectangle11 = new Rectangle((int)Main.player[this.owner].position.X, (int)Main.player[this.owner].position.Y, Main.player[this.owner].width, Main.player[this.owner].height);
 														if (rectangle10.Intersects(rectangle11))
 														{
-															if (this.ai[1] > 0f && this.ai[1] < 3602f)
+															if (this.ai[1] > 0f && this.ai[1] < (float)Main.maxItemTypes)
 															{
 																int num595 = (int)this.ai[1];
 																Item item = new Item();
@@ -25611,6 +25611,7 @@ namespace Terraria
 			bool flag3 = false;
 			bool flag4 = false;
 			int num = 85;
+			bool flag5 = this.type >= 191 && this.type <= 194;
 			if (this.type == 324)
 			{
 				num = 120;
@@ -25623,7 +25624,7 @@ namespace Terraria
 			{
 				num = 50;
 			}
-			if (this.type >= 191 && this.type <= 194)
+			if (flag5)
 			{
 				if (this.lavaWet)
 				{
@@ -25900,7 +25901,7 @@ namespace Terraria
 					this.timeLeft = 2;
 				}
 			}
-			if (this.type >= 191 && this.type <= 194)
+			if (flag5)
 			{
 				if (Main.player[this.owner].dead)
 				{
@@ -25933,7 +25934,7 @@ namespace Terraria
 					this.timeLeft = 2;
 				}
 			}
-			if ((this.type >= 191 && this.type <= 194) || this.type == 266 || (this.type >= 390 && this.type <= 392))
+			if (flag5 || this.type == 266 || (this.type >= 390 && this.type <= 392))
 			{
 				num = 10;
 				int num2 = 40 * (this.minionPos + 1) * Main.player[this.owner].direction;
@@ -26633,7 +26634,7 @@ namespace Terraria
 					{
 						num36 = 300;
 					}
-					if ((this.type >= 191 && this.type <= 194) || this.type == 266 || (this.type >= 390 && this.type <= 392))
+					if (flag5 || this.type == 266 || (this.type >= 390 && this.type <= 392))
 					{
 						num36 += 40 * this.minionPos;
 						if (this.localAI[0] > 0f)
@@ -26666,7 +26667,7 @@ namespace Terraria
 						this.position.X = Main.player[this.owner].position.X + (float)(Main.player[this.owner].width / 2) - (float)(this.width / 2);
 						this.position.Y = Main.player[this.owner].position.Y + (float)(Main.player[this.owner].height / 2) - (float)(this.height / 2);
 					}
-					else if (num39 > (float)num36 || (Math.Abs(num38) > 300f && (((this.type < 191 || this.type > 194) && this.type != 266 && (this.type < 390 || this.type > 392)) || this.localAI[0] <= 0f)))
+					else if (num39 > (float)num36 || (Math.Abs(num38) > 300f && ((!flag5 && this.type != 266 && (this.type < 390 || this.type > 392)) || this.localAI[0] <= 0f)))
 					{
 						if (this.type != 324)
 						{
@@ -26708,7 +26709,7 @@ namespace Terraria
 					{
 						num41 = 100;
 					}
-					if (this.type >= 191 && this.type <= 194)
+					if (flag5)
 					{
 						num40 = 0.5f;
 						num41 = 100;
@@ -26716,7 +26717,7 @@ namespace Terraria
 					this.tileCollide = false;
 					Vector2 vector7 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
 					float num42 = Main.player[this.owner].position.X + (float)(Main.player[this.owner].width / 2) - vector7.X;
-					if ((this.type >= 191 && this.type <= 194) || this.type == 266 || (this.type >= 390 && this.type <= 392))
+					if (flag5 || this.type == 266 || (this.type >= 390 && this.type <= 392))
 					{
 						num42 -= (float)(40 * Main.player[this.owner].direction);
 						float num43 = 700f;
@@ -26724,7 +26725,7 @@ namespace Terraria
 						{
 							num43 += 100f;
 						}
-						bool flag5 = false;
+						bool flag6 = false;
 						int num44 = -1;
 						for (int j = 0; j < 200; j++)
 						{
@@ -26739,16 +26740,16 @@ namespace Terraria
 									{
 										num44 = j;
 									}
-									flag5 = true;
+									flag6 = true;
 									break;
 								}
 							}
 						}
-						if (!flag5)
+						if (!flag6)
 						{
 							num42 -= (float)(40 * this.minionPos * Main.player[this.owner].direction);
 						}
-						if (flag5 && num44 >= 0)
+						if (flag6 && num44 >= 0)
 						{
 							this.ai[0] = 0f;
 						}

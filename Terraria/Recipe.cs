@@ -39,6 +39,8 @@ namespace Terraria
 
 		public bool alchemy;
 
+		public bool needSnowBiome;
+
 		public List<int> acceptedGroups = new List<int>();
 
 		public void RequireGroup(string name)
@@ -471,7 +473,8 @@ namespace Terraria
 						bool flag4 = !Main.recipe[num4].needWater || Main.player[Main.myPlayer].adjWater || Main.player[Main.myPlayer].adjTile[172];
 						bool flag5 = !Main.recipe[num4].needHoney || Main.recipe[num4].needHoney == Main.player[Main.myPlayer].adjHoney;
 						bool flag6 = !Main.recipe[num4].needLava || Main.recipe[num4].needLava == Main.player[Main.myPlayer].adjLava;
-						if (!flag4 || !flag5 || !flag6)
+						bool flag7 = !Main.recipe[num4].needSnowBiome || Main.player[Main.myPlayer].ZoneSnow;
+						if (!flag4 || !flag5 || !flag6 || !flag7)
 						{
 							flag2 = false;
 						}
@@ -1783,6 +1786,28 @@ namespace Terraria
 			Recipe.newRecipe.requiredItem[0].SetDefaults(2787, false);
 			Recipe.newRecipe.requiredTile[0] = 18;
 			Recipe.AddRecipe();
+			Recipe.newRecipe.createItem.SetDefaults(3754, false);
+			Recipe.newRecipe.createItem.stack = 1;
+			Recipe.newRecipe.requiredItem[0].SetDefaults(170, false);
+			Recipe.newRecipe.requiredItem[1].SetDefaults(169, false);
+			Recipe.newRecipe.requiredTile[0] = 125;
+			Recipe.AddRecipe();
+			Recipe.newRecipe.createItem.SetDefaults(3752, false);
+			Recipe.newRecipe.createItem.stack = 4;
+			Recipe.newRecipe.requiredItem[0].SetDefaults(3754, false);
+			Recipe.newRecipe.requiredTile[0] = 18;
+			Recipe.AddRecipe();
+			Recipe.newRecipe.createItem.SetDefaults(3755, false);
+			Recipe.newRecipe.createItem.stack = 1;
+			Recipe.newRecipe.requiredItem[0].SetDefaults(170, false);
+			Recipe.newRecipe.requiredItem[1].SetDefaults(593, false);
+			Recipe.newRecipe.requiredTile[0] = 125;
+			Recipe.AddRecipe();
+			Recipe.newRecipe.createItem.SetDefaults(3753, false);
+			Recipe.newRecipe.createItem.stack = 4;
+			Recipe.newRecipe.requiredItem[0].SetDefaults(3755, false);
+			Recipe.newRecipe.requiredTile[0] = 18;
+			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(663, false);
 			Recipe.newRecipe.createItem.stack = 4;
 			Recipe.newRecipe.requiredItem[0].SetDefaults(662, false);
@@ -1809,6 +1834,11 @@ namespace Terraria
 			Recipe.newRecipe.createItem.stack = 4;
 			Recipe.newRecipe.requiredItem[0].SetDefaults(2697, false);
 			Recipe.newRecipe.requiredTile[0] = 18;
+			Recipe.AddRecipe();
+			Recipe.newRecipe.createItem.SetDefaults(3748, false);
+			Recipe.newRecipe.requiredItem[0].SetDefaults(3743, false);
+			Recipe.newRecipe.requiredItem[1].SetDefaults(3744, false);
+			Recipe.newRecipe.requiredItem[2].SetDefaults(3745, false);
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(148, false);
 			Recipe.newRecipe.requiredItem[0].SetDefaults(105, false);
@@ -2574,9 +2604,29 @@ namespace Terraria
 			Recipe.newRecipe.requiredItem[0].SetDefaults(1729, false);
 			Recipe.newRecipe.requiredTile[0] = 18;
 			Recipe.AddRecipe();
+			Recipe.newRecipe.createItem.SetDefaults(3751, false);
+			Recipe.newRecipe.createItem.stack = 4;
+			Recipe.newRecipe.requiredItem[0].SetDefaults(1344, false);
+			Recipe.newRecipe.requiredTile[0] = 18;
+			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(2861, false);
 			Recipe.newRecipe.createItem.stack = 4;
 			Recipe.newRecipe.requiredItem[0].SetDefaults(2860, false);
+			Recipe.newRecipe.requiredTile[0] = 18;
+			Recipe.AddRecipe();
+			Recipe.newRecipe.createItem.SetDefaults(3760, false);
+			Recipe.newRecipe.createItem.stack = 4;
+			Recipe.newRecipe.requiredItem[0].SetDefaults(3736, false);
+			Recipe.newRecipe.requiredTile[0] = 18;
+			Recipe.AddRecipe();
+			Recipe.newRecipe.createItem.SetDefaults(3761, false);
+			Recipe.newRecipe.createItem.stack = 4;
+			Recipe.newRecipe.requiredItem[0].SetDefaults(3737, false);
+			Recipe.newRecipe.requiredTile[0] = 18;
+			Recipe.AddRecipe();
+			Recipe.newRecipe.createItem.SetDefaults(3762, false);
+			Recipe.newRecipe.createItem.stack = 4;
+			Recipe.newRecipe.requiredItem[0].SetDefaults(3738, false);
 			Recipe.newRecipe.requiredTile[0] = 18;
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(3239, false);
@@ -5137,6 +5187,16 @@ namespace Terraria
 			Recipe.newRecipe.createItem.SetDefaults(2631, false);
 			Recipe.newRecipe.requiredItem[0].SetDefaults(824, false);
 			Recipe.newRecipe.requiredItem[0].stack = 10;
+			Recipe.newRecipe.requiredTile[0] = 305;
+			Recipe.AddRecipe();
+			Recipe.newRecipe.createItem.SetDefaults(765, false);
+			Recipe.newRecipe.requiredItem[0].SetDefaults(751, false);
+			Recipe.newRecipe.needWater = true;
+			Recipe.newRecipe.requiredTile[0] = 305;
+			Recipe.AddRecipe();
+			Recipe.newRecipe.createItem.SetDefaults(3756, false);
+			Recipe.newRecipe.requiredItem[0].SetDefaults(751, false);
+			Recipe.newRecipe.needSnowBiome = true;
 			Recipe.newRecipe.requiredTile[0] = 305;
 			Recipe.AddRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(2595, false);

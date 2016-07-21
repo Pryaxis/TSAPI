@@ -59,7 +59,7 @@ namespace Terraria.Initializers
 			short[] numArray5 = new short[] { 13, 14, 15 };
 			achievement.AddCondition(NPCKilledCondition.Create(numArray5));
 			Main.Achievements.Register(achievement);
-			achievement = new Achievement("MASTERMIND", "Mastermind", "Defeat the Brain of Cthuhlu, an enourmous demon brain which haunts the creeping crimson.");
+			achievement = new Achievement("MASTERMIND", "Mastermind", "Defeat the Brain of Cthulhu, an enourmous demon brain which haunts the creeping crimson.");
 			achievement.AddCondition(NPCKilledCondition.Create(266));
 			Main.Achievements.Register(achievement);
 			achievement = new Achievement("WHERES_MY_HONEY", "Where's My Honey?", "Discover a large bee's hive deep in the jungle.");

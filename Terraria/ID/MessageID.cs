@@ -224,6 +224,10 @@ namespace Terraria.ID
 
 		public const byte MassWireOperationPay = 110;
 
-		public const byte Count = 111;
+		public const byte ToggleParty = 111;
+
+		public const byte SpecialFX = 112;
+
+		public const byte Count = 113;
 	}
 }

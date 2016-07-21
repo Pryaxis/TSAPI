@@ -6,6 +6,7 @@ using System.Text;
 using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.GameContent.Achievements;
+using Terraria.GameContent.Events;
 using Terraria.GameContent.Tile_Entities;
 using Terraria.GameContent.UI;
 using Terraria.ID;
@@ -2503,7 +2504,7 @@ namespace Terraria
 			this.ghostDir = 1f;
 			this.buffType = new int[22];
 			this.buffTime = new int[22];
-			this.buffImmune = new bool[192];
+			this.buffImmune = new bool[193];
 			this.heldProj = -1;
 			this.breathMax = 200;
 			this.breath = 200;
@@ -2777,7 +2778,7 @@ namespace Terraria
 		{
 			int num = 4;
 			int num2 = 3;
-			for (int i = 0; i < 446; i++)
+			for (int i = 0; i < Main.maxTileSets; i++)
 			{
 				this.oldAdjTile[i] = this.adjTile[i];
 				this.adjTile[i] = false;
@@ -2843,7 +2844,7 @@ namespace Terraria
 			if (Main.playerInventory)
 			{
 				bool flag = false;
-				for (int l = 0; l < 446; l++)
+				for (int l = 0; l < Main.maxTileSets; l++)
 				{
 					if (this.oldAdjTile[l] != this.adjTile[l])
 					{
@@ -4442,8 +4443,8 @@ namespace Terraria
 				this.noThrow--;
 			}
 			bool flag = true;
-			
-			if (flag && this.selectedItem == 58)
+
+			if (flag && this.selectedItem == 58 && this.itemTime == 0 && this.itemAnimation == 0)
 			{
 				this.selectedItem = this.oldSelectItem;
 			}
@@ -13260,6 +13261,10 @@ namespace Terraria
 			}
 			else if (type == 3319)
 			{
+				if (this.difficulty == 2)
+				{
+					this.QuickSpawnItem(3763, 1);
+				}
 				if (Main.rand.Next(7) == 0)
 				{
 					this.QuickSpawnItem(2112, 1);
@@ -16349,6 +16354,17 @@ namespace Terraria
 								{
 									flag3 = false;
 									break;
+								}
+							}
+						}
+						if (tileObject.type == 454)
+						{
+							for (int m = -2; m < 2; m++)
+							{
+								Tile tile = Main.tile[Player.tileTargetX + m, Player.tileTargetY];
+								if (tile.active() && tile.type == 454)
+								{
+									flag3 = false;
 								}
 							}
 						}
@@ -19641,15 +19657,18 @@ namespace Terraria
 				{
 					for (int j = Main.spawnTileY - 3; j < Main.spawnTileY; j++)
 					{
-						if (Main.tileSolid[(int)Main.tile[i, j].type] && !Main.tileSolidTop[(int)Main.tile[i, j].type])
+						if (Main.tile[i, j] != null)
 						{
-							WorldGen.KillTile(i, j, false, false, false);
-						}
-						if (Main.tile[i, j].liquid > 0)
-						{
-							Main.tile[i, j].lava(false);
-							Main.tile[i, j].liquid = 0;
-							WorldGen.SquareTileFrame(i, j, true);
+							if (Main.tileSolid[(int)Main.tile[i, j].type] && !Main.tileSolidTop[(int)Main.tile[i, j].type])
+							{
+								WorldGen.KillTile(i, j, false, false, false);
+							}
+							if (Main.tile[i, j].liquid > 0)
+							{
+								Main.tile[i, j].lava(false);
+								Main.tile[i, j].liquid = 0;
+								WorldGen.SquareTileFrame(i, j, true);
+							}
 						}
 					}
 				}
@@ -20328,16 +20347,36 @@ namespace Terraria
 		public void TeleportationPotion()
 		{
 			bool flag = false;
+			int teleportStartX = 100;
+			int teleportRangeX = Main.maxTilesX - 200;
+			int teleportStartY = 100;
+			int teleportRangeY = Main.maxTilesY - 200;
+			Vector2 vector = this.TestTeleport(ref flag, teleportStartX, teleportRangeX, teleportStartY, teleportRangeY);
+			if (flag)
+			{
+				Vector2 newPos = vector;
+				this.Teleport(newPos, 2, 0);
+				this.velocity = Vector2.Zero;
+				if (Main.netMode == 2)
+				{
+					RemoteClient.CheckSection(this.whoAmI, this.position, 1);
+					NetMessage.SendData(65, -1, -1, "", 0, (float)this.whoAmI, newPos.X, newPos.Y, 3, 0, 0);
+				}
+			}
+		}
+
+		private Vector2 TestTeleport(ref bool canSpawn, int teleportStartX, int teleportRangeX, int teleportStartY, int teleportRangeY)
+		{
 			int num = 0;
 			int num2 = 0;
 			int num3 = 0;
 			int width = this.width;
 			Vector2 vector = new Vector2((float)num2, (float)num3) * 16f + new Vector2((float)(-(float)width / 2 + 8), (float)(-(float)this.height));
-			while (!flag && num < 1000)
+			while (!canSpawn && num < 1000)
 			{
 				num++;
-				num2 = 100 + Main.rand.Next(Main.maxTilesX - 200);
-				num3 = 100 + Main.rand.Next(Main.maxTilesY - 200);
+				num2 = teleportStartX + Main.rand.Next(teleportRangeX);
+				num3 = teleportStartY + Main.rand.Next(teleportRangeY);
 				vector = new Vector2((float)num2, (float)num3) * 16f + new Vector2((float)(-(float)width / 2 + 8), (float)(-(float)this.height));
 				if (!Collision.SolidCollision(vector, width, this.height))
 				{
@@ -20357,12 +20396,12 @@ namespace Terraria
 							Tile tile = Main.tile[num2, num3 + i];
 							vector = new Vector2((float)num2, (float)(num3 + i)) * 16f + new Vector2((float)(-(float)width / 2 + 8), (float)(-(float)this.height));
 							Vector4 vector2 = Collision.SlopeCollision(vector, this.velocity, width, this.height, this.gravDir, false);
-							bool flag2 = !Collision.SolidCollision(vector, width, this.height);
+							bool flag = !Collision.SolidCollision(vector, width, this.height);
 							if (vector2.Z == this.velocity.X)
 							{
-								float arg_1F1_0 = this.velocity.Y;
+								float arg_1D4_0 = this.velocity.Y;
 							}
-							if (flag2)
+							if (flag)
 							{
 								i++;
 							}
@@ -20392,7 +20431,7 @@ namespace Terraria
 											vector3 = -Vector2.UnitY * 16f;
 											if (!(Collision.TileCollision(vector - vector3, vector3, this.width, this.height, false, false, (int)this.gravDir) != vector3))
 											{
-												flag = true;
+												canSpawn = true;
 												num3 += i;
 												break;
 											}
@@ -20404,18 +20443,9 @@ namespace Terraria
 					}
 				}
 			}
-			if (flag)
-			{
-				Vector2 newPos = vector;
-				this.Teleport(newPos, 2, 0);
-				this.velocity = Vector2.Zero;
-				if (Main.netMode == 2)
-				{
-					RemoteClient.CheckSection(this.whoAmI, this.position, 1);
-					NetMessage.SendData(65, -1, -1, "", 0, (float)this.whoAmI, newPos.X, newPos.Y, 3, 0, 0);
-				}
-			}
+			return vector;
 		}
+
 
 
 		public void TileInteractionsCheck(int myX, int myY)
@@ -21138,6 +21168,12 @@ namespace Terraria
 				this.showItemIcon = true;
 				this.showItemIcon2 = 2738;
 			}
+			if (Main.tile[myX, myY].type == 455)
+			{
+				this.noThrow = 2;
+				this.showItemIcon = true;
+				this.showItemIcon2 = 3747;
+			}
 			if (Main.tile[myX, myY].type == 219 && (this.inventory[this.selectedItem].type == 424 || this.inventory[this.selectedItem].type == 1103))
 			{
 				this.noThrow = 2;
@@ -21632,6 +21668,10 @@ namespace Terraria
 					{
 
 						WorldGen.SwitchMonolith(myX, myY);
+					}
+					else if (Main.tile[myX, myY].type == 455)
+					{
+						BirthdayParty.ToggleManualParty();
 					}
 					else if (Main.tile[myX, myY].type == 216)
 					{
@@ -23242,7 +23282,7 @@ namespace Terraria
 					this.AddBuff(147, 2, false);
 				}
 			}
-			for (int num25 = 0; num25 < 192; num25++)
+			for (int num25 = 0; num25 < Main.maxBuffTypes; num25++)
 			{
 				this.buffImmune[num25] = false;
 			}
@@ -24486,7 +24526,7 @@ namespace Terraria
 				{
 					flag19 = true;
 				}
-				if ((this.wingsLogic == 22 || this.wingsLogic == 28 || this.wingsLogic == 30 || this.wingsLogic == 32 || this.wingsLogic == 33 || this.wingsLogic == 35) && this.controlJump && this.controlDown && this.wingTime > 0f)
+				if ((this.wingsLogic == 22 || this.wingsLogic == 28 || this.wingsLogic == 30 || this.wingsLogic == 32 || this.wingsLogic == 29 || this.wingsLogic == 33 || this.wingsLogic == 35) && this.controlJump && this.controlDown && this.wingTime > 0f)
 				{
 					flag19 = true;
 				}
@@ -28315,7 +28355,7 @@ namespace Terraria
 					{
 						this.cFace = (int)this.dye[num].dye;
 					}
-					if (this.armor[i].balloonSlot > 0 && this.armor[i].balloonSlot < 16)
+					if (this.armor[i].balloonSlot > 0 && this.armor[i].balloonSlot < 18)
 					{
 						this.cBalloon = (int)this.dye[num].dye;
 					}
@@ -30096,11 +30136,11 @@ namespace Terraria
 					}
 					if (this.armor[l].type == 3470)
 					{
-						this.wingTimeMax = 180;
+						this.wingTimeMax = 160;
 					}
 					if (this.armor[l].type == 3471)
 					{
-						this.wingTimeMax = 220;
+						this.wingTimeMax = 180;
 					}
 					if (this.armor[l].type == 885)
 					{

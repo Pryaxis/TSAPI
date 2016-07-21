@@ -44,6 +44,10 @@ namespace Terraria.ID
 
 		public const short Platinum = 84;
 
+		public const short Confetti = 139;
+
+		public const short Fireworks = 219;
+
 		public const short Electric = 226;
 
 		public const short GoldFlame = 228;

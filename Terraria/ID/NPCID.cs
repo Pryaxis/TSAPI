@@ -6,7 +6,7 @@ namespace Terraria.ID
 	{
 		public static class Sets
 		{
-			public static SetFactory Factory = new SetFactory(540);
+			public static SetFactory Factory = new SetFactory(541);
 
 			public static float[] StatueSpawnedDropRarity = Factory.CreateCustomSet<float>(-1f, new object[]
 			{
@@ -129,7 +129,46 @@ namespace Terraria.ID
 				445,
 				447,
 				538,
-				539
+				539,
+				540
+			});
+
+			public static int[] HatOffsetY = NPCID.Sets.Factory.CreateIntSet(0, new int[]
+			{
+				227,
+				4,
+				107,
+				2,
+				108,
+				2,
+				229,
+				4,
+				17,
+				2,
+				38,
+				8,
+				160,
+				-10,
+				208,
+				2,
+				142,
+				2,
+				124,
+				2,
+				453,
+				2,
+				37,
+				4,
+				54,
+				4,
+				209,
+				4,
+				369,
+				6,
+				441,
+				6,
+				353,
+				-2
 			});
 
 			public static int[] FaceEmote = Factory.CreateIntSet(0, new int[]
@@ -1878,6 +1917,8 @@ namespace Terraria.ID
 
 		public const short SquirrelGold = 539;
 
-		public const short Count = 540;
+		public const short PartyBunny = 540;
+
+		public const short Count = 541;
 	}
 }

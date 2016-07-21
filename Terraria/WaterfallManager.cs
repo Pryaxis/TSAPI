@@ -12,7 +12,7 @@ namespace Terraria
 
 		private const int maxLength = 100;
 
-		private const int maxTypes = 22;
+		private const int maxTypes = 23;
 
 		private WaterfallManager.WaterfallData[] waterfalls;
 

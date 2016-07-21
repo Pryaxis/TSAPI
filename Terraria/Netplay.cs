@@ -281,7 +281,7 @@ namespace Terraria
 					{
 						ServerApi.Hooks.InvokeServerLeave(Clients[k].Id);
 						Clients[k].Reset();
-						NetMessage.syncPlayers(sendInventory: false, sendPlayerInfo: false, ghostUpdate: true, leavingPlayer: k);
+						NetMessage.SyncDisconnectedPlayer(k);
 					}
 					else
 					{

@@ -44,7 +44,7 @@ namespace Terraria.ID
 				});
 			}
 
-			public static SetFactory Factory = new SetFactory(225);
+			public static SetFactory Factory = new SetFactory(231);
 
 			public static bool[] Transparent = Factory.CreateBoolSet(new int[]
 			{
@@ -530,6 +530,18 @@ namespace Terraria.ID
 
 		public const byte LunarBrickWall = 224;
 
-		public const byte Count = 225;
+		public const byte CogWall = 225;
+
+		public const byte SandFall = 226;
+
+		public const byte SnowFall = 227;
+
+		public const byte SillyBalloonPinkWall = 228;
+
+		public const byte SillyBalloonPurpleWall = 229;
+
+		public const byte SillyBalloonGreenWall = 230;
+
+		public const byte Count = 231;
 	}
 }

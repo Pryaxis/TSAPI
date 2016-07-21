@@ -532,6 +532,64 @@ namespace Terraria.ID
 
 		public const int GigaZapperLeg = 906;
 
-		public const short Count = 907;
+		public const int SillyBallonPink = 907;
+
+		public const int SillyBalloonPurple = 908;
+
+		public const int SillyBalloonGreen = 909;
+
+		public const int TreeLeaf_Normal = 910;
+
+		public const int TreeLeaf_Palm = 911;
+
+		public const int TreeLeaf_Mushroom = 912;
+
+		public const int TreeLeaf_Boreal = 913;
+
+		public const int TreeLeaf_Jungle = 914;
+
+		public const int TreeLeaf_Corruption = 915;
+
+		public const int TreeLeaf_Crimson = 916;
+
+		public const int TreeLeaf_Hallow = 917;
+
+		public const int TreeLeaf_Last = 925;
+
+		public const int PartyHatBlue = 926;
+
+		public const int PartyHatDemolitionist = 927;
+
+		public const int PartyHatDyeTrader = 928;
+
+		public const int PartyHatMerchant = 929;
+
+		public const int PartyHatNurse = 930;
+
+		public const int PartyHatPainter = 931;
+
+		public const int PartyHatPirate = 932;
+
+		public const int PartyHatSanta = 933;
+
+		public const int PartyHatSkeletonMerchant = 934;
+
+		public const int PartyHatSteampunker = 935;
+
+		public const int PartyHatStylist = 936;
+
+		public const int PartyHatTravellingMerchant = 937;
+
+		public const int PartyHatWizard = 938;
+
+		public const int PartyHatPink = 939;
+
+		public const int PartyHatCyan = 940;
+
+		public const int PartyHatPurple = 941;
+
+		public const int PartyHatWhite = 942;
+
+		public const short Count = 943;
 	}
 }

@@ -6,6 +6,8 @@ using Terraria.ID;
 using System.Threading;
 using Terraria.GameContent.UI;
 using System.Collections.Concurrent;
+using Terraria.GameContent.Events;
+
 
 namespace Terraria
 {
@@ -493,66 +495,82 @@ namespace Terraria
 						NetMessage.SendTileSquare(-1, num4 + 1, num5 + 1, 3);
 						return;
 					}
-					if (type == 411)
+					if (type == 452)
 					{
-						int num7 = (int)(tile.frameX % 36 / 18);
-						int num8 = (int)(tile.frameY % 36 / 18);
+						int num7 = (int)(tile.frameX % 54 / 18);
+						int num8 = (int)(tile.frameY % 54 / 18);
 						int num9 = i - num7;
 						int num10 = j - num8;
-						int num11 = 36;
+						int num11 = 54;
 						if (Main.tile[num9, num10].frameX >= 36)
 						{
-							num11 = -36;
+							num11 = -54;
 						}
-						for (int m = num9; m < num9 + 2; m++)
+						for (int m = num9; m < num9 + 3; m++)
 						{
-							for (int n = num10; n < num10 + 2; n++)
+							for (int n = num10; n < num10 + 3; n++)
 							{
 								Wiring.SkipWire(m, n);
 								Main.tile[m, n].frameX = (short)((int)Main.tile[m, n].frameX + num11);
 							}
 						}
-						NetMessage.SendTileSquare(-1, num9, num10, 2);
+						NetMessage.SendTileSquare(-1, num9 + 1, num10 + 1, 3);
 						return;
 					}
-					if (type == 425)
+					if (type == 411)
 					{
 						int num12 = (int)(tile.frameX % 36 / 18);
 						int num13 = (int)(tile.frameY % 36 / 18);
 						int num14 = i - num12;
 						int num15 = j - num13;
-						for (int num16 = num14; num16 < num14 + 2; num16++)
+						int num16 = 36;
+						if (Main.tile[num14, num15].frameX >= 36)
 						{
-							for (int num17 = num15; num17 < num15 + 2; num17++)
+							num16 = -36;
+						}
+						for (int num17 = num14; num17 < num14 + 2; num17++)
+						{
+							for (int num18 = num15; num18 < num15 + 2; num18++)
 							{
-								Wiring.SkipWire(num16, num17);
+								Wiring.SkipWire(num17, num18);
+								Main.tile[num17, num18].frameX = (short)((int)Main.tile[num17, num18].frameX + num16);
+							}
+						}
+						NetMessage.SendTileSquare(-1, num14, num15, 2);
+						return;
+					}
+					if (type == 425)
+					{
+						int num19 = (int)(tile.frameX % 36 / 18);
+						int num20 = (int)(tile.frameY % 36 / 18);
+						int num21 = i - num19;
+						int num22 = j - num20;
+						for (int num23 = num21; num23 < num21 + 2; num23++)
+						{
+							for (int num24 = num22; num24 < num22 + 2; num24++)
+							{
+								Wiring.SkipWire(num23, num24);
 							}
 						}
 						if (!Main.AnnouncementBoxDisabled)
 						{
 							Color pink = Color.Pink;
-							int num18 = Sign.ReadSign(num14, num15, false);
-							if (num18 != -1 && Main.sign[num18] != null && !string.IsNullOrWhiteSpace(Main.sign[num18].text))
+							int num25 = Sign.ReadSign(num21, num22, false);
+							if (num25 != -1 && Main.sign[num25] != null && !string.IsNullOrWhiteSpace(Main.sign[num25].text))
 							{
 								if (Main.AnnouncementBoxRange == -1)
 								{
-									if (Main.netMode == 2)
-									{
-										NetMessage.SendData(107, -1, -1, Main.sign[num18].text, (int)pink.R, (float)pink.G, (float)pink.B, 0f, 0, 0, 0);
-										return;
-									}
-								}
-								else if (Main.netMode == 2)
-								{
-									for (int num19 = 0; num19 < 255; num19++)
-									{
-										if (Main.player[num19].active && Main.player[num19].Distance(new Vector2((float)(num14 * 16 + 16), (float)(num15 * 16 + 16))) <= (float)Main.AnnouncementBoxRange)
-										{
-											NetMessage.SendData(107, num19, -1, Main.sign[num18].text, 255, 255f, 192f, 203f, 0, 0, 0);
-										}
-									}
+									NetMessage.SendData(107, -1, -1, Main.sign[num25].text, 255, (float)pink.R, (float)pink.G, (float)pink.B, 460, 0, 0);
 									return;
 								}
+								for (int num26 = 0; num26 < 255; num26++)
+								{
+									if (Main.player[num26].active && Main.player[num26].Distance(new Vector2((float)(num21 * 16 + 16), (float)(num22 * 16 + 16))) <= (float)Main.AnnouncementBoxRange)
+									{
+										NetMessage.SendData(107, num26, -1, Main.sign[num25].text, 255, (float)pink.R, (float)pink.G, (float)pink.B, 460, 0, 0);
+									}
+								}
+								return;
 							}
 						}
 					}
@@ -1459,6 +1477,11 @@ namespace Terraria
 												if (type == 410)
 												{
 													WorldGen.SwitchMonolith(i, j);
+													return;
+												}
+												if (type == 455)
+												{
+													BirthdayParty.ToggleManualParty();
 													return;
 												}
 												if (type == 141)
