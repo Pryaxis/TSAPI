@@ -5187,6 +5187,45 @@ namespace Terraria
 						{
 							Console.WriteLine(string.Concat("Terraria Server ", Main.versionNumber2));
 							Console.WriteLine("");
+							Console.WriteLine(string.Concat("1", '\t', "Corruption"));
+							Console.WriteLine(string.Concat("2", '\t', "Crimson"));
+							Console.WriteLine(string.Concat("3", '\t', "Random"));
+							Console.WriteLine("");
+							Console.Write("Choose world evil: ");
+							str = Console.ReadLine();
+							try
+							{
+								int num2 = Convert.ToInt32(str);
+								if (num2 > 0 && num2 < 4)
+								{
+									WorldGen.WorldGenParam_Evil = num2 % 3 - 1;
+									flag1 = false;
+								}
+							}
+							catch (Exception ex)
+							{
+#if DEBUG
+								Console.WriteLine(ex);
+								System.Diagnostics.Debugger.Break();
+#endif
+							}
+							try
+							{
+								Console.Clear();
+							}
+							catch (Exception ex)
+							{
+#if DEBUG
+								Console.WriteLine(ex);
+								System.Diagnostics.Debugger.Break();
+#endif
+							}
+						}
+						flag1 = true;
+						while (flag1)
+						{
+							Console.WriteLine(string.Concat("Terraria Server ", Main.versionNumber2));
+							Console.WriteLine("");
 							Console.Write("Enter world name: ");
 							Main.newWorldName = Console.ReadLine();
 							if (Main.newWorldName != "" && Main.newWorldName != " " && Main.newWorldName != null)
