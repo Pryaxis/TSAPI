@@ -1073,6 +1073,7 @@ namespace Terraria
 											}
 											Main.tile[num84, num83].frameX += num85;
 											Main.tile[num84 + 1, num83].frameX += num85;
+											Main.tile[num84, num83 + 1].frameX += num85;
 											Main.tile[num84 + 1, num83 + 1].frameX += num85;
 											Wiring.SkipWire(num84, num83);
 											Wiring.SkipWire(num84 + 1, num83);

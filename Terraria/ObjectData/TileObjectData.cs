@@ -1730,8 +1730,8 @@ namespace Terraria.ObjectData
 		{
 			TileObjectData._baseObject = new TileObjectData(null);
 			TileObjectData._baseObject.SetupBaseObject();
-			TileObjectData._data = new List<TileObjectData>(446);
-			for (int i = 0; i < 446; i++)
+			TileObjectData._data = new List<TileObjectData>(Main.maxTileSets);
+			for (int i = 0; i < Main.maxTileSets; i++)
 			{
 				TileObjectData._data.Add(null);
 			}
@@ -1988,6 +1988,14 @@ namespace Terraria.ObjectData
 			TileObjectData.newTile.Origin = new Point16(0, 5);
 			TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16, 16, 16, 16 };
 			TileObjectData.addTile(92);
+			TileObjectData.newTile.CopyFrom(TileObjectData.Style1xX);
+			TileObjectData.newTile.LavaPlacement = LiquidPlacement.NotAllowed;
+			TileObjectData.newTile.StyleHorizontal = true;
+			TileObjectData.newTile.Direction = TileObjectDirection.PlaceLeft;
+			TileObjectData.newAlternate.CopyFrom(TileObjectData.newTile);
+			TileObjectData.newAlternate.Direction = TileObjectDirection.PlaceRight;
+			TileObjectData.addAlternate(1);
+			TileObjectData.addTile(453);
 			TileObjectData.newTile.Width = 1;
 			TileObjectData.newTile.Height = 2;
 			TileObjectData.newTile.Origin = new Point16(0, 0);
@@ -2198,6 +2206,8 @@ namespace Terraria.ObjectData
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style2xX);
 			TileObjectData.addTile(320);
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style2xX);
+			TileObjectData.addTile(456);
+			TileObjectData.newTile.CopyFrom(TileObjectData.Style2xX);
 			TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(new Func<int, int, int, int, int, int>(TETrainingDummy.Hook_AfterPlacement), -1, 0, false);
 			TileObjectData.newTile.Direction = TileObjectDirection.PlaceLeft;
 			TileObjectData.newTile.StyleMultiplier = 2;
@@ -2256,6 +2266,13 @@ namespace Terraria.ObjectData
 			TileObjectData.newSubTile.LavaPlacement = LiquidPlacement.Allowed;
 			TileObjectData.addSubTile(32);
 			TileObjectData.addTile(34);
+			TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3);
+			TileObjectData.newTile.Width = 4;
+			TileObjectData.newTile.Origin = new Point16(2, 0);
+			TileObjectData.newTile.AnchorTop = new AnchorData(AnchorType.SolidTile | AnchorType.SolidSide, 1, 1);
+			TileObjectData.newTile.AnchorBottom = AnchorData.Empty;
+			TileObjectData.newTile.LavaDeath = true;
+			TileObjectData.addTile(454);
 			TileObjectData.newTile.Width = 3;
 			TileObjectData.newTile.Height = 2;
 			TileObjectData.newTile.Origin = new Point16(1, 1);
@@ -2439,6 +2456,12 @@ namespace Terraria.ObjectData
 			TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile | AnchorType.SolidWithTop | AnchorType.SolidSide, TileObjectData.newTile.Width, 0);
 			TileObjectData.newTile.StyleHorizontal = true;
 			TileObjectData.addTile(96);
+			TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
+			TileObjectData.newTile.Origin = new Point16(0, 1);
+			TileObjectData.newTile.DrawYOffset = 2;
+			TileObjectData.newTile.RandomStyleRange = 5;
+			TileObjectData.newTile.StyleHorizontal = true;
+			TileObjectData.addTile(457);
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
 			TileObjectData.newTile.Origin = new Point16(0, 1);
 			TileObjectData.newTile.LavaDeath = false;
@@ -2740,8 +2763,13 @@ namespace Terraria.ObjectData
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3);
 			TileObjectData.addTile(406);
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3);
+			TileObjectData.addTile(452);
+			TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3);
 			TileObjectData.newTile.DrawYOffset = 2;
 			TileObjectData.addTile(412);
+			TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3);
+			TileObjectData.newTile.DrawYOffset = 2;
+			TileObjectData.addTile(455);
 			TileObjectData.newTile.Width = 1;
 			TileObjectData.newTile.Height = 2;
 			TileObjectData.newTile.Origin = new Point16(0, 1);
