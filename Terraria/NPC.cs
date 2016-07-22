@@ -63583,13 +63583,13 @@ namespace Terraria
 			string result = "";
 			if (this.type == 17)
 			{
-				if (!NPC.downedBoss1 && Main.rand.Next(3) == 0)
+				if (BirthdayParty.PartyIsUp && Main.rand.Next(3) == 0)
 				{
-					if (BirthdayParty.PartyIsUp && Main.rand.Next(3) == 0)
-					{
-						result = Lang.GetBirthdayDialog(this, false);
-					}
-					else if (Main.player[Main.myPlayer].statLifeMax < 200)
+					result = Lang.GetBirthdayDialog(this, false);
+				}
+				else if (!NPC.downedBoss1 && Main.rand.Next(3) == 0)
+				{
+					if (Main.player[Main.myPlayer].statLifeMax < 200)
 					{
 						result = Lang.dialog(1, false);
 					}
@@ -63721,6 +63721,10 @@ namespace Terraria
 			}
 			else if (this.type == 18)
 			{
+				if (BirthdayParty.PartyIsUp && Main.rand.Next(3) == 0)
+				{
+					result = Lang.GetBirthdayDialog(this, false);
+				}
 				if (Main.bloodMoon)
 				{
 					if ((double)Main.player[Main.myPlayer].statLife < (double)Main.player[Main.myPlayer].statLifeMax2 * 0.66)

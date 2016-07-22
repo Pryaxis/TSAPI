@@ -112,5 +112,7 @@ public enum PacketTypes
 	SmartTextMessage = 107,
 	WiredCannonShot = 108,
 	MassWireOperation = 109,
-	MassWireOperationPay = 110
+	MassWireOperationPay = 110,
+	ToggleParty = 111,
+	TreeGrowFX = 112
 }
