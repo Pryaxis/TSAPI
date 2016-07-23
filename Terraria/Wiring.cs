@@ -555,23 +555,23 @@ namespace Terraria
 						if (!Main.AnnouncementBoxDisabled)
 						{
 							Color pink = Color.Pink;
-							int num25 = Sign.ReadSign(num21, num22, false);
-							if (num25 != -1 && Main.sign[num25] != null && !string.IsNullOrWhiteSpace(Main.sign[num25].text))
+							int signId = Sign.ReadSign(num21, num22, false);
+							if (signId != -1 && Main.sign[signId] != null && !string.IsNullOrWhiteSpace(Main.sign[signId].text))
 							{
-								bool handled = TerrariaApi.Server.ServerApi.Hooks.InvokeWireTriggerAnnouncementBox(CurrentUser, i, j,
-									num18, Main.sign[num18].text);
-								if (handled)
+								if (TerrariaApi.Server.ServerApi.Hooks.InvokeWireTriggerAnnouncementBox(CurrentUser, i, j, signId, Main.sign[signId].text))
+								{
 									return;
+								}
 								if (Main.AnnouncementBoxRange == -1)
 								{
-									NetMessage.SendData(107, -1, -1, Main.sign[num25].text, 255, (float)pink.R, (float)pink.G, (float)pink.B, 460, 0, 0);
+									NetMessage.SendData(107, -1, -1, Main.sign[signId].text, 255, (float)pink.R, (float)pink.G, (float)pink.B, 460, 0, 0);
 									return;
 								}
 								for (int num26 = 0; num26 < 255; num26++)
 								{
 									if (Main.player[num26].active && Main.player[num26].Distance(new Vector2((float)(num21 * 16 + 16), (float)(num22 * 16 + 16))) <= (float)Main.AnnouncementBoxRange)
 									{
-										NetMessage.SendData(107, num26, -1, Main.sign[num25].text, 255, (float)pink.R, (float)pink.G, (float)pink.B, 460, 0, 0);
+										NetMessage.SendData(107, num26, -1, Main.sign[signId].text, 255, (float)pink.R, (float)pink.G, (float)pink.B, 460, 0, 0);
 									}
 								}
 								return;
