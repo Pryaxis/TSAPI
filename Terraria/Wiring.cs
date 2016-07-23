@@ -558,6 +558,10 @@ namespace Terraria
 							int num25 = Sign.ReadSign(num21, num22, false);
 							if (num25 != -1 && Main.sign[num25] != null && !string.IsNullOrWhiteSpace(Main.sign[num25].text))
 							{
+								bool handled = TerrariaApi.Server.ServerApi.Hooks.InvokeWireTriggerAnnouncementBox(CurrentUser, i, j,
+									num18, Main.sign[num18].text);
+								if (handled)
+									return;
 								if (Main.AnnouncementBoxRange == -1)
 								{
 									NetMessage.SendData(107, -1, -1, Main.sign[num25].text, 255, (float)pink.R, (float)pink.G, (float)pink.B, 460, 0, 0);
