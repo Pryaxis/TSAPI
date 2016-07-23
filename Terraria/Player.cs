@@ -2593,8 +2593,8 @@ namespace Terraria
 			this.talkNPC = -1;
 			this.potionDelayTime = Item.potionDelay;
 			this.restorationDelayTime = Item.restorationDelay;
-			this.ownedProjectileCounts = new int[656];
-			this.npcTypeNoAggro = new bool[540];
+			this.ownedProjectileCounts = new int[Main.maxProjectileTypes];
+			this.npcTypeNoAggro = new bool[Main.maxNPCTypes];
 			this.MinionTargetPoint = Vector2.Zero;
 			this.TouchedTiles = new List<Point>();
 			int[] array2 = new int[2];
