@@ -267,12 +267,12 @@ namespace Terraria
 					bb7[5] = NPC.downedChristmasTree;
 					bb7[6] = NPC.downedGolemBoss; 
 					bb7[7] = BirthdayParty.PartyIsUp;
+					writer.Write(bb7);
 					BitsByte bb8 = 0;
 					bb8[0] = NPC.downedPirates;
 					bb8[1] = NPC.downedFrost;
 					bb8[2] = NPC.downedGoblins;
 					writer.Write(bb8);
-					writer.Write(bb7);
 					writer.Write((sbyte) Main.invasionType);
 					writer.Write(Main.LobbyId);
 					break;
