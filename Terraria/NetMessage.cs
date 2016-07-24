@@ -2226,17 +2226,27 @@ namespace Terraria
 				SendData(72, -1, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
 			}
 		}
-		public static void SendAnglerQuest()
+		public static void SendAnglerQuest(int plr = -1)
 		{
 			if (Main.netMode != 2)
 			{
 				return;
 			}
-			for (int i = 0; i < 255; i++)
+			if (plr == -1)
 			{
-				if (Netplay.Clients[i].State == 10)
+				for (int i = 0; i < 255; i++)
 				{
-					SendData(74, i, -1, Main.player[i].name, Main.anglerQuest, 0f, 0f, 0f, 0, 0, 0);
+					if (Netplay.Clients[i].State == 10)
+					{
+						SendData(74, i, -1, Main.player[i].name, Main.anglerQuest, 0f, 0f, 0f, 0, 0, 0);
+					}
+				}
+			}
+			else
+			{
+				if (Netplay.Clients[plr].State == 10)
+				{
+					SendData(74, plr, -1, Main.player[plr].name, Main.anglerQuest, 0f, 0f, 0f, 0, 0, 0);
 				}
 			}
 		}
@@ -2350,21 +2360,10 @@ namespace Terraria
 					NetMessage.SyncOnePlayer(i, plr, -1);
 				}
 			}
-			NetMessage.SendNPCHousesAndTravelShop();
-			NetMessage.SendAnglerQuest();
-			NetMessage.EnsureLocalPlayerIsPresent();
+			SendAnglerQuest(plr);
+			SendNPCHousesAndTravelShop(plr);
 		}
-		public static void SyncPlayersJustInCase()
-		{
-			for (int i = 0; i < 255; i++)
-			{
-				NetMessage.SyncOnePlayer(i, -1, i);
-			}
-			NetMessage.SendNPCHousesAndTravelShop();
-			NetMessage.SendAnglerQuest();
-			NetMessage.EnsureLocalPlayerIsPresent();
-		}
-		private static void SendNPCHousesAndTravelShop()
+		private static void SendNPCHousesAndTravelShop(int plr)
 		{
 			bool flag = false;
 			for (int i = 0; i < 200; i++)
@@ -2380,12 +2379,12 @@ namespace Terraria
 					{
 						num = 1;
 					}
-					NetMessage.SendData(60, -1, -1, "", i, (float)Main.npc[i].homeTileX, (float)Main.npc[i].homeTileY, (float)num, 0, 0, 0);
+					NetMessage.SendData(60, plr, -1, "", i, (float)Main.npc[i].homeTileX, (float)Main.npc[i].homeTileY, (float)num, 0, 0, 0);
 				}
 			}
 			if (flag)
 			{
-				NetMessage.SendTravelShop();
+				SendData(72, plr, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
 			}
 		}
 		private static void EnsureLocalPlayerIsPresent()
@@ -2427,25 +2426,30 @@ namespace Terraria
 				NetMessage.SendData(45, toWho, fromWho, "", plr, 0f, 0f, 0f, 0, 0, 0);
 				NetMessage.SendData(42, toWho, fromWho, "", plr, 0f, 0f, 0f, 0, 0, 0);
 				NetMessage.SendData(50, toWho, fromWho, "", plr, 0f, 0f, 0f, 0, 0, 0);
-				for (int i = 0; i < 59; i++)
+				for (int slot = 0; slot < 59; slot++)
 				{
-					NetMessage.SendData(5, toWho, fromWho, Main.player[plr].inventory[i].name, plr, (float)i, (float)Main.player[plr].inventory[i].prefix, 0f, 0, 0, 0);
+					if (Main.player[plr].inventory[slot].netID != 0)
+						NetMessage.SendData(5, toWho, fromWho, Main.player[plr].inventory[slot].name, plr, (float)slot, (float)Main.player[plr].inventory[slot].prefix, 0f, 0, 0, 0);
 				}
-				for (int j = 0; j < Main.player[plr].armor.Length; j++)
+				for (int slot = 0; slot < Main.player[plr].armor.Length; slot++)
 				{
-					NetMessage.SendData(5, toWho, fromWho, Main.player[plr].armor[j].name, plr, (float)(59 + j), (float)Main.player[plr].armor[j].prefix, 0f, 0, 0, 0);
+					if (Main.player[plr].armor[slot].netID != 0)
+						NetMessage.SendData(5, toWho, fromWho, Main.player[plr].armor[slot].name, plr, (float)(59 + slot), (float)Main.player[plr].armor[slot].prefix, 0f, 0, 0, 0);
 				}
-				for (int k = 0; k < Main.player[plr].dye.Length; k++)
+				for (int slot = 0; slot < Main.player[plr].dye.Length; slot++)
 				{
-					NetMessage.SendData(5, toWho, fromWho, Main.player[plr].dye[k].name, plr, (float)(58 + Main.player[plr].armor.Length + 1 + k), (float)Main.player[plr].dye[k].prefix, 0f, 0, 0, 0);
+					if (Main.player[plr].dye[slot].netID != 0)
+						NetMessage.SendData(5, toWho, fromWho, Main.player[plr].dye[slot].name, plr, (float)(58 + Main.player[plr].armor.Length + 1 + slot), (float)Main.player[plr].dye[slot].prefix, 0f, 0, 0, 0);
 				}
-				for (int l = 0; l < Main.player[plr].miscEquips.Length; l++)
+				for (int slot = 0; slot < Main.player[plr].miscEquips.Length; slot++)
 				{
-					NetMessage.SendData(5, toWho, fromWho, "", plr, (float)(58 + Main.player[plr].armor.Length + Main.player[plr].dye.Length + 1 + l), (float)Main.player[plr].miscEquips[l].prefix, 0f, 0, 0, 0);
+					if (Main.player[plr].miscEquips[slot].netID != 0)
+						NetMessage.SendData(5, toWho, fromWho, "", plr, (float)(58 + Main.player[plr].armor.Length + Main.player[plr].dye.Length + 1 + slot), (float)Main.player[plr].miscEquips[slot].prefix, 0f, 0, 0, 0);
 				}
-				for (int m = 0; m < Main.player[plr].miscDyes.Length; m++)
+				for (int slot = 0; slot < Main.player[plr].miscDyes.Length; slot++)
 				{
-					NetMessage.SendData(5, toWho, fromWho, "", plr, (float)(58 + Main.player[plr].armor.Length + Main.player[plr].dye.Length + Main.player[plr].miscEquips.Length + 1 + m), (float)Main.player[plr].miscDyes[m].prefix, 0f, 0, 0, 0);
+					if (Main.player[plr].miscDyes[slot].netID != 0)
+						NetMessage.SendData(5, toWho, fromWho, "", plr, (float)(58 + Main.player[plr].armor.Length + Main.player[plr].dye.Length + Main.player[plr].miscEquips.Length + 1 + slot), (float)Main.player[plr].miscDyes[slot].prefix, 0f, 0, 0, 0);
 				}
 				if (!Netplay.Clients[plr].IsAnnouncementCompleted)
 				{

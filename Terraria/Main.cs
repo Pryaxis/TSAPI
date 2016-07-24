@@ -10550,11 +10550,6 @@ namespace Terraria
 			{
 				NetMessage.SendData(7, -1, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
 			}
-			if (Main.netPlayCounter >= 10800)
-			{
-				NetMessage.SyncPlayersJustInCase();
-				Main.netPlayCounter = 0;
-			}
 			for (int i = 0; i < Main.maxNetPlayers; i++)
 			{
 				if (Main.player[i].active && Netplay.Clients[i].IsActive)
