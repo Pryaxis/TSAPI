@@ -2001,6 +2001,10 @@ namespace Terraria
 				{
 					byte num203 = this.reader.ReadByte();
 					float single9 = this.reader.ReadSingle();
+
+					if (num203 != this.whoAmI)
+						return;
+
 					Main.player[num203].stealth = single9;
 					NetMessage.SendData(84, -1, this.whoAmI, "", (int)num203, 0f, 0f, 0f, 0, 0, 0);
 					return;
