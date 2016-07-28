@@ -55819,7 +55819,7 @@ namespace Terraria
 		}
 		public static void ReleaseNPC(int x, int y, int Type, int Style, int who)
 		{
-			if (Type < -65 || Type >= Main.maxNPCTypes)
+			if (Type < 0 || Type >= Main.maxNPCTypes)
 			{
 				return;
 			}
