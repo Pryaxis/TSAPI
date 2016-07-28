@@ -1999,14 +1999,25 @@ namespace Terraria
 				}
 				case 84:
 				{
-					byte num203 = this.reader.ReadByte();
-					float single9 = this.reader.ReadSingle();
+					byte playerId = this.reader.ReadByte();
+					float stealth = this.reader.ReadSingle();
 
-					if (num203 != this.whoAmI)
+					if (stealth > 1f)
+					{
+						stealth = 1f;
+					}
+					else if (stealth < 0f)
+					{
+						stealth = 0f;
+					}
+
+					if (playerId != this.whoAmI)
+					{
 						return;
+					}
 
-					Main.player[num203].stealth = single9;
-					NetMessage.SendData(84, -1, this.whoAmI, "", (int)num203, 0f, 0f, 0f, 0, 0, 0);
+					Main.player[playerId].stealth = stealth;
+					NetMessage.SendData(84, -1, this.whoAmI, "", (int)playerId);
 					return;
 				}
 				case 85:
