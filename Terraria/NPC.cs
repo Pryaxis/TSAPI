@@ -55819,6 +55819,10 @@ namespace Terraria
 		}
 		public static void ReleaseNPC(int x, int y, int Type, int Style, int who)
 		{
+			if (Type < -65 || Type >= Main.maxNPCTypes)
+			{
+				return;
+			}
 			if (Main.netMode == 1)
 			{
 				NetMessage.SendData(71, -1, -1, "", x, (float)y, (float)Type, (float)Style, 0, 0, 0);
