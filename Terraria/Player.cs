@@ -18565,7 +18565,7 @@ namespace Terraria
 				{
 					int type = this.inventory[j].type;
 					int stack = this.inventory[j].stack;
-					this.inventory[j] = Chest.PutItemInNearbyChest(this.inventory[j], base.Center);
+					this.inventory[j] = Chest.PutItemInNearbyChest(this.inventory[j], base.Center, this);
 				}
 			}
 		}

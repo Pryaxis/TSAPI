@@ -600,7 +600,7 @@ namespace Terraria
 			return false;
 		}
 
-		public static Item PutItemInNearbyChest(Item item, Vector2 position)
+		public static Item PutItemInNearbyChest(Item item, Vector2 position, Player player)
 		{
 			if (Main.netMode == 1)
 			{
@@ -608,22 +608,28 @@ namespace Terraria
 			}
 			for (int i = 0; i < 1000; i++)
 			{
-				bool flag = false;
-				bool flag1 = false;
+				bool stacking = false;
+				bool emptySlots = false;
 				if (Main.chest[i] != null && !Chest.IsPlayerInChest(i) && !Chest.isLocked(Main.chest[i].x, Main.chest[i].y))
 				{
-					Vector2 vector2 = new Vector2((float)(Main.chest[i].x * 16 + 16), (float)(Main.chest[i].y * 16 + 16));
-					if ((vector2 - position).Length() < 200f)
+					Vector2 chestPosition = new Vector2((float)(Main.chest[i].x * 16 + 16), (float)(Main.chest[i].y * 16 + 16));
+					if ((chestPosition - position).Length() < 200f)
 					{
-						for (int j = 0; j < (int)Main.chest[i].item.Length; j++)
+						if (TerrariaApi.Server.ServerApi.Hooks.InvokeItemForceIntoChest(Main.chest[i], item, chestPosition, player))
+						{
+							continue;
+						}
+
+						for (int j = 0; j < Main.chest[i].item.Length; j++)
 						{
 							if (Main.chest[i].item[j].type <= 0 || Main.chest[i].item[j].stack <= 0)
 							{
-								flag1 = true;
+								emptySlots = true;
 							}
 							else if (item.IsTheSameAs(Main.chest[i].item[j]))
 							{
-								flag = true;
+								//stacks items into the chest
+								stacking = true;
 								int num = Main.chest[i].item[j].maxStack - Main.chest[i].item[j].stack;
 								if (num > 0)
 								{
@@ -631,10 +637,8 @@ namespace Terraria
 									{
 										num = item.stack;
 									}
-									Item item1 = item;
-									item1.stack = item1.stack - num;
-									Item item2 = Main.chest[i].item[j];
-									item2.stack = item2.stack + num;
+									item.stack -= num;
+									Main.chest[i].item[j].stack += num;
 									if (item.stack <= 0)
 									{
 										item.SetDefaults(0, false);
@@ -643,8 +647,9 @@ namespace Terraria
 								}
 							}
 						}
-						if (flag && flag1 && item.stack > 0)
+						if (stacking && emptySlots && item.stack > 0)
 						{
+							//places items into empty slots in the chest
 							for (int k = 0; k < (int)Main.chest[i].item.Length; k++)
 							{
 								if (Main.chest[i].item[k].type == 0 || Main.chest[i].item[k].stack == 0)
@@ -663,7 +668,7 @@ namespace Terraria
 
 		public static void ServerPlaceItem(int plr, int slot)
 		{
-			Main.player[plr].inventory[slot] = Chest.PutItemInNearbyChest(Main.player[plr].inventory[slot], Main.player[plr].Center);
+			Main.player[plr].inventory[slot] = Chest.PutItemInNearbyChest(Main.player[plr].inventory[slot], Main.player[plr].Center, Main.player[plr]);
 			NetMessage.SendData(5, -1, -1, "", plr, (float)slot, (float)Main.player[plr].inventory[slot].prefix, 0f, 0, 0, 0);
 		}
 

@@ -241,6 +241,31 @@ namespace TerrariaApi.Server
 			return args.Handled;
 		}
 		#endregion
+
+		#region ForceItemIntoChest
+		private readonly HandlerCollection<ForceItemIntoChestEventArgs> itemForceIntoChest =
+			new HandlerCollection<ForceItemIntoChestEventArgs>("ItemForceIntoChest");
+
+		public HandlerCollection<ForceItemIntoChestEventArgs> ItemForceIntoChest
+		{
+			get { return this.itemForceIntoChest; }
+		}
+
+		internal bool InvokeItemForceIntoChest(Chest chest, Item item, Vector2 position, Player player)
+		{
+			ForceItemIntoChestEventArgs args = new ForceItemIntoChestEventArgs()
+			{
+				Chest = chest,
+				Item = item,
+				Position = position,
+				Player = player
+			};
+
+			this.ItemForceIntoChest.Invoke(args);
+
+			return args.Handled;
+		}
+		#endregion
 		#endregion
 
 		#region Net Hooks
