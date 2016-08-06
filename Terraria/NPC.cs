@@ -11883,6 +11883,10 @@ namespace Terraria
 		}
 		public void AI()
 		{
+			if (ServerApi.Hooks.InvokeNpcAIUpdate(this))
+			{
+				return;
+			}
 			if (this.aiStyle == 0)
 			{
 				for (int i = 0; i < 255; i++)
