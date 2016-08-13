@@ -581,6 +581,10 @@ namespace Terraria
 					{
 						return;
 					}
+					if (num28 < 0)
+					{
+						return;
+					}
 					if (Main.tile[num26, num27] == null)
 					{
 						Main.tile[num26, num27] = new Tile();
