@@ -8739,22 +8739,20 @@ namespace Terraria
 			{
 				foreach (string line in File.ReadAllLines(configPath))
 				{
-					string str = line;
-					string str1 = str;
-					if (str == null)
+					if (line == null)
 					{
 						continue;
 					}
 					try
 					{
-						if (str1.Length > 6 && str1.Substring(0, 6).ToLower() == "world=")
+						if (line.Length > 6 && line.Substring(0, 6).ToLower() == "world=")
 						{
-							string str2 = str1.Substring(6);
+							string str2 = line.Substring(6);
 							Main.ActiveWorldFileData = WorldFile.GetAllMetadata(str2);
 						}
-						if (str1.Length > 5 && str1.Substring(0, 5).ToLower() == "port=")
+						if (line.Length > 5 && line.Substring(0, 5).ToLower() == "port=")
 						{
-							string str3 = str1.Substring(5);
+							string str3 = line.Substring(5);
 							try
 							{
 								Netplay.ListenPort = Convert.ToInt32(str3);
@@ -8768,9 +8766,9 @@ namespace Terraria
 #endif
 							}
 						}
-						if (str1.Length > 11 && str1.Substring(0, 11).ToLower() == "maxplayers=")
+						if (line.Length > 11 && line.Substring(0, 11).ToLower() == "maxplayers=")
 						{
-							string str4 = str1.Substring(11);
+							string str4 = line.Substring(11);
 							try
 							{
 								Main.maxNetPlayers = Convert.ToInt32(str4);
@@ -8785,9 +8783,9 @@ namespace Terraria
 							}
 						}
 #if !MONO
-						if (str1.Length > 9 && str1.Substring(0, 9).ToLower() == "priority=")
+						if (line.Length > 9 && line.Substring(0, 9).ToLower() == "priority=")
 						{
-							string str5 = str1.Substring(9);
+							string str5 = line.Substring(9);
 							try
 							{
 								int num = Convert.ToInt32(str5);
@@ -8830,33 +8828,33 @@ namespace Terraria
 							}
 						}
 #endif
-						if (str1.Length > 9 && str1.Substring(0, 9).ToLower() == "password=")
+						if (line.Length > 9 && line.Substring(0, 9).ToLower() == "password=")
 						{
-							Netplay.ServerPassword = str1.Substring(9);
+							Netplay.ServerPassword = line.Substring(9);
 						}
-						if (str1.Length > 5 && str1.Substring(0, 5).ToLower() == "motd=")
+						if (line.Length > 5 && line.Substring(0, 5).ToLower() == "motd=")
 						{
-							Main.motd = str1.Substring(5);
+							Main.motd = line.Substring(5);
 						}
-						if (str1.Length > 5 && str1.Substring(0, 5).ToLower() == "lang=")
+						if (line.Length > 5 && line.Substring(0, 5).ToLower() == "lang=")
 						{
-							Lang.lang = Convert.ToInt32(str1.Substring(5));
+							Lang.lang = Convert.ToInt32(line.Substring(5));
 						}
-						if (str1.Length >= 10 && str1.Substring(0, 10).ToLower() == "worldpath=")
+						if (line.Length >= 10 && line.Substring(0, 10).ToLower() == "worldpath=")
 						{
-							Main.WorldPath = str1.Substring(10);
+							Main.WorldPath = line.Substring(10);
 						}
-						if (str1.Length >= 10 && str1.Substring(0, 10).ToLower() == "worldname=")
+						if (line.Length >= 10 && line.Substring(0, 10).ToLower() == "worldname=")
 						{
-							Main.worldName = str1.Substring(10);
+							Main.worldName = line.Substring(10);
 						}
-						if (str1.Length > 8 && str1.Substring(0, 8).ToLower() == "banlist=")
+						if (line.Length > 8 && line.Substring(0, 8).ToLower() == "banlist=")
 						{
-							Netplay.BanFilePath = str1.Substring(8);
+							Netplay.BanFilePath = line.Substring(8);
 						}
-						if (str1.Length > 11 && str1.Substring(0, 11).ToLower() == "difficulty=")
+						if (line.Length > 11 && line.Substring(0, 11).ToLower() == "difficulty=")
 						{
-							string str6 = str1.Substring(11);
+							string str6 = line.Substring(11);
 							if (str6 == "0")
 							{
 								Main.expertMode = false;
@@ -8866,9 +8864,9 @@ namespace Terraria
 								Main.expertMode = true;
 							}
 						}
-						if (str1.Length > 11 && str1.Substring(0, 11).ToLower() == "autocreate=")
+						if (line.Length > 11 && line.Substring(0, 11).ToLower() == "autocreate=")
 						{
-							string str7 = str1.Substring(11);
+							string str7 = line.Substring(11);
 							if (str7 == "0")
 							{
 								Main.autoGen = false;
@@ -8892,13 +8890,13 @@ namespace Terraria
 								Main.autoGen = true;
 							}
 						}
-						if (str1.Length > 7 && str1.Substring(0, 7).ToLower() == "secure=" && str1.Substring(7) == "1")
+						if (line.Length > 7 && line.Substring(0, 7).ToLower() == "secure=" && line.Substring(7) == "1")
 						{
 							Netplay.spamCheck = true;
 						}
-						if (str1.Length > 10 && str1.Substring(0, 10).ToLower() == "npcstream=")
+						if (line.Length > 10 && line.Substring(0, 10).ToLower() == "npcstream=")
 						{
-							string str8 = str1.Substring(10);
+							string str8 = line.Substring(10);
 							try
 							{
 								Main.npcStreamSpeed = Convert.ToInt32(str8);
