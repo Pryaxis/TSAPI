@@ -2163,7 +2163,7 @@ namespace Terraria
 				num2++;
 				Main.travelShop[num1] = num3;
 				num1++;
-				if (num3 != 2260)
+				if (num3 == 2260)
 				{
 					Main.travelShop[num1] = 2261;
 					num1++;
