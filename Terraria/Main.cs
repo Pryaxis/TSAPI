@@ -8737,192 +8737,187 @@ namespace Terraria
 		{
 			if (File.Exists(configPath))
 			{
-				using (StreamReader streamReader = new StreamReader(configPath))
+				foreach (string line in File.ReadAllLines(configPath))
 				{
-					while (true)
+					if (line == null)
 					{
-						string str = streamReader.ReadLine();
-						string str1 = str;
-						if (str == null)
+						continue;
+					}
+					try
+					{
+						if (line.Length > 6 && line.Substring(0, 6).ToLower() == "world=")
 						{
-							break;
+							string str2 = line.Substring(6);
+							Main.ActiveWorldFileData = WorldFile.GetAllMetadata(str2);
 						}
-						try
+						if (line.Length > 5 && line.Substring(0, 5).ToLower() == "port=")
 						{
-							if (str1.Length > 6 && str1.Substring(0, 6).ToLower() == "world=")
+							string str3 = line.Substring(5);
+							try
 							{
-								string str2 = str1.Substring(6);
-								Main.ActiveWorldFileData = WorldFile.GetAllMetadata(str2);
+								Netplay.ListenPort = Convert.ToInt32(str3);
 							}
-							if (str1.Length > 5 && str1.Substring(0, 5).ToLower() == "port=")
+							catch (Exception ex)
 							{
-								string str3 = str1.Substring(5);
-								try
-								{
-									Netplay.ListenPort = Convert.ToInt32(str3);
-								}
-								catch (Exception ex)
-								{
 #if DEBUG
-									Console.WriteLine(ex);
-									System.Diagnostics.Debugger.Break();
+								Console.WriteLine(ex);
+								System.Diagnostics.Debugger.Break();
 
 #endif
-								}
 							}
-							if (str1.Length > 11 && str1.Substring(0, 11).ToLower() == "maxplayers=")
+						}
+						if (line.Length > 11 && line.Substring(0, 11).ToLower() == "maxplayers=")
+						{
+							string str4 = line.Substring(11);
+							try
 							{
-								string str4 = str1.Substring(11);
-								try
-								{
-									Main.maxNetPlayers = Convert.ToInt32(str4);
-								}
-								catch (Exception ex)
-								{
+								Main.maxNetPlayers = Convert.ToInt32(str4);
+							}
+							catch (Exception ex)
+							{
 #if DEBUG
-									Console.WriteLine(ex);
-									System.Diagnostics.Debugger.Break();
+								Console.WriteLine(ex);
+								System.Diagnostics.Debugger.Break();
 
 #endif
-								}
 							}
+						}
 #if !MONO
-							if (str1.Length > 9 && str1.Substring(0, 9).ToLower() == "priority=")
+						if (line.Length > 9 && line.Substring(0, 9).ToLower() == "priority=")
+						{
+							string str5 = line.Substring(9);
+							try
 							{
-								string str5 = str1.Substring(9);
-								try
+								int num = Convert.ToInt32(str5);
+								if (num >= 0 && num <= 5)
 								{
-									int num = Convert.ToInt32(str5);
-									if (num >= 0 && num <= 5)
+									Process currentProcess = Process.GetCurrentProcess();
+									if (num == 0)
 									{
-										Process currentProcess = Process.GetCurrentProcess();
-										if (num == 0)
-										{
-											currentProcess.PriorityClass = ProcessPriorityClass.RealTime;
-										}
-										else if (num == 1)
-										{
-											currentProcess.PriorityClass = ProcessPriorityClass.High;
-										}
-										else if (num == 2)
-										{
-											currentProcess.PriorityClass = ProcessPriorityClass.AboveNormal;
-										}
-										else if (num == 3)
-										{
-											currentProcess.PriorityClass = ProcessPriorityClass.Normal;
-										}
-										else if (num == 4)
-										{
-											currentProcess.PriorityClass = ProcessPriorityClass.BelowNormal;
-										}
-										else if (num == 5)
-										{
-											currentProcess.PriorityClass = ProcessPriorityClass.Idle;
-										}
+										currentProcess.PriorityClass = ProcessPriorityClass.RealTime;
+									}
+									else if (num == 1)
+									{
+										currentProcess.PriorityClass = ProcessPriorityClass.High;
+									}
+									else if (num == 2)
+									{
+										currentProcess.PriorityClass = ProcessPriorityClass.AboveNormal;
+									}
+									else if (num == 3)
+									{
+										currentProcess.PriorityClass = ProcessPriorityClass.Normal;
+									}
+									else if (num == 4)
+									{
+										currentProcess.PriorityClass = ProcessPriorityClass.BelowNormal;
+									}
+									else if (num == 5)
+									{
+										currentProcess.PriorityClass = ProcessPriorityClass.Idle;
 									}
 								}
-								catch (Exception ex)
-								{
+							}
+							catch (Exception ex)
+							{
 #if DEBUG
-									Console.WriteLine(ex);
-									System.Diagnostics.Debugger.Break();
+								Console.WriteLine(ex);
+								System.Diagnostics.Debugger.Break();
 
 #endif
-								}
-							}
-#endif
-							if (str1.Length > 9 && str1.Substring(0, 9).ToLower() == "password=")
-							{
-								Netplay.ServerPassword = str1.Substring(9);
-							}
-							if (str1.Length > 5 && str1.Substring(0, 5).ToLower() == "motd=")
-							{
-								Main.motd = str1.Substring(5);
-							}
-							if (str1.Length > 5 && str1.Substring(0, 5).ToLower() == "lang=")
-							{
-								Lang.lang = Convert.ToInt32(str1.Substring(5));
-							}
-							if (str1.Length >= 10 && str1.Substring(0, 10).ToLower() == "worldpath=")
-							{
-								Main.WorldPath = str1.Substring(10);
-							}
-							if (str1.Length >= 10 && str1.Substring(0, 10).ToLower() == "worldname=")
-							{
-								Main.worldName = str1.Substring(10);
-							}
-							if (str1.Length > 8 && str1.Substring(0, 8).ToLower() == "banlist=")
-							{
-								Netplay.BanFilePath = str1.Substring(8);
-							}
-							if (str1.Length > 11 && str1.Substring(0, 11).ToLower() == "difficulty=")
-							{
-								string str6 = str1.Substring(11);
-								if (str6 == "0")
-								{
-									Main.expertMode = false;
-								}
-								else if (str6 == "1")
-								{
-									Main.expertMode = true;
-								}
-							}
-							if (str1.Length > 11 && str1.Substring(0, 11).ToLower() == "autocreate=")
-							{
-								string str7 = str1.Substring(11);
-								if (str7 == "0")
-								{
-									Main.autoGen = false;
-								}
-								else if (str7 == "1")
-								{
-									Main.maxTilesX = 4200;
-									Main.maxTilesY = 1200;
-									Main.autoGen = true;
-								}
-								else if (str7 == "2")
-								{
-									Main.maxTilesX = 6300;
-									Main.maxTilesY = 1800;
-									Main.autoGen = true;
-								}
-								else if (str7 == "3")
-								{
-									Main.maxTilesX = 8400;
-									Main.maxTilesY = 2400;
-									Main.autoGen = true;
-								}
-							}
-							if (str1.Length > 7 && str1.Substring(0, 7).ToLower() == "secure=" && str1.Substring(7) == "1")
-							{
-								Netplay.spamCheck = true;
-							}
-							if (str1.Length > 10 && str1.Substring(0, 10).ToLower() == "npcstream=")
-							{
-								string str8 = str1.Substring(10);
-								try
-								{
-									Main.npcStreamSpeed = Convert.ToInt32(str8);
-								}
-								catch (Exception ex)
-								{
-#if DEBUG
-									Console.WriteLine(ex);
-									System.Diagnostics.Debugger.Break();
-
-#endif
-								}
 							}
 						}
-						catch (Exception ex)
+#endif
+						if (line.Length > 9 && line.Substring(0, 9).ToLower() == "password=")
 						{
+							Netplay.ServerPassword = line.Substring(9);
+						}
+						if (line.Length > 5 && line.Substring(0, 5).ToLower() == "motd=")
+						{
+							Main.motd = line.Substring(5);
+						}
+						if (line.Length > 5 && line.Substring(0, 5).ToLower() == "lang=")
+						{
+							Lang.lang = Convert.ToInt32(line.Substring(5));
+						}
+						if (line.Length >= 10 && line.Substring(0, 10).ToLower() == "worldpath=")
+						{
+							Main.WorldPath = line.Substring(10);
+						}
+						if (line.Length >= 10 && line.Substring(0, 10).ToLower() == "worldname=")
+						{
+							Main.worldName = line.Substring(10);
+						}
+						if (line.Length > 8 && line.Substring(0, 8).ToLower() == "banlist=")
+						{
+							Netplay.BanFilePath = line.Substring(8);
+						}
+						if (line.Length > 11 && line.Substring(0, 11).ToLower() == "difficulty=")
+						{
+							string str6 = line.Substring(11);
+							if (str6 == "0")
+							{
+								Main.expertMode = false;
+							}
+							else if (str6 == "1")
+							{
+								Main.expertMode = true;
+							}
+						}
+						if (line.Length > 11 && line.Substring(0, 11).ToLower() == "autocreate=")
+						{
+							string str7 = line.Substring(11);
+							if (str7 == "0")
+							{
+								Main.autoGen = false;
+							}
+							else if (str7 == "1")
+							{
+								Main.maxTilesX = 4200;
+								Main.maxTilesY = 1200;
+								Main.autoGen = true;
+							}
+							else if (str7 == "2")
+							{
+								Main.maxTilesX = 6300;
+								Main.maxTilesY = 1800;
+								Main.autoGen = true;
+							}
+							else if (str7 == "3")
+							{
+								Main.maxTilesX = 8400;
+								Main.maxTilesY = 2400;
+								Main.autoGen = true;
+							}
+						}
+						if (line.Length > 7 && line.Substring(0, 7).ToLower() == "secure=" && line.Substring(7) == "1")
+						{
+							Netplay.spamCheck = true;
+						}
+						if (line.Length > 10 && line.Substring(0, 10).ToLower() == "npcstream=")
+						{
+							string str8 = line.Substring(10);
+							try
+							{
+								Main.npcStreamSpeed = Convert.ToInt32(str8);
+							}
+							catch (Exception ex)
+							{
 #if DEBUG
-							Console.WriteLine(ex);
-							System.Diagnostics.Debugger.Break();
+								Console.WriteLine(ex);
+								System.Diagnostics.Debugger.Break();
 
 #endif
+							}
 						}
+					}
+					catch (Exception ex)
+					{
+#if DEBUG
+						Console.WriteLine(ex);
+						System.Diagnostics.Debugger.Break();
+
+#endif
 					}
 				}
 			}
@@ -10168,7 +10163,7 @@ namespace Terraria
 			if (Main.netMode != 0 || !Main.playerInventory && !(Main.npcChatText != "") && Main.player[Main.myPlayer].sign < 0 && !Main.ingameOptionsWindow && !Main.achievementsWindow || !Main.autoPause)
 			{
 				Main.gamePaused = false;
-				
+
 				PortalHelper.UpdatePortalPoints();
 				Main.tileSolid[379] = false;
 				Main.numPlayers = 0;
@@ -10315,7 +10310,7 @@ namespace Terraria
 						}
 					}
 				}
-				
+
 				if (!Main.ignoreErrors)
 				{
 					Main.UpdateTime();
