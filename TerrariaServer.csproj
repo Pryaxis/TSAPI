@@ -124,6 +124,7 @@
     <Compile Include="TerrariaApi.Server\EventArgs\LeaveEventArgs.cs" />
     <Compile Include="TerrariaApi.Server\EventArgs\MeteorDropEventArgs.cs" />
     <Compile Include="TerrariaApi.Server\EventArgs\NameCollisionEventArgs.cs" />
+    <Compile Include="TerrariaApi.Server\EventArgs\NpcAiUpdateEventArgs.cs" />
     <Compile Include="TerrariaApi.Server\EventArgs\NpcLootDropEventArgs.cs" />
     <Compile Include="TerrariaApi.Server\EventArgs\NpcSpawnEventArgs.cs" />
     <Compile Include="TerrariaApi.Server\EventArgs\NpcStrikeEventArgs.cs" />

@@ -735,6 +735,27 @@ namespace TerrariaApi.Server
 		}
 
 		#endregion
+
+		#region NpcAIUpdate
+		private readonly HandlerCollection<NpcAiUpdateEventArgs> npcAiUpdate =
+			new HandlerCollection<NpcAiUpdateEventArgs>("NpcAIUpdate");
+
+		public HandlerCollection<NpcAiUpdateEventArgs> NpcAIUpdate {
+			get { return this.npcAiUpdate; }
+		}
+
+		internal bool InvokeNpcAIUpdate(NPC npc)
+		{
+			NpcAiUpdateEventArgs args = new NpcAiUpdateEventArgs
+			{
+				Npc = npc
+			};
+
+			this.NpcAIUpdate.Invoke(args);
+
+			return args.Handled;
+		}
+		#endregion
 		#endregion
 
 		#region Player Hooks
