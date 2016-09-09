@@ -490,6 +490,8 @@ namespace Terraria
 
 		public static bool[] projHostile;
 
+		public static string[] projName;
+
 		public static bool[] projHook;
 
 		public static bool[] pvpBuff;
@@ -1723,9 +1725,9 @@ namespace Terraria
 
 		static Main()
 		{
-			Main.curRelease = 173;
-			Main.versionNumber = "v1.3.2.1";
-			Main.versionNumber2 = "v1.3.2.1";
+			Main.curRelease = 175;
+			Main.versionNumber = "v1.3.3";
+			Main.versionNumber2 = "v1.3.3";
 			Main.destroyerHB = new Vector2(0f, 0f);
 			Main.drawBackGore = false;
 			Main.expertLife = 2f;
@@ -1861,8 +1863,9 @@ namespace Terraria
 			Main.zoneX = 99;
 			Main.zoneY = 87;
 			Main.harpNote = 0f;
-			Main.projHostile = new bool[656];
-			Main.projHook = new bool[656];
+			Main.projHostile = new bool[662];
+			Main.projName = new string[662];
+			Main.projHook = new bool[662];
 			Main.pvpBuff = new bool[193];
 			Main.persistentBuff = new bool[193];
 			Main.vanityPet = new bool[193];
@@ -2514,6 +2517,22 @@ namespace Terraria
 
 		public static void BuyHairWindow()
 		{
+		}
+
+		private static void CacheEntityNames()
+		{
+			for (int i = 0; i < 547; i++)
+			{
+				NPC nPC = new NPC();
+				nPC.SetDefaults(i, -1f);
+				Main.npcName[i] = nPC.name;
+			}
+			for (int j = 0; j < 662; j++)
+			{
+				Projectile projectile = new Projectile();
+				projectile.SetDefaults(j);
+				Main.projName[j] = projectile.name;
+			}
 		}
 
 		protected void CacheNPCDraws()
@@ -4988,6 +5007,7 @@ namespace Terraria
 			}
 			this.Initialize();
 			Lang.setLang(false);
+			Main.CacheEntityNames();
 			for (int i = 0; i < Main.maxNPCTypes; i++)
 			{
 				NPC nPC = new NPC();
