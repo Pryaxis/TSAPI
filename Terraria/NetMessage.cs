@@ -19,7 +19,7 @@ namespace Terraria
 
 		public static void SendData(int msgType, int remoteClient = -1, int ignoreClient = -1, string text = "",
 			int number = 0, float number2 = 0f, float number3 = 0f, float number4 = 0f, int number5 = 0, int number6 = 0,
-			int number7 = 0) 
+			int number7 = 0)
 		{
 			if (Main.netMode == 0)
 			{
@@ -265,16 +265,18 @@ namespace Terraria
 					bb7[3] = NPC.downedChristmasIceQueen;
 					bb7[4] = NPC.downedChristmasSantank;
 					bb7[5] = NPC.downedChristmasTree;
-					bb7[6] = NPC.downedGolemBoss; 
+					bb7[6] = NPC.downedGolemBoss;
 					bb7[7] = BirthdayParty.PartyIsUp;
 					writer.Write(bb7);
 					BitsByte bb8 = 0;
 					bb8[0] = NPC.downedPirates;
 					bb8[1] = NPC.downedFrost;
 					bb8[2] = NPC.downedGoblins;
+					bb8[3] = Sandstorm.Happening;
 					writer.Write(bb8);
 					writer.Write((sbyte) Main.invasionType);
 					writer.Write(Main.LobbyId);
+					writer.Write(Sandstorm.IntendedSeverity);
 					break;
 				}
 				case 8:
@@ -545,7 +547,7 @@ namespace Terraria
 							writer.Write((sbyte) num8);
 						}
 					}
-					if (Main.npcCatchable[nPC.type])
+					if (nPC.type >= 0 && nPC.type < Main.maxNPCTypes && Main.npcCatchable[nPC.type])
 					{
 						writer.Write((byte) nPC.releaseOwner);
 					}
@@ -707,6 +709,7 @@ namespace Terraria
 					writer.Write((byte) number);
 					writer.Write(player4.zone1);
 					writer.Write(player4.zone2);
+					writer.Write(player4.zone3);
 					break;
 				}
 				case 38:
@@ -935,7 +938,7 @@ namespace Terraria
 				case 83:
 				{
 					int num18 = number;
-					if (num18 < 0 && num18 >= 251)
+					if (num18 < 0 && num18 >= 257)
 					{
 						num18 = 1;
 					}
@@ -2139,7 +2142,7 @@ namespace Terraria
 							Netplay.Clients[bufferIndex].Reset();
 						break;
 					}
-						
+
 
 					try
 					{
@@ -2219,11 +2222,11 @@ namespace Terraria
 			int num = (size - 1) / 2;
 			SendData(20, whoAmi, -1, "", size, (float)(tileX - num), (float)(tileY - num), 0f, 0, 0, 0);
 		}
-		public static void SendTravelShop()
+		public static void SendTravelShop(int plr)
 		{
 			if (Main.netMode == 2)
 			{
-				SendData(72, -1, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
+				SendData(72, plr, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
 			}
 		}
 		public static void SendAnglerQuest(int plr = -1)
@@ -2251,7 +2254,7 @@ namespace Terraria
 			}
 		}
 
-		public static void SendSection(int whoAmi, int sectionX, int sectionY, bool skipSent = false) 
+		public static void SendSection(int whoAmi, int sectionX, int sectionY, bool skipSent = false)
 		{
 			if (Main.netMode != 2)
 			{
@@ -2355,7 +2358,7 @@ namespace Terraria
 			NetMessage.SyncOnePlayer(plr, -1, plr);
 			for (int i = 0; i < 255; i++)
 			{
-				if (plr != i)
+				if (plr != i && Main.player[i].active)
 				{
 					NetMessage.SyncOnePlayer(i, plr, -1);
 				}
@@ -2384,7 +2387,7 @@ namespace Terraria
 			}
 			if (flag)
 			{
-				SendData(72, plr, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
+				NetMessage.SendTravelShop(plr);
 			}
 		}
 		private static void EnsureLocalPlayerIsPresent()

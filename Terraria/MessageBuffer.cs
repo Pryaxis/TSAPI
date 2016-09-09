@@ -81,10 +81,10 @@ namespace Terraria
 			{
 				return;
 			}
-			
+
 			//Main.rxMsg = Main.rxMsg + 1;
 			//Main.rxData = Main.rxData + length;
-			
+
 			if (Main.verboseNetplay)
 			{
 				int num3 = start;
@@ -468,7 +468,7 @@ namespace Terraria
 							NetMessage.SendData(27, this.whoAmI, -1, "", k1, 0f, 0f, 0f, 0, 0, 0);
 						}
 					}
-					for (int l1 = 0; l1 < 251; l1++)
+					for (int l1 = 0; l1 < 257; l1++)
 					{
 						NetMessage.SendData(83, this.whoAmI, -1, "", l1, 0f, 0f, 0f, 0, 0, 0);
 					}
@@ -1341,6 +1341,7 @@ namespace Terraria
 					Player player8 = Main.player[num103];
 					player8.zone1 = this.reader.ReadByte();
 					player8.zone2 = this.reader.ReadByte();
+					player8.zone3 = this.reader.ReadByte();
 					NetMessage.SendData(36, -1, this.whoAmI, "", num103, 0f, 0f, 0f, 0, 0, 0);
 					return;
 				}
@@ -2015,6 +2016,10 @@ namespace Terraria
 					{
 						return;
 					}
+					if (Main.netMode == 2)
+					{
+						playerId = (byte)this.whoAmI;
+					}
 
 					Main.player[playerId].stealth = stealth;
 					NetMessage.SendData(84, -1, this.whoAmI, "", (int)playerId);
@@ -2027,6 +2032,10 @@ namespace Terraria
 					if (num204 >= 255 || num205 >= 58)
 					{
 						return;
+					}
+					if (Main.netMode == 2)
+					{
+						num204 = this.whoAmI;
 					}
 					Chest.ServerPlaceItem(this.whoAmI, (int)num205);
 					return;

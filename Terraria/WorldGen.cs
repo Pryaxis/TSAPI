@@ -1253,7 +1253,7 @@ namespace Terraria
 				}
 			}
 			Chest.SetupTravelShop();
-			NetMessage.SendTravelShop();
+			NetMessage.SendTravelShop(-1);
 			int[] array = new int[200];
 			int num = 0;
 			for (int j = 0; j < 200; j++)
@@ -1450,6 +1450,19 @@ namespace Terraria
 					int num2 = WorldGen.bestX;
 					int num3 = WorldGen.bestY;
 					bool flag = false;
+					for (int j = 0; j < 200; j++)
+					{
+						NPC nPC = Main.npc[j];
+						if (nPC.active && nPC.townNPC && !nPC.homeless && nPC.homeTileX == num2 && nPC.homeTileY == num3)
+						{
+							flag = true;
+							break;
+						}
+					}
+					if (flag)
+					{
+						return;
+					}
 					if (!flag)
 					{
 						flag = true;
@@ -1687,6 +1700,18 @@ namespace Terraria
 					}
 					if (WorldGen.canSpawn && WorldGen.hiScore > 0)
 					{
+						for (int k = 0; k < 200; k++)
+						{
+							if (k != npc)
+							{
+								NPC nPC = Main.npc[k];
+								if (nPC.active && nPC.townNPC && !nPC.homeless && nPC.homeTileX == WorldGen.bestX && nPC.homeTileY == WorldGen.bestY)
+								{
+									WorldGen.canSpawn = false;
+									break;
+								}
+							}
+						}
 						Main.npc[npc].homeTileX = WorldGen.bestX;
 						Main.npc[npc].homeTileY = WorldGen.bestY;
 						Main.npc[npc].homeless = false;
@@ -7680,6 +7705,10 @@ namespace Terraria
 									WorldGen.SlopeTile(k, l, 4);
 								}
 							}
+							if (TileID.Sets.Conversion.Sand[(int)Main.tile[k, l].type])
+							{
+								Tile.SmoothSlope(k, l, false);
+							}
 						}
 					}
 				}
@@ -10175,6 +10204,17 @@ namespace Terraria
 											break;
 										}
 									}
+								}
+							}
+							if (!Main.tile[k, l].active() && WorldGen.genRand.Next(3) != 0)
+							{
+								Tile tile = Main.tile[k, l - 1];
+								if (TileID.Sets.Conversion.Sandstone[(int)tile.type] || TileID.Sets.Conversion.HardenedSand[(int)tile.type])
+								{
+									Main.tile[k, l].type = 461;
+									Main.tile[k, l].frameX = 0;
+									Main.tile[k, l].frameY = 0;
+									Main.tile[k, l].active(true);
 								}
 							}
 						}
@@ -24049,7 +24089,15 @@ namespace Terraria
 				{
 					int num2 = frameX / 18;
 					num2 += num * 111;
-					if (num2 >= 270)
+					if (num2 >= 273)
+					{
+						Item.NewItem(x * 16, (i + 1) * 16, 32, 32, 3516 + num2, 1, false, 0, false, false);
+					}
+					else if (num2 >= 272)
+					{
+						Item.NewItem(x * 16, (i + 1) * 16, 32, 32, 3780, 1, false, 0, false, false);
+					}
+					else if (num2 >= 270)
 					{
 						Item.NewItem(x * 16, (i + 1) * 16, 32, 32, 3323 + num2, 1, false, 0, false, false);
 					}
@@ -25084,6 +25132,10 @@ namespace Terraria
 					{
 						Item.NewItem(num3 * 16, y * 16, 32, 32, 182, WorldGen.genRand.Next(1, 4), false, 0, false, false);
 					}
+				}
+				if (type == 462)
+				{
+					Item.NewItem(num3 * 16, y * 16, 32, 32, 3795, 1, false, 0, false, false);
 				}
 				if (type == 29)
 				{
@@ -28130,6 +28182,10 @@ namespace Terraria
 				else if (num == 37)
 				{
 					Item.NewItem(i * 16, j * 16, 32, 32, 3371, 1, false, 0, false, false);
+				}
+				else if (num == 38)
+				{
+					Item.NewItem(i * 16, j * 16, 32, 32, 3796, 1, false, 0, false, false);
 				}
 				else if (num >= 13)
 				{
@@ -32957,7 +33013,7 @@ namespace Terraria
 							return false;
 						}
 					}
-					if ((type == 373 || type == 375 || type == 374) && (Main.tile[i, j - 1] == null || Main.tile[i, j - 1].bottomSlope()))
+					if ((type == 373 || type == 375 || type == 374 || type == 461) && (Main.tile[i, j - 1] == null || Main.tile[i, j - 1].bottomSlope()))
 					{
 						return false;
 					}
@@ -33392,7 +33448,7 @@ namespace Terraria
 						WorldGen.PlaceDye(i, j, style);
 						WorldGen.SquareTileFrame(i, j, true);
 					}
-					else if (type == 16 || type == 18 || type == 29 || type == 103 || type == 134)
+					else if (type == 16 || type == 18 || type == 29 || type == 103 || type == 134 || type == 462)
 					{
 						WorldGen.Place2x1(i, j, (ushort)type, style);
 						WorldGen.SquareTileFrame(i, j, true);
@@ -34772,6 +34828,10 @@ namespace Terraria
 					}
 					if (!effectOnly && !WorldGen.stopDrops)
 					{
+						if (!noItem && FixExploitManEaters.SpotProtected(i, j))
+						{
+							return;
+						}
 						if (tile.type == 3 || tile.type == 110)
 						{
 							if (tile.frameX == 144)
@@ -34937,6 +34997,10 @@ namespace Terraria
 						num13 = 0;
 					}
 					if (tile.type == 375)
+					{
+						num13 = 0;
+					}
+					if (tile.type == 461)
 					{
 						num13 = 0;
 					}
@@ -39863,6 +39927,16 @@ namespace Terraria
 			{
 			}
 			return false;
+		}
+
+		public static bool SolidTile3(Tile t)
+		{
+			return t != null && (t.active() && !t.inActive() && Main.tileSolid[(int)t.type]) && !Main.tileSolidTop[(int)t.type];
+		}
+
+		public static bool SolidTile3(int i, int j)
+		{
+			return WorldGen.InWorld(i, j, 1) && WorldGen.SolidTile3(Main.tile[i, j]);
 		}
 
 		public static bool SolidTileNoAttach(int i, int j)
@@ -47317,7 +47391,7 @@ namespace Terraria
 									WorldGen.KillTile(i, j, false, false, false);
 								}
 							}
-							else if (num >= 373 && num <= 375)
+							else if ((num >= 373 && num <= 375) || num == 461)
 							{
 								Tile tile2 = Main.tile[i, j - 1];
 								if (tile2 == null || !tile2.active() || tile2.bottomSlope() || !Main.tileSolid[(int)tile2.type] || Main.tileSolidTop[(int)tile2.type])
@@ -47999,9 +48073,9 @@ namespace Terraria
 							{
 								WorldGen.CheckLogicTiles(i, j, num);
 							}
-							else if (num == 16 || num == 18 || num == 29 || num == 103 || num == 134)
+							else if (num == 16 || num == 18 || num == 29 || num == 103 || num == 134 || num == 462)
 							{
-								WorldGen.Check2x1(i, j, (ushort)((byte)num));
+								WorldGen.Check2x1(i, j, (ushort)num);
 							}
 							else if (num == 13 || num == 33 || num == 50 || num == 78 || num == 174 || num == 372)
 							{

@@ -4815,6 +4815,18 @@ namespace Terraria
 						return "Gold Squirrel";
 					case 540:
 						return "Bunny";
+					case 541:
+						return "Sand Elemental";
+					case 542:
+						return "Sand Shark";
+					case 543:
+						return "Bone Biter";
+					case 544:
+						return "Flesh Reaver";
+					case 545:
+						return "Crystal Thresher";
+					case 546:
+						return "Angry Tumbler";
 				}
 			}
 			else if (Lang.lang == 2)
@@ -6356,7 +6368,7 @@ namespace Terraria
 				{
 					return "Placeable on a christmas tree";
 				}
-				if ((l >= 2897 && l <= 2994) || (l >= 1615 && l <= 1701) || (l >= 3390 && l <= 3452) || (l >= 3593 && l <= 3594))
+				if ((l >= 2897 && l <= 2994) || (l >= 1615 && l <= 1701) || (l >= 3390 && l <= 3452) || (l >= 3593 && l <= 3594) || l == 3780 || (l >= 3789 && l <= 3793))
 				{
 					int l2 = 0;
 					if (l >= 2897 && l <= 2994)
@@ -6374,6 +6386,14 @@ namespace Terraria
 					if (l >= 3593 && l <= 3594)
 					{
 						l2 = Item.BannerToNPC(249 + l - 3593);
+					}
+					if (l == 3780)
+					{
+						l2 = 541;
+					}
+					if (l >= 3789 && l <= 3793)
+					{
+						l2 = Item.BannerToNPC(252 + l - 3789);
 					}
 					string str = Lang.npcName(l2, false);
 					return "Nearby players get a bonus against: " + str;
@@ -8898,6 +8918,18 @@ namespace Terraria
 												return "Become the Pedguin";
 											case 3763:
 												return "Enables your inner wingman";
+											case 3770:
+												return "Grants slow fall in exchange for your feet";
+											case 3771:
+												return "Summons a rideable basilisk mount";
+											case 3776:
+												return "15% increased magic and minion damage";
+											case 3777:
+												return "Increases maximum mana by 80";
+											case 3778:
+												return "Increases your max number of minions";
+											case 3781:
+												return "Immunity to petrification";
 											default:
 												goto IL_AD44;
 										}
@@ -25797,6 +25829,60 @@ namespace Terraria
 						return "White Phasesaber";
 					case 3769:
 						return "Yellow Phasesaber";
+					case 3770:
+						return "Djinn's Curse";
+					case 3771:
+						return "Ancient Horn";
+					case 3772:
+						return "Mandible Blade";
+					case 3773:
+						return "Ancient Headdress";
+					case 3774:
+						return "Ancient Garments";
+					case 3775:
+						return "Ancient Slacks";
+					case 3776:
+						return "Forbidden Mask";
+					case 3777:
+						return "Forbidden Robes";
+					case 3778:
+						return "Forbidden Treads";
+					case 3779:
+						return "Spirit Flame";
+					case 3780:
+						return "Sand Elemental Banner";
+					case 3781:
+						return "Pocket Mirror";
+					case 3782:
+						return "Magic Sand Dropper";
+					case 3783:
+						return "Forbidden Fragment";
+					case 3784:
+						return "Lamia Tail";
+					case 3785:
+						return "Lamia Wraps";
+					case 3786:
+						return "Lamia Mask";
+					case 3787:
+						return "Sky Fracture";
+					case 3788:
+						return "Onyx Blaster";
+					case 3789:
+						return "Sand Shark Banner";
+					case 3790:
+						return "Bone Biter Banner";
+					case 3791:
+						return "Flesh Reaver Banner";
+					case 3792:
+						return "Crystal Thresher Banner";
+					case 3793:
+						return "Angry Tumbler Banner";
+					case 3794:
+						return "Ancient Cloth";
+					case 3795:
+						return "Desert Spirit Lamp";
+					case 3796:
+						return "Music Box (Sandstorm)";
 				}
 			}
 			else if (Lang.lang == 2)
@@ -33642,6 +33728,8 @@ namespace Terraria
 				Main.buffTip[164] = "Gravity around you is distorted";
 				Main.buffName[165] = "Dryad's Blessing";
 				Main.buffTip[165] = "The power of nature protects you";
+				Main.buffName[194] = "Mighty Wind";
+				Main.buffTip[194] = "The wind moves you around!";
 				Main.buffName[166] = "Minecart";
 				Main.buffTip[166] = "Riding in a minecart";
 				Main.buffName[167] = "Minecart";
@@ -33678,6 +33766,8 @@ namespace Terraria
 				Main.buffTip[162] = "Charge ahead... fabulously!";
 				Main.buffName[168] = "Cute Fishron Mount";
 				Main.buffTip[168] = "Just don't make it crawl.";
+				Main.buffName[193] = "Basilisk Mount";
+				Main.buffTip[193] = "Crash into anyone... and EVERYONE!";
 				Main.buffName[71] = "Weapon Imbue: Venom";
 				Main.buffTip[71] = "Melee attacks inflict venom on your targets";
 				Main.buffName[73] = "Weapon Imbue: Cursed Flames";
@@ -36304,116 +36394,131 @@ namespace Terraria
 			}
 		}
 
-		public static string deathMsg(int plr = -1, int npc = -1, int proj = -1, int other = -1)
+		public static string deathMsg(int plr = -1, int npc = -1, int proj = -1, int other = -1, int projType = 0, int plrItemType = 0)
 		{
+			string text = "";
+			string text2 = "";
+			string text3 = "";
+			if (proj >= 0)
+			{
+				text = Main.projName[projType];
+			}
+			if (npc >= 0)
+			{
+				text2 = Main.npc[npc].displayName;
+			}
+			if (plr >= 0 && plr < 255)
+			{
+				text3 = Main.player[plr].name;
+			}
 			if (Lang.lang <= 1)
 			{
 				string result = "";
 				int num = Main.rand.Next(26);
-				string text = "";
+				string text4 = "";
 				if (num == 0)
 				{
-					text = " was slain";
+					text4 = " was slain";
 				}
 				else if (num == 1)
 				{
-					text = " was eviscerated";
+					text4 = " was eviscerated";
 				}
 				else if (num == 2)
 				{
-					text = " was murdered";
+					text4 = " was murdered";
 				}
 				else if (num == 3)
 				{
-					text = "'s face was torn off";
+					text4 = "'s face was torn off";
 				}
 				else if (num == 4)
 				{
-					text = "'s entrails were ripped out";
+					text4 = "'s entrails were ripped out";
 				}
 				else if (num == 5)
 				{
-					text = " was destroyed";
+					text4 = " was destroyed";
 				}
 				else if (num == 6)
 				{
-					text = "'s skull was crushed";
+					text4 = "'s skull was crushed";
 				}
 				else if (num == 7)
 				{
-					text = " got massacred";
+					text4 = " got massacred";
 				}
 				else if (num == 8)
 				{
-					text = " got impaled";
+					text4 = " got impaled";
 				}
 				else if (num == 9)
 				{
-					text = " was torn in half";
+					text4 = " was torn in half";
 				}
 				else if (num == 10)
 				{
-					text = " was decapitated";
+					text4 = " was decapitated";
 				}
 				else if (num == 11)
 				{
-					text = " let their arms get torn off";
+					text4 = " let their arms get torn off";
 				}
 				else if (num == 12)
 				{
-					text = " watched their innards become outards";
+					text4 = " watched their innards become outards";
 				}
 				else if (num == 13)
 				{
-					text = " was brutally dissected";
+					text4 = " was brutally dissected";
 				}
 				else if (num == 14)
 				{
-					text = "'s extremities were detached";
+					text4 = "'s extremities were detached";
 				}
 				else if (num == 15)
 				{
-					text = "'s body was mangled";
+					text4 = "'s body was mangled";
 				}
 				else if (num == 16)
 				{
-					text = "'s vital organs were ruptured";
+					text4 = "'s vital organs were ruptured";
 				}
 				else if (num == 17)
 				{
-					text = " was turned into a pile of flesh";
+					text4 = " was turned into a pile of flesh";
 				}
 				else if (num == 18)
 				{
-					text = " was removed from " + Main.worldName;
+					text4 = " was removed from " + Main.worldName;
 				}
 				else if (num == 19)
 				{
-					text = " got snapped in half";
+					text4 = " got snapped in half";
 				}
 				else if (num == 20)
 				{
-					text = " was cut down the middle";
+					text4 = " was cut down the middle";
 				}
 				else if (num == 21)
 				{
-					text = " was chopped up";
+					text4 = " was chopped up";
 				}
 				else if (num == 22)
 				{
-					text = "'s plead for death was answered";
+					text4 = "'s plead for death was answered";
 				}
 				else if (num == 23)
 				{
-					text = "'s meat was ripped off the bone";
+					text4 = "'s meat was ripped off the bone";
 				}
 				else if (num == 24)
 				{
-					text = "'s flailing about was finally stopped";
+					text4 = "'s flailing about was finally stopped";
 				}
 				else if (num == 25)
 				{
-					text = " had their head removed";
+					text4 = " had their head removed";
 				}
 				if (plr >= 0 && plr < 255)
 				{
@@ -36421,11 +36526,11 @@ namespace Terraria
 					{
 						result = string.Concat(new string[]
 						{
-							text,
+							text4,
 							" by ",
-							Main.player[plr].name,
+							text3,
 							"'s ",
-							Main.projectile[proj].name,
+							text,
 							"."
 						});
 					}
@@ -36433,9 +36538,9 @@ namespace Terraria
 					{
 						result = string.Concat(new string[]
 						{
-							text,
+							text4,
 							" by ",
-							Main.player[plr].name,
+							text3,
 							"'s ",
 							Main.player[plr].inventory[Main.player[plr].selectedItem].name,
 							"."
@@ -36444,11 +36549,11 @@ namespace Terraria
 				}
 				else if (npc >= 0 && Main.npc[npc].displayName != "")
 				{
-					result = text + " by " + Main.npc[npc].displayName + ".";
+					result = text4 + " by " + text2 + ".";
 				}
 				else if (proj >= 0 && Main.projectile[proj].name != "")
 				{
-					result = text + " by " + Main.projectile[proj].name + ".";
+					result = text4 + " by " + text + ".";
 				}
 				else if (other >= 0)
 				{
@@ -36505,7 +36610,7 @@ namespace Terraria
 					}
 					else if (other == 3)
 					{
-						result = text + ".";
+						result = text4 + ".";
 					}
 					else if (other == 4)
 					{
