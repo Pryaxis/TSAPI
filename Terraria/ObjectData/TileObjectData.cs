@@ -2143,6 +2143,9 @@ namespace Terraria.ObjectData
 			TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.Table, TileObjectData.newTile.Width, 0);
 			TileObjectData.addTile(103);
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style2x1);
+			TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.Table, TileObjectData.newTile.Width, 0);
+			TileObjectData.addTile(462);
+			TileObjectData.newTile.CopyFrom(TileObjectData.Style2x1);
 			TileObjectData.newTile.CoordinateHeights = new int[] { 18 };
 			TileObjectData.newSubTile.CopyFrom(TileObjectData.newTile);
 			TileObjectData.newSubTile.LavaDeath = false;
