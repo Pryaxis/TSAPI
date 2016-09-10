@@ -114,6 +114,10 @@ namespace Terraria.ID
 
 		public const short RainbowMk2 = 267;
 
-		public const short Count = 268;
+		public const short Sandstorm = 268;
+
+		public const short Sandnado = 269;
+
+		public const short Count = 270;
 	}
 }
