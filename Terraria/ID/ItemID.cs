@@ -7554,7 +7554,61 @@ namespace Terraria.ID
 
 		public const short YellowPhasesaber = 3769;
 
-		public const short Count = 3770;
+		public const short DjinnsCurse = 3770;
+
+		public const short AncientHorn = 3771;
+
+		public const short AntlionClaw = 3772;
+
+		public const short AncientArmorHat = 3773;
+
+		public const short AncientArmorShirt = 3774;
+
+		public const short AncientArmorPants = 3775;
+
+		public const short AncientBattleArmorHat = 3776;
+
+		public const short AncientBattleArmorShirt = 3777;
+
+		public const short AncientBattleArmorPants = 3778;
+
+		public const short SpiritFlame = 3779;
+
+		public const short SandElementalBanner = 3780;
+
+		public const short PocketMirror = 3781;
+
+		public const short MagicSandDropper = 3782;
+
+		public const short AncientBattleArmorMaterial = 3783;
+
+		public const short LamiaPants = 3784;
+
+		public const short LamiaShirt = 3785;
+
+		public const short LamiaHat = 3786;
+
+		public const short SkyFracture = 3787;
+
+		public const short OnyxBlaster = 3788;
+
+		public const short SandsharkBanner = 3789;
+
+		public const short SandsharkCorruptBanner = 3790;
+
+		public const short SandsharkCrimsonBanner = 3791;
+
+		public const short SandsharkHallowedBanner = 3792;
+
+		public const short TumbleweedBanner = 3793;
+
+		public const short AncientCloth = 3794;
+
+		public const short DjinnLamp = 3795;
+
+		public const short MusicBoxSandstorm = 3796;
+
+		public const short Count = 3797;
 
 		public static bool Any(int match)
 		{
@@ -7575,7 +7629,7 @@ namespace Terraria.ID
 
 		public class Sets
 		{
-			public static SetFactory Factory = new SetFactory(3770);
+			public static SetFactory Factory = new SetFactory(3797);
 
 			public static int[] TextureCopyLoad = ItemID.Sets.Factory.CreateIntSet(-1, new int[]
 			{
