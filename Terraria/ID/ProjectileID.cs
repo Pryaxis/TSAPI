@@ -89,7 +89,7 @@ namespace Terraria.ID
 				// Note: this type is marked as 'beforefieldinit'.
 				SetFactory arg_3E9_0 = Factory;
 				int arg_3E9_1 = -1;
-				int[] array = new int[64];
+				int[] array = new int[68];
 				array[0] = 94;
 				array[2] = 301;
 				array[4] = 388;
@@ -124,6 +124,8 @@ namespace Terraria.ID
 				array[58] = 424;
 				array[60] = 425;
 				array[62] = 426;
+				array[64] = 660;
+				array[66] = 661;
 				TrailingMode = arg_3E9_0.CreateIntSet(arg_3E9_1, array);
 				TrailCacheLength = Factory.CreateIntSet(10, new int[]
 				{
@@ -1562,6 +1564,18 @@ namespace Terraria.ID
 
 		public const short BeeHive = 655;
 
-		public const short Count = 656;
+		public const short SandnadoFriendly = 656;
+
+		public const short SandnadoHostile = 657;
+
+		public const short SandnadoHostileMark = 658;
+
+		public const short SpiritFlame = 659;
+
+		public const short SkyFracture = 660;
+
+		public const short BlackBolt = 661;
+
+		public const short Count = 662;
 	}
 }
