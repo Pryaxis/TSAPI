@@ -148,6 +148,14 @@ namespace Terraria.ID
 
 		public const short TownNPCHats = 72;
 
-		public const short Count = 73;
+		public const short DjinnsCurse = 73;
+
+		public const short ForbiddenSign = 74;
+
+		public const short BlackBolt = 75;
+
+		public const short Tumbleweed = 76;
+
+		public const short Count = 77;
 	}
 }
