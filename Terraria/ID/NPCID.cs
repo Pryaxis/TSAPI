@@ -6,7 +6,7 @@ namespace Terraria.ID
 	{
 		public static class Sets
 		{
-			public static SetFactory Factory = new SetFactory(541);
+			public static SetFactory Factory = new SetFactory(547);
 
 			public static float[] StatueSpawnedDropRarity = Factory.CreateCustomSet<float>(-1f, new object[]
 			{
@@ -1919,6 +1919,18 @@ namespace Terraria.ID
 
 		public const short PartyBunny = 540;
 
-		public const short Count = 541;
+		public const short SandElemental = 541;
+
+		public const short SandShark = 542;
+
+		public const short SandsharkCorrupt = 543;
+
+		public const short SandsharkCrimson = 544;
+
+		public const short SandsharkHallow = 545;
+
+		public const short Tumbleweed = 546;
+
+		public const short Count = 547;
 	}
 }
