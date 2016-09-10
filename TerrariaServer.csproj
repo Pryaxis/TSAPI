@@ -168,6 +168,7 @@
     <Compile Include="Terraria\GameContent\PressurePlateHelper.cs" />
     <Compile Include="Terraria\GameContent\Tile_Entities\TELogicSensor.cs" />
     <Compile Include="Terraria\GameContent\UI\WiresUI.cs" />
+    <Compile Include="Terraria\ID\ArmorID.cs" />
     <Compile Include="Terraria\ID\NPCID.cs" />
     <Compile Include="Terraria\ID\RecipeGroupID.cs" />
     <Compile Include="Terraria\IStaticPortMapping.cs" />
