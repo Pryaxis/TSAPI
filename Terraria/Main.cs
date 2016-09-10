@@ -32,21 +32,21 @@ namespace Terraria
 	{
 		public const int offLimitBorderTiles = 40;
 
-		public const int maxItemTypes = 3770;
+		public const int maxItemTypes = 3797;
 
-		public const int maxProjectileTypes = 656;
+		public const int maxProjectileTypes = 662;
 
-		public const int maxNPCTypes = 541;
+		public const int maxNPCTypes = 547;
 
-		public const int maxTileSets = 461;
+		public const int maxTileSets = 463;
 
 		public const int maxWallTypes = 231;
 
-		public const int maxBuffTypes = 193;
+		public const int maxBuffTypes = 195;
 
-		public const int maxGlowMasks = 216;
+		public const int maxGlowMasks = 221;
 
-		public const int maxExtras = 73;
+		public const int maxExtras = 77;
 
 		public const int maxGoreTypes = 943;
 

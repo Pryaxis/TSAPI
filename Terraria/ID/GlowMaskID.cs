@@ -436,6 +436,16 @@ namespace Terraria.ID
 
 		public const short CannonTile = 215;
 
-		public const short Count = 216;
+		public const short SandElemental = 216;
+
+		public const short ForbiddenSign = 217;
+
+		public const short SpiritFlameItem = 218;
+
+		public const short BlackBolt = 219;
+
+		public const short BlackBoltEye = 220;
+
+		public const short Count = 221;
 	}
 }
