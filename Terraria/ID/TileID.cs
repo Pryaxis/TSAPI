@@ -73,6 +73,28 @@ namespace Terraria.ID
 				});
 			}
 
+			public static class ForAdvancedCollision
+			{
+				// Token: 0x04000870 RID: 2160
+				public static bool[] ForSandshark = TileID.Sets.Factory.CreateBoolSet(new int[]
+				{
+					397,
+					398,
+					402,
+					399,
+					396,
+					400,
+					403,
+					401,
+					53,
+					112,
+					116,
+					234,
+					407,
+					404
+				});
+			}
+
 			public static class RoomNeeds
 			{
 				public static int[] CountsAsChair = new int[]
@@ -557,8 +579,8 @@ namespace Terraria.ID
 				441,
 				452,
 				454,
-				455,
-				457
+				457,
+				462
 			});
 
 			public static bool[] HousingWalls = Factory.CreateBoolSet(new int[]
@@ -1589,6 +1611,10 @@ namespace Terraria.ID
 
 		public const ushort SnowCloud = 460;
 
-		public const ushort Count = 461;
+		public const ushort SandDrip = 461;
+
+		public const ushort DjinnLamp = 462;
+
+		public const ushort Count = 463;
 	}
 }

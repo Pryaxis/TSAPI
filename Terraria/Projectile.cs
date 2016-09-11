@@ -6991,6 +6991,83 @@ namespace Terraria
 				this.penetrate = -1;
 				this.trap = true;
 			}
+			else if (this.type == 656)
+			{
+				this.name = "Ancient Storm";
+				this.width = 10;
+				this.height = 10;
+				this.aiStyle = 127;
+				this.friendly = true;
+				this.magic = true;
+				this.tileCollide = false;
+				this.penetrate = -1;
+				this.updatedNPCImmunity = true;
+				this.timeLeft = 1200;
+			}
+			else if (this.type == 657)
+			{
+				this.name = "Ancient Storm";
+				this.width = 10;
+				this.height = 10;
+				this.aiStyle = 127;
+				this.hostile = true;
+				this.tileCollide = false;
+				this.penetrate = -1;
+				this.timeLeft = 1200;
+			}
+			else if (this.type == 658)
+			{
+				this.name = "Ancient Storm";
+				this.width = 14;
+				this.height = 14;
+				this.aiStyle = 128;
+				this.penetrate = 1;
+				this.timeLeft = 900;
+				this.tileCollide = false;
+				this.ignoreWater = true;
+				this.alpha = 255;
+				this.hostile = true;
+			}
+			else if (this.type == 659)
+			{
+				this.name = "Spirit Flame";
+				this.width = 8;
+				this.height = 8;
+				this.aiStyle = 129;
+				this.friendly = true;
+				this.magic = true;
+				this.alpha = 255;
+				this.ignoreWater = true;
+				this.timeLeft = 180;
+				this.tileCollide = false;
+				this.penetrate = -1;
+			}
+			else if (this.type == 660)
+			{
+				this.name = "Sky Fracture";
+				this.width = 10;
+				this.height = 10;
+				this.aiStyle = 1;
+				this.friendly = true;
+				this.alpha = 255;
+				this.timeLeft = 600;
+				this.magic = true;
+				this.ignoreWater = true;
+			}
+			else if (this.type == 661)
+			{
+				this.name = "Onyx Blaster";
+				this.width = 10;
+				this.height = 10;
+				this.aiStyle = 1;
+				this.friendly = true;
+				this.alpha = 255;
+				this.timeLeft = 40;
+				this.extraUpdates = 1;
+				this.ranged = true;
+				this.ignoreWater = true;
+				this.updatedNPCImmunity = true;
+			}
 			else
 			{
 				this.active = false;
@@ -7012,6 +7089,10 @@ namespace Terraria
 				}
 			}
 			return result;
+		}
+		public static int NewProjectile(Vector2 position, Vector2 velocity, int Type, int Damage, float KnockBack, int Owner = 255, float ai0 = 0f, float ai1 = 0f)
+		{
+			return Projectile.NewProjectile(position.X, position.Y, velocity.X, velocity.Y, Type, Damage, KnockBack, Owner, ai0, ai1);
 		}
 		public static int NewProjectile(float X, float Y, float SpeedX, float SpeedY, int Type, int Damage, float KnockBack, int Owner = 255, float ai0 = 0f, float ai1 = 0f)
 		{
@@ -7086,7 +7167,7 @@ namespace Terraria
 				projectile.ai[0] = projectile.position.X;
 				projectile.ai[1] = projectile.position.Y;
 			}
-			if (Type > 0 && Type < 656)
+			if (Type > 0 && Type < 662)
 			{
 				if (ProjectileID.Sets.NeedsUUID[Type])
 				{
@@ -8010,9 +8091,65 @@ namespace Terraria
 			}
 		}
 
+		private bool CanCutTiles()
+ 		{
+ 			return this.aiStyle != 45 && this.aiStyle != 92 && this.aiStyle != 105 && this.aiStyle != 106 && this.type != 463 && this.type != 69 && this.type != 70 && this.type != 621 && this.type != 10 && this.type != 11 && this.type != 379 && this.type != 407 && this.type != 476 && this.type != 623 && (this.type< 625 || this.type> 628);
+ 		}
+
 		public bool CanHit(Entity ent)
 		{
 			return Collision.CanHit(Main.player[this.owner].position, Main.player[this.owner].width, Main.player[this.owner].height, ent.position, ent.width, ent.height) || Collision.CanHitLine(Main.player[this.owner].Center + new Vector2((float)(Main.player[this.owner].direction * Main.player[this.owner].width / 2), Main.player[this.owner].gravDir * (float)(-(float)Main.player[this.owner].height) / 3f), 0, 0, ent.Center + new Vector2(0f, (float)(-(float)ent.height / 3)), 0, 0) || Collision.CanHitLine(Main.player[this.owner].Center + new Vector2((float)(Main.player[this.owner].direction * Main.player[this.owner].width / 2), Main.player[this.owner].gravDir * (float)(-(float)Main.player[this.owner].height) / 3f), 0, 0, ent.Center, 0, 0) || Collision.CanHitLine(Main.player[this.owner].Center + new Vector2((float)(Main.player[this.owner].direction * Main.player[this.owner].width / 2), 0f), 0, 0, ent.Center + new Vector2(0f, (float)(ent.height / 3)), 0, 0);
+		}
+
+		private void CutTiles()
+		{
+			if (this.CanCutTiles())
+			{
+				int num = (int)(this.position.X / 16f);
+				int num2 = (int)((this.position.X + (float)this.width) / 16f) + 1;
+				int num3 = (int)(this.position.Y / 16f);
+				int num4 = (int)((this.position.Y + (float)this.height) / 16f) + 1;
+				if (num < 0)
+				{
+					num = 0;
+				}
+				if (num2 > Main.maxTilesX)
+				{
+					num2 = Main.maxTilesX;
+				}
+				if (num3 < 0)
+				{
+					num3 = 0;
+				}
+				if (num4 > Main.maxTilesY)
+				{
+					num4 = Main.maxTilesY;
+				}
+				AchievementsHelper.CurrentlyMining = true;
+				for (int i = num; i < num2; i++)
+				{
+					for (int j = num3; j < num4; j++)
+					{
+						if (Main.tile[i, j] != null && Main.tileCut[(int)Main.tile[i, j].type] && Main.tile[i, j + 1] != null && Main.tile[i, j + 1].type != 78 && Main.tile[i, j + 1].type != 380)
+						{
+							WorldGen.KillTile(i, j, false, false, false);
+							if (Main.netMode != 0)
+							{
+								NetMessage.SendData(17, -1, -1, "", 0, (float)i, (float)j, 0f, 0, 0, 0);
+							}
+						}
+					}
+				}
+				if (this.type == 461 || this.type == 632 || this.type == 642)
+				{
+					Utils.PlotTileLine(base.Center, base.Center + this.velocity * this.localAI[1], (float)this.width * this.scale, new Utils.PerLinePoint(DelegateMethods.CutTiles));
+				}
+				else if (this.type == 611)
+				{
+					Utils.PlotTileLine(base.Center, base.Center + this.velocity, (float)this.width * this.scale, new Utils.PerLinePoint(DelegateMethods.CutTiles));
+				}
+				AchievementsHelper.CurrentlyMining = false;
+			}
 		}
 
 		public void Damage()
@@ -8078,7 +8215,7 @@ namespace Terraria
 							}
 							int num4 = Main.DamageVar((float)this.damage);
 							this.StatusPlayer(myPlayer);
-							Main.player[myPlayer].Hurt(num4, this.direction, true, false, Lang.deathMsg(this.owner, -1, this.whoAmI, -1), false);
+							Main.player[myPlayer].Hurt(num4, this.direction, true, false, Lang.deathMsg(this.owner, -1, this.whoAmI, -1, 0, 0), false);
 							if (this.trap)
 							{
 								Main.player[myPlayer].trapDebuffSource = true;
@@ -8090,53 +8227,7 @@ namespace Terraria
 						}
 					}
 				}
-				if (this.aiStyle != 45 && this.aiStyle != 92 && this.aiStyle != 105 && this.aiStyle != 106 && this.type != 463 && this.type != 69 && this.type != 70 && this.type != 621 && this.type != 10 && this.type != 11 && this.type != 379 && this.type != 407 && this.type != 476 && this.type != 623 && (this.type < 625 || this.type > 628))
-				{
-					int num5 = (int)(this.position.X / 16f);
-					int num6 = (int)((this.position.X + (float)this.width) / 16f) + 1;
-					int num7 = (int)(this.position.Y / 16f);
-					int num8 = (int)((this.position.Y + (float)this.height) / 16f) + 1;
-					if (num5 < 0)
-					{
-						num5 = 0;
-					}
-					if (num6 > Main.maxTilesX)
-					{
-						num6 = Main.maxTilesX;
-					}
-					if (num7 < 0)
-					{
-						num7 = 0;
-					}
-					if (num8 > Main.maxTilesY)
-					{
-						num8 = Main.maxTilesY;
-					}
-					AchievementsHelper.CurrentlyMining = true;
-					for (int i = num5; i < num6; i++)
-					{
-						for (int j = num7; j < num8; j++)
-						{
-							if (Main.tile[i, j] != null && Main.tileCut[(int)Main.tile[i, j].type] && Main.tile[i, j + 1] != null && Main.tile[i, j + 1].type != 78 && Main.tile[i, j + 1].type != 380)
-							{
-								WorldGen.KillTile(i, j, false, false, false);
-								if (Main.netMode != 0)
-								{
-									NetMessage.SendData(17, -1, -1, "", 0, (float)i, (float)j, 0f, 0, 0, 0);
-								}
-							}
-						}
-					}
-					if (this.type == 461 || this.type == 632 || this.type == 642)
-					{
-						Utils.PlotTileLine(base.Center, base.Center + this.velocity * this.localAI[1], (float)this.width * this.scale, new Utils.PerLinePoint(DelegateMethods.CutTiles));
-					}
-					else if (this.type == 611)
-					{
-						Utils.PlotTileLine(base.Center, base.Center + this.velocity, (float)this.width * this.scale, new Utils.PerLinePoint(DelegateMethods.CutTiles));
-					}
-					AchievementsHelper.CurrentlyMining = false;
-				}
+				this.CutTiles();
 			}
 			if (this.owner == Main.myPlayer)
 			{
@@ -8318,6 +8409,10 @@ namespace Terraria
 										this.netUpdate = true;
 									}
 									if (this.type >= 511 && this.type <= 513)
+									{
+										this.timeLeft = 0;
+									}
+									if (this.type == 659)
 									{
 										this.timeLeft = 0;
 									}
@@ -8722,6 +8817,10 @@ namespace Terraria
 									{
 										Main.npc[k].immune[this.owner] = 5;
 									}
+									else if (this.type == 659)
+									{
+										Main.npc[k].immune[this.owner] = 5;
+									}
 									else if (this.type == 246)
 									{
 										Main.npc[k].immune[this.owner] = 7;
@@ -8771,7 +8870,12 @@ namespace Terraria
 											this.netUpdate = true;
 											break;
 										}
-										if (this.penetrate != 1)
+										if (this.type == 661)
+										{
+											this.npcImmune[k] = 8;
+											Main.npc[k].immune[this.owner] = 0;
+										}
+										else if (this.penetrate != 1)
 										{
 											Main.npc[k].immune[this.owner] = 10;
 										}
@@ -8820,6 +8924,12 @@ namespace Terraria
 									{
 										this.npcImmune[k] = 8;
 										Main.npc[k].immune[this.owner] = 0;
+									}
+									else if (this.type == 656)
+									{
+										this.npcImmune[k] = 8;
+										Main.npc[k].immune[this.owner] = 0;
+										this.localAI[0] += 1f;
 									}
 									else if (this.type == 618)
 									{
@@ -9132,6 +9242,10 @@ namespace Terraria
 			{
 				myRect.X += (int)this.velocity.X;
 				myRect.Y += (int)this.velocity.Y;
+			}
+			else if (this.type == 661 && !Collision.CanHitLine(myRect.Center.ToVector2(), 0, 0, targetRect.Center.ToVector2(), 0, 0))
+			{
+				return false;
 			}
 			if (myRect.Intersects(targetRect))
 			{
@@ -18316,7 +18430,7 @@ namespace Terraria
 															}
 															else
 															{
-																player2.Hurt(3, 0, false, false, Lang.deathMsg(-1, -1, -1, 6), false, -1);
+																player2.Hurt(3, 0, false, false, Lang.deathMsg(-1, -1, -1, 6, 0, 0), false, -1);
 																player2.immune = false;
 																player2.immuneTime = 0;
 																this.localAI[1] = (float)(-300 + Main.rand.Next(30) * -10);
@@ -19811,33 +19925,7 @@ namespace Terraria
 																		num815 = 0f;
 																	}
 																	float[] array3 = new float[(int)num814];
-																	int num816 = 0;
-																	while ((float)num816 < num814)
-																	{
-																		float num817 = (float)num816 / (num814 - 1f);
-																		Vector2 vector101 = vector100 + this.velocity.RotatedBy(1.5707963705062866, default(Vector2)) * (num817 - 0.5f) * num815 * this.scale;
-																		int num818 = (int)vector101.X / 16;
-																		int num819 = (int)vector101.Y / 16;
-																		Vector2 vector102 = vector101 + this.velocity * 16f * 150f;
-																		int num820 = (int)vector102.X / 16;
-																		int num821 = (int)vector102.Y / 16;
-																		Tuple<int, int> tuple;
-																		float num822;
-																		if (!Collision.TupleHitLine(num818, num819, num820, num821, 0, 0, new List<Tuple<int, int>>(), out tuple))
-																		{
-																			num822 = new Vector2((float)Math.Abs(num818 - tuple.Item1), (float)Math.Abs(num819 - tuple.Item2)).Length() * 16f;
-																		}
-																		else if (tuple.Item1 == num820 && tuple.Item2 == num821)
-																		{
-																			num822 = 2400f;
-																		}
-																		else
-																		{
-																			num822 = new Vector2((float)Math.Abs(num818 - tuple.Item1), (float)Math.Abs(num819 - tuple.Item2)).Length() * 16f;
-																		}
-																		array3[num816] = num822;
-																		num816++;
-																	}
+																	Collision.LaserScan(vector100, this.velocity, num815 * this.scale, 2400f, array3);
 																	float num823 = 0f;
 																	for (int num824 = 0; num824 < array3.Length; num824++)
 																	{
@@ -24322,6 +24410,7 @@ namespace Terraria
 					this.alpha = 0;
 				}
 			}
+
 			if (this.type == 638)
 			{
 				float num99 = this.velocity.Length();
@@ -25515,6 +25604,10 @@ namespace Terraria
 				{
 					this.rotation += 3.14159274f;
 				}
+			}
+			else if (this.type == 660)
+			{
+				this.rotation = this.velocity.ToRotation() + 0.7853982f;
 			}
 			else if (this.type == 436)
 			{
@@ -32969,7 +33062,7 @@ namespace Terraria
 				{
 					return Color.White;
 				}
-				if (this.type == 575 || this.type == 596)
+				if (this.type == 575 || this.type == 596 || this.type == 659)
 				{
 					if (this.timeLeft < 30)
 					{
@@ -33392,6 +33485,10 @@ namespace Terraria
 										if (this.type == 638)
 										{
 											return new Color(255, 255, 255, 100) * this.Opacity;
+										}
+										if (this.type == 660)
+										{
+											return new Color(150, 255, 255, 0) * this.Opacity;
 										}
 										if (this.type == 209)
 										{

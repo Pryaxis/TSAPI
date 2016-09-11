@@ -384,6 +384,10 @@ namespace Terraria.ID
 
 		public const int SugarRush = 192;
 
-		public const int Count = 193;
+		public const int BasiliskMount = 193;
+
+		public const int WindPushed = 194;
+
+		public const int Count = 195;
 	}
 }
