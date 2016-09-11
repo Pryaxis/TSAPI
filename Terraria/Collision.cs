@@ -40,6 +40,149 @@ namespace Terraria
 		{
 		}
 
+		public static Vector2 AdvancedTileCollision(bool[] forcedIgnoredTiles, Vector2 Position, Vector2 Velocity, int Width, int Height, bool fallThrough = false, bool fall2 = false, int gravDir = 1)
+		{
+			Collision.up = false;
+			Collision.down = false;
+			Vector2 result = Velocity;
+			Vector2 vector = Velocity;
+			Vector2 vector2 = Position + Velocity;
+			Vector2 vector3 = Position;
+			int num = (int)(Position.X / 16f) - 1;
+			int num2 = (int)((Position.X + (float)Width) / 16f) + 2;
+			int num3 = (int)(Position.Y / 16f) - 1;
+			int num4 = (int)((Position.Y + (float)Height) / 16f) + 2;
+			int num5 = -1;
+			int num6 = -1;
+			int num7 = -1;
+			int num8 = -1;
+			num = Utils.Clamp<int>(num, 0, Main.maxTilesX - 1);
+			num2 = Utils.Clamp<int>(num2, 0, Main.maxTilesX - 1);
+			num3 = Utils.Clamp<int>(num3, 0, Main.maxTilesY - 1);
+			num4 = Utils.Clamp<int>(num4, 0, Main.maxTilesY - 1);
+			float num9 = (float)((num4 + 3) * 16);
+			for (int i = num; i < num2; i++)
+			{
+				for (int j = num3; j < num4; j++)
+				{
+					Tile tile = Main.tile[i, j];
+					if (tile != null && tile.active() && !tile.inActive() && !forcedIgnoredTiles[(int)tile.type] && (Main.tileSolid[(int)tile.type] || (Main.tileSolidTop[(int)tile.type] && tile.frameY == 0)))
+					{
+						Vector2 vector4;
+						vector4.X = (float)(i * 16);
+						vector4.Y = (float)(j * 16);
+						int num10 = 16;
+						if (tile.halfBrick())
+						{
+							vector4.Y += 8f;
+							num10 -= 8;
+						}
+						if (vector2.X + (float)Width > vector4.X && vector2.X < vector4.X + 16f && vector2.Y + (float)Height > vector4.Y && vector2.Y < vector4.Y + (float)num10)
+						{
+							bool flag = false;
+							bool flag2 = false;
+							if (tile.slope() > 2)
+							{
+								if (tile.slope() == 3 && vector3.Y + Math.Abs(Velocity.X) >= vector4.Y && vector3.X >= vector4.X)
+								{
+									flag2 = true;
+								}
+								if (tile.slope() == 4 && vector3.Y + Math.Abs(Velocity.X) >= vector4.Y && vector3.X + (float)Width <= vector4.X + 16f)
+								{
+									flag2 = true;
+								}
+							}
+							else if (tile.slope() > 0)
+							{
+								flag = true;
+								if (tile.slope() == 1 && vector3.Y + (float)Height - Math.Abs(Velocity.X) <= vector4.Y + (float)num10 && vector3.X >= vector4.X)
+								{
+									flag2 = true;
+								}
+								if (tile.slope() == 2 && vector3.Y + (float)Height - Math.Abs(Velocity.X) <= vector4.Y + (float)num10 && vector3.X + (float)Width <= vector4.X + 16f)
+								{
+									flag2 = true;
+								}
+							}
+							if (!flag2)
+							{
+								if (vector3.Y + (float)Height <= vector4.Y)
+								{
+									Collision.down = true;
+									if ((!Main.tileSolidTop[(int)tile.type] || !fallThrough || (Velocity.Y > 1f && !fall2)) && num9 > vector4.Y)
+									{
+										num7 = i;
+										num8 = j;
+										if (num10 < 16)
+										{
+											num8++;
+										}
+										if (num7 != num5 && !flag)
+										{
+											result.Y = vector4.Y - (vector3.Y + (float)Height) + ((gravDir == -1) ? -0.01f : 0f);
+											num9 = vector4.Y;
+										}
+									}
+								}
+								else if (vector3.X + (float)Width <= vector4.X && !Main.tileSolidTop[(int)tile.type])
+								{
+									if (Main.tile[i - 1, j] == null)
+									{
+										Main.tile[i - 1, j] = new Tile();
+									}
+									if (Main.tile[i - 1, j].slope() != 2 && Main.tile[i - 1, j].slope() != 4)
+									{
+										num5 = i;
+										num6 = j;
+										if (num6 != num8)
+										{
+											result.X = vector4.X - (vector3.X + (float)Width);
+										}
+										if (num7 == num5)
+										{
+											result.Y = vector.Y;
+										}
+									}
+								}
+								else if (vector3.X >= vector4.X + 16f && !Main.tileSolidTop[(int)tile.type])
+								{
+									if (Main.tile[i + 1, j] == null)
+									{
+										Main.tile[i + 1, j] = new Tile();
+									}
+									if (Main.tile[i + 1, j].slope() != 1 && Main.tile[i + 1, j].slope() != 3)
+									{
+										num5 = i;
+										num6 = j;
+										if (num6 != num8)
+										{
+											result.X = vector4.X + 16f - vector3.X;
+										}
+										if (num7 == num5)
+										{
+											result.Y = vector.Y;
+										}
+									}
+								}
+								else if (vector3.Y >= vector4.Y + (float)num10 && !Main.tileSolidTop[(int)tile.type])
+								{
+									Collision.up = true;
+									num7 = i;
+									num8 = j;
+									result.Y = vector4.Y + (float)num10 - vector3.Y + ((gravDir == 1) ? 0.01f : 0f);
+									if (num8 == num6)
+									{
+										result.X = vector.X;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			return result;
+		}
+
 		public static Vector2 AnyCollision(Vector2 Position, Vector2 Velocity, int Width, int Height, bool evenActuated = false)
 		{
 			Vector2 vector2 = new Vector2();
@@ -834,6 +977,36 @@ namespace Terraria
 			return true;
 		}
 
+		public static void ExpandVertically(int startX, int startY, out int topY, out int bottomY, int maxExpandUp = 100, int maxExpandDown = 100)
+		{
+			topY = startY;
+			bottomY = startY;
+			if (!WorldGen.InWorld(startX, startY, 10))
+			{
+				return;
+			}
+			int num = 0;
+			while (num < maxExpandUp && topY > 0 && topY >= 10 && Main.tile[startX, topY] != null && !WorldGen.SolidTile3(startX, topY))
+			{
+				topY--;
+				num++;
+			}
+			int num2 = 0;
+			while (num2 < maxExpandDown && bottomY < Main.maxTilesY - 10 && bottomY <= Main.maxTilesY - 10)
+			{
+				if (Main.tile[startX, bottomY] == null)
+				{
+					return;
+				}
+				if (WorldGen.SolidTile3(startX, bottomY))
+				{
+					return;
+				}
+				bottomY++;
+				num2++;
+			}
+		}
+
 		public static bool FindCollisionDirection(out int Direction, Vector2 position, int Width, int Height, bool fallThrough = false, bool fall2 = false, int gravDir = 1)
 		{
 			Vector2 unitX = Vector2.UnitX * 16f;
@@ -1351,6 +1524,35 @@ namespace Terraria
 				}
 			}
 			return true;
+		}
+
+		public static void LaserScan(Vector2 samplingPoint, Vector2 directionUnit, float samplingWidth, float maxDistance, float[] samples)
+		{
+			for (int i = 0; i < samples.Length; i++)
+			{
+				float num = (float)i / (float)(samples.Length - 1);
+				Vector2 value = samplingPoint + directionUnit.RotatedBy(1.5707963705062866, default(Vector2)) * (num - 0.5f) * samplingWidth;
+				int num2 = (int)value.X / 16;
+				int num3 = (int)value.Y / 16;
+				Vector2 vector = value + directionUnit * maxDistance;
+				int num4 = (int)vector.X / 16;
+				int num5 = (int)vector.Y / 16;
+				Tuple<int, int> tuple;
+				float num6;
+				if (!Collision.TupleHitLine(num2, num3, num4, num5, 0, 0, new List<Tuple<int, int>>(), out tuple))
+				{
+					num6 = new Vector2((float)Math.Abs(num2 - tuple.Item1), (float)Math.Abs(num3 - tuple.Item2)).Length() * 16f;
+				}
+				else if (tuple.Item1 == num4 && tuple.Item2 == num5)
+				{
+					num6 = maxDistance;
+				}
+				else
+				{
+					num6 = new Vector2((float)Math.Abs(num2 - tuple.Item1), (float)Math.Abs(num3 - tuple.Item2)).Length() * 16f;
+				}
+				samples[i] = num6;
+			}
 		}
 
 		public static bool LavaCollision(Vector2 Position, int Width, int Height)

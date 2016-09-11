@@ -18560,8 +18560,16 @@ namespace Terraria
 				}
 				if (this.type == 510)
 				{
-					num351 = 10f;
-					num352 = 0.25f;
+					if (!Main.player[this.target].dead && Main.player[this.target].ZoneSandstorm)
+					{
+						num351 = 16f;
+						num352 = 0.35f;
+					}
+					else
+					{
+						num351 = 10f;
+						num352 = 0.25f;
+					}
 				}
 				if (this.type == 87)
 				{
@@ -22352,6 +22360,7 @@ namespace Terraria
 					this.active = false;
 					return;
 				}
+				FixExploitManEaters.ProtectSpot((int)this.ai[0], (int)this.ai[1]);
 				this.TargetClosest(true);
 				float num601 = 0.035f;
 				float num602 = 150f;
@@ -25110,6 +25119,37 @@ namespace Terraria
 							flag87 = true;
 							this.ai[3] += 1f;
 						}
+						if (this.type == 546)
+						{
+							num737 = 4;
+							bool flag92 = this.velocity.Y == 0f;
+							for (int i = 0; i < 200; i++)
+							{
+								if (i != this.whoAmI && Main.npc[i].active && Main.npc[i].type == this.type && Math.Abs(this.position.X - Main.npc[num739].position.X) + Math.Abs(this.position.Y - Main.npc[i].position.Y) < (float)this.width)
+								{
+									if (this.position.X < Main.npc[i].position.X)
+									{
+										this.velocity.X = this.velocity.X - 0.05f;
+									}
+									else
+									{
+										this.velocity.X = this.velocity.X + 0.05f;
+									}
+									if (this.position.Y < Main.npc[i].position.Y)
+									{
+										this.velocity.Y = this.velocity.Y - 0.05f;
+									}
+									else
+									{
+										this.velocity.Y = this.velocity.Y + 0.05f;
+									}
+								}
+							}
+							if (this.velocity.Y == 0f)
+							{
+								this.velocity.Y = 0f;
+							}
+						}
 						if (this.position.X == this.oldPosition.X || this.ai[3] >= (float)num736 || flag87)
 						{
 							this.ai[3] += 1f;
@@ -25204,7 +25244,10 @@ namespace Terraria
 						}
 						else if ((this.type == 155 || this.type == 329) && this.velocity.Y == 0f && num740 < 100f && Math.Abs(this.velocity.X) > 3f && ((this.position.X + (float)(this.width / 2) < Main.player[this.target].position.X + (float)(Main.player[this.target].width / 2) && this.velocity.X > 0f) || (this.position.X + (float)(this.width / 2) > Main.player[this.target].position.X + (float)(Main.player[this.target].width / 2) && this.velocity.X < 0f)))
 						{
-							this.velocity.Y = this.velocity.Y - 4f;
+							if (this.velocity.Y == 0f && num740 < 100f && Math.Abs(this.velocity.X) > 3f && ((this.position.X + (float)(this.width / 2) < Main.player[this.target].position.X + (float)(Main.player[this.target].width / 2) && this.velocity.X > 0f) || (this.position.X + (float)(this.width / 2) > Main.player[this.target].position.X + (float)(Main.player[this.target].width / 2) && this.velocity.X < 0f)))
+							{
+								this.velocity.Y = this.velocity.Y - 4f;
+							}
 						}
 						if (this.ai[3] < (float)num736)
 						{
@@ -25329,6 +25372,20 @@ namespace Terraria
 									this.velocity.X = this.velocity.X * 0.85f;
 								}
 								num745 = 10f;
+								num746 = 0.2f;
+							}
+							else if (this.type == 546)
+							{
+								if (Math.Sign(this.velocity.X) != this.direction)
+								{
+									this.velocity.X = this.velocity.X * 0.92f;
+								}
+								float num749 = MathHelper.Lerp(0.6f, 1f, Math.Abs(Main.windSpeedSet)) * (float)Math.Sign(Main.windSpeedSet);
+								if (!Main.player[this.target].ZoneSandstorm)
+								{
+									num749 = 0f;
+								}
+								num745 = 5f + num749 * (float)this.direction * 4f;
 								num746 = 0.2f;
 							}
 							if (this.velocity.X < -num745 || this.velocity.X > num745)
@@ -25497,6 +25554,12 @@ namespace Terraria
 						}
 						if (this.type == 423 && Math.Abs(this.velocity.X) >= num745 * 0.95f)
 						{
+							return;
+						}
+						if (this.type == 546)
+						{
+							this.rotation += this.velocity.X * 0.05f;
+							this.spriteDirection = -this.direction;
 							return;
 						}
 					}
@@ -43198,6 +43261,549 @@ namespace Terraria
 												{
 													this.HitEffect(0, 9999.0);
 													this.active = false;
+												}
+											}
+											else if (this.aiStyle == 102)
+											{
+												bool flag197 = false;
+												bool flag198 = false;
+												bool flag199 = true;
+												bool flag200 = false;
+												int num2033 = 4;
+												int num2034 = 3;
+												int num2035 = 0;
+												float num2036 = 0.2f;
+												float num2037 = 2f;
+												float num2038 = -0.2f;
+												float num2039 = -4f;
+												bool flag201 = true;
+												float num2040 = 2f;
+												float num2041 = 0.1f;
+												float num2042 = 1f;
+												float num2043 = 0.04f;
+												bool flag202 = false;
+												float scaleFactor40 = 0.96f;
+												bool flag203 = true;
+												if (this.type == 541)
+												{
+													flag201 = false;
+													this.rotation = this.velocity.X * 0.04f;
+													this.spriteDirection = ((this.direction > 0) ? 1 : -1);
+													num2035 = 3;
+													num2038 = -0.1f;
+													num2036 = 0.1f;
+													float num2044 = (float)this.life / (float)this.lifeMax;
+													num2040 += (1f - num2044) * 2f;
+													num2041 += (1f - num2044) * 0.02f;
+													if (num2044 < 0.5f)
+													{
+														this.knockBackResist = 0f;
+													}
+													Vector2 vector290 = base.BottomLeft + new Vector2(0f, -12f);
+													Vector2 bottomRight = base.BottomRight;
+													Vector2 value100 = new Vector2((float)(-(float)this.spriteDirection * 10), -4f);
+													Color color = new Color(222, 108, 48) * 0.7f;
+													float num2045 = -0.3f + MathHelper.Max(this.velocity.Y * 2f, 0f);
+													this.localAI[2] = 0f;
+													if (this.ai[0] < 0f)
+													{
+														this.ai[0] = MathHelper.Min(this.ai[0] + 1f, 0f);
+													}
+													if (this.ai[0] > 0f)
+													{
+														flag203 = false;
+														flag202 = true;
+														this.ai[0] += 1f;
+														if (this.ai[0] >= 135f)
+														{
+															this.ai[0] = -300f;
+															this.netUpdate = true;
+														}
+														//base.Center + Vector2.UnitX * (float)this.direction * 200f;
+														Vector2 vector291 = base.Center + Vector2.UnitX * (float)this.direction * 50f - Vector2.UnitY * 6f;
+														if (this.ai[0] == 54f && Main.netMode != 1)
+														{
+															List<Point> list13 = new List<Point>();
+															Vector2 vec13 = Main.player[this.target].Center + new Vector2(Main.player[this.target].velocity.X * 30f, 0f);
+															Point point18 = vec13.ToTileCoordinates();
+															int num2047 = 0;
+															while (num2047 < 1000 && list13.Count < 3)
+															{
+																bool flag204 = false;
+																int num2048 = Main.rand.Next(point18.X - 30, point18.X + 30 + 1);
+																foreach (Point current7 in list13)
+																{
+																	if (Math.Abs(current7.X - num2048) < 10)
+																	{
+																		flag204 = true;
+																		break;
+																	}
+																}
+																if (!flag204)
+																{
+																	int startY = point18.Y - 20;
+																	int num2049;
+																	int num2050;
+																	Collision.ExpandVertically(num2048, startY, out num2049, out num2050, 1, 51);
+																	if (StrayMethods.CanSpawnSandstormHostile(new Vector2((float)num2048, (float)(num2050 - 15)) * 16f, 15, 15))
+																	{
+																		list13.Add(new Point(num2048, num2050 - 15));
+																	}
+																}
+																num2047++;
+															}
+															foreach (Point current8 in list13)
+															{
+																Projectile.NewProjectile((float)(current8.X * 16), (float)(current8.Y * 16), 0f, 0f, 658, 0, 0f, Main.myPlayer, 0f, 0f);
+															}
+														}
+														new Vector2(0.9f, 2f);
+														if (this.ai[0] < 114f && this.ai[0] > 0f)
+														{
+															List<Vector2> list14 = new List<Vector2>();
+															for (int num2051 = 0; num2051 < 1000; num2051++)
+															{
+																Projectile projectile9 = Main.projectile[num2051];
+																if (projectile9.active && projectile9.type == 658)
+																{
+																	list14.Add(projectile9.Center);
+																}
+															}
+															Vector2 value101 = new Vector2(0f, 1500f);
+															float num2052 = (this.ai[0] - 54f) / 30f;
+															if (num2052 < 0.95f && num2052 >= 0f)
+															{
+																foreach (Vector2 current9 in list14)
+																{
+																	Vector2 value102 = Vector2.CatmullRom(vector291 + value101, vector291, current9, current9 + value101, num2052);
+																	Vector2 value103 = Vector2.CatmullRom(vector291 + value101, vector291, current9, current9 + value101, num2052 + 0.05f);
+																	float num2053 = num2052;
+																	if (num2053 > 0.5f)
+																	{
+																		num2053 = 1f - num2053;
+																	}
+																	float num2054 = 2f;
+																	if (Vector2.Distance(value102, value103) > 5f)
+																	{
+																		num2054 = 3f;
+																	}
+																	if (Vector2.Distance(value102, value103) > 10f)
+																	{
+																		num2054 = 4f;
+																	}
+																}
+															}
+														}
+														float arg_6A8C2_0 = this.ai[0];
+													}
+													if (this.ai[0] == 0f)
+													{
+														this.ai[0] = 1f;
+														this.netUpdate = true;
+														flag202 = true;
+													}
+												}
+												if (this.justHit)
+												{
+													this.localAI[2] = 0f;
+												}
+												if (!flag198)
+												{
+													if (this.localAI[2] >= 0f)
+													{
+														float num2056 = 16f;
+														bool flag205 = false;
+														bool flag206 = false;
+														if (this.position.X > this.localAI[0] - num2056 && this.position.X < this.localAI[0] + num2056)
+														{
+															flag205 = true;
+														}
+														else if ((this.velocity.X < 0f && this.direction > 0) || (this.velocity.X > 0f && this.direction < 0))
+														{
+															flag205 = true;
+															num2056 += 24f;
+														}
+														if (this.position.Y > this.localAI[1] - num2056 && this.position.Y < this.localAI[1] + num2056)
+														{
+															flag206 = true;
+														}
+														if (flag205 && flag206)
+														{
+															this.localAI[2] += 1f;
+															if (this.localAI[2] >= 30f && num2056 == 16f)
+															{
+																flag197 = true;
+															}
+															if (this.localAI[2] >= 60f)
+															{
+																this.localAI[2] = -180f;
+																this.direction *= -1;
+																this.velocity.X = this.velocity.X * -1f;
+																this.collideX = false;
+															}
+														}
+														else
+														{
+															this.localAI[0] = this.position.X;
+															this.localAI[1] = this.position.Y;
+															this.localAI[2] = 0f;
+														}
+														if (flag203)
+														{
+															this.TargetClosest(true);
+														}
+													}
+													else
+													{
+														this.localAI[2] += 1f;
+														this.direction = ((Main.player[this.target].Center.X > base.Center.X) ? 1 : -1);
+													}
+												}
+												int num2057 = (int)((this.position.X + (float)(this.width / 2)) / 16f) + this.direction * 2;
+												int num2058 = (int)((this.position.Y + (float)this.height) / 16f);
+												int num2059 = (int)base.Bottom.Y / 16;
+												int num2060 = (int)base.Bottom.X / 16;
+												if (flag202)
+												{
+													this.velocity *= scaleFactor40;
+													return;
+												}
+												for (int num2061 = num2058; num2061 < num2058 + num2033; num2061++)
+												{
+													if (Main.tile[num2057, num2061] == null)
+													{
+														Main.tile[num2057, num2061] = new Tile();
+													}
+													if ((Main.tile[num2057, num2061].nactive() && Main.tileSolid[(int)Main.tile[num2057, num2061].type]) || Main.tile[num2057, num2061].liquid > 0)
+													{
+														if (num2061 <= num2058 + 1)
+														{
+															flag200 = true;
+														}
+														flag199 = false;
+														break;
+													}
+												}
+												for (int num2062 = num2059; num2062 < num2059 + num2035; num2062++)
+												{
+													if (Main.tile[num2060, num2062] == null)
+													{
+														Main.tile[num2060, num2062] = new Tile();
+													}
+													if ((Main.tile[num2060, num2062].nactive() && Main.tileSolid[(int)Main.tile[num2060, num2062].type]) || Main.tile[num2060, num2062].liquid > 0)
+													{
+														flag200 = true;
+														flag199 = false;
+														break;
+													}
+												}
+												if (flag201)
+												{
+													for (int num2063 = num2058 - num2034; num2063 < num2058; num2063++)
+													{
+														if (Main.tile[num2057, num2063] == null)
+														{
+															Main.tile[num2057, num2063] = new Tile();
+														}
+														if ((Main.tile[num2057, num2063].nactive() && Main.tileSolid[(int)Main.tile[num2057, num2063].type]) || Main.tile[num2057, num2063].liquid > 0)
+														{
+															flag200 = false;
+															flag197 = true;
+															break;
+														}
+													}
+												}
+												if (flag197)
+												{
+													flag200 = false;
+													flag199 = true;
+												}
+												if (flag199)
+												{
+													this.velocity.Y = this.velocity.Y + num2036;
+													if (this.velocity.Y > num2037)
+													{
+														this.velocity.Y = num2037;
+													}
+												}
+												else
+												{
+													if ((this.directionY < 0 && this.velocity.Y > 0f) || flag200)
+													{
+														this.velocity.Y = this.velocity.Y + num2038;
+													}
+													if (this.velocity.Y < num2039)
+													{
+														this.velocity.Y = num2039;
+													}
+												}
+												if (this.collideX)
+												{
+													this.velocity.X = this.oldVelocity.X * -0.4f;
+													if (this.direction == -1 && this.velocity.X > 0f && this.velocity.X < 1f)
+													{
+														this.velocity.X = 1f;
+													}
+													if (this.direction == 1 && this.velocity.X < 0f && this.velocity.X > -1f)
+													{
+														this.velocity.X = -1f;
+													}
+												}
+												if (this.collideY)
+												{
+													this.velocity.Y = this.oldVelocity.Y * -0.25f;
+													if (this.velocity.Y > 0f && this.velocity.Y < 1f)
+													{
+														this.velocity.Y = 1f;
+													}
+													if (this.velocity.Y < 0f && this.velocity.Y > -1f)
+													{
+														this.velocity.Y = -1f;
+													}
+												}
+												if (this.direction == -1 && this.velocity.X > -num2040)
+												{
+													this.velocity.X = this.velocity.X - num2041;
+													if (this.velocity.X > num2040)
+													{
+														this.velocity.X = this.velocity.X - num2041;
+													}
+													else if (this.velocity.X > 0f)
+													{
+														this.velocity.X = this.velocity.X + num2041 / 2f;
+													}
+													if (this.velocity.X < -num2040)
+													{
+														this.velocity.X = -num2040;
+													}
+												}
+												else if (this.direction == 1 && this.velocity.X < num2040)
+												{
+													this.velocity.X = this.velocity.X + num2041;
+													if (this.velocity.X < -num2040)
+													{
+														this.velocity.X = this.velocity.X + num2041;
+													}
+													else if (this.velocity.X < 0f)
+													{
+														this.velocity.X = this.velocity.X - num2041 / 2f;
+													}
+													if (this.velocity.X > num2040)
+													{
+														this.velocity.X = num2040;
+													}
+												}
+												if (this.directionY == -1 && this.velocity.Y > -num2042)
+												{
+													this.velocity.Y = this.velocity.Y - num2043;
+													if (this.velocity.Y > num2042)
+													{
+														this.velocity.Y = this.velocity.Y - num2043 * 1.25f;
+													}
+													else if (this.velocity.Y > 0f)
+													{
+														this.velocity.Y = this.velocity.Y + num2043 * 0.75f;
+													}
+													if (this.velocity.Y < -num2042)
+													{
+														this.velocity.Y = -num2040;
+														return;
+													}
+												}
+												else if (this.directionY == 1 && this.velocity.Y < num2042)
+												{
+													this.velocity.Y = this.velocity.Y + num2043;
+													if (this.velocity.Y < -num2042)
+													{
+														this.velocity.Y = this.velocity.Y + num2043 * 1.25f;
+													}
+													else if (this.velocity.Y < 0f)
+													{
+														this.velocity.Y = this.velocity.Y - num2043 * 0.75f;
+													}
+													if (this.velocity.Y > num2042)
+													{
+														this.velocity.Y = num2042;
+														return;
+													}
+												}
+											}
+											else if (this.aiStyle == 103)
+											{
+												if (this.direction == 0)
+												{
+													this.TargetClosest(true);
+												}
+												Point pt = base.Center.ToTileCoordinates();
+												Tile tileSafely7 = Framing.GetTileSafely(new Vector2(pt.X, pt.Y));
+												bool flag207 = tileSafely7.nactive() && (TileID.Sets.Conversion.Sand[(int)tileSafely7.type] || TileID.Sets.Conversion.Sandstone[(int)tileSafely7.type] || TileID.Sets.Conversion.HardenedSand[(int)tileSafely7.type]);
+												flag207 |= this.wet;
+												bool flag208 = false;
+												this.TargetClosest(false);
+												Vector2 vector292 = this.targetRect.Center.ToVector2();
+												if (Main.player[this.target].velocity.Y > -0.1f && !Main.player[this.target].dead && base.Distance(vector292) > 150f)
+												{
+													flag208 = true;
+												}
+												if (this.localAI[0] == -1f && !flag207)
+												{
+													this.localAI[0] = 20f;
+												}
+												if (this.localAI[0] > 0f)
+												{
+													this.localAI[0] -= 1f;
+												}
+												if (flag207)
+												{
+													if (this.soundDelay == 0)
+													{
+														float num2064 = base.Distance(vector292) / 40f;
+														if (num2064 < 10f)
+														{
+															num2064 = 10f;
+														}
+														if (num2064 > 20f)
+														{
+															num2064 = 20f;
+														}
+														this.soundDelay = (int)num2064;
+													}
+													float arg_6B424_0 = this.ai[1];
+													bool flag209 = false;
+													pt = (base.Center + new Vector2(0f, 24f)).ToTileCoordinates();
+													tileSafely7 = Framing.GetTileSafely(pt.X, pt.Y - 2);
+													if (tileSafely7.nactive() && (TileID.Sets.Conversion.Sand[(int)tileSafely7.type] || TileID.Sets.Conversion.Sandstone[(int)tileSafely7.type] || TileID.Sets.Conversion.HardenedSand[(int)tileSafely7.type]))
+													{
+														flag209 = true;
+													}
+													this.ai[1] = (float)flag209.ToInt();
+													if (this.ai[2] < 30f)
+													{
+														this.ai[2] += 1f;
+													}
+													if (flag208)
+													{
+														this.TargetClosest(true);
+														this.velocity.X = this.velocity.X + (float)this.direction * 0.15f;
+														this.velocity.Y = this.velocity.Y + (float)this.directionY * 0.15f;
+														if (this.velocity.X > 5f)
+														{
+															this.velocity.X = 5f;
+														}
+														if (this.velocity.X < -5f)
+														{
+															this.velocity.X = -5f;
+														}
+														if (this.velocity.Y > 3f)
+														{
+															this.velocity.Y = 3f;
+														}
+														if (this.velocity.Y < -3f)
+														{
+															this.velocity.Y = -3f;
+														}
+														Vector2 vec14 = base.Center + this.velocity.SafeNormalize(Vector2.Zero) * base.Size.Length() / 2f + this.velocity;
+														pt = vec14.ToTileCoordinates();
+														tileSafely7 = Framing.GetTileSafely(new Vector2(pt.X, pt.Y));
+														bool flag210 = tileSafely7.nactive() && (TileID.Sets.Conversion.Sand[(int)tileSafely7.type] || TileID.Sets.Conversion.Sandstone[(int)tileSafely7.type] || TileID.Sets.Conversion.HardenedSand[(int)tileSafely7.type]);
+														if (!flag210 && this.wet)
+														{
+															flag210 = (tileSafely7.liquid > 0);
+														}
+														if (!flag210 && Math.Sign(this.velocity.X) == this.direction && base.Distance(vector292) < 400f && (this.ai[2] >= 30f || this.ai[2] < 0f))
+														{
+															if (this.localAI[0] == 0f)
+															{
+																this.localAI[0] = -1f;
+															}
+															this.ai[2] = -30f;
+															Vector2 vector293 = base.DirectionTo(vector292 + new Vector2(0f, -80f));
+															this.velocity = vector293 * 12f;
+														}
+													}
+													else
+													{
+														if (this.collideX)
+														{
+															this.velocity.X = this.velocity.X * -1f;
+															this.direction *= -1;
+															this.netUpdate = true;
+														}
+														if (this.collideY)
+														{
+															this.netUpdate = true;
+															this.velocity.Y = this.velocity.Y * -1f;
+															this.directionY = Math.Sign(this.velocity.Y);
+															this.ai[0] = (float)this.directionY;
+														}
+														float num2065 = 6f;
+														this.velocity.X = this.velocity.X + (float)this.direction * 0.1f;
+														if (this.velocity.X < -num2065 || this.velocity.X > num2065)
+														{
+															this.velocity.X = this.velocity.X * 0.95f;
+														}
+														if (flag209)
+														{
+															this.ai[0] = -1f;
+														}
+														else
+														{
+															this.ai[0] = 1f;
+														}
+														float num2066 = 0.06f;
+														float num2067 = 0.01f;
+														if (this.ai[0] == -1f)
+														{
+															this.velocity.Y = this.velocity.Y - num2067;
+															if (this.velocity.Y < -num2066)
+															{
+																this.ai[0] = 1f;
+															}
+														}
+														else
+														{
+															this.velocity.Y = this.velocity.Y + num2067;
+															if (this.velocity.Y > num2066)
+															{
+																this.ai[0] = -1f;
+															}
+														}
+														if (this.velocity.Y > 0.4f || this.velocity.Y < -0.4f)
+														{
+															this.velocity.Y = this.velocity.Y * 0.95f;
+														}
+													}
+												}
+												else
+												{
+													if (this.velocity.Y == 0f)
+													{
+														if (flag208)
+														{
+															this.TargetClosest(true);
+														}
+														float num2068 = 1f;
+														this.velocity.X = this.velocity.X + (float)this.direction * 0.1f;
+														if (this.velocity.X < -num2068 || this.velocity.X > num2068)
+														{
+															this.velocity.X = this.velocity.X * 0.95f;
+														}
+													}
+													this.velocity.Y = this.velocity.Y + 0.3f;
+													if (this.velocity.Y > 10f)
+													{
+														this.velocity.Y = 10f;
+													}
+													this.ai[0] = 1f;
+												}
+												this.rotation = this.velocity.Y * (float)this.direction * 0.1f;
+												if (this.rotation < -0.2f)
+												{
+													this.rotation = -0.2f;
+												}
+												if (this.rotation > 0.2f)
+												{
+													this.rotation = 0.2f;
 												}
 											}
 										}
@@ -61286,7 +61892,7 @@ namespace Terraria
 					if (this.type == 115 && Main.netMode != 1)
 					{
 						NPC.NewNPC((int)(this.position.X + (float)(this.width / 2)), (int)(this.position.Y + (float)this.height), 116, 0, 0f, 0f, 0f, 0f, 255);
-						
+
 						return;
 					}
 					return;

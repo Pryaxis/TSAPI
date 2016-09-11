@@ -108,6 +108,7 @@
     </Compile>
     <Compile Include="Reporting\CrashReporter.cs" />
     <Compile Include="Reporting\Native.cs" />
+    <Compile Include="Terraria\StrayMethods.cs" />
     <Compile Include="TerrariaApi.Server\ApiVersionAttribute.cs" />
     <Compile Include="TerrariaApi.Server\EventArgs\ChatEventArgs.cs" />
     <Compile Include="TerrariaApi.Server\EventArgs\ChatReceivedEventArgs.cs" />
