@@ -21,6 +21,14 @@ namespace Terraria.IO
 
 		public static double tempTime;
 
+		private static bool Temp_Sandstorm_Happening = false;
+
+		private static float Temp_Sandstorm_IntendedSeverity = 0f;
+
+		private static float Temp_Sandstorm_Severity = 0f;
+
+		private static int Temp_Sandstorm_TimeLeft = 0;
+
 		public static bool tempRaining;
 
 		public static float tempMaxRain;
@@ -54,6 +62,14 @@ namespace Terraria.IO
 		private static bool? CachedDayTime;
 
 		private static double? CachedTime;
+
+		private static bool? Cached_Sandstorm_Happening = null;
+
+		private static float? Cached_Sandstorm_IntendedSeverity = null;
+
+		private static float? Cached_Sandstorm_Severity = null;
+
+		private static int? Cached_Sandstorm_TimeLeft = null;
 
 		private static int? CachedMoonPhase;
 
@@ -111,6 +127,10 @@ namespace Terraria.IO
 			WorldFile.CachedPartyDaysOnCooldown = new int?(BirthdayParty.PartyDaysOnCooldown);
 			WorldFile.CachedCelebratingNPCs.Clear();
 			WorldFile.CachedCelebratingNPCs.AddRange(BirthdayParty.CelebratingNPCs);
+			WorldFile.Cached_Sandstorm_Happening = new bool?(Sandstorm.Happening);
+			WorldFile.Cached_Sandstorm_TimeLeft = new int?(Sandstorm.TimeLeft);
+			WorldFile.Cached_Sandstorm_Severity = new float?(Sandstorm.Severity);
+			WorldFile.Cached_Sandstorm_IntendedSeverity = new float?(Sandstorm.IntendedSeverity);
 		}
 
 		public static WorldFileData CreateMetadata(string name, bool isExpertMode)
@@ -761,17 +781,32 @@ namespace Terraria.IO
 				WorldFile.tempPartyGenuine = false;
 				WorldFile.tempPartyCooldown = 0;
 				WorldFile.tempPartyCelebratingNPCs.Clear();
+			}
+			else
+			{
+				WorldFile.tempPartyManual = reader.ReadBoolean();
+				WorldFile.tempPartyGenuine = reader.ReadBoolean();
+				WorldFile.tempPartyCooldown = reader.ReadInt32();
+				int num3 = reader.ReadInt32();
+				WorldFile.tempPartyCelebratingNPCs.Clear();
+				for (int k = 0; k < num3; k++)
+				{
+					WorldFile.tempPartyCelebratingNPCs.Add(reader.ReadInt32());
+				}
+			}
+			if (num < 174)
+			{
+				WorldFile.Temp_Sandstorm_Happening = false;
+				WorldFile.Temp_Sandstorm_TimeLeft = 0;
+				WorldFile.Temp_Sandstorm_Severity = 0f;
+				WorldFile.Temp_Sandstorm_IntendedSeverity = 0f;
 				return;
 			}
-			WorldFile.tempPartyManual = reader.ReadBoolean();
-			WorldFile.tempPartyGenuine = reader.ReadBoolean();
-			WorldFile.tempPartyCooldown = reader.ReadInt32();
-			int num3 = reader.ReadInt32();
-			WorldFile.tempPartyCelebratingNPCs.Clear();
-			for (int k = 0; k < num3; k++)
-			{
-				WorldFile.tempPartyCelebratingNPCs.Add(reader.ReadInt32());
-			}
+
+			WorldFile.Temp_Sandstorm_Happening = reader.ReadBoolean();
+			WorldFile.Temp_Sandstorm_TimeLeft = reader.ReadInt32();
+			WorldFile.Temp_Sandstorm_Severity = reader.ReadSingle();
+			WorldFile.Temp_Sandstorm_IntendedSeverity = reader.ReadSingle();
 		}
 
 		private static void LoadNPCs(BinaryReader reader)
@@ -1841,6 +1876,24 @@ namespace Terraria.IO
 			Main.anglerQuestFinished = false;
 		}
 
+		private static void ResetTempsToDayTime()
+		{
+			WorldFile.tempDayTime = true;
+			WorldFile.tempTime = 13500.0;
+			WorldFile.tempMoonPhase = 0;
+			WorldFile.tempBloodMoon = false;
+			WorldFile.tempEclipse = false;
+			WorldFile.tempCultistDelay = 86400;
+			WorldFile.tempPartyManual = false;
+			WorldFile.tempPartyGenuine = false;
+			WorldFile.tempPartyCooldown = 0;
+			WorldFile.tempPartyCelebratingNPCs.Clear();
+			WorldFile.Temp_Sandstorm_Happening = false;
+			WorldFile.Temp_Sandstorm_TimeLeft = 0;
+			WorldFile.Temp_Sandstorm_Severity = 0f;
+			WorldFile.Temp_Sandstorm_IntendedSeverity = 0f;
+		}
+
 		private static int SaveChests(BinaryWriter writer)
 		{
 			Chest chest;
@@ -2124,41 +2177,15 @@ namespace Terraria.IO
 				{
 					if (!WorldFile.HasCache)
 					{
-						WorldFile.tempDayTime = Main.dayTime;
-						WorldFile.tempTime = Main.time;
-						WorldFile.tempMoonPhase = Main.moonPhase;
-						WorldFile.tempBloodMoon = Main.bloodMoon;
-						WorldFile.tempEclipse = Main.eclipse;
-						WorldFile.tempCultistDelay = CultistRitual.delay;
-						WorldFile.tempPartyManual = BirthdayParty.ManualParty;
-						WorldFile.tempPartyGenuine = BirthdayParty.GenuineParty;
-						WorldFile.tempPartyCooldown = BirthdayParty.PartyDaysOnCooldown;
-						WorldFile.tempPartyCelebratingNPCs.Clear();
-						WorldFile.tempPartyCelebratingNPCs.AddRange(BirthdayParty.CelebratingNPCs);
+						WorldFile.SetTempToCache();
 					}
 					else
 					{
-						WorldFile.HasCache = false;
-						WorldFile.tempDayTime = WorldFile.CachedDayTime.Value;
-						WorldFile.tempTime = WorldFile.CachedTime.Value;
-						WorldFile.tempMoonPhase = WorldFile.CachedMoonPhase.Value;
-						WorldFile.tempBloodMoon = WorldFile.CachedBloodMoon.Value;
-						WorldFile.tempEclipse = WorldFile.CachedEclipse.Value;
-						WorldFile.tempCultistDelay = WorldFile.CachedCultistDelay.Value;
-						WorldFile.tempPartyManual = WorldFile.CachedPartyManual.Value;
-						WorldFile.tempPartyGenuine = WorldFile.CachedPartyGenuine.Value;
-						WorldFile.tempPartyCooldown = WorldFile.CachedPartyDaysOnCooldown.Value;
-						WorldFile.tempPartyCelebratingNPCs.Clear();
-						WorldFile.tempPartyCelebratingNPCs.AddRange(WorldFile.CachedCelebratingNPCs);
+						WorldFile.SetTempToOngoing();
 					}
 					if (resetTime)
 					{
-						WorldFile.tempDayTime = true;
-						WorldFile.tempTime = 13500;
-						WorldFile.tempMoonPhase = 0;
-						WorldFile.tempBloodMoon = false;
-						WorldFile.tempEclipse = false;
-						WorldFile.tempCultistDelay = 86400;
+						WorldFile.ResetTempsToDayTime();
 					}
 					string worldPath = Main.worldPathName ?? Main.WorldPathClassic;
 					if (worldPath != null)
@@ -2359,6 +2386,10 @@ namespace Terraria.IO
 			{
 				writer.Write(WorldFile.tempPartyCelebratingNPCs[k]);
 			}
+			writer.Write(WorldFile.Temp_Sandstorm_Happening);
+			writer.Write(WorldFile.Temp_Sandstorm_TimeLeft);
+			writer.Write(WorldFile.Temp_Sandstorm_Severity);
+			writer.Write(WorldFile.Temp_Sandstorm_IntendedSeverity);
 			return (int)writer.BaseStream.Position;
 		}
 
@@ -2546,6 +2577,68 @@ namespace Terraria.IO
 				}
 			}
 			return (int)writer.BaseStream.Position;
+		}
+
+		public static void SetOngoingToTemps()
+		{
+			Main.dayTime = WorldFile.tempDayTime;
+			Main.time = WorldFile.tempTime;
+			Main.moonPhase = WorldFile.tempMoonPhase;
+			Main.bloodMoon = WorldFile.tempBloodMoon;
+			Main.eclipse = WorldFile.tempEclipse;
+			Main.raining = WorldFile.tempRaining;
+			Main.rainTime = WorldFile.tempRainTime;
+			Main.maxRaining = WorldFile.tempMaxRain;
+			Main.cloudAlpha = WorldFile.tempMaxRain;
+			CultistRitual.delay = WorldFile.tempCultistDelay;
+			BirthdayParty.ManualParty = WorldFile.tempPartyManual;
+			BirthdayParty.GenuineParty = WorldFile.tempPartyGenuine;
+			BirthdayParty.PartyDaysOnCooldown = WorldFile.tempPartyCooldown;
+			BirthdayParty.CelebratingNPCs.Clear();
+			BirthdayParty.CelebratingNPCs.AddRange(WorldFile.tempPartyCelebratingNPCs);
+			Sandstorm.Happening = WorldFile.Temp_Sandstorm_Happening;
+			Sandstorm.TimeLeft = WorldFile.Temp_Sandstorm_TimeLeft;
+			Sandstorm.Severity = WorldFile.Temp_Sandstorm_Severity;
+			Sandstorm.IntendedSeverity = WorldFile.Temp_Sandstorm_IntendedSeverity;
+		}
+
+		private static void SetTempToCache()
+		{
+			WorldFile.HasCache = false;
+			WorldFile.tempDayTime = WorldFile.CachedDayTime.Value;
+			WorldFile.tempTime = WorldFile.CachedTime.Value;
+			WorldFile.tempMoonPhase = WorldFile.CachedMoonPhase.Value;
+			WorldFile.tempBloodMoon = WorldFile.CachedBloodMoon.Value;
+			WorldFile.tempEclipse = WorldFile.CachedEclipse.Value;
+			WorldFile.tempCultistDelay = WorldFile.CachedCultistDelay.Value;
+			WorldFile.tempPartyManual = WorldFile.CachedPartyManual.Value;
+			WorldFile.tempPartyGenuine = WorldFile.CachedPartyGenuine.Value;
+			WorldFile.tempPartyCooldown = WorldFile.CachedPartyDaysOnCooldown.Value;
+			WorldFile.tempPartyCelebratingNPCs.Clear();
+			WorldFile.tempPartyCelebratingNPCs.AddRange(WorldFile.CachedCelebratingNPCs);
+			WorldFile.Temp_Sandstorm_Happening = WorldFile.Cached_Sandstorm_Happening.Value;
+			WorldFile.Temp_Sandstorm_TimeLeft = WorldFile.Cached_Sandstorm_TimeLeft.Value;
+			WorldFile.Temp_Sandstorm_Severity = WorldFile.Cached_Sandstorm_Severity.Value;
+			WorldFile.Temp_Sandstorm_IntendedSeverity = WorldFile.Cached_Sandstorm_IntendedSeverity.Value;
+		}
+
+		private static void SetTempToOngoing()
+		{
+			WorldFile.tempDayTime = Main.dayTime;
+			WorldFile.tempTime = Main.time;
+			WorldFile.tempMoonPhase = Main.moonPhase;
+			WorldFile.tempBloodMoon = Main.bloodMoon;
+			WorldFile.tempEclipse = Main.eclipse;
+			WorldFile.tempCultistDelay = CultistRitual.delay;
+			WorldFile.tempPartyManual = BirthdayParty.ManualParty;
+			WorldFile.tempPartyGenuine = BirthdayParty.GenuineParty;
+			WorldFile.tempPartyCooldown = BirthdayParty.PartyDaysOnCooldown;
+			WorldFile.tempPartyCelebratingNPCs.Clear();
+			WorldFile.tempPartyCelebratingNPCs.AddRange(BirthdayParty.CelebratingNPCs);
+			WorldFile.Temp_Sandstorm_Happening = Sandstorm.Happening;
+			WorldFile.Temp_Sandstorm_TimeLeft = Sandstorm.TimeLeft;
+			WorldFile.Temp_Sandstorm_Severity = Sandstorm.Severity;
+			WorldFile.Temp_Sandstorm_IntendedSeverity = Sandstorm.IntendedSeverity;
 		}
 
 		public static bool validateWorld(BinaryReader fileIO)
