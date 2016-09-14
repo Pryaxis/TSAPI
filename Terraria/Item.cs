@@ -45715,6 +45715,330 @@ namespace Terraria
 										this.useTurn = true;
 										this.rare = 4;
 									}
+									if (type == 3770)
+									{
+										this.name = "pants";
+										this.width = 18;
+										this.height = 14;
+										this.legSlot = 140;
+										this.value = Item.sellPrice(0, 1, 0, 0);
+										this.vanity = true;
+										this.rare = 4;
+										return;
+									}
+									if (type == 3771)
+									{
+										this.useStyle = 4;
+										this.name = "Mount Item";
+										this.channel = true;
+										this.width = 34;
+										this.height = 34;
+										this.useSound = 25;
+										this.useAnimation = 20;
+										this.useTime = 20;
+										this.rare = 8;
+										this.noMelee = true;
+										this.mountType = 14;
+										this.value = Item.sellPrice(0, 5, 0, 0);
+										return;
+									}
+									if (type == 3772)
+									{
+										this.name = "melee claw";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.autoReuse = true;
+										this.useAnimation = 20;
+										this.useTime = 20;
+										this.width = 24;
+										this.height = 28;
+										this.damage = 14;
+										this.knockBack = 2.5f;
+										this.useSound = 1;
+										this.scale = 1f;
+										this.melee = true;
+										this.value = Item.sellPrice(0, 0, 10, 0);
+										this.rare = 2;
+										return;
+									}
+									if (type == 3773)
+									{
+										this.name = "hat";
+										this.width = 18;
+										this.height = 18;
+										this.headSlot = 199;
+										this.rare = 3;
+										this.vanity = true;
+										this.value = Item.sellPrice(0, 0, 50, 0);
+										return;
+									}
+									if (type == 3774)
+									{
+										this.name = "shirt";
+										this.width = 18;
+										this.height = 18;
+										this.bodySlot = 197;
+										this.rare = 3;
+										this.vanity = true;
+										this.value = Item.sellPrice(0, 0, 50, 0);
+										return;
+									}
+									if (type == 3775)
+									{
+										this.name = "pants";
+										this.width = 18;
+										this.height = 18;
+										this.legSlot = 141;
+										this.rare = 3;
+										this.vanity = true;
+										this.value = Item.sellPrice(0, 0, 50, 0);
+										return;
+									}
+									if (type == 3776)
+									{
+										this.name = "hat";
+										this.width = 18;
+										this.height = 18;
+										this.defense = 6;
+										this.headSlot = 200;
+										this.rare = 5;
+										this.value = 250000;
+										return;
+									}
+									if (type == 3777)
+									{
+										this.name = "shirt";
+										this.width = 18;
+										this.height = 18;
+										this.defense = 12;
+										this.bodySlot = 198;
+										this.rare = 5;
+										this.value = 200000;
+										return;
+									}
+									if (type == 3778)
+									{
+										this.name = "pants";
+										this.width = 18;
+										this.height = 18;
+										this.defense = 8;
+										this.legSlot = 142;
+										this.rare = 5;
+										this.value = 150000;
+										return;
+									}
+									if (type == 3779)
+									{
+										this.mana = 18;
+										this.damage = 85;
+										this.useStyle = 5;
+										this.name = "spell";
+										this.shootSpeed = 3f;
+										this.shoot = 659;
+										this.width = 26;
+										this.height = 28;
+										this.useSound = 117;
+										this.useAnimation = 30;
+										this.useTime = 30;
+										this.autoReuse = true;
+										this.noMelee = true;
+										this.knockBack = 5f;
+										this.rare = 4;
+										this.value = Item.sellPrice(0, 1, 0, 0);
+										this.magic = true;
+										this.glowMask = 218;
+										return;
+									}
+									if (type == 3780)
+									{
+										this.name = "Monster Banner";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 91;
+										this.placeStyle = 272;
+										this.width = 10;
+										this.height = 24;
+										this.value = 1000;
+										this.rare = 1;
+										return;
+									}
+									if (type == 3781)
+									{
+										this.name = "accessory";
+										this.width = 24;
+										this.height = 28;
+										this.rare = 3;
+										this.value = 100000;
+										this.accessory = true;
+										return;
+									}
+									if (type == 3784)
+									{
+										this.name = "pants";
+										this.width = 18;
+										this.height = 18;
+										this.legSlot = 143;
+										this.rare = 3;
+										this.vanity = true;
+										this.value = Item.sellPrice(0, 0, 50, 0);
+										return;
+									}
+									if (type == 3785)
+									{
+										this.name = "shirt";
+										this.width = 18;
+										this.height = 18;
+										this.bodySlot = 199;
+										this.rare = 3;
+										this.vanity = true;
+										this.value = Item.sellPrice(0, 0, 50, 0);
+										return;
+									}
+									if (type == 3786)
+									{
+										this.name = "hat";
+										this.width = 18;
+										this.height = 18;
+										this.headSlot = 201;
+										this.rare = 3;
+										this.vanity = true;
+										this.value = Item.sellPrice(0, 0, 50, 0);
+										return;
+									}
+									if (type == 3782)
+									{
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.createTile = 461;
+										this.width = 24;
+										this.height = 24;
+										this.value = Item.sellPrice(0, 0, 1, 0);
+										return;
+									}
+									if (type == 3787)
+									{
+										this.name = "magic glove";
+										this.useStyle = 5;
+										this.useAnimation = 12;
+										this.useTime = 4;
+										this.reuseDelay = this.useAnimation + 6;
+										this.shootSpeed = 14f;
+										this.knockBack = 6f;
+										this.width = 16;
+										this.height = 16;
+										this.damage = 38;
+										this.useSound = 9;
+										this.crit = 20;
+										this.shoot = 660;
+										this.mana = 14;
+										this.rare = 4;
+										this.value = Item.sellPrice(0, 10, 0, 0);
+										this.noMelee = true;
+										this.magic = true;
+										this.autoReuse = true;
+										return;
+									}
+									if (type == 3788)
+									{
+										this.name = "shotgun";
+										this.knockBack = 6.5f;
+										this.useStyle = 5;
+										this.useAnimation = 45;
+										this.useTime = 45;
+										this.width = 50;
+										this.height = 14;
+										this.shoot = 10;
+										this.useAmmo = 14;
+										this.useSound = 36;
+										this.damage = 28;
+										this.shootSpeed = 7f;
+										this.noMelee = true;
+										this.value = 250000;
+										this.rare = 4;
+										this.ranged = true;
+										return;
+									}
+									if (type == 3783)
+									{
+										this.name = "material";
+										this.width = 18;
+										this.height = 18;
+										this.maxStack = 999;
+										this.value = 50000;
+										this.rare = 5;
+										return;
+									}
+									if (type >= 3789 && type <= 3793)
+									{
+										this.name = "Monster Banner";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 91;
+										this.placeStyle = 273 + type - 3789;
+										this.width = 10;
+										this.height = 24;
+										this.value = 1000;
+										this.rare = 1;
+										return;
+									}
+									if (type == 3794)
+									{
+										this.name = "material";
+										this.width = 18;
+										this.height = 18;
+										this.maxStack = 999;
+										this.value = Item.sellPrice(0, 0, 1, 0);
+										this.rare = 1;
+										return;
+									}
+									if (type == 3795)
+									{
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 462;
+										this.width = 26;
+										this.height = 18;
+										this.value = Item.sellPrice(0, 0, 50, 0);
+										this.rare = 3;
+										return;
+									}
+									if (type == 3796)
+									{
+										this.name = "Music Boxes";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.consumable = true;
+										this.createTile = 139;
+										this.placeStyle = 38;
+										this.width = 24;
+										this.height = 24;
+										this.rare = 4;
+										this.value = 100000;
+										this.accessory = true;
+									}
 								}
 							}
 						}
