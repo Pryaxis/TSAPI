@@ -14,6 +14,6 @@ namespace Terraria.ID
 			});
 		}
 
-		public static int Count = 14;
+		public static int Count = 15;
 	}
 }
