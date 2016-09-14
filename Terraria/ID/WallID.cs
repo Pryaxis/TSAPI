@@ -44,7 +44,7 @@ namespace Terraria.ID
 				});
 			}
 
-			public static SetFactory Factory = new SetFactory(231);
+			public static SetFactory Factory = new SetFactory(Count);
 
 			public static bool[] Transparent = Factory.CreateBoolSet(new int[]
 			{

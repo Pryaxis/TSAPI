@@ -78,6 +78,6 @@ namespace Terraria.ID
 
 		public const int Count = 10;
 
-		public static SetFactory Factory = new SetFactory(10);
+		public static SetFactory Factory = new SetFactory(Count);
 	}
 }

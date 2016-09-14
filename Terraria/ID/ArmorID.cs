@@ -704,7 +704,7 @@ namespace Terraria.ID
 		{
 			public class Sets
 			{
-				public static SetFactory Factory = new SetFactory(144);
+				public static SetFactory Factory = new SetFactory(Count);
 
 				public static List<int> MannequinIncompatible = new List<int>();
 			}

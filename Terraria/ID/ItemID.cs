@@ -7629,7 +7629,7 @@ namespace Terraria.ID
 
 		public class Sets
 		{
-			public static SetFactory Factory = new SetFactory(3797);
+			public static SetFactory Factory = new SetFactory(Count);
 
 			public static int[] TextureCopyLoad = ItemID.Sets.Factory.CreateIntSet(-1, new int[]
 			{

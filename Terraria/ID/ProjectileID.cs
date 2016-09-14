@@ -4,7 +4,7 @@ namespace Terraria.ID
 	{
 		public static class Sets
 		{
-			public static SetFactory Factory = new SetFactory(656);
+			public static SetFactory Factory = new SetFactory(Count);
 
 			public static bool?[] ForcePlateDetection = Factory.CreateCustomSet<bool?>(null, new object[]
 			{
