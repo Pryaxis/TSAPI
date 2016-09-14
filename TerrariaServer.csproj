@@ -109,6 +109,7 @@
     <Compile Include="Reporting\CrashReporter.cs" />
     <Compile Include="Reporting\Native.cs" />
     <Compile Include="Terraria\DataStructures\MethodSequenceListItem.cs" />
+    <Compile Include="Terraria\DataStructures\PlayerDeathReason.cs" />
     <Compile Include="Terraria\StrayMethods.cs" />
     <Compile Include="TerrariaApi.Server\ApiVersionAttribute.cs" />
     <Compile Include="TerrariaApi.Server\EventArgs\ChatEventArgs.cs" />
