@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
@@ -10,11 +11,27 @@ namespace Terraria.Net.Sockets
 {
 	public class TcpSocket : ISocket
 	{
+		public int MessagesInQueue
+		{
+			get
+			{
+				return this._messagesInQueue;
+			}
+		}
+
+		private List<object> _callbackBuffer = new List<object>();
+
 		internal TcpClient _connection;
 
 		private TcpListener _listener;
 
 		private SocketConnectionAccepted _listenerCallback;
+
+		private int _messagesInQueue;
+
+		private byte[] _packetBuffer = new byte[1024];
+
+		private int _packetBufferLength;
 
 		private RemoteAddress _remoteAddress;
 
@@ -87,7 +104,8 @@ namespace Terraria.Net.Sockets
 
 		private void SendCallback(IAsyncResult result)
 		{
-			Tuple<SocketSendCallback, object> asyncState = (Tuple<SocketSendCallback, object>)result.AsyncState;
+			//Tuple<SocketSendCallback, object> asyncState = (Tuple<SocketSendCallback, object>)result.AsyncState;
+			List<object> list = (List<object>)result.AsyncState;
 
 			//if (((ISocket)this).IsConnected() == true)
 			//{
@@ -101,7 +119,12 @@ namespace Terraria.Net.Sockets
 			}
 			finally
 			{
-				asyncState.Item1(asyncState.Item2);
+				//asyncState.Item1(asyncState.Item2);
+				foreach (object current in list)
+				{
+					Tuple<SocketSendCallback, object> tuple = (Tuple<SocketSendCallback, object>)current;
+					tuple.Item1(tuple.Item2);
+				}
 			}
 
 			//}
@@ -126,10 +149,24 @@ namespace Terraria.Net.Sockets
 			{
 				return;
 			}
-			
+
 			try
 			{
-                this._connection.GetStream().BeginWrite(data, offset, size, this.SendCallback, new Tuple<SocketSendCallback, object>(callback, state));
+				object item = new Tuple<SocketSendCallback, object>(callback, state);
+				if (size + this._packetBufferLength > 1024)
+				{
+					((ISocket)this).SendQueuedPackets();
+				}
+				if (size > this._packetBuffer.Length)
+				{
+					byte[] array = new byte[size];
+					Buffer.BlockCopy(this._packetBuffer, 0, array, 0, this._packetBufferLength);
+					this._packetBuffer = array;
+				}
+				Buffer.BlockCopy(data, offset, this._packetBuffer, this._packetBufferLength, size);
+				this._packetBufferLength += size;
+				this._messagesInQueue++;
+				this._callbackBuffer.Add(item);
 
 				//this._connection.GetStream().Write(data, offset, size);
 			}
@@ -197,6 +234,25 @@ namespace Terraria.Net.Sockets
 		bool Terraria.Net.Sockets.ISocket.IsDataAvailable()
 		{
 			return this._connection.GetStream().DataAvailable;
+		}
+
+		void ISocket.SendQueuedPackets()
+		{
+			if (this._packetBufferLength == 0 || !((ISocket)this).IsConnected())
+			{
+				return;
+			}
+			try
+			{
+				this._connection.GetStream().BeginWrite(this._packetBuffer, 0, this._packetBufferLength, new AsyncCallback(this.SendCallback), this._callbackBuffer);
+			}
+			catch (Exception)
+			{
+				((ISocket)this).Close();
+			}
+			this._packetBufferLength = 0;
+			this._messagesInQueue = 0;
+			this._callbackBuffer = new List<object>();
 		}
 
 		bool Terraria.Net.Sockets.ISocket.StartListening(SocketConnectionAccepted callback)
