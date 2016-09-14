@@ -183,6 +183,7 @@
     <Compile Include="Terraria\Terraria.GameContent.UI\EmoteID.cs" />
     <Compile Include="Terraria\Terraria.GameContent.UI\ItemRarity.cs" />
     <Compile Include="Terraria\Terraria.GameContent.UI\WorldUIAnchor.cs" />
+    <Compile Include="Terraria\Utilities\WeightedRandom.cs" />
     <Compile Include="Terraria\World.Generation\GenerationProgress.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
