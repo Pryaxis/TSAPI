@@ -14,9 +14,9 @@ namespace Terraria
 		public static int potionDelay = 3600;
 		public static int restorationDelay = 3000;
 		public bool questItem;
-		public static int[] headType = new int[199];
-		public static int[] bodyType = new int[197];
-		public static int[] legType = new int[140];
+		public static int[] headType = new int[203];
+		public static int[] bodyType = new int[200];
+		public static int[] legType = new int[144];
 		public static bool[] staff = new bool[Main.maxItemTypes];
 		public static bool[] claw = new bool[Main.maxItemTypes];
 		public bool flame;
@@ -169,7 +169,7 @@ namespace Terraria
 				}
 				if (num == -1 || num == -2 || num == -3)
 				{
-					if (this.type == 1 || this.type == 4 || this.type == 6 || this.type == 7 || this.type == 10 || this.type == 24 || this.type == 45 || this.type == 46 || this.type == 65 || this.type == 103 || this.type == 104 || this.type == 121 || this.type == 122 || this.type == 155 || this.type == 190 || this.type == 196 || this.type == 198 || this.type == 199 || this.type == 200 || this.type == 201 || this.type == 202 || this.type == 203 || this.type == 204 || this.type == 213 || this.type == 217 || this.type == 273 || this.type == 367 || this.type == 368 || this.type == 426 || this.type == 482 || this.type == 483 || this.type == 484 || this.type == 653 || this.type == 654 || this.type == 656 || this.type == 657 || this.type == 659 || this.type == 660 || this.type == 671 || this.type == 672 || this.type == 674 || this.type == 675 || this.type == 676 || this.type == 723 || this.type == 724 || this.type == 757 || this.type == 776 || this.type == 777 || this.type == 778 || this.type == 787 || this.type == 795 || this.type == 797 || this.type == 798 || this.type == 799 || this.type == 881 || this.type == 882 || this.type == 921 || this.type == 922 || this.type == 989 || this.type == 990 || this.type == 991 || this.type == 992 || this.type == 993 || this.type == 1123 || this.type == 1166 || this.type == 1185 || this.type == 1188 || this.type == 1192 || this.type == 1195 || this.type == 1199 || this.type == 1202 || this.type == 1222 || this.type == 1223 || this.type == 1224 || this.type == 1226 || this.type == 1227 || this.type == 1230 || this.type == 1233 || this.type == 1234 || this.type == 1294 || this.type == 1304 || this.type == 1305 || this.type == 1306 || this.type == 1320 || this.type == 1327 || this.type == 1506 || this.type == 1507 || this.type == 1786 || this.type == 1826 || this.type == 1827 || this.type == 1909 || this.type == 1917 || this.type == 1928 || this.type == 2176 || this.type == 2273 || this.type == 2608 || this.type == 2341 || this.type == 2330 || this.type == 2320 || this.type == 2516 || this.type == 2517 || this.type == 2746 || this.type == 2745 || this.type == 3063 || this.type == 3018 || this.type == 3211 || this.type == 3013 || this.type == 3258 || this.type == 3106 || this.type == 3065 || this.type == 2880 || this.type == 3481 || this.type == 3482 || this.type == 3483 || this.type == 3484 || this.type == 3485 || this.type == 3487 || this.type == 3488 || this.type == 3489 || this.type == 3490 || this.type == 3491 || this.type == 3493 || this.type == 3494 || this.type == 3495 || this.type == 3496 || this.type == 3497 || this.type == 3498 || this.type == 3500 || this.type == 3501 || this.type == 3502 || this.type == 3503 || this.type == 3504 || this.type == 3505 || this.type == 3506 || this.type == 3507 || this.type == 3508 || this.type == 3509 || this.type == 3511 || this.type == 3512 || this.type == 3513 || this.type == 3514 || this.type == 3515 || this.type == 3517 || this.type == 3518 || this.type == 3519 || this.type == 3520 || this.type == 3521 || this.type == 3522 || this.type == 3523 || this.type == 3524 || this.type == 3525 || (this.type >= 3462 && this.type <= 3466) || (this.type >= 2772 && this.type <= 2786) || this.type == 3349 || this.type == 3352 || this.type == 3351 || (this.type >= 3764 && this.type <= 3769))
+					if (this.type == 1 || this.type == 4 || this.type == 6 || this.type == 7 || this.type == 10 || this.type == 24 || this.type == 45 || this.type == 46 || this.type == 65 || this.type == 103 || this.type == 104 || this.type == 121 || this.type == 122 || this.type == 155 || this.type == 190 || this.type == 196 || this.type == 198 || this.type == 199 || this.type == 200 || this.type == 201 || this.type == 202 || this.type == 203 || this.type == 204 || this.type == 213 || this.type == 217 || this.type == 273 || this.type == 367 || this.type == 368 || this.type == 426 || this.type == 482 || this.type == 483 || this.type == 484 || this.type == 653 || this.type == 654 || this.type == 656 || this.type == 657 || this.type == 659 || this.type == 660 || this.type == 671 || this.type == 672 || this.type == 674 || this.type == 675 || this.type == 676 || this.type == 723 || this.type == 724 || this.type == 757 || this.type == 776 || this.type == 777 || this.type == 778 || this.type == 787 || this.type == 795 || this.type == 797 || this.type == 798 || this.type == 799 || this.type == 881 || this.type == 882 || this.type == 921 || this.type == 922 || this.type == 989 || this.type == 990 || this.type == 991 || this.type == 992 || this.type == 993 || this.type == 1123 || this.type == 1166 || this.type == 1185 || this.type == 1188 || this.type == 1192 || this.type == 1195 || this.type == 1199 || this.type == 1202 || this.type == 1222 || this.type == 1223 || this.type == 1224 || this.type == 1226 || this.type == 1227 || this.type == 1230 || this.type == 1233 || this.type == 1234 || this.type == 1294 || this.type == 1304 || this.type == 1305 || this.type == 1306 || this.type == 1320 || this.type == 1327 || this.type == 1506 || this.type == 1507 || this.type == 1786 || this.type == 1826 || this.type == 1827 || this.type == 1909 || this.type == 1917 || this.type == 1928 || this.type == 2176 || this.type == 2273 || this.type == 2608 || this.type == 2341 || this.type == 2330 || this.type == 2320 || this.type == 2516 || this.type == 2517 || this.type == 2746 || this.type == 2745 || this.type == 3063 || this.type == 3018 || this.type == 3211 || this.type == 3013 || this.type == 3258 || this.type == 3106 || this.type == 3065 || this.type == 2880 || this.type == 3481 || this.type == 3482 || this.type == 3483 || this.type == 3484 || this.type == 3485 || this.type == 3487 || this.type == 3488 || this.type == 3489 || this.type == 3490 || this.type == 3491 || this.type == 3493 || this.type == 3494 || this.type == 3495 || this.type == 3496 || this.type == 3497 || this.type == 3498 || this.type == 3500 || this.type == 3501 || this.type == 3502 || this.type == 3503 || this.type == 3504 || this.type == 3505 || this.type == 3506 || this.type == 3507 || this.type == 3508 || this.type == 3509 || this.type == 3511 || this.type == 3512 || this.type == 3513 || this.type == 3514 || this.type == 3515 || this.type == 3517 || this.type == 3518 || this.type == 3519 || this.type == 3520 || this.type == 3521 || this.type == 3522 || this.type == 3523 || this.type == 3524 || this.type == 3525 || (this.type >= 3462 && this.type <= 3466) || (this.type >= 2772 && this.type <= 2786) || (this.type == 3349 || this.type == 3352 || this.type == 3351 || (this.type >= 3764 && this.type <= 3769)) || this.type == 3772)
 					{
 						int num9 = Main.rand.Next(40);
 						if (num9 == 0)
@@ -393,7 +393,7 @@ namespace Terraria
 							num = 61;
 						}
 					}
-					else if (this.type == 39 || this.type == 44 || this.type == 95 || this.type == 96 || this.type == 98 || this.type == 99 || this.type == 120 || this.type == 164 || this.type == 197 || this.type == 219 || this.type == 266 || this.type == 281 || this.type == 434 || this.type == 435 || this.type == 436 || this.type == 481 || this.type == 506 || this.type == 533 || this.type == 534 || this.type == 578 || this.type == 655 || this.type == 658 || this.type == 661 || this.type == 679 || this.type == 682 || this.type == 725 || this.type == 758 || this.type == 759 || this.type == 760 || this.type == 796 || this.type == 800 || this.type == 905 || this.type == 923 || this.type == 964 || this.type == 986 || this.type == 1156 || this.type == 1187 || this.type == 1194 || this.type == 1201 || this.type == 1229 || this.type == 1254 || this.type == 1255 || this.type == 1258 || this.type == 1265 || this.type == 1319 || this.type == 1553 || this.type == 1782 || this.type == 1784 || this.type == 1835 || this.type == 1870 || this.type == 1910 || this.type == 1929 || this.type == 1946 || this.type == 2223 || this.type == 2269 || this.type == 2270 || this.type == 2624 || this.type == 2515 || this.type == 2747 || this.type == 2796 || this.type == 2797 || this.type == 3052 || this.type == 2888 || this.type == 3019 || this.type == 3029 || this.type == 3007 || this.type == 3008 || this.type == 3210 || this.type == 3107 || this.type == 3245 || this.type == 3475 || this.type == 3540 || this.type == 3480 || this.type == 3486 || this.type == 3492 || this.type == 3498 || this.type == 3504 || this.type == 3510 || this.type == 3516 || this.type == 3350 || this.type == 3546)
+					else if (this.type == 39 || this.type == 44 || this.type == 95 || this.type == 96 || this.type == 98 || this.type == 99 || this.type == 120 || this.type == 164 || this.type == 197 || this.type == 219 || this.type == 266 || this.type == 281 || this.type == 434 || this.type == 435 || this.type == 436 || this.type == 481 || this.type == 506 || this.type == 533 || this.type == 534 || this.type == 578 || this.type == 655 || this.type == 658 || this.type == 661 || this.type == 679 || this.type == 682 || this.type == 725 || this.type == 758 || this.type == 759 || this.type == 760 || this.type == 796 || this.type == 800 || this.type == 905 || this.type == 923 || this.type == 964 || this.type == 986 || this.type == 1156 || this.type == 1187 || this.type == 1194 || this.type == 1201 || this.type == 1229 || this.type == 1254 || this.type == 1255 || this.type == 1258 || this.type == 1265 || this.type == 1319 || this.type == 1553 || this.type == 1782 || this.type == 1784 || this.type == 1835 || this.type == 1870 || this.type == 1910 || this.type == 1929 || this.type == 1946 || this.type == 2223 || this.type == 2269 || this.type == 2270 || this.type == 2624 || this.type == 2515 || this.type == 2747 || this.type == 2796 || this.type == 2797 || this.type == 3052 || this.type == 2888 || this.type == 3019 || this.type == 3029 || this.type == 3007 || this.type == 3008 || this.type == 3210 || this.type == 3107 || this.type == 3245 || this.type == 3475 || this.type == 3540 || this.type == 3480 || this.type == 3486 || this.type == 3492 || this.type == 3498 || this.type == 3504 || this.type == 3510 || this.type == 3516 || this.type == 3350 || this.type == 3546 || this.type == 3788)
 					{
 						int num11 = Main.rand.Next(36);
 						if (num11 == 0)
@@ -541,7 +541,7 @@ namespace Terraria
 							num = 82;
 						}
 					}
-					else if (this.type == 64 || this.type == 112 || this.type == 113 || this.type == 127 || this.type == 157 || this.type == 165 || this.type == 218 || this.type == 272 || this.type == 494 || this.type == 495 || this.type == 496 || this.type == 514 || this.type == 517 || this.type == 518 || this.type == 519 || this.type == 683 || this.type == 726 || this.type == 739 || this.type == 740 || this.type == 741 || this.type == 742 || this.type == 743 || this.type == 744 || this.type == 788 || this.type == 1121 || this.type == 1155 || this.type == 1157 || this.type == 1178 || this.type == 1244 || this.type == 1256 || this.type == 1260 || this.type == 1264 || this.type == 1266 || this.type == 1295 || this.type == 1296 || this.type == 1308 || this.type == 1309 || this.type == 1313 || this.type == 1336 || this.type == 1444 || this.type == 1445 || this.type == 1446 || this.type == 1572 || this.type == 1801 || this.type == 1802 || this.type == 1930 || this.type == 1931 || this.type == 2188 || this.type == 2622 || this.type == 2621 || this.type == 2584 || this.type == 2551 || this.type == 2366 || this.type == 2535 || this.type == 2365 || this.type == 2364 || this.type == 2623 || this.type == 2750 || this.type == 2795 || this.type == 3053 || this.type == 3051 || this.type == 3209 || this.type == 3014 || this.type == 3105 || this.type == 2882 || this.type == 3269 || this.type == 3006 || this.type == 3377 || this.type == 3069 || this.type == 2749 || this.type == 3249 || this.type == 3476 || this.type == 3474 || this.type == 3531 || this.type == 3541 || this.type == 3542 || this.type == 3569 || this.type == 3570 || this.type == 3571 || this.type == 3531)
+					else if (this.type == 64 || this.type == 112 || this.type == 113 || this.type == 127 || this.type == 157 || this.type == 165 || this.type == 218 || this.type == 272 || this.type == 494 || this.type == 495 || this.type == 496 || this.type == 514 || this.type == 517 || this.type == 518 || this.type == 519 || this.type == 683 || this.type == 726 || this.type == 739 || this.type == 740 || this.type == 741 || this.type == 742 || this.type == 743 || this.type == 744 || this.type == 788 || this.type == 1121 || this.type == 1155 || this.type == 1157 || this.type == 1178 || this.type == 1244 || this.type == 1256 || this.type == 1260 || this.type == 1264 || this.type == 1266 || this.type == 1295 || this.type == 1296 || this.type == 1308 || this.type == 1309 || this.type == 1313 || this.type == 1336 || this.type == 1444 || this.type == 1445 || this.type == 1446 || this.type == 1572 || this.type == 1801 || this.type == 1802 || this.type == 1930 || this.type == 1931 || this.type == 2188 || this.type == 2622 || this.type == 2621 || this.type == 2584 || this.type == 2551 || this.type == 2366 || this.type == 2535 || this.type == 2365 || this.type == 2364 || this.type == 2623 || this.type == 2750 || this.type == 2795 || this.type == 3053 || this.type == 3051 || this.type == 3209 || this.type == 3014 || this.type == 3105 || this.type == 2882 || this.type == 3269 || this.type == 3006 || this.type == 3377 || this.type == 3069 || this.type == 2749 || this.type == 3249 || this.type == 3476 || this.type == 3474 || this.type == 3531 || this.type == 3541 || this.type == 3542 || this.type == 3569 || this.type == 3570 || this.type == 3571 || this.type == 3779 || this.type == 3787 || this.type == 3531)
 					{
 						int num12 = Main.rand.Next(36);
 						if (num12 == 0)
@@ -3900,6 +3900,18 @@ namespace Terraria
 					return 213;
 				case 537:
 					return 249;
+				case 541:
+					return 251;
+				case 542:
+					return 252;
+				case 543:
+					return 253;
+				case 544:
+					return 254;
+				case 545:
+					return 255;
+				case 546:
+					return 256;
 			}
 			return 0;
 		}
@@ -4393,6 +4405,18 @@ namespace Terraria
 					return 537;
 				case 250:
 					return 220;
+				case 251:
+					return 541;
+				case 252:
+					return 542;
+				case 253:
+					return 543;
+				case 254:
+					return 544;
+				case 255:
+					return 545;
+				case 256:
+					return 546;
 			}
 			return 0;
 		}
@@ -9210,6 +9234,7 @@ namespace Terraria
 				this.width = 16;
 				this.height = 14;
 				this.value = 200;
+				this.color = new Color(123, 167, 163, 255);
 				return;
 			}
 			if (type == 320)
