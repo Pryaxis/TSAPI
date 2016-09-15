@@ -2130,6 +2130,7 @@ namespace Terraria
 					{
 						break;
 					}
+					long position = NetMessage.buffer[bufferIndex].reader.BaseStream.Position;
 
 					//I'm not sure what's the origin of  - 2, it's been like that since 1.2.4. Was -4 before that.
 					int length = num2 - 2;
@@ -2147,6 +2148,7 @@ namespace Terraria
 					try
 					{
 						buffer[bufferIndex].GetData(num + 2, length);
+						buffer[bufferIndex].reader.BaseStream.Position = position + (long)num2;
 						i -= num2;
 						num += num2;
 					}

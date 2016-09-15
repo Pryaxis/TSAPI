@@ -45748,12 +45748,12 @@ namespace Terraria
 										this.useStyle = 1;
 										this.useTurn = true;
 										this.autoReuse = true;
-										this.useAnimation = 20;
-										this.useTime = 20;
-										this.width = 24;
+										this.useAnimation = 18;
+										this.useTime = 18;
+										this.width = 28;
 										this.height = 28;
 										this.damage = 14;
-										this.knockBack = 2.5f;
+										this.knockBack = 4.5f;
 										this.useSound = 1;
 										this.scale = 1f;
 										this.melee = true;
@@ -45942,7 +45942,7 @@ namespace Terraria
 										this.shoot = 660;
 										this.mana = 14;
 										this.rare = 4;
-										this.value = Item.sellPrice(0, 10, 0, 0);
+										this.value = 300000;
 										this.noMelee = true;
 										this.magic = true;
 										this.autoReuse = true;

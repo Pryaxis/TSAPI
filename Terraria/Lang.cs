@@ -9,7 +9,7 @@ namespace Terraria
 
 		public static string[] misc = new string[200];
 
-		public static string[] menu = new string[250];
+		public static string[] menu = new string[253];
 
 		public static string[] gen = new string[82];
 
@@ -33104,6 +33104,9 @@ namespace Terraria
 				Lang.menu[247] = "Frame Skip Off";
 				Lang.menu[248] = "Frame Skip On";
 				Lang.menu[249] = "Frame Skip Subtle";
+				Lang.menu[250] = "Miner's Wobble: Enabled";
+				Lang.menu[251] = "Miner's Wobble: Disabled";
+				Lang.menu[252] = "Interface Movement Delay";
 				Lang.gen[0] = "Generating world terrain";
 				Lang.gen[1] = "Adding sand";
 				Lang.gen[2] = "Generating hills";
@@ -36401,7 +36404,7 @@ namespace Terraria
 			string text3 = "";
 			if (proj >= 0)
 			{
-				text = Main.projName[projType];
+				text = Main.projectile[proj].name;
 			}
 			if (npc >= 0)
 			{

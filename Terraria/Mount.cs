@@ -923,7 +923,7 @@ namespace Terraria
 
 		public static void Initialize()
 		{
-			Mount.mounts = new Mount.MountData[14];
+			Mount.mounts = new Mount.MountData[15];
 			Mount.MountData mountDatum = new Mount.MountData();
 			Mount.mounts[0] = mountDatum;
 			mountDatum.spawnDust = 57;
