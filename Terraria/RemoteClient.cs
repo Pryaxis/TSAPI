@@ -171,10 +171,6 @@ namespace Terraria
 				{
 					this.PendingTermination = true;
 				}
-				else if (!Main.ignoreErrors)
-				{
-					NetMessage.RecieveBytes(this.ReadBuffer, num, this.Id);
-				}
 				else
 				{
 					try
@@ -186,7 +182,6 @@ namespace Terraria
 #if DEBUG
 						Console.WriteLine(ex);
 						System.Diagnostics.Debugger.Break();
-
 #endif
 					}
 				}
