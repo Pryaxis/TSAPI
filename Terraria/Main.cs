@@ -2456,7 +2456,7 @@ namespace Terraria
 					flag2 = true;
 				}
 			}
-			NetMessage.SendAnglerQuest();
+			NetMessage.SendAnglerQuest(-1);
 		}
 
 		public void autoCreate(string newOpt)
@@ -5008,12 +5008,6 @@ namespace Terraria
 			this.Initialize();
 			Lang.setLang(false);
 			Main.CacheEntityNames();
-			for (int i = 0; i < Main.maxNPCTypes; i++)
-			{
-				NPC nPC = new NPC();
-				nPC.SetDefaults(i, -1f);
-				Main.npcName[i] = nPC.name;
-			}
 
 			if (Console.IsInputRedirected == true && string.IsNullOrEmpty(Main.WorldPathClassic) == true && !Main.autoGen)
 			{
@@ -5521,11 +5515,11 @@ namespace Terraria
 			int num8 = 0;
 			while (!Netplay.disconnect)
 			{
-				double elapsedMilliseconds = (double)stopwatch.ElapsedMilliseconds;
-				if (elapsedMilliseconds + num7 >= num6)
+				double totalMilliseconds = stopwatch.Elapsed.TotalMilliseconds;
+				if (totalMilliseconds + num7 >= num6)
 				{
 					num8++;
-					num7 = num7 + (elapsedMilliseconds - num6);
+					num7 = num7 + (totalMilliseconds - num6);
 					stopwatch.Reset();
 					stopwatch.Start();
 					if (Main.oldStatusText != Main.statusText)
@@ -5539,10 +5533,10 @@ namespace Terraria
 						this.Update();
 						ServerApi.Hooks.InvokeGamePostUpdate();
 					}
-					double elapsedMilliseconds1 = (double)stopwatch.ElapsedMilliseconds + num7;
-					if (elapsedMilliseconds1 < num6)
+					double totalMilliseconds1 = stopwatch.Elapsed.TotalMilliseconds + num7;
+					if (totalMilliseconds1 < num6)
 					{
-						int num9 = (int)(num6 - elapsedMilliseconds1) - 1;
+						int num9 = (int)(num6 - totalMilliseconds1) - 1;
 						if (num9 > 1)
 						{
 							Thread.Sleep(num9 - 1);
@@ -5556,6 +5550,492 @@ namespace Terraria
 				}
 				Thread.Sleep(0);
 			}
+		}
+
+		protected void DoUpdate()
+		{
+			if (!Main.GlobalTimerPaused)
+			{
+				Main.GlobalTime = Main.GlobalTime + 0.0166666675f;
+				if (Main.GlobalTime > 3600f)
+				{
+					Main.GlobalTime = Main.GlobalTime - 3600f;
+				}
+			}
+			if (Player.StopMoneyTroughFromWorking > 0 && !Main.mouseRight && Main.mouseRightRelease)
+			{
+				Player.StopMoneyTroughFromWorking--;
+			}
+			if (Main._hasPendingNetmodeChange)
+			{
+				Main.netMode = Main._targetNetMode;
+				Main._hasPendingNetmodeChange = false;
+			}
+			if (Main.ActivePlayerFileData != null)
+			{
+				Main.ActivePlayerFileData.UpdatePlayTimer();
+			}
+			Main.ignoreErrors = true;
+			if (Main.expertMode)
+			{
+				Main.damageMultiplier = Main.expertDamage;
+				Main.knockBackMultiplier = Main.expertKnockBack;
+			}
+			else
+			{
+				Main.damageMultiplier = 1f;
+				Main.knockBackMultiplier = 1f;
+			}
+			if (Main.chTitle)
+			{
+				Main.chTitle = false;
+				this.SetTitle();
+			}
+			Stopwatch stopwatch = new Stopwatch();
+			stopwatch.Start();
+			WorldGen.destroyObject = false;
+			if (Main.gameMenu)
+			{
+				Main.mapFullscreen = false;
+			}
+			if (Main.dedServ)
+			{
+				if (Main.dedServFPS)
+				{
+					Main.updateTime++;
+					if (!Main.fpsTimer.IsRunning)
+					{
+						Main.fpsTimer.Restart();
+					}
+					if (Main.fpsTimer.ElapsedMilliseconds >= 1000L)
+					{
+						Main.dedServCount1 += Main.updateTime;
+						Main.dedServCount2++;
+						float num = (float)Main.dedServCount1 / (float)Main.dedServCount2;
+						Console.WriteLine(string.Concat(new object[]
+						{
+							Main.updateTime,
+							"  (",
+							num,
+							")"
+						}));
+						Main.updateTime = 0;
+						Main.fpsTimer.Restart();
+					}
+				}
+				else
+				{
+					if (Main.fpsTimer.IsRunning)
+					{
+						Main.fpsTimer.Stop();
+					}
+					Main.updateTime = 0;
+				}
+			}
+			if (Main.netMode == 2)
+			{
+				Main.cloudAlpha = Main.maxRaining;
+			}
+			if (Main.netMode != 1)
+			{
+				this.updateCloudLayer();
+			}
+			this.UpdateWeather();
+			Main.Ambience();
+			if (Main.netMode != 2)
+			{
+				if (Main.ignoreErrors)
+				{
+					try
+					{
+						Main.snowing();
+						goto IL_2FC8;
+					}
+					catch
+					{
+						goto IL_2FC8;
+					}
+				}
+				Main.snowing();
+				IL_2FC8:
+				Sandstorm.EmitDust();
+			}
+			if (Main.netMode == 1)
+			{
+				for (int j = 0; j < 59; j++)
+				{
+					if (Main.player[Main.myPlayer].inventory[j].IsNotTheSameAs(Main.clientPlayer.inventory[j]))
+					{
+						NetMessage.SendData(5, -1, -1, Main.player[Main.myPlayer].inventory[j].name, Main.myPlayer, (float)j, (float)Main.player[Main.myPlayer].inventory[j].prefix, 0f, 0, 0, 0);
+					}
+				}
+				for (int k = 0; k < Main.player[Main.myPlayer].armor.Length; k++)
+				{
+					if (Main.player[Main.myPlayer].armor[k].IsNotTheSameAs(Main.clientPlayer.armor[k]))
+					{
+						NetMessage.SendData(5, -1, -1, Main.player[Main.myPlayer].armor[k].name, Main.myPlayer, (float)(59 + k), (float)Main.player[Main.myPlayer].armor[k].prefix, 0f, 0, 0, 0);
+					}
+				}
+				for (int l = 0; l < Main.player[Main.myPlayer].miscEquips.Length; l++)
+				{
+					if (Main.player[Main.myPlayer].miscEquips[l].IsNotTheSameAs(Main.clientPlayer.miscEquips[l]))
+					{
+						NetMessage.SendData(5, -1, -1, "", Main.myPlayer, (float)(58 + Main.player[Main.myPlayer].armor.Length + Main.player[Main.myPlayer].dye.Length + 1 + l), (float)Main.player[Main.myPlayer].miscEquips[l].prefix, 0f, 0, 0, 0);
+					}
+				}
+				for (int m = 0; m < Main.player[Main.myPlayer].miscDyes.Length; m++)
+				{
+					if (Main.player[Main.myPlayer].miscDyes[m].IsNotTheSameAs(Main.clientPlayer.miscDyes[m]))
+					{
+						NetMessage.SendData(5, -1, -1, "", Main.myPlayer, (float)(58 + Main.player[Main.myPlayer].armor.Length + Main.player[Main.myPlayer].dye.Length + Main.player[Main.myPlayer].miscEquips.Length + 1 + m), (float)Main.player[Main.myPlayer].miscDyes[m].prefix, 0f, 0, 0, 0);
+					}
+				}
+				for (int n = 0; n < Main.player[Main.myPlayer].bank.item.Length; n++)
+				{
+					if (Main.player[Main.myPlayer].bank.item[n].IsNotTheSameAs(Main.clientPlayer.bank.item[n]))
+					{
+						NetMessage.SendData(5, -1, -1, "", Main.myPlayer, (float)(58 + Main.player[Main.myPlayer].armor.Length + Main.player[Main.myPlayer].dye.Length + Main.player[Main.myPlayer].miscEquips.Length + Main.player[Main.myPlayer].miscDyes.Length + 1 + n), (float)Main.player[Main.myPlayer].bank.item[n].prefix, 0f, 0, 0, 0);
+					}
+				}
+				for (int num9 = 0; num9 < Main.player[Main.myPlayer].bank2.item.Length; num9++)
+				{
+					if (Main.player[Main.myPlayer].bank2.item[num9].IsNotTheSameAs(Main.clientPlayer.bank2.item[num9]))
+					{
+						NetMessage.SendData(5, -1, -1, "", Main.myPlayer, (float)(58 + Main.player[Main.myPlayer].armor.Length + Main.player[Main.myPlayer].dye.Length + Main.player[Main.myPlayer].miscEquips.Length + Main.player[Main.myPlayer].miscDyes.Length + Main.player[Main.myPlayer].bank.item.Length + 1 + num9), (float)Main.player[Main.myPlayer].bank2.item[num9].prefix, 0f, 0, 0, 0);
+					}
+				}
+				if (Main.player[Main.myPlayer].trashItem.IsNotTheSameAs(Main.clientPlayer.trashItem))
+				{
+					NetMessage.SendData(5, -1, -1, "", Main.myPlayer, (float)(58 + Main.player[Main.myPlayer].armor.Length + Main.player[Main.myPlayer].dye.Length + Main.player[Main.myPlayer].miscEquips.Length + Main.player[Main.myPlayer].miscDyes.Length + Main.player[Main.myPlayer].bank.item.Length + Main.player[Main.myPlayer].bank2.item.Length + 1), (float)Main.player[Main.myPlayer].trashItem.prefix, 0f, 0, 0, 0);
+				}
+				for (int num10 = 0; num10 < Main.player[Main.myPlayer].dye.Length; num10++)
+				{
+					if (Main.player[Main.myPlayer].dye[num10].IsNotTheSameAs(Main.clientPlayer.dye[num10]))
+					{
+						NetMessage.SendData(5, -1, -1, Main.player[Main.myPlayer].dye[0].name, Main.myPlayer, (float)(58 + Main.player[Main.myPlayer].armor.Length + 1 + num10), (float)Main.player[Main.myPlayer].dye[num10].prefix, 0f, 0, 0, 0);
+					}
+				}
+				if (Main.player[Main.myPlayer].chest != Main.clientPlayer.chest && Main.player[Main.myPlayer].chest < 0)
+				{
+					if (Main.player[Main.myPlayer].editedChestName)
+					{
+						if (Main.chest[Main.clientPlayer.chest] != null)
+						{
+							NetMessage.SendData(33, -1, -1, Main.chest[Main.clientPlayer.chest].name, Main.player[Main.myPlayer].chest, 1f, 0f, 0f, 0, 0, 0);
+						}
+						else
+						{
+							NetMessage.SendData(33, -1, -1, "", Main.player[Main.myPlayer].chest, 0f, 0f, 0f, 0, 0, 0);
+						}
+						Main.player[Main.myPlayer].editedChestName = false;
+					}
+					else
+					{
+						NetMessage.SendData(33, -1, -1, "", Main.player[Main.myPlayer].chest, 0f, 0f, 0f, 0, 0, 0);
+					}
+				}
+				if (Main.player[Main.myPlayer].talkNPC != Main.clientPlayer.talkNPC)
+				{
+					NetMessage.SendData(40, -1, -1, "", Main.myPlayer, 0f, 0f, 0f, 0, 0, 0);
+				}
+				bool flag = false;
+				if (Main.player[Main.myPlayer].zone1 != Main.clientPlayer.zone1)
+				{
+					flag = true;
+				}
+				if (Main.player[Main.myPlayer].zone2 != Main.clientPlayer.zone2)
+				{
+					flag = true;
+				}
+				if (Main.player[Main.myPlayer].zone3 != Main.clientPlayer.zone3)
+				{
+					flag = true;
+				}
+				if (flag)
+				{
+					NetMessage.SendData(36, -1, -1, "", Main.myPlayer, 0f, 0f, 0f, 0, 0, 0);
+				}
+				if (Main.player[Main.myPlayer].statLife != Main.clientPlayer.statLife || Main.player[Main.myPlayer].statLifeMax != Main.clientPlayer.statLifeMax)
+				{
+					Main.player[Main.myPlayer].netLife = true;
+				}
+				if (Main.player[Main.myPlayer].netLifeTime > 0)
+				{
+					Main.player[Main.myPlayer].netLifeTime--;
+				}
+				else if (Main.player[Main.myPlayer].netLife)
+				{
+					Main.player[Main.myPlayer].netLife = false;
+					Main.player[Main.myPlayer].netLifeTime = 60;
+					NetMessage.SendData(16, -1, -1, "", Main.myPlayer, 0f, 0f, 0f, 0, 0, 0);
+				}
+				if (Main.player[Main.myPlayer].statMana != Main.clientPlayer.statMana || Main.player[Main.myPlayer].statManaMax != Main.clientPlayer.statManaMax)
+				{
+					Main.player[Main.myPlayer].netMana = true;
+				}
+				if (Main.player[Main.myPlayer].netManaTime > 0)
+				{
+					Main.player[Main.myPlayer].netManaTime--;
+				}
+				else if (Main.player[Main.myPlayer].netMana)
+				{
+					Main.player[Main.myPlayer].netMana = false;
+					Main.player[Main.myPlayer].netManaTime = 60;
+					NetMessage.SendData(42, -1, -1, "", Main.myPlayer, 0f, 0f, 0f, 0, 0, 0);
+				}
+				bool flag2 = false;
+				for (int num11 = 0; num11 < 22; num11++)
+				{
+					if (Main.player[Main.myPlayer].buffType[num11] != Main.clientPlayer.buffType[num11])
+					{
+						flag2 = true;
+					}
+				}
+				if (flag2)
+				{
+					NetMessage.SendData(50, -1, -1, "", Main.myPlayer, 0f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData(13, -1, -1, "", Main.myPlayer, 0f, 0f, 0f, 0, 0, 0);
+				}
+				bool flag3 = false;
+				if (Main.player[Main.myPlayer].MinionTargetPoint != Main.clientPlayer.MinionTargetPoint)
+				{
+					flag3 = true;
+				}
+				if (flag3)
+				{
+					NetMessage.SendData(99, -1, -1, "", Main.myPlayer, 0f, 0f, 0f, 0, 0, 0);
+				}
+			}
+			Main.gamePaused = false;
+			PortalHelper.UpdatePortalPoints();
+			Main.tileSolid[379] = false;
+			Main.numPlayers = 0;
+			int num19 = 0;
+			while (num19 < 255)
+			{
+				if (Main.ignoreErrors)
+				{
+					try
+					{
+						Main.player[num19].Update(num19);
+						goto IL_3EE6;
+					}
+					catch
+					{
+						goto IL_3EE6;
+					}
+					goto IL_3ED7;
+				}
+				goto IL_3ED7;
+				IL_3EE6:
+				num19++;
+				continue;
+				IL_3ED7:
+				Main.player[num19].Update(num19);
+				goto IL_3EE6;
+			}
+			if (Main.netMode != 1)
+			{
+				try
+				{
+					NPC.SpawnNPC();
+				}
+				catch
+				{
+				}
+			}
+			if (Main.netMode != 1)
+			{
+				PressurePlateHelper.Update();
+			}
+			for (int num20 = 0; num20 < 255; num20++)
+			{
+				Main.player[num20].activeNPCs = 0f;
+				Main.player[num20].townNPCs = 0f;
+			}
+			if (Main.wof >= 0 && !Main.npc[Main.wof].active)
+			{
+				Main.wof = -1;
+			}
+			if (NPC.golemBoss >= 0 && !Main.npc[NPC.golemBoss].active)
+			{
+				NPC.golemBoss = -1;
+			}
+			if (NPC.plantBoss >= 0 && !Main.npc[NPC.plantBoss].active)
+			{
+				NPC.plantBoss = -1;
+			}
+			if (NPC.crimsonBoss >= 0 && !Main.npc[NPC.crimsonBoss].active)
+			{
+				NPC.crimsonBoss = -1;
+			}
+			NPC.taxCollector = false;
+			NPC.ClearFoundActiveNPCs();
+			NPC.UpdateFoundActiveNPCs();
+			FixExploitManEaters.Update();
+			int num21 = 0;
+			while (num21 < 200)
+			{
+				if (Main.ignoreErrors)
+				{
+					try
+					{
+						Main.npc[num21].UpdateNPC(num21);
+						goto IL_401D;
+					}
+					catch (Exception)
+					{
+						Main.npc[num21] = new NPC();
+						goto IL_401D;
+					}
+					goto IL_400E;
+				}
+				goto IL_400E;
+				IL_401D:
+				num21++;
+				continue;
+				IL_400E:
+				Main.npc[num21].UpdateNPC(num21);
+				goto IL_401D;
+			}
+			int num22 = 0;
+			int num23 = 0;
+			while (num23 < 1000)
+			{
+				Main.ProjectileUpdateLoopIndex = num23;
+				if (Main.ignoreErrors)
+				{
+					try
+					{
+						Main.projectile[num23].Update(num23);
+						goto IL_40BB;
+					}
+					catch
+					{
+						Main.projectile[num23] = new Projectile();
+						goto IL_40BB;
+					}
+					goto IL_40AC;
+				}
+				goto IL_40AC;
+				IL_40BB:
+				num23++;
+				continue;
+				IL_40AC:
+				Main.projectile[num23].Update(num23);
+				goto IL_40BB;
+			}
+			Main.ProjectileUpdateLoopIndex = -1;
+			int num24 = 0;
+			while (num24 < 400)
+			{
+				if (Main.ignoreErrors)
+				{
+					try
+					{
+						Main.item[num24].UpdateItem(num24);
+						goto IL_4111;
+					}
+					catch
+					{
+						Main.item[num24] = new Item();
+						goto IL_4111;
+					}
+					goto IL_4102;
+				}
+				goto IL_4102;
+				IL_4111:
+				num24++;
+				continue;
+				IL_4102:
+				Main.item[num24].UpdateItem(num24);
+				goto IL_4111;
+			}
+			IL_4166:
+			if (Main.netMode != 2)
+			{
+				CombatText.UpdateCombatText();
+				ItemText.UpdateItemText();
+			}
+			if (Main.ignoreErrors)
+			{
+				try
+				{
+					Main.UpdateTime();
+					goto IL_4194;
+				}
+				catch
+				{
+					Main.checkForSpawns = 0;
+					goto IL_4194;
+				}
+			}
+			Main.UpdateTime();
+			IL_4194:
+			Main.tileSolid[379] = true;
+			if (Main.netMode != 1)
+			{
+				if (Main.ignoreErrors)
+				{
+					try
+					{
+						WorldGen.UpdateWorld();
+						Main.UpdateInvasion();
+						goto IL_41C8;
+					}
+					catch
+					{
+						goto IL_41C8;
+					}
+				}
+				WorldGen.UpdateWorld();
+				Main.UpdateInvasion();
+			}
+			IL_41C8:
+			if (Main.ignoreErrors)
+			{
+				try
+				{
+					if (Main.netMode == 2)
+					{
+						Main.UpdateServer();
+					}
+					if (Main.netMode == 1)
+					{
+						Main.UpdateClient();
+					}
+					goto IL_4210;
+				}
+				catch
+				{
+					int arg_41F3_0 = Main.netMode;
+					goto IL_4210;
+				}
+			}
+			if (Main.netMode == 2)
+			{
+				Main.UpdateServer();
+			}
+			if (Main.netMode == 1)
+			{
+				Main.UpdateClient();
+			}
+			IL_4210:
+			Main.upTimer = (float)stopwatch.Elapsed.TotalMilliseconds;
+			if (Main.upTimerMaxDelay > 0f)
+			{
+				Main.upTimerMaxDelay -= 1f;
+			}
+			else
+			{
+				Main.upTimerMax = 0f;
+			}
+			if (Main.upTimer > Main.upTimerMax)
+			{
+				Main.upTimerMax = Main.upTimer;
+				Main.upTimerMaxDelay = 400f;
+			}
+			Chest.UpdateChestFrames();
 		}
 
 		protected void Draw()
@@ -6140,7 +6620,7 @@ namespace Terraria
 			Main.bgAlpha[0] = 1f;
 			Main.bgAlpha2[0] = 1f;
 			this.invBottom = 258;
-			for (int i = 0; i < 656; i++)
+			for (int i = 0; i < maxProjectileTypes; i++)
 			{
 				Main.projFrames[i] = 1;
 			}
@@ -6168,6 +6648,7 @@ namespace Terraria
 			Main.projFrames[645] = 7;
 			Main.projFrames[650] = 4;
 			Main.projFrames[652] = 6;
+			Main.projFrames[659] = 4;
 			Main.projFrames[384] = 6;
 			Main.projFrames[385] = 3;
 			Main.projFrames[386] = 6;
@@ -6375,6 +6856,7 @@ namespace Terraria
 			Main.debuff[163] = true;
 			Main.debuff[164] = true;
 			Main.debuff[144] = true;
+			Main.debuff[194] = true;
 			Main.pvpBuff[20] = true;
 			Main.pvpBuff[24] = true;
 			Main.pvpBuff[31] = true;
@@ -6688,6 +7170,7 @@ namespace Terraria
 			Main.tileFrameImportant[373] = true;
 			Main.tileFrameImportant[375] = true;
 			Main.tileFrameImportant[374] = true;
+			Main.tileFrameImportant[461] = true;
 			Main.tileLighted[372] = true;
 			Main.tileFrameImportant[372] = true;
 			Main.tileWaterDeath[372] = true;
@@ -8195,6 +8678,7 @@ namespace Terraria
 			Main.tileLavaDeath[411] = true;
 			Main.tileFrameImportant[457] = true;
 			Main.tileLavaDeath[457] = true;
+			Main.tileFrameImportant[462] = true;
 			Main.tileFrameImportant[454] = true;
 			Main.tileLavaDeath[454] = true;
 			Main.tileCut[454] = true;
@@ -8358,143 +8842,141 @@ namespace Terraria
 				{
 					Item.legType[item.legSlot] = item.type;
 				}
-				int num1 = item.type;
-				if (num1 <= 1827)
+				int type = item.type;
+				if (type <= 1827)
 				{
-					if (num1 > 788)
+					if (type <= 788)
 					{
-						if (num1 > 1326)
+						if (type <= 723)
 						{
-							switch (num1)
+							if (type == 683 || type == 723)
 							{
-								case 1444:
-								case 1445:
-								case 1446:
-									{
-										break;
-									}
-								default:
-									{
-										if (num1 == 1801)
-										{
-											break;
-										}
-										if (num1 == 1827)
-										{
-											goto Label1;
-										}
-										goto Label0;
-									}
+								goto IL_5E8A;
 							}
 						}
 						else
 						{
-							if (num1 == 1308 || num1 == 1326)
+							if (type == 726)
 							{
-								goto Label2;
+								goto IL_5E8A;
 							}
-							goto Label0;
-						}
-					}
-					else if (num1 <= 723)
-					{
-						if (num1 == 683 || num1 == 723)
-						{
-							goto Label2;
-						}
-						goto Label0;
-					}
-					else if (num1 != 726)
-					{
-						switch (num1)
-						{
-							case 739:
-							case 740:
-							case 741:
-							case 742:
-							case 743:
-							case 744:
-								{
-									break;
-								}
-							default:
-								{
-									if (num1 == 788)
+							switch (type)
+							{
+								case 739:
+								case 740:
+								case 741:
+								case 742:
+								case 743:
+								case 744:
+									goto IL_5E8A;
+								default:
+									if (type == 788)
 									{
-										break;
+										goto IL_5E8A;
 									}
-									goto Label0;
-								}
+									break;
+							}
 						}
 					}
-				}
-				else if (num1 <= 3051)
-				{
-					if (num1 > 2188)
+					else if (type <= 1326)
 					{
-						if (num1 == 2750 || num1 == 3006 || num1 == 3051)
+						if (type == 1308 || type == 1326)
 						{
-							goto Label2;
+							goto IL_5E8A;
 						}
-						goto Label0;
 					}
 					else
 					{
-						switch (num1)
+						switch (type)
 						{
-							case 1930:
-							case 1931:
-								{
-									break;
-								}
+							case 1444:
+							case 1445:
+							case 1446:
+								goto IL_5E8A;
 							default:
+								if (type == 1801)
 								{
-									if (num1 == 2188)
-									{
-										break;
-									}
-									goto Label0;
+									goto IL_5E8A;
 								}
+								if (type == 1827)
+								{
+									goto IL_5E9A;
+								}
+								break;
 						}
 					}
 				}
-				else if (num1 <= 3245)
+				else if (type <= 3051)
 				{
-					switch (num1)
+					if (type <= 2188)
+					{
+						switch (type)
+						{
+							case 1930:
+							case 1931:
+								goto IL_5E8A;
+							default:
+								if (type == 2188)
+								{
+									goto IL_5E8A;
+								}
+								break;
+						}
+					}
+					else if (type == 2750 || type == 3006 || type == 3051)
+					{
+						goto IL_5E8A;
+					}
+				}
+				else if (type <= 3377)
+				{
+					switch (type)
 					{
 						case 3209:
 						case 3210:
-							{
-								break;
-							}
+							goto IL_5E8A;
 						default:
+							if (type == 3245)
 							{
-								if (num1 == 3245)
-								{
-									goto Label1;
-								}
-								goto Label0;
+								goto IL_5E9A;
 							}
+							if (type == 3377)
+							{
+								goto IL_5E8A;
+							}
+							break;
 					}
 				}
-				else if (num1 != 3377 && num1 != 3476)
+				else
 				{
-					switch (num1)
+					if (type == 3476)
+					{
+						goto IL_5E8A;
+					}
+					switch (type)
 					{
 						case 3569:
 						case 3571:
-							{
-								break;
-							}
+							goto IL_5E8A;
+						case 3570:
+							break;
 						default:
+							if (type == 3787)
 							{
-								goto Label0;
+								goto IL_5E8A;
 							}
+							break;
 					}
 				}
-				Label2:
+				IL_5EA8:
+				num++;
+				continue;
+				IL_5E8A:
 				Item.staff[item.type] = true;
-				goto Label0;
+				goto IL_5EA8;
+				IL_5E9A:
+				Item.claw[item.type] = true;
+				goto IL_5EA8;
 			}
 			Main.InitLifeBytes();
 			for (int g = 0; g < Recipe.maxRecipes; g++)
@@ -8527,7 +9009,7 @@ namespace Terraria
 			Main.teamColor[4] = new Color(242, 221, 100);
 			Main.teamColor[5] = new Color(224, 100, 242);
 
-			for (int l1 = 1; l1 < 651; l1++)
+			for (int l1 = 1; l1 < maxProjectileTypes; l1++)
 			{
 				Projectile projectile = new Projectile();
 				projectile.SetDefaults(l1);
@@ -10086,328 +10568,21 @@ namespace Terraria
 
 		protected void Update()
 		{
-			if (Main._hasPendingNetmodeChange)
-			{
-				Main.netMode = Main._targetNetMode;
-				Main._hasPendingNetmodeChange = false;
-			}
-			Main.tileNoFail[384] = true;
-			Main.ignoreErrors = true;
-			if (!Main.expertMode)
-			{
-				Main.damageMultiplier = 1f;
-				Main.knockBackMultiplier = 1f;
-			}
-			else
-			{
-				Main.damageMultiplier = Main.expertDamage;
-				Main.knockBackMultiplier = Main.expertKnockBack;
-			}
-			if (!Main.GlobalTimerPaused)
-			{
-				Main.GlobalTime = Main.GlobalTime + 0.0166666675f;
-				if (Main.GlobalTime > 3600f)
-				{
-					Main.GlobalTime = Main.GlobalTime - 3600f;
-				}
-			}
+			this.DoUpdate();
 			if (Main.netMode == 2)
 			{
-				Main.cloudAlpha = Main.maxRaining;
-			}
-			if (Main.netMode != 1)
-			{
-				this.updateCloudLayer();
-			}
-			this.UpdateWeather();
-			Main.Ambience();
-			if (Main.netMode != 2)
-			{
-				if (!Main.ignoreErrors)
+				for (int i = 0; i < 256; i++)
 				{
-					Main.snowing();
-				}
-				else
-				{
-					try
+					if (Netplay.Clients[i].Socket != null)
 					{
-						Main.snowing();
-					}
-					catch (Exception ex)
-					{
-#if DEBUG
-						Console.WriteLine(ex);
-						System.Diagnostics.Debugger.Break();
-
-#endif
+						Netplay.Clients[i].Socket.SendQueuedPackets();
 					}
 				}
-			}
-			if (Main.chTitle)
-			{
-				Main.chTitle = false;
-				this.SetTitle();
-			}
-			Stopwatch stopwatch = new Stopwatch();
-			stopwatch.Start();
-			WorldGen.destroyObject = false;
-			if (Main.dedServ)
-			{
-				if (!Main.dedServFPS)
-				{
-					if (Main.fpsTimer.IsRunning)
-					{
-						Main.fpsTimer.Stop();
-					}
-					Main.updateTime = 0;
-				}
-				else
-				{
-					Main.updateTime++;
-					if (!Main.fpsTimer.IsRunning)
-					{
-						Main.fpsTimer.Restart();
-					}
-					if (Main.fpsTimer.ElapsedMilliseconds >= (long)1000)
-					{
-						Main.dedServCount1 = Main.dedServCount1 + Main.updateTime;
-						Main.dedServCount2 = Main.dedServCount2 + 1;
-						float single = (float)Main.dedServCount1 / (float)Main.dedServCount2;
-						object[] objArray = new object[] { Main.updateTime, "  (", single, ")" };
-						Console.WriteLine(string.Concat(objArray));
-						Main.updateTime = 0;
-						Main.fpsTimer.Restart();
-					}
-				}
-			}
-			if (Main.netMode != 0 || !Main.playerInventory && !(Main.npcChatText != "") && Main.player[Main.myPlayer].sign < 0 && !Main.ingameOptionsWindow && !Main.achievementsWindow || !Main.autoPause)
-			{
-				Main.gamePaused = false;
-
-				PortalHelper.UpdatePortalPoints();
-				Main.tileSolid[379] = false;
-				Main.numPlayers = 0;
-				for (int r = 0; r < 255; r++)
-				{
-					if (!Main.ignoreErrors)
-					{
-						Main.player[r].Update(r);
-					}
-					else
-					{
-						try
-						{
-							Main.player[r].Update(r);
-						}
-						catch (Exception ex)
-						{
-#if DEBUG
-							Console.WriteLine(ex);
-							System.Diagnostics.Debugger.Break();
-
-#endif
-						}
-					}
-				}
-				if (Main.netMode != 1)
-				{
-					try
-					{
-						NPC.SpawnNPC();
-					}
-					catch (Exception ex)
-					{
-#if DEBUG
-						Console.WriteLine(ex);
-						System.Diagnostics.Debugger.Break();
-
-#endif
-					}
-				}
-				if (Main.netMode != 1)
-				{
-					PressurePlateHelper.Update();
-				}
-				for (int s = 0; s < 255; s++)
-				{
-					Main.player[s].activeNPCs = 0f;
-					Main.player[s].townNPCs = 0f;
-				}
-				if (Main.wof >= 0 && !Main.npc[Main.wof].active)
-				{
-					Main.wof = -1;
-				}
-				if (NPC.golemBoss >= 0 && !Main.npc[NPC.golemBoss].active)
-				{
-					NPC.golemBoss = -1;
-				}
-				if (NPC.plantBoss >= 0 && !Main.npc[NPC.plantBoss].active)
-				{
-					NPC.plantBoss = -1;
-				}
-				if (NPC.crimsonBoss >= 0 && !Main.npc[NPC.crimsonBoss].active)
-				{
-					NPC.crimsonBoss = -1;
-				}
-				NPC.taxCollector = false;
-				NPC.ClearFoundActiveNPCs();
-				NPC.UpdateFoundActiveNPCs();
-				for (int t = 0; t < 200; t++)
-				{
-					if (!Main.ignoreErrors)
-					{
-						Main.npc[t].UpdateNPC(t);
-					}
-					else
-					{
-						try
-						{
-							Main.npc[t].UpdateNPC(t);
-						}
-						catch (Exception)
-						{
-							Main.npc[t] = new NPC();
-						}
-					}
-				}
-				for (int v = 0; v < 1000; v++)
-				{
-					if (Main.projectile[v].active)
-					{
-						Main.projectileIdentity[Main.projectile[v].owner, Main.projectile[v].identity] = v;
-					}
-				}
-				for (int v = 0; v < 1000; v++)
-				{
-					if (Main.projectile[v].active)
-					{
-						Main.projectileIdentity[Main.projectile[v].owner, Main.projectile[v].identity] = v;
-					}
-				}
-				for (int w = 0; w < 1000; w++)
-				{
-					Main.ProjectileUpdateLoopIndex = w;
-					if (!Main.ignoreErrors)
-					{
-						if (Main.projectile[w].active)
-						{
-							Main.projectileIdentity[Main.projectile[w].owner, Main.projectile[w].identity] = w;
-						}
-						Main.projectile[w].Update(w);
-					}
-					else
-					{
-						try
-						{
-							if (Main.projectile[w].active)
-							{
-								Main.projectileIdentity[Main.projectile[w].owner, Main.projectile[w].identity] = w;
-							}
-							Main.projectile[w].Update(w);
-						}
-						catch
-						{
-							Main.projectile[w] = new Projectile();
-						}
-					}
-				}
-				Main.ProjectileUpdateLoopIndex = -1;
-				for (int w = 0; w < 400; w++)
-				{
-					if (!Main.ignoreErrors)
-					{
-						Main.item[w].UpdateItem(w);
-					}
-					else
-					{
-						try
-						{
-							Main.item[w].UpdateItem(w);
-						}
-						catch
-						{
-							Main.item[w] = new Item();
-						}
-					}
-				}
-
-				if (!Main.ignoreErrors)
-				{
-					Main.UpdateTime();
-				}
-				else
-				{
-					try
-					{
-						Main.UpdateTime();
-					}
-					catch
-					{
-						Main.checkForSpawns = 0;
-					}
-				}
-				Main.tileSolid[379] = true;
-				if (Main.netMode != 1)
-				{
-					if (!Main.ignoreErrors)
-					{
-						WorldGen.UpdateWorld();
-						Main.UpdateInvasion();
-					}
-					else
-					{
-						try
-						{
-							WorldGen.UpdateWorld();
-							Main.UpdateInvasion();
-						}
-						catch (Exception ex)
-						{
-#if DEBUG
-							Console.WriteLine(ex);
-							System.Diagnostics.Debugger.Break();
-
-#endif
-						}
-					}
-				}
-				if (!Main.ignoreErrors)
-				{
-					if (Main.netMode == 2)
-					{
-						Main.UpdateServer();
-					}
-				}
-				else
-				{
-					try
-					{
-						if (Main.netMode == 2)
-						{
-							Main.UpdateServer();
-						}
-					}
-					catch
-					{
-						int num29 = Main.netMode;
-					}
-				}
-				Main.upTimer = (float)stopwatch.Elapsed.TotalMilliseconds;
-				if (Main.upTimerMaxDelay <= 0f)
-				{
-					Main.upTimerMax = 0f;
-				}
-				else
-				{
-					Main.upTimerMaxDelay = Main.upTimerMaxDelay - 1f;
-				}
-				if (Main.upTimer > Main.upTimerMax)
-				{
-					Main.upTimerMax = Main.upTimer;
-					Main.upTimerMaxDelay = 400f;
-				}
-				Chest.UpdateChestFrames();
 				return;
+			}
+			if (Main.netMode == 1)
+			{
+				Netplay.Connection.Socket.SendQueuedPackets();
 			}
 		}
 
