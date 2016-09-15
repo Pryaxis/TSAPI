@@ -159,7 +159,7 @@ namespace Terraria.ID
 				};
 			}
 
-			public static SetFactory Factory = new SetFactory(461);
+			public static SetFactory Factory = new SetFactory(Count);
 
 			public static bool[] Platforms = Factory.CreateBoolSet(new int[]
 			{

@@ -590,6 +590,54 @@ namespace Terraria.ID
 
 		public const int PartyHatWhite = 942;
 
-		public const short Count = 943;
+		public const int SandDrip = 943;
+
+		public const int Sandshark1 = 944;
+
+		public const int Sandshark2 = 945;
+
+		public const int Sandshark3 = 946;
+
+		public const int Sandshark4 = 947;
+
+		public const int Sandshark1Corrupt = 948;
+
+		public const int Sandshark2Corrupt = 949;
+
+		public const int Sandshark3Corrupt = 950;
+
+		public const int Sandshark4Corrupt = 951;
+
+		public const int Sandshark1Crimson = 952;
+
+		public const int Sandshark2Crimson = 953;
+
+		public const int Sandshark3Crimson = 954;
+
+		public const int Sandshark4Crimson = 955;
+
+		public const int Sandshark1Hallowed = 956;
+
+		public const int Sandshark2Hallowed = 957;
+
+		public const int Sandshark3Hallowed = 958;
+
+		public const int Sandshark4Hallowed = 959;
+
+		public const int SandElemental1 = 960;
+
+		public const int SandElemental2 = 961;
+
+		public const int SandElemental3 = 962;
+
+		public const int SandElemental4 = 963;
+
+		public const int Tumbleweed1 = 964;
+
+		public const int Tumbleweed2 = 965;
+
+		public const int Tumbleweed3 = 966;
+
+		public const short Count = 967;
 	}
 }

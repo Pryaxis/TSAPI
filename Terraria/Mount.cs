@@ -40,7 +40,9 @@ namespace Terraria
 
 		public const int MinecartWood = 13;
 
-		public const int maxMounts = 14;
+		public const int Basilisk = 14;
+
+		public const int maxMounts = 15;
 
 		public const int FrameStanding = 0;
 
@@ -1560,6 +1562,47 @@ namespace Terraria
 			mountDatum.idleFrameDelay = 0;
 			mountDatum.idleFrameStart = 0;
 			mountDatum.idleFrameLoop = false;
+			mountDatum = new Mount.MountData();
+			Mount.mounts[14] = mountDatum;
+			mountDatum.spawnDust = 15;
+			mountDatum.buff = 193;
+			mountDatum.heightBoost = 8;
+			mountDatum.flightTimeMax = 0;
+			mountDatum.fallDamage = 0.2f;
+			mountDatum.runSpeed = 8f;
+			mountDatum.acceleration = 0.25f;
+			mountDatum.jumpHeight = 20;
+			mountDatum.jumpSpeed = 8.01f;
+			mountDatum.totalFrames = 8;
+			numArray = new int[mountDatum.totalFrames];
+			for (int num10 = 0; num10 < numArray.Length; num10++)
+			{
+				numArray[num10] = 8;
+			}
+			numArray[1] += 2;
+			numArray[3] += 2;
+			numArray[6] += 2;
+			mountDatum.playerYOffsets = numArray;
+			mountDatum.xOffset = 4;
+			mountDatum.bodyFrame = 3;
+			mountDatum.yOffset = 9;
+			mountDatum.playerHeadOffset = 10;
+			mountDatum.standingFrameCount = 1;
+			mountDatum.standingFrameDelay = 12;
+			mountDatum.standingFrameStart = 0;
+			mountDatum.runningFrameCount = 6;
+			mountDatum.runningFrameDelay = 30;
+			mountDatum.runningFrameStart = 2;
+			mountDatum.inAirFrameCount = 1;
+			mountDatum.inAirFrameDelay = 12;
+			mountDatum.inAirFrameStart = 1;
+			mountDatum.idleFrameCount = 0;
+			mountDatum.idleFrameDelay = 0;
+			mountDatum.idleFrameStart = 0;
+			mountDatum.idleFrameLoop = false;
+			mountDatum.swimFrameCount = mountDatum.inAirFrameCount;
+			mountDatum.swimFrameDelay = mountDatum.inAirFrameDelay;
+			mountDatum.swimFrameStart = mountDatum.inAirFrameStart;
 		}
 
 		public int JumpHeight(float xVelocity)
@@ -1671,7 +1714,7 @@ namespace Terraria
 
 		public void SetMount(int m, Player mountedPlayer, bool faceLeft = false)
 		{
-			if (this._type == m || m <= -1 || m >= 14)
+			if (this._type == m || m <= -1 || m >= 15)
 			{
 				return;
 			}
@@ -2410,6 +2453,35 @@ namespace Terraria
 					}
 					goto case 6;
 				}
+				case 14:
+					{
+						bool flag3 = Math.Abs(velocity.X) > this.RunSpeed / 2f;
+						float num11 = (float)Math.Sign(mountedPlayer.velocity.X);
+						float num12 = 12f;
+						float num13 = 40f;
+						if (!flag3)
+						{
+							mountedPlayer.basiliskCharge = 0f;
+						}
+						else
+						{
+							mountedPlayer.basiliskCharge = Utils.Clamp<float>(mountedPlayer.basiliskCharge + 0.00555555569f, 0f, 1f);
+						}
+						if (flag3 && velocity.Y == 0f)
+						{
+							if (mountedPlayer.cMount == 0)
+							{
+								mountedPlayer.position += new Vector2(num11 * 24f, 0f);
+								mountedPlayer.FloorVisuals(true);
+								mountedPlayer.position -= new Vector2(num11 * 24f, 0f);
+							}
+						}
+						if (num11 == (float)mountedPlayer.direction)
+						{
+
+						}
+						break;
+					}
 				default:
 				{
 					goto case 6;

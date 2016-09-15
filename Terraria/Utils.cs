@@ -398,6 +398,36 @@ namespace Terraria
 			return string.Concat(str, str1, str2, a.ToString("X2")).ToLower();
 		}
 
+		public static float InverseLerp(float from, float to, float t, bool clamped = false)
+		{
+			if (clamped)
+			{
+				if (from < to)
+				{
+					if (t < from)
+					{
+						return 0f;
+					}
+					if (t > to)
+					{
+						return 1f;
+					}
+				}
+				else
+				{
+					if (t < to)
+					{
+						return 1f;
+					}
+					if (t > from)
+					{
+						return 0f;
+					}
+				}
+			}
+			return (t - from) / (to - from);
+		}
+
 		public static Vector2 Left(this Rectangle r)
 		{
 			return new Vector2((float)r.X, (float)(r.Y + r.Height / 2));
@@ -416,6 +446,11 @@ namespace Terraria
 		public static float NextFloat(this Random r)
 		{
 			return (float)r.NextDouble();
+		}
+
+		public static float NextFloatDirection(this Random r)
+		{
+			return (float)r.NextDouble() * 2f - 1f;
 		}
 
 		public static Vector2 OriginFlip(this Rectangle rect, Vector2 origin)
@@ -653,6 +688,11 @@ namespace Terraria
 		{
 			Vector2 vector2 = new Vector2();
 			return spinninpoint.RotatedBy(Main.rand.NextDouble() * maxRadians - Main.rand.NextDouble() * maxRadians, vector2);
+		}
+
+		public static Vector2 RotateRandom(this Vector2 spinninpoint, double maxRadians)
+		{
+			return spinninpoint.RotatedBy(Main.rand.NextDouble() * maxRadians - Main.rand.NextDouble() * maxRadians, default(Vector2));
 		}
 
 		public static T SelectRandom<T>(Random random, params T[] choices)

@@ -20,6 +20,8 @@ namespace Terraria.Net.Sockets
 
 		bool IsDataAvailable();
 
+		void SendQueuedPackets();
+
 		bool StartListening(SocketConnectionAccepted callback);
 
 		void StopListening();
