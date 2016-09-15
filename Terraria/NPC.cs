@@ -56987,8 +56987,8 @@ namespace Terraria
 					}
 					else if (Main.player[j].ZoneSandstorm)
 					{
-						NPC.spawnRate = (int)((float)NPC.spawnRate * (Main.hardMode ? 0.4f : 0.6f));
-						NPC.maxSpawns = (int)((float)NPC.maxSpawns * 1.5f);
+						NPC.spawnRate = (int)((float)NPC.spawnRate * (Main.hardMode ? 0.4f : 0.9f));
+						NPC.maxSpawns = (int)((float)NPC.maxSpawns * (Main.hardMode ? 1.5f : 1.2f));
 					}
 					else if (Main.player[j].ZoneUndergroundDesert)
 					{
@@ -59527,7 +59527,26 @@ namespace Terraria
 						}
 						else if (Sandstorm.Happening && Main.player[j].ZoneSandstorm && TileID.Sets.Conversion.Sand[num45] && NPC.Spawning_SandstoneCheck(num, num2))
 						{
-							if (Main.hardMode && Main.rand.Next(20) == 0 && !NPC.AnyNPCs(541))
+							if (!NPC.downedBoss1 && !Main.hardMode)
+							{
+								if (Main.rand.Next(2) == 0)
+								{
+									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 546, 0, 0f, 0f, 0f, 0f, 255);
+								}
+								else if (Main.rand.Next(2) == 0)
+								{
+									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 508, 0, 0f, 0f, 0f, 0f, 255);
+								}
+								else if (Main.rand.Next(2) == 0)
+								{
+									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 61, 0, 0f, 0f, 0f, 0f, 255);
+								}
+								else
+								{
+									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 69, 0, 0f, 0f, 0f, 0f, 255);
+								}
+							}
+							else if (Main.hardMode && Main.rand.Next(20) == 0 && !NPC.AnyNPCs(541))
 							{
 								num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 541, 0, 0f, 0f, 0f, 0f, 255);
 							}

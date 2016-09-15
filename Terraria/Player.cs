@@ -7016,7 +7016,7 @@ namespace Terraria
 				num2 = (float)Math.Sign(Main.windSpeed) * 0.07f;
 				if (Math.Abs(Main.windSpeed) > 0.5f)
 				{
-					num2 *= 1.5f;
+					num2 *= 1.37f;
 				}
 				if (this.velocity.Y != 0f)
 				{
