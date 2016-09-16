@@ -2173,71 +2173,76 @@ namespace Terraria.IO
 					System.Diagnostics.Debugger.Break();
 #endif
 				}
-				if (!Main.skipMenu)
+				if (Main.skipMenu)
 				{
-					if (!WorldFile.HasCache)
+					return;
+				}
+				if (WorldFile.HasCache)
+				{
+					WorldFile.SetTempToCache();
+				}
+				else
+				{
+					WorldFile.SetTempToOngoing();
+				}
+				if (resetTime)
+				{
+					WorldFile.ResetTempsToDayTime();
+				}
+				if (Main.worldPathName == null)
+				{
+					return;
+				}
+				Stopwatch stopwatch = new Stopwatch();
+				stopwatch.Start();
+				byte[] array = null;
+				int num = 0;
+				using (MemoryStream memoryStream = new MemoryStream(7000000))
+				{
+					using (BinaryWriter binaryWriter = new BinaryWriter(memoryStream))
 					{
-						WorldFile.SetTempToCache();
+						WorldFile.SaveWorld_Version2(binaryWriter);
 					}
-					else
+					array = memoryStream.ToArray();
+					num = array.Length;
+				}
+				if (array == null)
+				{
+					return;
+				}
+				byte[] array2 = null;
+				if (FileUtilities.Exists(Main.worldPathName))
+				{
+					array2 = FileUtilities.ReadAllBytes(Main.worldPathName);
+				}
+				FileUtilities.Write(Main.worldPathName, array, num);
+				array = FileUtilities.ReadAllBytes(Main.worldPathName);
+				string text = null;
+				using (MemoryStream memoryStream2 = new MemoryStream(array, 0, num, false))
+				{
+					using (BinaryReader binaryReader = new BinaryReader(memoryStream2))
 					{
-						WorldFile.SetTempToOngoing();
-					}
-					if (resetTime)
-					{
-						WorldFile.ResetTempsToDayTime();
-					}
-					string worldPath = Main.worldPathName ?? Main.WorldPathClassic;
-					if (worldPath != null)
-					{
-						byte[] buffer = null;
-						int length = 0;
-						using (MemoryStream memoryStream = new MemoryStream(7000000))
+						if (!Main.validateSaves || WorldFile.validateWorld(binaryReader))
 						{
-							using (BinaryWriter binaryWriter = new BinaryWriter(memoryStream))
+							if (array2 != null)
 							{
-								WorldFile.SaveWorld_Version2(binaryWriter);
-								binaryWriter.Flush();
-								buffer = memoryStream.GetBuffer();
-								length = (int)memoryStream.Length;
+								text = Main.worldPathName + ".bak";
+								Main.statusText = Lang.gen[50];
 							}
 						}
-						if (buffer != null)
+						else
 						{
-							byte[] numArray = null;
-							if (FileUtilities.Exists(Main.worldPathName))
-							{
-								numArray = FileUtilities.ReadAllBytes(Main.worldPathName);
-							}
-							FileUtilities.Write(Main.worldPathName, buffer, length);
-							buffer = FileUtilities.ReadAllBytes(Main.worldPathName);
-							string str = null;
-							using (MemoryStream memoryStream1 = new MemoryStream(buffer, 0, length, false))
-							{
-								using (BinaryReader binaryReader = new BinaryReader(memoryStream1))
-								{
-									if (Main.validateSaves && !WorldFile.validateWorld(binaryReader))
-									{
-										str = Main.worldPathName;
-									}
-									else if (numArray != null)
-									{
-										str = string.Concat(Main.worldPathName, ".bak");
-										Main.statusText = Lang.gen[50];
-									}
-								}
-							}
-							if (str != null)
-							{
-								FileUtilities.WriteAllBytes(str, numArray);
-							}
-							WorldGen.saveLock = false;
-							Main.serverGenLock = false;
-							return;
+							text = Main.worldPathName;
 						}
 					}
 				}
+				if (text != null)
+				{
+					FileUtilities.WriteAllBytes(text, array2);
+				}
+				WorldGen.saveLock = false;
 			}
+			Main.serverGenLock = false;
 		}
 
 		public static void SaveWorld_Version2(BinaryWriter writer)
