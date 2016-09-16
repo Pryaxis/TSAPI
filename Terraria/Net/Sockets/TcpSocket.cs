@@ -126,27 +126,17 @@ namespace Terraria.Net.Sockets
 			this._connection.GetStream().BeginWrite(data, 0, size, new AsyncCallback(this.SendCallback), new Tuple<SocketSendCallback, object>(callback, state));
 		}
 
-		void Terraria.Net.Sockets.ISocket.Close()
+		void ISocket.Close()
 		{
-			lock (_connection)
-			{
-				this._connectionDisposed = true;
-				this._remoteAddress = null;
-				this._connection.Close();
-			}
+			this._remoteAddress = null;
+			this._connection.Close();
 		}
 
 		void Terraria.Net.Sockets.ISocket.Connect(RemoteAddress address)
 		{
-
 			TcpAddress tcpAddress = (TcpAddress)address;
 			this._connection.Connect(tcpAddress.Address, tcpAddress.Port);
 			this._remoteAddress = address;
-
-			lock (_connection)
-			{
-				this._connectionDisposed = false;
-			}
 		}
 
 		RemoteAddress Terraria.Net.Sockets.ISocket.GetRemoteAddress()
@@ -154,31 +144,9 @@ namespace Terraria.Net.Sockets
 			return this._remoteAddress;
 		}
 
-		bool Terraria.Net.Sockets.ISocket.IsConnected()
+		bool ISocket.IsConnected()
 		{
-			if (this._connection == null || this._connection.Client == null)
-			{
-				return false;
-			}
-
-			/*
- 			 * Note:  Double comparison here is intentional,
- 			 * please do not remove.  -TW
- 			 */
-			if (this._connectionDisposed == false)
-			{
-				if (this._connectionDisposed == false)
-				{
-
-
-					return this._connection.Client.SocketConnected();
-				}
-
-				return false;
-			}
-
-
-			return false;
+			return this._connection != null && this._connection.Client != null && this._connection.Connected;
 		}
 
 		bool Terraria.Net.Sockets.ISocket.IsDataAvailable()
