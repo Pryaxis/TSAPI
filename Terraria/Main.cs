@@ -1752,10 +1752,10 @@ namespace Terraria
 			Main.hairLoaded = new bool[134];
 			Main.wingsLoaded = new bool[37];
 			Main.goreLoaded = new bool[943];
-			Main.projectileLoaded = new bool[656];
+			Main.projectileLoaded = new bool[Main.maxProjectileTypes];
 			Main.itemFlameLoaded = new bool[Main.maxItemTypes];
 			Main.backgroundLoaded = new bool[207];
-			Main.tileSetsLoaded = new bool[461];
+			Main.tileSetsLoaded = new bool[Main.maxTileSets];
 			Main.wallLoaded = new bool[Main.maxWallTypes];
 			Main.NPCLoaded = new bool[541];
 			Main.armorHeadLoaded = new bool[199];
@@ -1790,7 +1790,7 @@ namespace Terraria
 			Main.stopTimeOuts = false;
 			Main.showSpam = false;
 			Main.showItemOwner = false;
-			Main.nextNPC = new bool[541];
+			Main.nextNPC = new bool[Main.maxNPCTypes];
 			Main.musicBox = -1;
 			Main.musicBox2 = -1;
 			Main.hbPosition = 1;
@@ -1989,7 +1989,7 @@ namespace Terraria
 			Main.slimeWarningTime = 0;
 			Main.slimeWarningDelay = 420;
 			Main.slimeRainNPCSlots = 0.65f;
-			Main.slimeRainNPC = new bool[541];
+			Main.slimeRainNPC = new bool[Main.maxNPCTypes];
 			Main.slimeRainTime = 0;
 			Main.slimeRain = false;
 			Main.slimeRainKillCount = 0;
