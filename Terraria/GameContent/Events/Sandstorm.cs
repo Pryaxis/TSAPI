@@ -40,14 +40,14 @@ namespace Terraria.GameContent.Events
 
 		}
 
-		private static void StartSandstorm()
+		public static void StartSandstorm()
 		{
 			Sandstorm.Happening = true;
 			Sandstorm.TimeLeft = (int)(3600f * (8f + Main.rand.NextFloat() * 16f));
 			Sandstorm.ChangeSeverityIntentions();
 		}
 
-		private static void StopSandstorm()
+		public static void StopSandstorm()
 		{
 			Sandstorm.Happening = false;
 			Sandstorm.TimeLeft = 0;
