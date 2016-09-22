@@ -7,7 +7,7 @@ using Terraria.Utilities;
 
 namespace Terraria.GameContent.Events
 {
-	internal class Sandstorm
+	public class Sandstorm
 	{
 		private static void ChangeSeverityIntentions()
 		{
