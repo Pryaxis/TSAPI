@@ -10904,6 +10904,7 @@ namespace Terraria
 			Main.time = Main.time + (double)Main.dayRate;
 			CultistRitual.UpdateTime();
 			BirthdayParty.UpdateTime();
+			Sandstorm.UpdateTime();
 			if (NPC.MoonLordCountdown > 0)
 			{
 				NPC.MoonLordCountdown = NPC.MoonLordCountdown - 1;
