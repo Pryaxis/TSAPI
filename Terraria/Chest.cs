@@ -615,7 +615,7 @@ namespace Terraria
 					Vector2 chestPosition = new Vector2((float)(Main.chest[i].x * 16 + 16), (float)(Main.chest[i].y * 16 + 16));
 					if ((chestPosition - position).Length() < 200f)
 					{
-						if (TerrariaApi.Server.ServerApi.Hooks.InvokeItemForceIntoChest(Main.chest[i], item, chestPosition, player))
+						if (TerrariaApi.Server.ServerApi.Hooks.InvokeItemForceIntoChest(Main.chest[i], item, player))
 						{
 							continue;
 						}

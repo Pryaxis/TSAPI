@@ -251,13 +251,12 @@ namespace TerrariaApi.Server
 			get { return this.itemForceIntoChest; }
 		}
 
-		internal bool InvokeItemForceIntoChest(Chest chest, Item item, Vector2 position, Player player)
+		internal bool InvokeItemForceIntoChest(Chest chest, Item item, Player player)
 		{
 			ForceItemIntoChestEventArgs args = new ForceItemIntoChestEventArgs()
 			{
 				Chest = chest,
 				Item = item,
-				Position = position,
 				Player = player
 			};
 
