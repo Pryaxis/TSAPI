@@ -4,7 +4,7 @@ using Terraria;
 
 namespace Terraria.World.Generation
 {
-	internal static class Modifiers
+	public static class Modifiers
 	{
 		public class Blotches : GenAction
 		{

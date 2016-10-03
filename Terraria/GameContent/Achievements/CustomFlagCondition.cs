@@ -3,7 +3,7 @@ using Terraria.Achievements;
 
 namespace Terraria.GameContent.Achievements
 {
-	internal class CustomFlagCondition : AchievementCondition
+	public class CustomFlagCondition : AchievementCondition
 	{
 		private CustomFlagCondition(string name) : base(name)
 		{

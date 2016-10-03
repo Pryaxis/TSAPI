@@ -7,7 +7,7 @@ using Terraria.World.Generation;
 
 namespace Terraria.GameContent.Biomes
 {
-	internal class MahoganyTreeBiome : MicroBiome
+	public class MahoganyTreeBiome : MicroBiome
 	{
 		public MahoganyTreeBiome()
 		{

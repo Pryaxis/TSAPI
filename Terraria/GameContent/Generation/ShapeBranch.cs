@@ -7,7 +7,7 @@ using Terraria.World.Generation;
 
 namespace Terraria.GameContent.Generation
 {
-	internal class ShapeBranch : GenShape
+	public class ShapeBranch : GenShape
 	{
 		private Point _offset;
 

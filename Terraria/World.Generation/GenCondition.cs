@@ -2,7 +2,7 @@ using System;
 
 namespace Terraria.World.Generation
 {
-	internal abstract class GenCondition : GenBase
+	public abstract class GenCondition : GenBase
 	{
 		private bool InvertResults;
 

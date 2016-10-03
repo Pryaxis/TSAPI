@@ -97,7 +97,7 @@ namespace Terraria.GameContent.UI
 		}
 
 		// Token: 0x02000129 RID: 297
-		private class WiresRadial
+		public class WiresRadial
 		{
 			// Token: 0x06000B59 RID: 2905 RVA: 0x001FB0CA File Offset: 0x001F92CA
 			public void Update()

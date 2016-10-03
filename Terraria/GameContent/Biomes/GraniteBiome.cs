@@ -8,7 +8,7 @@ using Terraria.World.Generation;
 
 namespace Terraria.GameContent.Biomes
 {
-	internal class GraniteBiome : MicroBiome
+	public class GraniteBiome : MicroBiome
 	{
 		private const int MAX_MAGMA_ITERATIONS = 300;
 

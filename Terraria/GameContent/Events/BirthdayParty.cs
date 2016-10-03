@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Terraria.GameContent.Events
 {
-	internal class BirthdayParty
+	public class BirthdayParty
 	{
 		public static bool ManualParty = false;
 

@@ -4,7 +4,7 @@ using Terraria.Achievements;
 
 namespace Terraria.GameContent.Achievements
 {
-	internal class CustomIntCondition : AchievementCondition
+	public class CustomIntCondition : AchievementCondition
 	{
 		private int _value;
 

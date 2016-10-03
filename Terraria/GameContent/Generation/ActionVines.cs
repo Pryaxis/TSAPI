@@ -5,7 +5,7 @@ using Terraria.World.Generation;
 
 namespace Terraria.GameContent.Generation
 {
-	internal class ActionVines : GenAction
+	public class ActionVines : GenAction
 	{
 		private int _minLength;
 

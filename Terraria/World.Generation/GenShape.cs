@@ -3,7 +3,7 @@ using System;
 
 namespace Terraria.World.Generation
 {
-	internal abstract class GenShape : GenBase
+	public abstract class GenShape : GenBase
 	{
 		private ShapeData _outputData;
 

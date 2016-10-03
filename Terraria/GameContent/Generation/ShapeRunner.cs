@@ -5,7 +5,7 @@ using Terraria.World.Generation;
 
 namespace Terraria.GameContent.Generation
 {
-	internal class ShapeRunner : GenShape
+	public class ShapeRunner : GenShape
 	{
 		private float _startStrength;
 

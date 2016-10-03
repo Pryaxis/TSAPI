@@ -2,7 +2,7 @@ using System;
 
 namespace Terraria.World.Generation
 {
-	internal abstract class GenModShape : GenShape
+	public abstract class GenModShape : GenShape
 	{
 		protected ShapeData _data;
 

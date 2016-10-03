@@ -1,6 +1,6 @@
 namespace Terraria.ID
 {
-	internal class RecipeGroupID
+	public class RecipeGroupID
 	{
 		public static int Birds = 0;
 

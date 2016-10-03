@@ -6,7 +6,7 @@ using Terraria.ID;
 using Terraria.World.Generation;
 namespace Terraria.GameContent.Biomes
 {
-	internal class CaveHouseBiome : MicroBiome
+	public class CaveHouseBiome : MicroBiome
 	{
 		private class BuildData
 		{

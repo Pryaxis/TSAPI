@@ -4,7 +4,7 @@ using Terraria;
 
 namespace Terraria.World.Generation
 {
-	internal static class WorldUtils
+	public static class WorldUtils
 	{
 		public static void ClearChestLocation(int x, int y)
 		{

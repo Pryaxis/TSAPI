@@ -8,7 +8,7 @@ using Terraria.Net.Sockets;
 
 namespace Terraria.Net
 {
-	internal class NetManager
+	public class NetManager
 	{
 		public static NetManager Instance;
 

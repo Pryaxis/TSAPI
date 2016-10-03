@@ -5,7 +5,7 @@ using Terraria.Achievements;
 
 namespace Terraria.GameContent.Achievements
 {
-	internal class TileDestroyedCondition : AchievementCondition
+	public class TileDestroyedCondition : AchievementCondition
 	{
 		private const string Identifier = "TILE_DESTROYED";
 

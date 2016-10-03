@@ -5,7 +5,7 @@ using Terraria.World.Generation;
 
 namespace Terraria.GameContent.Generation
 {
-	internal class ActionGrass : GenAction
+	public class ActionGrass : GenAction
 	{
 		public ActionGrass()
 		{

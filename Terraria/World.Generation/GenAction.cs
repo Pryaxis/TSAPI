@@ -3,7 +3,7 @@ using System;
 
 namespace Terraria.World.Generation
 {
-	internal abstract class GenAction : GenBase
+	public abstract class GenAction : GenBase
 	{
 		public GenAction NextAction;
 

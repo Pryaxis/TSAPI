@@ -7,7 +7,7 @@ using Terraria.World.Generation;
 
 namespace Terraria.GameContent.Generation
 {
-	internal class ShapeFloodFill : GenShape
+	public class ShapeFloodFill : GenShape
 	{
 		private int _maximumActions;
 

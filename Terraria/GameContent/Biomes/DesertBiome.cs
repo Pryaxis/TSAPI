@@ -6,7 +6,7 @@ using Terraria.World.Generation;
 
 namespace Terraria.GameContent.Biomes
 {
-	internal class DesertBiome : MicroBiome
+	public class DesertBiome : MicroBiome
 	{
 		public DesertBiome()
 		{

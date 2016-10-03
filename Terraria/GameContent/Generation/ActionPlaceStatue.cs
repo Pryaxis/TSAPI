@@ -6,7 +6,7 @@ using Terraria.World.Generation;
 
 namespace Terraria.GameContent.Generation
 {
-	internal class ActionPlaceStatue : GenAction
+	public class ActionPlaceStatue : GenAction
 	{
 		private int _statueIndex;
 

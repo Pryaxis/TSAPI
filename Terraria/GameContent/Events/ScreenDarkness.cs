@@ -4,7 +4,7 @@ using Terraria;
 
 namespace Terraria.GameContent.Events
 {
-	internal class ScreenDarkness
+	public class ScreenDarkness
 	{
 		static ScreenDarkness()
 		{

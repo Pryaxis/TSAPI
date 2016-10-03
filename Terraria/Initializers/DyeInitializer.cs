@@ -6,7 +6,7 @@ using Terraria;
 
 namespace Terraria.Initializers
 {
-	internal static class DyeInitializer
+	public static class DyeInitializer
 	{
 		private static void FixRecipes()
 		{

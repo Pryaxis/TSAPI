@@ -7,7 +7,7 @@ using Terraria.World.Generation;
 
 namespace Terraria.GameContent.Biomes
 {
-	internal class EnchantedSwordBiome : MicroBiome
+	public class EnchantedSwordBiome : MicroBiome
 	{
 		public EnchantedSwordBiome()
 		{

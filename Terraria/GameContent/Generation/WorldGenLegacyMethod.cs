@@ -3,5 +3,5 @@ using Terraria.World.Generation;
 
 namespace Terraria.GameContent.Generation
 {
-	internal delegate void WorldGenLegacyMethod(GenerationProgress progress);
+	public delegate void WorldGenLegacyMethod(GenerationProgress progress);
 }

@@ -5,7 +5,7 @@ using Terraria;
 
 namespace Terraria.World.Generation
 {
-	internal static class Shapes
+	public static class Shapes
 	{
 		public class Circle : GenShape
 		{

@@ -6,7 +6,7 @@ using Terraria.DataStructures;
 
 namespace Terraria.World.Generation
 {
-	internal class ShapeData
+	public class ShapeData
 	{
 		private HashSet<Point16> _points;
 

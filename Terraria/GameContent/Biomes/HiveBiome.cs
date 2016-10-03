@@ -5,7 +5,7 @@ using Terraria.World.Generation;
 
 namespace Terraria.GameContent.Biomes
 {
-	internal class HiveBiome : MicroBiome
+	public class HiveBiome : MicroBiome
 	{
 		public HiveBiome()
 		{

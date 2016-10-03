@@ -5,7 +5,7 @@ using Terraria.GameContent.Achievements;
 
 namespace Terraria.Initializers
 {
-	internal class AchievementInitializer
+	public class AchievementInitializer
 	{
 		public AchievementInitializer()
 		{
