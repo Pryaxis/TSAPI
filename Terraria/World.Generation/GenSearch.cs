@@ -3,7 +3,7 @@ using System;
 
 namespace Terraria.World.Generation
 {
-	internal abstract class GenSearch : GenBase
+	public abstract class GenSearch : GenBase
 	{
 		public static Point NOT_FOUND;
 

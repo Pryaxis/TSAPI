@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Terraria.Utilities
 {
-	internal class WeightedRandom<T>
+	public class WeightedRandom<T>
 	{
 		public WeightedRandom()
 		{

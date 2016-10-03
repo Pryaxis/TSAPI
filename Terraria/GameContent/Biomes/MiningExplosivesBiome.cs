@@ -6,7 +6,7 @@ using Terraria.World.Generation;
 
 namespace Terraria.GameContent.Biomes
 {
-	internal class MiningExplosivesBiome : MicroBiome
+	public class MiningExplosivesBiome : MicroBiome
 	{
 		public MiningExplosivesBiome()
 		{

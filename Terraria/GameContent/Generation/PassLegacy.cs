@@ -5,7 +5,7 @@ using Terraria.World.Generation;
 
 namespace Terraria.GameContent.Generation
 {
-	internal class PassLegacy : GenPass
+	public class PassLegacy : GenPass
 	{
 		private static Dictionary<string, float> _weightMap;
 

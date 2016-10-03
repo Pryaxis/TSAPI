@@ -5,7 +5,7 @@ using Terraria;
 
 namespace Terraria.World.Generation
 {
-	internal static class Actions
+	public static class Actions
 	{
 		public static GenAction Chain(params GenAction[] actions)
 		{

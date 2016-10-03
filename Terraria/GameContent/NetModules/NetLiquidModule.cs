@@ -6,7 +6,7 @@ using Terraria.Net;
 
 namespace Terraria.GameContent.NetModules
 {
-	internal class NetLiquidModule : NetModule
+	public class NetLiquidModule : NetModule
 	{
 		public NetLiquidModule()
 		{

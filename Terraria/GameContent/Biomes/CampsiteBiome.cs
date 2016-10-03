@@ -5,7 +5,7 @@ using Terraria.World.Generation;
 
 namespace Terraria.GameContent.Biomes
 {
-	internal class CampsiteBiome : MicroBiome
+	public class CampsiteBiome : MicroBiome
 	{
 		public CampsiteBiome()
 		{

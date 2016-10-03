@@ -2,7 +2,7 @@ using System;
 
 namespace Terraria.World.Generation
 {
-	internal abstract class GenPass : GenBase
+	public abstract class GenPass : GenBase
 	{
 		public string Name;
 

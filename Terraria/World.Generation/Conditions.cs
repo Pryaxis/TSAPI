@@ -3,7 +3,7 @@ using Terraria;
 
 namespace Terraria.World.Generation
 {
-	internal static class Conditions
+	public static class Conditions
 	{
 		public class Continue : GenCondition
 		{

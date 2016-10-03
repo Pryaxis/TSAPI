@@ -3,7 +3,7 @@ using Terraria;
 
 namespace Terraria.World.Generation
 {
-	internal static class Passes
+	public static class Passes
 	{
 		public class Clear : GenPass
 		{

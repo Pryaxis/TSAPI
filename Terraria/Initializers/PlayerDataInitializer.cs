@@ -3,7 +3,7 @@ using Terraria;
 
 namespace Terraria.Initializers
 {
-	internal static class PlayerDataInitializer
+	public static class PlayerDataInitializer
 	{
 		private static void CopyVariant(int to, int from)
 		{

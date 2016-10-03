@@ -4,7 +4,7 @@ using Terraria.Achievements;
 
 namespace Terraria.GameContent.Achievements
 {
-	internal class ProgressionEventCondition : AchievementCondition
+	public class ProgressionEventCondition : AchievementCondition
 	{
 		private const string Identifier = "PROGRESSION_EVENT";
 

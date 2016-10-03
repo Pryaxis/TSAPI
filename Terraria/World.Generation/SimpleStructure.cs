@@ -3,7 +3,7 @@ using System;
 
 namespace Terraria.World.Generation
 {
-	internal class SimpleStructure : GenStructure
+	public class SimpleStructure : GenStructure
 	{
 		private int[,] _data;
 

@@ -6,7 +6,7 @@ using Terraria.World.Generation;
 
 namespace Terraria.GameContent.Biomes
 {
-	internal class MarbleBiome : MicroBiome
+	public class MarbleBiome : MicroBiome
 	{
 		private const int SCALE = 3;
 

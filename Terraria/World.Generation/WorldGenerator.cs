@@ -5,7 +5,7 @@ using Terraria;
 
 namespace Terraria.World.Generation
 {
-	internal class WorldGenerator
+	public class WorldGenerator
 	{
 		private List<GenPass> _passes = new List<GenPass>();
 

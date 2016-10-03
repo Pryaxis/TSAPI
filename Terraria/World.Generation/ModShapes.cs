@@ -5,7 +5,7 @@ using Terraria.DataStructures;
 
 namespace Terraria.World.Generation
 {
-	internal static class ModShapes
+	public static class ModShapes
 	{
 		public class All : GenModShape
 		{

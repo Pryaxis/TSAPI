@@ -5,7 +5,7 @@ using Terraria.World.Generation;
 
 namespace Terraria.GameContent.Generation
 {
-	internal class ActionStalagtite : GenAction
+	public class ActionStalagtite : GenAction
 	{
 		public ActionStalagtite()
 		{

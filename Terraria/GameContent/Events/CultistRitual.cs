@@ -5,7 +5,7 @@ using Terraria.ID;
 
 namespace Terraria.GameContent.Events
 {
-	internal class CultistRitual
+	public class CultistRitual
 	{
 		public const int delayStart = 86400;
 

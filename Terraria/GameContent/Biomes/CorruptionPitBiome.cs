@@ -6,7 +6,7 @@ using Terraria.World.Generation;
 
 namespace Terraria.GameContent.Biomes
 {
-	internal class CorruptionPitBiome : MicroBiome
+	public class CorruptionPitBiome : MicroBiome
 	{
 		public static bool[] ValidTiles;
 

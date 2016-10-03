@@ -5,7 +5,7 @@ using Terraria.World.Generation;
 
 namespace Terraria.GameContent.Biomes
 {
-	internal class ThinIceBiome : MicroBiome
+	public class ThinIceBiome : MicroBiome
 	{
 		public ThinIceBiome()
 		{

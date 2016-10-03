@@ -7,7 +7,7 @@ using TerrariaApi.Server;
 
 namespace Terraria.GameContent.Generation
 {
-	internal class TrackGenerator
+	public class TrackGenerator
 	{
 		private const int TOTAL_TILE_IGNORES = 150;
 

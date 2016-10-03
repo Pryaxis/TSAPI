@@ -3,7 +3,7 @@ using System;
 
 namespace Terraria.World.Generation
 {
-	internal static class Searches
+	public static class Searches
 	{
 		public static GenSearch Chain(GenSearch search, params GenCondition[] conditions)
 		{

@@ -5,7 +5,7 @@ using Terraria.World.Generation;
 
 namespace Terraria.GameContent.Generation
 {
-	internal class ShapeRoot : GenShape
+	public class ShapeRoot : GenShape
 	{
 		private float _angle;
 

@@ -5,7 +5,7 @@ using Terraria.World.Generation;
 
 namespace Terraria.GameContent.Biomes
 {
-	internal class HoneyPatchBiome : MicroBiome
+	public class HoneyPatchBiome : MicroBiome
 	{
 		public HoneyPatchBiome()
 		{

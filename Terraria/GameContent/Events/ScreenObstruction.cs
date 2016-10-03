@@ -4,7 +4,7 @@ using Terraria;
 
 namespace Terraria.GameContent.Events
 {
-	internal class ScreenObstruction
+	public class ScreenObstruction
 	{
 		static ScreenObstruction()
 		{

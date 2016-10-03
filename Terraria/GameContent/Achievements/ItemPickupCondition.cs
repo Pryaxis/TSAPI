@@ -5,7 +5,7 @@ using Terraria.Achievements;
 
 namespace Terraria.GameContent.Achievements
 {
-	internal class ItemPickupCondition : AchievementCondition
+	public class ItemPickupCondition : AchievementCondition
 	{
 		private const string Identifier = "ITEM_PICKUP";
 

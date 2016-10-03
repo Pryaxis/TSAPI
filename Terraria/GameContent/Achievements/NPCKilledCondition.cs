@@ -5,7 +5,7 @@ using Terraria.Achievements;
 
 namespace Terraria.GameContent.Achievements
 {
-	internal class NPCKilledCondition : AchievementCondition
+	public class NPCKilledCondition : AchievementCondition
 	{
 		private const string Identifier = "NPC_KILLED";
 
