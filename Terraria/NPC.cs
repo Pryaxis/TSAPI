@@ -53857,6 +53857,7 @@ namespace Terraria
 					}
 					else
 					{
+						goto IL_2A67;
 						switch (num)
 						{
 							case 231:
