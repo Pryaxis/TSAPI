@@ -53715,11 +53715,11 @@ namespace Terraria
 					{
 						if (num == 34)
 						{
-							goto IL_2A5B;
+							goto IL_2B28;
 						}
 						if (num == 42)
 						{
-							goto IL_2A2B;
+							goto IL_2AF8;
 						}
 						switch (num)
 						{
@@ -53734,15 +53734,15 @@ namespace Terraria
 								}
 								if (Main.rand.Next(100) != 0)
 								{
-									goto IL_2B09;
+									goto IL_2BD6;
 								}
 								if (num23 == 889)
 								{
 									num24 = 890;
-									goto IL_2B09;
+									goto IL_2BD6;
 								}
 								num24 = 889;
-								goto IL_2B09;
+								goto IL_2BD6;
 							case 76:
 							case 85:
 							case 86:
@@ -53752,13 +53752,13 @@ namespace Terraria
 							case 90:
 							case 91:
 							case 92:
-								goto IL_2B09;
+								goto IL_2BD6;
 							case 77:
-								goto IL_2A1F;
+								goto IL_2AEC;
 							case 78:
 							case 82:
 								num23 = 889;
-								goto IL_2B09;
+								goto IL_2BD6;
 							case 79:
 								if (Main.rand.Next(2) == 0)
 								{
@@ -53770,28 +53770,28 @@ namespace Terraria
 								}
 								if (Main.rand.Next(100) != 0)
 								{
-									goto IL_2B09;
+									goto IL_2BD6;
 								}
 								if (num23 == 888)
 								{
 									num24 = 890;
-									goto IL_2B09;
+									goto IL_2BD6;
 								}
 								num24 = 888;
-								goto IL_2B09;
+								goto IL_2BD6;
 							case 80:
 							case 93:
 								break;
 							case 81:
 								num23 = 888;
-								goto IL_2B09;
+								goto IL_2BD6;
 							case 83:
 							case 84:
-								goto IL_2A5B;
+								goto IL_2B28;
 							case 94:
-								goto IL_2A67;
+								goto IL_2B34;
 							default:
-								goto IL_2B09;
+								goto IL_2BD6;
 						}
 					}
 					else
@@ -53800,112 +53800,90 @@ namespace Terraria
 						{
 							case 102:
 							case 104:
-								goto IL_2A13;
+								goto IL_2AE0;
 							case 103:
 								num23 = 890;
-								goto IL_2B09;
+								goto IL_2BD6;
 							default:
 								if (num != 109)
 								{
 									if (num != 141)
 									{
-										goto IL_2B09;
+										goto IL_2BD6;
 									}
-									goto IL_2A2B;
+									goto IL_2AF8;
 								}
 								break;
 						}
 					}
-					if (num == 34)
-					{
-						goto IL_2A5B;
-					}
-					if (num != 42)
-					{
-						goto IL_2B09;
-					}
-					goto IL_2A2B;
+					num23 = 893;
+					goto IL_2BD6;
 				}
-				else if (num <= 182)
+				if (num <= 182)
 				{
-					if (num == 141 || num == 176)
+					if (num == 176)
 					{
-						goto IL_2A2B;
+						goto IL_2AF8;
 					}
-					if (num != 179)
+					if (num == 179)
 					{
-						goto IL_2B09;
+						goto IL_2B28;
 					}
-					goto IL_2A5B;
+					if (num != 182)
+					{
+						goto IL_2BD6;
+					}
+					goto IL_2B34;
 				}
 				else
 				{
-					if (num <= 182)
+					switch (num)
 					{
-						if (num == 176)
-						{
-							goto IL_2A2B;
-						}
-						if (num == 179)
-						{
-							goto IL_2A5B;
-						}
-						if (num != 182)
-						{
-							goto IL_2B09;
-						}
-					}
-					else
-					{
-						goto IL_2A67;
-						switch (num)
-						{
-							case 231:
-							case 232:
-							case 233:
-							case 234:
-							case 235:
-								goto IL_2A2B;
-							default:
-								switch (num)
-								{
-									case 269:
-									case 270:
-									case 271:
-									case 272:
-										break;
-									case 273:
-									case 274:
-									case 275:
-									case 276:
-										goto IL_2A1F;
-									default:
-										if (num == 480)
-										{
-											num23 = 3781;
-											goto IL_2B09;
-										}
-										goto IL_2B09;
-								}
-								break;
-						}
+						case 231:
+						case 232:
+						case 233:
+						case 234:
+						case 235:
+							goto IL_2AF8;
+						default:
+							switch (num)
+							{
+								case 269:
+								case 270:
+								case 271:
+								case 272:
+									break;
+								case 273:
+								case 274:
+								case 275:
+								case 276:
+									goto IL_2AEC;
+								default:
+									if (num == 480)
+									{
+										num23 = 3781;
+										goto IL_2BD6;
+									}
+									goto IL_2BD6;
+							}
+							break;
 					}
 				}
-				IL_2A13:
+				IL_2AE0:
 				num23 = 885;
-				goto IL_2B09;
-				IL_2A1F:
+				goto IL_2BD6;
+				IL_2AEC:
 				num23 = 886;
-				goto IL_2B09;
-				IL_2A2B:
+				goto IL_2BD6;
+				IL_2AF8:
 				num23 = 887;
-				goto IL_2B09;
-				IL_2A5B:
+				goto IL_2BD6;
+				IL_2B28:
 				num23 = 891;
-				goto IL_2B09;
-				IL_2A67:
+				goto IL_2BD6;
+				IL_2B34:
 				num23 = 892;
-				IL_2B09:
+				IL_2BD6:
 				if (num23 != -1)
 				{
 					DropLoot(this.position, this.width, this.height, num23, 1, false, -1, false, false);
