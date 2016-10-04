@@ -20,6 +20,7 @@ namespace TerrariaApi.Server
 		/// <summary>
 		/// The chest's center position in world coordinates.
 		/// This is a shortcut for Vector2(Chest.x*16 + 16, Chest.y*16 + 16)
+		/// This is identical to the previous hook version's Position argument
 		/// </summary>
 		public Vector2 WorldPosition => new Vector2(Chest.x * 16 + 16, Chest.y * 16 + 16);
 		/// <summary>
