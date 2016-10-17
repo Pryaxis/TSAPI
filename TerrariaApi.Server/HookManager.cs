@@ -907,6 +907,11 @@ namespace TerrariaApi.Server
 
 		internal bool InvokeServerConnect(int who)
 		{
+			if (Netplay.Clients[who].State != 0)
+			{
+				return false;
+			}
+
 			ConnectEventArgs args = new ConnectEventArgs
 			{
 				Who = who
