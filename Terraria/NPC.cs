@@ -886,7 +886,7 @@ namespace Terraria
 							return "Knub";
 						}
 					case 108:
-						switch (WorldGen.genRand.Next(21))
+						switch (WorldGen.genRand.Next(22))
 						{
 						case 0:
 							return "Dalamar";
@@ -928,6 +928,8 @@ namespace Terraria
 							return "Alasdair";
 						case 19:
 							return "Tagar";
+						case 20:
+							return "Abram";
 						default:
 							return "Xanadu";
 						}
@@ -963,6 +965,7 @@ namespace Terraria
 								default:
 									return "Shiitake";
 								}
+								break;
 							}
 						}
 						else
@@ -1157,7 +1160,7 @@ namespace Terraria
 						switch (npcType)
 						{
 						case 227:
-							switch (WorldGen.genRand.Next(17))
+							switch (WorldGen.genRand.Next(18))
 							{
 							case 0:
 								return "Marco";
@@ -1191,6 +1194,8 @@ namespace Terraria
 								return "Luca";
 							case 15:
 								return "Darren";
+							case 16:
+								return "Esreadel";
 							default:
 								return "Stefano";
 							}
@@ -1432,7 +1437,7 @@ namespace Terraria
 			{
 				if (npcType == 453)
 				{
-					switch (WorldGen.genRand.Next(8))
+					switch (WorldGen.genRand.Next(9))
 					{
 					case 0:
 						return "Skellington";
@@ -1450,6 +1455,8 @@ namespace Terraria
 						return "Rattles Magoo";
 					case 7:
 						return "Mandible Calavera";
+					case 8:
+						return "Mika";
 					default:
 						return "No-Eyed Wiley";
 					}
@@ -3172,6 +3179,8 @@ namespace Terraria
 			this.netID = 0;
 			this.netAlways = false;
 			this.netSpam = 0;
+			this.SpawnedFromStatue = false;
+
 			int num = 10;
 			if (Type >= 0)
 			{
@@ -10048,8 +10057,8 @@ namespace Terraria
 				this.height = 40;
 				this.aiStyle = 3;
 				this.damage = 30;
-				this.defense = 10;
-				this.lifeMax = 200;
+				this.defense = 20;
+				this.lifeMax = 400;
 				this.soundHit = 1;
 				this.soundKilled = 1;
 				this.knockBackResist = 0.15f;
@@ -10330,9 +10339,9 @@ namespace Terraria
 				this.width = 34;
 				this.height = 34;
 				this.aiStyle = 6;
-				this.damage = 18;
-				this.defense = 500;
-				this.lifeMax = 400;
+				this.damage = 58;
+				this.defense = 18;
+				this.lifeMax = 500;
 				this.soundHit = 1;
 				this.soundKilled = 1;
 				this.noGravity = true;
@@ -10524,8 +10533,8 @@ namespace Terraria
 			else if (this.type == 533)
 			{
 				this.name = "Desert Spirit";
-				this.width = 18;
-				this.height = 40;
+				this.width = 28;
+				this.height = 62;
 				this.aiStyle = 8;
 				this.damage = 40;
 				this.defense = 20;
@@ -11967,12 +11976,14 @@ namespace Terraria
 			}
 			else if (this.type == 371 || this.type == 372 || this.type == 373)
 			{
-				this.lifeMax = (int)((double)this.lifeMax * 0.75);
+				if (this.type != 371)
+					this.lifeMax = (int)((double)this.lifeMax * 0.75);
 				this.damage = (int)((double)this.damage * 0.75);
 			}
 			if (this.type == 439 || this.type == 440 || (this.type >= 454 && this.type <= 459) || this.type == 522 || this.type == 523)
 			{
-				this.lifeMax = (int)((float)this.lifeMax * 0.625f * num5);
+				if (this.type != 522)
+					this.lifeMax = (int)((float)this.lifeMax * 0.625f * num5);
 				this.damage = (int)((double)this.damage * 0.75);
 			}
 			if (this.type == 397 || this.type == 396 || this.type == 398)
@@ -13500,8 +13511,9 @@ namespace Terraria
 							if (this.localAI[3] > (float)Main.rand.Next(20, 180))
 							{
 								this.localAI[3] = 0f;
-								base.Center += this.velocity;
-								NPC.NewNPC((int)Center.X, (int)Center.Y, 30, 0, 0f, 0f, 0f, 0f, 255);
+								var newCenter = base.Center;
+								newCenter += this.velocity;
+								NPC.NewNPC((int)newCenter.X, (int)newCenter.Y, 30, 0, 0f, 0f, 0f, 0f, 255);
 							}
 						}
 					}
@@ -77195,6 +77207,46 @@ namespace Terraria
 					}
 				}
 			}
+			if (this.type == 541)
+			{
+				if (this.ai[0] > 0f)
+				{
+					float num48 = this.ai[0];
+					if (num48 < 6f)
+					{
+						this.frame.Y = num * 4;
+					}
+					else if (num48 < 105f)
+					{
+						this.frame.Y = num * (int)(num48 / 8f % 4f + 5f);
+					}
+					else if (num48 < 114f)
+					{
+						this.frame.Y = num * 9;
+					}
+					else if (num48 < 135f)
+					{
+						this.frame.Y = num * (int)((num48 - 99f - 15f) / 7f + 10f);
+					}
+					else
+					{
+						this.frame.Y = num;
+					}
+				}
+				else
+				{
+					this.frameCounter = this.frameCounter + (double)(this.velocity.Length() * 0.1f) + 1.0;
+					if (this.frameCounter >= 8.0)
+					{
+						this.frame.Y = this.frame.Y + num;
+						this.frameCounter = 0.0;
+					}
+					if (this.frame.Y >= num * 4)
+					{
+						this.frame.Y = 0;
+					}
+				}
+			}
 			if (this.type >= 498 && this.type <= 506)
 			{
 				if (this.velocity.Y == 0f)
@@ -79652,6 +79704,7 @@ namespace Terraria
 				}
 				else if (this.velocity.X == 0f)
 				{
+					this.frame.Y = this.frame.Y;
 					this.frameCounter = 0.0;
 				}
 				else
@@ -81655,7 +81708,7 @@ namespace Terraria
 			{
 				this.spriteDirection = this.direction;
 				this.frameCounter += 1.0;
-				if (this.wet)
+				if (this.wet && this.type == 65)
 				{
 					if (this.frameCounter < 6.0)
 					{
@@ -81678,6 +81731,16 @@ namespace Terraria
 						this.frameCounter = 0.0;
 					}
 				}
+			}
+			else if (this.type >= 542 && this.type <= 545)
+			{
+				this.spriteDirection = this.direction;
+				this.frameCounter += 1.0;
+				if (this.frameCounter >= 16.0)
+				{
+					this.frameCounter = 0.0;
+				}
+				this.frame.Y = num * (int)(this.frameCounter / 4.0);
 			}
 			else if (this.type == 224)
 			{
@@ -83964,6 +84027,15 @@ namespace Terraria
 						case 135:
 						case 136:
 							break;
+						case 137:
+						case 138:
+							goto IL_1E6;
+						case 139:
+							if (NPC.npcsFoundForCheckActive[134])
+							{
+								return;
+							}
+							goto IL_1E6;
 						default:
 							switch (num)
 							{
@@ -84042,7 +84114,7 @@ namespace Terraria
 				}
 				return;
 				IL_1E6:
-				if (this.townNPC || this.type == 453)
+				if (this.townNPC)
 				{
 					Rectangle rectangle = new Rectangle((int)(this.position.X + (float)(this.width / 2) - (float)NPC.townRangeX), (int)(this.position.Y + (float)(this.height / 2) - (float)NPC.townRangeY), NPC.townRangeX * 2, NPC.townRangeY * 2);
 					for (int i = 0; i < 255; i++)
@@ -84051,10 +84123,6 @@ namespace Terraria
 						{
 							Main.player[i].townNPCs += this.npcSlots;
 						}
-					}
-					if (this.type != 453)
-					{
-						return;
 					}
 				}
 				bool flag = false;
@@ -84141,7 +84209,7 @@ namespace Terraria
 							default:
 								if (num2 == 399)
 								{
-									if (this.timeLeft == NPC.activeTime)
+									if (this.ai[0] == 2f || this.ai[0] == 1f)
 									{
 										this.timeLeft = NPC.activeTime;
 									}
@@ -84978,82 +85046,102 @@ namespace Terraria
 			}
 			IL_C1:
 			int num3 = Item.NPCtoBanner(this.BannerID());
-			if (num3 > 0 && !NPCID.Sets.ExcludedFromDeathTally[this.type] && this.AnyInteractions())
+			if (num3 > 0 && !NPCID.Sets.ExcludedFromDeathTally[this.type])
 			{
-				NPC.killCount[num3]++;
-				if (Main.netMode == 2)
+				bool flag2;
+				if (this.realLife >= 0)
 				{
-					NetMessage.SendData(83, -1, -1, "", num3, 0f, 0f, 0f, 0, 0, 0);
+					flag2 = Main.npc[this.realLife].AnyInteractions();
 				}
-				int num4 = 50;
-				if (NPC.killCount[num3] % num4 == 0 && num3 > 0)
+				else
 				{
-					int l = Item.BannerToNPC(num3);
-					NPC nPC = new NPC();
-					nPC.netDefaults(l);
-					int num5 = this.lastInteraction;
-					if (!Main.player[num5].active || Main.player[num5].dead)
+					flag2 = this.AnyInteractions();
+				}
+				if (flag2)
+				{
+					NPC.killCount[num3]++;
+					if (Main.netMode == 2)
 					{
-						num5 = this.FindClosestPlayer();
+						NetMessage.SendData(83, -1, -1, "", num3, 0f, 0f, 0f, 0, 0, 0);
 					}
-					string text = string.Concat(new object[]
+					int num4 = 50;
+					if (NPC.killCount[num3] % num4 == 0 && num3 > 0)
 					{
-						"The ",
-						NPC.killCount[num3],
-						"th ",
-						Lang.npcName(l, false),
-						" has been defeated!"
-					});
-					if (num5 >= 0 && num5 < 255)
-					{
-						text = string.Concat(new object[]
+						int l = Item.BannerToNPC(num3);
+						NPC nPC = new NPC();
+						nPC.netDefaults(l);
+						int num5 = this.lastInteraction;
+						if (!Main.player[num5].active || Main.player[num5].dead)
 						{
-							Main.player[num5].name,
-							" has defeated the ",
+							num5 = this.FindClosestPlayer();
+						}
+						string text = string.Concat(new object[]
+						{
+							"The ",
 							NPC.killCount[num3],
 							"th ",
 							Lang.npcName(l, false),
-							"!"
+							" has been defeated!"
 						});
+						if (num5 >= 0 && num5 < 255)
+						{
+							text = string.Concat(new object[]
+							{
+								Main.player[num5].name,
+								" has defeated the ",
+								NPC.killCount[num3],
+								"th ",
+								Lang.npcName(l, false),
+								"!"
+							});
+						}
+						if (Main.netMode == 0)
+						{
+							Main.NewText(text, 250, 250, 0, false);
+						}
+						else if (Main.netMode == 2)
+						{
+							NetMessage.SendData(25, -1, -1, text, 255, 250f, 250f, 0f, 0, 0, 0);
+						}
+						int num6 = 1615 + num3 - 1;
+						if (num3 >= 252)
+						{
+							num6 = 3789 + num3 - 252;
+						}
+						else if (num3 == 251)
+						{
+							num6 = 3780;
+						}
+						else if (num3 >= 249)
+						{
+							num6 = 3593 + num3 - 249;
+						}
+						else if (num3 >= 186)
+						{
+							num6 = 3390 + num3 - 186;
+						}
+						else if (num3 >= 88)
+						{
+							num6 = 2897 + num3 - 88;
+						}
+						Vector2 position = this.position;
+						if (num5 >= 0 && num5 < 255)
+						{
+							position = Main.player[num5].position;
+						}
+						DropLoot(position, this.width, this.height, num6, 1, false, 0, false, false);
 					}
-					if (Main.netMode == 0)
-					{
-						Main.NewText(text, 250, 250, 0, false);
-					}
-					else if (Main.netMode == 2)
-					{
-						NetMessage.SendData(25, -1, -1, text, 255, 250f, 250f, 0f, 0, 0, 0);
-					}
-					int num6 = 1615 + num3 - 1;
-					if (num3 >= 252)
-					{
-						num6 = 3789 + num3 - 252;
-					}
-					else if (num3 == 251)
-					{
-						num6 = 3780;
-					}
-					else if (num3 >= 249)
-					{
-						num6 = 3593 + num3 - 249;
-					}
-					else if (num3 >= 186)
-					{
-						num6 = 3390 + num3 - 186;
-					}
-					else if (num3 >= 88)
-					{
-						num6 = 2897 + num3 - 88;
-					}
-					Vector2 position = this.position;
-					if (num5 >= 0 && num5 < 255)
-					{
-						position = Main.player[num5].position;
-					}
-					DropLoot(position, this.width, this.height, num6, 1, false, 0, false, false);
 				}
 			}
 			if (this.type == 23 && Main.hardMode)
+			{
+				return;
+			}
+			if (this.SpawnedFromStatue && NPCID.Sets.NoEarlymodeLootWhenSpawnedFromStatue[this.type] && !Main.hardMode)
+			{
+				return;
+			}
+			if (this.SpawnedFromStatue && NPCID.Sets.StatueSpawnedDropRarity[this.type] != -1f && (Main.rand.NextFloat() >= NPCID.Sets.StatueSpawnedDropRarity[this.type] || !this.AnyInteractions()))
 			{
 				return;
 			}
@@ -88506,7 +88594,16 @@ namespace Terraria
 			}
 			if (Main.npc[i].catchItem > 0)
 			{
-				int arg_61_0 = Main.npc[i].type;
+				if (Main.npc[i].SpawnedFromStatue)
+				{
+					Vector2 position = Main.npc[i].Center - new Vector2(20f);
+					//Utils.PoofOfSmoke is probably client side magic.
+					//Utils.PoofOfSmoke(position);
+					Main.npc[i].active = false;
+					NetMessage.SendData(23, -1, -1, "", i, 0f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData(106, -1, -1, "", (int)position.X, position.Y, 0f, 0f, 0, 0, 0);
+					return;
+				}
 				Item item = new Item();
 				item.SetDefaults((int)Main.npc[i].catchItem, false);
 				Item.NewItem((int)Main.player[who].Center.X, (int)Main.player[who].Center.Y, 0, 0, (int)Main.npc[i].catchItem, 1, false, 0, true, false);
@@ -88614,7 +88711,15 @@ namespace Terraria
 		}
 		public void PlayerInteraction(int player)
 		{
-			if (this.playerInteraction[player])
+			bool flag;
+			if (this.realLife >= 0)
+			{
+				flag = Main.npc[this.realLife].playerInteraction[player];
+			} else {
+				flag = this.playerInteraction[player];
+			}
+
+			if (flag)
 			{
 				return;
 			}
@@ -88694,10 +88799,24 @@ namespace Terraria
 		}
 		public void ApplyInteraction(int player)
 		{
-			this.playerInteraction[player] = true;
+			if (this.realLife >= 0)
+			{
+				Main.npc[this.realLife].playerInteraction[player] = true;
+			}
+			else
+			{
+				this.playerInteraction[player] = true;
+			}
 			if (player < 255)
 			{
-				this.lastInteraction = player;
+				if (this.realLife >= 0)
+				{
+					Main.npc[this.realLife].lastInteraction = player;
+				}
+				else
+				{
+					this.lastInteraction = player;
+				}
 			}
 		}
 		public static bool CanReleaseNPCs(int who)
@@ -89708,7 +89827,7 @@ namespace Terraria
 						{
 							int maxValue = 8;
 							int maxValue2 = 30;
-							bool flag18 = (float)Math.Abs(num - Main.maxTilesX / 2) / (float)(Main.maxTilesX / 2) > 0.33f;
+							bool flag18 = (float)Math.Abs(num - Main.maxTilesX / 2) / (float)(Main.maxTilesX / 2) > 0.33f && (Main.wallLight[(int)Main.tile[num6, num7].wall] || Main.tile[num6, num7].wall == 73);
 							if (flag18)
 							{
 								bool flag19 = NPC.AnyDanger();
@@ -91880,7 +91999,7 @@ namespace Terraria
 								{
 									NPC.SpawnOnPlayer(j, 50);
 								}
-								else if (num45 == 53 && Main.rand.Next(5) == 0 && !flag5)
+								else if (num45 == 53 && Main.rand.Next(5) == 0 && NPC.Spawning_SandstoneCheck(num, num2) && !flag5)
 								{
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 69, 0, 0f, 0f, 0f, 0f, 255);
 								}
@@ -91888,10 +92007,11 @@ namespace Terraria
 								{
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 537, 0, 0f, 0f, 0f, 0f, 255);
 								}
+								/* this is not in the decompiled version
 								else if (NPC.downedBoss1 && num45 == 53 && Main.rand.Next(5) == 0 && !flag5)
 								{
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 509, 0, 0f, 0f, 0f, 0f, 255);
-								}
+								}*/
 								else if (num45 == 53 && !flag5)
 								{
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 61, 0, 0f, 0f, 0f, 0f, 255);
@@ -92421,7 +92541,7 @@ namespace Terraria
 							}
 							else if (flag8 && Main.rand.Next(5) != 0)
 							{
-								if (Main.rand.Next(6) != 0 && !NPC.AnyNPCs(480))
+								if (Main.rand.Next(6) != 0 && !NPC.AnyNPCs(480) && Main.hardMode)
 								{
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 480, 0, 0f, 0f, 0f, 0f, 255);
 								}
@@ -92727,6 +92847,10 @@ namespace Terraria
 			{
 			}
 			IL_162:
+			if (num5 < Main.maxTilesY - 180)
+			{
+				num5 = Main.maxTilesY - 180;
+			}
 			num3 = num5 * 16;
 			int num7 = NPC.NewNPC(num2, num3, 113, 0, 0f, 0f, 0f, 0f, 255);
 			if (Main.npc[num7].displayName == "")
@@ -95788,7 +95912,7 @@ namespace Terraria
 					}
 					this.oldPos[0] = this.position;
 				}
-				else if (this.type == 125 || this.type == 126 || this.type == 127 || this.type == 128 || this.type == 129 || this.type == 130 || this.type == 131 || this.type == 139 || this.type == 140 || this.type == 407 || this.type == 420 || this.type == 425 || this.type == 427 || this.type == 426 || this.type == 509 || this.type == 516)
+				else if (this.type == 125 || this.type == 126 || this.type == 127 || this.type == 128 || this.type == 129 || this.type == 130 || this.type == 131 || this.type == 139 || this.type == 140 || this.type == 407 || this.type == 420 || this.type == 425 || this.type == 427 || this.type == 426 || this.type == 509 || this.type == 516 || (this.type >= 542 && this.type <= 545))
 				{
 					for (int num74 = this.oldPos.Length - 1; num74 > 0; num74--)
 					{
@@ -95796,7 +95920,7 @@ namespace Terraria
 					}
 					this.oldPos[0] = this.position;
 				}
-				else if (this.type == 402 || this.type == 417 || this.type == 419 || this.type == 418 || this.type == 519 || this.type == 521 || this.type == 522)
+				else if (this.type == 402 || this.type == 417 || this.type == 419 || this.type == 418 || this.type == 519 || this.type == 521 || this.type == 522 || this.type == 546)
 				{
 					for (int num75 = this.oldPos.Length - 1; num75 > 0; num75--)
 					{
@@ -96404,7 +96528,7 @@ namespace Terraria
 				{
 					result = Lang.GetBirthdayDialog(this, false);
 				}
-				if (Main.bloodMoon)
+				else if (Main.bloodMoon)
 				{
 					if ((double)Main.player[Main.myPlayer].statLife < (double)Main.player[Main.myPlayer].statLifeMax2 * 0.66)
 					{
@@ -97690,15 +97814,15 @@ namespace Terraria
 				{
 					result = Lang.dialog(371, false);
 				}
-				if (Main.rand.Next(6) == 0 && flag3)
+				else if (Main.rand.Next(6) == 0 && flag3)
 				{
 					result = Lang.dialog(372, false);
 				}
-				if (Main.rand.Next(6) == 0 && flag6)
+				else if (Main.rand.Next(6) == 0 && flag6)
 				{
 					result = Lang.dialog(373, false);
 				}
-				if (Main.rand.Next(6) == 0 && flag)
+				else if (Main.rand.Next(6) == 0 && flag)
 				{
 					result = Lang.dialog(374, false);
 				}
