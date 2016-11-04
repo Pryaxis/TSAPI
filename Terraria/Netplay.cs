@@ -29,7 +29,7 @@ namespace Terraria
 		public static bool spamCheck = false;
 		public static bool anyClients = false;
 
-        public static readonly object syncRoot = new object();
+		public static readonly object syncRoot = new object();
 
 		public static void ResetNetDiag()
 		{
@@ -154,16 +154,16 @@ namespace Terraria
 		}
 		private static int FindNextOpenClientSlot()
 		{
-            lock (syncRoot)
-            {
-                for (int i = 0; i < Main.maxNetPlayers; i++)
-                {
-                    if (!Clients[i].Socket.IsConnected())
-                    {
-                        return i;
-                    }
-                }
-            }
+			lock (syncRoot)
+			{
+				for (int i = 0; i < Main.maxNetPlayers; i++)
+				{
+					if (!Clients[i].Socket.IsConnected())
+					{
+						return i;
+					}
+				}
+			}
 
 			return -1;
 		}
