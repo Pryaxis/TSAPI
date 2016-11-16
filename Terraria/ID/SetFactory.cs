@@ -152,9 +152,12 @@ namespace Terraria.ID
 			{
 				array[i] = defaultState;
 			}
-			for (int j = 0; j < inputs.Length; j += 2)
+			if (inputs != null)
 			{
-				array[(int)((short)(int)inputs[j])] = (T)((object)inputs[j + 1]);
+				for (int j = 0; j < inputs.Length; j += 2)
+				{
+					array[(int)((short)(int)inputs[j])] = (T)((object)inputs[j + 1]);
+				}
 			}
 			return array;
 		}

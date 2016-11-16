@@ -2,20 +2,18 @@
 using System.Collections.Generic;
 using System.IO;
 using Terraria.DataStructures;
+using Terraria.ID;
 
 namespace Terraria.GameContent.Tile_Entities
 {
-	// Token: 0x0200021C RID: 540
 	public class TELogicSensor : TileEntity
 	{
-		// Token: 0x0600127C RID: 4732 RVA: 0x00422A73 File Offset: 0x00420C73
 		public TELogicSensor()
 		{
 			this.logicCheck = TELogicSensor.LogicCheckType.None;
 			this.On = false;
 		}
 
-		// Token: 0x0600127A RID: 4730 RVA: 0x00422960 File Offset: 0x00420B60
 		public void ChangeState(bool onState, bool TripWire)
 		{
 			if (onState != this.On && !TELogicSensor.SanityCheck((int)this.Position.X, (int)this.Position.Y))
@@ -26,7 +24,7 @@ namespace Terraria.GameContent.Tile_Entities
 			this.On = onState;
 			if (Main.netMode == 2)
 			{
-				NetMessage.SendTileSquare(-1, (int)this.Position.X, (int)this.Position.Y, 1);
+				NetMessage.SendTileSquare(-1, (int)this.Position.X, (int)this.Position.Y, 1, TileChangeType.None);
 			}
 			if (TripWire && Main.netMode != 1)
 			{
@@ -34,14 +32,12 @@ namespace Terraria.GameContent.Tile_Entities
 			}
 		}
 
-		// Token: 0x0600127F RID: 4735 RVA: 0x00422C74 File Offset: 0x00420E74
 		public void FigureCheckState()
 		{
 			this.logicCheck = TELogicSensor.FigureCheckType((int)this.Position.X, (int)this.Position.Y, out this.On);
 			TELogicSensor.GetFrame((int)this.Position.X, (int)this.Position.Y, this.logicCheck, this.On);
 		}
 
-		// Token: 0x0600127D RID: 4733 RVA: 0x00422A8C File Offset: 0x00420C8C
 		public static TELogicSensor.LogicCheckType FigureCheckType(int x, int y, out bool on)
 		{
 			on = false;
@@ -83,7 +79,6 @@ namespace Terraria.GameContent.Tile_Entities
 			return logicCheckType;
 		}
 
-		// Token: 0x06001277 RID: 4727 RVA: 0x00422788 File Offset: 0x00420988
 		private static void FillPlayerHitboxes()
 		{
 			if (!TELogicSensor.playerBoxFilled)
@@ -99,7 +94,6 @@ namespace Terraria.GameContent.Tile_Entities
 			}
 		}
 
-		// Token: 0x06001285 RID: 4741 RVA: 0x00423050 File Offset: 0x00421250
 		public static int Find(int x, int y)
 		{
 			TileEntity tileEntity;
@@ -110,7 +104,6 @@ namespace Terraria.GameContent.Tile_Entities
 			return -1;
 		}
 
-		// Token: 0x06001280 RID: 4736 RVA: 0x00422CD0 File Offset: 0x00420ED0
 		public static void GetFrame(int x, int y, TELogicSensor.LogicCheckType type, bool on)
 		{
 			Main.tile[x, y].frameX = (short)(on ? 18 : 0);
@@ -143,7 +136,6 @@ namespace Terraria.GameContent.Tile_Entities
 			}
 		}
 
-		// Token: 0x0600127E RID: 4734 RVA: 0x00422B10 File Offset: 0x00420D10
 		public static bool GetState(int x, int y, TELogicSensor.LogicCheckType type, TELogicSensor instance = null)
 		{
 			switch (type)
@@ -212,7 +204,6 @@ namespace Terraria.GameContent.Tile_Entities
 			}
 		}
 
-		// Token: 0x06001283 RID: 4739 RVA: 0x00422E54 File Offset: 0x00421054
 		public static int Hook_AfterPlacement(int x, int y, int type = 423, int style = 0, int direction = 1)
 		{
 			bool on;
@@ -220,7 +211,7 @@ namespace Terraria.GameContent.Tile_Entities
 			TELogicSensor.GetFrame(x, y, type2, on);
 			if (Main.netMode == 1)
 			{
-				NetMessage.SendTileSquare(Main.myPlayer, x, y, 1);
+				NetMessage.SendTileSquare(Main.myPlayer, x, y, 1, TileChangeType.None);
 				NetMessage.SendData(87, -1, -1, "", x, (float)y, 2f, 0f, 0, 0, 0);
 				return -1;
 			}
@@ -229,7 +220,6 @@ namespace Terraria.GameContent.Tile_Entities
 			return num;
 		}
 
-		// Token: 0x06001274 RID: 4724 RVA: 0x004226D7 File Offset: 0x004208D7
 		public static void Initialize()
 		{
 			TileEntity._UpdateStart += new Action(TELogicSensor.UpdateStartInternal);
@@ -237,7 +227,6 @@ namespace Terraria.GameContent.Tile_Entities
 			TileEntity._NetPlaceEntity += new Action<int, int, int>(TELogicSensor.NetPlaceEntity);
 		}
 
-		// Token: 0x06001284 RID: 4740 RVA: 0x00422EC8 File Offset: 0x004210C8
 		public static void Kill(int x, int y)
 		{
 			TileEntity tileEntity;
@@ -275,7 +264,6 @@ namespace Terraria.GameContent.Tile_Entities
 			}
 		}
 
-		// Token: 0x06001275 RID: 4725 RVA: 0x0042270C File Offset: 0x0042090C
 		public static void NetPlaceEntity(int x, int y, int type)
 		{
 			if (type != 2)
@@ -291,7 +279,6 @@ namespace Terraria.GameContent.Tile_Entities
 			NetMessage.SendData(86, -1, -1, "", num, (float)x, (float)y, 0f, 0, 0, 0);
 		}
 
-		// Token: 0x06001282 RID: 4738 RVA: 0x00422DF8 File Offset: 0x00420FF8
 		public static int Place(int x, int y)
 		{
 			TELogicSensor tELogicSensor = new TELogicSensor();
@@ -303,7 +290,6 @@ namespace Terraria.GameContent.Tile_Entities
 			return tELogicSensor.ID;
 		}
 
-		// Token: 0x06001287 RID: 4743 RVA: 0x004230A1 File Offset: 0x004212A1
 		public override void ReadExtraData(BinaryReader reader, bool networkSend)
 		{
 			if (!networkSend)
@@ -313,7 +299,6 @@ namespace Terraria.GameContent.Tile_Entities
 			}
 		}
 
-		// Token: 0x06001281 RID: 4737 RVA: 0x00422DBF File Offset: 0x00420FBF
 		public static bool SanityCheck(int x, int y)
 		{
 			if (!Main.tile[x, y].active() || Main.tile[x, y].type != 423)
@@ -324,7 +309,6 @@ namespace Terraria.GameContent.Tile_Entities
 			return true;
 		}
 
-		// Token: 0x06001288 RID: 4744 RVA: 0x004230C0 File Offset: 0x004212C0
 		public override string ToString()
 		{
 			return string.Concat(new object[]
@@ -337,7 +321,6 @@ namespace Terraria.GameContent.Tile_Entities
 			});
 		}
 
-		// Token: 0x06001279 RID: 4729 RVA: 0x004228CC File Offset: 0x00420ACC
 		public override void Update()
 		{
 			bool state = TELogicSensor.GetState((int)this.Position.X, (int)this.Position.Y, this.logicCheck, this);
@@ -370,7 +353,6 @@ namespace Terraria.GameContent.Tile_Entities
 			}
 		}
 
-		// Token: 0x06001278 RID: 4728 RVA: 0x004227D8 File Offset: 0x004209D8
 		private static void UpdateEndInternal()
 		{
 			TELogicSensor.inUpdateLoop = false;
@@ -393,7 +375,6 @@ namespace Terraria.GameContent.Tile_Entities
 			TELogicSensor.markedIDsForRemoval.Clear();
 		}
 
-		// Token: 0x06001276 RID: 4726 RVA: 0x00422760 File Offset: 0x00420960
 		private static void UpdateStartInternal()
 		{
 			TELogicSensor.inUpdateLoop = true;
@@ -403,13 +384,11 @@ namespace Terraria.GameContent.Tile_Entities
 			TELogicSensor.FillPlayerHitboxes();
 		}
 
-		// Token: 0x0600127B RID: 4731 RVA: 0x00422A0C File Offset: 0x00420C0C
 		public static bool ValidTile(int x, int y)
 		{
 			return Main.tile[x, y].active() && Main.tile[x, y].type == 423 && Main.tile[x, y].frameY % 18 == 0 && Main.tile[x, y].frameX % 18 == 0;
 		}
 
-		// Token: 0x06001286 RID: 4742 RVA: 0x00423083 File Offset: 0x00421283
 		public override void WriteExtraData(BinaryWriter writer, bool networkSend)
 		{
 			if (!networkSend)
@@ -419,48 +398,24 @@ namespace Terraria.GameContent.Tile_Entities
 			}
 		}
 
-		// Token: 0x0400325E RID: 12894
 		public int CountedData;
-
-		// Token: 0x0400325A RID: 12890
 		private static bool inUpdateLoop = false;
-
-		// Token: 0x0400325C RID: 12892
 		public TELogicSensor.LogicCheckType logicCheck;
-
-		// Token: 0x04003259 RID: 12889
 		private static List<int> markedIDsForRemoval = new List<int>();
-
-		// Token: 0x0400325D RID: 12893
 		public bool On;
-
-		// Token: 0x04003257 RID: 12887
 		private static Dictionary<int, Rectangle> playerBox = new Dictionary<int, Rectangle>();
-
-		// Token: 0x0400325B RID: 12891
 		private static bool playerBoxFilled = false;
-
-		// Token: 0x04003258 RID: 12888
 		private static List<Tuple<Point16, bool>> tripPoints = new List<Tuple<Point16, bool>>();
-
-		// Token: 0x0200021D RID: 541
+		
 		public enum LogicCheckType
 		{
-			// Token: 0x04003260 RID: 12896
 			None,
-			// Token: 0x04003261 RID: 12897
 			Day,
-			// Token: 0x04003262 RID: 12898
 			Night,
-			// Token: 0x04003263 RID: 12899
 			PlayerAbove,
-			// Token: 0x04003264 RID: 12900
 			Water,
-			// Token: 0x04003265 RID: 12901
 			Lava,
-			// Token: 0x04003266 RID: 12902
 			Honey,
-			// Token: 0x04003267 RID: 12903
 			Liquid
 		}
 	}

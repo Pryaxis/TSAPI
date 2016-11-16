@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,6 +9,7 @@ using Terraria.GameContent;
 using Terraria.GameContent.Events;
 using Terraria.GameContent.Tile_Entities;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.Utilities;
 using TerrariaApi.Server;
 
@@ -140,8 +140,18 @@ namespace Terraria.IO
 				Name = name,
 				IsExpertMode = isExpertMode,
 				CreationTime = DateTime.Now,
-				Metadata = FileMetadata.FromCurrentSettings(FileType.World)
+				Metadata = FileMetadata.FromCurrentSettings(FileType.World),
+				WorldGeneratorVersion = 790273982465uL,
+				UniqueId = Guid.NewGuid()
 			};
+			if (Main.DefaultSeed == "")
+			{
+				worldFileDatum.SetSeedToRandom();
+			}
+			else
+			{
+				worldFileDatum.SetSeed(Main.DefaultSeed);
+			}
 			return worldFileDatum;
 		}
 
@@ -186,11 +196,38 @@ namespace Terraria.IO
 						{
 							worldFileDatum.Metadata = FileMetadata.Read(binaryReader, FileType.World);
 						}
-						if (num <= Main.curRelease)
+						if (num <= 184)
 						{
 							binaryReader.ReadInt16();
 							stream.Position = (long)binaryReader.ReadInt32();
 							worldFileDatum.Name = binaryReader.ReadString();
+							if (num >= 179)
+							{
+								string seed;
+								if (num == 179)
+								{
+									seed = binaryReader.ReadInt32().ToString();
+								}
+								else
+								{
+									seed = binaryReader.ReadString();
+								}
+								worldFileDatum.SetSeed(seed);
+								worldFileDatum.WorldGeneratorVersion = binaryReader.ReadUInt64();
+							}
+							else
+							{
+								worldFileDatum.SetSeedToEmpty();
+								worldFileDatum.WorldGeneratorVersion = 0uL;
+							}
+							if (num >= 181)
+							{
+								worldFileDatum.UniqueId = new Guid(binaryReader.ReadBytes(16));
+							}
+							else
+							{
+								worldFileDatum.UniqueId = Guid.Empty;
+							}
 							binaryReader.ReadInt32();
 							binaryReader.ReadInt32();
 							binaryReader.ReadInt32();
@@ -321,7 +358,7 @@ namespace Terraria.IO
 						{
 							binaryReader.BaseStream.Position += 20L;
 						}
-						if (num >= 112 && num <= Main.curRelease)
+						if (num >= 112 && num <= 184)
 						{
 							binaryReader.ReadInt16();
 							fileStream.Position = (long)binaryReader.ReadInt32();
@@ -362,7 +399,7 @@ namespace Terraria.IO
 					using (BinaryReader binaryReader = new BinaryReader(fileStream))
 					{
 						int num = binaryReader.ReadInt32();
-						if (num > 0 && num <= Main.curRelease)
+						if (num > 0 && num <= 184)
 						{
 							string text;
 							string result;
@@ -503,7 +540,7 @@ namespace Terraria.IO
 				}
 				catch (Exception fileFormatException1)
 				{
-					Console.WriteLine("Unable to load world:");
+					Console.WriteLine(Language.GetTextValue("Error.UnableToLoadWorld:"));
 					Console.WriteLine(fileFormatException1);
 					return false;
 				}
@@ -558,6 +595,28 @@ namespace Terraria.IO
 		{
 			int num = WorldFile.versionNumber;
 			Main.worldName = reader.ReadString();
+			if (num >= 179)
+			{
+				string seed;
+				if (num == 179)
+				{
+					seed = reader.ReadInt32().ToString();
+				}
+				else
+				{
+					seed = reader.ReadString();
+				}
+				Main.ActiveWorldFileData.SetSeed(seed);
+				Main.ActiveWorldFileData.WorldGeneratorVersion = reader.ReadUInt64();
+			}
+			if (num >= 181)
+			{
+				Main.ActiveWorldFileData.UniqueId = new Guid(reader.ReadBytes(16));
+			}
+			else
+			{
+				Main.ActiveWorldFileData.UniqueId = Guid.NewGuid();
+			}
 			Main.worldID = reader.ReadInt32();
 			Main.leftWorld = (float)reader.ReadInt32();
 			Main.rightWorld = (float)reader.ReadInt32();
@@ -802,11 +861,14 @@ namespace Terraria.IO
 				WorldFile.Temp_Sandstorm_IntendedSeverity = 0f;
 				return;
 			}
-
-			WorldFile.Temp_Sandstorm_Happening = reader.ReadBoolean();
-			WorldFile.Temp_Sandstorm_TimeLeft = reader.ReadInt32();
-			WorldFile.Temp_Sandstorm_Severity = reader.ReadSingle();
-			WorldFile.Temp_Sandstorm_IntendedSeverity = reader.ReadSingle();
+			else
+			{
+				WorldFile.Temp_Sandstorm_Happening = reader.ReadBoolean();
+				WorldFile.Temp_Sandstorm_TimeLeft = reader.ReadInt32();
+				WorldFile.Temp_Sandstorm_Severity = reader.ReadSingle();
+				WorldFile.Temp_Sandstorm_IntendedSeverity = reader.ReadSingle();
+			}
+			DD2Event.Load(reader, num);
 		}
 
 		private static void LoadNPCs(BinaryReader reader)
@@ -995,10 +1057,6 @@ namespace Terraria.IO
 				WorldGen.generateWorld(-1, null);
 				WorldFile.saveWorld();
 			}
-			if (WorldGen.genRand == null)
-			{
-				WorldGen.genRand = new Random((int)DateTime.Now.Ticks);
-			}
 			byte[] numArray = FileUtilities.ReadAllBytes(Main.worldPathName);
 			using (MemoryStream memoryStream = new MemoryStream(numArray))
 			{
@@ -1103,7 +1161,7 @@ namespace Terraria.IO
 		public static int LoadWorld_Version1(BinaryReader fileIO)
 		{
 			int num = WorldFile.versionNumber;
-			if (num > Main.curRelease)
+			if (num > 184)
 			{
 				return 1;
 			}
@@ -2054,7 +2112,7 @@ namespace Terraria.IO
 		private static int SaveHeaderPointers(BinaryWriter writer, int[] pointers)
 		{
 			writer.BaseStream.Position = (long)0;
-			writer.Write(Main.curRelease);
+			writer.Write(184);
 			Stream baseStream = writer.BaseStream;
 			baseStream.Position = baseStream.Position + (long)20;
 			writer.Write((short)((int)pointers.Length));
@@ -2236,7 +2294,7 @@ namespace Terraria.IO
 						}
 					}
 				}
-				if (text != null)
+				if (text != null && array2 != null)
 				{
 					FileUtilities.WriteAllBytes(text, array2);
 				}
@@ -2263,6 +2321,9 @@ namespace Terraria.IO
 		private static int SaveWorldHeader(BinaryWriter writer)
 		{
 			writer.Write(Main.worldName);
+			writer.Write(Main.ActiveWorldFileData.SeedText);
+			writer.Write(Main.ActiveWorldFileData.WorldGeneratorVersion);
+			writer.Write(Main.ActiveWorldFileData.UniqueId.ToByteArray());
 			writer.Write(Main.worldID);
 			writer.Write((int)Main.leftWorld);
 			writer.Write((int)Main.rightWorld);
@@ -2395,6 +2456,8 @@ namespace Terraria.IO
 			writer.Write(WorldFile.Temp_Sandstorm_TimeLeft);
 			writer.Write(WorldFile.Temp_Sandstorm_Severity);
 			writer.Write(WorldFile.Temp_Sandstorm_IntendedSeverity);
+			writer.Write(NPC.savedBartender);
+			DD2Event.Save(writer);
 			return (int)writer.BaseStream.Position;
 		}
 
@@ -2650,16 +2713,12 @@ namespace Terraria.IO
 		{
 			Stopwatch stopwatch = new Stopwatch();
 			stopwatch.Start();
-			if (WorldGen.genRand == null)
-			{
-				WorldGen.genRand = new Random((int)DateTime.Now.Ticks);
-			}
 			bool result;
 			try
 			{
 				Stream baseStream = fileIO.BaseStream;
 				int num = fileIO.ReadInt32();
-				if (num == 0 || num > Main.curRelease)
+				if (num == 0 || num > 184)
 				{
 					result = false;
 				}
@@ -2675,6 +2734,22 @@ namespace Terraria.IO
 					else
 					{
 						string b = fileIO.ReadString();
+						if (num >= 179)
+						{
+							if (num == 179)
+							{
+								fileIO.ReadInt32();
+							}
+							else
+							{
+								fileIO.ReadString();
+							}
+							fileIO.ReadUInt64();
+						}
+						if (num >= 181)
+						{
+							fileIO.ReadBytes(16);
+						}
 						int num2 = fileIO.ReadInt32();
 						fileIO.ReadInt32();
 						fileIO.ReadInt32();

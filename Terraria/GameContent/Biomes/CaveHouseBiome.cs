@@ -290,10 +290,18 @@ namespace Terraria.GameContent.Biomes
 			{
 				rectangle2 = room;
 			}
+			foreach (Rectangle current2 in list)
+			{
+				if (current2.Y + current2.Height > Main.maxTilesY - 220)
+				{
+					bool result = false;
+					return result;
+				}
+			}
 			Dictionary<ushort, int> dictionary = new Dictionary<ushort, int>();
 			foreach (Rectangle current in list)
 			{
-				WorldUtils.Gen(new Point(current.X - 5, current.Y - 5), new Shapes.Rectangle(current.Width + 10, current.Height + 10), new Actions.TileScanner(new ushort[]
+				WorldUtils.Gen(new Point(current.X - 10, current.Y - 10), new Shapes.Rectangle(current.Width + 20, current.Height + 20), new Actions.TileScanner(new ushort[]
 				{
 					0,
 					59,

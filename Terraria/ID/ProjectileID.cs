@@ -84,12 +84,20 @@ namespace Terraria.ID
 
 			public static bool[] StardustDragon;
 
+			public static bool[] IsADD2Turret;
+
+			public static bool[] TurretFeature;
+
+			public static bool[] MinionTargettingFeature;
+
+			public static bool[] NoLiquidDistortion;
+
 			static Sets()
 			{
 				// Note: this type is marked as 'beforefieldinit'.
 				SetFactory arg_3E9_0 = Factory;
 				int arg_3E9_1 = -1;
-				int[] array = new int[68];
+				int[] array = new int[98];
 				array[0] = 94;
 				array[2] = 301;
 				array[4] = 388;
@@ -126,6 +134,26 @@ namespace Terraria.ID
 				array[62] = 426;
 				array[64] = 660;
 				array[66] = 661;
+				array[68] = 671;
+				array[69] = 2;
+				array[70] = 664;
+				array[72] = 666;
+				array[74] = 668;
+				array[76] = 675;
+				array[78] = 680;
+				array[79] = 2;
+				array[80] = 682;
+				array[82] = 684;
+				array[84] = 686;
+				array[85] = 2;
+				array[86] = 700;
+				array[88] = 706;
+				array[90] = 709;
+				array[92] = 710;
+				array[93] = 2;
+				array[94] = 711;
+				array[95] = 2;
+				array[96] = 712;
 				TrailingMode = arg_3E9_0.CreateIntSet(arg_3E9_1, array);
 				TrailCacheLength = Factory.CreateIntSet(10, new int[]
 				{
@@ -138,6 +166,10 @@ namespace Terraria.ID
 					636,
 					20,
 					640,
+					20,
+					686,
+					20,
+					711,
 					20
 				});
 				LightPet = Factory.CreateBoolSet(new int[]
@@ -149,7 +181,8 @@ namespace Terraria.ID
 					86,
 					211,
 					492,
-					650
+					650,
+					702
 				});
 				Homing = Factory.CreateBoolSet(new int[]
 				{
@@ -248,6 +281,64 @@ namespace Terraria.ID
 					626,
 					627,
 					628
+				});
+				IsADD2Turret = Factory.CreateBoolSet(new int[]
+				{
+					663,
+					665,
+					667,
+					677,
+					678,
+					679,
+					688,
+					689,
+					690,
+					691,
+					692,
+					693
+				});
+				TurretFeature = Factory.CreateBoolSet(new int[0]);
+				MinionTargettingFeature = Factory.CreateBoolSet(new int[]
+				{
+					191,
+					192,
+					193,
+					194,
+					266,
+					317,
+					373,
+					375,
+					387,
+					388,
+					390,
+					393,
+					407,
+					423,
+					533,
+					613,
+					625,
+					377,
+					308,
+					643,
+					641,
+					663,
+					665,
+					667,
+					677,
+					678,
+					679,
+					688,
+					689,
+					690,
+					691,
+					692,
+					693
+				});
+				NoLiquidDistortion = Factory.CreateBoolSet(new int[]
+				{
+					511,
+					512,
+					513
 				});
 			}
 		}
@@ -1576,6 +1667,110 @@ namespace Terraria.ID
 
 		public const short BlackBolt = 661;
 
-		public const short Count = 662;
+		public const short DD2JavelinHostile = 662;
+
+		public const short DD2FlameBurstTowerT1 = 663;
+
+		public const short DD2FlameBurstTowerT1Shot = 664;
+
+		public const short DD2FlameBurstTowerT2 = 665;
+
+		public const short DD2FlameBurstTowerT2Shot = 666;
+
+		public const short DD2FlameBurstTowerT3 = 667;
+
+		public const short DD2FlameBurstTowerT3Shot = 668;
+
+		public const short Ale = 669;
+
+		public const short DD2DarkMageRaise = 673;
+
+		public const short DD2DarkMageHeal = 674;
+
+		public const short DD2DarkMageBolt = 675;
+
+		public const short DD2BallistraTowerT1 = 677;
+
+		public const short DD2BallistraTowerT2 = 678;
+
+		public const short DD2BallistraTowerT3 = 679;
+
+		public const short DD2BallistraProj = 680;
+
+		public const short DD2BetsyFireball = 686;
+
+		public const short DD2BetsyFlameBreath = 687;
+
+		public const short DD2OgreStomp = 670;
+
+		public const short DD2DrakinShot = 671;
+
+		public const short DD2ElderWins = 672;
+
+		public const short DD2OgreSpit = 676;
+
+		public const short DD2GoblinBomb = 681;
+
+		public const short DD2LightningBugZap = 682;
+
+		public const short DD2OgreSmash = 683;
+
+		public const short DD2SquireSonicBoom = 684;
+
+		public const short DD2JavelinHostileT3 = 685;
+
+		public const short DD2LightningAuraT1 = 688;
+
+		public const short DD2LightningAuraT2 = 689;
+
+		public const short DD2LightningAuraT3 = 690;
+
+		public const short DD2ExplosiveTrapT1 = 691;
+
+		public const short DD2ExplosiveTrapT2 = 692;
+
+		public const short DD2ExplosiveTrapT3 = 693;
+
+		public const short DD2ExplosiveTrapT1Explosion = 694;
+
+		public const short DD2ExplosiveTrapT2Explosion = 695;
+
+		public const short DD2ExplosiveTrapT3Explosion = 696;
+
+		public const short MonkStaffT1 = 697;
+
+		public const short MonkStaffT1Explosion = 698;
+
+		public const short MonkStaffT2 = 699;
+
+		public const short MonkStaffT2Ghast = 700;
+
+		public const short DD2PetDragon = 701;
+
+		public const short DD2PetGhost = 702;
+
+		public const short DD2PetGato = 703;
+
+		public const short DD2ApprenticeStorm = 704;
+
+		public const short DD2PhoenixBow = 705;
+
+		public const short DD2PhoenixBowShot = 706;
+
+		public const short MonkStaffT3 = 707;
+
+		public const short MonkStaffT3_Alt = 708;
+
+		public const short MonkStaffT3_AltShot = 709;
+
+		public const short DD2BetsyArrow = 710;
+
+		public const short ApprenticeStaffT3Shot = 711;
+
+		public const short BookStaffShot = 712;
+
+		public const short DD2Win = 713;
+
+		public const short Count = 714;
 	}
 }

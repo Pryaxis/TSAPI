@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.ID;
 
 namespace Terraria.GameContent.Tile_Entities
 {
@@ -59,7 +60,7 @@ namespace Terraria.GameContent.Tile_Entities
 			{
 				return TEItemFrame.Place(x, y);
 			}
-			NetMessage.SendTileSquare(Main.myPlayer, x, y, 2);
+			NetMessage.SendTileSquare(Main.myPlayer, x, y, 2, TileChangeType.None);
 			NetMessage.SendData(87, -1, -1, "", x, (float)y, 1f, 0f, 0, 0, 0);
 			return -1;
 		}

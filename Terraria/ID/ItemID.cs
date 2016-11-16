@@ -7608,7 +7608,181 @@ namespace Terraria.ID
 
 		public const short MusicBoxSandstorm = 3796;
 
-		public const short Count = 3797;
+		public const short ApprenticeHat = 3797;
+
+		public const short ApprenticeRobe = 3798;
+
+		public const short ApprenticeTrousers = 3799;
+
+		public const short SquireGreatHelm = 3800;
+
+		public const short SquirePlating = 3801;
+
+		public const short SquireGreaves = 3802;
+
+		public const short HuntressWig = 3803;
+
+		public const short HuntressJerkin = 3804;
+
+		public const short HuntressPants = 3805;
+
+		public const short MonkBrows = 3806;
+
+		public const short MonkShirt = 3807;
+
+		public const short MonkPants = 3808;
+
+		public const short ApprenticeScarf = 3809;
+
+		public const short SquireShield = 3810;
+
+		public const short HuntressBuckler = 3811;
+
+		public const short MonkBelt = 3812;
+
+		public const short DefendersForge = 3813;
+
+		public const short WarTable = 3814;
+
+		public const short WarTableBanner = 3815;
+
+		public const short DD2ElderCrystalStand = 3816;
+
+		public const short DefenderMedal = 3817;
+
+		public const short DD2FlameBurstTowerT1Popper = 3818;
+
+		public const short DD2FlameBurstTowerT2Popper = 3819;
+
+		public const short DD2FlameBurstTowerT3Popper = 3820;
+
+		public const short AleThrowingGlove = 3821;
+
+		public const short DD2EnergyCrystal = 3822;
+
+		public const short DD2SquireDemonSword = 3823;
+
+		public const short DD2BallistraTowerT1Popper = 3824;
+
+		public const short DD2BallistraTowerT2Popper = 3825;
+
+		public const short DD2BallistraTowerT3Popper = 3826;
+
+		public const short DD2SquireBetsySword = 3827;
+
+		public const short DD2ElderCrystal = 3828;
+
+		public const short DD2LightningAuraT1Popper = 3829;
+
+		public const short DD2LightningAuraT2Popper = 3830;
+
+		public const short DD2LightningAuraT3Popper = 3831;
+
+		public const short DD2ExplosiveTrapT1Popper = 3832;
+
+		public const short DD2ExplosiveTrapT2Popper = 3833;
+
+		public const short DD2ExplosiveTrapT3Popper = 3834;
+
+		public const short MonkStaffT1 = 3835;
+
+		public const short MonkStaffT2 = 3836;
+
+		public const short DD2GoblinBomberBanner = 3837;
+
+		public const short DD2GoblinBanner = 3838;
+
+		public const short DD2SkeletonBanner = 3839;
+
+		public const short DD2DrakinBanner = 3840;
+
+		public const short DD2KoboldFlyerBanner = 3841;
+
+		public const short DD2KoboldBanner = 3842;
+
+		public const short DD2WitherBeastBanner = 3843;
+
+		public const short DD2WyvernBanner = 3844;
+
+		public const short DD2JavelinThrowerBanner = 3845;
+
+		public const short DD2LightningBugBanner = 3846;
+
+		public const short OgreMask = 3847;
+
+		public const short GoblinMask = 3848;
+
+		public const short GoblinBomberCap = 3849;
+
+		public const short EtherianJavelin = 3850;
+
+		public const short KoboldDynamiteBackpack = 3851;
+
+		public const short BookStaff = 3852;
+
+		public const short BoringBow = 3853;
+
+		public const short DD2PhoenixBow = 3854;
+
+		public const short DD2PetGato = 3855;
+
+		public const short DD2PetGhost = 3856;
+
+		public const short DD2PetDragon = 3857;
+
+		public const short MonkStaffT3 = 3858;
+
+		public const short DD2BetsyBow = 3859;
+
+		public const short BossBagBetsy = 3860;
+
+		public const short BossBagOgre = 3861;
+
+		public const short BossBagDarkMage = 3862;
+
+		public const short BossMaskBetsy = 3863;
+
+		public const short BossMaskDarkMage = 3864;
+
+		public const short BossMaskOgre = 3865;
+
+		public const short BossTrophyBetsy = 3866;
+
+		public const short BossTrophyDarkmage = 3867;
+
+		public const short BossTrophyOgre = 3868;
+
+		public const short MusicBoxDD2 = 3869;
+
+		public const short ApprenticeStaffT3 = 3870;
+
+		public const short SquireAltHead = 3871;
+
+		public const short SquireAltShirt = 3872;
+
+		public const short SquireAltPants = 3873;
+
+		public const short ApprenticeAltHead = 3874;
+
+		public const short ApprenticeAltShirt = 3875;
+
+		public const short ApprenticeAltPants = 3876;
+
+		public const short HuntressAltHead = 3877;
+
+		public const short HuntressAltShirt = 3878;
+
+		public const short HuntressAltPants = 3879;
+
+		public const short MonkAltHead = 3880;
+
+		public const short MonkAltShirt = 3881;
+
+		public const short MonkAltPants = 3882;
+
+		public const short BetsyWings = 3883;
+
+		public const short Count = 3884;
 
 		public static bool Any(int match)
 		{
@@ -7626,6 +7800,66 @@ namespace Terraria.ID
 			}
 			return false;
 		}
+
+		public struct BannerEffect
+		{
+			public BannerEffect(float strength = 1f)
+			{
+				this.NormalDamageDealt = 1f + strength * 0.5f;
+				this.ExpertDamageDealt = 1f + strength;
+				this.ExpertDamageReceived = 1f / (strength + 1f);
+				this.NormalDamageReceived = 1f - (1f - this.ExpertDamageReceived) * 0.5f;
+				this.Enabled = (strength != 0f);
+			}
+
+			public BannerEffect(float normalDamageDealt, float expertDamageDealt, float normalDamageReceived, float expertDamageReceived)
+			{
+				this.NormalDamageDealt = normalDamageDealt;
+				this.ExpertDamageDealt = expertDamageDealt;
+				this.NormalDamageReceived = normalDamageReceived;
+				this.ExpertDamageReceived = expertDamageReceived;
+				this.Enabled = true;
+			}
+
+			public static readonly ItemID.BannerEffect None = new ItemID.BannerEffect(0f);
+
+			public readonly float NormalDamageDealt;
+
+			public readonly float ExpertDamageDealt;
+
+			public readonly float NormalDamageReceived;
+
+			public readonly float ExpertDamageReceived;
+
+			public readonly bool Enabled;
+		}
+
+		public static ItemID.BannerEffect[] BannerStrength = ItemID.Sets.Factory.CreateCustomSet<ItemID.BannerEffect>(new ItemID.BannerEffect(1f), new object[]
+			{
+				3838,
+				ItemID.Sets.DD2BannerEffect,
+				3845,
+				ItemID.Sets.DD2BannerEffect,
+				3837,
+				ItemID.Sets.DD2BannerEffect,
+				3844,
+				ItemID.Sets.DD2BannerEffect,
+				3843,
+				ItemID.Sets.DD2BannerEffect,
+				3839,
+				ItemID.Sets.DD2BannerEffect,
+				3840,
+				ItemID.Sets.DD2BannerEffect,
+				3842,
+				ItemID.Sets.DD2BannerEffect,
+				3841,
+				ItemID.Sets.DD2BannerEffect,
+				3846,
+				ItemID.Sets.DD2BannerEffect
+			});
+
+
+		private static ItemID.BannerEffect DD2BannerEffect = ItemID.BannerEffect.None;
 
 		public class Sets
 		{
@@ -7792,7 +8026,15 @@ namespace Terraria.ID
 				3346,
 				3273,
 				2881,
-				3750
+				3750,
+				3847,
+				3848,
+				3849,
+				3850,
+				3851,
+				3850,
+				3861,
+				3862
 			});
 			public static bool[] Explosives = ItemID.Sets.Factory.CreateBoolSet(new int[]
 			{
@@ -7894,7 +8136,8 @@ namespace Terraria.ID
 			public static bool[] gunProj = ItemID.Sets.Factory.CreateBoolSet(new int[]
 			{
 				3475,
-				3540
+				3540,
+				3854
 			});
 
 			public static int[] SortingPriorityBossSpawns = ItemID.Sets.Factory.CreateIntSet(-1, new int[]
@@ -8381,6 +8624,30 @@ namespace Terraria.ID
 				1545
 			});
 
+			public static int[] KillsToBanner = ItemID.Sets.Factory.CreateIntSet(50, new int[]
+			{
+				3838,
+				1000,
+				3845,
+				200,
+				3837,
+				500,
+				3844,
+				200,
+				3843,
+				50,
+				3839,
+				200,
+				3840,
+				100,
+				3842,
+				200,
+				3841,
+				100,
+				3846,
+				50
+			});
+
 			public static bool[] LockOnIgnoresCollision = ItemID.Sets.Factory.CreateBoolSet(new int[]
 			{
 				64,
@@ -8436,6 +8703,8 @@ namespace Terraria.ID
 				157,
 				0.29f,
 				2590,
+				0.4f,
+				3821,
 				0.4f,
 				160,
 				0.4f

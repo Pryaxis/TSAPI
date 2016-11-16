@@ -23,7 +23,10 @@ namespace Terraria.GameContent.Events
 			{
 				Sandstorm.IntendedSeverity = Main.rand.NextFloat() * 0.3f;
 			}
-			NetMessage.SendData(7, -1, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
+			if (Main.netMode != 1)
+			{
+				NetMessage.SendData(7, -1, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
+			}
 		}
 
 		public static void DrawGrains()
@@ -86,11 +89,11 @@ namespace Terraria.GameContent.Events
 					int value = (int)(Main.windSpeed * 100f);
 					for (int i = 0; i < Main.dayRate; i++)
 					{
-						if (Main.rand.Next(518400) == 0)
+						if (Main.rand.Next(777600) == 0)
 						{
 							Sandstorm.StartSandstorm();
 						}
-						else if ((Main.numClouds < 40 || Math.Abs(value) > 50) && Main.rand.Next(345600) == 0)
+						else if ((Main.numClouds < 40 || Math.Abs(value) > 50) && Main.rand.Next(518400) == 0)
 						{
 							Sandstorm.StartSandstorm();
 						}

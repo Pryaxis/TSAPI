@@ -114,7 +114,8 @@ namespace Terraria.ID
 					90,
 					101,
 					354,
-					355
+					355,
+					464
 				};
 
 				public static int[] CountsAsTorch = new int[]
@@ -508,6 +509,7 @@ namespace Terraria.ID
 				85,
 				395,
 				88,
+				463,
 				334,
 				29,
 				97,
@@ -535,6 +537,7 @@ namespace Terraria.ID
 				97,
 				88,
 				99,
+				463,
 				33,
 				372,
 				174,
@@ -1615,6 +1618,14 @@ namespace Terraria.ID
 
 		public const ushort DjinnLamp = 462;
 
-		public const ushort Count = 463;
+		public const ushort DefendersForge = 463;
+
+		public const ushort WarTable = 464;
+
+		public const ushort WarTableBanner = 465;
+
+		public const ushort ElderCrystalStand = 466;
+
+		public const ushort Count = 467;
 	}
 }

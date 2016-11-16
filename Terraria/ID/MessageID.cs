@@ -228,6 +228,14 @@ namespace Terraria.ID
 
 		public const byte SpecialFX = 112;
 
-		public const byte Count = 113;
+		public const byte CrystalInvasionStart = 113;
+
+		public const byte CrystalInvasionWipeAllTheThingsss = 114;
+
+		public const byte MinionAttackTargetUpdate = 115;
+
+		public const byte CrystalInvasionSendWaitTime = 116;
+
+		public const byte Count = 117;
 	}
 }

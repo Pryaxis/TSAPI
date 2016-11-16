@@ -41,7 +41,7 @@ namespace Terraria.World.Generation
 		public static void DebugRegen()
 		{
 			WorldGen.clearWorld();
-			WorldGen.generateWorld(-1, null);
+			WorldGen.generateWorld(Main.ActiveWorldFileData.Seed, null);
 			Main.NewText("World Regen Complete.", 255, 255, 255, false);
 		}
 

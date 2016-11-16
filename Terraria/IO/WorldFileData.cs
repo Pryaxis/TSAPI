@@ -1,5 +1,6 @@
 using System;
 using Terraria;
+using Terraria.Localization;
 using Terraria.Utilities;
 
 namespace Terraria.IO
@@ -12,13 +13,23 @@ namespace Terraria.IO
 
 		public int WorldSizeY;
 
-		public string _worldSizeName;
-
 		public bool IsExpertMode;
 
 		public bool HasCorruption = true;
 
 		public bool IsHardMode;
+
+		private const ulong GUID_IN_WORLD_FILE_VERSION = 777389080577uL;
+
+		public Guid UniqueId;
+
+		public ulong WorldGeneratorVersion;
+
+		private int _seed;
+
+		private string _seedText = "";
+
+		public LocalizedText _worldSizeName;
 
 		public bool HasCrimson
 		{
@@ -36,7 +47,7 @@ namespace Terraria.IO
 		{
 			get
 			{
-				return this._worldSizeName;
+				return this._worldSizeName.Value;
 			}
 		}
 
@@ -53,6 +64,26 @@ namespace Terraria.IO
 			Main.ActiveWorldFileData = this;
 		}
 
+		public void SetSeed(string seedText)
+		{
+			this._seedText = seedText;
+			if (!int.TryParse(seedText, out this._seed))
+			{
+				this._seed = seedText.GetHashCode();
+			}
+			this._seed = Math.Abs(this._seed);
+		}
+
+		public void SetSeedToEmpty()
+		{
+			this.SetSeed("");
+		}
+
+		public void SetSeedToRandom()
+		{
+			this.SetSeed(new Random().Next().ToString());
+		}
+
 		public void SetWorldSize(int x, int y)
 		{
 			this.WorldSizeX = x;
@@ -60,20 +91,52 @@ namespace Terraria.IO
 			int num = x;
 			if (num == 4200)
 			{
-				this._worldSizeName = "Small";
+				this._worldSizeName = Language.GetText("UI.WorldSizeSmall");
 				return;
 			}
 			if (num == 6400)
 			{
-				this._worldSizeName = "Medium";
+				this._worldSizeName = Language.GetText("UI.WorldSizeMedium");
 				return;
 			}
-			if (num == 8400)
+			if (num != 8400)
 			{
-				this._worldSizeName = "Large";
+				this._worldSizeName = Language.GetText("UI.WorldSizeUnknown");
 				return;
 			}
-			this._worldSizeName = "Unknown";
+			this._worldSizeName = Language.GetText("UI.WorldSizeLarge");
+		}
+
+		public bool HasValidSeed
+		{
+			get
+			{
+				return this.WorldGeneratorVersion != 0uL;
+			}
+		}
+
+		public int Seed
+		{
+			get
+			{
+				return this._seed;
+			}
+		}
+
+		public string SeedText
+		{
+			get
+			{
+				return this._seedText;
+			}
+		}
+
+		public bool UseGuidAsMapName
+		{
+			get
+			{
+				return this.WorldGeneratorVersion >= 777389080577uL;
+			}
 		}
 	}
 }
