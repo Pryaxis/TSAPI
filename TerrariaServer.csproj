@@ -113,10 +113,18 @@
     <Compile Include="Terraria\DataStructures\PlayerDeathReason.cs" />
     <Compile Include="Terraria\Enums\NPCTargetType.cs" />
     <Compile Include="Terraria\GameContent\Events\DD2Event.cs" />
+    <Compile Include="Terraria\GameContent\UI\CustomCurrencyManager.cs" />
+    <Compile Include="Terraria\GameContent\UI\CustomCurrencySingleCoin.cs" />
+    <Compile Include="Terraria\GameContent\UI\CustomCurrencySystem.cs" />
     <Compile Include="Terraria\ID\AmmoID.cs" />
     <Compile Include="Terraria\ID\CustomCurrencyID.cs" />
     <Compile Include="Terraria\ID\ItemAlternativeFunctionID.cs" />
     <Compile Include="Terraria\ID\TileChangeType.cs" />
+    <Compile Include="Terraria\Localization\Language.cs" />
+    <Compile Include="Terraria\Localization\LanguageChangedCallback.cs" />
+    <Compile Include="Terraria\Localization\LanguageManager.cs" />
+    <Compile Include="Terraria\Localization\LanguageSearchFilter.cs" />
+    <Compile Include="Terraria\Localization\LocalizedText.cs" />
     <Compile Include="Terraria\StrayMethods.cs" />
     <Compile Include="TerrariaApi.Server\ApiVersionAttribute.cs" />
     <Compile Include="TerrariaApi.Server\EventArgs\ChatEventArgs.cs" />
@@ -1033,6 +1041,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Terraria\Localization\Content\English.json" />
+    <None Include="Terraria\Localization\Content\English\Town.json" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

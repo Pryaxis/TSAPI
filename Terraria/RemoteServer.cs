@@ -1,4 +1,5 @@
 using System;
+using Terraria.Localization;
 using Terraria.Net.Sockets;
 
 namespace Terraria
@@ -35,7 +36,7 @@ namespace Terraria
 				if (num == 0)
 				{
 					Netplay.disconnect = true;
-					Main.statusText = "Lost connection";
+					Main.statusText = Language.GetTextValue("Net.LostConnection");
 				}
 				else if (!Main.ignoreErrors)
 				{

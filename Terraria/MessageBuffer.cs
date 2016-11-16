@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,6 +9,7 @@ using Terraria.GameContent.Events;
 using Terraria.GameContent.Tile_Entities;
 using Terraria.GameContent.UI;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.Net;
 using TerrariaApi.Server;
 
@@ -48,6 +48,8 @@ namespace Terraria
 		public BinaryReader reader;
 
 		//public BinaryWriter writer;
+
+		public static event TileChangeReceivedEvent OnTileChangeReceived;
 
 		public MessageBuffer()
 		{
@@ -127,7 +129,7 @@ namespace Terraria
 					{
 						return;
 					}
-					if (this.reader.ReadString() != string.Concat("Terraria", Main.curRelease))
+					if (this.reader.ReadString() != string.Concat("Terraria", 185))
 					{
 						NetMessage.SendData(2, this.whoAmI, -1, Lang.mp[4], 0, 0f, 0f, 0f, 0, 0, 0);
 						return;
@@ -211,12 +213,12 @@ namespace Terraria
 					}
 					if (player.name.Length > Player.nameLen)
 					{
-						NetMessage.SendData(2, this.whoAmI, -1, "Name is too long.", 0, 0f, 0f, 0f, 0, 0, 0);
+						NetMessage.SendData(2, this.whoAmI, -1, Language.GetTextValue("Net.NameTooLong"), 0, 0f, 0f, 0f, 0, 0, 0);
 						return;
 					}
 					if (player.name == "")
 					{
-						NetMessage.SendData(2, this.whoAmI, -1, "Empty name.", 0, 0f, 0f, 0f, 0, 0, 0);
+						NetMessage.SendData(2, this.whoAmI, -1, Language.GetTextValue("Net.EmptyName"), 0, 0f, 0f, 0f, 0, 0, 0);
 						return;
 					}
 					Netplay.Clients[this.whoAmI].Name = player.name;
@@ -741,13 +743,29 @@ namespace Terraria
 				}
 				case 20:
 				{
-					short num36 = this.reader.ReadInt16();
+					ushort num36 = this.reader.ReadUInt16();
+					short num56 = (short)(num36 & 32767);
+					bool flag7 = (num36 & 32768) != 0;
+					byte b4 = 0;
+					if (flag7)
+					{
+						b4 = this.reader.ReadByte();
+					}
 					int num37 = this.reader.ReadInt16();
 					int num38 = this.reader.ReadInt16();
 					if (!WorldGen.InWorld(num37, num38, 3))
 					{
 						return;
 					}
+					TileChangeType type3 = TileChangeType.None;
+						if (Enum.IsDefined(typeof(TileChangeType), b4))
+						{
+							type3 = (TileChangeType)b4;
+						}
+						if (MessageBuffer.OnTileChangeReceived != null)
+						{
+							MessageBuffer.OnTileChangeReceived(num37, num38, (int)num56, type3);
+						}
 					BitsByte bitsByte9 = 0;
 					BitsByte bitsByte10 = 0;
 					Tile tile = null;
@@ -1004,6 +1022,10 @@ namespace Terraria
 					if (bitsByte12[3])
 					{
 						cooldownCounter = 1;
+					}
+					if (bitsByte12[4])
+					{
+						cooldownCounter = 2;
 					}
 					Main.player[num59].Hurt(num61, num60, flag6, true, str3, item7, cooldownCounter);
 					NetMessage.SendData(26, -1, this.whoAmI, str3, num59, (float)num60, (float)num61, (float)(flag6 ? 1 : 0), item7 ? 1 : 0, cooldownCounter, 0);
@@ -1342,6 +1364,7 @@ namespace Terraria
 					player8.zone1 = this.reader.ReadByte();
 					player8.zone2 = this.reader.ReadByte();
 					player8.zone3 = this.reader.ReadByte();
+					player8.zone4 = this.reader.ReadByte();
 					NetMessage.SendData(36, -1, this.whoAmI, "", num103, 0f, 0f, 0f, 0, 0, 0);
 					return;
 				}
@@ -1494,8 +1517,8 @@ namespace Terraria
 						int num137 = y1 + num133;
 						if (num128 < num134 || num128 > num135 || num129 < num136 || num129 > num137)
 						{
-							NetMessage.BootPlayer(this.whoAmI, "Cheating attempt detected: Liquid spam");
-							return;
+							NetMessage.BootPlayer(this.whoAmI, Language.GetTextValue("Net.CheatingLiquidSpam"));
+								return;
 						}
 					}
 					if (Main.tile[num128, num129] == null)
@@ -1660,8 +1683,8 @@ namespace Terraria
 					byte num160 = this.reader.ReadByte();
 					if (num157 >= 200)
 					{
-						NetMessage.BootPlayer(this.whoAmI, "cheating attempt detected: Invalid kick-out");
-						return;
+						NetMessage.BootPlayer(this.whoAmI, Language.GetTextValue("Net.CheatingInvalid"));
+							return;
 					}
 					if (num160 == 0)
 					{
@@ -1737,7 +1760,7 @@ namespace Terraria
 							Main.invasionDelay = 0;
 							Main.StartInvasion(4);
 							NetMessage.SendData(7, -1, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
-							NetMessage.SendData(78, -1, -1, "", 0, 1f, (float)(Main.invasionType + 2), 0f, 0, 0, 0);
+							NetMessage.SendData(78, -1, -1, "", 0, 1f, (float)(Main.invasionType + 3), 0f, 0, 0, 0);
 							return;
 						}
 						if (num162 == -8)
@@ -1764,7 +1787,7 @@ namespace Terraria
 									Main.invasionDelay = 0;
 									Main.StartInvasion(num158);
 								}
-								NetMessage.SendData(78, -1, -1, "", 0, 1f, (float)(Main.invasionType + 2), 0f, 0, 0, 0);
+								NetMessage.SendData(78, -1, -1, "", 0, 1f, (float)(Main.invasionType + 3), 0f, 0, 0, 0);
 								return;
 							}
 							return;
@@ -2110,7 +2133,7 @@ namespace Terraria
 					int num226 = this.reader.ReadByte();
 					num226 = this.whoAmI;
 					Player player16 = Main.player[num226];
-					player16.MinionTargetPoint = this.reader.ReadVector2();
+					player16.MinionRestTargetPoint = this.reader.ReadVector2();
 					NetMessage.SendData(99, -1, this.whoAmI, "", num226, 0f, 0f, 0f, 0, 0, 0);
 					return;
 				}
@@ -2157,10 +2180,6 @@ namespace Terraria
 					WiresUI.Settings.ToolMode = toolMode2;
 					return;
 				}
-				default:
-				{
-					return;
-				}
 				case 111:
 				{
 					if (Main.netMode != 2)
@@ -2182,6 +2201,30 @@ namespace Terraria
 							return;
 						}
 						NetMessage.SendData(num1, -1, -1, "", num212, (float)num213, (float)num214, (float)num215, num216, 0, 0);
+						return;
+					}
+				case 113:
+					{
+						int x12 = (int)this.reader.ReadInt16();
+						int y12 = (int)this.reader.ReadInt16();
+						if (DD2Event.WouldFailSpawningHere(x12, y12))
+						{
+							DD2Event.FailureMessage(this.whoAmI);
+						}
+						DD2Event.SummonCrystal(x12, y12);
+						return;
+					}
+				case 115:
+					{
+						int num220 = (int)this.reader.ReadByte();
+						num220 = this.whoAmI;
+						Player player21 = Main.player[num220];
+						player21.MinionAttackTargetNPC = (int)this.reader.ReadInt16();
+						NetMessage.SendData(115, -1, this.whoAmI, "", num220, 0f, 0f, 0f, 0, 0, 0);
+						return;
+					}
+				default:
+					{
 						return;
 					}
 			}

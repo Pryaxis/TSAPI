@@ -1,10 +1,10 @@
-
 using System;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using Terraria.IO;
+using Terraria.Localization;
 using Terraria.Net;
 using Terraria.Net.Sockets;
 using TerrariaApi.Server;
@@ -127,10 +127,6 @@ namespace Terraria
 			{
 				Main.rand = new Random((int)DateTime.Now.Ticks);
 			}
-			if (WorldGen.genRand == null)
-			{
-				WorldGen.genRand = new Random((int)DateTime.Now.Ticks);
-			}
 			Main.player[Main.myPlayer].hostile = false;
 			Main.clientPlayer = (Player)Main.player[Main.myPlayer].clientClone();
 			for (int i = 0; i < 255; i++)
@@ -144,7 +140,7 @@ namespace Terraria
 			Main.menuMode = 14;
 			if (!Main.autoPass)
 			{
-				Main.statusText = "Connecting to " + address.GetFriendlyName();
+				Main.statusText = Language.GetTextValue("Net.ConnectingTo", address.GetFriendlyName());
 			}
 			disconnect = false;
 			Connection = new RemoteServer();
@@ -168,7 +164,7 @@ namespace Terraria
 			{
 				Netplay.Clients[num].Reset();
 				Netplay.Clients[num].Socket = client;
-				Console.WriteLine(client.GetRemoteAddress() + " is connecting...");
+				Console.WriteLine(Language.GetTextValue("Net.ClientConnecting", client.GetRemoteAddress()));
 			}
 			if (Netplay.FindNextOpenClientSlot() == -1)
 			{
@@ -196,13 +192,9 @@ namespace Terraria
 			{
 				Main.rand = new Random((int)DateTime.Now.Ticks);
 			}
-			if (WorldGen.genRand == null)
-			{
-				WorldGen.genRand = new Random((int)DateTime.Now.Ticks);
-			}
 			Main.myPlayer = 255;
 			Main.menuMode = 14;
-			Main.statusText = "Starting server...";
+			Main.statusText = Lang.menu[8];
 			Main.netMode = 2;
 			disconnect = false;
 			for (int i = 0; i < 256; i++)
@@ -218,10 +210,10 @@ namespace Terraria
 				if (!StartListening())
 				{
 					Main.menuMode = 15;
-					Main.statusText = "Tried to run two servers on the same PC";
+					Main.statusText = Language.GetTextValue("Error.TriedToRunServerTwice");
 					disconnect = true;
 				}
-				Main.statusText = "Server started";
+				Main.statusText = Language.GetTextValue("CLI.ServerStarted");
 			}
 			int num = 0;
 			while (!disconnect)
@@ -299,16 +291,7 @@ namespace Terraria
 							{
 								if (Clients[k].StatusCount >= Clients[k].StatusMax)
 								{
-									Clients[k].StatusText = string.Concat(new object[]
-									{
-										"(",
-										Clients[k].Socket.GetRemoteAddress(),
-										") ",
-										Clients[k].Name,
-										" ",
-										Clients[k].StatusText2,
-										": Complete!"
-									});
+									Clients[k].StatusText = Language.GetTextValue("Net.ClientStatusComplete", Netplay.Clients[k].Socket.GetRemoteAddress(), Netplay.Clients[k].Name, Netplay.Clients[k].StatusText2);
 									Clients[k].StatusText2 = "";
 									Clients[k].StatusMax = 0;
 									Clients[k].StatusCount = 0;
@@ -332,38 +315,17 @@ namespace Terraria
 							{
 								if (Clients[k].State == 0)
 								{
-									Clients[k].StatusText = string.Concat(new object[]
-									{
-										"(",
-										Clients[k].Socket.GetRemoteAddress(),
-										") ",
-										Clients[k].Name,
-										" is connecting..."
-									});
+									Clients[k].StatusText = Language.GetTextValue("Net.ClientConnecting", string.Format("({0}) {1}", Netplay.Clients[k].Socket.GetRemoteAddress(), Netplay.Clients[k].Name));
 									continue;
 								}
 								if (Clients[k].State == 1)
 								{
-									Clients[k].StatusText = string.Concat(new object[]
-									{
-										"(",
-										Clients[k].Socket.GetRemoteAddress(),
-										") ",
-										Clients[k].Name,
-										" is sending player data..."
-									});
+									Clients[k].StatusText = Language.GetTextValue("Net.ClientSendingData", Netplay.Clients[k].Socket.GetRemoteAddress(), Netplay.Clients[k].Name);
 									continue;
 								}
 								if (Clients[k].State == 2)
 								{
-									Clients[k].StatusText = string.Concat(new object[]
-									{
-										"(",
-										Clients[k].Socket.GetRemoteAddress(),
-										") ",
-										Clients[k].Name,
-										" requested world information"
-									});
+									Clients[k].StatusText = Language.GetTextValue("Net.ClientRequestedWorldInfo", Netplay.Clients[k].Socket.GetRemoteAddress(), Netplay.Clients[k].Name);
 									continue;
 								}
 								if (Clients[k].State == 3 || Clients[k].State != 10)
@@ -372,14 +334,7 @@ namespace Terraria
 								}
 								try
 								{
-									Clients[k].StatusText = string.Concat(new object[]
-									{
-										"(",
-										Clients[k].Socket.GetRemoteAddress(),
-										") ",
-										Clients[k].Name,
-										" is playing"
-									});
+									Clients[k].StatusText = Language.GetTextValue("Net.ClientPlaying", Netplay.Clients[k].Socket.GetRemoteAddress(), Netplay.Clients[k].Name);
 									continue;
 								}
 								catch
@@ -422,11 +377,11 @@ namespace Terraria
 				{
 					if (num3 == 0)
 					{
-						Main.statusText = "Waiting for clients...";
+						Main.statusText = Language.GetTextValue("Net.WaitingForClients");
 					}
 					else
 					{
-						Main.statusText = num3 + " clients connected";
+						Main.statusText = Language.GetTextValue("Net.ClientsConnected", num3);
 					}
 				}
 				if (num3 == 0)

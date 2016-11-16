@@ -154,6 +154,10 @@ namespace Terraria
 						{
 							array = Main.player[Main.myPlayer].bank2.item;
 						}
+						else if (Main.player[Main.myPlayer].chest == -4)
+						{
+							array = Main.player[Main.myPlayer].bank3.item;
+						}
 						for (int l = 0; l < 40; l++)
 						{
 							Item item2 = array[l];
@@ -404,6 +408,10 @@ namespace Terraria
 					else if (Main.player[Main.myPlayer].chest == -3)
 					{
 						array = Main.player[Main.myPlayer].bank2.item;
+					}
+					else if (Main.player[Main.myPlayer].chest == -4)
+					{
+						array = Main.player[Main.myPlayer].bank3.item;
 					}
 					for (int l = 0; l < 40; l++)
 					{

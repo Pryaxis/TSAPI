@@ -1,8 +1,8 @@
-
 using System;
 using Terraria.DataStructures;
 using Terraria.GameContent.Achievements;
 using Terraria.GameContent.Events;
+
 using Terraria.ObjectData;
 
 namespace Terraria
@@ -1865,6 +1865,197 @@ namespace Terraria
 				if (Main.moonPhase == 0 && !Main.dayTime)
 				{
 					this.item[num].SetDefaults(3043, false);
+					num++;
+				}
+			}
+			else if (type == 21)
+			{
+				bool flag = Main.hardMode && NPC.downedMechBossAny;
+				bool flag2 = Main.hardMode && NPC.downedGolemBoss;
+				this.item[num].SetDefaults(353, false);
+				num++;
+				this.item[num].SetDefaults(3828, false);
+				if (flag2)
+				{
+					this.item[num].shopCustomPrice = new int?(Item.buyPrice(0, 4, 0, 0));
+				}
+				else if (flag)
+				{
+					this.item[num].shopCustomPrice = new int?(Item.buyPrice(0, 1, 0, 0));
+				}
+				else
+				{
+					this.item[num].shopCustomPrice = new int?(Item.buyPrice(0, 0, 25, 0));
+				}
+				num++;
+				this.item[num].SetDefaults(3816, false);
+				num++;
+				this.item[num].SetDefaults(3813, false);
+				this.item[num].shopCustomPrice = new int?(75);
+				this.item[num].shopSpecialCurrency = CustomCurrencyID.DefenderMedals;
+				num++;
+				num = 10;
+				this.item[num].SetDefaults(3818, false);
+				this.item[num].shopCustomPrice = new int?(5);
+				this.item[num].shopSpecialCurrency = CustomCurrencyID.DefenderMedals;
+				num++;
+				this.item[num].SetDefaults(3824, false);
+				this.item[num].shopCustomPrice = new int?(5);
+				this.item[num].shopSpecialCurrency = CustomCurrencyID.DefenderMedals;
+				num++;
+				this.item[num].SetDefaults(3832, false);
+				this.item[num].shopCustomPrice = new int?(5);
+				this.item[num].shopSpecialCurrency = CustomCurrencyID.DefenderMedals;
+				num++;
+				this.item[num].SetDefaults(3829, false);
+				this.item[num].shopCustomPrice = new int?(5);
+				this.item[num].shopSpecialCurrency = CustomCurrencyID.DefenderMedals;
+				if (flag)
+				{
+					num = 20;
+					this.item[num].SetDefaults(3819, false);
+					this.item[num].shopCustomPrice = new int?(25);
+					this.item[num].shopSpecialCurrency = CustomCurrencyID.DefenderMedals;
+					num++;
+					this.item[num].SetDefaults(3825, false);
+					this.item[num].shopCustomPrice = new int?(25);
+					this.item[num].shopSpecialCurrency = CustomCurrencyID.DefenderMedals;
+					num++;
+					this.item[num].SetDefaults(3833, false);
+					this.item[num].shopCustomPrice = new int?(25);
+					this.item[num].shopSpecialCurrency = CustomCurrencyID.DefenderMedals;
+					num++;
+					this.item[num].SetDefaults(3830, false);
+					this.item[num].shopCustomPrice = new int?(25);
+					this.item[num].shopSpecialCurrency = CustomCurrencyID.DefenderMedals;
+				}
+				if (flag2)
+				{
+					num = 30;
+					this.item[num].SetDefaults(3820, false);
+					this.item[num].shopCustomPrice = new int?(100);
+					this.item[num].shopSpecialCurrency = CustomCurrencyID.DefenderMedals;
+					num++;
+					this.item[num].SetDefaults(3826, false);
+					this.item[num].shopCustomPrice = new int?(100);
+					this.item[num].shopSpecialCurrency = CustomCurrencyID.DefenderMedals;
+					num++;
+					this.item[num].SetDefaults(3834, false);
+					this.item[num].shopCustomPrice = new int?(100);
+					this.item[num].shopSpecialCurrency = CustomCurrencyID.DefenderMedals;
+					num++;
+					this.item[num].SetDefaults(3831, false);
+					this.item[num].shopCustomPrice = new int?(100);
+					this.item[num].shopSpecialCurrency = CustomCurrencyID.DefenderMedals;
+				}
+				if (flag)
+				{
+					num = 4;
+					this.item[num].SetDefaults(3800, false);
+					this.item[num].shopCustomPrice = new int?(25);
+					this.item[num].shopSpecialCurrency = CustomCurrencyID.DefenderMedals;
+					num++;
+					this.item[num].SetDefaults(3801, false);
+					this.item[num].shopCustomPrice = new int?(25);
+					this.item[num].shopSpecialCurrency = CustomCurrencyID.DefenderMedals;
+					num++;
+					this.item[num].SetDefaults(3802, false);
+					this.item[num].shopCustomPrice = new int?(25);
+					this.item[num].shopSpecialCurrency = CustomCurrencyID.DefenderMedals;
+					num++;
+					num = 14;
+					this.item[num].SetDefaults(3797, false);
+					this.item[num].shopCustomPrice = new int?(25);
+					this.item[num].shopSpecialCurrency = CustomCurrencyID.DefenderMedals;
+					num++;
+					this.item[num].SetDefaults(3798, false);
+					this.item[num].shopCustomPrice = new int?(25);
+					this.item[num].shopSpecialCurrency = CustomCurrencyID.DefenderMedals;
+					num++;
+					this.item[num].SetDefaults(3799, false);
+					this.item[num].shopCustomPrice = new int?(25);
+					this.item[num].shopSpecialCurrency = CustomCurrencyID.DefenderMedals;
+					num++;
+					num = 24;
+					this.item[num].SetDefaults(3803, false);
+					this.item[num].shopCustomPrice = new int?(25);
+					this.item[num].shopSpecialCurrency = CustomCurrencyID.DefenderMedals;
+					num++;
+					this.item[num].SetDefaults(3804, false);
+					this.item[num].shopCustomPrice = new int?(25);
+					this.item[num].shopSpecialCurrency = CustomCurrencyID.DefenderMedals;
+					num++;
+					this.item[num].SetDefaults(3805, false);
+					this.item[num].shopCustomPrice = new int?(25);
+					this.item[num].shopSpecialCurrency = CustomCurrencyID.DefenderMedals;
+					num++;
+					num = 34;
+					this.item[num].SetDefaults(3806, false);
+					this.item[num].shopCustomPrice = new int?(25);
+					this.item[num].shopSpecialCurrency = CustomCurrencyID.DefenderMedals;
+					num++;
+					this.item[num].SetDefaults(3807, false);
+					this.item[num].shopCustomPrice = new int?(25);
+					this.item[num].shopSpecialCurrency = CustomCurrencyID.DefenderMedals;
+					num++;
+					this.item[num].SetDefaults(3808, false);
+					this.item[num].shopCustomPrice = new int?(25);
+					this.item[num].shopSpecialCurrency = CustomCurrencyID.DefenderMedals;
+					num++;
+				}
+				if (flag2)
+				{
+					num = 7;
+					this.item[num].SetDefaults(3871, false);
+					this.item[num].shopCustomPrice = new int?(75);
+					this.item[num].shopSpecialCurrency = CustomCurrencyID.DefenderMedals;
+					num++;
+					this.item[num].SetDefaults(3872, false);
+					this.item[num].shopCustomPrice = new int?(75);
+					this.item[num].shopSpecialCurrency = CustomCurrencyID.DefenderMedals;
+					num++;
+					this.item[num].SetDefaults(3873, false);
+					this.item[num].shopCustomPrice = new int?(75);
+					this.item[num].shopSpecialCurrency = CustomCurrencyID.DefenderMedals;
+					num++;
+					num = 17;
+					this.item[num].SetDefaults(3874, false);
+					this.item[num].shopCustomPrice = new int?(75);
+					this.item[num].shopSpecialCurrency = CustomCurrencyID.DefenderMedals;
+					num++;
+					this.item[num].SetDefaults(3875, false);
+					this.item[num].shopCustomPrice = new int?(75);
+					this.item[num].shopSpecialCurrency = CustomCurrencyID.DefenderMedals;
+					num++;
+					this.item[num].SetDefaults(3876, false);
+					this.item[num].shopCustomPrice = new int?(75);
+					this.item[num].shopSpecialCurrency = CustomCurrencyID.DefenderMedals;
+					num++;
+					num = 27;
+					this.item[num].SetDefaults(3877, false);
+					this.item[num].shopCustomPrice = new int?(75);
+					this.item[num].shopSpecialCurrency = CustomCurrencyID.DefenderMedals;
+					num++;
+					this.item[num].SetDefaults(3878, false);
+					this.item[num].shopCustomPrice = new int?(75);
+					this.item[num].shopSpecialCurrency = CustomCurrencyID.DefenderMedals;
+					num++;
+					this.item[num].SetDefaults(3879, false);
+					this.item[num].shopCustomPrice = new int?(75);
+					this.item[num].shopSpecialCurrency = CustomCurrencyID.DefenderMedals;
+					num++;
+					num = 37;
+					this.item[num].SetDefaults(3880, false);
+					this.item[num].shopCustomPrice = new int?(75);
+					this.item[num].shopSpecialCurrency = CustomCurrencyID.DefenderMedals;
+					num++;
+					this.item[num].SetDefaults(3881, false);
+					this.item[num].shopCustomPrice = new int?(75);
+					this.item[num].shopSpecialCurrency = CustomCurrencyID.DefenderMedals;
+					num++;
+					this.item[num].SetDefaults(3882, false);
+					this.item[num].shopCustomPrice = new int?(75);
+					this.item[num].shopSpecialCurrency = CustomCurrencyID.DefenderMedals;
 					num++;
 				}
 			}

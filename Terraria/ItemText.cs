@@ -1,5 +1,6 @@
 
 using System;
+using Terraria.Localization;
 
 namespace Terraria
 {
@@ -98,19 +99,19 @@ namespace Terraria
 			str = "";
 			if (num > 0)
 			{
-				str = string.Concat(str, num, " Platinum ");
+				str = string.Concat(str, num, string.Format(" {0} ", Language.GetTextValue("Currency.Platinum")));
 			}
 			if (num1 > 0)
 			{
-				str = string.Concat(str, num1, " Gold ");
+				str = string.Concat(str, num1, string.Format(" {0} ", Language.GetTextValue("Currency.Gold")));
 			}
 			if (num2 > 0)
 			{
-				str = string.Concat(str, num2, " Silver ");
+				str = string.Concat(str, num2, string.Format(" {0} ", Language.GetTextValue("Currency.Silver")));
 			}
 			if (num3 > 0)
 			{
-				str = string.Concat(str, num3, " Copper ");
+				str = string.Concat(str, num3, string.Format(" {0} ", Language.GetTextValue("Currency.Copper")));
 			}
 			if (str.Length > 1)
 			{
@@ -157,22 +158,22 @@ namespace Terraria
 			if (num > 0)
 			{
 				ItemText itemText = this;
-				itemText.name = string.Concat(itemText.name, num, " Platinum ");
+				itemText.name = string.Concat(itemText.name, num, string.Format(" {0} ", Language.GetTextValue("Currency.Platinum")));
 			}
 			if (num1 > 0)
 			{
 				ItemText itemText1 = this;
-				itemText1.name = string.Concat(itemText1.name, num1, " Gold ");
+				itemText1.name = string.Concat(itemText1.name, num1, string.Format(" {0} ", Language.GetTextValue("Currency.Gold")));
 			}
 			if (num2 > 0)
 			{
 				ItemText itemText2 = this;
-				itemText2.name = string.Concat(itemText2.name, num2, " Silver ");
+				itemText2.name = string.Concat(itemText2.name, num2, string.Format(" {0} ", Language.GetTextValue("Currency.Silver")));
 			}
 			if (num3 > 0)
 			{
 				ItemText itemText3 = this;
-				itemText3.name = string.Concat(itemText3.name, num3, " Copper ");
+				itemText3.name = string.Concat(itemText3.name, num3, string.Format(" {0} ", Language.GetTextValue("Currency.Copper")));
 			}
 			if (this.name.Length > 1)
 			{

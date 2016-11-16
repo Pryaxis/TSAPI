@@ -1,6 +1,5 @@
-
 using System;
-using System.Collections.Generic;
+using Terraria.Localization;
 using Terraria.Net.Sockets;
 using TerrariaApi.Server;
 
@@ -79,7 +78,7 @@ namespace Terraria
 			if (num1 > 0)
 			{
 				int num2 = num1;
-				Netplay.Clients[num].StatusText2 = "is receiving tile data";
+				Netplay.Clients[num].StatusText2 = Language.GetTextValue("Net.IsReceivingTileData");
 				RemoteClient clients = Netplay.Clients[num];
 				clients.StatusMax = clients.StatusMax + num2;
 
@@ -220,19 +219,19 @@ namespace Terraria
 			}
 			if (this.SpamProjectile > this.SpamProjectileMax)
 			{
-				NetMessage.BootPlayer(this.Id, "Cheating attempt detected: Projectile spam");
+				NetMessage.BootPlayer(this.Id, Language.GetTextValue("Net.CheatingProjectileSpam"));
 			}
 			if (this.SpamAddBlock > this.SpamAddBlockMax)
 			{
-				NetMessage.BootPlayer(this.Id, "Cheating attempt detected: Add tile spam");
+				NetMessage.BootPlayer(this.Id, Language.GetTextValue("Net.CheatingTileSpam"));
 			}
 			if (this.SpamDeleteBlock > this.SpamDeleteBlockMax)
 			{
-				NetMessage.BootPlayer(this.Id, "Cheating attempt detected: Remove tile spam");
+				NetMessage.BootPlayer(this.Id, Language.GetTextValue("Net.CheatingTileRemovalSpam"));
 			}
 			if (this.SpamWater > this.SpamWaterMax)
 			{
-				NetMessage.BootPlayer(this.Id, "Cheating attempt detected: Liquid spam");
+				NetMessage.BootPlayer(this.Id, Language.GetTextValue("Net.CheatingLiquidSpam"));
 			}
 			SpamProjectile -= 0.4f;
 			if (this.SpamProjectile < 0f)
