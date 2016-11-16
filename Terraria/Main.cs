@@ -32,53 +32,53 @@ namespace Terraria
 	{
 		public const int offLimitBorderTiles = 40;
 
-		public const int maxItemTypes = 3797;
+		public const int maxItemTypes = 3884;
 
-		public const int maxProjectileTypes = 662;
+		public const int maxProjectileTypes = 714;
 
-		public const int maxNPCTypes = 547;
+		public const int maxNPCTypes = 580;
 
-		public const int maxTileSets = 463;
+		public const int maxTileSets = 467;
 
 		public const int maxWallTypes = 231;
 
-		public const int maxBuffTypes = 195;
+		public const int maxBuffTypes = 206;
 
-		public const int maxGlowMasks = 221;
+		public const int maxGlowMasks = 245;
 
-		public const int maxExtras = 77;
+		public const int maxExtras = 90;
 
-		public const int maxGoreTypes = 943;
+		public const int maxGoreTypes = 1087;
 
-		public const int numBannerTypes = 251;
+		public const int numBannerTypes = 267;
 
-		public const int numArmorHead = 199;
+		public const int numArmorHead = 124;
 
-		public const int numArmorBody = 197;
+		public const int numArmorBody = 208;
 
-		public const int numArmorLegs = 140;
+		public const int numArmorLegs = 157;
 
-		public const int numAccHandsOn = 19;
+		public const int numAccHandsOn = 20;
 
 		public const int numAccHandsOff = 12;
 
-		public const int numAccNeck = 9;
+		public const int numAccNeck = 10;
 
-		public const int numAccBack = 11;
+		public const int numAccBack = 14;
 
 		public const int numAccFront = 5;
 
 		public const int numAccShoes = 18;
 
-		public const int numAccWaist = 12;
+		public const int numAccWaist = 13;
 
-		public const int numAccShield = 6;
+		public const int numAccShield = 7;
 
 		public const int numAccFace = 9;
 
 		public const int numAccBalloon = 18;
 
-		public const int maxWings = 37;
+		public const int maxWings = 38;
 
 		public const int maxBackgrounds = 207;
 
@@ -130,7 +130,7 @@ namespace Terraria
 
 		public const int maxLiquidTypes = 12;
 
-		public const int maxMusic = 40;
+		public const int maxMusic = 42;
 
 		public const double dayLength = 54000;
 
@@ -155,6 +155,8 @@ namespace Terraria
 		public static Main instance;
 
 		public static int curRelease;
+
+		public const ulong WorldGeneratorVersion = 790273982465uL;
 
 		public static string versionNumber;
 
@@ -219,6 +221,8 @@ namespace Terraria
 		public static int dedServCount2;
 
 		public static bool superFast;
+
+		public static int MaxShopIDs = 22;
 
 		public static bool[] hairLoaded;
 
@@ -1725,9 +1729,9 @@ namespace Terraria
 
 		static Main()
 		{
-			Main.curRelease = 177;
-			Main.versionNumber = "v1.3.3.3";
-			Main.versionNumber2 = "v1.3.3.3";
+			Main.curRelease = 184;
+			Main.versionNumber = "v1.3.4";
+			Main.versionNumber2 = "v1.3.4";
 			Main.destroyerHB = new Vector2(0f, 0f);
 			Main.drawBackGore = false;
 			Main.expertLife = 2f;
@@ -1739,7 +1743,7 @@ namespace Terraria
 			Main.damageMultiplier = 1f;
 			Main.ServerSideCharacter = false;
 			Main.ContentLoaded = false;
-			Main.maxMsg = 114;
+			Main.maxMsg = 118;
 			Main.GlobalTime = 0f;
 			Main.GlobalTimerPaused = false;
 			Main._tileFrameSeed = (ulong)Guid.NewGuid().GetHashCode();
@@ -2521,17 +2525,17 @@ namespace Terraria
 
 		private static void CacheEntityNames()
 		{
-			for (int i = 0; i < 547; i++)
+			NPC nPC = new NPC();
+			for (int i = 0; i < Main.maxNPCTypes; i++)
 			{
-				NPC nPC = new NPC();
 				nPC.SetDefaults(i, -1f);
-				Main.npcName[i] = nPC.name;
+				Main.npcName[i] = Lang.npcName(nPC.netID, false);
 			}
-			for (int j = 0; j < 662; j++)
+			Projectile projectile = new Projectile();
+			for (int j = 0; j < 714; j++)
 			{
-				Projectile projectile = new Projectile();
 				projectile.SetDefaults(j);
-				Main.projName[j] = projectile.name;
+				Main.projName[j] = Lang.GetProjectileNameByType(projectile.type);
 			}
 		}
 
@@ -5020,31 +5024,20 @@ namespace Terraria
 				while (flag)
 				{
 					Main.LoadWorlds();
-					Console.WriteLine(string.Concat("Terraria Server ", Main.versionNumber2));
+					Console.WriteLine(Language.GetTextValue("CLI.Server", (object)Main.versionNumber2));
 					Console.WriteLine("");
-					for (int j = 0; j < Main.WorldList.Count; j++)
-					{
-						object[] name = new object[]
-						{
-							j + 1,
-							'\t',
-							'\t', Main.WorldList[j].Name
-						};
-						Console.WriteLine("{0,-4}{1,-22}{2}, {3}, {4,-6}{5}",
-							j + 1,
-							Main.WorldList[j].Name,
-							Main.WorldList[j].IsHardMode ? "hard" : "norm",
-							Main.WorldList[j].HasCrimson ? "crim" : "corr",
-							Main.WorldList[j].IsExpertMode ? "exp" : "norm",
-							String.Format("Last used: {0}",
-								File.GetLastWriteTime(Main.WorldList[j].Path).ToString("g")));
-					}
-					Console.WriteLine();
-					Console.WriteLine("n           \tNew World");
-					Console.WriteLine("d   <number>\tDelete World");
+					for (int index = 0; index < Main.WorldList.Count; ++index)
+						Console.WriteLine((index + 1).ToString() + (object)'\t' + (object)'\t' + Main.WorldList[index].Name);
+					string textValue1 = Language.GetTextValue("CLI.NewWorld_Command");
+					string textValue2 = Language.GetTextValue("CLI.DeleteWorld_Example");
+					int num = (Math.Max(Main.newWorldName.Length, textValue2.Length) + 1) / 8;
+					string str1 = textValue1 + new string('\t', num - textValue1.Length / 8) + Language.GetTextValue("CLI.NewWorld_Description");
+					string str2 = textValue2 + new string('\t', num - textValue2.Length / 8) + Language.GetTextValue("CLI.DeleteWorld_Description");
+					Console.WriteLine(str1);
+					Console.WriteLine(str2);
 					Console.WriteLine("");
-					Console.Write("Choose World: ");
-					string str2 = Console.ReadLine() ?? "";
+					Console.Write(Language.GetTextValue("CLI.ChooseWorld"));
+					string str3 = Console.ReadLine() ?? "";
 					try
 					{
 						Console.Clear();
@@ -5057,21 +5050,20 @@ namespace Terraria
 
 #endif
 					}
-					if (str2.Length >= 2 && str2.Substring(0, 2).ToLower() == "d ")
+					if (str3.StartsWith(Language.GetTextValue("CLI.DeleteWorld_Command") + " "))
 					{
 						try
 						{
-							int num = Convert.ToInt32(str2.Substring(2)) - 1;
-							if (num < Main.WorldList.Count)
+							int length = Language.GetTextValue("CLI.DeleteWorld_Command").Length;
+							int i = Convert.ToInt32(str3.Substring(length + 1)) - 1;
+							if (i < Main.WorldList.Count)
 							{
-								Console.WriteLine(string.Concat("Terraria Server ", Main.versionNumber2));
+								Console.WriteLine(Language.GetTextValue("CLI.Server", (object)Main.versionNumber2));
 								Console.WriteLine("");
-								Console.WriteLine(string.Concat("Really delete ", Main.WorldList[num].Name, "?"));
-								Console.Write("(y/n): ");
-								if (Console.ReadLine().ToLower() == "y")
-								{
-									Main.EraseWorld(num);
-								}
+								Console.WriteLine(Language.GetTextValue("CLI.DeleteConfirmation", (object)Main.WorldList[i].Name));
+								Console.Write(string.Format("({0}/{1}): ", (object)Language.GetTextValue("CLI.ShortYes"), (object)Language.GetTextValue("CLI.ShortNo")));
+								if (Console.ReadLine().ToLower() == Language.GetTextValue("CLI.ShortYes").ToLower())
+									Main.EraseWorld(i);
 							}
 						}
 						catch (Exception ex)
@@ -5100,13 +5092,13 @@ namespace Terraria
 						bool flag1 = true;
 						while (flag1)
 						{
-							Console.WriteLine(string.Concat("Terraria Server ", Main.versionNumber2));
+							Console.WriteLine(Language.GetTextValue("CLI.Server", Main.versionNumber2));
 							Console.WriteLine("");
-							Console.WriteLine(string.Concat("1", '\t', "Small"));
-							Console.WriteLine(string.Concat("2", '\t', "Medium"));
-							Console.WriteLine(string.Concat("3", '\t', "Large"));
+							Console.WriteLine("1\t" + Language.GetTextValue("UI.WorldSizeSmall"));
+							Console.WriteLine("2\t" + Language.GetTextValue("UI.WorldSizeMedium"));
+							Console.WriteLine("3\t" + Language.GetTextValue("UI.WorldSizeLarge"));
 							Console.WriteLine("");
-							Console.Write("Choose size: ");
+							Console.Write(Language.GetTextValue("CLI.ChooseSize"));
 							str = Console.ReadLine();
 							try
 							{
@@ -5154,12 +5146,12 @@ namespace Terraria
 						flag1 = true;
 						while (flag1)
 						{
-							Console.WriteLine(string.Concat("Terraria Server ", Main.versionNumber2));
+							Console.WriteLine(Language.GetTextValue("CLI.Server", Main.versionNumber2));
 							Console.WriteLine("");
-							Console.WriteLine(string.Concat("1", '\t', "Normal"));
-							Console.WriteLine(string.Concat("2", '\t', "Expert"));
+							Console.WriteLine("1\t" + Language.GetTextValue("UI.Normal"));
+							Console.WriteLine("2\t" + Language.GetTextValue("UI.Expert"));
 							Console.WriteLine("");
-							Console.Write("Choose difficulty: ");
+							Console.Write(Language.GetTextValue("CLI.ChooseDifficulty"));
 							str = Console.ReadLine();
 							try
 							{
@@ -5199,13 +5191,13 @@ namespace Terraria
 						flag1 = true;
 						while (flag1)
 						{
-							Console.WriteLine(string.Concat("Terraria Server ", Main.versionNumber2));
+							Console.WriteLine(Language.GetTextValue("CLI.Server", Main.versionNumber2));
 							Console.WriteLine("");
-							Console.WriteLine(string.Concat("1", '\t', "Corruption"));
-							Console.WriteLine(string.Concat("2", '\t', "Crimson"));
-							Console.WriteLine(string.Concat("3", '\t', "Random"));
+							Console.WriteLine("1\t" + Language.GetTextValue("CLI.Random"));
+							Console.WriteLine("2\t" + Language.GetTextValue("CLI.Corrupt"));
+							Console.WriteLine("3\t" + Language.GetTextValue("CLI.Crimson"));
 							Console.WriteLine("");
-							Console.Write("Choose world evil: ");
+							Console.Write(Language.GetTextValue("CLI.ChooseEvil"));
 							str = Console.ReadLine();
 							try
 							{
@@ -5238,9 +5230,9 @@ namespace Terraria
 						flag1 = true;
 						while (flag1)
 						{
-							Console.WriteLine(string.Concat("Terraria Server ", Main.versionNumber2));
+							Console.WriteLine(Language.GetTextValue("CLI.Server", Main.versionNumber2));
 							Console.WriteLine("");
-							Console.Write("Enter world name: ");
+							Console.Write(Language.GetTextValue("CLI.EnterWorldName"));
 							Main.newWorldName = Console.ReadLine();
 							if (Main.newWorldName != "" && Main.newWorldName != " " && Main.newWorldName != null)
 							{
@@ -5263,8 +5255,41 @@ namespace Terraria
 #endif
 							}
 						}
+						string text6 = "";
+						flag1 = Main.UseSeedUI;
+						while (flag1)
+						{
+							Console.WriteLine(Language.GetTextValue("CLI.Server", Main.versionNumber2));
+							Console.WriteLine("");
+							Console.Write(Language.GetTextValue("CLI.EnterSeed"));
+							text6 = Console.ReadLine();
+							if (text6 != null)
+							{
+								flag1 = false;
+							}
+							else
+							{
+								text6 = "";
+							}
+							try
+							{
+								Console.Clear();
+							}
+							catch
+							{
+							}
+						}
 						Main.worldName = Main.newWorldName;
 						Main.ActiveWorldFileData = WorldFile.CreateMetadata(Main.worldName, Main.expertMode);
+						text6 = text6.Trim();
+						if (text6.Length == 0)
+						{
+							Main.ActiveWorldFileData.SetSeedToRandom();
+						}
+						else
+						{
+							Main.ActiveWorldFileData.SetSeed(text6);
+						}
 						Main.menuMode = 10;
 						Main.serverGenLock = true;
 						GenerationProgress generationProgress = new GenerationProgress();
@@ -5331,17 +5356,17 @@ namespace Terraria
 								bool flag2 = true;
 								while (flag2)
 								{
-									Console.WriteLine(string.Concat("Terraria Server ", Main.versionNumber2));
+									Console.WriteLine(Language.GetTextValue("CLI.Server", Main.versionNumber2));
 									Console.WriteLine("");
-									Console.Write("Max players (press enter for {0}): ", Main.maxNetPlayers);
-									string str3 = Console.ReadLine();
+									Console.Write(Language.GetTextValue("CLI.SetInitialMaxPlayers"));
+									string str4 = Console.ReadLine();
 									try
 									{
-										if (str3 == "")
+										if (str4 == "")
 										{
-											str3 = Main.maxNetPlayers.ToString();
+											str4 = Main.maxNetPlayers.ToString();
 										}
-										int num4 = Convert.ToInt32(str3);
+										int num4 = Convert.ToInt32(str4);
 										if (num4 <= 255 && num4 >= 1)
 										{
 											Main.maxNetPlayers = num4;
@@ -5378,9 +5403,9 @@ namespace Terraria
 										flag2 = false;
 										break;
 									}
-									Console.WriteLine(string.Concat("Terraria Server ", Main.versionNumber2));
+									Console.WriteLine(Language.GetTextValue("CLI.Server", Main.versionNumber2));
 									Console.WriteLine("");
-									Console.Write("Server port (press enter for 7777): ");
+									Console.Write(Language.GetTextValue("CLI.SetInitialPort"));
 									string str4 = Console.ReadLine();
 									try
 									{
@@ -5456,7 +5481,7 @@ namespace Terraria
 #endif
 			}
 			WorldGen.serverLoadWorld();
-			Console.WriteLine(string.Concat("Terraria Server ", Main.versionNumber));
+			Console.WriteLine(Language.GetTextValue("CLI.Server", Main.versionNumber));
 			Console.WriteLine("");
 
             Regex completePercent = new Regex(@"(\d?\d?\d)%");
@@ -5496,10 +5521,10 @@ namespace Terraria
 
 #endif
 			}
-			Console.WriteLine(string.Concat("Terraria Server ", Main.versionNumber));
+			Console.WriteLine(Language.GetTextValue("CLI.Server", Main.versionNumber));
 			Console.WriteLine("");
-			Console.WriteLine(string.Concat("Listening on port ", Netplay.ListenPort));
-			Console.WriteLine("Type 'help' for a list of commands.");
+			Console.WriteLine(Language.GetTextValue("CLI.ListeningOnPort", Netplay.ListenPort));
+			Console.WriteLine(Language.GetTextValue("CLI.HelpHint"));
 			Console.WriteLine("");
 			Console.Title = string.Concat("Terraria Server: ", Main.worldName);
 
@@ -5708,6 +5733,13 @@ namespace Terraria
 				{
 					NetMessage.SendData(5, -1, -1, "", Main.myPlayer, (float)(58 + Main.player[Main.myPlayer].armor.Length + Main.player[Main.myPlayer].dye.Length + Main.player[Main.myPlayer].miscEquips.Length + Main.player[Main.myPlayer].miscDyes.Length + Main.player[Main.myPlayer].bank.item.Length + Main.player[Main.myPlayer].bank2.item.Length + 1), (float)Main.player[Main.myPlayer].trashItem.prefix, 0f, 0, 0, 0);
 				}
+				for (int num8 = 0; num8 < Main.player[Main.myPlayer].bank3.item.Length; num8++)
+				{
+					if (Main.player[Main.myPlayer].bank3.item[num8].IsNotTheSameAs(Main.clientPlayer.bank3.item[num8]))
+					{
+						NetMessage.SendData(5, -1, -1, "", Main.myPlayer, (float)(58 + Main.player[Main.myPlayer].armor.Length + Main.player[Main.myPlayer].dye.Length + Main.player[Main.myPlayer].miscEquips.Length + Main.player[Main.myPlayer].miscDyes.Length + Main.player[Main.myPlayer].bank.item.Length + Main.player[Main.myPlayer].bank2.item.Length + 2 + num8), (float)Main.player[Main.myPlayer].bank3.item[num8].prefix, 0f, 0, 0, 0);
+					}
+				}
 				for (int num10 = 0; num10 < Main.player[Main.myPlayer].dye.Length; num10++)
 				{
 					if (Main.player[Main.myPlayer].dye[num10].IsNotTheSameAs(Main.clientPlayer.dye[num10]))
@@ -5748,6 +5780,10 @@ namespace Terraria
 					flag = true;
 				}
 				if (Main.player[Main.myPlayer].zone3 != Main.clientPlayer.zone3)
+				{
+					flag = true;
+				}
+				if (Main.player[Main.myPlayer].zone4 != Main.clientPlayer.zone4)
 				{
 					flag = true;
 				}
@@ -5804,6 +5840,15 @@ namespace Terraria
 				if (flag3)
 				{
 					NetMessage.SendData(99, -1, -1, "", Main.myPlayer, 0f, 0f, 0f, 0, 0, 0);
+				}
+				bool flag4 = false;
+				if (Main.player[Main.myPlayer].MinionAttackTargetNPC != Main.clientPlayer.MinionAttackTargetNPC)
+				{
+					flag4 = true;
+				}
+				if (flag4)
+				{
+					NetMessage.SendData(115, -1, -1, "", Main.myPlayer, 0f, 0f, 0f, 0, 0, 0);
 				}
 			}
 			Main.gamePaused = false;
@@ -5898,6 +5943,7 @@ namespace Terraria
 				Main.npc[num21].UpdateNPC(num21);
 				goto IL_401D;
 			}
+			Projectile.UpdateStaticThings();
 			int num22 = 0;
 			int num23 = 0;
 			while (num23 < 1000)
@@ -6605,12 +6651,14 @@ namespace Terraria
 		{
 			Item item;
 			Main.netMode = 2;
+			CustomCurrencyManager.Initialize();
 			TileObjectData.Initialize();
 			Animation.Initialize();
 			Chest.Initialize();
 			Wiring.Initialize();
 			Framing.Initialize();
 			TileEntity.InitializeAll();
+			Projectile.InitializeStaticThings();
 			Main.InitializeItemAnimations();
 			Mount.Initialize();
 			Minecart.Initialize();
@@ -6624,6 +6672,24 @@ namespace Terraria
 			{
 				Main.projFrames[i] = 1;
 			}
+			Main.projFrames[706] = 8;
+			Main.projFrames[712] = 8;
+			Main.projFrames[663] = 7;
+			Main.projFrames[665] = 9;
+			Main.projFrames[667] = 9;
+			Main.projFrames[677] = 6;
+			Main.projFrames[678] = 6;
+			Main.projFrames[679] = 6;
+			Main.projFrames[688] = 6;
+			Main.projFrames[689] = 6;
+			Main.projFrames[690] = 8;
+			Main.projFrames[691] = 4;
+			Main.projFrames[692] = 4;
+			Main.projFrames[693] = 4;
+			Main.projFrames[694] = 4;
+			Main.projFrames[695] = 4;
+			Main.projFrames[696] = 5;
+			Main.projFrames[700] = 4;
 			Main.projFrames[643] = 8;
 			Main.projFrames[566] = 4;
 			Main.projFrames[565] = 4;
@@ -6670,6 +6736,7 @@ namespace Terraria
 			Main.projFrames[349] = 5;
 			Main.projFrames[423] = 4;
 			Main.projFrames[435] = 4;
+			Main.projFrames[682] = 4;
 			Main.projFrames[436] = 4;
 			Main.projFrames[439] = 6;
 			Main.projFrames[443] = 4;
@@ -6690,6 +6757,7 @@ namespace Terraria
 			Main.projFrames[574] = 2;
 			Main.projFrames[634] = 4;
 			Main.projFrames[635] = 4;
+			Main.projFrames[709] = 3;
 			Main.projFrames[353] = 14;
 			Main.projFrames[346] = 2;
 			Main.projFrames[347] = 2;
@@ -6752,9 +6820,15 @@ namespace Terraria
 			Main.projFrames[380] = 4;
 			Main.projFrames[601] = 2;
 			Main.projFrames[602] = 4;
+			Main.projFrames[703] = 8;
+			Main.projFrames[701] = 3;
+			Main.projFrames[702] = 4;
 			Main.projPet[492] = true;
 			Main.projPet[499] = true;
 			Main.projPet[653] = true;
+			Main.projPet[701] = true;
+			Main.projPet[703] = true;
+			Main.projPet[702] = true;
 			Main.projPet[319] = true;
 			Main.projPet[653] = true;
 			Main.projPet[334] = true;
@@ -6809,6 +6883,7 @@ namespace Terraria
 			Main.tileLighted[27] = true;
 			Main.tileLighted[381] = true;
 			Main.tileLighted[184] = true;
+			Main.tileLighted[463] = true;
 			Main.slimeRainNPC[1] = true;
 			Main.debuff[158] = true;
 			Main.debuff[160] = true;
@@ -6857,6 +6932,10 @@ namespace Terraria
 			Main.debuff[164] = true;
 			Main.debuff[144] = true;
 			Main.debuff[194] = true;
+			Main.debuff[195] = true;
+			Main.debuff[196] = true;
+			Main.debuff[197] = true;
+			Main.debuff[199] = true;
 			Main.pvpBuff[20] = true;
 			Main.pvpBuff[24] = true;
 			Main.pvpBuff[31] = true;
@@ -6956,6 +7035,14 @@ namespace Terraria
 			Main.buffNoSave[182] = true;
 			Main.buffNoSave[187] = true;
 			Main.buffNoSave[188] = true;
+			Main.buffNoSave[193] = true;
+			Main.buffNoSave[194] = true;
+			Main.buffNoSave[195] = true;
+			Main.buffNoSave[196] = true;
+			Main.buffNoSave[197] = true;
+			Main.buffNoSave[198] = true;
+			Main.buffNoSave[199] = true;
+			Main.buffNoSave[205] = true;
 			for (int j = 173; j <= 181; j++)
 			{
 				Main.buffNoSave[j] = true;
@@ -7056,6 +7143,8 @@ namespace Terraria
 			Main.vanityPet[127] = true;
 			Main.vanityPet[136] = true;
 			Main.vanityPet[191] = true;
+			Main.vanityPet[202] = true;
+			Main.vanityPet[200] = true;
 			Main.lightPet[19] = true;
 			Main.lightPet[155] = true;
 			Main.lightPet[27] = true;
@@ -7064,6 +7153,7 @@ namespace Terraria
 			Main.lightPet[57] = true;
 			Main.lightPet[190] = true;
 			Main.lightPet[152] = true;
+			Main.lightPet[201] = true;
 			Main.tileFlame[4] = true;
 			Main.tileFlame[33] = true;
 			Main.tileFlame[34] = true;
@@ -7247,6 +7337,9 @@ namespace Terraria
 			Main.tileFrameImportant[324] = true;
 			Main.tileObsidianKill[324] = true;
 			Main.tileLavaDeath[324] = true;
+			Main.tileFrameImportant[463] = true;
+			Main.tileFrameImportant[464] = true;
+			Main.tileFrameImportant[466] = true;
 			Main.tileFrameImportant[419] = true;
 			Main.tileFrameImportant[442] = true;
 			Main.tileFrameImportant[443] = true;
@@ -7508,6 +7601,7 @@ namespace Terraria
 			Main.tileBlockLight[235] = true;
 			Main.tileFrameImportant[235] = true;
 			Main.tileLighted[238] = true;
+			Main.tileCut[254] = true;
 			Main.tileFrameImportant[236] = true;
 			Main.tileCut[236] = true;
 			Main.tileSolid[191] = true;
@@ -7767,10 +7861,6 @@ namespace Terraria
 			if (Main.rand == null)
 			{
 				Main.rand = new Random((int)DateTime.Now.Ticks);
-			}
-			if (WorldGen.genRand == null)
-			{
-				WorldGen.genRand = new Random((int)DateTime.Now.Ticks);
 			}
 			this.SetTitle();
 			Main.lo = Main.rand.Next(6);
@@ -8157,6 +8247,7 @@ namespace Terraria
 			Main.tileFrameImportant[21] = true;
 			Main.tileFrameImportant[441] = true;
 			Main.tileFrameImportant[425] = true;
+			Main.tileFrameImportant[465] = true;
 			Main.tileFrameImportant[24] = true;
 			Main.tileFrameImportant[26] = true;
 			Main.tileFrameImportant[27] = true;
@@ -8627,6 +8718,9 @@ namespace Terraria
 			Main.tileLavaDeath[425] = true;
 			Main.tileLavaDeath[453] = true;
 			Main.tileLavaDeath[456] = true;
+			Main.tileLavaDeath[463] = true;
+			Main.tileLavaDeath[464] = true;
+			Main.tileLavaDeath[465] = true;
 			Main.tileLighted[316] = true;
 			Main.tileLighted[317] = true;
 			Main.tileLighted[318] = true;
@@ -8843,7 +8937,7 @@ namespace Terraria
 					Item.legType[item.legSlot] = item.type;
 				}
 				int type = item.type;
-				if (type <= 1827)
+				if (type <= 1931)
 				{
 					if (type <= 788)
 					{
@@ -8851,132 +8945,120 @@ namespace Terraria
 						{
 							if (type == 683 || type == 723)
 							{
-								goto IL_5E8A;
+								goto IL_60FE;
 							}
 						}
 						else
 						{
 							if (type == 726)
 							{
-								goto IL_5E8A;
+								goto IL_60FE;
 							}
 							switch (type)
 							{
-								case 739:
-								case 740:
-								case 741:
-								case 742:
-								case 743:
-								case 744:
-									goto IL_5E8A;
-								default:
-									if (type == 788)
-									{
-										goto IL_5E8A;
-									}
-									break;
+							case 739:
+							case 740:
+							case 741:
+							case 742:
+							case 743:
+							case 744:
+								goto IL_60FE;
+							default:
+								if (type == 788)
+								{
+									goto IL_60FE;
+								}
+								break;
 							}
 						}
 					}
-					else if (type <= 1326)
+					else if (type <= 1446)
 					{
 						if (type == 1308 || type == 1326)
 						{
-							goto IL_5E8A;
+							goto IL_60FE;
+						}
+						switch (type)
+						{
+						case 1444:
+						case 1445:
+						case 1446:
+							goto IL_60FE;
 						}
 					}
 					else
 					{
+						if (type == 1801)
+						{
+							goto IL_60FE;
+						}
+						if (type == 1827)
+						{
+							goto IL_610E;
+						}
 						switch (type)
 						{
-							case 1444:
-							case 1445:
-							case 1446:
-								goto IL_5E8A;
-							default:
-								if (type == 1801)
-								{
-									goto IL_5E8A;
-								}
-								if (type == 1827)
-								{
-									goto IL_5E9A;
-								}
-								break;
+						case 1930:
+						case 1931:
+							goto IL_60FE;
 						}
 					}
 				}
-				else if (type <= 3051)
+				else if (type <= 3245)
 				{
-					if (type <= 2188)
+					if (type <= 3006)
 					{
-						switch (type)
+						if (type == 2188 || type == 2750 || type == 3006)
 						{
-							case 1930:
-							case 1931:
-								goto IL_5E8A;
-							default:
-								if (type == 2188)
-								{
-									goto IL_5E8A;
-								}
-								break;
+							goto IL_60FE;
 						}
 					}
-					else if (type == 2750 || type == 3006 || type == 3051)
+					else
 					{
-						goto IL_5E8A;
-					}
-				}
-				else if (type <= 3377)
-				{
-					switch (type)
-					{
+						if (type == 3051)
+						{
+							goto IL_60FE;
+						}
+						switch (type)
+						{
 						case 3209:
 						case 3210:
-							goto IL_5E8A;
+							goto IL_60FE;
 						default:
 							if (type == 3245)
 							{
-								goto IL_5E9A;
-							}
-							if (type == 3377)
-							{
-								goto IL_5E8A;
+								goto IL_610E;
 							}
 							break;
+						}
 					}
 				}
-				else
+				else if (type <= 3571)
 				{
-					if (type == 3476)
+					if (type == 3377 || type == 3476)
 					{
-						goto IL_5E8A;
+						goto IL_60FE;
 					}
 					switch (type)
 					{
-						case 3569:
-						case 3571:
-							goto IL_5E8A;
-						case 3570:
-							break;
-						default:
-							if (type == 3787)
-							{
-								goto IL_5E8A;
-							}
-							break;
+					case 3569:
+					case 3571:
+						goto IL_60FE;
 					}
 				}
-				IL_5EA8:
+				else if (type == 3787 || type == 3852 || type == 3870)
+				{
+					goto IL_60FE;
+				}
+				IL_611C:
 				num++;
 				continue;
-				IL_5E8A:
+				IL_60FE:
 				Item.staff[item.type] = true;
-				goto IL_5EA8;
-				IL_5E9A:
+				goto IL_611C;
+				IL_610E:
 				Item.claw[item.type] = true;
-				goto IL_5EA8;
+				goto IL_611C;
 			}
 			Main.InitLifeBytes();
 			for (int g = 0; g < Recipe.maxRecipes; g++)
@@ -9937,109 +10019,118 @@ namespace Terraria
 				{
 					try
 					{
-
-						if (lower == "help")
+						if (lower == Language.GetTextValue("CLI.Help_Command"))
 						{
-							Console.WriteLine("Available commands:");
+							Console.WriteLine(Language.GetTextValue("CLI.AvailableCommands"));
 							Console.WriteLine("");
-							object[] objArray = new object[] { "help ", '\t', '\t', " Displays a list of commands." };
-							Console.WriteLine(string.Concat(objArray));
-							Console.WriteLine(string.Concat("playing ", '\t', " Shows the list of players"));
-							object[] objArray1 = new object[] { "clear ", '\t', '\t', " Clear the console window." };
-							Console.WriteLine(string.Concat(objArray1));
-							object[] objArray2 = new object[] { "exit ", '\t', '\t', " Shutdown the server and save." };
-							Console.WriteLine(string.Concat(objArray2));
-							Console.WriteLine(string.Concat("exit-nosave ", '\t', " Shutdown the server without saving."));
-							object[] objArray3 = new object[] { "save ", '\t', '\t', " Save the game world." };
-							Console.WriteLine(string.Concat(objArray3));
-							Console.WriteLine(string.Concat("kick <player> ", '\t', " Kicks a player from the server."));
-							Console.WriteLine(string.Concat("ban <player> ", '\t', " Bans a player from the server."));
-							Console.WriteLine(string.Concat("password", '\t', " Show password."));
-							Console.WriteLine(string.Concat("password <pass>", '\t', " Change password."));
-							object[] objArray4 = new object[] { "version", '\t', '\t', " Print version number." };
-							Console.WriteLine(string.Concat(objArray4));
-							object[] objArray5 = new object[] { "time", '\t', '\t', " Display game time." };
-							Console.WriteLine(string.Concat(objArray5));
-							object[] objArray6 = new object[] { "port", '\t', '\t', " Print the listening port." };
-							Console.WriteLine(string.Concat(objArray6));
-							Console.WriteLine(string.Concat("maxplayers", '\t', " Print the max number of players."));
-							Console.WriteLine(string.Concat("say <words>", '\t', " Send a message."));
-							object[] objArray7 = new object[] { "motd", '\t', '\t', " Print MOTD." };
-							Console.WriteLine(string.Concat(objArray7));
-							Console.WriteLine(string.Concat("motd <words>", '\t', " Change MOTD."));
-							object[] objArray8 = new object[] { "dawn", '\t', '\t', " Change time to dawn." };
-							Console.WriteLine(string.Concat(objArray8));
-							object[] objArray9 = new object[] { "noon", '\t', '\t', " Change time to noon." };
-							Console.WriteLine(string.Concat(objArray9));
-							object[] objArray10 = new object[] { "dusk", '\t', '\t', " Change time to dusk." };
-							Console.WriteLine(string.Concat(objArray10));
-							Console.WriteLine(string.Concat("midnight", '\t', " Change time to midnight."));
-							object[] objArray11 = new object[] { "settle", '\t', '\t', " Settle all water." };
-							Console.WriteLine(string.Concat(objArray11));
+							List<string> list = new List<string>
+						{
+							"Help",
+							"Playing",
+							"Clear",
+							"Exit",
+							"ExitNoSave",
+							"Save",
+							"Kick",
+							"Ban",
+							"Password",
+							"SetPassword",
+							"Version",
+							"Time",
+							"Port",
+							"MaxPlayers",
+							"Say",
+							"MOTD",
+							"SetMOTD",
+							"Dawn",
+							"Noon",
+							"Dusk",
+							"Midnight",
+							"Settle"
+						};
+							if (Main.UseSeedUI)
+							{
+								list.Add("Seed");
+							}
+							int num = 0;
+							for (int i = 0; i < list.Count; i++)
+							{
+								string text3 = Language.Exists("CLI." + list[i] + "_Example") ? Language.GetTextValue("CLI." + list[i] + "_Example") : Language.GetTextValue("CLI." + list[i] + "_Command");
+								if (text3.Length > num)
+								{
+									num = text3.Length;
+								}
+							}
+							int num2 = (num + 1) / 8;
+							for (int j = 0; j < list.Count; j++)
+							{
+								string text4 = Language.Exists("CLI." + list[j] + "_Example") ? Language.GetTextValue("CLI." + list[j] + "_Example") : Language.GetTextValue("CLI." + list[j] + "_Command");
+								Console.WriteLine(text4 + new string('\t', num2 - text4.Length / 8) + Language.GetTextValue("CLI." + list[j] + "_Description"));
+							}
 						}
-						else if (lower == "settle")
+						else if (lower == Language.GetTextValue("CLI.Settle_Command"))
 						{
 							if (Liquid.panicMode)
 							{
-								Console.WriteLine("Water is already settling");
+								Console.WriteLine(Language.GetTextValue("CLI.WaterIsAlreadySettling"));
 							}
 							else
 							{
 								Liquid.StartPanic();
 							}
 						}
-						else if (lower == "dawn")
+						else if (lower == Language.GetTextValue("CLI.Dawn_Command"))
 						{
 							Main.dayTime = true;
-							Main.time = 0;
+							Main.time = 0.0;
 							NetMessage.SendData(7, -1, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
 						}
-						else if (lower == "dusk")
+						else if (lower == Language.GetTextValue("CLI.Dusk_Command"))
 						{
 							Main.dayTime = false;
-							Main.time = 0;
+							Main.time = 0.0;
 							NetMessage.SendData(7, -1, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
 						}
-						else if (lower == "noon")
+						else if (lower == Language.GetTextValue("CLI.Noon_Command"))
 						{
 							Main.dayTime = true;
-							Main.time = 27000;
+							Main.time = 27000.0;
 							NetMessage.SendData(7, -1, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
 						}
-						else if (lower == "midnight")
+						else if (lower == Language.GetTextValue("CLI.Midnight_Command"))
 						{
 							Main.dayTime = false;
-							Main.time = 16200;
+							Main.time = 16200.0;
 							NetMessage.SendData(7, -1, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
 						}
-						else if (lower == "exit-nosave")
+						else if (lower == Language.GetTextValue("CLI.ExitNoSave_Command"))
 						{
 							Netplay.disconnect = true;
 						}
-						else if (lower == "exit")
+						else if (lower == Language.GetTextValue("CLI.Exit_Command"))
 						{
 							WorldFile.saveWorld();
 							Netplay.disconnect = true;
 						}
-						else if (lower == "fps")
+						else if (lower == Language.GetTextValue("CLI.FPS_Command"))
 						{
-							if (Main.dedServFPS)
+							if (!Main.dedServFPS)
+							{
+								Main.dedServFPS = true;
+								Main.fpsTimer.Reset();
+							}
+							else
 							{
 								Main.dedServCount1 = 0;
 								Main.dedServCount2 = 0;
 								Main.dedServFPS = false;
 							}
-							else
-							{
-								Main.dedServFPS = true;
-								Main.fpsTimer.Reset();
-							}
 						}
-						else if (lower == "save")
+						else if (lower == Language.GetTextValue("CLI.Save_Command"))
 						{
 							WorldFile.saveWorld();
 						}
-						else if (lower == "time")
+						else if (lower == Language.GetTextValue("CLI.Time_Command"))
 						{
 							string str1 = "AM";
 							double num = Main.time;
@@ -10073,177 +10164,198 @@ namespace Terraria
 							{
 								num1 = 12;
 							}
-							object[] objArray12 = new object[] { "Time: ", num1, ":", str2, " ", str1 };
+							object[] objArray12 = new object[] { Language.GetTextValue("CLI.Time", num1, ":", str2, " ", str1 };
 							Console.WriteLine(string.Concat(objArray12));
 						}
-						else if (lower == "maxplayers")
+						else if (lower == Language.GetTextValue("CLI.MaxPlayers_Command"))
 						{
-							Console.WriteLine(string.Concat("Player limit: ", Main.maxNetPlayers));
+							Console.WriteLine(Language.GetTextValue("CLI.PlayerLimit", Main.maxNetPlayers));
 						}
-						else if (lower == "port")
+						else if (lower == Language.GetTextValue("CLI.Port_Command"))
 						{
-							Console.WriteLine(string.Concat("Port: ", Netplay.ListenPort));
+							Console.WriteLine(Language.GetTextValue("CLI.Port", Netplay.ListenPort));
 						}
-						else if (lower == "version")
+						else if (lower == Language.GetTextValue("CLI.Version_Command"))
 						{
-							Console.WriteLine(string.Concat("Terraria Server ", Main.versionNumber));
+							Console.WriteLine(Language.GetTextValue("CLI.Server", Main.versionNumber));
 						}
-						else if (lower == "clear")
+						else
 						{
-							try
+							if (lower == Language.GetTextValue("CLI.Clear_Command"))
 							{
-								Console.Clear();
-							}
-							catch (Exception ex)
-							{
+								try
+								{
+									Console.Clear();
+								}
+								catch (Exception ex)
+								{
 #if DEBUG
-								Console.WriteLine(ex);
-								System.Diagnostics.Debugger.Break();
+									Console.WriteLine(ex);
+									System.Diagnostics.Debugger.Break();
 
 #endif
-							}
-						}
-						else if (lower == "playing")
-						{
-							int num3 = 0;
-							for (int i = 0; i < 255; i++)
-							{
-								if (Main.player[i].active)
-								{
-									num3++;
-									object[] remoteAddress = new object[]
-									{ Main.player[i].name, " (", Netplay.Clients[i].Socket.GetRemoteAddress(), ")" };
-									Console.WriteLine(string.Concat(remoteAddress));
 								}
 							}
-							if (num3 == 0)
+							else if (lower == Language.GetTextValue("CLI.Playing_Command"))
 							{
-								Console.WriteLine("No players connected.");
-							}
-							else if (num3 != 1)
-							{
-								Console.WriteLine(string.Concat(num3, " players connected."));
-							}
-							else
-							{
-								Console.WriteLine("1 player connected.");
-							}
-						}
-						else if (lower != "")
-						{
-							if (lower == "motd")
-							{
-								if (Main.motd != "")
+								int num3 = 0;
+								for (int i = 0; i < 255; i++)
 								{
-									Console.WriteLine(string.Concat("MOTD: ", Main.motd));
-								}
-								else
-								{
-									Console.WriteLine(string.Concat("Welcome to ", Main.worldName, "!"));
-								}
-							}
-							else if (lower.Length >= 5 && lower.Substring(0, 5) == "motd ")
-							{
-								Main.motd = str.Substring(5);
-							}
-							else if (lower.Length == 8 && lower.Substring(0, 8) == "password")
-							{
-								if (Netplay.ServerPassword != "")
-								{
-									Console.WriteLine(string.Concat("Password: ", Netplay.ServerPassword));
-								}
-								else
-								{
-									Console.WriteLine("No password set.");
-								}
-							}
-							else if (lower.Length >= 9 && lower.Substring(0, 9) == "password ")
-							{
-								string str3 = str.Substring(9);
-								if (str3 != "")
-								{
-									Netplay.ServerPassword = str3;
-									Console.WriteLine(string.Concat("Password: ", Netplay.ServerPassword));
-								}
-								else
-								{
-									Netplay.ServerPassword = "";
-									Console.WriteLine("Password disabled.");
-								}
-							}
-							else if (lower == "say")
-							{
-								Console.WriteLine("Usage: say <words>");
-							}
-							else if (lower.Length >= 4 && lower.Substring(0, 4) == "say ")
-							{
-								string str4 = str.Substring(4);
-								if (str4 != "")
-								{
-									Console.WriteLine(string.Concat("<Server> ", str4));
-									NetMessage.SendData(25, -1, -1, string.Concat("<Server> ", str4), 255, 255f, 240f, 20f, 0, 0, 0);
-								}
-								else
-								{
-									Console.WriteLine("Usage: say <words>");
-								}
-							}
-							else if (lower.Length == 4 && lower.Substring(0, 4) == "kick")
-							{
-								Console.WriteLine("Usage: kick <player>");
-							}
-							else if (lower.Length >= 5 && lower.Substring(0, 5) == "kick ")
-							{
-								string lower1 = lower.Substring(5);
-								lower1 = lower1.ToLower();
-								if (lower1 != "")
-								{
-									for (int j = 0; j < 255; j++)
+									if (Main.player[i].active)
 									{
-										if (Main.player[j].active && Main.player[j].name.ToLower() == lower1)
+										num3++;
+										object[] remoteAddress = new object[]
+										{ Main.player[i].name, " (", Netplay.Clients[i].Socket.GetRemoteAddress(), ")" };
+										Console.WriteLine(string.Concat(remoteAddress));
+									}
+								}
+								if (num3 == 0)
+								{
+									Console.WriteLine(Language.GetTextValue("CLI.NoPlayers"));
+								}
+								else if (num3 != 1)
+								{
+									Console.WriteLine(Language.GetTextValue("CLI.PlayersConnected", num3));
+								}
+								else
+								{
+									Console.WriteLine(Language.GetTextValue("CLI.OnePlayerConnected"));
+								}
+							}
+							else if (lower != "")
+							{
+								if (lower == Language.GetTextValue("CLI.MOTD_Command"))
+								{
+									if (Main.motd != "")
+									{
+										Console.WriteLine(Language.GetTextValue("CLI.MOTD", Main.motd));
+									}
+									else
+									{
+										Console.WriteLine(Language.GetTextValue("CLI.NoMOTD", Main.worldName));
+									}
+								}
+								else if (lower.StartsWith(Language.GetTextValue("CLI.SetMOTD_Command") + " "))
+								{
+									string text7 = lower.Substring(Language.GetTextValue("CLI.SetMOTD_Command").Length + 1);
+									Main.motd = text7;
+								}
+								else if (lower.StartsWith(Language.GetTextValue("CLI.SetPassword_Command") + " "))
+								{
+									if (Netplay.ServerPassword != "")
+									{
+										Console.WriteLine(Language.GetTextValue("CLI.Password", Netplay.ServerPassword));
+									}
+									else
+									{
+										Console.WriteLine(Language.GetTextValue("CLI.NoPassword"));
+									}
+								}
+								else if (lower.StartsWith(Language.GetTextValue("CLI.SetPassword_Command") + " "))
+								{
+									string str3 = str.Substring(Language.GetTextValue("CLI.SetPassword_Command").Length + 1);
+									if (str3 == "")
+									{
+										Netplay.ServerPassword = "";
+										Console.WriteLine(Language.GetTextValue("CLI.PasswordDisabled"));
+									}
+									else
+									{
+										Netplay.ServerPassword = str3;
+										Console.WriteLine(Language.GetTextValue("CLI.PasswordSet", Netplay.ServerPassword));
+									}
+								}
+								else if (lower == Language.GetTextValue("CLI.Say_Command"))
+								{
+									Console.WriteLine(Language.GetTextValue("CLI.Say_Usage"));
+								}
+								else if (lower.StartsWith(Language.GetTextValue("CLI.Say_Command") + " "))
+								{
+
+									int length = Language.GetTextValue("CLI.Say_Command").Length;
+									if (lower.Length <= length + 1)
+									{
+										Console.WriteLine(Language.GetTextValue("CLI.Say_Usage"));
+									}
+									else
+									{
+										string arg = str.Substring(length + 1);
+										Console.WriteLine(Language.GetTextValue("CLI.ServerMessage", arg));
+										NetMessage.SendData(25, -1, -1, string.Concat("<Server> ", str4), 255, 255f, 240f, 20f, 0, 0, 0);
+
+									}
+								}
+								else if (lower == Language.GetTextValue("CLI.Kick_Command"))
+								{
+									Console.WriteLine(Language.GetTextValue("CLI.Kick_Usage"));
+								}
+								else if (lower.StartsWith(Language.GetTextValue("CLI.Kick_Command") + " "))
+								{
+									int length2 = Language.GetTextValue("CLI.Kick_Command").Length;
+									if (lower.Length <= length2 + 1)
+									{
+										Console.WriteLine(Language.GetTextValue("CLI.Kick_Usage"));
+									}
+									else
+									{
+										string text9 = lower.Substring(length2 + 1);
+										text9 = text9.ToLower();
+										for (int l = 0; l < 255; l++)
 										{
-											NetMessage.SendData(2, j, -1, "Kicked from server.", 0, 0f, 0f, 0f, 0, 0, 0);
+											if (Main.player[l].active && Main.player[l].name.ToLower() == text9)
+											{
+												NetMessage.SendData(2, l, -1, Language.GetTextValue("CLI.KickMessage"), 0, 0f, 0f, 0f, 0, 0, 0);
+											}
+										}
+									}
+								}
+								else if (lower == Language.GetTextValue("CLI.Seed_Command"))
+								{
+									if (Main.ActiveWorldFileData == null || !Main.ActiveWorldFileData.HasValidSeed)
+									{
+										Console.WriteLine(Language.GetTextValue("CLI.NoValidSeed"));
+									}
+									else
+									{
+										Console.WriteLine(Language.GetTextValue("CLI.DisplaySeed", Main.ActiveWorldFileData.SeedText));
+									}
+								}
+								else if (lower == Language.GetTextValue("CLI.Ban_Command"))
+								{
+									Console.WriteLine(Language.GetTextValue("CLI.Ban_Usage"));
+								}
+								else if (lower.StartsWith(Language.GetTextValue("CLI.Ban_Command") + " "))
+								{
+									int length3 = Language.GetTextValue("CLI.Ban_Command").Length;
+									if (lower.Length <= length3 + 1)
+									{
+										Console.WriteLine(Language.GetTextValue("CLI.Ban_Usage"));
+									}
+									else
+									{
+										string text10 = lower.Substring(4);
+										text10 = text10.ToLower();
+										for (int m = 0; m < 255; m++)
+										{
+											if (Main.player[m].active && Main.player[m].name.ToLower() == text10)
+											{
+												Netplay.AddBan(m);
+												NetMessage.SendData(2, m, -1, Language.GetTextValue("CLI.BanMessage"), 0, 0f, 0f, 0f, 0, 0, 0);
+											}
 										}
 									}
 								}
 								else
 								{
-									Console.WriteLine("Usage: kick <player>");
+									Console.WriteLine(Language.GetTextValue("CLI.InvalidCommand"));
 								}
-							}
-							else if (lower.Length == 3 && lower.Substring(0, 3) == "ban")
-							{
-								Console.WriteLine("Usage: ban <player>");
-							}
-							else if (lower.Length < 4 || !(lower.Substring(0, 4) == "ban "))
-							{
-								Console.WriteLine("Invalid command.");
-							}
-							else
-							{
-								string lower2 = lower.Substring(4);
-								lower2 = lower2.ToLower();
-								if (lower2 != "")
-								{
-									for (int k = 0; k < 255; k++)
-									{
-										if (Main.player[k].active && Main.player[k].name.ToLower() == lower2)
-										{
-											Netplay.AddBan(k);
-											NetMessage.SendData(2, k, -1, "Banned from server.", 0, 0f, 0f, 0f, 0, 0, 0);
-										}
-									}
-								}
-								else
-								{
-									Console.WriteLine("Usage: ban <player>");
-								}
+
 							}
 						}
 					}
 					catch
 					{
-						Console.WriteLine("Invalid command.");
+						Console.WriteLine(Language.GetTextValue("CLI.InvalidCommand"));
 					}
 				}
 			}
@@ -10313,15 +10425,18 @@ namespace Terraria
 			{
 				NPC.waveKills = 0f;
 				NPC.waveCount = 1;
-				string str = string.Concat("First Wave: ", Main.npcName[305]);
+				string invasionWaveText = Lang.GetInvasionWaveText(1, new short[]
+				{
+					305
+				});
 				if (Main.netMode == 0)
 				{
-					Main.NewText(str, 175, 75, 255, false);
+					Main.NewText(invasionWaveText, 175, 75, 255, false);
 					return;
 				}
 				if (Main.netMode == 2)
 				{
-					NetMessage.SendData(25, -1, -1, str, 255, 175f, 75f, 255f, 0, 0, 0);
+					NetMessage.SendData(25, -1, -1, invasionWaveText, 255, 175f, 75f, 255f, 0, 0, 0);
 				}
 			}
 		}
@@ -10420,15 +10535,19 @@ namespace Terraria
 			{
 				NPC.waveKills = 0f;
 				NPC.waveCount = 1;
-				string str = "First Wave: Zombie Elf and Gingerbread Man";
+				string invasionWaveText = Lang.GetInvasionWaveText(1, new short[]
+				{
+					338,
+					342
+				});
 				if (Main.netMode == 0)
 				{
-					Main.NewText(str, 175, 75, 255, false);
+					Main.NewText(invasionWaveText, 175, 75, 255, false);
 					return;
 				}
 				if (Main.netMode == 2)
 				{
-					NetMessage.SendData(25, -1, -1, str, 255, 175f, 75f, 255f, 0, 0, 0);
+					NetMessage.SendData(25, -1, -1, invasionWaveText, 255, 175f, 75f, 255f, 0, 0, 0);
 				}
 			}
 		}
@@ -10568,6 +10687,14 @@ namespace Terraria
 
 		protected void Update()
 		{
+			if (!Main.IsEnginePreloaded)
+			{
+				Main.IsEnginePreloaded = true;
+				if (Main.OnEnginePreload != null)
+				{
+					Main.OnEnginePreload();
+				}
+			}
 			this.DoUpdate();
 			if (Main.netMode == 2)
 			{
@@ -11201,6 +11328,7 @@ namespace Terraria
 						int num32 = 0;
 						int num33 = 0;
 						int num34 = 0;
+						int num39b = 0;
 						for (int o = 0; o < 200; o++)
 						{
 							if (Main.npc[o].active && Main.npc[o].townNPC)
@@ -11300,6 +11428,10 @@ namespace Terraria
 								if (Main.npc[o].type == 441)
 								{
 									num33++;
+								}
+								if (Main.npc[o].type == 550)
+								{
+									num39b++;
 								}
 								num34++;
 							}
@@ -11476,6 +11608,10 @@ namespace Terraria
 							{
 								Main.nextNPC[208] = true;
 							}
+							if (NPC.savedBartender && num39b < 1)
+							{
+								Main.nextNPC[550] = true;
+							}
 							if (WorldGen.spawnNPC == 0 && num15 < 1)
 							{
 								WorldGen.spawnNPC = 22;
@@ -11563,6 +11699,10 @@ namespace Terraria
 							if (WorldGen.spawnNPC == 0 && NPC.downedFrost && num22 < 1 && Main.xMas)
 							{
 								WorldGen.spawnNPC = 142;
+							}
+							if (WorldGen.spawnNPC == 0 && NPC.savedBartender && num39b < 1)
+							{
+								WorldGen.spawnNPC = 550;
 							}
 						}
 					}
@@ -11861,19 +12001,19 @@ namespace Terraria
 			string str = "";
 			if (num1 > 0)
 			{
-				str = string.Concat(str, num1, " platinum ");
+				str += string.Format("{0} {1} ", num, Language.GetTextValue("Currency.Platinum").ToLower());
 			}
 			if (num2 > 0)
 			{
-				str = string.Concat(str, num2, " gold ");
+				str += string.Format("{0} {1} ", num2, Language.GetTextValue("Currency.Gold").ToLower());
 			}
 			if (num3 > 0)
 			{
-				str = string.Concat(str, num3, " silver ");
+				str += string.Format("{0} {1} ", num4, Language.GetTextValue("Currency.Copper").ToLower());
 			}
 			if (num4 > 0)
 			{
-				str = string.Concat(str, num4, " copper ");
+				str += string.Format("{0} {1} ", num4, Language.GetTextValue("Currency.Copper").ToLower());
 			}
 			if (str.Length > 0)
 			{
