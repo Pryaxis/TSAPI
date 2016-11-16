@@ -28,6 +28,7 @@ namespace Terraria
 		public static bool disconnect = false;
 		public static bool spamCheck = false;
 		public static bool anyClients = false;
+		private static object slotLock = new object();
 
 		public static void ResetNetDiag()
 		{
@@ -163,16 +164,19 @@ namespace Terraria
 		}
 		private static void OnConnectionAccepted(ISocket client)
 		{
-			int num = Netplay.FindNextOpenClientSlot();
-			if (num != -1)
+			lock(slotLock)
 			{
-				Netplay.Clients[num].Reset();
-				Netplay.Clients[num].Socket = client;
-				Console.WriteLine(client.GetRemoteAddress() + " is connecting...");
-			}
-			if (Netplay.FindNextOpenClientSlot() == -1)
-			{
-				Netplay.StopListening();
+				int num = Netplay.FindNextOpenClientSlot();
+				if (num != -1)
+				{
+					Netplay.Clients[num].Reset();
+					Netplay.Clients[num].Socket = client;
+					Console.WriteLine(client.GetRemoteAddress() + " is connecting...");
+				}
+				if (Netplay.FindNextOpenClientSlot() == -1)
+				{
+					Netplay.StopListening();
+				}
 			}
 		}
 
