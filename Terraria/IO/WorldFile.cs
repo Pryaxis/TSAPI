@@ -141,7 +141,7 @@ namespace Terraria.IO
 				IsExpertMode = isExpertMode,
 				CreationTime = DateTime.Now,
 				Metadata = FileMetadata.FromCurrentSettings(FileType.World),
-				WorldGeneratorVersion = 790273982465uL,
+				WorldGeneratorVersion = 794568949761uL,
 				UniqueId = Guid.NewGuid()
 			};
 			if (Main.DefaultSeed == "")
@@ -196,7 +196,7 @@ namespace Terraria.IO
 						{
 							worldFileDatum.Metadata = FileMetadata.Read(binaryReader, FileType.World);
 						}
-						if (num <= 184)
+						if (num <= 185)
 						{
 							binaryReader.ReadInt16();
 							stream.Position = (long)binaryReader.ReadInt32();
@@ -358,7 +358,7 @@ namespace Terraria.IO
 						{
 							binaryReader.BaseStream.Position += 20L;
 						}
-						if (num >= 112 && num <= 184)
+						if (num >= 112 && num <= 185)
 						{
 							binaryReader.ReadInt16();
 							fileStream.Position = (long)binaryReader.ReadInt32();
@@ -399,7 +399,7 @@ namespace Terraria.IO
 					using (BinaryReader binaryReader = new BinaryReader(fileStream))
 					{
 						int num = binaryReader.ReadInt32();
-						if (num > 0 && num <= 184)
+						if (num > 0 && num <= 185)
 						{
 							string text;
 							string result;
@@ -1161,7 +1161,7 @@ namespace Terraria.IO
 		public static int LoadWorld_Version1(BinaryReader fileIO)
 		{
 			int num = WorldFile.versionNumber;
-			if (num > 184)
+			if (num > 185)
 			{
 				return 1;
 			}
@@ -2112,7 +2112,7 @@ namespace Terraria.IO
 		private static int SaveHeaderPointers(BinaryWriter writer, int[] pointers)
 		{
 			writer.BaseStream.Position = (long)0;
-			writer.Write(184);
+			writer.Write(185);
 			Stream baseStream = writer.BaseStream;
 			baseStream.Position = baseStream.Position + (long)20;
 			writer.Write((short)((int)pointers.Length));
@@ -2718,7 +2718,7 @@ namespace Terraria.IO
 			{
 				Stream baseStream = fileIO.BaseStream;
 				int num = fileIO.ReadInt32();
-				if (num == 0 || num > 184)
+				if (num == 0 || num > 185)
 				{
 					result = false;
 				}

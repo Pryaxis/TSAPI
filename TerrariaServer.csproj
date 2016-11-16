@@ -109,7 +109,14 @@
     <Compile Include="Reporting\CrashReporter.cs" />
     <Compile Include="Reporting\Native.cs" />
     <Compile Include="Terraria\DataStructures\MethodSequenceListItem.cs" />
+    <Compile Include="Terraria\DataStructures\NPCAimedTarget.cs" />
     <Compile Include="Terraria\DataStructures\PlayerDeathReason.cs" />
+    <Compile Include="Terraria\Enums\NPCTargetType.cs" />
+    <Compile Include="Terraria\GameContent\Events\DD2Event.cs" />
+    <Compile Include="Terraria\ID\AmmoID.cs" />
+    <Compile Include="Terraria\ID\CustomCurrencyID.cs" />
+    <Compile Include="Terraria\ID\ItemAlternativeFunctionID.cs" />
+    <Compile Include="Terraria\ID\TileChangeType.cs" />
     <Compile Include="Terraria\StrayMethods.cs" />
     <Compile Include="TerrariaApi.Server\ApiVersionAttribute.cs" />
     <Compile Include="TerrariaApi.Server\EventArgs\ChatEventArgs.cs" />
@@ -185,6 +192,9 @@
     <Compile Include="Terraria\Terraria.GameContent.UI\EmoteID.cs" />
     <Compile Include="Terraria\Terraria.GameContent.UI\ItemRarity.cs" />
     <Compile Include="Terraria\Terraria.GameContent.UI\WorldUIAnchor.cs" />
+    <Compile Include="Terraria\Utilities\NPCUtils.cs" />
+    <Compile Include="Terraria\Utilities\SlotId.cs" />
+    <Compile Include="Terraria\Utilities\SlotVector.cs" />
     <Compile Include="Terraria\Utilities\WeightedRandom.cs" />
     <Compile Include="Terraria\World.Generation\GenerationProgress.cs">
       <AutoGen>false</AutoGen>

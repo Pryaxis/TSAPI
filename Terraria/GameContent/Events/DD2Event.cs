@@ -3,13 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using Terraria.ID;
 using Terraria.Localization;
-using Terraria.World.Generation;
-
-namespace Terraria.GameContent.Events
-{
-	public class DD2Event
-	{
-		public static Rectangle ArenaHitbox = default(Rectangle);
+using Terraria.World.Generation;namespace Terraria.GameContent.Events
+{	public class DD2Event
+	{		public static Rectangle ArenaHitbox = default(Rectangle);
 		public static bool DownedInvasionT1 = false;
 		public static bool DownedInvasionT2 = false;
 		public static bool DownedInvasionT3 = false;
@@ -29,13 +25,10 @@ namespace Terraria.GameContent.Events
 		private static bool _downedDarkMageT1 = false;
 		private static bool _downedOgreT2 = false;
 		private static bool _spawnedBetsyT3 = false;
-		private static int _timeLeftUntilSpawningBegins = 0;
-
-		public static void AnnounceGoblinDeath(NPC n)
+		private static int _timeLeftUntilSpawningBegins = 0;		public static void AnnounceGoblinDeath(NPC n)
 		{
 			DD2Event._deadGoblinSpots.Add(n.Bottom);
 		}
-
 		public static bool CanRaiseGoblinsHere(Vector2 spot)
 		{
 			int num = 0;
@@ -52,7 +45,6 @@ namespace Terraria.GameContent.Events
 			}
 			return false;
 		}
-		
 		public static void CheckProgress(int slainMonsterID)
 		{
 			if (Main.netMode == 1)
@@ -184,7 +176,6 @@ namespace Terraria.GameContent.Events
 				}
 			}
 		}
-
 		public static void ClearAllDD2EnergyCrystalsInGame()
 		{
 			for (int i = 0; i < 400; i++)
@@ -200,7 +191,6 @@ namespace Terraria.GameContent.Events
 				}
 			}
 		}
-
 		public static void ClearAllDD2HostilesInGame()
 		{
 			for (int i = 0; i < 200; i++)
@@ -215,7 +205,6 @@ namespace Terraria.GameContent.Events
 				}
 			}
 		}
-
 		public static void ClearAllTowersInGame()
 		{
 			for (int i = 0; i < 1000; i++)
@@ -226,7 +215,6 @@ namespace Terraria.GameContent.Events
 				}
 			}
 		}
-
 		private static short[] Difficulty_1_GetEnemiesForWave(int wave)
 		{
 			DD2Event.LaneSpawnRate = 60;
@@ -278,7 +266,6 @@ namespace Terraria.GameContent.Events
 					};
 			}
 		}
-
 		private static int Difficulty_1_GetMonsterPointsWorth(int slainMonsterID)
 		{
 			if (NPC.waveNumber != 5 || NPC.waveKills < 139f)
@@ -330,7 +317,6 @@ namespace Terraria.GameContent.Events
 			}
 			return 0;
 		}
-
 		private static int Difficulty_1_GetRequiredWaveKills(ref int waveNumber, ref int currentKillCount, bool currentlyInCheckProgress)
 		{
 			switch (waveNumber)
@@ -363,7 +349,6 @@ namespace Terraria.GameContent.Events
 			}
 			return 10;
 		}
-
 		private static void Difficulty_1_SpawnMonsterFromGate(Vector2 gateBottom)
 		{
 			int x = (int)gateBottom.X;
@@ -389,13 +374,13 @@ namespace Terraria.GameContent.Events
 				num2 = (int)((double)num2 * 1.3);
 				num3 = (int)((double)num3 * 1.3);
 			}
+			int num4 = 200;
 			switch (NPC.waveNumber)
 			{
 				case 1:
 					if (NPC.CountNPCS(552) + NPC.CountNPCS(555) < num)
 					{
-						NPC.NewNPC(x, y, 552, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						num4 = NPC.NewNPC(x, y, 552, 0, 0f, 0f, 0f, 0f, 255);
 					}
 					break;
 				case 2:
@@ -403,90 +388,92 @@ namespace Terraria.GameContent.Events
 					{
 						if (Main.rand.Next(7) == 0)
 						{
-							NPC.NewNPC(x, y, 555, 0, 0f, 0f, 0f, 0f, 255);
-							return;
+							num4 = NPC.NewNPC(x, y, 555, 0, 0f, 0f, 0f, 0f, 255);
 						}
-						NPC.NewNPC(x, y, 552, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						else
+						{
+							num4 = NPC.NewNPC(x, y, 552, 0, 0f, 0f, 0f, 0f, 255);
+						}
 					}
 					break;
 				case 3:
 					if (Main.rand.Next(6) == 0 && NPC.CountNPCS(561) < num2)
 					{
-						NPC.NewNPC(x, y, 561, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						num4 = NPC.NewNPC(x, y, 561, 0, 0f, 0f, 0f, 0f, 255);
 					}
-					if (NPC.CountNPCS(552) + NPC.CountNPCS(555) < num)
+					else if (NPC.CountNPCS(552) + NPC.CountNPCS(555) < num)
 					{
 						if (Main.rand.Next(5) == 0)
 						{
-							NPC.NewNPC(x, y, 555, 0, 0f, 0f, 0f, 0f, 255);
-							return;
+							num4 = NPC.NewNPC(x, y, 555, 0, 0f, 0f, 0f, 0f, 255);
 						}
-						NPC.NewNPC(x, y, 552, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						else
+						{
+							num4 = NPC.NewNPC(x, y, 552, 0, 0f, 0f, 0f, 0f, 255);
+						}
 					}
 					break;
 				case 4:
 					if (Main.rand.Next(12) == 0 && NPC.CountNPCS(558) < num3)
 					{
-						NPC.NewNPC(x, y, 558, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						num4 = NPC.NewNPC(x, y, 558, 0, 0f, 0f, 0f, 0f, 255);
 					}
-					if (Main.rand.Next(5) == 0 && NPC.CountNPCS(561) < num2)
+					else if (Main.rand.Next(5) == 0 && NPC.CountNPCS(561) < num2)
 					{
-						NPC.NewNPC(x, y, 561, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						num4 = NPC.NewNPC(x, y, 561, 0, 0f, 0f, 0f, 0f, 255);
 					}
-					if (NPC.CountNPCS(552) + NPC.CountNPCS(555) < num)
+					else if (NPC.CountNPCS(552) + NPC.CountNPCS(555) < num)
 					{
 						if (Main.rand.Next(5) == 0)
 						{
-							NPC.NewNPC(x, y, 555, 0, 0f, 0f, 0f, 0f, 255);
-							return;
+							num4 = NPC.NewNPC(x, y, 555, 0, 0f, 0f, 0f, 0f, 255);
 						}
-						NPC.NewNPC(x, y, 552, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						else
+						{
+							num4 = NPC.NewNPC(x, y, 552, 0, 0f, 0f, 0f, 0f, 255);
+						}
 					}
 					break;
 				case 5:
 					{
-						int num4;
 						int num5;
 						int num6;
-						DD2Event.GetInvasionStatus(out num4, out num5, out num6, false);
-						if ((float)num6 > (float)num5 * 0.5f && !NPC.AnyNPCs(564))
+						int num7;
+						DD2Event.GetInvasionStatus(out num5, out num6, out num7, false);
+						if ((float)num7 > (float)num6 * 0.5f && !NPC.AnyNPCs(564))
 						{
-							NPC.NewNPC(x, y, 564, 0, 0f, 0f, 0f, 0f, 255);
+							num4 = NPC.NewNPC(x, y, 564, 0, 0f, 0f, 0f, 0f, 255);
 						}
 						if (Main.rand.Next(10) == 0 && NPC.CountNPCS(558) < num3)
 						{
-							NPC.NewNPC(x, y, 558, 0, 0f, 0f, 0f, 0f, 255);
-							return;
+							num4 = NPC.NewNPC(x, y, 558, 0, 0f, 0f, 0f, 0f, 255);
 						}
-						if (Main.rand.Next(4) == 0 && NPC.CountNPCS(561) < num2)
+						else if (Main.rand.Next(4) == 0 && NPC.CountNPCS(561) < num2)
 						{
-							NPC.NewNPC(x, y, 561, 0, 0f, 0f, 0f, 0f, 255);
-							return;
+							num4 = NPC.NewNPC(x, y, 561, 0, 0f, 0f, 0f, 0f, 255);
 						}
-						if (NPC.CountNPCS(552) + NPC.CountNPCS(555) < num)
+						else if (NPC.CountNPCS(552) + NPC.CountNPCS(555) < num)
 						{
 							if (Main.rand.Next(4) == 0)
 							{
-								NPC.NewNPC(x, y, 555, 0, 0f, 0f, 0f, 0f, 255);
-								return;
+								num4 = NPC.NewNPC(x, y, 555, 0, 0f, 0f, 0f, 0f, 255);
 							}
-							NPC.NewNPC(x, y, 552, 0, 0f, 0f, 0f, 0f, 255);
-							return;
+							else
+							{
+								num4 = NPC.NewNPC(x, y, 552, 0, 0f, 0f, 0f, 0f, 255);
+							}
 						}
 						break;
 					}
 				default:
-					NPC.NewNPC(x, y, 552, 0, 0f, 0f, 0f, 0f, 255);
+					num4 = NPC.NewNPC(x, y, 552, 0, 0f, 0f, 0f, 0f, 255);
 					break;
 			}
+			if (Main.netMode == 2 && num4 < 200)
+			{
+				NetMessage.SendData(23, -1, -1, "", num4, 0f, 0f, 0f, 0, 0, 0);
+			}
 		}
-
 		private static short[] Difficulty_2_GetEnemiesForWave(int wave)
 		{
 			DD2Event.LaneSpawnRate = 60;
@@ -570,7 +557,6 @@ namespace Terraria.GameContent.Events
 					};
 			}
 		}
-
 		private static int Difficulty_2_GetMonsterPointsWorth(int slainMonsterID)
 		{
 			if (NPC.waveNumber != 7 || NPC.waveKills < 219f)
@@ -622,7 +608,6 @@ namespace Terraria.GameContent.Events
 			}
 			return 0;
 		}
-
 		private static int Difficulty_2_GetRequiredWaveKills(ref int waveNumber, ref int currentKillCount, bool currentlyInCheckProgress)
 		{
 			switch (waveNumber)
@@ -658,7 +643,6 @@ namespace Terraria.GameContent.Events
 			}
 			return 10;
 		}
-
 		private static void Difficulty_2_SpawnMonsterFromGate(Vector2 gateBottom)
 		{
 			int x = (int)gateBottom.X;
@@ -700,221 +684,200 @@ namespace Terraria.GameContent.Events
 				num5 = (int)((double)num * 1.3);
 				num6 = (int)((double)num * 1.35);
 			}
+			int num7 = 200;
+			int num8 = 200;
 			switch (NPC.waveNumber)
 			{
 				case 1:
 					if (Main.rand.Next(20) == 0 && NPC.CountNPCS(562) < num2)
 					{
-						NPC.NewNPC(x, y, 562, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						num7 = NPC.NewNPC(x, y, 562, 0, 0f, 0f, 0f, 0f, 255);
 					}
-					if (NPC.CountNPCS(553) < num)
+					else if (NPC.CountNPCS(553) < num)
 					{
-						NPC.NewNPC(x, y, 553, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						num7 = NPC.NewNPC(x, y, 553, 0, 0f, 0f, 0f, 0f, 255);
 					}
 					break;
 				case 2:
 					if (Main.rand.Next(3) == 0 && NPC.CountNPCS(572) < num5)
 					{
-						NPC.NewNPC(x, y, 572, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						num7 = NPC.NewNPC(x, y, 572, 0, 0f, 0f, 0f, 0f, 255);
 					}
-					if (Main.rand.Next(8) == 0 && NPC.CountNPCS(562) < num2)
+					else if (Main.rand.Next(8) == 0 && NPC.CountNPCS(562) < num2)
 					{
-						NPC.NewNPC(x, y, 562, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						num7 = NPC.NewNPC(x, y, 562, 0, 0f, 0f, 0f, 0f, 255);
 					}
-					if (NPC.CountNPCS(553) < num)
+					else if (NPC.CountNPCS(553) < num)
 					{
-						NPC.NewNPC(x, y, 553, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						num7 = NPC.NewNPC(x, y, 553, 0, 0f, 0f, 0f, 0f, 255);
 					}
 					break;
 				case 3:
 					if (Main.rand.Next(7) == 0 && NPC.CountNPCS(572) < num5)
 					{
-						NPC.NewNPC(x, y, 572, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						num7 = NPC.NewNPC(x, y, 572, 0, 0f, 0f, 0f, 0f, 255);
 					}
-					if (Main.rand.Next(10) == 0 && NPC.CountNPCS(559) < num3)
+					else if (Main.rand.Next(10) == 0 && NPC.CountNPCS(559) < num3)
 					{
-						NPC.NewNPC(x, y, 559, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						num7 = NPC.NewNPC(x, y, 559, 0, 0f, 0f, 0f, 0f, 255);
 					}
-					if (Main.rand.Next(8) == 0 && NPC.CountNPCS(562) < num2)
+					else if (Main.rand.Next(8) == 0 && NPC.CountNPCS(562) < num2)
 					{
-						NPC.NewNPC(x, y, 562, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						num7 = NPC.NewNPC(x, y, 562, 0, 0f, 0f, 0f, 0f, 255);
 					}
-					if (NPC.CountNPCS(553) + NPC.CountNPCS(556) < num)
+					else if (NPC.CountNPCS(553) + NPC.CountNPCS(556) < num)
 					{
 						if (Main.rand.Next(4) == 0)
 						{
-							NPC.NewNPC(x, y, 556, 0, 0f, 0f, 0f, 0f, 255);
+							num7 = NPC.NewNPC(x, y, 556, 0, 0f, 0f, 0f, 0f, 255);
 						}
-						NPC.NewNPC(x, y, 553, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						num8 = NPC.NewNPC(x, y, 553, 0, 0f, 0f, 0f, 0f, 255);
 					}
 					break;
 				case 4:
 					if (Main.rand.Next(10) == 0 && NPC.CountNPCS(570) < num6)
 					{
-						NPC.NewNPC(x, y, 570, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						num7 = NPC.NewNPC(x, y, 570, 0, 0f, 0f, 0f, 0f, 255);
 					}
-					if (Main.rand.Next(12) == 0 && NPC.CountNPCS(559) < num3)
+					else if (Main.rand.Next(12) == 0 && NPC.CountNPCS(559) < num3)
 					{
-						NPC.NewNPC(x, y, 559, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						num7 = NPC.NewNPC(x, y, 559, 0, 0f, 0f, 0f, 0f, 255);
 					}
-					if (Main.rand.Next(6) == 0 && NPC.CountNPCS(562) < num2)
+					else if (Main.rand.Next(6) == 0 && NPC.CountNPCS(562) < num2)
 					{
-						NPC.NewNPC(x, y, 562, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						num7 = NPC.NewNPC(x, y, 562, 0, 0f, 0f, 0f, 0f, 255);
 					}
-					if (Main.rand.Next(3) == 0 && NPC.CountNPCS(572) < num5)
+					else if (Main.rand.Next(3) == 0 && NPC.CountNPCS(572) < num5)
 					{
-						NPC.NewNPC(x, y, 572, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						num7 = NPC.NewNPC(x, y, 572, 0, 0f, 0f, 0f, 0f, 255);
 					}
-					if (NPC.CountNPCS(553) < num)
+					else if (NPC.CountNPCS(553) < num)
 					{
-						NPC.NewNPC(x, y, 553, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						num7 = NPC.NewNPC(x, y, 553, 0, 0f, 0f, 0f, 0f, 255);
 					}
 					break;
 				case 5:
 					if (Main.rand.Next(7) == 0 && NPC.CountNPCS(570) < num6)
 					{
-						NPC.NewNPC(x, y, 570, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						num7 = NPC.NewNPC(x, y, 570, 0, 0f, 0f, 0f, 0f, 255);
 					}
-					if (Main.rand.Next(10) == 0 && NPC.CountNPCS(559) < num3)
+					else if (Main.rand.Next(10) == 0 && NPC.CountNPCS(559) < num3)
 					{
-						NPC.NewNPC(x, y, 559, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						num7 = NPC.NewNPC(x, y, 559, 0, 0f, 0f, 0f, 0f, 255);
 					}
-					if (Main.rand.Next(4) == 0 && NPC.CountNPCS(572) + NPC.CountNPCS(574) < num5)
+					else if (Main.rand.Next(4) == 0 && NPC.CountNPCS(572) + NPC.CountNPCS(574) < num5)
 					{
 						if (Main.rand.Next(2) == 0)
 						{
-							NPC.NewNPC(x, y, 572, 0, 0f, 0f, 0f, 0f, 255);
-							return;
+							num7 = NPC.NewNPC(x, y, 572, 0, 0f, 0f, 0f, 0f, 255);
 						}
-						NPC.NewNPC(x, y, 574, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						else
+						{
+							num7 = NPC.NewNPC(x, y, 574, 0, 0f, 0f, 0f, 0f, 255);
+						}
 					}
 					else if (NPC.CountNPCS(553) + NPC.CountNPCS(556) < num)
 					{
 						if (Main.rand.Next(3) == 0)
 						{
-							NPC.NewNPC(x, y, 556, 0, 0f, 0f, 0f, 0f, 255);
+							num7 = NPC.NewNPC(x, y, 556, 0, 0f, 0f, 0f, 0f, 255);
 						}
-						NPC.NewNPC(x, y, 553, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						num8 = NPC.NewNPC(x, y, 553, 0, 0f, 0f, 0f, 0f, 255);
 					}
 					break;
 				case 6:
 					if (Main.rand.Next(7) == 0 && NPC.CountNPCS(570) < num6)
 					{
-						NPC.NewNPC(x, y, 570, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						num7 = NPC.NewNPC(x, y, 570, 0, 0f, 0f, 0f, 0f, 255);
 					}
-					if (Main.rand.Next(17) == 0 && NPC.CountNPCS(568) < num4)
+					else if (Main.rand.Next(17) == 0 && NPC.CountNPCS(568) < num4)
 					{
-						NPC.NewNPC(x, y, 568, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						num7 = NPC.NewNPC(x, y, 568, 0, 0f, 0f, 0f, 0f, 255);
 					}
-					if (Main.rand.Next(5) == 0 && NPC.CountNPCS(572) + NPC.CountNPCS(574) < num5)
+					else if (Main.rand.Next(5) == 0 && NPC.CountNPCS(572) + NPC.CountNPCS(574) < num5)
 					{
 						if (Main.rand.Next(2) != 0)
 						{
-							NPC.NewNPC(x, y, 572, 0, 0f, 0f, 0f, 0f, 255);
-							return;
+							num7 = NPC.NewNPC(x, y, 572, 0, 0f, 0f, 0f, 0f, 255);
 						}
-						NPC.NewNPC(x, y, 574, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						else
+						{
+							num7 = NPC.NewNPC(x, y, 574, 0, 0f, 0f, 0f, 0f, 255);
+						}
 					}
-					else
+					else if (Main.rand.Next(9) == 0 && NPC.CountNPCS(559) < num3)
 					{
-						if (Main.rand.Next(9) == 0 && NPC.CountNPCS(559) < num3)
+						num7 = NPC.NewNPC(x, y, 559, 0, 0f, 0f, 0f, 0f, 255);
+					}
+					else if (Main.rand.Next(3) == 0 && NPC.CountNPCS(562) < num2)
+					{
+						num7 = NPC.NewNPC(x, y, 562, 0, 0f, 0f, 0f, 0f, 255);
+					}
+					else if (NPC.CountNPCS(553) + NPC.CountNPCS(556) < num)
+					{
+						if (Main.rand.Next(3) != 0)
 						{
-							NPC.NewNPC(x, y, 559, 0, 0f, 0f, 0f, 0f, 255);
-							return;
+							num7 = NPC.NewNPC(x, y, 556, 0, 0f, 0f, 0f, 0f, 255);
 						}
-						if (Main.rand.Next(3) == 0 && NPC.CountNPCS(562) < num2)
-						{
-							NPC.NewNPC(x, y, 562, 0, 0f, 0f, 0f, 0f, 255);
-							return;
-						}
-						if (NPC.CountNPCS(553) + NPC.CountNPCS(556) < num)
-						{
-							if (Main.rand.Next(3) != 0)
-							{
-								NPC.NewNPC(x, y, 556, 0, 0f, 0f, 0f, 0f, 255);
-							}
-							NPC.NewNPC(x, y, 553, 0, 0f, 0f, 0f, 0f, 255);
-							return;
-						}
+						num8 = NPC.NewNPC(x, y, 553, 0, 0f, 0f, 0f, 0f, 255);
 					}
 					break;
 				case 7:
 					{
-						int num7;
-						int num8;
 						int num9;
-						DD2Event.GetInvasionStatus(out num7, out num8, out num9, false);
-						if ((float)num9 > (float)num8 * 0.1f && !NPC.AnyNPCs(576))
+						int num10;
+						int num11;
+						DD2Event.GetInvasionStatus(out num9, out num10, out num11, false);
+						if ((float)num11 > (float)num10 * 0.1f && !NPC.AnyNPCs(576))
 						{
-							NPC.NewNPC(x, y, 576, 0, 0f, 0f, 0f, 0f, 255);
-							return;
+							num7 = NPC.NewNPC(x, y, 576, 0, 0f, 0f, 0f, 0f, 255);
 						}
-						if (Main.rand.Next(7) == 0 && NPC.CountNPCS(570) < num6)
+						else if (Main.rand.Next(7) == 0 && NPC.CountNPCS(570) < num6)
 						{
-							NPC.NewNPC(x, y, 570, 0, 0f, 0f, 0f, 0f, 255);
-							return;
+							num7 = NPC.NewNPC(x, y, 570, 0, 0f, 0f, 0f, 0f, 255);
 						}
-						if (Main.rand.Next(17) == 0 && NPC.CountNPCS(568) < num4)
+						else if (Main.rand.Next(17) == 0 && NPC.CountNPCS(568) < num4)
 						{
-							NPC.NewNPC(x, y, 568, 0, 0f, 0f, 0f, 0f, 255);
-							return;
+							num7 = NPC.NewNPC(x, y, 568, 0, 0f, 0f, 0f, 0f, 255);
 						}
-						if (Main.rand.Next(7) == 0 && NPC.CountNPCS(572) + NPC.CountNPCS(574) < num5)
+						else if (Main.rand.Next(7) == 0 && NPC.CountNPCS(572) + NPC.CountNPCS(574) < num5)
 						{
 							if (Main.rand.Next(3) != 0)
 							{
-								NPC.NewNPC(x, y, 572, 0, 0f, 0f, 0f, 0f, 255);
-								return;
+								num7 = NPC.NewNPC(x, y, 572, 0, 0f, 0f, 0f, 0f, 255);
 							}
-							NPC.NewNPC(x, y, 574, 0, 0f, 0f, 0f, 0f, 255);
-							return;
+							else
+							{
+								num7 = NPC.NewNPC(x, y, 574, 0, 0f, 0f, 0f, 0f, 255);
+							}
 						}
-						else
+						else if (Main.rand.Next(11) == 0 && NPC.CountNPCS(559) < num3)
 						{
-							if (Main.rand.Next(11) == 0 && NPC.CountNPCS(559) < num3)
+							num7 = NPC.NewNPC(x, y, 559, 0, 0f, 0f, 0f, 0f, 255);
+						}
+						else if (NPC.CountNPCS(553) + NPC.CountNPCS(556) < num)
+						{
+							if (Main.rand.Next(2) == 0)
 							{
-								NPC.NewNPC(x, y, 559, 0, 0f, 0f, 0f, 0f, 255);
-								return;
+								num7 = NPC.NewNPC(x, y, 556, 0, 0f, 0f, 0f, 0f, 255);
 							}
-							if (NPC.CountNPCS(553) + NPC.CountNPCS(556) < num)
-							{
-								if (Main.rand.Next(2) == 0)
-								{
-									NPC.NewNPC(x, y, 556, 0, 0f, 0f, 0f, 0f, 255);
-								}
-								NPC.NewNPC(x, y, 553, 0, 0f, 0f, 0f, 0f, 255);
-								return;
-							}
+							num8 = NPC.NewNPC(x, y, 553, 0, 0f, 0f, 0f, 0f, 255);
 						}
 						break;
 					}
 				default:
-					NPC.NewNPC(x, y, 553, 0, 0f, 0f, 0f, 0f, 255);
+					num7 = NPC.NewNPC(x, y, 553, 0, 0f, 0f, 0f, 0f, 255);
 					break;
 			}
+			if (Main.netMode == 2 && num7 < 200)
+			{
+				NetMessage.SendData(23, -1, -1, "", num7, 0f, 0f, 0f, 0, 0, 0);
+			}
+			if (Main.netMode == 2 && num8 < 200)
+			{
+				NetMessage.SendData(23, -1, -1, "", num8, 0f, 0f, 0f, 0, 0, 0);
+			}
 		}
-
 		private static short[] Difficulty_3_GetEnemiesForWave(int wave)
 		{
 			DD2Event.LaneSpawnRate = 60;
@@ -1003,7 +966,6 @@ namespace Terraria.GameContent.Events
 					};
 			}
 		}
-
 		private static int Difficulty_3_GetMonsterPointsWorth(int slainMonsterID)
 		{
 			if (NPC.waveNumber != 7)
@@ -1050,7 +1012,6 @@ namespace Terraria.GameContent.Events
 			}
 			return 0;
 		}
-
 		private static int Difficulty_3_GetRequiredWaveKills(ref int waveNumber, ref int currentKillCount, bool currentlyInCheckProgress)
 		{
 			switch (waveNumber)
@@ -1090,7 +1051,6 @@ namespace Terraria.GameContent.Events
 			}
 			return 10;
 		}
-
 		private static void Difficulty_3_SpawnMonsterFromGate(Vector2 gateBottom)
 		{
 			int x = (int)gateBottom.X;
@@ -1138,236 +1098,214 @@ namespace Terraria.GameContent.Events
 				num6 = (int)((double)num * 1.35);
 				num7 = (int)((double)num7 * 1.3);
 			}
+			int num8 = 200;
+			int num9 = 200;
 			switch (NPC.waveNumber)
 			{
 				case 1:
 					if (Main.rand.Next(18) == 0 && NPC.CountNPCS(563) < num2)
 					{
-						NPC.NewNPC(x, y, 563, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						num8 = NPC.NewNPC(x, y, 563, 0, 0f, 0f, 0f, 0f, 255);
 					}
-					if (NPC.CountNPCS(554) < num)
+					else if (NPC.CountNPCS(554) < num)
 					{
 						if (Main.rand.Next(7) == 0)
 						{
-							NPC.NewNPC(x, y, 557, 0, 0f, 0f, 0f, 0f, 255);
+							num8 = NPC.NewNPC(x, y, 557, 0, 0f, 0f, 0f, 0f, 255);
 						}
-						NPC.NewNPC(x, y, 554, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						num9 = NPC.NewNPC(x, y, 554, 0, 0f, 0f, 0f, 0f, 255);
 					}
 					break;
 				case 2:
 					if (Main.rand.Next(3) == 0 && NPC.CountNPCS(578) < num7)
 					{
-						NPC.NewNPC(x, y, 578, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						num8 = NPC.NewNPC(x, y, 578, 0, 0f, 0f, 0f, 0f, 255);
 					}
-					if (Main.rand.Next(7) == 0 && NPC.CountNPCS(563) < num2)
+					else if (Main.rand.Next(7) == 0 && NPC.CountNPCS(563) < num2)
 					{
-						NPC.NewNPC(x, y, 563, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						num8 = NPC.NewNPC(x, y, 563, 0, 0f, 0f, 0f, 0f, 255);
 					}
-					if (Main.rand.Next(3) == 0 && NPC.CountNPCS(573) < num5)
+					else if (Main.rand.Next(3) == 0 && NPC.CountNPCS(573) < num5)
 					{
-						NPC.NewNPC(x, y, 573, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						num8 = NPC.NewNPC(x, y, 573, 0, 0f, 0f, 0f, 0f, 255);
 					}
-					if (NPC.CountNPCS(554) < num)
+					else if (NPC.CountNPCS(554) < num)
 					{
 						if (Main.rand.Next(4) == 0)
 						{
-							NPC.NewNPC(x, y, 557, 0, 0f, 0f, 0f, 0f, 255);
+							num8 = NPC.NewNPC(x, y, 557, 0, 0f, 0f, 0f, 0f, 255);
 						}
-						NPC.NewNPC(x, y, 554, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						num9 = NPC.NewNPC(x, y, 554, 0, 0f, 0f, 0f, 0f, 255);
 					}
 					break;
 				case 3:
 					if (Main.rand.Next(13) == 0 && NPC.CountNPCS(571) < num6)
 					{
-						NPC.NewNPC(x, y, 571, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						num8 = NPC.NewNPC(x, y, 571, 0, 0f, 0f, 0f, 0f, 255);
 					}
-					if (Main.rand.Next(7) == 0 && NPC.CountNPCS(573) < num5)
+					else if (Main.rand.Next(7) == 0 && NPC.CountNPCS(573) < num5)
 					{
-						NPC.NewNPC(x, y, 573, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						num8 = NPC.NewNPC(x, y, 573, 0, 0f, 0f, 0f, 0f, 255);
 					}
-					if (Main.rand.Next(10) == 0 && NPC.CountNPCS(560) < num3)
+					else if (Main.rand.Next(10) == 0 && NPC.CountNPCS(560) < num3)
 					{
-						NPC.NewNPC(x, y, 560, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						num8 = NPC.NewNPC(x, y, 560, 0, 0f, 0f, 0f, 0f, 255);
 					}
-					if (Main.rand.Next(8) == 0 && NPC.CountNPCS(563) < num2)
+					else if (Main.rand.Next(8) == 0 && NPC.CountNPCS(563) < num2)
 					{
-						NPC.NewNPC(x, y, 563, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						num8 = NPC.NewNPC(x, y, 563, 0, 0f, 0f, 0f, 0f, 255);
 					}
-					if (NPC.CountNPCS(554) + NPC.CountNPCS(557) < num)
+					else if (NPC.CountNPCS(554) + NPC.CountNPCS(557) < num)
 					{
-						NPC.NewNPC(x, y, 554, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						num8 = NPC.NewNPC(x, y, 554, 0, 0f, 0f, 0f, 0f, 255);
 					}
 					break;
 				case 4:
 					if (Main.rand.Next(24) == 0 && !NPC.AnyNPCs(565))
 					{
-						NPC.NewNPC(x, y, 565, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						num8 = NPC.NewNPC(x, y, 565, 0, 0f, 0f, 0f, 0f, 255);
 					}
-					if (Main.rand.Next(12) == 0 && NPC.CountNPCS(571) < num6)
+					else if (Main.rand.Next(12) == 0 && NPC.CountNPCS(571) < num6)
 					{
-						NPC.NewNPC(x, y, 571, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						num8 = NPC.NewNPC(x, y, 571, 0, 0f, 0f, 0f, 0f, 255);
 					}
-					if (Main.rand.Next(15) == 0 && NPC.CountNPCS(560) < num3)
+					else if (Main.rand.Next(15) == 0 && NPC.CountNPCS(560) < num3)
 					{
-						NPC.NewNPC(x, y, 560, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						num8 = NPC.NewNPC(x, y, 560, 0, 0f, 0f, 0f, 0f, 255);
 					}
-					if (Main.rand.Next(7) == 0 && NPC.CountNPCS(563) < num2)
+					else if (Main.rand.Next(7) == 0 && NPC.CountNPCS(563) < num2)
 					{
-						NPC.NewNPC(x, y, 563, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						num8 = NPC.NewNPC(x, y, 563, 0, 0f, 0f, 0f, 0f, 255);
 					}
-					if (Main.rand.Next(5) == 0 && NPC.CountNPCS(573) + NPC.CountNPCS(575) < num5)
+					else if (Main.rand.Next(5) == 0 && NPC.CountNPCS(573) + NPC.CountNPCS(575) < num5)
 					{
 						if (Main.rand.Next(3) != 0)
 						{
-							NPC.NewNPC(x, y, 573, 0, 0f, 0f, 0f, 0f, 255);
-							return;
+							num8 = NPC.NewNPC(x, y, 573, 0, 0f, 0f, 0f, 0f, 255);
 						}
-						NPC.NewNPC(x, y, 575, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						else
+						{
+							num8 = NPC.NewNPC(x, y, 575, 0, 0f, 0f, 0f, 0f, 255);
+						}
 					}
 					else if (NPC.CountNPCS(554) < num)
 					{
-						NPC.NewNPC(x, y, 554, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						num8 = NPC.NewNPC(x, y, 554, 0, 0f, 0f, 0f, 0f, 255);
 					}
 					break;
 				case 5:
 					if (Main.rand.Next(20) == 0 && !NPC.AnyNPCs(577))
 					{
-						NPC.NewNPC(x, y, 577, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						num8 = NPC.NewNPC(x, y, 577, 0, 0f, 0f, 0f, 0f, 255);
 					}
-					if (Main.rand.Next(17) == 0 && NPC.CountNPCS(569) < num4)
+					else if (Main.rand.Next(17) == 0 && NPC.CountNPCS(569) < num4)
 					{
-						NPC.NewNPC(x, y, 569, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						num8 = NPC.NewNPC(x, y, 569, 0, 0f, 0f, 0f, 0f, 255);
 					}
-					if (Main.rand.Next(8) == 0 && NPC.CountNPCS(571) < num6)
+					else if (Main.rand.Next(8) == 0 && NPC.CountNPCS(571) < num6)
 					{
-						NPC.NewNPC(x, y, 571, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						num8 = NPC.NewNPC(x, y, 571, 0, 0f, 0f, 0f, 0f, 255);
 					}
-					if (Main.rand.Next(7) == 0 && NPC.CountNPCS(573) + NPC.CountNPCS(575) < num5)
+					else if (Main.rand.Next(7) == 0 && NPC.CountNPCS(573) + NPC.CountNPCS(575) < num5)
 					{
 						if (Main.rand.Next(4) != 0)
 						{
-							NPC.NewNPC(x, y, 573, 0, 0f, 0f, 0f, 0f, 255);
-							return;
+							num8 = NPC.NewNPC(x, y, 573, 0, 0f, 0f, 0f, 0f, 255);
 						}
-						NPC.NewNPC(x, y, 575, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						else
+						{
+							num8 = NPC.NewNPC(x, y, 575, 0, 0f, 0f, 0f, 0f, 255);
+						}
 					}
 					else if (NPC.CountNPCS(554) + NPC.CountNPCS(557) < num)
 					{
 						if (Main.rand.Next(3) == 0)
 						{
-							NPC.NewNPC(x, y, 557, 0, 0f, 0f, 0f, 0f, 255);
+							num8 = NPC.NewNPC(x, y, 557, 0, 0f, 0f, 0f, 0f, 255);
 						}
-						NPC.NewNPC(x, y, 554, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						num9 = NPC.NewNPC(x, y, 554, 0, 0f, 0f, 0f, 0f, 255);
 					}
 					break;
 				case 6:
 					if (Main.rand.Next(20) == 0 && !NPC.AnyNPCs(577))
 					{
-						NPC.NewNPC(x, y, 577, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						num8 = NPC.NewNPC(x, y, 577, 0, 0f, 0f, 0f, 0f, 255);
 					}
-					if (Main.rand.Next(20) == 0 && !NPC.AnyNPCs(565))
+					else if (Main.rand.Next(20) == 0 && !NPC.AnyNPCs(565))
 					{
-						NPC.NewNPC(x, y, 565, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						num8 = NPC.NewNPC(x, y, 565, 0, 0f, 0f, 0f, 0f, 255);
 					}
-					if (Main.rand.Next(12) == 0 && NPC.CountNPCS(571) < num6)
+					else if (Main.rand.Next(12) == 0 && NPC.CountNPCS(571) < num6)
 					{
-						NPC.NewNPC(x, y, 571, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						num8 = NPC.NewNPC(x, y, 571, 0, 0f, 0f, 0f, 0f, 255);
 					}
-					if (Main.rand.Next(25) == 0 && NPC.CountNPCS(569) < num4)
+					else if (Main.rand.Next(25) == 0 && NPC.CountNPCS(569) < num4)
 					{
-						NPC.NewNPC(x, y, 569, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						num8 = NPC.NewNPC(x, y, 569, 0, 0f, 0f, 0f, 0f, 255);
 					}
-					if (Main.rand.Next(7) == 0 && NPC.CountNPCS(573) + NPC.CountNPCS(575) < num5)
+					else if (Main.rand.Next(7) == 0 && NPC.CountNPCS(573) + NPC.CountNPCS(575) < num5)
 					{
 						if (Main.rand.Next(3) != 0)
 						{
-							NPC.NewNPC(x, y, 573, 0, 0f, 0f, 0f, 0f, 255);
-							return;
+							num8 = NPC.NewNPC(x, y, 573, 0, 0f, 0f, 0f, 0f, 255);
 						}
-						NPC.NewNPC(x, y, 575, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						else
+						{
+							num8 = NPC.NewNPC(x, y, 575, 0, 0f, 0f, 0f, 0f, 255);
+						}
 					}
-					else
+					else if (Main.rand.Next(10) == 0 && NPC.CountNPCS(560) < num3)
 					{
-						if (Main.rand.Next(10) == 0 && NPC.CountNPCS(560) < num3)
+						num8 = NPC.NewNPC(x, y, 560, 0, 0f, 0f, 0f, 0f, 255);
+					}
+					else if (Main.rand.Next(5) == 0 && NPC.CountNPCS(563) < num2)
+					{
+						num8 = NPC.NewNPC(x, y, 563, 0, 0f, 0f, 0f, 0f, 255);
+					}
+					else if (NPC.CountNPCS(554) + NPC.CountNPCS(557) < num)
+					{
+						if (Main.rand.Next(3) == 0)
 						{
-							NPC.NewNPC(x, y, 560, 0, 0f, 0f, 0f, 0f, 255);
-							return;
+							num8 = NPC.NewNPC(x, y, 557, 0, 0f, 0f, 0f, 0f, 255);
 						}
-						if (Main.rand.Next(5) == 0 && NPC.CountNPCS(563) < num2)
-						{
-							NPC.NewNPC(x, y, 563, 0, 0f, 0f, 0f, 0f, 255);
-							return;
-						}
-						if (NPC.CountNPCS(554) + NPC.CountNPCS(557) < num)
-						{
-							if (Main.rand.Next(3) == 0)
-							{
-								NPC.NewNPC(x, y, 557, 0, 0f, 0f, 0f, 0f, 255);
-							}
-							NPC.NewNPC(x, y, 554, 0, 0f, 0f, 0f, 0f, 255);
-							return;
-						}
+						num9 = NPC.NewNPC(x, y, 554, 0, 0f, 0f, 0f, 0f, 255);
 					}
 					break;
 				case 7:
 					if (Main.rand.Next(20) == 0 && NPC.CountNPCS(571) < num6)
 					{
-						NPC.NewNPC(x, y, 571, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						num8 = NPC.NewNPC(x, y, 571, 0, 0f, 0f, 0f, 0f, 255);
 					}
-					if (Main.rand.Next(17) == 0 && NPC.CountNPCS(569) < num4)
+					else if (Main.rand.Next(17) == 0 && NPC.CountNPCS(569) < num4)
 					{
-						NPC.NewNPC(x, y, 569, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						num8 = NPC.NewNPC(x, y, 569, 0, 0f, 0f, 0f, 0f, 255);
 					}
-					if (Main.rand.Next(10) == 0 && NPC.CountNPCS(563) < num2)
+					else if (Main.rand.Next(10) == 0 && NPC.CountNPCS(563) < num2)
 					{
-						NPC.NewNPC(x, y, 563, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						num8 = NPC.NewNPC(x, y, 563, 0, 0f, 0f, 0f, 0f, 255);
 					}
-					if (NPC.CountNPCS(554) + NPC.CountNPCS(557) < num)
+					else if (NPC.CountNPCS(554) + NPC.CountNPCS(557) < num)
 					{
 						if (Main.rand.Next(5) == 0)
 						{
-							NPC.NewNPC(x, y, 557, 0, 0f, 0f, 0f, 0f, 255);
+							num8 = NPC.NewNPC(x, y, 557, 0, 0f, 0f, 0f, 0f, 255);
 						}
-						NPC.NewNPC(x, y, 554, 0, 0f, 0f, 0f, 0f, 255);
-						return;
+						num9 = NPC.NewNPC(x, y, 554, 0, 0f, 0f, 0f, 0f, 255);
 					}
 					break;
 				default:
-					NPC.NewNPC(x, y, 554, 0, 0f, 0f, 0f, 0f, 255);
+					num8 = NPC.NewNPC(x, y, 554, 0, 0f, 0f, 0f, 0f, 255);
 					break;
 			}
+			if (Main.netMode == 2 && num8 < 200)
+			{
+				NetMessage.SendData(23, -1, -1, "", num8, 0f, 0f, 0f, 0, 0, 0);
+			}
+			if (Main.netMode == 2 && num9 < 200)
+			{
+				NetMessage.SendData(23, -1, -1, "", num9, 0f, 0f, 0f, 0, 0, 0);
+			}
 		}
-
 		public static void DropMedals(int numberOfMedals)
 		{
 			for (int i = 0; i < 200; i++)
@@ -1378,7 +1316,6 @@ namespace Terraria.GameContent.Events
 				}
 			}
 		}
-
 		private static void DropStarterCrystals()
 		{
 			for (int i = 0; i < 200; i++)
@@ -1393,7 +1330,6 @@ namespace Terraria.GameContent.Events
 				}
 			}
 		}
-
 		public static void FailureMessage(int client)
 		{
 			string textValue = Language.GetTextValue("DungeonDefenders2.BartenderWarning");
@@ -1405,7 +1341,6 @@ namespace Terraria.GameContent.Events
 			}
 			Main.NewText(textValue, color.R, color.G, color.B, false);
 		}
-
 		public static void FindArenaHitbox()
 		{
 			if (DD2Event._arenaHitboxingCooldown > 0)
@@ -1450,7 +1385,6 @@ namespace Terraria.GameContent.Events
 			DD2Event.ArenaHitbox.Width = (int)vector3.X;
 			DD2Event.ArenaHitbox.Height = (int)vector3.Y;
 		}
-
 		private static void FindProperDifficulty()
 		{
 			DD2Event.OngoingDifficulty = 1;
@@ -1463,7 +1397,6 @@ namespace Terraria.GameContent.Events
 				DD2Event.OngoingDifficulty = 3;
 			}
 		}
-
 		private static short[] GetEnemiesForWave(int wave)
 		{
 			switch (DD2Event.OngoingDifficulty)
@@ -1476,7 +1409,6 @@ namespace Terraria.GameContent.Events
 					return DD2Event.Difficulty_1_GetEnemiesForWave(wave);
 			}
 		}
-
 		private static void GetInvasionStatus(out int currentWave, out int requiredKillCount, out int currentKillCount, bool currentlyInCheckProgress = false)
 		{
 			currentWave = NPC.waveNumber;
@@ -1495,7 +1427,6 @@ namespace Terraria.GameContent.Events
 					return;
 			}
 		}
-
 		private static int GetMonsterPointsWorth(int slainMonsterID)
 		{
 			switch (DD2Event.OngoingDifficulty)
@@ -1508,7 +1439,6 @@ namespace Terraria.GameContent.Events
 					return DD2Event.Difficulty_1_GetMonsterPointsWorth(slainMonsterID);
 			}
 		}
-
 		public static void Load(BinaryReader reader, int gameVersionNumber)
 		{
 			if (gameVersionNumber < 178)
@@ -1522,7 +1452,6 @@ namespace Terraria.GameContent.Events
 			DD2Event.DownedInvasionT2 = reader.ReadBoolean();
 			DD2Event.DownedInvasionT3 = reader.ReadBoolean();
 		}
-
 		public static void RaiseGoblins(Vector2 spot)
 		{
 			List<Vector2> list = new List<Vector2>();
@@ -1563,7 +1492,6 @@ namespace Terraria.GameContent.Events
 				}
 			}
 		}
-
 		public static void ReportEventProgress()
 		{
 			int progressWave;
@@ -1572,13 +1500,11 @@ namespace Terraria.GameContent.Events
 			DD2Event.GetInvasionStatus(out progressWave, out progressMax, out progress, false);
 			Main.ReportInvasionProgress(progress, progressMax, 3, progressWave);
 		}
-
 		public static void ReportLoss()
 		{
 			DD2Event.LostThisRun = true;
 			DD2Event.SetEnemySpawningOnHold(30);
 		}
-
 		public static void ResetProgressEntirely()
 		{
 			DD2Event.DownedInvasionT1 = (DD2Event.DownedInvasionT2 = (DD2Event.DownedInvasionT3 = false));
@@ -1587,14 +1513,12 @@ namespace Terraria.GameContent.Events
 			DD2Event._arenaHitboxingCooldown = 0;
 			DD2Event._timeLeftUntilSpawningBegins = 0;
 		}
-
 		public static void Save(BinaryWriter writer)
 		{
 			writer.Write(DD2Event.DownedInvasionT1);
 			writer.Write(DD2Event.DownedInvasionT2);
 			writer.Write(DD2Event.DownedInvasionT3);
 		}
-
 		private static void SetEnemySpawningOnHold(int forHowLong)
 		{
 			DD2Event._timeLeftUntilSpawningBegins = forHowLong;
@@ -1603,12 +1527,10 @@ namespace Terraria.GameContent.Events
 				NetMessage.SendData(116, -1, -1, "", DD2Event._timeLeftUntilSpawningBegins, 0f, 0f, 0f, 0, 0, 0);
 			}
 		}
-
 		public static bool ShouldBlockBuilding(Vector2 worldPosition)
 		{
 			return DD2Event.ArenaHitbox.Contains(worldPosition.ToPoint());
 		}
-
 		public static bool ShouldDropCrystals()
 		{
 			int num;
@@ -1706,7 +1628,6 @@ namespace Terraria.GameContent.Events
 			}
 			return false;
 		}
-
 		public static void SpawnMonsterFromGate(Vector2 gateBottom)
 		{
 			switch (DD2Event.OngoingDifficulty)
@@ -1722,11 +1643,9 @@ namespace Terraria.GameContent.Events
 					return;
 			}
 		}
-
 		public static void SpawnNPC(ref int newNPC)
 		{
 		}
-
 		public static void StartInvasion(int difficultyOverride = -1)
 		{
 			if (Main.netMode != 1)
@@ -1765,7 +1684,6 @@ namespace Terraria.GameContent.Events
 				DD2Event.WipeEntities();
 			}
 		}
-
 		public static void StartVictoryScene()
 		{
 			DD2Event.WonThisRun = true;
@@ -1787,7 +1705,6 @@ namespace Terraria.GameContent.Events
 				}
 			}
 		}
-
 		public static void StopInvasion(bool win = false)
 		{
 			if (DD2Event.Ongoing)
@@ -1807,7 +1724,6 @@ namespace Terraria.GameContent.Events
 				}
 			}
 		}
-
 		private static void SummonBetsy()
 		{
 			if (DD2Event._spawnedBetsyT3)
@@ -1828,7 +1744,6 @@ namespace Terraria.GameContent.Events
 			NPC.SpawnOnPlayer(plr, 551);
 			DD2Event._spawnedBetsyT3 = true;
 		}
-
 		public static void SummonCrystal(int x, int y)
 		{
 			if (Main.netMode == 1)
@@ -1838,7 +1753,6 @@ namespace Terraria.GameContent.Events
 			}
 			DD2Event.SummonCrystalDirect(x, y);
 		}
-
 		public static void SummonCrystalDirect(int x, int y)
 		{
 			if (NPC.AnyNPCs(548))
@@ -1859,7 +1773,6 @@ namespace Terraria.GameContent.Events
 			NPC.NewNPC(point.X, point.Y, 548, 0, 0f, 0f, 0f, 0f, 255);
 			DD2Event.DropStarterCrystals();
 		}
-
 		public static void SyncInvasionProgress(int toWho)
 		{
 			int num;
@@ -1868,7 +1781,6 @@ namespace Terraria.GameContent.Events
 			DD2Event.GetInvasionStatus(out num, out num2, out number, false);
 			NetMessage.SendData(78, toWho, -1, "", number, (float)num2, 3f, (float)num, 0, 0, 0);
 		}
-
 		public static void UpdateTime()
 		{
 			if (!DD2Event.Ongoing && !Main.dedServ)
@@ -1924,7 +1836,6 @@ namespace Terraria.GameContent.Events
 				DD2Event._timeLeftUntilSpawningBegins = 0;
 			}
 		}
-
 		private static void WinInvasionInternal()
 		{
 			if (DD2Event.OngoingDifficulty <= 1)
@@ -1954,7 +1865,6 @@ namespace Terraria.GameContent.Events
 			string textValue = Language.GetTextValue("DungeonDefenders2.InvasionWin");
 			WorldGen.BroadcastText(textValue, DD2Event.INFO_START_INVASION_COLOR);
 		}
-
 		public static void WipeEntities()
 		{
 			DD2Event.ClearAllTowersInGame();
@@ -1964,7 +1874,6 @@ namespace Terraria.GameContent.Events
 				NetMessage.SendData(114, -1, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
 			}
 		}
-
 		public static bool WouldFailSpawningHere(int x, int y)
 		{
 			Point point;
@@ -1974,64 +1883,48 @@ namespace Terraria.GameContent.Events
 			int num2 = x - point.X;
 			return num < 60 || num2 < 60;
 		}
-
 		public static bool DownedInvasionAnyDifficulty
-		{
-			get
+		{			get
 			{
 				return DD2Event.DownedInvasionT1 || DD2Event.DownedInvasionT2 || DD2Event.DownedInvasionT3;
 			}
 		}
-
 		public static bool EnemiesShouldChasePlayers
-		{
-			get
+		{			get
 			{
 				bool arg_05_0 = DD2Event.Ongoing;
 				return true;
 			}
 		}
-
 		public static bool EnemySpawningIsOnHold
-		{
-			get
+		{			get
 			{
 				return DD2Event._timeLeftUntilSpawningBegins != 0;
 			}
 		}
-
 		public static bool ReadyForTier2
-		{
-			get
+		{			get
 			{
 				return Main.hardMode && NPC.downedMechBossAny;
 			}
 		}
-
 		public static bool ReadyForTier3
-		{
-			get
+		{			get
 			{
 				return Main.hardMode && NPC.downedGolemBoss;
 			}
 		}
-
 		public static bool ReadyToFindBartender
-		{
-			get
+		{			get
 			{
 				return NPC.downedBoss2;
 			}
 		}
-
 		public static int TimeLeftBetweenWaves
-		{
-			get
+		{			get
 			{
 				return DD2Event._timeLeftUntilSpawningBegins;
-			}
-
-			set
+			}			set
 			{
 				DD2Event._timeLeftUntilSpawningBegins = value;
 			}
