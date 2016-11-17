@@ -1,9 +1,7 @@
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.CompilerServices;
 using Terraria.DataStructures;
 
 namespace Terraria
@@ -398,6 +396,16 @@ namespace Terraria
 			return string.Concat(str, str1, str2, a.ToString("X2")).ToLower();
 		}
 
+		public static bool IndexInRange<T>(this T[] t, int index)
+		{
+			return index >= 0 && index < t.Length;
+		}
+
+		public static bool IndexInRange<T>(this List<T> t, int index)
+		{
+			return index >= 0 && index < t.Count;
+		}
+
 		public static float InverseLerp(float from, float to, float t, bool clamped = false)
 		{
 			if (clamped)
@@ -428,6 +436,11 @@ namespace Terraria
 			return (t - from) / (to - from);
 		}
 
+		public static bool IsPowerOfTwo(int x)
+		{
+			return x != 0 && (x & x - 1) == 0;
+		}
+
 		public static Vector2 Left(this Rectangle r)
 		{
 			return new Vector2((float)r.X, (float)(r.Y + r.Height / 2));
@@ -451,6 +464,26 @@ namespace Terraria
 		public static float NextFloatDirection(this Random r)
 		{
 			return (float)r.NextDouble() * 2f - 1f;
+		}
+
+		public static Vector2 NextVector2Circular(this Random r, float circleHalfWidth, float circleHalfHeight)
+		{
+			return r.NextVector2Unit(0f, 6.28318548f) * new Vector2(circleHalfWidth, circleHalfHeight) * r.NextFloat();
+		}
+
+		public static Vector2 NextVector2CircularEdge(this Random r, float circleHalfWidth, float circleHalfHeight)
+		{
+			return r.NextVector2Unit(0f, 6.28318548f) * new Vector2(circleHalfWidth, circleHalfHeight);
+		}
+
+		public static Vector2 NextVector2Square(this Random r, float min, float max)
+		{
+			return new Vector2((max - min) * (float)r.NextDouble() + min, (max - min) * (float)r.NextDouble() + min);
+		}
+
+		public static Vector2 NextVector2Unit(this Random r, float startRotation = 0f, float rotationRange = 6.28318548f)
+		{
+			return (startRotation + rotationRange * r.NextFloat()).ToRotationVector2();
 		}
 
 		public static Vector2 OriginFlip(this Rectangle rect, Vector2 origin)
@@ -661,6 +694,26 @@ namespace Terraria
 			return new Vector2(bb.ReadSingle(), bb.ReadSingle());
 		}
 
+		public static int ReadFloatAsInt(float value)
+		{
+			return new Utils.IntFloat(value).IntValue;
+		}
+
+		public static uint ReadFloatAsUInt(float value)
+		{
+			return new Utils.UIntFloat(value).UIntValue;
+		}
+
+		public static float ReadIntAsFloat(int value)
+		{
+			return new Utils.IntFloat(value).FloatValue;
+		}
+
+		public static float ReadUIntAsFloat(uint value)
+		{
+			return new Utils.UIntFloat(value).FloatValue;
+		}
+
 		public static Vector2 ReadPackedVector2(this BinaryReader bb)
 		{
 			HalfVector2 halfVector = new HalfVector2();
@@ -740,6 +793,11 @@ namespace Terraria
 				return 0;
 			}
 			return 1;
+		}
+
+		public static Vector2 ToWorldCoordinates(this Point p, float autoAddX = 8f, float autoAddY = 8f)
+		{
+			return p.ToVector2() * 16f + new Vector2(autoAddX, autoAddY);
 		}
 
 		public static Vector2 Top(this Rectangle r)
@@ -909,5 +967,42 @@ namespace Terraria
 		}
 		#endregion
 
+		private struct IntFloat
+		{
+			public IntFloat(int value)
+			{
+				this.FloatValue = 0f;
+				this.IntValue = value;
+			}
+
+			public IntFloat(float value)
+			{
+				this.IntValue = 0;
+				this.FloatValue = value;
+			}
+
+			public readonly int IntValue;
+
+			public readonly float FloatValue;
+		}
+
+		private struct UIntFloat
+		{
+			public UIntFloat(uint value)
+			{
+				this.FloatValue = 0f;
+				this.UIntValue = value;
+			}
+
+			public UIntFloat(float value)
+			{
+				this.UIntValue = 0u;
+				this.FloatValue = value;
+			}
+
+			public readonly uint UIntValue;
+
+			public readonly float FloatValue;
+		}
 	}
 }

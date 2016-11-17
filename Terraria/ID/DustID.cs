@@ -26,6 +26,8 @@ namespace Terraria.ID
 
 		public const short Web = 30;
 
+		public const short Smoke = 31;
+
 		public const short Rainbow = 66;
 
 		public const short BlueCrystalShard = 68;
@@ -118,6 +120,16 @@ namespace Terraria.ID
 
 		public const short Sandnado = 269;
 
-		public const short Count = 270;
+		public const short FlameBurst = 270;
+
+		public const short HealingPlus = 271;
+
+		public const short WitherLightning = 272;
+
+		public const short GreenBlood = 273;
+
+		public const short ApprenticeStorm = 274;
+
+		public const short Count = 275;
 	}
 }

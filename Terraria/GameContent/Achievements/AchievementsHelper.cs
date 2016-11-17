@@ -365,6 +365,10 @@ namespace Terraria.GameContent.Achievements
 				{
 					AchievementsHelper.OnItemPickup(player, (short)player.bank2.item[o].type, player.bank2.item[o].stack);
 				}
+				for (int p = 0; p < (int)player.bank3.item.Length; p++)
+				{
+					AchievementsHelper.OnItemPickup(player, (short)player.bank3.item[p].type, player.bank3.item[p].stack);
+				}
 			}
 			if (player.statManaMax > 0)
 			{

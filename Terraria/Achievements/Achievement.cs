@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using Terraria.Localization;
 
 namespace Terraria.Achievements
 {
@@ -10,9 +11,9 @@ namespace Terraria.Achievements
 
 		public readonly string Name;
 
-		public readonly string FriendlyName;
+		public readonly LocalizedText FriendlyName;
 
-		public readonly string Description;
+		public readonly LocalizedText Description;
 
 		public readonly int Id;
 
@@ -52,15 +53,15 @@ namespace Terraria.Achievements
 		{
 		}
 
-		public Achievement(string name, string friendlyName, string description)
+		public Achievement(string name)
 		{
 			int num = Achievement._totalAchievements;
 			Achievement._totalAchievements = num + 1;
 			this.Id = num;
 			this._conditions = new Dictionary<string, AchievementCondition>();
 			this.Name = name;
-			this.FriendlyName = friendlyName;
-			this.Description = description;
+			this.FriendlyName = Language.GetText("Achievements." + name + "_Name");
+			this.Description = Language.GetText("Achievements." + name + "_Description");
 		}
 
 		public void AddCondition(AchievementCondition condition)

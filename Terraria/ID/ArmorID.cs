@@ -412,11 +412,50 @@ namespace Terraria.ID
 
 			public const int LamiaFemale = 202;
 
-			public const int Count = 203;
+			public const int ApprenticeHat = 203;
+
+			public const int SquireGreatHelm = 204;
+
+			public const int HuntressWig = 205;
+
+			public const int MonkBrows = 206;
+
+			public const int MaskBetsy = 207;
+
+			public const int MaskDarkMage = 208;
+
+			public const int MaskOgre = 209;
+
+			public const int ValhallaKnight = 210;
+
+			public const int ApprenticeDark = 211;
+
+			public const int RedRidingHuntress = 212;
+
+			public const int ShinobiInfiltrator = 213;
+
+			public const int Count = 214;
 		}
 
 		public class Body
 		{
+			public class Sets
+			{
+				public static SetFactory Factory = new SetFactory(208);
+
+				public static bool[] NeedsToDrawArm = ArmorIDs.Body.Sets.Factory.CreateBoolSet(false, new int[]
+				{
+					200,
+					202,
+					201,
+					203,
+					195,
+					205,
+					207,
+					206
+				});
+			}
+
 			public const int FamiliarShirt = 0;
 
 			public const int CopperChainmail = 1;
@@ -697,7 +736,23 @@ namespace Terraria.ID
 
 			public const int Lamia = 199;
 
-			public const int Count = 200;
+			public const int ApprenticeRobe = 200;
+
+			public const int SquirePlating = 201;
+
+			public const int HuntressJerkin = 202;
+
+			public const int MonkShirt = 203;
+
+			public const int ValhallaKnight = 204;
+
+			public const int ApprenticeDark = 205;
+
+			public const int RedRidingHuntress = 206;
+
+			public const int ShinobiInfiltrator = 207;
+
+			public const int Count = 208;
 		}
 
 		public class Legs
@@ -941,7 +996,33 @@ namespace Terraria.ID
 
 			public const int Lamia = 143;
 
-			public const int Count = 144;
+			public const int ApprenticeTrousers = 144;
+
+			public const int SquireGreaves = 145;
+
+			public const int HuntressPantsMale = 146;
+
+			public const int HuntressPantsFemale = 147;
+
+			public const int MonkPants = 148;
+
+			public const int ApprenticeRobeExtension = 149;
+
+			public const int SquirePlatingExtension = 150;
+
+			public const int HuntressJerkinExtension = 151;
+
+			public const int ValhallaKnight = 152;
+
+			public const int ApprenticeDark = 153;
+
+			public const int RedRidingHuntress = 154;
+
+			public const int RedRidingHuntress_Male = 155;
+
+			public const int ShinobiInfiltrator = 156;
+
+			public const int Count = 157;
 		}
 
 		public class HandOn
@@ -986,7 +1067,9 @@ namespace Terraria.ID
 
 			public const sbyte YoyoGlove = 18;
 
-			public const int Count = 19;
+			public const sbyte HuntressBuckler = 19;
+
+			public const int Count = 20;
 		}
 
 		public class HandOff
@@ -1042,7 +1125,13 @@ namespace Terraria.ID
 
 			public const sbyte AnglerTackleBag = 10;
 
-			public const int Count = 11;
+			public const sbyte ApprenticeDark = 11;
+
+			public const sbyte RedRidingHuntress = 12;
+
+			public const sbyte ShinobiInfiltrator = 13;
+
+			public const int Count = 14;
 		}
 
 		public class Front
@@ -1125,7 +1214,9 @@ namespace Terraria.ID
 
 			public const sbyte TsunamiinaBottle = 11;
 
-			public const int Count = 12;
+			public const sbyte MonkBelt = 12;
+
+			public const int Count = 13;
 		}
 
 		public class Wing
@@ -1202,7 +1293,9 @@ namespace Terraria.ID
 
 			public const sbyte LokisWings = 36;
 
-			public const int Count = 37;
+			public const sbyte BetsyWings = 37;
+
+			public const int Count = 38;
 		}
 
 		public class Shield
@@ -1217,7 +1310,9 @@ namespace Terraria.ID
 
 			public const sbyte ShieldofCthulhu = 5;
 
-			public const int Count = 6;
+			public const sbyte SquireShield = 6;
+
+			public const int Count = 7;
 		}
 
 		public class Neck
@@ -1238,7 +1333,9 @@ namespace Terraria.ID
 
 			public const sbyte WormScarf = 8;
 
-			public const int Count = 9;
+			public const sbyte ApprenticeScarf = 9;
+
+			public const int Count = 10;
 		}
 
 		public class Face

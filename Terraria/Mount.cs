@@ -2583,6 +2583,10 @@ namespace Terraria
 							drillBeam.curTileTarget = point;
 							int pickPower = Mount.drillPickPower;
 							bool flag = mountedPlayer.whoAmI == Main.myPlayer;
+							if (mountedPlayer.noBuilding)
+							{
+								flag = false;
+							}
 							if (flag)
 							{
 								mountedPlayer.PickTile((int)point.X, (int)point.Y, pickPower);

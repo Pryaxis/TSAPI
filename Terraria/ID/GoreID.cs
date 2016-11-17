@@ -2,6 +2,97 @@ namespace Terraria.ID
 {
 	public static class GoreID
 	{
+		public static class Sets
+		{
+			public static int[] DisappearSpeed = GoreID.Sets.Factory.CreateIntSet(1, new int[]
+			{
+				1007,
+				3,
+				1008,
+				10,
+				1024,
+				7,
+				1025,
+				7,
+				1026,
+				7
+			});
+
+			public static int[] DisappearSpeedAlpha = GoreID.Sets.Factory.CreateIntSet(1, new int[]
+			{
+				1007,
+				3,
+				1008,
+				10,
+				1024,
+				7,
+				1025,
+				7,
+				1026,
+				7
+			});
+
+			public static SetFactory Factory = new SetFactory(1087);
+
+			public static int[] SpecialAI = GoreID.Sets.Factory.CreateIntSet(0, new int[]
+			{
+				860,
+				1,
+				892,
+				1,
+				893,
+				1,
+				825,
+				2,
+				826,
+				2,
+				827,
+				2,
+				1014,
+				1,
+				1015,
+				1,
+				1016,
+				1,
+				910,
+				3,
+				911,
+				3,
+				912,
+				3,
+				913,
+				3,
+				914,
+				3,
+				915,
+				3,
+				916,
+				3,
+				917,
+				3,
+				918,
+				3,
+				919,
+				3,
+				920,
+				3,
+				921,
+				3,
+				922,
+				3,
+				923,
+				3,
+				924,
+				3,
+				925,
+				3,
+				1007,
+				3,
+				1008,
+				3
+			});
+		}
+
 		public const int ChargedBlasterRing = 618;
 
 		public const int MoonLordHeart1 = 619;
@@ -637,6 +728,246 @@ namespace Terraria.ID
 		public const int Tumbleweed2 = 965;
 
 		public const int Tumbleweed3 = 966;
+
+		public const int Bartender1 = 967;
+
+		public const int Bartender2 = 968;
+
+		public const int Bartender3 = 969;
+
+		public const int DD2Skeleton1 = 970;
+
+		public const int DD2Skeleton2 = 971;
+
+		public const int DD2Skeleton3 = 972;
+
+		public const int DD2Skeleton4 = 973;
+
+		public const int DD2WyvernT1_1 = 974;
+
+		public const int DD2WyvernT1_2 = 975;
+
+		public const int DD2WyvernT1_3 = 976;
+
+		public const int DD2WyvernT1_4 = 977;
+
+		public const int DD2WyvernT1_5 = 978;
+
+		public const int DD2DrakinT3_1 = 979;
+
+		public const int DD2DrakinT3_2 = 980;
+
+		public const int DD2DrakinT3_3 = 981;
+
+		public const int DD2DrakinT3_4 = 982;
+
+		public const int DD2GoblinT1_1 = 983;
+
+		public const int DD2GoblinT1_2 = 984;
+
+		public const int DD2GoblinT1_3 = 985;
+
+		public const int DD2GoblinT1_4 = 986;
+
+		public const int DD2JavelinThrowerT1_1 = 987;
+
+		public const int DD2JavelinThrowerT1_2 = 988;
+
+		public const int DD2JavelinThrowerT1_3 = 989;
+
+		public const int DD2JavelinThrowerT1_4 = 990;
+
+		public const int DD2JavelinThrowerT1_5 = 991;
+
+		public const int DD2JavelinThrowerT1_6 = 992;
+
+		public const int DD2Kobold1 = 993;
+
+		public const int DD2Kobold2 = 994;
+
+		public const int DD2Kobold3 = 995;
+
+		public const int DD2Kobold4 = 996;
+
+		public const int LightningBugT3_1 = 997;
+
+		public const int LightningBugT3_2 = 998;
+
+		public const int LightningBugT3_3 = 999;
+
+		public const int DD2Ogre1 = 1000;
+
+		public const int DD2Ogre2 = 1001;
+
+		public const int DD2Ogre3 = 1002;
+
+		public const int DD2Ogre4 = 1003;
+
+		public const int DD2Ogre5 = 1004;
+
+		public const int DD2Ogre6 = 1005;
+
+		public const int DD2Ogre6Alt = 1006;
+
+		public const int Pages = 1007;
+
+		public const int PageScrap = 1008;
+
+		public const int DD2DarkMageT1_1 = 1009;
+
+		public const int DD2DarkMageT1_2 = 1010;
+
+		public const int DD2DarkMageT1_3 = 1011;
+
+		public const int DD2DarkMageT1_4 = 1012;
+
+		public const int DD2DarkMageT1_5 = 1013;
+
+		public const int DD2DarkMageT1_6 = 1014;
+
+		public const int DD2DarkMageT1_7 = 1015;
+
+		public const int DD2DarkMageT1_8 = 1016;
+
+		public const int DD2DarkMageT1_9 = 1017;
+
+		public const int DD2DarkMageT1_10 = 1018;
+
+		public const int DD2DarkMageT1_11 = 1019;
+
+		public const int DD2WitherBeast1 = 1020;
+
+		public const int DD2WitherBeast2 = 1021;
+
+		public const int DD2WitherBeast3 = 1022;
+
+		public const int DD2WitherBeast4 = 1023;
+
+		public const int OgreSpit1 = 1024;
+
+		public const int OgreSpit2 = 1025;
+
+		public const int OgreSpit3 = 1026;
+
+		public const int DD2Crystal1 = 1027;
+
+		public const int DD2Crystal2 = 1028;
+
+		public const int DD2Crystal3 = 1029;
+
+		public const int DD2Crystal4 = 1030;
+
+		public const int DD2GoblinBomberT1_1 = 1031;
+
+		public const int DD2GoblinBomberT1_2 = 1032;
+
+		public const int DD2GoblinBomberT1_3 = 1033;
+
+		public const int DD2GoblinBomberT2_1 = 1034;
+
+		public const int DD2GoblinBomberT2_2 = 1035;
+
+		public const int DD2GoblinBomberT2_3 = 1036;
+
+		public const int DD2GoblinBomberT3_1 = 1037;
+
+		public const int DD2GoblinBomberT3_2 = 1038;
+
+		public const int DD2GoblinBomberT3_3 = 1039;
+
+		public const int DD2WyvernT2_1 = 1040;
+
+		public const int DD2WyvernT2_2 = 1041;
+
+		public const int DD2WyvernT2_3 = 1042;
+
+		public const int DD2WyvernT2_4 = 1043;
+
+		public const int DD2WyvernT2_5 = 1044;
+
+		public const int DD2WyvernT3_1 = 1045;
+
+		public const int DD2WyvernT3_2 = 1046;
+
+		public const int DD2WyvernT3_3 = 1047;
+
+		public const int DD2WyvernT3_4 = 1048;
+
+		public const int DD2WyvernT3_5 = 1049;
+
+		public const int DD2KoboldFlyerT2_1 = 1050;
+
+		public const int DD2KoboldFlyerT2_2 = 1051;
+
+		public const int DD2KoboldFlyerT2_3 = 1052;
+
+		public const int DD2KoboldFlyerT2_4 = 1053;
+
+		public const int DD2KoboldFlyerT2_5 = 1054;
+
+		public const int DD2JavelinThrowerT2_1 = 1055;
+
+		public const int DD2JavelinThrowerT2_2 = 1056;
+
+		public const int DD2JavelinThrowerT2_3 = 1057;
+
+		public const int DD2JavelinThrowerT2_4 = 1058;
+
+		public const int DD2JavelinThrowerT2_5 = 1059;
+
+		public const int DD2JavelinThrowerT2_6 = 1060;
+
+		public const int DD2JavelinThrowerT3_1 = 1061;
+
+		public const int DD2JavelinThrowerT3_2 = 1062;
+
+		public const int DD2JavelinThrowerT3_3 = 1063;
+
+		public const int DD2JavelinThrowerT3_4 = 1064;
+
+		public const int DD2JavelinThrowerT3_5 = 1065;
+
+		public const int DD2JavelinThrowerT3_6 = 1066;
+
+		public const int DD2GoblinT2_1 = 1067;
+
+		public const int DD2GoblinT2_2 = 1068;
+
+		public const int DD2GoblinT2_3 = 1069;
+
+		public const int DD2GoblinT2_4 = 1070;
+
+		public const int DD2GoblinT3_1 = 1071;
+
+		public const int DD2GoblinT3_2 = 1072;
+
+		public const int DD2GoblinT3_3 = 1073;
+
+		public const int DD2GoblinT3_4 = 1074;
+
+		public const int DD2DrakinT2_1 = 1075;
+
+		public const int DD2DrakinT2_2 = 1076;
+
+		public const int DD2DrakinT2_3 = 1077;
+
+		public const int DD2DrakinT2_4 = 1078;
+
+		public const int DD2BetsyTail = 1079;
+
+		public const int DD2BetsyFoot = 1080;
+
+		public const int DD2BetsyHead = 1081;
+
+		public const int DD2BetsyBody = 1082;
+
+		public const int DD2BetsyWing1 = 1083;
+
+		public const int DD2BetsyWing2 = 1084;
+
+		public const int DD2BetsyHand = 1085;
+
+		public const int DD2BetsyButt = 1086;
 
 		public const short Count = 967;
 	}

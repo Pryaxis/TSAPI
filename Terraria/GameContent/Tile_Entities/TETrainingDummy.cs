@@ -1,9 +1,8 @@
-
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Terraria;
 using Terraria.DataStructures;
+using Terraria.ID;
 
 namespace Terraria.GameContent.Tile_Entities
 {
@@ -89,7 +88,7 @@ namespace Terraria.GameContent.Tile_Entities
 			{
 				return TETrainingDummy.Place(x - 1, y - 2);
 			}
-			NetMessage.SendTileSquare(Main.myPlayer, x - 1, y - 1, 3);
+			NetMessage.SendTileSquare(Main.myPlayer, x - 1, y - 1, 3, TileChangeType.None);
 			NetMessage.SendData(87, -1, -1, "", x - 1, (float)(y - 2), 0f, 0f, 0, 0, 0);
 			return -1;
 		}

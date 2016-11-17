@@ -11,8 +11,11 @@ namespace Terraria.World.Generation
 
 		private float _totalLoadWeight;
 
-		public WorldGenerator()
+		private int _seed;
+
+		public WorldGenerator(int seed)
 		{
+			this._seed = seed;
 		}
 
 		public void Append(GenPass pass)
@@ -35,19 +38,15 @@ namespace Terraria.World.Generation
 				progress = new GenerationProgress();
 			}
 			progress.TotalWeight = weight;
-			string str = "";
 			Main.menuMode = 888;
 			foreach (GenPass genPass in this._passes)
 			{
+				WorldGen._genRand = new Random(this._seed);
+				Main.rand = new Random(this._seed);
 				stopwatch.Start();
 				progress.Start(genPass.Weight);
 				genPass.Apply(progress);
 				progress.End();
-				string str1 = str;
-				string[] name = new string[] { str1, "Pass - ", genPass.Name, " : ", null, null };
-				name[4] = stopwatch.Elapsed.TotalMilliseconds.ToString();
-				name[5] = ",\n";
-				str = string.Concat(name);
 				stopwatch.Reset();
 			}
 		}

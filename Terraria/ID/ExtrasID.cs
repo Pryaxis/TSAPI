@@ -156,6 +156,32 @@ namespace Terraria.ID
 
 		public const short Tumbleweed = 76;
 
-		public const short Count = 77;
+		public const short ElfEars = 77;
+
+		public const short DD2ElderEye = 78;
+
+		public const short EventIconOldOnesArmy = 79;
+
+		public const short DD2SkeletonFlame = 80;
+
+		public const short DD2BetsyWingFront = 81;
+
+		public const short DD2BetsyWingBack = 82;
+
+		public const short DD2BallistraTowerT1 = 83;
+
+		public const short DD2BallistraTowerT2 = 84;
+
+		public const short DD2BallistraTowerT3 = 85;
+
+		public const short DD2LightningAuraT1 = 86;
+
+		public const short DD2LightningAuraT2 = 87;
+
+		public const short DD2LightningAuraT3 = 88;
+
+		public const short ThePerfectGlow = 89;
+
+		public const short Count = 90;
 	}
 }

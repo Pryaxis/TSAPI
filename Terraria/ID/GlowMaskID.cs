@@ -446,6 +446,54 @@ namespace Terraria.ID
 
 		public const short BlackBoltEye = 220;
 
-		public const short Count = 221;
+		public const short DD2FlameBurstTowerT1 = 221;
+
+		public const short DD2FlameBurstTowerT2 = 222;
+
+		public const short DD2FlameBurstTowerT3 = 223;
+
+		public const short DD2WitherBeast = 224;
+
+		public const short DD2DarkMage = 225;
+
+		public const short DD2Betsy = 226;
+
+		public const short DD2SquireBetsySword = 227;
+
+		public const short DD2LightningAuraT1 = 228;
+
+		public const short DD2LightningAuraT2 = 229;
+
+		public const short DD2LightningAuraT3 = 230;
+
+		public const short MonkStaffT2 = 231;
+
+		public const short MonkStaffT3 = 232;
+
+		public const short MonkStaffT3Item = 233;
+
+		public const short BetsyBow = 234;
+
+		public const short DD2ExplosiveTrapT1 = 235;
+
+		public const short DD2ExplosiveTrapT2 = 236;
+
+		public const short DD2ExplosiveTrapT3 = 237;
+
+		public const short BetsysWrath = 238;
+
+		public const short DD2CrystalOrb = 239;
+
+		public const short ApprenticeDarkArmFlame = 240;
+
+		public const short ApprenticeDarkHeadFlame = 241;
+
+		public const short ValhallaKnightHead = 242;
+
+		public const short DefendersForge = 243;
+
+		public const short DefendersForgeItem = 244;
+
+		public const short Count = 245;
 	}
 }

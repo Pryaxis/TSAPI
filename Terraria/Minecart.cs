@@ -1,6 +1,5 @@
-
 using System;
-using System.Runtime.CompilerServices;
+using Terraria.ID;
 
 namespace Terraria
 {
@@ -153,7 +152,7 @@ namespace Terraria
 					}
 					tile.FrontTrack(tile.BackTrack());
 					tile.BackTrack(num);
-					NetMessage.SendTileSquare(-1, i, j, 1);
+					NetMessage.SendTileSquare(-1, i, j, 1, TileChangeType.None);
 					return;
 				}
 				case 1:
@@ -163,7 +162,7 @@ namespace Terraria
 				case 2:
 				{
 					Minecart.FrameTrack(i, j, true, true);
-					NetMessage.SendTileSquare(-1, i, j, 1);
+					NetMessage.SendTileSquare(-1, i, j, 1, TileChangeType.None);
 					return;
 				}
 				default:

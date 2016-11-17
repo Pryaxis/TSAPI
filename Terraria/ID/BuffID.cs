@@ -388,6 +388,26 @@ namespace Terraria.ID
 
 		public const int WindPushed = 194;
 
-		public const int Count = 195;
+		public const int WitheredArmor = 195;
+
+		public const int WitheredWeapon = 196;
+
+		public const int OgreSpit = 197;
+
+		public const int ParryDamageBuff = 198;
+
+		public const int PetDD2Gato = 200;
+
+		public const int PetDD2Ghost = 201;
+
+		public const int PetDD2Dragon = 202;
+
+		public const int BetsysCurse = 203;
+
+		public const int Oiled = 204;
+
+		public const int BallistaPanic = 205;
+
+		public const int Count = 206;
 	}
 }

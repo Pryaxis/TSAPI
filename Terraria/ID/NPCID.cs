@@ -8,6 +8,269 @@ namespace Terraria.ID
 		{
 			public static SetFactory Factory = new SetFactory(Count);
 
+			static Sets()
+			{
+				SetFactory arg_14C5_0 = NPCID.Sets.Factory;
+				int arg_14C5_1 = -1;
+				int[] array = new int[50];
+				array[0] = 38;
+				array[2] = 17;
+				array[4] = 107;
+				array[6] = 19;
+				array[7] = 1;
+				array[8] = 22;
+				array[9] = 1;
+				array[10] = 124;
+				array[12] = 228;
+				array[13] = 1;
+				array[14] = 178;
+				array[15] = 1;
+				array[16] = 18;
+				array[18] = 229;
+				array[19] = 1;
+				array[20] = 209;
+				array[21] = 1;
+				array[22] = 54;
+				array[23] = 2;
+				array[24] = 108;
+				array[25] = 2;
+				array[26] = 160;
+				array[27] = 2;
+				array[28] = 20;
+				array[29] = 2;
+				array[30] = 369;
+				array[32] = 453;
+				array[34] = 368;
+				array[35] = 1;
+				array[36] = 207;
+				array[37] = 3;
+				array[38] = 227;
+				array[39] = 1;
+				array[40] = 208;
+				array[42] = 142;
+				array[44] = 441;
+				array[45] = 3;
+				array[46] = 353;
+				array[47] = 3;
+				array[48] = 550;
+				NPCID.Sets.AttackType = arg_14C5_0.CreateIntSet(arg_14C5_1, array);
+				NPCID.Sets.PrettySafe = NPCID.Sets.Factory.CreateIntSet(-1, new int[]
+				{
+					19,
+					300,
+					22,
+					200,
+					124,
+					200,
+					228,
+					300,
+					178,
+					300,
+					229,
+					300,
+					209,
+					300,
+					54,
+					100,
+					108,
+					100,
+					160,
+					100,
+					20,
+					200,
+					368,
+					200,
+					227,
+					200
+				});
+				NPCID.Sets.MagicAuraColor = NPCID.Sets.Factory.CreateCustomSet<Color>(Color.White, new object[]
+				{
+					54,
+					new Color(100, 4, 227, 127),
+					108,
+					new Color(255, 80, 60, 127),
+					160,
+					new Color(40, 80, 255, 127),
+					20,
+					new Color(40, 255, 80, 127)
+				});
+				NPCID.Sets.Skeletons = new List<int>
+				{
+					77,
+					-49,
+					-51,
+					-53,
+					-47,
+					449,
+					450,
+					451,
+					452,
+					481,
+					201,
+					-15,
+					202,
+					203,
+					21,
+					324,
+					110,
+					323,
+					293,
+					291,
+					322,
+					-48,
+					-50,
+					-52,
+					-46,
+					292,
+					197,
+					167,
+					44
+				};
+				NPCID.Sets.BossHeadTextures = NPCID.Sets.Factory.CreateIntSet(-1, new int[]
+				{
+					4,
+					0,
+					13,
+					2,
+					344,
+					3,
+					370,
+					4,
+					246,
+					5,
+					249,
+					5,
+					345,
+					6,
+					50,
+					7,
+					396,
+					8,
+					395,
+					9,
+					325,
+					10,
+					262,
+					11,
+					327,
+					13,
+					222,
+					14,
+					125,
+					15,
+					126,
+					16,
+					346,
+					17,
+					127,
+					18,
+					35,
+					19,
+					68,
+					19,
+					113,
+					22,
+					266,
+					23,
+					439,
+					24,
+					440,
+					24,
+					134,
+					25,
+					491,
+					26,
+					517,
+					27,
+					422,
+					28,
+					507,
+					29,
+					493,
+					30,
+					549,
+					35,
+					564,
+					32,
+					565,
+					32,
+					576,
+					33,
+					577,
+					33,
+					551,
+					34,
+					548,
+					36
+				});
+				NPCID.Sets.ExcludedFromDeathTally = NPCID.Sets.Factory.CreateBoolSet(false, new int[]
+				{
+					121,
+					384,
+					406
+				});
+				NPCID.Sets.TechnicallyABoss = NPCID.Sets.Factory.CreateBoolSet(new int[]
+				{
+					517,
+					422,
+					507,
+					493,
+					399
+				});
+				NPCID.Sets.MustAlwaysDraw = NPCID.Sets.Factory.CreateBoolSet(new int[]
+				{
+					113,
+					114,
+					115,
+					116,
+					126,
+					125
+				});
+				int[] array2 = new int[50];
+				array2[0] = 38;
+				array2[1] = 1;
+				array2[2] = 17;
+				array2[3] = 1;
+				array2[4] = 107;
+				array2[6] = 19;
+				array2[8] = 22;
+				array2[10] = 124;
+				array2[11] = 1;
+				array2[12] = 228;
+				array2[14] = 178;
+				array2[15] = 1;
+				array2[16] = 18;
+				array2[17] = 1;
+				array2[18] = 229;
+				array2[19] = 1;
+				array2[20] = 209;
+				array2[21] = 1;
+				array2[22] = 54;
+				array2[23] = 1;
+				array2[24] = 108;
+				array2[25] = 1;
+				array2[26] = 160;
+				array2[28] = 20;
+				array2[30] = 369;
+				array2[31] = 1;
+				array2[32] = 453;
+				array2[33] = 1;
+				array2[34] = 368;
+				array2[35] = 1;
+				array2[36] = 207;
+				array2[37] = 1;
+				array2[38] = 227;
+				array2[39] = 1;
+				array2[40] = 208;
+				array2[42] = 142;
+				array2[43] = 1;
+				array2[44] = 441;
+				array2[45] = 1;
+				array2[46] = 353;
+				array2[47] = 1;
+				array2[48] = 550;
+			}
+
 			public static float[] StatueSpawnedDropRarity = Factory.CreateCustomSet<float>(-1f, new object[]
 			{
 				480,
@@ -168,6 +431,8 @@ namespace Terraria.ID
 				441,
 				6,
 				353,
+				-2,
+				550,
 				-2
 			});
 
@@ -276,6 +541,8 @@ namespace Terraria.ID
 				453,
 				9,
 				441,
+				9,
+				550,
 				9
 			});
 
@@ -330,6 +597,8 @@ namespace Terraria.ID
 				453,
 				4,
 				441,
+				4,
+				550,
 				4
 			});
 
@@ -382,7 +651,9 @@ namespace Terraria.ID
 				441,
 				50,
 				353,
-				60
+				60,
+				550,
+				120
 			});
 
 			public static int[] AttackTime = Factory.CreateIntSet(-1, new int[]
@@ -434,7 +705,9 @@ namespace Terraria.ID
 				441,
 				15,
 				353,
-				12
+				12,
+				550,
+				34
 			});
 
 			public static int[] AttackAverageChance = Factory.CreateIntSet(1, new int[]
@@ -486,224 +759,366 @@ namespace Terraria.ID
 				441,
 				1,
 				353,
-				1
+				1,
+				550,
+				40
 			});
 
-			public static int[] AttackType = Factory.CreateIntSet(-1, new int[]
+			public static int[] AttackType;
+
+			//public static int[] AttackType = Factory.CreateIntSet(-1, new int[]
+			//{
+			//	38,
+			//	0,
+			//	17,
+			//	0,
+			//	107,
+			//	0,
+			//	19,
+			//	1,
+			//	22,
+			//	1,
+			//	124,
+			//	0,
+			//	228,
+			//	1,
+			//	178,
+			//	1,
+			//	18,
+			//	0,
+			//	229,
+			//	1,
+			//	209,
+			//	1,
+			//	54,
+			//	2,
+			//	108,
+			//	2,
+			//	160,
+			//	2,
+			//	20,
+			//	2,
+			//	369,
+			//	0,
+			//	453,
+			//	0,
+			//	368,
+			//	1,
+			//	207,
+			//	3,
+			//	227,
+			//	1,
+			//	208,
+			//	0,
+			//	142,
+			//	0,
+			//	441,
+			//	3,
+			//	353,
+			//	3
+			//});
+
+			public static bool[] BelongsToInvasionOldOnesArmy = NPCID.Sets.Factory.CreateBoolSet(new int[]
 			{
-				38,
-				0,
-				17,
-				0,
-				107,
-				0,
-				19,
-				1,
-				22,
-				1,
-				124,
-				0,
-				228,
-				1,
-				178,
-				1,
-				18,
-				0,
-				229,
-				1,
-				209,
-				1,
-				54,
-				2,
-				108,
-				2,
-				160,
-				2,
-				20,
-				2,
-				369,
-				0,
-				453,
-				0,
-				368,
-				1,
-				207,
-				3,
-				227,
-				1,
-				208,
-				0,
-				142,
-				0,
-				441,
-				3,
-				353,
-				3
+				552,
+				553,
+				554,
+				561,
+				562,
+				563,
+				555,
+				556,
+				557,
+				558,
+				559,
+				560,
+				576,
+				577,
+				568,
+				569,
+				566,
+				567,
+				570,
+				571,
+				572,
+				573,
+				548,
+				549,
+				564,
+				565,
+				574,
+				575,
+				551,
+				578
 			});
 
-			public static int[] PrettySafe = Factory.CreateIntSet(-1, new int[]
+			public static int[] PrettySafe;
+
+			//public static int[] PrettySafe = Factory.CreateIntSet(-1, new int[]
+			//{
+			//	19,
+			//	300,
+			//	22,
+			//	200,
+			//	124,
+			//	200,
+			//	228,
+			//	300,
+			//	178,
+			//	300,
+			//	229,
+			//	300,
+			//	209,
+			//	300,
+			//	54,
+			//	100,
+			//	108,
+			//	100,
+			//	160,
+			//	100,
+			//	20,
+			//	200,
+			//	368,
+			//	200,
+			//	227,
+			//	200
+			//});
+
+			public static Color[] MagicAuraColor;
+
+			//public static Color[] MagicAuraColor = Factory.CreateCustomSet(Color.White, new object[]
+			//{
+			//	54,
+			//	new Color(100, 4, 227, 127),
+			//	108,
+			//	new Color(255, 80, 60, 127),
+			//	160,
+			//	new Color(40, 80, 255, 127),
+			//	20,
+			//	new Color(40, 255, 80, 127)
+			//});
+
+			public static List<int> Skeletons;
+
+			//public static List<int> Skeletons = new List<int>
+			//{
+			//	77,
+			//	-49,
+			//	-51,
+			//	-53,
+			//	-47,
+			//	449,
+			//	450,
+			//	451,
+			//	452,
+			//	481,
+			//	201,
+			//	-15,
+			//	202,
+			//	203,
+			//	21,
+			//	324,
+			//	110,
+			//	323,
+			//	293,
+			//	291,
+			//	322,
+			//	-48,
+			//	-50,
+			//	-52,
+			//	-46,
+			//	292,
+			//	197,
+			//	167,
+			//	44
+			//};
+
+			public static int[] BossHeadTextures;
+
+			//public static int[] BossHeadTextures = Factory.CreateIntSet(-1, new int[]
+			//{
+			//	4,
+			//	0,
+			//	13,
+			//	2,
+			//	344,
+			//	3,
+			//	370,
+			//	4,
+			//	246,
+			//	5,
+			//	249,
+			//	5,
+			//	345,
+			//	6,
+			//	50,
+			//	7,
+			//	396,
+			//	8,
+			//	395,
+			//	9,
+			//	325,
+			//	10,
+			//	262,
+			//	11,
+			//	327,
+			//	13,
+			//	222,
+			//	14,
+			//	125,
+			//	15,
+			//	126,
+			//	16,
+			//	346,
+			//	17,
+			//	127,
+			//	18,
+			//	35,
+			//	19,
+			//	68,
+			//	19,
+			//	113,
+			//	22,
+			//	266,
+			//	23,
+			//	439,
+			//	24,
+			//	440,
+			//	24,
+			//	134,
+			//	25,
+			//	491,
+			//	26,
+			//	517,
+			//	27,
+			//	422,
+			//	28,
+			//	507,
+			//	29,
+			//	493,
+			//	30
+			//});
+
+			public static bool[] ExcludedFromDeathTally;
+
+			//public static bool[] ExcludedFromDeathTally = Factory.CreateBoolSet(false, new int[]
+			//{
+			//	121,
+			//	384,
+			//	406
+			//});
+
+			public static bool[] TechnicallyABoss;
+
+			//public static bool[] TechnicallyABoss = Factory.CreateBoolSet(new int[]
+			//{
+			//	517,
+			//	422,
+			//	507,
+			//	493,
+			//	399
+			//});
+
+			public static bool[] MustAlwaysDraw;
+
+			//public static bool[] MustAlwaysDraw = Factory.CreateBoolSet(new int[]
+			//{
+			//	113,
+			//	114,
+			//	115,
+			//	116,
+			//	126,
+			//	125
+			//});
+
+			public static bool[] FighterUsesDD2PortalAppearEffect = NPCID.Sets.Factory.CreateBoolSet(new int[]
 			{
-				19,
-				300,
-				22,
-				200,
-				124,
-				200,
-				228,
-				300,
-				178,
-				300,
-				229,
-				300,
-				209,
-				300,
-				54,
-				100,
-				108,
-				100,
-				160,
-				100,
-				20,
-				200,
-				368,
-				200,
-				227,
-				200
+				552,
+				553,
+				554,
+				561,
+				562,
+				563,
+				555,
+				556,
+				557,
+				576,
+				577,
+				568,
+				569,
+				570,
+				571,
+				572,
+				573,
+				564,
+				565
 			});
 
-			public static Color[] MagicAuraColor = Factory.CreateCustomSet(Color.White, new object[]
+			public static bool[] TeleportationImmune = NPCID.Sets.Factory.CreateBoolSet(new int[]
 			{
-				54,
-				new Color(100, 4, 227, 127),
-				108,
-				new Color(255, 80, 60, 127),
-				160,
-				new Color(40, 80, 255, 127),
-				20,
-				new Color(40, 255, 80, 127)
+				552,
+				553,
+				554,
+				561,
+				562,
+				563,
+				555,
+				556,
+				557,
+				558,
+				559,
+				560,
+				576,
+				577,
+				568,
+				569,
+				566,
+				567,
+				570,
+				571,
+				572,
+				573,
+				548,
+				549,
+				564,
+				565,
+				574,
+				575,
+				551,
+				578
 			});
 
-			public static List<int> Skeletons = new List<int>
+			public static bool[] UsesNewTargetting = NPCID.Sets.Factory.CreateBoolSet(new int[]
 			{
-				77,
-				-49,
-				-51,
-				-53,
-				-47,
-				449,
-				450,
-				451,
-				452,
-				481,
-				201,
-				-15,
-				202,
-				203,
-				21,
-				324,
-				110,
-				323,
-				293,
-				291,
-				322,
-				-48,
-				-50,
-				-52,
-				-46,
-				292,
-				197,
-				167,
-				44
-			};
-
-			public static int[] BossHeadTextures = Factory.CreateIntSet(-1, new int[]
-			{
-				4,
-				0,
-				13,
-				2,
-				344,
-				3,
-				370,
-				4,
-				246,
-				5,
-				249,
-				5,
-				345,
-				6,
-				50,
-				7,
-				396,
-				8,
-				395,
-				9,
-				325,
-				10,
-				262,
-				11,
-				327,
-				13,
-				222,
-				14,
-				125,
-				15,
-				126,
-				16,
-				346,
-				17,
-				127,
-				18,
-				35,
-				19,
-				68,
-				19,
-				113,
-				22,
-				266,
-				23,
-				439,
-				24,
-				440,
-				24,
-				134,
-				25,
-				491,
-				26,
-				517,
-				27,
-				422,
-				28,
-				507,
-				29,
-				493,
-				30
-			});
-
-			public static bool[] ExcludedFromDeathTally = Factory.CreateBoolSet(false, new int[]
-			{
-				121,
-				384,
-				406
-			});
-
-			public static bool[] TechnicallyABoss = Factory.CreateBoolSet(new int[]
-			{
-				517,
-				422,
-				507,
-				493,
-				399
-			});
-
-			public static bool[] MustAlwaysDraw = Factory.CreateBoolSet(new int[]
-			{
-				113,
-				114,
-				115,
-				116,
-				126,
-				125
+				547,
+				552,
+				553,
+				554,
+				561,
+				562,
+				563,
+				555,
+				556,
+				557,
+				558,
+				559,
+				560,
+				576,
+				577,
+				568,
+				569,
+				566,
+				567,
+				570,
+				571,
+				572,
+				573,
+				564,
+				565,
+				574,
+				575,
+				551,
+				578
 			});
 		}
 
@@ -1931,6 +2346,72 @@ namespace Terraria.ID
 
 		public const short Tumbleweed = 546;
 
-		public const short Count = 547;
+		public const short DD2AttackerTest = 547;
+
+		public const short DD2Crystal = 548;
+
+		public const short DD2LanePortal = 549;
+
+		public const short DD2Bartender = 550;
+
+		public const short DD2Betsy = 551;
+
+		public const short DD2GoblinT1 = 552;
+
+		public const short DD2GoblinT2 = 553;
+
+		public const short DD2GoblinT3 = 554;
+
+		public const short DD2GoblinBomberT1 = 555;
+
+		public const short DD2GoblinBomberT2 = 556;
+
+		public const short DD2GoblinBomberT3 = 557;
+
+		public const short DD2WyvernT1 = 558;
+
+		public const short DD2WyvernT2 = 559;
+
+		public const short DD2WyvernT3 = 560;
+
+		public const short DD2JavelinstT1 = 561;
+
+		public const short DD2JavelinstT2 = 562;
+
+		public const short DD2JavelinstT3 = 563;
+
+		public const short DD2DarkMageT1 = 564;
+
+		public const short DD2DarkMageT3 = 565;
+
+		public const short DD2SkeletonT1 = 566;
+
+		public const short DD2SkeletonT3 = 567;
+
+		public const short DD2WitherBeastT2 = 568;
+
+		public const short DD2WitherBeastT3 = 569;
+
+		public const short DD2DrakinT2 = 570;
+
+		public const short DD2DrakinT3 = 571;
+
+		public const short DD2KoboldWalkerT2 = 572;
+
+		public const short DD2KoboldWalkerT3 = 573;
+
+		public const short DD2KoboldFlyerT2 = 574;
+
+		public const short DD2KoboldFlyerT3 = 575;
+
+		public const short DD2OgreT2 = 576;
+
+		public const short DD2OgreT3 = 577;
+
+		public const short DD2LightningBugT3 = 578;
+
+		public const short BartenderUnconscious = 579;
+
+		public const short Count = 580;
 	}
 }

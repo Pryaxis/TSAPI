@@ -1,4 +1,3 @@
-
 using System;
 using System.IO;
 using System.IO.Compression;
@@ -6,6 +5,7 @@ using Terraria.DataStructures;
 using Terraria.GameContent.Tile_Entities;
 using Terraria.ID;
 using Terraria.IO;
+using Terraria.Localization;
 using Terraria.Net.Sockets;
 using TerrariaApi.Server;
 using System.Text;
@@ -56,13 +56,13 @@ namespace Terraria
 			switch (msgType)
 			{
 				case 1:
-					writer.Write("Terraria" + Main.curRelease);
+					writer.Write("Terraria" + 185);
 					break;
 				case 2:
 					writer.Write(text);
 					if (Main.dedServ)
 					{
-						Console.WriteLine(Netplay.Clients[num].Socket.GetRemoteAddress().ToString() + " was booted: " + text);
+						Console.WriteLine(Language.GetTextValue("CLI.ClientWasBooted", Netplay.Clients[num].Socket.GetRemoteAddress().ToString(), text));
 					}
 					break;
 				case 3:
@@ -112,17 +112,21 @@ namespace Terraria
 					writer.Write((byte) number2);
 					Player player2 = Main.player[number];
 					Item item;
-					if (number2 >
-					    (float)
-						    (58 + player2.armor.Length + player2.dye.Length + player2.miscEquips.Length + player2.miscDyes.Length +
-						     player2.bank.item.Length + player2.bank2.item.Length))
+					if (number2 > (float)(58 + player2.armor.Length + player2.dye.Length + player2.miscEquips.Length + player2.miscDyes.Length + player2.bank.item.Length + player2.bank2.item.Length + 1))
+					{
+						item = player2.bank3.item[(int)number2 - 58 - (player2.armor.Length + player2.dye.Length + player2.miscEquips.Length + player2.miscDyes.Length + player2.bank.item.Length + player2.bank2.item.Length + 1) - 1];
+					}
+					else if (number2 >
+						(float)
+							(58 + player2.armor.Length + player2.dye.Length + player2.miscEquips.Length + player2.miscDyes.Length +
+							player2.bank.item.Length + player2.bank2.item.Length))
 					{
 						item = player2.trashItem;
 					}
 					else if (number2 >
-					         (float)
-						         (58 + player2.armor.Length + player2.dye.Length + player2.miscEquips.Length + player2.miscDyes.Length +
-						          player2.bank.item.Length))
+						(float)
+							(58 + player2.armor.Length + player2.dye.Length + player2.miscEquips.Length + player2.miscDyes.Length +
+							player2.bank.item.Length))
 					{
 						item =
 							player2.bank2.item[
@@ -131,8 +135,8 @@ namespace Terraria
 								 player2.bank.item.Length) - 1];
 					}
 					else if (number2 >
-					         (float)
-						         (58 + player2.armor.Length + player2.dye.Length + player2.miscEquips.Length + player2.miscDyes.Length))
+						(float)
+							(58 + player2.armor.Length + player2.dye.Length + player2.miscEquips.Length + player2.miscDyes.Length))
 					{
 						item =
 							player2.bank.item[
@@ -273,6 +277,10 @@ namespace Terraria
 					bb8[1] = NPC.downedFrost;
 					bb8[2] = NPC.downedGoblins;
 					bb8[3] = Sandstorm.Happening;
+					bb8[4] = DD2Event.Ongoing;
+					bb8[5] = DD2Event.DownedInvasionT1;
+					bb8[6] = DD2Event.DownedInvasionT2;
+					bb8[7] = DD2Event.DownedInvasionT3;
 					writer.Write(bb8);
 					writer.Write((sbyte) Main.invasionType);
 					writer.Write(Main.LobbyId);
@@ -326,6 +334,7 @@ namespace Terraria
 					bb9[2] = (player3.velocity != Vector2.Zero);
 					bb9[3] = player3.vortexStealthActive;
 					bb9[4] = (player3.gravDir == 1f);
+					bb9[5] = player3.shieldRaised;
 					writer.Write(bb9);
 					writer.Write((byte) player3.selectedItem);
 					writer.WriteVector2(player3.position);
@@ -369,30 +378,43 @@ namespace Terraria
 					break;
 				case 20:
 				{
+					int num3 = number;
 					int num4 = (int) number2;
 					int num5 = (int) number3;
-					if (num4 < number)
+					if (num3 < 0)
 					{
-						num4 = number;
+						num3 = 0;
 					}
-					if (num4 >= Main.maxTilesX + number)
+					if (num4 < num3)
 					{
-						num4 = Main.maxTilesX - number - 1;
+						num4 = num3;
 					}
-					if (num5 < number)
+					if (num4 >= Main.maxTilesX + num3)
 					{
-						num5 = number;
+						num4 = Main.maxTilesX - num3 - 1;
 					}
-					if (num5 >= Main.maxTilesY + number)
+					if (num5 < num3)
 					{
-						num5 = Main.maxTilesY - number - 1;
+						num5 = num3;
 					}
-					writer.Write((short) number);
+					if (num5 >= Main.maxTilesY + num3)
+					{
+						num5 = Main.maxTilesY - num3 - 1;
+					}
+					if (number5 == 0)
+					{
+						writer.Write((ushort)(num4 & 32767));
+					}
+					else
+					{
+						writer.Write((ushort)((num4 & 32767) | 32768));
+						writer.Write((byte)number5);
+					}
 					writer.Write((short) num4);
 					writer.Write((short) num5);
-					for (int num6 = num4; num6 < num4 + number; num6++)
+					for (int num6 = num4; num6 < num4 + num3; num6++)
 					{
-						for (int num7 = num5; num7 < num5 + number; num7++)
+						for (int num7 = num5; num7 < num5 + num3; num7++)
 						{
 							BitsByte bb10 = 0;
 							BitsByte bb11 = 0;
@@ -490,9 +512,8 @@ namespace Terraria
 
 					writer.Write((short) number);
 					writer.WriteVector2(nPC.position);
-
 					writer.WriteVector2(nPC.velocity);
-					writer.Write((byte) nPC.target);
+					writer.Write((ushort) nPC.target);
 					int num8 = nPC.life;
 					if (!nPC.active)
 					{
@@ -580,6 +601,7 @@ namespace Terraria
 					bb13[1] = (number5 == 1); //critical hit
 					bb13[2] = (number6 == 0); //cooldownCounter
 					bb13[3] = (number6 == 1); //something with cooldownCounter = 1, 1.3.0.6 -P
+					bb13[4] = (number6 == 2); 
 					writer.Write(bb13);
 					break;
 				}
@@ -601,7 +623,7 @@ namespace Terraria
 							bb14[num10] = true;
 						}
 					}
-					if (projectile.type > 0 && projectile.type < 651 && ProjectileID.Sets.NeedsUUID[projectile.type])
+					if (projectile.type > 0 && projectile.type < Main.maxProjectileTypes && ProjectileID.Sets.NeedsUUID[projectile.type])
 					{
 						bb14[Projectile.maxAI] = true;
 					}
@@ -710,6 +732,7 @@ namespace Terraria
 					writer.Write(player4.zone1);
 					writer.Write(player4.zone2);
 					writer.Write(player4.zone3);
+					writer.Write(player4.zone4);
 					break;
 				}
 				case 38:
@@ -1093,7 +1116,7 @@ namespace Terraria
 					break;
 				case 99:
 					writer.Write((byte) number);
-					writer.WriteVector2(Main.player[number].MinionTargetPoint);
+					writer.WriteVector2(Main.player[number].MinionRestTargetPoint);
 					break;
 				case 100:
 				{
@@ -1174,6 +1197,17 @@ namespace Terraria
 					writer.Write((short)number3);
 					writer.Write((byte)number4);
 					writer.Write((short)number5);
+					break;
+				case 113:
+					writer.Write((short)number);
+					writer.Write((short)number2);
+					break;
+				case 115:
+					writer.Write((byte)number);
+					writer.Write((short)Main.player[number].MinionAttackTargetNPC);
+					break;
+				case 116:
+					writer.Write(number);
 					break;
 			}
 			int num19 = (int) writer.BaseStream.Position;
@@ -2070,7 +2104,6 @@ namespace Terraria
 		}
 		public static void RecieveBytes(byte[] bytes, int streamLength, int i = 256)
 		{
-
 			try
 			{
 				lock (buffer[i])
@@ -2085,7 +2118,7 @@ namespace Terraria
 				if (Main.netMode == 1)
 				{
 					Main.menuMode = 15;
-					Main.statusText = "Bad header lead to a read buffer overflow.";
+					Main.statusText = Language.GetTextValue("Error.BadHeaderBufferOverflow");
 					Netplay.disconnect = true;
 				}
 				else
@@ -2206,7 +2239,7 @@ namespace Terraria
 		{
 			SendData(77, whoAmi, -1, "", animationType, (float)tileType, (float)xCoord, (float)yCoord, 0, 0, 0);
 		}
-		public static void SendTileRange(int whoAmi, int tileX, int tileY, int xSize, int ySize)
+		public static void SendTileRange(int whoAmi, int tileX, int tileY, int xSize, int ySize, TileChangeType changeType = TileChangeType.None)
 		{
 			int number;
 			if (xSize < ySize)
@@ -2217,12 +2250,12 @@ namespace Terraria
 			{
 				number = xSize;
 			}
-			SendData(20, whoAmi, -1, "", number, (float)tileX, (float)tileY, 0f, 0, 0, 0);
+			SendData(20, whoAmi, -1, "", number, (float)tileX, (float)tileY, 0f, 0, (int)changeType, 0);
 		}
-		public static void SendTileSquare(int whoAmi, int tileX, int tileY, int size)
+		public static void SendTileSquare(int whoAmi, int tileX, int tileY, int size, TileChangeType changeType = TileChangeType.None)
 		{
 			int num = (size - 1) / 2;
-			SendData(20, whoAmi, -1, "", size, (float)(tileX - num), (float)(tileY - num), 0f, 0, 0, 0);
+			SendData(20, whoAmi, -1, "", size, (float)(tileX - num), (float)(tileY - num), 0f, 0, (int)changeType, 0);
 		}
 		public static void SendTravelShop(int plr)
 		{
@@ -2328,7 +2361,7 @@ namespace Terraria
 					}
 				}
 			}
-			SendData(25, plr, -1, "Current players: " + text + ".", 255, 255f, 240f, 20f, 0, 0, 0);
+			SendData(25, plr, -1, Language.GetTextValue("Game.JoinGreeting", text), 255, 255f, 240f, 20f, 0, 0, 0);
 		}
 		public static void sendWater(int x, int y)
 		{
@@ -2373,7 +2406,7 @@ namespace Terraria
 			bool flag = false;
 			for (int i = 0; i < 200; i++)
 			{
-				if (Main.npc[i].active && Main.npc[i].townNPC && NPC.TypeToNum(Main.npc[i].type) != -1)
+				if (Main.npc[i].active && Main.npc[i].townNPC && NPC.TypeToHeadIndex(Main.npc[i].type) != -1)
 				{
 					if (!flag && Main.npc[i].type == 368)
 					{
@@ -2409,7 +2442,7 @@ namespace Terraria
 			}
 			if (!flag)
 			{
-				Console.WriteLine("Local player left. Autoshutdown starting.");
+				Console.WriteLine(Language.GetTextValue("Net.ServerAutoShutdown"));
 				WorldFile.saveWorld();
 				Netplay.disconnect = true;
 			}

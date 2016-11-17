@@ -62,7 +62,7 @@ namespace Terraria.GameContent.Generation
 			int num = 0;
 			TileProvider tileArray = Main.tile;
 			bool flag = true;
-			int num1 = ((new Random()).Next(2) == 0 ? 1 : -1);
+			int num1 = (WorldGen.genRand.Next(2) == 0 ? 1 : -1);
 			if (debugMode)
 			{
 				num1 = Main.player[Main.myPlayer].direction;
@@ -231,12 +231,11 @@ namespace Terraria.GameContent.Generation
 
 		public void Generate(int trackCount, int minimumLength)
 		{
-			Random random = new Random();
 			int num = trackCount;
 			while (num > 0)
 			{
-				int num1 = random.Next(150, Main.maxTilesX - 150);
-				int num2 = random.Next((int)Main.worldSurface + 25, Main.maxTilesY - 200);
+				int num1 = WorldGen.genRand.Next(150, Main.maxTilesX - 150);
+				int num2 = WorldGen.genRand.Next((int)Main.worldSurface + 25, Main.maxTilesY - 200);
 				if (!this.IsLocationEmpty(num1, num2))
 				{
 					continue;
