@@ -40,6 +40,14 @@ namespace Terraria
 			}
 		}
 
+		public Item HeldItem
+		{
+			get
+			{
+				return this.inventory[this.selectedItem];
+			}
+		}
+
 
 		public Vector2 Directions
 		{
@@ -108,6 +116,22 @@ namespace Terraria
 			get
 			{
 				return this.statLife < this.statLifeMax2 / 2 || (this.wet && !this.lavaWet && !this.honeyWet) || this.dripping || this.MountFishronSpecialCounter > 0f;
+			}
+		}
+
+		public bool HasMinionRestTarget
+		{
+			get
+			{
+				return this.MinionRestTargetPoint != Vector2.Zero;
+			}
+		}
+
+		public bool HasMinionAttackTargetNPC
+		{
+			get
+			{
+				return this.MinionAttackTargetNPC != -1;
 			}
 		}
 
@@ -349,6 +373,17 @@ namespace Terraria
 			}
 		}
 
+		public bool ZoneOldOneArmy
+		{
+			get
+			{
+				return this.zone4[0];
+			}
+			set
+			{
+				this.zone4[0] = value;
+			}
+		}
 
 		public bool ZoneSkyHeight
 		{
@@ -593,6 +628,12 @@ namespace Terraria
 		public int anglerQuestsFinished;
 
 
+		public int bartenderQuestLog;
+
+
+		public bool downedDD2EventAnyDifficulty;
+
+
 		public bool archery;
 
 
@@ -634,7 +675,12 @@ namespace Terraria
 
 		public Chest bank2;
 
+
+		public Chest bank3;
+
+
 		public float basiliskCharge;
+
 
 		public bool bee;
 
@@ -816,7 +862,7 @@ namespace Terraria
 		public bool chaosState;
 
 
-		private int cHead;
+		public int cHead;
 
 
 		public int chest;
@@ -834,7 +880,7 @@ namespace Terraria
 		public Player.SelectionRadial CircularRadial = new Player.SelectionRadial(Player.SelectionRadial.SelectionMode.RadialCircular);
 
 
-		private int cLegs;
+		public int cLegs;
 
 
 		public int cLight;
@@ -846,7 +892,7 @@ namespace Terraria
 		public int cMount;
 
 
-		private int cNeck;
+		public int cNeck;
 
 
 		public bool coins;
@@ -939,16 +985,16 @@ namespace Terraria
 		public bool cSapling;
 
 
-		private int cShield;
+		public int cShield;
 
 
-		private int cShoe;
+		public int cShoe;
 
 
-		private int cWaist;
+		public int cWaist;
 
 
-		private int cWings;
+		public int cWings;
 
 
 		public int cYorai;
@@ -984,7 +1030,19 @@ namespace Terraria
 		public const int defaultHeight = 42;
 
 
-		private static int defaultItemGrabRange = 38;
+		public const int shadowMax = 3;
+
+
+		public const int SHIELD_PARRY_DURATION = 20;
+
+
+		public const int SHIELD_PARRY_DURATION_DRAWING_TWEAKER = 20;
+
+
+		public const int SHIELD_PARRY_DAMAGE_BUFF_MULTIPLIER = 5;
+
+
+		public static int defaultItemGrabRange = 38;
 
 
 		public const int defaultWidth = 20;
@@ -1069,6 +1127,9 @@ namespace Terraria
 
 
 		public float drainBoost;
+
+
+		public bool dd2Accessory;
 
 
 		public bool dripping;
@@ -1218,7 +1279,7 @@ namespace Terraria
 		public bool gills;
 
 
-		private bool GoingDownWithGrapple;
+		public bool GoingDownWithGrapple;
 
 
 		public bool goldRing;
@@ -1458,10 +1519,10 @@ namespace Terraria
 		public bool jumpBoost;
 
 
-		private static int jumpHeight = 15;
+		public static int jumpHeight = 15;
 
 
-		private static float jumpSpeed = 5.01f;
+		public static float jumpSpeed = 5.01f;
 
 
 		public float jumpSpeedBoost;
@@ -1683,7 +1744,7 @@ namespace Terraria
 		public int maxMinions;
 
 
-		private float maxRegenDelay;
+		public float maxRegenDelay;
 
 
 		public float maxRunSpeed;
@@ -1720,6 +1781,9 @@ namespace Terraria
 
 
 		public Vector2 MinionTargetPoint;
+
+
+		public int MinionAttackTargetNPC;
 
 
 		public int miscCounter;
@@ -2097,6 +2161,42 @@ namespace Terraria
 		public bool setStardust;
 
 
+		public bool setForbidden;
+
+
+		public bool setForbiddenCooldownLocked;
+
+
+		public bool setSquireT3;
+
+
+		public bool setHuntressT3;
+
+
+		public bool setApprenticeT3;
+
+
+		public bool setMonkT3;
+
+
+		public bool setSquireT2;
+
+
+		public bool setHuntressT2;
+
+
+		public bool setApprenticeT2;
+
+
+		public bool setMonkT2;
+
+
+		public int maxTurrets;
+
+
+		public int maxTurretsOld;
+
+
 		public bool setVortex;
 
 
@@ -2118,7 +2218,7 @@ namespace Terraria
 		public int shadowDodgeTimer;
 
 
-		private const int shadowMax = 3;
+		public int phantomPhoneixCounter;
 
 
 		public Vector2[] shadowOrigin;
@@ -2259,7 +2359,7 @@ namespace Terraria
 		public float[] speedSlice;
 
 
-		private byte spelunkerTimer;
+		public byte spelunkerTimer;
 
 
 		public int[] spI;
@@ -2290,6 +2390,15 @@ namespace Terraria
 
 
 		public bool squashling;
+
+
+		public bool petFlagDD2Gato;
+
+
+		public bool petFlagDD2Ghost;
+
+
+		public bool petFlagDD2Dragon;
 
 
 		public bool stairFall;
@@ -2469,6 +2578,21 @@ namespace Terraria
 		public bool trapDebuffSource;
 
 
+		public bool witheredArmor;
+
+
+		public bool witheredWeapon;
+
+
+		public bool slowOgreSpit;
+
+
+		public bool parryDamageBuff;
+
+
+		public bool ballistaPanic;
+
+
 		public Item trashItem;
 
 
@@ -2518,6 +2642,9 @@ namespace Terraria
 
 
 		public bool webbed;
+
+
+		public bool noBuilding;
 
 
 		public bool wellFed;
@@ -2583,6 +2710,9 @@ namespace Terraria
 		public BitsByte zone3;
 
 
+		public BitsByte zone4;
+
+
 		public int _funkytownCheckCD;
 
 
@@ -2590,6 +2720,15 @@ namespace Terraria
 
 
 		private int _quickGrappleCooldown;
+
+
+		public bool hasRaisableShield;
+
+		public bool shieldRaised;
+
+		public int shieldParryTimeLeft;
+
+		public int shield_parry_cooldown;
 
 		public Player()
 		{
@@ -2612,6 +2751,7 @@ namespace Terraria
 			this.zone1 = 0;
 			this.zone2 = 0;
 			this.zone3 = 0;
+			this.zone4 = 0;
 			this.doubleTapCardinalTimer = new int[4];
 			this.holdDownCardinalTimer = new int[4];
 			this.speedSlice = new float[60];
@@ -2635,6 +2775,7 @@ namespace Terraria
 			this.inventoryChestStack = new bool[59];
 			this.bank = new Chest(true);
 			this.bank2 = new Chest(true);
+			this.bank3 = new Chest(true);
 			this.fullRotationOrigin = Vector2.Zero;
 			this.nonTorch = -1;
 			this.stepSpeed = 1f;
@@ -2709,6 +2850,8 @@ namespace Terraria
 			this.displayedFishingInfo = "";
 			this.grappling = new int[20];
 			this.rocketTimeMax = 7;
+			this.maxTurrets = 1;
+			this.maxTurretsOld = 1;
 			this.flyingPigChest = -1;
 			this.chest = -1;
 			this.talkNPC = -1;
@@ -2717,6 +2860,7 @@ namespace Terraria
 			this.ownedProjectileCounts = new int[Main.maxProjectileTypes];
 			this.npcTypeNoAggro = new bool[Main.maxNPCTypes];
 			this.MinionTargetPoint = Vector2.Zero;
+			this.MinionAttackTargetNPC = -1;
 			this.TouchedTiles = new List<Point>();
 			int[] array2 = new int[2];
 			this.hurtCooldowns = array2;
@@ -2739,6 +2883,8 @@ namespace Terraria
 				this.bank.item[j].name = "";
 				this.bank2.item[j] = new Item();
 				this.bank2.item[j].name = "";
+				this.bank3.item[j] = new Item();
+				this.bank3.item[j].name = "";
 			}
 			for (int k = 0; k < this.dye.Length; k++)
 			{
@@ -3095,8 +3241,12 @@ namespace Terraria
 		}
 
 
-		public bool BuyItem(int price)
+		public bool BuyItem(int price, int customCurrency = -1)
 		{
+			if (customCurrency != -1)
+			{
+				return CustomCurrencyManager.BuyItem(this, price, customCurrency);
+			}
 			bool flag;
 			long num = Utils.CoinsCount(out flag, this.inventory, new int[]
 			{
@@ -3108,13 +3258,15 @@ namespace Terraria
 			});
 			long num2 = Utils.CoinsCount(out flag, this.bank.item, new int[0]);
 			long num3 = Utils.CoinsCount(out flag, this.bank2.item, new int[0]);
-			long num4 = Utils.CoinsCombineStacks(out flag, new long[]
+			long num4 = Utils.CoinsCount(out flag, this.bank3.item, new int[0]);
+			long num5 = Utils.CoinsCombineStacks(out flag, new long[]
 			{
 				num,
 				num2,
-				num3
+				num3,
+				num4
 			});
-			if (num4 < (long)price)
+			if (num5 < (long)price)
 			{
 				return false;
 			}
@@ -3124,9 +3276,11 @@ namespace Terraria
 			List<Point> list3 = new List<Point>();
 			List<Point> list4 = new List<Point>();
 			List<Point> list5 = new List<Point>();
+			List<Point> list6 = new List<Point>();
 			list.Add(this.inventory);
 			list.Add(this.bank.item);
 			list.Add(this.bank2.item);
+			list.Add(this.bank3.item);
 			for (int i = 0; i < list.Count; i++)
 			{
 				dictionary[i] = new List<int>();
@@ -3149,102 +3303,118 @@ namespace Terraria
 					}
 				}
 			}
-			int num5 = 0;
-			for (int l = list[num5].Length - 1; l >= 0; l--)
+			int num6 = 0;
+			for (int l = list[num6].Length - 1; l >= 0; l--)
 			{
-				if (!dictionary[num5].Contains(l) && (list[num5][l].type == 0 || list[num5][l].stack == 0))
+				if (!dictionary[num6].Contains(l) && (list[num6][l].type == 0 || list[num6][l].stack == 0))
 				{
-					list2.Add(new Point(num5, l));
+					list2.Add(new Point(num6, l));
 				}
 			}
-			num5 = 1;
-			for (int m = list[num5].Length - 1; m >= 0; m--)
+			num6 = 1;
+			for (int m = list[num6].Length - 1; m >= 0; m--)
 			{
-				if (!dictionary[num5].Contains(m) && (list[num5][m].type == 0 || list[num5][m].stack == 0))
+				if (!dictionary[num6].Contains(m) && (list[num6][m].type == 0 || list[num6][m].stack == 0))
 				{
-					list4.Add(new Point(num5, m));
+					list4.Add(new Point(num6, m));
 				}
 			}
-			num5 = 2;
-			for (int n = list[num5].Length - 1; n >= 0; n--)
+			num6 = 2;
+			for (int n = list[num6].Length - 1; n >= 0; n--)
 			{
-				if (!dictionary[num5].Contains(n) && (list[num5][n].type == 0 || list[num5][n].stack == 0))
+				if (!dictionary[num6].Contains(n) && (list[num6][n].type == 0 || list[num6][n].stack == 0))
 				{
-					list5.Add(new Point(num5, n));
+					list5.Add(new Point(num6, n));
 				}
 			}
-			long num6 = (long)price;
-			Dictionary<Point, Item> dictionary2 = new Dictionary<Point, Item>();
-			while (num6 > 0L)
+			num6 = 3;
+			for (int num7 = list[num6].Length - 1; num7 >= 0; num7--)
 			{
-				long num7 = 1000000L;
-				for (int num8 = 0; num8 < 4; num8++)
+				if (!dictionary[num6].Contains(num7) && (list[num6][num7].type == 0 || list[num6][num7].stack == 0))
 				{
-					if (num6 >= num7)
+					list6.Add(new Point(num6, num7));
+				}
+			}
+			bool flag2 = Player.TryPurchasing(price, list, list3, list2, list4, list5, list6);
+			return !flag2;
+		}
+
+		private static bool TryPurchasing(int price, List<Item[]> inv, List<Point> slotCoins, List<Point> slotsEmpty, List<Point> slotEmptyBank, List<Point> slotEmptyBank2, List<Point> slotEmptyBank3)
+		{
+			long num = (long)price;
+			Dictionary<Point, Item> dictionary = new Dictionary<Point, Item>();
+			bool result = false;
+			while (num > 0L)
+			{
+				long num2 = 1000000L;
+				for (int i = 0; i < 4; i++)
+				{
+					if (num >= num2)
 					{
-						foreach (Point current in list3)
+						foreach (Point current in slotCoins)
 						{
-							if (list[current.X][current.Y].type == 74 - num8)
+							if (inv[current.X][current.Y].type == 74 - i)
 							{
-								long num9 = num6 / num7;
-								dictionary2[current] = list[current.X][current.Y].Clone();
-								if (num9 < (long)list[current.X][current.Y].stack)
+								long num3 = num / num2;
+								dictionary[current] = inv[current.X][current.Y].Clone();
+								if (num3 < (long)inv[current.X][current.Y].stack)
 								{
-									list[current.X][current.Y].stack -= (int)num9;
+									inv[current.X][current.Y].stack -= (int)num3;
 								}
 								else
 								{
-									list[current.X][current.Y].SetDefaults(0, false);
-									list2.Add(current);
+									inv[current.X][current.Y].SetDefaults(0, false);
+									slotsEmpty.Add(current);
 								}
-								num6 -= num7 * (long)(dictionary2[current].stack - list[current.X][current.Y].stack);
+								num -= num2 * (long)(dictionary[current].stack - inv[current.X][current.Y].stack);
 							}
 						}
 					}
-					num7 /= 100L;
+					num2 /= 100L;
 				}
-				if (num6 > 0L)
+				if (num > 0L)
 				{
-					if (list2.Count <= 0)
+					if (slotsEmpty.Count <= 0)
 					{
-						foreach (KeyValuePair<Point, Item> current2 in dictionary2)
+						foreach (KeyValuePair<Point, Item> current2 in dictionary)
 						{
-							list[current2.Key.X][current2.Key.Y] = current2.Value.Clone();
+							inv[current2.Key.X][current2.Key.Y] = current2.Value.Clone();
 						}
-						return false;
+						result = true;
+						break;
 					}
-					list2.Sort(new Comparison<Point>(DelegateMethods.CompareYReverse));
+					slotsEmpty.Sort(new Comparison<Point>(DelegateMethods.CompareYReverse));
 					Point item = new Point(-1, -1);
-					for (int num10 = 0; num10 < list.Count; num10++)
+					for (int j = 0; j < inv.Count; j++)
 					{
-						num7 = 10000L;
-						for (int num11 = 0; num11 < 3; num11++)
+						num2 = 10000L;
+						for (int k = 0; k < 3; k++)
 						{
-							if (num6 >= num7)
+							if (num >= num2)
 							{
-								foreach (Point current3 in list3)
+								foreach (Point current3 in slotCoins)
 								{
-									if (current3.X == num10 && list[current3.X][current3.Y].type == 74 - num11 && list[current3.X][current3.Y].stack >= 1)
+									if (current3.X == j && inv[current3.X][current3.Y].type == 74 - k && inv[current3.X][current3.Y].stack >= 1)
 									{
-										List<Point> list6 = list2;
-										if (num10 == 1 && list4.Count > 0)
+										List<Point> list = slotsEmpty;
+										if (j == 1 && slotEmptyBank.Count > 0)
 										{
-											list6 = list4;
+											list = slotEmptyBank;
 										}
-										if (num10 == 2 && list5.Count > 0)
+										if (j == 2 && slotEmptyBank2.Count > 0)
 										{
-											list6 = list5;
+											list = slotEmptyBank2;
 										}
-										if (--list[current3.X][current3.Y].stack <= 0)
+										if (--inv[current3.X][current3.Y].stack <= 0)
 										{
-											list[current3.X][current3.Y].SetDefaults(0, false);
-											list6.Add(current3);
+											inv[current3.X][current3.Y].SetDefaults(0, false);
+											list.Add(current3);
 										}
-										dictionary2[list6[0]] = list[list6[0].X][list6[0].Y].Clone();
-										list[list6[0].X][list6[0].Y].SetDefaults(73 - num11, false);
-										list[list6[0].X][list6[0].Y].stack = 100;
-										item = list6[0];
-										list6.RemoveAt(0);
+										dictionary[list[0]] = inv[list[0].X][list[0].Y].Clone();
+										inv[list[0].X][list[0].Y].SetDefaults(73 - k, false);
+										inv[list[0].X][list[0].Y].stack = 100;
+										item = list[0];
+										list.RemoveAt(0);
 										break;
 									}
 								}
@@ -3253,35 +3423,39 @@ namespace Terraria
 							{
 								break;
 							}
-							num7 /= 100L;
+							num2 /= 100L;
 						}
-						for (int num12 = 0; num12 < 2; num12++)
+						for (int l = 0; l < 2; l++)
 						{
 							if (item.X == -1 && item.Y == -1)
 							{
-								foreach (Point current4 in list3)
+								foreach (Point current4 in slotCoins)
 								{
-									if (current4.X == num10 && list[current4.X][current4.Y].type == 73 + num12 && list[current4.X][current4.Y].stack >= 1)
+									if (current4.X == j && inv[current4.X][current4.Y].type == 73 + l && inv[current4.X][current4.Y].stack >= 1)
 									{
-										List<Point> list7 = list2;
-										if (num10 == 1 && list4.Count > 0)
+										List<Point> list2 = slotsEmpty;
+										if (j == 1 && slotEmptyBank.Count > 0)
 										{
-											list7 = list4;
+											list2 = slotEmptyBank;
 										}
-										if (num10 == 2 && list5.Count > 0)
+										if (j == 2 && slotEmptyBank2.Count > 0)
 										{
-											list7 = list5;
+											list2 = slotEmptyBank2;
 										}
-										if (--list[current4.X][current4.Y].stack <= 0)
+										if (j == 3 && slotEmptyBank3.Count > 0)
 										{
-											list[current4.X][current4.Y].SetDefaults(0, false);
-											list7.Add(current4);
+											list2 = slotEmptyBank3;
 										}
-										dictionary2[list7[0]] = list[list7[0].X][list7[0].Y].Clone();
-										list[list7[0].X][list7[0].Y].SetDefaults(72 + num12, false);
-										list[list7[0].X][list7[0].Y].stack = 100;
-										item = list7[0];
-										list7.RemoveAt(0);
+										if (--inv[current4.X][current4.Y].stack <= 0)
+										{
+											inv[current4.X][current4.Y].SetDefaults(0, false);
+											list2.Add(current4);
+										}
+										dictionary[list2[0]] = inv[list2[0].X][list2[0].Y].Clone();
+										inv[list2[0].X][list2[0].Y].SetDefaults(72 + l, false);
+										inv[list2[0].X][list2[0].Y].stack = 100;
+										item = list2[0];
+										list2.RemoveAt(0);
 										break;
 									}
 								}
@@ -3289,16 +3463,17 @@ namespace Terraria
 						}
 						if (item.X != -1 && item.Y != -1)
 						{
-							list3.Add(item);
+							slotCoins.Add(item);
 							break;
 						}
 					}
-					list2.Sort(new Comparison<Point>(DelegateMethods.CompareYReverse));
-					list4.Sort(new Comparison<Point>(DelegateMethods.CompareYReverse));
-					list5.Sort(new Comparison<Point>(DelegateMethods.CompareYReverse));
+					slotsEmpty.Sort(new Comparison<Point>(DelegateMethods.CompareYReverse));
+					slotEmptyBank.Sort(new Comparison<Point>(DelegateMethods.CompareYReverse));
+					slotEmptyBank2.Sort(new Comparison<Point>(DelegateMethods.CompareYReverse));
+					slotEmptyBank3.Sort(new Comparison<Point>(DelegateMethods.CompareYReverse));
 				}
 			}
-			return true;
+			return result;
 		}
 
 
@@ -3862,8 +4037,10 @@ namespace Terraria
 			player.zone1 = this.zone1;
 			player.zone2 = this.zone2;
 			player.zone3 = this.zone3;
+			player.zone4 = this.zone4;
 			player.extraAccessory = this.extraAccessory;
 			player.MinionTargetPoint = this.MinionTargetPoint;
+			player.MinionAttackTargetNPC = this.MinionAttackTargetNPC;
 			player.direction = this.direction;
 			player.selectedItem = this.selectedItem;
 			player.controlUp = this.controlUp;
@@ -3907,6 +4084,10 @@ namespace Terraria
 				if (i < this.bank2.item.Length)
 				{
 					player.bank2.item[i] = this.bank2.item[i].Clone();
+				}
+				if (i < this.bank3.item.Length)
+				{
+					player.bank3.item[i] = this.bank3.item[i].Clone();
 				}
 			}
 			player.trashItem = this.trashItem.Clone();
@@ -4047,6 +4228,20 @@ namespace Terraria
 			return num;
 		}
 
+		private void CommonPetBuffHandle(int buffIndex, ref bool petBool, int petProjID)
+		{
+			this.buffTime[buffIndex] = 18000;
+			petBool = true;
+			bool flag = true;
+			if (this.ownedProjectileCounts[petProjID] > 0)
+			{
+				flag = false;
+			}
+			if (flag && this.whoAmI == Main.myPlayer)
+			{
+				Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, petProjID, 0, 0f, this.whoAmI, 0f, 0f);
+			}
+		}
 
 		public void Counterweight(Vector2 hitPos, int dmg, float kb)
 		{
@@ -7335,6 +7530,8 @@ namespace Terraria
 		public double Hurt(int Damage, int hitDirection, bool pvp = false, bool quiet = false, string deathText = " was slain...", bool Crit = false, int cooldownCounter = -1)
 		{
 			bool flag = !this.immune;
+			bool flag2 = false;
+			int number = cooldownCounter;
 			if (cooldownCounter == 0)
 			{
 				flag = (this.hurtCooldowns[cooldownCounter] <= 0);
@@ -7342,6 +7539,11 @@ namespace Terraria
 			if (cooldownCounter == 1)
 			{
 				flag = (this.hurtCooldowns[cooldownCounter] <= 0);
+			}
+			if (cooldownCounter == 2)
+			{
+				flag2 = true;
+				cooldownCounter = -1;
 			}
 			if (!flag)
 			{
@@ -7445,8 +7647,8 @@ namespace Terraria
 							if (player.team == this.team && this.team != 0)
 							{
 								float num7 = player.Distance(base.Center);
-								bool flag2 = num7 < 800f;
-								if (flag2)
+								bool flag2b = num7 < 800f;
+								if (flag2b)
 								{
 									for (int k = 0; k < 255; k++)
 									{
@@ -7455,13 +7657,13 @@ namespace Terraria
 											float num8 = Main.player[k].Distance(base.Center);
 											if (num7 > num8 || (num7 == num8 && k < Main.myPlayer))
 											{
-												flag2 = false;
+												flag2b = false;
 												break;
 											}
 										}
 									}
 								}
-								if (flag2)
+								if (flag2b)
 								{
 									int damage = (int)(num2 * 0.25);
 									num2 = (double)((int)(num2 * 0.75));
@@ -7631,7 +7833,22 @@ namespace Terraria
 						}
 					}
 				}
-				if (!this.noKnockback && hitDirection != 0 && (!this.mount.Active || !this.mount.Cart))
+				if (flag2 && hitDirection != 0)
+				{
+					if (!this.mount.Active || !this.mount.Cart)
+					{
+						float num21 = 10.5f;
+						float y2 = -7.5f;
+						if (this.noKnockback)
+						{
+							num21 = 2.5f;
+							y2 = -1.5f;
+						}
+						this.velocity.X = num21 * (float)hitDirection;
+						this.velocity.Y = y2;
+					}
+				}
+				else if (!this.noKnockback && hitDirection != 0 && (!this.mount.Active || !this.mount.Cart))
 				{
 					this.velocity.X = 4.5f * (float)hitDirection;
 					this.velocity.Y = -3.5f;
@@ -7805,7 +8022,7 @@ namespace Terraria
 							Main.tile[num2, num3].frameX = (short)(m + item.headSlot * 100);
 							if (Main.netMode == 1)
 							{
-								NetMessage.SendTileSquare(-1, num2, num3, 1);
+								NetMessage.SendTileSquare(-1, num2, num3, 1, TileChangeType.None);
 							}
 							item.stack--;
 							if (item.stack <= 0)
@@ -7826,7 +8043,7 @@ namespace Terraria
 							Main.tile[num2, num3].frameX = (short)(m + item.bodySlot * 100);
 							if (Main.netMode == 1)
 							{
-								NetMessage.SendTileSquare(-1, num2, num3, 1);
+								NetMessage.SendTileSquare(-1, num2, num3, 1, TileChangeType.None);
 							}
 							item.stack--;
 							if (item.stack <= 0)
@@ -7847,7 +8064,7 @@ namespace Terraria
 							Main.tile[num2, num3].frameX = (short)(m + item.legSlot * 100);
 							if (Main.netMode == 1)
 							{
-								NetMessage.SendTileSquare(-1, num2, num3, 1);
+								NetMessage.SendTileSquare(-1, num2, num3, 1, TileChangeType.None);
 							}
 							item.stack--;
 							if (item.stack <= 0)
@@ -7869,6 +8086,10 @@ namespace Terraria
 			{
 				TileObject tileObject;
 				TileObject.CanPlace(Player.tileTargetX, Player.tileTargetY, item.createTile, item.placeStyle, this.direction, out tileObject, true);
+			}
+			if (this.itemAnimation == 0 && this.altFunctionUse == 2)
+			{
+				this.altFunctionUse = 0;
 			}
 			if (this.controlUseItem && this.itemAnimation == 0 && this.releaseUseItem && item.useStyle > 0)
 			{
@@ -7896,6 +8117,39 @@ namespace Terraria
 				if ((item.type == 3611 || item.type == 3625) && this.wireOperationsCooldown > 0)
 				{
 					flag2 = false;
+				}
+				if (!this.CheckDD2CrystalPaymentLock(item))
+				{
+					flag2 = false;
+				}
+				if (item.shoot > -1 && ProjectileID.Sets.IsADD2Turret[item.shoot] && !this.downedDD2EventAnyDifficulty && !DD2Event.Ongoing)
+				{
+					flag2 = false;
+				}
+				if (item.shoot > -1 && ProjectileID.Sets.IsADD2Turret[item.shoot] && DD2Event.Ongoing)
+				{
+					int worldX;
+					int worldY;
+					int num5;
+					this.FindSentryRestingSpot(item.shoot, out worldX, out worldY, out num5);
+					if (Player.WouldSpotOverlapWithSentry(worldX, worldY))
+					{
+						flag2 = false;
+					}
+				}
+				if (item.shoot > -1 && ProjectileID.Sets.IsADD2Turret[item.shoot])
+				{
+					int num6;
+					int num7;
+					int num8;
+					this.FindSentryRestingSpot(item.shoot, out num6, out num7, out num8);
+					num6 /= 16;
+					num7 /= 16;
+					num7--;
+					if (WorldGen.SolidTile(num6, num7))
+					{
+						flag2 = false;
+					}
 				}
 				if (this.wet && (item.shoot == 85 || item.shoot == 15 || item.shoot == 34))
 				{
@@ -8128,6 +8382,14 @@ namespace Terraria
 				{
 					bool flag6 = false;
 					if (item.type == 2795)
+					{
+						flag6 = true;
+					}
+					if (item.shoot > 0 && ProjectileID.Sets.TurretFeature[item.shoot] && this.altFunctionUse == 2)
+					{
+						flag6 = true;
+					}
+					if (item.shoot > 0 && ProjectileID.Sets.MinionTargettingFeature[item.shoot] && this.altFunctionUse == 2)
 					{
 						flag6 = true;
 					}
@@ -8386,11 +8648,11 @@ namespace Terraria
 				{
 					flag2 = false;
 				}
-				if (item.type == 1844 && (Main.dayTime || Main.pumpkinMoon || Main.snowMoon))
+				if (item.type == 1844 && (Main.dayTime || Main.pumpkinMoon || Main.snowMoon || DD2Event.Ongoing))
 				{
 					flag2 = false;
 				}
-				if (item.type == 1958 && (Main.dayTime || Main.pumpkinMoon || Main.snowMoon))
+				if (item.type == 1958 && (Main.dayTime || Main.pumpkinMoon || Main.snowMoon || DD2Event.Ongoing))
 				{
 					flag2 = false;
 				}
@@ -9659,33 +9921,6 @@ namespace Terraria
 								Projectile.NewProjectile(x4, y4, num148, num149, num71, num73, num74, i, 0f, 0f);
 							}
 						}
-						else if (item.type == 1572 || item.type == 2366 || item.type == 3571 || item.type == 3569)
-						{
-							int shoot = item.shoot;
-							for (int num151 = 0; num151 < 1000; num151++)
-							{
-								if (Main.projectile[num151].owner == this.whoAmI && Main.projectile[num151].type == shoot)
-								{
-									Main.projectile[num151].Kill();
-								}
-							}
-							bool flag13 = item.type == 3571 || item.type == 3569;
-							int num152 = (int)((float)Main.mouseX + Main.screenPosition.X) / 16;
-							int num153 = (int)((float)Main.mouseY + Main.screenPosition.Y) / 16;
-							if (this.gravDir == -1f)
-							{
-								num153 = (int)(Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY) / 16;
-							}
-							if (!flag13)
-							{
-								while (num153 < Main.maxTilesY - 10 && Main.tile[num152, num153] != null && !WorldGen.SolidTile2(num152, num153) && Main.tile[num152 - 1, num153] != null && !WorldGen.SolidTile2(num152 - 1, num153) && Main.tile[num152 + 1, num153] != null && !WorldGen.SolidTile2(num152 + 1, num153))
-								{
-									num153++;
-								}
-								num153--;
-							}
-							Projectile.NewProjectile((float)Main.mouseX + Main.screenPosition.X, (float)(num153 * 16 - 24), 0f, 15f, num71, num73, num74, i, 0f, 0f);
-						}
 						else if (item.type == 1244 || item.type == 1256)
 						{
 							int num154 = Projectile.NewProjectile(vector2.X, vector2.Y, num78, num79, num71, num73, num74, i, 0f, 0f);
@@ -10545,6 +10780,10 @@ namespace Terraria
 				if (item.pick > 0 || item.axe > 0 || item.hammer > 0)
 				{
 					bool flag16 = this.position.X / 16f - (float)Player.tileRangeX - (float)item.tileBoost <= (float)Player.tileTargetX && (this.position.X + (float)this.width) / 16f + (float)Player.tileRangeX + (float)item.tileBoost - 1f >= (float)Player.tileTargetX && this.position.Y / 16f - (float)Player.tileRangeY - (float)item.tileBoost <= (float)Player.tileTargetY && (this.position.Y + (float)this.height) / 16f + (float)Player.tileRangeY + (float)item.tileBoost - 2f >= (float)Player.tileTargetY;
+					if (this.noBuilding)
+					{
+						flag18 = false;
+					}
 					if (flag16)
 					{
 						int num232 = 0;
@@ -10792,7 +11031,7 @@ namespace Terraria
 												Main.tile[num233, num234].frameX = (short)(num239 * 18);
 												if (Main.netMode == 1)
 												{
-													NetMessage.SendTileSquare(-1, Player.tileTargetX, Player.tileTargetY, 1);
+													NetMessage.SendTileSquare(-1, Player.tileTargetX, Player.tileTargetY, 1, TileChangeType.None);
 												}
 											}
 											else if (Main.tile[num233, num234].type == 424)
@@ -10811,7 +11050,7 @@ namespace Terraria
 												}
 												if (Main.netMode == 1)
 												{
-													NetMessage.SendTileSquare(-1, Player.tileTargetX, Player.tileTargetY, 1);
+													NetMessage.SendTileSquare(-1, Player.tileTargetX, Player.tileTargetY, 1, TileChangeType.None);
 												}
 											}
 											else if (Main.tile[num233, num234].type == 442)
@@ -10970,7 +11209,7 @@ namespace Terraria
 													Main.tile[num233, num234].frameX = (short)(22 * num249);
 													if (Main.netMode == 1)
 													{
-														NetMessage.SendTileSquare(-1, Player.tileTargetX, Player.tileTargetY, 1);
+														NetMessage.SendTileSquare(-1, Player.tileTargetX, Player.tileTargetY, 1, TileChangeType.None);
 													}
 												}
 											}
@@ -11207,16 +11446,16 @@ namespace Terraria
 								this.statLife -= this.statLifeMax2 / 7;
 								if (Lang.lang <= 1)
 								{
-									string deathText = " didn't materialize";
+									string deathText = Language.GetTextValue("Deaths.Teleport_1");
 									if (Main.rand.Next(2) == 0)
 									{
 										if (this.Male)
 										{
-											deathText = "'s legs appeared where his head should be";
+											deathText = Language.GetTextValue("Deaths.Teleport_2_Male");
 										}
 										else
 										{
-											deathText = "'s legs appeared where her head should be";
+											deathText = Language.GetTextValue("Deaths.Teleport_2_Female");
 										}
 									}
 									if (this.statLife <= 0)
@@ -11451,12 +11690,18 @@ namespace Terraria
 												{
 													if (Main.expertMode)
 													{
-														num304 *= 2;
+														num304 = (int)((float)num304 * ItemID.Sets.BannerStrength[Item.BannerToItem(num324)].ExpertDamageDealt);
 													}
 													else
 													{
-														num304 = (int)((double)num304 * 1.5);
+														num304 = (int)((float)num304 * ItemID.Sets.BannerStrength[Item.BannerToItem(num324)].NormalDamageDealt);
 													}
+												}
+												if (this.parryDamageBuff)
+												{
+													num304 *= 5;
+													this.parryDamageBuff = false;
+													this.ClearBuff(198);
 												}
 												int num316 = Main.DamageVar((float)num304);
 												this.StatusNPC(item.type, num314);
@@ -12191,6 +12436,147 @@ namespace Terraria
 					}
 					Main.mouseItem = item.Clone();
 				}
+			}
+		}
+
+		public static bool WouldSpotOverlapWithSentry(int worldX, int worldY)
+		{
+			Point value = new Point(worldX, worldY - 8);
+			Point value2 = new Point(worldX + 16, worldY - 8);
+			Point value3 = new Point(worldX - 16, worldY - 8);
+			bool result = false;
+			for (int i = 0; i < 1000; i++)
+			{
+				Projectile projectile = Main.projectile[i];
+				if (projectile.active && projectile.sentry)
+				{
+					Rectangle hitbox = projectile.Hitbox;
+					if (hitbox.Contains(value) || hitbox.Contains(value2) || hitbox.Contains(value3))
+					{
+						result = true;
+						break;
+					}
+				}
+			}
+			return result;
+		}
+
+		public void FindSentryRestingSpot(int checkProj, out int worldX, out int worldY, out int pushYUp)
+		{
+			bool flag = false;
+			int num = (int)((float)Main.mouseX + Main.screenPosition.X) / 16;
+			int num2 = (int)((float)Main.mouseY + Main.screenPosition.Y) / 16;
+			if (this.gravDir == -1f)
+			{
+				num2 = (int)(Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY) / 16;
+			}
+			worldX = num * 16 + 8;
+			pushYUp = 41;
+			switch (checkProj)
+			{
+				case 663:
+					worldX += this.direction;
+					break;
+				case 664:
+				case 666:
+					break;
+				case 665:
+					pushYUp += 2;
+					break;
+				case 667:
+					pushYUp += 3;
+					break;
+				default:
+					switch (checkProj)
+					{
+						case 677:
+							worldX += this.direction;
+							break;
+						case 678:
+							worldX += this.direction;
+							break;
+						case 679:
+							break;
+						default:
+							switch (checkProj)
+							{
+								case 691:
+								case 692:
+								case 693:
+									pushYUp = 20;
+									worldX += this.direction;
+									pushYUp += 2;
+									break;
+							}
+							break;
+					}
+					break;
+			}
+			if (!flag)
+			{
+				while (num2 < Main.maxTilesY - 10 && Main.tile[num, num2] != null && !WorldGen.SolidTile2(num, num2) && Main.tile[num - 1, num2] != null && !WorldGen.SolidTile2(num - 1, num2) && Main.tile[num + 1, num2] != null && !WorldGen.SolidTile2(num + 1, num2))
+				{
+					num2++;
+				}
+				num2++;
+			}
+			num2--;
+			pushYUp -= 14;
+			worldY = num2 * 16;
+		}
+
+		public void WipeOldestTurret()
+		{
+			List<Projectile> list = new List<Projectile>();
+			for (int i = 0; i < 1000; i++)
+			{
+				if (Main.projectile[i].WipableTurret)
+				{
+					list.Add(Main.projectile[i]);
+				}
+			}
+			if (list.Count == 0)
+			{
+				return;
+			}
+			Projectile projectile = list[0];
+			for (int j = 1; j < list.Count; j++)
+			{
+				if (list[j].timeLeft < projectile.timeLeft)
+				{
+					projectile = list[j];
+				}
+			}
+			projectile.Kill();
+		}
+
+		public void UpdateMaxTurrets()
+		{
+			List<Projectile> list = new List<Projectile>();
+			for (int i = 0; i < 1000; i++)
+			{
+				if (Main.projectile[i].WipableTurret)
+				{
+					list.Add(Main.projectile[i]);
+				}
+			}
+			int num = 0;
+			while (list.Count > this.maxTurrets)
+			{
+				if (++num >= 1000)
+				{
+					return;
+				}
+				Projectile projectile = list[0];
+				for (int j = 1; j < list.Count; j++)
+				{
+					if (list[j].timeLeft < projectile.timeLeft)
+					{
+						projectile = list[j];
+					}
+				}
+				projectile.Kill();
+				list.Remove(projectile);
 			}
 		}
 
@@ -13844,6 +14230,36 @@ namespace Terraria
 					this.QuickSpawnItem(3372, 1);
 				}
 			}
+			else if (type == 3860)
+			{
+				this.TryGettingDevArmor();
+				if (Main.rand.Next(7) == 0)
+				{
+					this.QuickSpawnItem(3863, 1);
+				}
+				int num14b = Main.rand.Next(4);
+				if (num14b == 0)
+				{
+					this.QuickSpawnItem(3859, 1);
+				}
+				else if (num14b == 1)
+				{
+					this.QuickSpawnItem(3827, 1);
+				}
+				else if (num14b == 2)
+				{
+					this.QuickSpawnItem(3870, 1);
+				}
+				else
+				{
+					this.QuickSpawnItem(3858, 1);
+				}
+				if (Main.rand.Next(4) == 0)
+				{
+					this.QuickSpawnItem(3883, 1);
+				}
+				this.QuickSpawnItem(3817, Main.rand.Next(30, 50));
+			}
 			else if (type == 3332)
 			{
 				this.TryGettingDevArmor();
@@ -13932,6 +14348,18 @@ namespace Terraria
 			if (type == 3332)
 			{
 				num14 = 398;
+			}
+			if (type == 3860)
+			{
+				num14 = 551;
+			}
+			if (type == 3861)
+			{
+				num14 = 576;
+			}
+			if (type == 3862)
+			{
+				num14 = 564;
 			}
 			if (num14 > 0)
 			{
@@ -15451,6 +15879,48 @@ namespace Terraria
 			}
 		}
 
+		public int CountItem(int type, int stopCountingAt = 0)
+		{
+			int num = 0;
+			for (int num2 = 0; num2 != 58; num2++)
+			{
+				if (this.inventory[num2].stack > 0 && this.inventory[num2].type == type)
+				{
+					num += this.inventory[num2].stack;
+					if (num >= stopCountingAt)
+					{
+						return num;
+					}
+				}
+			}
+			return num;
+		}
+
+		public bool ConsumeItem(int type, bool reverseOrder = false)
+		{
+			int num = 0;
+			int num2 = 58;
+			int num3 = 1;
+			if (reverseOrder)
+			{
+				num = 57;
+				num2 = -1;
+				num3 = -1;
+			}
+			for (int num4 = num; num4 != num2; num4 += num3)
+			{
+				if (this.inventory[num4].stack > 0 && this.inventory[num4].type == type)
+				{
+					this.inventory[num4].stack--;
+					if (this.inventory[num4].stack <= 0)
+					{
+						this.inventory[num4].SetDefaults(0, false);
+					}
+					return true;
+				}
+			}
+			return false;
+		}
 
 		public void openLockBox()
 		{
@@ -16447,7 +16917,7 @@ namespace Terraria
 							num16 -= (int)Main.tile[Player.tileTargetX, Player.tileTargetY].frameX;
 							num17 -= (int)Main.tile[Player.tileTargetX, Player.tileTargetY].frameY;
 						}
-						NetMessage.SendTileSquare(-1, num16, num17, 1);
+						NetMessage.SendTileSquare(-1, num16, num17, 1, TileChangeType.None);
 					}
 				}
 				else if (num15 >= 1878 && num15 <= 1883)
@@ -16465,7 +16935,7 @@ namespace Terraria
 							num18 -= (int)Main.tile[Player.tileTargetX, Player.tileTargetY].frameX;
 							num19 -= (int)Main.tile[Player.tileTargetX, Player.tileTargetY].frameY;
 						}
-						NetMessage.SendTileSquare(-1, num18, num19, 1);
+						NetMessage.SendTileSquare(-1, num18, num19, 1, TileChangeType.None);
 					}
 				}
 				else if (num15 >= 1884 && num15 <= 1894)
@@ -16483,7 +16953,7 @@ namespace Terraria
 							num20 -= (int)Main.tile[Player.tileTargetX, Player.tileTargetY].frameX;
 							num21 -= (int)Main.tile[Player.tileTargetX, Player.tileTargetY].frameY;
 						}
-						NetMessage.SendTileSquare(-1, num20, num21, 1);
+						NetMessage.SendTileSquare(-1, num20, num21, 1, TileChangeType.None);
 					}
 				}
 				else if (num15 >= 1895 && num15 <= 1905)
@@ -16501,7 +16971,7 @@ namespace Terraria
 							num22 -= (int)Main.tile[Player.tileTargetX, Player.tileTargetY].frameX;
 							num23 -= (int)Main.tile[Player.tileTargetX, Player.tileTargetY].frameY;
 						}
-						NetMessage.SendTileSquare(-1, num22, num23, 1);
+						NetMessage.SendTileSquare(-1, num22, num23, 1, TileChangeType.None);
 					}
 				}
 			}
@@ -16515,7 +16985,7 @@ namespace Terraria
 					Player.ExtractinatorUse(extractType);
 				}
 			}
-			else if (this.inventory[this.selectedItem].createTile >= 0 && this.position.X / 16f - (float)Player.tileRangeX - (float)this.inventory[this.selectedItem].tileBoost - (float)this.blockRange <= (float)Player.tileTargetX && (this.position.X + (float)this.width) / 16f + (float)Player.tileRangeX + (float)this.inventory[this.selectedItem].tileBoost - 1f + (float)this.blockRange >= (float)Player.tileTargetX && this.position.Y / 16f - (float)Player.tileRangeY - (float)this.inventory[this.selectedItem].tileBoost - (float)this.blockRange <= (float)Player.tileTargetY && (this.position.Y + (float)this.height) / 16f + (float)Player.tileRangeY + (float)this.inventory[this.selectedItem].tileBoost - 2f + (float)this.blockRange >= (float)Player.tileTargetY)
+			else if (!this.noBuilding && this.inventory[this.selectedItem].createTile >= 0 && this.position.X / 16f - (float)Player.tileRangeX - (float)this.inventory[this.selectedItem].tileBoost - (float)this.blockRange <= (float)Player.tileTargetX && (this.position.X + (float)this.width) / 16f + (float)Player.tileRangeX + (float)this.inventory[this.selectedItem].tileBoost - 1f + (float)this.blockRange >= (float)Player.tileTargetX && this.position.Y / 16f - (float)Player.tileRangeY - (float)this.inventory[this.selectedItem].tileBoost - (float)this.blockRange <= (float)Player.tileTargetY && (this.position.Y + (float)this.height) / 16f + (float)Player.tileRangeY + (float)this.inventory[this.selectedItem].tileBoost - 2f + (float)this.blockRange >= (float)Player.tileTargetY)
 			{
 				this.showItemIcon = true;
 				bool flag = false;
@@ -17012,7 +17482,7 @@ namespace Terraria
 							{
 								Main.tile[Player.tileTargetX, Player.tileTargetY].type = (ushort)num47;
 								WorldGen.SquareTileFrame(Player.tileTargetX, Player.tileTargetY, true);
-								NetMessage.SendTileSquare(-1, Player.tileTargetX, Player.tileTargetY, 1);
+								NetMessage.SendTileSquare(-1, Player.tileTargetX, Player.tileTargetY, 1, TileChangeType.None);
 								flag6 = true;
 							}
 						}
@@ -17041,12 +17511,12 @@ namespace Terraria
 									}
 									if (Main.netMode == 1)
 									{
-										NetMessage.SendTileSquare(-1, Player.tileTargetX - 1, Player.tileTargetY - 1, 3);
+										NetMessage.SendTileSquare(-1, Player.tileTargetX - 1, Player.tileTargetY - 1, 3, TileChangeType.None);
 									}
 								}
 								else if ((this.inventory[this.selectedItem].createTile == 79 || this.inventory[this.selectedItem].createTile == 90) && Main.netMode == 1)
 								{
-									NetMessage.SendTileSquare(-1, Player.tileTargetX, Player.tileTargetY, 5);
+									NetMessage.SendTileSquare(-1, Player.tileTargetX, Player.tileTargetY, 5, TileChangeType.None);
 								}
 							}
 							if (this.inventory[this.selectedItem].createTile == 137)
@@ -17058,7 +17528,7 @@ namespace Terraria
 								}
 								if (Main.netMode == 1)
 								{
-									NetMessage.SendTileSquare(-1, Player.tileTargetX, Player.tileTargetY, 1);
+									NetMessage.SendTileSquare(-1, Player.tileTargetX, Player.tileTargetY, 1, TileChangeType.None);
 								}
 							}
 							if (this.inventory[this.selectedItem].createTile == 419)
@@ -17436,11 +17906,11 @@ namespace Terraria
 			Main.tile[x + 1, y].frameX = (short)((int)this.inventory[this.selectedItem].prefix + num4);
 			if (Main.netMode == 1)
 			{
-				NetMessage.SendTileSquare(-1, x, y, 1);
+				NetMessage.SendTileSquare(-1, x, y, 1, TileChangeType.None);
 			}
 			if (Main.netMode == 1)
 			{
-				NetMessage.SendTileSquare(-1, x + 1, y, 1);
+				NetMessage.SendTileSquare(-1, x + 1, y, 1, TileChangeType.None);
 			}
 			this.inventory[this.selectedItem].stack--;
 			if (this.inventory[this.selectedItem].stack <= 0)
@@ -17472,7 +17942,11 @@ namespace Terraria
 			this.legs = this.armor[2].legSlot;
 			for (int i = 3; i < 8 + this.extraAccessorySlots; i++)
 			{
-				if (this.armor[i].shieldSlot == 5 && this.eocDash > 0)
+				if (this.armor[i].shieldSlot == 5 && this.eocDash > 0 && this.shield == -1)
+				{
+					this.shield = this.armor[i].shieldSlot;
+				}
+				if (this.shieldRaised && this.shield == -1 && this.armor[i].shieldSlot != -1)
 				{
 					this.shield = this.armor[i].shieldSlot;
 				}
@@ -17482,7 +17956,7 @@ namespace Terraria
 					{
 						if (this.hideVisual[i] && (this.velocity.Y == 0f || this.mount.Active))
 						{
-							goto IL_302;
+							goto IL_33F;
 						}
 						this.wings = (int)this.armor[i].wingSlot;
 					}
@@ -17543,7 +18017,7 @@ namespace Terraria
 						}
 					}
 				}
-				IL_302:;
+				IL_33F:;
 			}
 			for (int j = 13; j < 18 + this.extraAccessorySlots; j++)
 			{
@@ -17639,6 +18113,18 @@ namespace Terraria
 				this.shield = 0;
 				this.handoff = 0;
 			}
+			if (this.body == 206 && this.back == -1)
+			{
+				this.back = 12;
+			}
+			if (this.body == 207 && this.back == -1)
+			{
+				this.back = 13;
+			}
+			if (this.body == 205 && this.back == -1)
+			{
+				this.back = 11;
+			}
 			if (this.legs == 67)
 			{
 				this.shoe = 0;
@@ -17678,6 +18164,9 @@ namespace Terraria
 			{
 				this.socialGhost = true;
 			}
+			this.hermesStepSound.SoundType = 17;
+			this.hermesStepSound.SoundStyle = -1;
+			this.hermesStepSound.IntendedCooldown = 9;
 			if (this.head == 99 && this.body == 65 && this.legs == 54)
 			{
 				this.turtleArmor = true;
@@ -17689,6 +18178,12 @@ namespace Terraria
 			if ((this.head == 75 || this.head == 7) && this.body == 7 && this.legs == 7)
 			{
 				this.boneArmor = true;
+			}
+			if (this.legs == 140)
+			{
+				this.hermesStepSound.SoundType = 2;
+				this.hermesStepSound.SoundStyle = 24;
+				this.hermesStepSound.IntendedCooldown = 6;
 			}
 			if (this.wings > 0)
 			{
@@ -17719,6 +18214,7 @@ namespace Terraria
 			{
 				this.socialShadow = true;
 			}
+
 			if (this.body == 27 && this.head == 46 && this.legs == 26)
 			{
 				this.frostArmor = true;
@@ -17748,7 +18244,7 @@ namespace Terraria
 						this.mount.UpdateFrame(this, 2, this.velocity);
 					}
 				}
-				else if (this.velocity.X == 0f)
+				else if (this.velocity.X == 0f || ((this.slippy || this.slippy2 || this.windPushed) && !this.controlLeft && !this.controlRight))
 				{
 					this.mount.UpdateFrame(this, 0, this.velocity);
 				}
@@ -17794,7 +18290,7 @@ namespace Terraria
 			}
 			else if (this.velocity.X != 0f)
 			{
-				if ((this.slippy || this.slippy2) && !this.controlLeft && !this.controlRight)
+				if ((this.slippy || this.slippy2 || this.windPushed) && !this.controlLeft && !this.controlRight)
 				{
 					this.legFrameCounter = 0.0;
 					this.legFrame.Y = 0;
@@ -17956,6 +18452,11 @@ namespace Terraria
 						this.bodyFrame.Y = this.bodyFrame.Height * 3;
 						return;
 					}
+					if (this.shieldRaised)
+					{
+						this.bodyFrame.Y = this.bodyFrame.Height * 10;
+						return;
+					}
 					if (this.grappling[0] >= 0)
 					{
 						this.sandStorm = false;
@@ -18063,12 +18564,34 @@ namespace Terraria
 						}
 						if (this.velocity.X != 0f)
 						{
-							this.bodyFrameCounter += (double)Math.Abs(this.velocity.X) * 1.5;
-							this.bodyFrame.Y = this.legFrame.Y;
-							return;
+							if (this.legs != 140)
+							{
+								this.bodyFrameCounter += (double)Math.Abs(this.velocity.X) * 1.5;
+								this.bodyFrame.Y = this.legFrame.Y;
+								return;
+							}
+							this.bodyFrameCounter += (double)(Math.Abs(this.velocity.X) * 0.5f);
+							while (this.bodyFrameCounter > 8.0)
+							{
+								this.bodyFrameCounter -= 8.0;
+								this.bodyFrame.Y = this.bodyFrame.Y + this.bodyFrame.Height;
+							}
+							if (this.bodyFrame.Y < this.bodyFrame.Height * 7)
+							{
+								this.bodyFrame.Y = this.bodyFrame.Height * 19;
+								return;
+							}
+							if (this.bodyFrame.Y > this.bodyFrame.Height * 19)
+							{
+								this.bodyFrame.Y = this.bodyFrame.Height * 7;
+								return;
+							}
 						}
-						this.bodyFrameCounter = 0.0;
-						this.bodyFrame.Y = 0;
+						else
+						{
+							this.bodyFrameCounter = 0.0;
+							this.bodyFrame.Y = 0;
+						}
 					}
 				}
 			}
@@ -18888,6 +19411,7 @@ namespace Terraria
 				this.extraAccessorySlots = 0;
 			}
 			this.arcticDivingGear = false;
+			this.noBuilding = false;
 			this.strongBees = false;
 			this.armorPenetration = 0;
 			this.shroomiteStealth = false;
@@ -18982,11 +19506,13 @@ namespace Terraria
 			this.onHitPetal = false;
 			this.iceBarrier = false;
 			this.maxMinions = 1;
+			this.maxTurrets = 1;
 			this.ammoBox = false;
 			this.ammoPotion = false;
 			this.penguin = false;
 			this.sporeSac = false;
 			this.shinyStone = false;
+			this.dd2Accessory = false;
 			this.magicLantern = false;
 			this.rabid = false;
 			this.sunflower = false;
@@ -19023,6 +19549,9 @@ namespace Terraria
 			this.tileSpeed = 1f;
 			this.autoPaint = false;
 			this.autoActuator = false;
+			this.petFlagDD2Gato = false;
+			this.petFlagDD2Dragon = false;
+			this.petFlagDD2Ghost = false;
 			this.companionCube = false;
 			this.babyFaceMonster = false;
 			this.manaSick = false;
@@ -19037,6 +19566,7 @@ namespace Terraria
 			this.cordage = false;
 			this.magicQuiver = false;
 			this.magmaStone = false;
+			this.hasRaisableShield = false;
 			this.lavaRose = false;
 			this.eyeSpring = false;
 			this.snowman = false;
@@ -19094,6 +19624,10 @@ namespace Terraria
 			this.rulerLine = false;
 			this.bleed = false;
 			this.confused = false;
+			this.witheredArmor = false;
+			this.witheredWeapon = false;
+			this.parryDamageBuff = false;
+			this.slowOgreSpit = false;
 			this.wings = 0;
 			this.wingsLogic = 0;
 			this.wingTimeMax = 0;
@@ -19122,7 +19656,19 @@ namespace Terraria
 			this.moonLeech = false;
 			this.headcovered = false;
 			this.vortexDebuff = false;
+			this.windPushed = false;
+			this.ballistaPanic = false;
 			this.setVortex = (this.setNebula = (this.setStardust = false));
+			this.setForbidden = false;
+			this.setHuntressT3 = false;
+			this.setSquireT3 = false;
+			this.setMonkT3 = false;
+			this.setApprenticeT3 = false;
+			this.setHuntressT2 = false;
+			this.setSquireT2 = false;
+			this.setMonkT2 = false;
+			this.setApprenticeT2 = false;
+			this.setForbiddenCooldownLocked = false;
 			this.nebulaLevelDamage = (this.nebulaLevelLife = (this.nebulaLevelMana = 0));
 			this.ignoreWater = false;
 			this.meleeEnchant = 0;
@@ -19719,36 +20265,48 @@ namespace Terraria
 			}
 			if (armorslot == 2)
 			{
-				if (type != 57)
+				if (type <= 84)
 				{
-					switch (type)
+					if (type != 57)
 					{
-						case 83:
-							if (male)
-							{
-								num = 117;
-							}
-							break;
-						case 84:
-							if (male)
-							{
-								num = 120;
-							}
-							break;
-						default:
-							if (type == 132)
-							{
+						switch (type)
+						{
+							case 83:
 								if (male)
 								{
-									num = 135;
+									num = 117;
 								}
-							}
-							break;
+								break;
+							case 84:
+								if (male)
+								{
+									num = 120;
+								}
+								break;
+						}
+					}
+					else if (male)
+					{
+						num = 137;
+					}
+				}
+				else if (type != 132)
+				{
+					if (type != 146)
+					{
+						if (type == 154)
+						{
+							num = (male ? 155 : 154);
+						}
+					}
+					else
+					{
+						num = (male ? 146 : 147);
 					}
 				}
 				else if (male)
 				{
-					num = 137;
+					num = 135;
 				}
 			}
 			return num;
@@ -20132,6 +20690,14 @@ namespace Terraria
 					return;
 				}
 			}
+			else if (type == 3823)
+			{
+				if (Main.rand.Next(4) == 0)
+				{
+					Main.npc[i].AddBuff(24, 300, false);
+					return;
+				}
+			}
 			else if (type == 122)
 			{
 				if (Main.rand.Next(10) == 0)
@@ -20286,7 +20852,7 @@ namespace Terraria
 					this.AddBuff(num3, 60 * Main.rand.Next(3, 11), true);
 				}
 			}
-			if (((npc.type == 1 && npc.name == "Black Slime") || npc.type == 81 || npc.type == 79) && Main.rand.Next(4) == 0)
+			if (((npc.type == 1 && npc.netID == -6) || npc.type == 81 || npc.type == 79) && Main.rand.Next(4) == 0)
 			{
 				this.AddBuff(22, 900, true);
 			}
@@ -20430,6 +20996,14 @@ namespace Terraria
 				if (Main.rand.Next(2) == 0)
 				{
 					Main.player[i].AddBuff(24, 180, false);
+					return;
+				}
+			}
+			else if (type == 3823)
+			{
+				if (Main.rand.Next(4) == 0)
+				{
+					Main.player[i].AddBuff(24, 300, true);
 					return;
 				}
 			}
@@ -20976,7 +21550,7 @@ namespace Terraria
 								Main.tile[m, n].frameY = (short)((int)Main.tile[m, n].frameY + num13);
 							}
 						}
-						NetMessage.SendTileSquare(-1, num11 + 1, num12 + 1, 3);
+						NetMessage.SendTileSquare(-1, num11 + 1, num12 + 1, 3, TileChangeType.None);
 					}
 					else if (Main.tile[myX, myY].type == 207)
 					{
@@ -21051,6 +21625,32 @@ namespace Terraria
 						if (Main.netMode == 1)
 						{
 							NetMessage.SendData(17, -1, -1, "", 0, (float)myX, (float)myY, 0f, 0, 0, 0);
+						}
+					}
+					else if (Main.tile[myX, myY].type == 466)
+					{
+						flag2 = true;
+						this.GamepadEnableGrappleCooldown();
+						bool flag6 = !DD2Event.Ongoing && !NPC.AnyNPCs(548);
+						if (flag6)
+						{
+							flag6 = this.HasItem(3828);
+						}
+						if (flag6)
+						{
+							flag6 = !DD2Event.WouldFailSpawningHere(myX, myY);
+							if (!flag6)
+							{
+								DD2Event.FailureMessage(-1);
+							}
+						}
+						if (flag6)
+						{
+							flag6 = this.ConsumeItem(3828, true);
+						}
+						if (flag6)
+						{
+							DD2Event.SummonCrystal(myX, myY);
 						}
 					}
 					else if (Main.tile[myX, myY].type == 334)
@@ -21243,12 +21843,12 @@ namespace Terraria
 						if (this.SpawnX == num27 && this.SpawnY == num30)
 						{
 							this.RemoveSpawn();
-							Main.NewText("Spawn point removed!", 255, 240, 20, false);
+							Main.NewText(Language.GetTextValue("Game.SpawnPointRemoved"), 255, 240, 20, false);
 						}
 						else if (Player.CheckSpawn(num27, num30))
 						{
 							this.ChangeSpawn(num27, num30);
-							Main.NewText("Spawn point set!", 255, 240, 20, false);
+							Main.NewText(Language.GetTextValue("Game.SpawnPointSet"), 255, 240, 20, false);
 						}
 					}
 					else if (Main.tileSign[(int)Main.tile[myX, myY].type])
@@ -21550,7 +22150,7 @@ namespace Terraria
 						}
 						if (flag8)
 						{
-							NetMessage.SendTileSquare(-1, num49 + 1, num50 + 1, 4);
+							NetMessage.SendTileSquare(-1, num49 + 1, num50 + 1, 4, TileChangeType.None);
 						}
 						if (num53 != -1)
 						{
@@ -21565,7 +22165,7 @@ namespace Terraria
 							}
 						}
 					}
-					else if ((Main.tile[myX, myY].type == 21 || Main.tile[myX, myY].type == 29 || Main.tile[myX, myY].type == 97) && this.talkNPC == -1)
+					else if ((Main.tile[myX, myY].type == 21 || Main.tile[myX, myY].type == 29 || Main.tile[myX, myY].type == 97 || Main.tile[myX, myY].type == 463) && this.talkNPC == -1)
 					{
 						Main.mouseRightRelease = false;
 						int num59 = 0;
@@ -21582,6 +22182,10 @@ namespace Terraria
 						else if (Main.tile[myX, myY].type == 97)
 						{
 							num59 = 2;
+						}
+						else if (Main.tile[myX, myY].type == 463)
+						{
+							num59 = 3;
 						}
 						if (this.sign > -1)
 						{
@@ -21625,6 +22229,10 @@ namespace Terraria
 							else if (num59 == 2)
 							{
 								num62 = -3;
+							}
+							else if (num59 == 3)
+							{
+								num62 = -4;
 							}
 							else
 							{
@@ -21922,6 +22530,48 @@ namespace Terraria
 			NetMessage.SendData(65, -1, -1, "", 2, (float)this.whoAmI, telePos.X, telePos.Y, num, 0, 0);
 		}
 
+		private void PayDD2CrystalsBeforeUse(Item item)
+		{
+			int requiredDD2CrystalsToUse = this.GetRequiredDD2CrystalsToUse(item);
+			for (int i = 0; i < requiredDD2CrystalsToUse; i++)
+			{
+				this.ConsumeItem(3822, true);
+			}
+		}
+
+		private bool CheckDD2CrystalPaymentLock(Item item)
+		{
+			if (!DD2Event.Ongoing)
+			{
+				return true;
+			}
+			int requiredDD2CrystalsToUse = this.GetRequiredDD2CrystalsToUse(item);
+			return this.CountItem(3822, requiredDD2CrystalsToUse) >= requiredDD2CrystalsToUse;
+		}
+
+		private int GetRequiredDD2CrystalsToUse(Item item)
+		{
+			switch (item.type)
+			{
+				case 3818:
+				case 3819:
+				case 3820:
+					return 10;
+				case 3824:
+				case 3825:
+				case 3826:
+					return 10;
+				case 3829:
+				case 3830:
+				case 3831:
+					return 10;
+				case 3832:
+				case 3833:
+				case 3834:
+					return 10;
+			}
+			return 0;
+		}
 
 		public void Update(int i)
 		{
@@ -22725,179 +23375,17 @@ namespace Terraria
 					}
 				}
 			}
-			if (!this.vortexStealthActive)
-			{
-				float num28 = 0f;
-				float num29 = 0f;
-				float num30 = 0f;
-				int num31 = this.head;
-				if (num31 <= 171)
-				{
-					if (num31 != 11)
-					{
-						switch (num31)
-						{
-						case 169:
-							num28 = 0f;
-							num29 = 0.36f;
-							num30 = 0.4f;
-							break;
-						case 170:
-							num28 = 0.4f;
-							num29 = 0.16f;
-							num30 = 0.36f;
-							break;
-						case 171:
-							num28 = 0.5f;
-							num29 = 0.25f;
-							num30 = 0.05f;
-							break;
-						}
-					}
-					else
-					{
-						num28 = 0.92f;
-						num29 = 0.8f;
-						num30 = 0.65f;
-					}
-				}
-				else if (num31 != 178)
-				{
-					if (num31 == 189)
-					{
-						num28 = 0.9f;
-						num29 = 0.9f;
-						num30 = 0.7f;
-					}
-				}
-				else
-				{
-					num28 = 0.1f;
-					num29 = 0.2f;
-					num30 = 0.3f;
-				}
-				float num32 = 0f;
-				float num33 = 0f;
-				float num34 = 0f;
-				num31 = this.body;
-				switch (num31)
-				{
-				case 175:
-					num32 = 0f;
-					num33 = 0.36f;
-					num34 = 0.4f;
-					break;
-				case 176:
-					num32 = 0.4f;
-					num33 = 0.16f;
-					num34 = 0.36f;
-					break;
-				case 177:
-					num32 = 0.5f;
-					num33 = 0.25f;
-					num34 = 0.05f;
-					break;
-				default:
-					if (num31 == 190)
-					{
-						num28 = 0.9f;
-						num29 = 0.9f;
-						num30 = 0.7f;
-					}
-					break;
-				}
-				float num35 = 0f;
-				float num36 = 0f;
-				float num37 = 0f;
-				num31 = this.legs;
-				switch (num31)
-				{
-				case 110:
-					num35 = 0f;
-					num36 = 0.36f;
-					num37 = 0.4f;
-					break;
-				case 111:
-					num35 = 0.4f;
-					num36 = 0.16f;
-					num37 = 0.36f;
-					break;
-				case 112:
-					num35 = 0.5f;
-					num36 = 0.25f;
-					num37 = 0.05f;
-					break;
-				default:
-					if (num31 == 130)
-					{
-						num28 = 0.9f;
-						num29 = 0.9f;
-						num30 = 0.7f;
-					}
-					break;
-				}
-				if (num28 != 0f || num29 != 0f || num30 != 0f)
-				{
-					float num38 = 1f;
-					if (num28 == num32 && num29 == num33 && num30 == num34)
-					{
-						num38 += 0.5f;
-					}
-					if (num28 == num35 && num29 == num36 && num30 == num37)
-					{
-						num38 += 0.5f;
-					}
-					Vector2 spinningpoint = new Vector2((float)(this.width / 2 + 8 * this.direction), 2f);
-					if (this.fullRotation != 0f)
-					{
-						spinningpoint = spinningpoint.RotatedBy((double)this.fullRotation, this.fullRotationOrigin);
-					}
-					int i2 = (int)(this.position.X + spinningpoint.X) / 16;
-					int j2 = (int)(this.position.Y + spinningpoint.Y) / 16;
-
-				}
-				if (num32 != 0f || num33 != 0f || num34 != 0f)
-				{
-					float num39 = 1f;
-					if (num32 == num28 && num33 == num29 && num34 == num30)
-					{
-						num39 += 0.5f;
-					}
-					if (num32 == num35 && num33 == num36 && num34 == num37)
-					{
-						num39 += 0.5f;
-					}
-					Vector2 spinningpoint2 = new Vector2((float)(this.width / 2 + 8), (float)(this.height / 2));
-					if (this.fullRotation != 0f)
-					{
-						spinningpoint2 = spinningpoint2.RotatedBy((double)this.fullRotation, this.fullRotationOrigin);
-					}
-					int i3 = (int)(this.position.X + spinningpoint2.X) / 16;
-					int j3 = (int)(this.position.Y + spinningpoint2.Y) / 16;
-
-				}
-				if (num35 != 0f || num36 != 0f || num37 != 0f)
-				{
-					float num40 = 1f;
-					if (num35 == num32 && num36 == num33 && num37 == num34)
-					{
-						num40 += 0.5f;
-					}
-					if (num35 == num28 && num36 == num29 && num37 == num30)
-					{
-						num40 += 0.5f;
-					}
-					Vector2 spinningpoint3 = new Vector2((float)(this.width / 2 + 8 * this.direction), (float)this.height * 0.75f);
-					if (this.fullRotation != 0f)
-					{
-						spinningpoint3 = spinningpoint3.RotatedBy((double)this.fullRotation, this.fullRotationOrigin);
-					}
-					int i4 = (int)(this.position.X + spinningpoint3.X) / 16;
-					int j4 = (int)(this.position.Y + spinningpoint3.Y) / 16;
-
-				}
-			}
+			this.UpdateArmorLights();
 			this.UpdateArmorSets(i);
+			if (this.maxTurretsOld != this.maxTurrets)
+			{
+				this.UpdateMaxTurrets();
+				this.maxTurretsOld = this.maxTurrets;
+			}
+			if (this.shieldRaised)
+			{
+				this.statDefense += 20;
+			}
 			if ((this.merman || this.forceMerman) && flag13)
 			{
 				this.wings = 0;
@@ -23095,7 +23583,15 @@ namespace Terraria
 			{
 				this.statDefense = 0;
 			}
-			if (this.dazed)
+			if (this.slowOgreSpit)
+			{
+				this.moveSpeed /= 3f;
+				if (this.velocity.Y == 0f && Math.Abs(this.velocity.X) > 1f)
+				{
+					this.velocity.X = this.velocity.X / 2f;
+				}
+			}
+			else if (this.dazed)
 			{
 				this.moveSpeed /= 3f;
 			}
@@ -23106,6 +23602,23 @@ namespace Terraria
 			else if (this.chilled)
 			{
 				this.moveSpeed *= 0.75f;
+			}
+			if (this.shieldRaised)
+			{
+				this.moveSpeed /= 3f;
+				if (this.velocity.Y == 0f && Math.Abs(this.velocity.X) > 3f)
+				{
+					this.velocity.X = this.velocity.X / 2f;
+				}
+			}
+			if (DD2Event.Ongoing)
+			{
+				DD2Event.FindArenaHitbox();
+				if (DD2Event.ShouldBlockBuilding(base.Center))
+				{
+					this.noBuilding = true;
+					this.AddBuff(199, 3, true);
+				}
 			}
 			this.meleeSpeed = 1f / this.meleeSpeed;
 			this.UpdateLifeRegen();
@@ -23132,6 +23645,18 @@ namespace Terraria
 			if (this.brokenArmor)
 			{
 				this.statDefense /= 2;
+			}
+			if (this.witheredArmor)
+			{
+				this.statDefense /= 2;
+			}
+			if (this.witheredWeapon)
+			{
+				this.meleeDamage *= 0.5f;
+				this.rangedDamage *= 0.5f;
+				this.magicDamage *= 0.5f;
+				this.minionDamage *= 0.5f;
+				this.thrownDamage *= 0.5f;
 			}
 			this.lastTileRangeX = Player.tileRangeX;
 			this.lastTileRangeY = Player.tileRangeY;
@@ -23621,6 +24146,19 @@ namespace Terraria
 						this.accRunSpeed = 8f;
 						this.runAcceleration *= 2f;
 					}
+					if (this.wingsLogic == 37)
+					{
+						if (this.controlDown && this.controlJump && this.wingTime > 0f)
+						{
+							this.accRunSpeed = 12f;
+							this.runAcceleration *= 12f;
+						}
+						else
+						{
+							this.accRunSpeed = 6f;
+							this.runAcceleration *= 2.5f;
+						}
+					}
 					if (this.wingsLogic == 29 || this.wingsLogic == 32)
 					{
 						this.accRunSpeed = 9f;
@@ -23849,7 +24387,7 @@ namespace Terraria
 				{
 					flag19 = true;
 				}
-				if ((this.wingsLogic == 22 || this.wingsLogic == 28 || this.wingsLogic == 30 || this.wingsLogic == 32 || this.wingsLogic == 29 || this.wingsLogic == 33 || this.wingsLogic == 35) && this.controlJump && this.controlDown && this.wingTime > 0f)
+				if ((this.wingsLogic == 22 || this.wingsLogic == 28 || this.wingsLogic == 30 || this.wingsLogic == 32 || this.wingsLogic == 29 || this.wingsLogic == 33 || this.wingsLogic == 35 || this.wingsLogic == 37) && this.controlJump && this.controlDown && this.wingTime > 0f)
 				{
 					flag19 = true;
 				}
@@ -24598,6 +25136,14 @@ namespace Terraria
 					this.velocity.Y = 1E-05f;
 				}
 			}
+			if (this.wingsLogic == 37 && this.controlDown && this.controlJump && this.wingTime > 0f && !this.merman)
+			{
+				this.velocity.Y = this.velocity.Y * 0.92f;
+				if (this.velocity.Y > -2f && this.velocity.Y < 1f)
+				{
+					this.velocity.Y = 1E-05f;
+				}
+			}
 			this.GrabItems(i);
 			if (!Main.mapFullscreen)
 			{
@@ -24886,6 +25432,7 @@ namespace Terraria
 						}
 					}
 				}
+				this.Update_NPCCollision();
 				Vector2 vector3;
 				if (!this.mount.Active || !this.mount.Cart)
 				{
@@ -25295,6 +25842,251 @@ namespace Terraria
 			}
 			this.grappling[0] = -1;
 			this.grapCount = 0;
+		}
+
+		private void Update_NPCCollision()
+		{
+			Rectangle rectangle = new Rectangle((int)this.position.X, (int)this.position.Y, this.width, this.height);
+			for (int i = 0; i < 200; i++)
+			{
+				if (Main.npc[i].active && !Main.npc[i].friendly && Main.npc[i].damage > 0)
+				{
+					int num = -1;
+					int type = Main.npc[i].type;
+					if (type == 398 || type == 400 || type == 397 || type == 396 || type == 401)
+					{
+						num = 1;
+					}
+					if ((num != -1 || !this.immune) && (this.dash != 2 || i != this.eocHit || this.eocDash <= 0) && !this.npcTypeNoAggro[Main.npc[i].type])
+					{
+						float num2 = 1f;
+						Rectangle rectangle2 = new Rectangle((int)Main.npc[i].position.X, (int)Main.npc[i].position.Y, Main.npc[i].width, Main.npc[i].height);
+						NPC.GetMeleeCollisionData(rectangle, i, ref num, ref num2, ref rectangle2);
+						if (rectangle.Intersects(rectangle2) && !this.npcTypeNoAggro[Main.npc[i].type])
+						{
+							bool flag = true;
+							bool flag2 = false;
+							bool flag3 = this.CanParryAgainst(rectangle, rectangle2, Main.npc[i].velocity);
+							float num3 = this.thorns;
+							float knockback = 10f;
+							if (this.turtleThorns)
+							{
+								num3 = 1f;
+							}
+							if (flag3)
+							{
+								num3 = 2f;
+								knockback = 5f;
+								flag = false;
+								flag2 = true;
+							}
+							int num4 = -1;
+							if (Main.npc[i].position.X + (float)(Main.npc[i].width / 2) < this.position.X + (float)(this.width / 2))
+							{
+								num4 = 1;
+							}
+							int num5 = Main.DamageVar((float)Main.npc[i].damage * num2);
+							int num6 = Item.NPCtoBanner(Main.npc[i].BannerID());
+							if (num6 > 0 && this.NPCBannerBuff[num6])
+							{
+								if (Main.expertMode)
+								{
+									num5 = (int)((float)num5 * ItemID.Sets.BannerStrength[Item.BannerToItem(num6)].ExpertDamageReceived);
+								}
+								else
+								{
+									num5 = (int)((float)num5 * ItemID.Sets.BannerStrength[Item.BannerToItem(num6)].NormalDamageReceived);
+								}
+							}
+							if (this.whoAmI == Main.myPlayer && num3 > 0f && !this.immune && !Main.npc[i].dontTakeDamage)
+							{
+								int damage = (int)((float)num5 * num3);
+								this.ApplyDamageToNPC(Main.npc[i], damage, knockback, -num4, false);
+							}
+							if (this.resistCold && Main.npc[i].coldDamage)
+							{
+								num5 = (int)((float)num5 * 0.7f);
+							}
+							if (!this.immune && !flag2)
+							{
+								this.StatusPlayer(Main.npc[i]);
+							}
+							if (flag)
+							{
+								this.Hurt(num5, num4, false, false, Lang.deathMsg(-1, i, -1, -1, 0, 0), false, num);
+							}
+							if (flag3)
+							{
+								this.immune = true;
+								this.immuneNoBlink = true;
+								this.immuneTime = 30;
+								if (this.longInvince)
+								{
+									this.immuneTime = 60;
+								}
+								this.AddBuff(198, 300, false);
+							}
+						}
+					}
+				}
+			}
+		}
+
+		public bool CanParryAgainst(Rectangle blockingPlayerRect, Rectangle enemyRect, Vector2 enemyVelocity)
+		{
+			return this.shieldParryTimeLeft > 0 && Math.Sign(enemyRect.Center.X - blockingPlayerRect.Center.X) == this.direction && enemyVelocity != Vector2.Zero && !this.immune;
+		}
+
+		private void PurgeDD2EnergyCrystals()
+		{
+			for (int i = 0; i < 58; i++)
+			{
+				Item item = this.inventory[i];
+				if (item.stack > 0 && item.type == 3822)
+				{
+					item.stack = 0;
+					item.type = 0;
+				}
+			}
+			if (this.chest == -2)
+			{
+				Chest chest = this.bank;
+				for (int j = 0; j < 40; j++)
+				{
+					if (chest.item[j].stack > 0 && chest.item[j].type == 3822)
+					{
+						chest.item[j].stack = 0;
+						chest.item[j].type = 0;
+					}
+				}
+			}
+			if (this.chest == -4)
+			{
+				Chest chest2 = this.bank3;
+				for (int k = 0; k < 40; k++)
+				{
+					if (chest2.item[k].stack > 0 && chest2.item[k].type == 3822)
+					{
+						chest2.item[k].stack = 0;
+						chest2.item[k].type = 0;
+					}
+				}
+			}
+			if (this.chest == -3)
+			{
+				Chest chest3 = this.bank2;
+				for (int l = 0; l < 40; l++)
+				{
+					if (chest3.item[l].stack > 0 && chest3.item[l].type == 3822)
+					{
+						chest3.item[l].stack = 0;
+						chest3.item[l].type = 0;
+					}
+				}
+			}
+			if (this.chest > -1)
+			{
+				Chest chest4 = Main.chest[this.chest];
+				for (int m = 0; m < 40; m++)
+				{
+					if (chest4.item[m].stack > 0 && chest4.item[m].type == 3822)
+					{
+						chest4.item[m].stack = 0;
+						chest4.item[m].type = 0;
+						if (Main.netMode == 1)
+						{
+							NetMessage.SendData(32, -1, -1, "", this.chest, (float)m, 0f, 0f, 0, 0, 0);
+						}
+					}
+				}
+			}
+		}
+
+		public void ItemCheck_ManageRightClickFeatures()
+		{
+			bool flag = this.selectedItem != 58 && this.controlUseTile && !this.tileInteractionHappened && this.releaseUseItem && !this.controlUseItem && !this.mouseInterface && !CaptureManager.Instance.Active && !Main.HoveringOverAnNPC && !Main.SmartInteractShowingGenuine;
+			if (flag && this.altFunctionUse == 0 && this.inventory[this.selectedItem].type == 3384)
+			{
+				this.altFunctionUse = 1;
+				this.controlUseItem = true;
+			}
+			if (flag && this.altFunctionUse == 0 && this.inventory[this.selectedItem].type == 3858)
+			{
+				this.altFunctionUse = 1;
+				this.controlUseItem = true;
+			}
+			if (flag && this.altFunctionUse == 0 && this.inventory[this.selectedItem].type == 3852 && this.itemAnimation == 0 && this.CheckMana(20, true, false))
+			{
+				this.altFunctionUse = 1;
+				this.controlUseItem = true;
+			}
+			if (flag && this.altFunctionUse == 0 && this.inventory[this.selectedItem].shoot > 0 && ProjectileID.Sets.TurretFeature[this.inventory[this.selectedItem].shoot])
+			{
+				this.altFunctionUse = 1;
+				this.controlUseItem = true;
+			}
+			if (flag && this.altFunctionUse == 0 && this.inventory[this.selectedItem].shoot > 0 && ProjectileID.Sets.MinionTargettingFeature[this.inventory[this.selectedItem].shoot])
+			{
+				this.altFunctionUse = 1;
+				this.controlUseItem = true;
+			}
+			if (!this.controlUseItem && this.altFunctionUse == 1)
+			{
+				this.altFunctionUse = 0;
+			}
+			this.ItemCheck_ManageRightClickFeatures_ShieldRaise(flag);
+		}
+
+		public void ItemCheck_ManageRightClickFeatures_ShieldRaise(bool theGeneralCheck)
+		{
+			bool flag = false;
+			if (theGeneralCheck && this.inventory[this.selectedItem].type == 3823 && this.hasRaisableShield && !this.mount.Active && (this.itemAnimation == 0 || PlayerInput.Triggers.JustPressed.MouseRight))
+			{
+				flag = true;
+			}
+			if (this.shield_parry_cooldown > 0)
+			{
+				this.shield_parry_cooldown--;
+				if (this.shield_parry_cooldown == 0)
+				{
+					Main.PlaySound(25, -1, -1, 1, 1f, 0f);
+					for (int i = 0; i < 10; i++)
+					{
+						int num = Dust.NewDust(base.Center + new Vector2((float)(this.direction * 6 + ((this.direction == -1) ? -10 : 0)), -14f), 10, 16, 45, 0f, 0f, 255, new Color(255, 100, 0, 127), (float)Main.rand.Next(10, 16) * 0.1f);
+						Main.dust[num].noLight = true;
+						Main.dust[num].noGravity = true;
+						Main.dust[num].velocity *= 0.5f;
+					}
+				}
+			}
+			if (this.shieldParryTimeLeft > 0 && ++this.shieldParryTimeLeft > 20)
+			{
+				this.shieldParryTimeLeft = 0;
+			}
+			if (flag != this.shieldRaised)
+			{
+				this.shieldRaised = flag;
+				if (this.shieldRaised)
+				{
+					if (this.shield_parry_cooldown == 0)
+					{
+						this.shieldParryTimeLeft = 1;
+					}
+					this.itemAnimation = 0;
+					this.itemTime = 0;
+					this.reuseDelay = 0;
+				}
+				else
+				{
+					this.shield_parry_cooldown = 15;
+					this.shieldParryTimeLeft = 0;
+					if (this.attackCD < 20)
+					{
+						this.attackCD = 20;
+					}
+				}
+			}
+			bool arg_1C7_0 = this.shieldRaised;
 		}
 
 
@@ -25776,6 +26568,64 @@ namespace Terraria
 			{
 				this.DelBuff(this.HasBuff(187));
 			}
+			if (this.head == 200 && this.body == 198 && this.legs == 142)
+			{
+				this.setBonus = Lang.setBonus(47, false);
+				this.setForbidden = true;
+				this.UpdateForbiddenSetLock();
+			}
+			if (this.head == 204 && this.body == 201 && this.legs == 145)
+			{
+				this.setBonus = Lang.setBonus(52, false);
+				this.setSquireT2 = true;
+				this.maxTurrets++;
+			}
+			if (this.head == 203 && this.body == 200 && this.legs == 144)
+			{
+				this.setBonus = Lang.setBonus(53, false);
+				this.setApprenticeT2 = true;
+				this.maxTurrets++;
+			}
+			if (this.head == 205 && this.body == 202 && (this.legs == 147 || this.legs == 146))
+			{
+				this.setBonus = Lang.setBonus(54, false);
+				this.setHuntressT2 = true;
+				this.maxTurrets++;
+			}
+			if (this.head == 206 && this.body == 203 && this.legs == 148)
+			{
+				this.setBonus = Lang.setBonus(55, false);
+				this.setMonkT2 = true;
+				this.maxTurrets++;
+			}
+			if (this.head == 210 && this.body == 204 && this.legs == 152)
+			{
+				this.setBonus = Lang.setBonus(48, false);
+				this.setSquireT3 = true;
+				this.setSquireT2 = true;
+				this.maxTurrets++;
+			}
+			if (this.head == 211 && this.body == 205 && this.legs == 153)
+			{
+				this.setBonus = Lang.setBonus(49, false);
+				this.setApprenticeT3 = true;
+				this.setApprenticeT2 = true;
+				this.maxTurrets++;
+			}
+			if (this.head == 212 && this.body == 206 && (this.legs == 154 || this.legs == 155))
+			{
+				this.setBonus = Lang.setBonus(50, false);
+				this.setHuntressT3 = true;
+				this.setHuntressT2 = true;
+				this.maxTurrets++;
+			}
+			if (this.head == 213 && this.body == 207 && this.legs == 156)
+			{
+				this.setBonus = Lang.setBonus(51, false);
+				this.setMonkT3 = true;
+				this.setMonkT2 = true;
+				this.maxTurrets++;
+			}
 		}
 
 
@@ -25815,6 +26665,7 @@ namespace Terraria
 			this.ZoneDesert = (Main.sandTiles > 1000);
 			this.ZoneGlowshroom = (Main.shroomTiles > 100);
 			this.ZoneTowerSolar = (this.ZoneTowerVortex = (this.ZoneTowerNebula = (this.ZoneTowerStardust = false)));
+			this.ZoneOldOneArmy = false;
 			Vector2 value = Vector2.Zero;
 			Vector2 value2 = Vector2.Zero;
 			Vector2 value3 = Vector2.Zero;
@@ -25847,9 +26698,17 @@ namespace Terraria
 							value2 = Main.npc[i].Center;
 						}
 					}
-					else if (Main.npc[i].type == 517 && base.Distance(Main.npc[i].Center) <= 4000f)
+					else if (Main.npc[i].type == 517)
 					{
-						this.ZoneTowerSolar = true;
+						if (base.Distance(Main.npc[i].Center) <= 4000f)
+						{
+							this.ZoneTowerSolar = true;
+							value = Main.npc[i].Center;
+						}
+					}
+					else if (Main.npc[i].type == 549 && base.Distance(Main.npc[i].Center) <= 4000f)
+					{
+						this.ZoneOldOneArmy = true;
 						value = Main.npc[i].Center;
 					}
 				}
@@ -26827,17 +27686,19 @@ namespace Terraria
 					}
 					else if (this.buffType[k] == 191)
 					{
-						this.buffTime[k] = 18000;
-						this.companionCube = true;
-						bool flag4 = true;
-						if (this.ownedProjectileCounts[653] > 0)
-						{
-							flag4 = false;
-						}
-						if (flag4 && this.whoAmI == Main.myPlayer)
-						{
-							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 653, 0, 0f, this.whoAmI, 0f, 0f);
-						}
+						this.CommonPetBuffHandle(k, ref this.companionCube, 653);
+					}
+					else if (this.buffType[k] == 202)
+					{
+						this.CommonPetBuffHandle(k, ref this.petFlagDD2Dragon, 701);
+					}
+					else if (this.buffType[k] == 200)
+					{
+						this.CommonPetBuffHandle(k, ref this.petFlagDD2Gato, 703);
+					}
+					else if (this.buffType[k] == 201)
+					{
+						this.CommonPetBuffHandle(k, ref this.petFlagDD2Ghost, 702);
 					}
 					else if (this.buffType[k] == 190)
 					{
@@ -27354,6 +28215,26 @@ namespace Terraria
 					{
 						this.windPushed = true;
 					}
+					else if (this.buffType[k] == 195)
+					{
+						this.witheredArmor = true;
+					}
+					else if (this.buffType[k] == 205)
+					{
+						this.ballistaPanic = true;
+					}
+					else if (this.buffType[k] == 196)
+					{
+						this.witheredWeapon = true;
+					}
+					else if (this.buffType[k] == 197)
+					{
+						this.slowOgreSpit = true;
+					}
+					else if (this.buffType[k] == 198)
+					{
+						this.parryDamageBuff = true;
+					}
 					else if (this.buffType[k] == 145)
 					{
 						this.moonLeech = true;
@@ -27512,6 +28393,18 @@ namespace Terraria
 			this.moonLeech = false;
 			this.headcovered = false;
 			this.vortexDebuff = false;
+			this.windPushed = false; this.ballistaPanic = false;
+			this.setVortex = (this.setNebula = (this.setStardust = false));
+			this.setForbidden = false;
+			this.setHuntressT3 = false;
+			this.setSquireT3 = false;
+			this.setMonkT3 = false;
+			this.setApprenticeT3 = false;
+			this.setHuntressT2 = false;
+			this.setSquireT2 = false;
+			this.setMonkT2 = false;
+			this.setApprenticeT2 = false;
+			this.setForbiddenCooldownLocked = false;
 			this.setSolar = (this.setVortex = (this.setNebula = (this.setStardust = false)));
 			this.nebulaLevelDamage = (this.nebulaLevelLife = (this.nebulaLevelMana = 0));
 			this.trapDebuffSource = false;
@@ -27651,7 +28544,7 @@ namespace Terraria
 				int num = i % 10;
 				if (this.dye[num] != null && this.armor[i].type > 0 && this.armor[i].stack > 0 && (i / 10 >= 1 || !this.hideVisual[num] || this.armor[i].wingSlot > 0 || this.armor[i].type == 934))
 				{
-					if (this.armor[i].handOnSlot > 0 && this.armor[i].handOnSlot < 19)
+					if (this.armor[i].handOnSlot > 0 && this.armor[i].handOnSlot < 20)
 					{
 						this.cHandOn = (int)this.dye[num].dye;
 					}
@@ -27659,7 +28552,7 @@ namespace Terraria
 					{
 						this.cHandOff = (int)this.dye[num].dye;
 					}
-					if (this.armor[i].backSlot > 0 && this.armor[i].backSlot < 11)
+					if (this.armor[i].backSlot > 0 && this.armor[i].backSlot < 14)
 					{
 						this.cBack = (int)this.dye[num].dye;
 					}
@@ -27671,15 +28564,15 @@ namespace Terraria
 					{
 						this.cShoe = (int)this.dye[num].dye;
 					}
-					if (this.armor[i].waistSlot > 0 && this.armor[i].waistSlot < 12)
+					if (this.armor[i].waistSlot > 0 && this.armor[i].waistSlot < 13)
 					{
 						this.cWaist = (int)this.dye[num].dye;
 					}
-					if (this.armor[i].shieldSlot > 0 && this.armor[i].shieldSlot < 6)
+					if (this.armor[i].shieldSlot > 0 && this.armor[i].shieldSlot < 7)
 					{
 						this.cShield = (int)this.dye[num].dye;
 					}
-					if (this.armor[i].neckSlot > 0 && this.armor[i].neckSlot < 9)
+					if (this.armor[i].neckSlot > 0 && this.armor[i].neckSlot < 10)
 					{
 						this.cNeck = (int)this.dye[num].dye;
 					}
@@ -27691,7 +28584,7 @@ namespace Terraria
 					{
 						this.cBalloon = (int)this.dye[num].dye;
 					}
-					if (this.armor[i].wingSlot > 0 && this.armor[i].wingSlot < 37)
+					if (this.armor[i].wingSlot > 0 && this.armor[i].wingSlot < wings)
 					{
 						this.cWings = (int)this.dye[num].dye;
 					}
@@ -27901,7 +28794,7 @@ namespace Terraria
 								}
 								if (Main.netMode == 1)
 								{
-									NetMessage.SendTileSquare(-1, num, num2, 1);
+									NetMessage.SendTileSquare(-1, num, num2, 1, TileChangeType.None);
 								}
 							}
 							else if (Main.tile[num, num2 + 1].type == 109)
@@ -27928,7 +28821,7 @@ namespace Terraria
 								}
 								if (Main.netMode == 1)
 								{
-									NetMessage.SendTileSquare(-1, num, num2, 1);
+									NetMessage.SendTileSquare(-1, num, num2, 1, TileChangeType.None);
 								}
 							}
 							else if (Main.tile[num, num2 + 1].type == 60)
@@ -27938,13 +28831,130 @@ namespace Terraria
 								Main.tile[num, num2].frameX = (short)(18 * Main.rand.Next(9, 17));
 								if (Main.netMode == 1)
 								{
-									NetMessage.SendTileSquare(-1, num, num2, 1);
+									NetMessage.SendTileSquare(-1, num, num2, 1, TileChangeType.None);
 								}
 							}
 						}
 					}
 					this.statDefense += this.armor[k].defense;
 					this.lifeRegen += this.armor[k].lifeRegen;
+					if (this.armor[k].shieldSlot > 0)
+					{
+						this.hasRaisableShield = true;
+					}
+					int type3 = this.armor[k].type;
+					int num3 = type3;
+					switch (num3)
+					{
+						case 3797:
+							this.maxTurrets++;
+							this.manaCost -= 0.1f;
+							break;
+						case 3798:
+							this.magicDamage += 0.1f;
+							this.minionDamage += 0.2f;
+							break;
+						case 3799:
+							this.minionDamage += 0.1f;
+							this.magicCrit += 20;
+							break;
+						case 3800:
+							this.maxTurrets++;
+							this.lifeRegen += 8;
+							break;
+						case 3801:
+							this.meleeDamage += 0.15f;
+							this.minionDamage += 0.15f;
+							break;
+						case 3802:
+							this.minionDamage += 0.15f;
+							this.meleeCrit += 20;
+							this.moveSpeed += 0.2f;
+							break;
+						case 3803:
+							this.maxTurrets++;
+							this.rangedCrit += 10;
+							break;
+						case 3804:
+							this.rangedDamage += 0.2f;
+							this.minionDamage += 0.2f;
+							break;
+						case 3805:
+							this.minionDamage += 0.1f;
+							this.moveSpeed += 0.2f;
+							break;
+						case 3806:
+							this.maxTurrets++;
+							this.meleeSpeed += 0.2f;
+							break;
+						case 3807:
+							this.meleeDamage += 0.2f;
+							this.minionDamage += 0.2f;
+							break;
+						case 3808:
+							this.minionDamage += 0.1f;
+							this.meleeCrit += 10;
+							this.moveSpeed += 0.2f;
+							break;
+						default:
+							switch (num3)
+							{
+								case 3871:
+									this.maxTurrets += 2;
+									this.minionDamage += 0.1f;
+									break;
+								case 3872:
+									this.minionDamage += 0.3f;
+									this.lifeRegen += 16;
+									break;
+								case 3873:
+									this.minionDamage += 0.2f;
+									this.meleeCrit += 20;
+									this.moveSpeed += 0.3f;
+									break;
+								case 3874:
+									this.maxTurrets += 2;
+									this.magicDamage += 0.1f;
+									this.minionDamage += 0.1f;
+									break;
+								case 3875:
+									this.minionDamage += 0.3f;
+									this.magicDamage += 0.15f;
+									break;
+								case 3876:
+									this.minionDamage += 0.2f;
+									this.magicCrit += 25;
+									break;
+								case 3877:
+									this.maxTurrets += 2;
+									this.minionDamage += 0.1f;
+									this.rangedCrit += 10;
+									break;
+								case 3878:
+									this.minionDamage += 0.25f;
+									this.rangedDamage += 0.25f;
+									break;
+								case 3879:
+									this.minionDamage += 0.25f;
+									this.moveSpeed += 0.2f;
+									break;
+								case 3880:
+									this.maxTurrets += 2;
+									this.minionDamage += 0.2f;
+									this.meleeDamage += 0.2f;
+									break;
+								case 3881:
+									this.meleeSpeed += 0.2f;
+									this.minionDamage += 0.2f;
+									break;
+								case 3882:
+									this.minionDamage += 0.2f;
+									this.meleeCrit += 20;
+									this.moveSpeed += 0.2f;
+									break;
+							}
+							break;
+					}
 					if (this.armor[k].type == 268)
 					{
 						this.accDivingHelm = true;
@@ -28648,6 +29658,10 @@ namespace Terraria
 			{
 				if (!this.armor[l].expertOnly || Main.expertMode)
 				{
+					if (this.armor[l].type == 3810 || this.armor[l].type == 3809 || this.armor[l].type == 3812 || this.armor[l].type == 3811)
+					{
+						this.dd2Accessory = true;
+					}
 					if (this.armor[l].type == 3015)
 					{
 						this.aggro -= 400;
@@ -29491,6 +30505,10 @@ namespace Terraria
 					{
 						this.wingTimeMax = 180;
 					}
+					if (this.armor[l].type == 3883)
+					{
+						this.wingTimeMax = 150;
+					}
 					if (this.armor[l].type == 885)
 					{
 						this.buffImmune[30] = true;
@@ -29614,7 +30632,7 @@ namespace Terraria
 					}
 					if (Main.myPlayer == this.whoAmI)
 					{
-						if (this.armor[l].type == 576 && Main.rand.Next(10800) == 0 && Main.curMusic > 0 && Main.curMusic <= 39)
+						if (this.armor[l].type == 576 && Main.rand.Next(10800) == 0 && Main.curMusic > 0 && Main.curMusic <= 41)
 						{
 							int num6 = 0;
 							if (Main.curMusic == 1)
@@ -29780,6 +30798,11 @@ namespace Terraria
 						}
 					}
 				}
+			}
+			if (this.dd2Accessory)
+			{
+				this.minionDamage += 0.1f;
+				this.maxTurrets++;
 			}
 			for (int m = 3; m < 8 + this.extraAccessorySlots; m++)
 			{
@@ -30372,6 +31395,24 @@ namespace Terraria
 			}
 		}
 
+		public void MinionNPCTargetAim()
+		{
+			Vector2 mouseWorld = Main.MouseWorld;
+			int num = -1;
+			for (int i = 0; i < 200; i++)
+			{
+				if (Main.npc[i].CanBeChasedBy(this, false) && (num == -1 || Main.npc[i].Hitbox.Distance(mouseWorld) < Main.npc[num].Hitbox.Distance(mouseWorld)))
+				{
+					num = i;
+				}
+			}
+			if (this.MinionAttackTargetNPC == num)
+			{
+				this.MinionAttackTargetNPC = -1;
+				return;
+			}
+			this.MinionAttackTargetNPC = num;
+		}
 
 		public void UpdateMinionTarget()
 		{
@@ -30379,15 +31420,13 @@ namespace Terraria
 			{
 				return;
 			}
-			if (base.Distance(this.MinionTargetPoint) > 1000f)
+			if (base.Distance(this.MinionRestTargetPoint) > 1000f)
 			{
-				this.MinionTargetPoint = Vector2.Zero;
+				this.MinionRestTargetPoint = Vector2.Zero;
 			}
-			if (this.stardustGuardian && this.HasMinionTarget)
+			if (this.MinionAttackTargetNPC != -1 && (!Main.npc[this.MinionAttackTargetNPC].CanBeChasedBy(this, false) || Main.npc[this.MinionAttackTargetNPC].Hitbox.Distance(base.Center) > 3000f))
 			{
-				Vector2 minionTargetPoint = this.MinionTargetPoint;
-				float num = (float)this.miscCounter / 150f;
-				float num2 = 2.09439516f;
+				this.MinionAttackTargetNPC = -1;
 			}
 		}
 
@@ -30719,6 +31758,14 @@ namespace Terraria
 				num3 = 2.5f;
 				num = 0.125f;
 			}
+			if (this.wingsLogic == 37)
+			{
+				num2 = 0.75f;
+				num5 = 0.15f;
+				num4 = 1f;
+				num3 = 2.5f;
+				num = 0.125f;
+			}
 			if (this.wingsLogic == 29 || this.wingsLogic == 32)
 			{
 				num2 = 0.85f;
@@ -30764,7 +31811,7 @@ namespace Terraria
 					this.velocity.Y = Player.jumpSpeed * num3;
 				}
 			}
-			if ((this.wingsLogic == 22 || this.wingsLogic == 28 || this.wingsLogic == 30 || this.wingsLogic == 31) && this.controlDown && !this.controlLeft && !this.controlRight)
+			if ((this.wingsLogic == 22 || this.wingsLogic == 28 || this.wingsLogic == 30 || this.wingsLogic == 31 || this.wingsLogic == 37) && this.controlDown && !this.controlLeft && !this.controlRight)
 			{
 				this.wingTime -= 0.5f;
 				return;
@@ -30827,12 +31874,12 @@ namespace Terraria
 					float num4 = (float)Math.Sqrt((double)(num2 * num2 + num3 * num3));
 					if (num4 > 3000f)
 					{
-						this.KillMe(1000.0, 0, false, " tried to escape.");
+						this.KillMe(1000.0, 0, false, Language.GetTextValue("Deaths.TriedToEscape"));
 						return;
 					}
 					if (Main.npc[Main.wof].position.X < 608f || Main.npc[Main.wof].position.X > (float)((Main.maxTilesX - 38) * 16))
 					{
-						this.KillMe(1000.0, 0, false, " was licked.");
+						this.KillMe(1000.0, 0, false, Language.GetTextValue("Deaths.WasLicked"));
 					}
 				}
 			}
