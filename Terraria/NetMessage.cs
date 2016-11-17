@@ -56,7 +56,7 @@ namespace Terraria
 			switch (msgType)
 			{
 				case 1:
-					writer.Write("Terraria" + 185);
+					writer.Write("Terraria" + 186);
 					break;
 				case 2:
 					writer.Write(text);

@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using Terraria.DataStructures;
+using Terraria.Enums;
 using Terraria.GameContent;
 using Terraria.GameContent.Achievements;
 using Terraria.GameContent.Events;
 using Terraria.GameContent.Tile_Entities;
 using Terraria.ID;
+using Terraria.Localization;
+using Terraria.Utilities;
+using Terraria.World.Generation;
 using Terraria.GameContent.UI;
 using TerrariaApi.Server;
 
@@ -16,6 +20,7 @@ namespace Terraria
 		public const int MaxMoonLordCountdown = 3600;
 		public const int maxBuffs = 5;
 		public const int breathMax = 200;
+		private const int NPC_TARGETS_START = 300;
 		public static readonly int[,,,] MoonLordAttacksArray = NPC.InitializeMoonLordAttacks();
 		public static readonly int[,] MoonLordAttacksArray2 = NPC.InitializeMoonLordAttacks2();
 		public static int MoonLordCountdown = 0;
@@ -27,7 +32,7 @@ namespace Terraria
 		public static int goldCritterChance = 150;
 		public static int[] killCount = new int[Main.maxNPCTypes];
 		public static float waveKills = 0f;
-		public static int waveCount = 0;
+		public static int waveNumber = 0;
 		public bool dripping;
 		public bool drippingSlime;
 		public short catchItem;
@@ -109,6 +114,7 @@ namespace Terraria
 		public static bool savedMech = false;
 		public static bool savedAngler = false;
 		public static bool savedStylist = false;
+		public static bool savedBartender = false;
 		public static bool downedBoss1 = false;
 		public static bool downedBoss2 = false;
 		public static bool downedBoss3 = false;
@@ -167,8 +173,6 @@ namespace Terraria
 		public int defDefense;
 		public bool coldDamage;
 		public bool trapImmune;
-		public int soundHit;
-		public int soundKilled;
 		public int life;
 		public int lifeMax;
 		public Rectangle targetRect;
@@ -217,6 +221,12 @@ namespace Terraria
 		public int lastPortalColorIndex;
 		public static int[,] cavernMonsterType = new int[2, 3];
 		private static int ignorePlayerInteractions = 0;
+		public bool betsysCurse;
+		public bool oiled;
+		public bool dontTakeDamageFromHostiles;
+		private float honeyMovementSpeed = 0.25f;
+		private float lavaMovementSpeed = 0.5f;
+		private float waterMovementSpeed = 0.5f;
 		public static bool downedTowers
 		{
 			get
@@ -264,7 +274,7 @@ namespace Terraria
 		{
 			get
 			{
-				return this.target >= 0 && this.target < 255 && Main.player[this.target].active && !Main.player[this.target].dead;
+				return (this.HasPlayerTarget && Main.player[this.target].active && !Main.player[this.target].dead && !Main.player[this.target].ghost) || (this.SupportsNPCTargets && this.HasNPCTarget && Main.npc[this.TranslatedTargetIndex].active);
 			}
 		}
 		public static int[,,,] InitializeMoonLordAttacks()
@@ -426,1019 +436,1076 @@ namespace Terraria
 		}
 		public static string getNewNPCName(int npcType)
 		{
-			if (WorldGen.genRand == null)
-			{
-				WorldGen.genRand = new Random();
-			}
-			if (npcType <= 160)
+			if (npcType <= 178)
 			{
 				if (npcType <= 54)
 				{
 					switch (npcType)
 					{
-					case 17:
-						switch (WorldGen.genRand.Next(23))
-						{
-						case 0:
-							return "Alfred";
-						case 1:
-							return "Barney";
-						case 2:
-							return "Calvin";
-						case 3:
-							return "Edmund";
-						case 4:
-							return "Edwin";
-						case 5:
-							return "Eugene";
-						case 6:
-							return "Frank";
-						case 7:
-							return "Frederick";
-						case 8:
-							return "Gilbert";
-						case 9:
-							return "Gus";
-						case 10:
-							return "Wilbur";
-						case 11:
-							return "Seymour";
-						case 12:
-							return "Louis";
-						case 13:
-							return "Humphrey";
-						case 14:
-							return "Harold";
-						case 15:
-							return "Milton";
-						case 16:
-							return "Mortimer";
 						case 17:
-							return "Howard";
-						case 18:
-							return "Walter";
-						case 19:
-							return "Finn";
-						case 20:
-							return "Isaac";
-						case 21:
-							return "Joseph";
-						default:
-							return "Ralph";
-						}
-					case 18:
-						switch (WorldGen.genRand.Next(24))
-						{
-						case 0:
-							return "Molly";
-						case 1:
-							return "Amy";
-						case 2:
-							return "Claire";
-						case 3:
-							return "Emily";
-						case 4:
-							return "Katie";
-						case 5:
-							return "Madeline";
-						case 6:
-							return "Katelyn";
-						case 7:
-							return "Emma";
-						case 8:
-							return "Abigail";
-						case 9:
-							return "Carly";
-						case 10:
-							return "Jenna";
-						case 11:
-							return "Heather";
-						case 12:
-							return "Katherine";
-						case 13:
-							return "Caitlin";
-						case 14:
-							return "Kaitlin";
-						case 15:
-							return "Holly";
-						case 16:
-							return "Kaitlyn";
-						case 17:
-							return "Hannah";
-						case 18:
-							return "Kathryn";
-						case 19:
-							return "Lorraine";
-						case 20:
-							return "Helen";
-						case 21:
-							return "Kayla";
-						case 22:
-							return "Lisa";
-						default:
-							return "Allison";
-						}
-					case 19:
-						switch (WorldGen.genRand.Next(24))
-						{
-						case 0:
-							return "DeShawn";
-						case 1:
-							return "DeAndre";
-						case 2:
-							return "Marquis";
-						case 3:
-							return "Darnell";
-						case 4:
-							return "Terrell";
-						case 5:
-							return "Malik";
-						case 6:
-							return "Trevon";
-						case 7:
-							return "Tyrone";
-						case 8:
-							return "Willie";
-						case 9:
-							return "Dominique";
-						case 10:
-							return "Demetrius";
-						case 11:
-							return "Reginald";
-						case 12:
-							return "Jamal";
-						case 13:
-							return "Maurice";
-						case 14:
-							return "Jalen";
-						case 15:
-							return "Darius";
-						case 16:
-							return "Xavier";
-						case 17:
-							return "Terrance";
-						case 18:
-							return "Andre";
-						case 19:
-							return "Dante";
-						case 20:
-							return "Brimst";
-						case 21:
-							return "Bronson";
-						case 22:
-							return "Tony";
-						default:
-							return "Darryl";
-						}
-					case 20:
-						switch (WorldGen.genRand.Next(22))
-						{
-						case 0:
-							return "Alalia";
-						case 1:
-							return "Alalia";
-						case 2:
-							return "Alura";
-						case 3:
-							return "Ariella";
-						case 4:
-							return "Caelia";
-						case 5:
-							return "Calista";
-						case 6:
-							return "Chryseis";
-						case 7:
-							return "Emerenta";
-						case 8:
-							return "Elysia";
-						case 9:
-							return "Evvie";
-						case 10:
-							return "Faye";
-						case 11:
-							return "Felicitae";
-						case 12:
-							return "Lunette";
-						case 13:
-							return "Nata";
-						case 14:
-							return "Nissa";
-						case 15:
-							return "Tatiana";
-						case 16:
-							return "Rosalva";
-						case 17:
-							return "Shea";
-						case 18:
-							return "Tania";
-						case 19:
-							return "Isis";
-						case 20:
-							return "Celestia";
-						default:
-							return "Xylia";
-						}
-					case 21:
-						break;
-					case 22:
-						switch (WorldGen.genRand.Next(35))
-						{
-						case 0:
-							return "Joe";
-						case 1:
-							return "Connor";
-						case 2:
-							return "Tanner";
-						case 3:
-							return "Wyatt";
-						case 4:
-							return "Cody";
-						case 5:
-							return "Levi";
-						case 6:
-							return "Luke";
-						case 7:
-							return "Jack";
-						case 8:
-							return "Scott";
-						case 9:
-							return "Logan";
-						case 10:
-							return "Cole";
-						case 11:
-							return "Asher";
-						case 12:
-							return "Bradley";
-						case 13:
-							return "Jacob";
-						case 14:
-							return "Garrett";
-						case 15:
-							return "Dylan";
-						case 16:
-							return "Maxwell";
-						case 17:
-							return "Steve";
-						case 18:
-							return "Brett";
-						case 19:
-							return "Andrew";
-						case 20:
-							return "Harley";
-						case 21:
-							return "Kyle";
-						case 22:
-							return "Jake";
-						case 23:
-							return "Ryan";
-						case 24:
-							return "Jeffrey";
-						case 25:
-							return "Seth";
-						case 26:
-							return "Marty";
-						case 27:
-							return "Brandon";
-						case 28:
-							return "Zach";
-						case 29:
-							return "Jeff";
-						case 30:
-							return "Daniel";
-						case 31:
-							return "Trent";
-						case 32:
-							return "Kevin";
-						case 33:
-							return "Brian";
-						default:
-							return "Colin";
-						}
-					default:
-						if (npcType != 38)
-						{
-							if (npcType == 54)
+							switch (WorldGen.genRand.Next(23))
 							{
-								switch (WorldGen.genRand.Next(25))
-								{
 								case 0:
-									return "Sebastian";
-								case 1:
-									return "Rupert";
-								case 2:
-									return "Clive";
-								case 3:
-									return "Nigel";
-								case 4:
-									return "Mervyn";
-								case 5:
-									return "Cedric";
-								case 6:
-									return "Pip";
-								case 7:
-									return "Cyril";
-								case 8:
-									return "Fitz";
-								case 9:
-									return "Lloyd";
-								case 10:
-									return "Arthur";
-								case 11:
-									return "Rodney";
-								case 12:
-									return "Graham";
-								case 13:
-									return "Edward";
-								case 14:
 									return "Alfred";
-								case 15:
+								case 1:
+									return "Barney";
+								case 2:
+									return "Calvin";
+								case 3:
 									return "Edmund";
+								case 4:
+									return "Edwin";
+								case 5:
+									return "Eugene";
+								case 6:
+									return "Frank";
+								case 7:
+									return "Frederick";
+								case 8:
+									return "Gilbert";
+								case 9:
+									return "Gus";
+								case 10:
+									return "Wilbur";
+								case 11:
+									return "Seymour";
+								case 12:
+									return "Louis";
+								case 13:
+									return "Humphrey";
+								case 14:
+									return "Harold";
+								case 15:
+									return "Milton";
 								case 16:
-									return "Henry";
+									return "Mortimer";
 								case 17:
-									return "Herald";
+									return "Howard";
 								case 18:
-									return "Roland";
+									return "Walter";
 								case 19:
-									return "Lincoln";
+									return "Finn";
 								case 20:
-									return "Lloyd";
+									return "Isaac";
 								case 21:
-									return "Edgar";
-								case 22:
-									return "Eustace";
-								case 23:
-									return "Benjamin";
+									return "Joseph";
 								default:
-									return "Rodrick";
-								}
+									return "Ralph";
 							}
-						}
-						else
-						{
+							break;
+						case 18:
+							switch (WorldGen.genRand.Next(24))
+							{
+								case 0:
+									return "Molly";
+								case 1:
+									return "Amy";
+								case 2:
+									return "Claire";
+								case 3:
+									return "Emily";
+								case 4:
+									return "Katie";
+								case 5:
+									return "Madeline";
+								case 6:
+									return "Katelyn";
+								case 7:
+									return "Emma";
+								case 8:
+									return "Abigail";
+								case 9:
+									return "Carly";
+								case 10:
+									return "Jenna";
+								case 11:
+									return "Heather";
+								case 12:
+									return "Katherine";
+								case 13:
+									return "Caitlin";
+								case 14:
+									return "Kaitlin";
+								case 15:
+									return "Holly";
+								case 16:
+									return "Kaitlyn";
+								case 17:
+									return "Hannah";
+								case 18:
+									return "Kathryn";
+								case 19:
+									return "Lorraine";
+								case 20:
+									return "Helen";
+								case 21:
+									return "Kayla";
+								case 22:
+									return "Lisa";
+								default:
+									return "Allison";
+							}
+							break;
+						case 19:
+							switch (WorldGen.genRand.Next(24))
+							{
+								case 0:
+									return "DeShawn";
+								case 1:
+									return "DeAndre";
+								case 2:
+									return "Marquis";
+								case 3:
+									return "Darnell";
+								case 4:
+									return "Terrell";
+								case 5:
+									return "Malik";
+								case 6:
+									return "Trevon";
+								case 7:
+									return "Tyrone";
+								case 8:
+									return "Willie";
+								case 9:
+									return "Dominique";
+								case 10:
+									return "Demetrius";
+								case 11:
+									return "Reginald";
+								case 12:
+									return "Jamal";
+								case 13:
+									return "Maurice";
+								case 14:
+									return "Jalen";
+								case 15:
+									return "Darius";
+								case 16:
+									return "Xavier";
+								case 17:
+									return "Terrance";
+								case 18:
+									return "Andre";
+								case 19:
+									return "Dante";
+								case 20:
+									return "Brimst";
+								case 21:
+									return "Bronson";
+								case 22:
+									return "Tony";
+								default:
+									return "Darryl";
+							}
+							break;
+						case 20:
 							switch (WorldGen.genRand.Next(22))
 							{
-							case 0:
-								return "Dolbere";
-							case 1:
-								return "Bazdin";
-							case 2:
-								return "Durim";
-							case 3:
-								return "Tordak";
-							case 4:
-								return "Garval";
-							case 5:
-								return "Morthal";
-							case 6:
-								return "Oten";
-							case 7:
-								return "Dolgen";
-							case 8:
-								return "Gimli";
-							case 9:
-								return "Gimut";
-							case 10:
-								return "Duerthen";
-							case 11:
-								return "Beldin";
-							case 12:
-								return "Jarut";
-							case 13:
-								return "Ovbere";
-							case 14:
-								return "Norkas";
-							case 15:
-								return "Dolgrim";
-							case 16:
-								return "Boften";
-							case 17:
-								return "Norsun";
-							case 18:
-								return "Dias";
-							case 19:
-								return "Fikod";
-							case 20:
-								return "Urist";
-							default:
-								return "Darur";
+								case 0:
+									return "Alalia";
+								case 1:
+									return "Alalia";
+								case 2:
+									return "Alura";
+								case 3:
+									return "Ariella";
+								case 4:
+									return "Caelia";
+								case 5:
+									return "Calista";
+								case 6:
+									return "Chryseis";
+								case 7:
+									return "Emerenta";
+								case 8:
+									return "Elysia";
+								case 9:
+									return "Evvie";
+								case 10:
+									return "Faye";
+								case 11:
+									return "Felicitae";
+								case 12:
+									return "Lunette";
+								case 13:
+									return "Nata";
+								case 14:
+									return "Nissa";
+								case 15:
+									return "Tatiana";
+								case 16:
+									return "Rosalva";
+								case 17:
+									return "Shea";
+								case 18:
+									return "Tania";
+								case 19:
+									return "Isis";
+								case 20:
+									return "Celestia";
+								default:
+									return "Xylia";
 							}
+							break;
+						case 21:
+							break;
+						case 22:
+							switch (WorldGen.genRand.Next(35))
+							{
+								case 0:
+									return "Joe";
+								case 1:
+									return "Connor";
+								case 2:
+									return "Tanner";
+								case 3:
+									return "Wyatt";
+								case 4:
+									return "Cody";
+								case 5:
+									return "Levi";
+								case 6:
+									return "Luke";
+								case 7:
+									return "Jack";
+								case 8:
+									return "Scott";
+								case 9:
+									return "Logan";
+								case 10:
+									return "Cole";
+								case 11:
+									return "Asher";
+								case 12:
+									return "Bradley";
+								case 13:
+									return "Jacob";
+								case 14:
+									return "Garrett";
+								case 15:
+									return "Dylan";
+								case 16:
+									return "Maxwell";
+								case 17:
+									return "Steve";
+								case 18:
+									return "Brett";
+								case 19:
+									return "Andrew";
+								case 20:
+									return "Harley";
+								case 21:
+									return "Kyle";
+								case 22:
+									return "Jake";
+								case 23:
+									return "Ryan";
+								case 24:
+									return "Jeffrey";
+								case 25:
+									return "Seth";
+								case 26:
+									return "Marty";
+								case 27:
+									return "Brandon";
+								case 28:
+									return "Zach";
+								case 29:
+									return "Jeff";
+								case 30:
+									return "Daniel";
+								case 31:
+									return "Trent";
+								case 32:
+									return "Kevin";
+								case 33:
+									return "Brian";
+								default:
+									return "Colin";
+							}
+							break;
+						default:
+							if (npcType != 38)
+							{
+								if (npcType == 54)
+								{
+									switch (WorldGen.genRand.Next(25))
+									{
+										case 0:
+											return "Sebastian";
+										case 1:
+											return "Rupert";
+										case 2:
+											return "Clive";
+										case 3:
+											return "Nigel";
+										case 4:
+											return "Mervyn";
+										case 5:
+											return "Cedric";
+										case 6:
+											return "Pip";
+										case 7:
+											return "Cyril";
+										case 8:
+											return "Fitz";
+										case 9:
+											return "Lloyd";
+										case 10:
+											return "Arthur";
+										case 11:
+											return "Rodney";
+										case 12:
+											return "Graham";
+										case 13:
+											return "Edward";
+										case 14:
+											return "Alfred";
+										case 15:
+											return "Edmund";
+										case 16:
+											return "Henry";
+										case 17:
+											return "Herald";
+										case 18:
+											return "Roland";
+										case 19:
+											return "Lincoln";
+										case 20:
+											return "Lloyd";
+										case 21:
+											return "Edgar";
+										case 22:
+											return "Eustace";
+										case 23:
+											return "Benjamin";
+										default:
+											return "Rodrick";
+									}
+								}
+							}
+							else
+							{
+								switch (WorldGen.genRand.Next(22))
+								{
+									case 0:
+										return "Dolbere";
+									case 1:
+										return "Bazdin";
+									case 2:
+										return "Durim";
+									case 3:
+										return "Tordak";
+									case 4:
+										return "Garval";
+									case 5:
+										return "Morthal";
+									case 6:
+										return "Oten";
+									case 7:
+										return "Dolgen";
+									case 8:
+										return "Gimli";
+									case 9:
+										return "Gimut";
+									case 10:
+										return "Duerthen";
+									case 11:
+										return "Beldin";
+									case 12:
+										return "Jarut";
+									case 13:
+										return "Ovbere";
+									case 14:
+										return "Norkas";
+									case 15:
+										return "Dolgrim";
+									case 16:
+										return "Boften";
+									case 17:
+										return "Norsun";
+									case 18:
+										return "Dias";
+									case 19:
+										return "Fikod";
+									case 20:
+										return "Urist";
+									default:
+										return "Darur";
+								}
+							}
+							break;
+					}
+				}
+				else if (npcType <= 124)
+				{
+					switch (npcType)
+					{
+						case 107:
+							switch (WorldGen.genRand.Next(25))
+							{
+								case 0:
+									return "Grodax";
+								case 1:
+									return "Sarx";
+								case 2:
+									return "Xon";
+								case 3:
+									return "Mrunok";
+								case 4:
+									return "Nuxatk";
+								case 5:
+									return "Tgerd";
+								case 6:
+									return "Darz";
+								case 7:
+									return "Smador";
+								case 8:
+									return "Stazen";
+								case 9:
+									return "Mobart";
+								case 10:
+									return "Knogs";
+								case 11:
+									return "Tkanus";
+								case 12:
+									return "Negurk";
+								case 13:
+									return "Nort";
+								case 14:
+									return "Durnok";
+								case 15:
+									return "Trogem";
+								case 16:
+									return "Stezom";
+								case 17:
+									return "Gnudar";
+								case 18:
+									return "Ragz";
+								case 19:
+									return "Fahd";
+								case 20:
+									return "Xanos";
+								case 21:
+									return "Arback";
+								case 22:
+									return "Fjell";
+								case 23:
+									return "Dalek";
+								default:
+									return "Knub";
+							}
+							break;
+						case 108:
+							switch (WorldGen.genRand.Next(22))
+							{
+								case 0:
+									return "Dalamar";
+								case 1:
+									return "Dulais";
+								case 2:
+									return "Elric";
+								case 3:
+									return "Arddun";
+								case 4:
+									return "Maelor";
+								case 5:
+									return "Leomund";
+								case 6:
+									return "Hirael";
+								case 7:
+									return "Gwentor";
+								case 8:
+									return "Greum";
+								case 9:
+									return "Gearroid";
+								case 10:
+									return "Fizban";
+								case 11:
+									return "Ningauble";
+								case 12:
+									return "Seonag";
+								case 13:
+									return "Sargon";
+								case 14:
+									return "Merlyn";
+								case 15:
+									return "Magius";
+								case 16:
+									return "Berwyn";
+								case 17:
+									return "Arwyn";
+								case 18:
+									return "Alasdair";
+								case 19:
+									return "Tagar";
+								case 20:
+									return "Abram";
+								default:
+									return "Xanadu";
+							}
+							break;
+						default:
+							if (npcType == 124)
+							{
+								switch (WorldGen.genRand.Next(24))
+								{
+									case 0:
+										return "Shayna";
+									case 1:
+										return "Korrie";
+									case 2:
+										return "Ginger";
+									case 3:
+										return "Brooke";
+									case 4:
+										return "Jenny";
+									case 5:
+										return "Autumn";
+									case 6:
+										return "Nancy";
+									case 7:
+										return "Ella";
+									case 8:
+										return "Kayla";
+									case 9:
+										return "Selah";
+									case 10:
+										return "Sophia";
+									case 11:
+										return "Marshanna";
+									case 12:
+										return "Lauren";
+									case 13:
+										return "Trisha";
+									case 14:
+										return "Shirlena";
+									case 15:
+										return "Sheena";
+									case 16:
+										return "Ellen";
+									case 17:
+										return "Amy";
+									case 18:
+										return "Dawn";
+									case 19:
+										return "Susana";
+									case 20:
+										return "Meredith";
+									case 21:
+										return "Selene";
+									case 22:
+										return "Terra";
+									default:
+										return "Sally";
+								}
+							}
+							break;
+					}
+				}
+				else if (npcType != 160)
+				{
+					if (npcType == 178)
+					{
+						switch (WorldGen.genRand.Next(20))
+						{
+							case 0:
+								return "Whitney";
+							case 1:
+								return "Verity";
+							case 2:
+								return "Ada";
+							case 3:
+								return "Cornelia";
+							case 4:
+								return "Lydia";
+							case 5:
+								return "Leila";
+							case 6:
+								return "Minerva";
+							case 7:
+								return "Emeline";
+							case 8:
+								return "Cynthia";
+							case 9:
+								return "Fidelia";
+							case 10:
+								return "Lilly";
+							case 11:
+								return "Phoebe";
+							case 12:
+								return "Zylphia";
+							case 13:
+								return "Zelda";
+							case 14:
+								return "Selina";
+							case 15:
+								return "Hope";
+							case 16:
+								return "Isabella";
+							case 17:
+								return "Judith";
+							case 18:
+								return "Savannah";
+							default:
+								return "Vivian";
 						}
-						break;
 					}
 				}
 				else
 				{
-					switch (npcType)
+					switch (WorldGen.genRand.Next(12))
 					{
-					case 107:
-						switch (WorldGen.genRand.Next(25))
-						{
 						case 0:
-							return "Grodax";
+							return "Reishi";
 						case 1:
-							return "Sarx";
+							return "Maitake";
 						case 2:
-							return "Xon";
+							return "Chanterelle";
 						case 3:
-							return "Mrunok";
+							return "Porcini";
 						case 4:
-							return "Nuxatk";
+							return "Shimeji";
 						case 5:
-							return "Tgerd";
+							return "Amanita";
 						case 6:
-							return "Darz";
+							return "Muscaria";
 						case 7:
-							return "Smador";
+							return "Agaric";
 						case 8:
-							return "Stazen";
+							return "Cremini";
 						case 9:
-							return "Mobart";
+							return "Morel";
 						case 10:
-							return "Knogs";
-						case 11:
-							return "Tkanus";
-						case 12:
-							return "Negurk";
-						case 13:
-							return "Nort";
-						case 14:
-							return "Durnok";
-						case 15:
-							return "Trogem";
-						case 16:
-							return "Stezom";
-						case 17:
-							return "Gnudar";
-						case 18:
-							return "Ragz";
-						case 19:
-							return "Fahd";
-						case 20:
-							return "Xanos";
-						case 21:
-							return "Arback";
-						case 22:
-							return "Fjell";
-						case 23:
-							return "Dalek";
+							return "Enoki";
 						default:
-							return "Knub";
-						}
-					case 108:
-						switch (WorldGen.genRand.Next(22))
-						{
-						case 0:
-							return "Dalamar";
-						case 1:
-							return "Dulais";
-						case 2:
-							return "Elric";
-						case 3:
-							return "Arddun";
-						case 4:
-							return "Maelor";
-						case 5:
-							return "Leomund";
-						case 6:
-							return "Hirael";
-						case 7:
-							return "Gwentor";
-						case 8:
-							return "Greum";
-						case 9:
-							return "Gearroid";
-						case 10:
-							return "Fizban";
-						case 11:
-							return "Ningauble";
-						case 12:
-							return "Seonag";
-						case 13:
-							return "Sargon";
-						case 14:
-							return "Merlyn";
-						case 15:
-							return "Magius";
-						case 16:
-							return "Berwyn";
-						case 17:
-							return "Arwyn";
-						case 18:
-							return "Alasdair";
-						case 19:
-							return "Tagar";
-						case 20:
-							return "Abram";
-						default:
-							return "Xanadu";
-						}
-					default:
-						if (npcType != 124)
-						{
-							if (npcType == 160)
-							{
-								switch (WorldGen.genRand.Next(12))
-								{
-								case 0:
-									return "Reishi";
-								case 1:
-									return "Maitake";
-								case 2:
-									return "Chanterelle";
-								case 3:
-									return "Porcini";
-								case 4:
-									return "Shimeji";
-								case 5:
-									return "Amanita";
-								case 6:
-									return "Muscaria";
-								case 7:
-									return "Agaric";
-								case 8:
-									return "Cremini";
-								case 9:
-									return "Morel";
-								case 10:
-									return "Enoki";
-								default:
-									return "Shiitake";
-								}
-								break;
-							}
-						}
-						else
-						{
-							switch (WorldGen.genRand.Next(24))
-							{
-							case 0:
-								return "Shayna";
-							case 1:
-								return "Korrie";
-							case 2:
-								return "Ginger";
-							case 3:
-								return "Brooke";
-							case 4:
-								return "Jenny";
-							case 5:
-								return "Autumn";
-							case 6:
-								return "Nancy";
-							case 7:
-								return "Ella";
-							case 8:
-								return "Kayla";
-							case 9:
-								return "Selah";
-							case 10:
-								return "Sophia";
-							case 11:
-								return "Marshanna";
-							case 12:
-								return "Lauren";
-							case 13:
-								return "Trisha";
-							case 14:
-								return "Shirlena";
-							case 15:
-								return "Sheena";
-							case 16:
-								return "Ellen";
-							case 17:
-								return "Amy";
-							case 18:
-								return "Dawn";
-							case 19:
-								return "Susana";
-							case 20:
-								return "Meredith";
-							case 21:
-								return "Selene";
-							case 22:
-								return "Terra";
-							default:
-								return "Sally";
-							}
-						}
-						break;
+							return "Shiitake";
 					}
 				}
 			}
-			else if (npcType <= 229)
+			else if (npcType <= 353)
 			{
-				if (npcType != 178)
+				switch (npcType)
 				{
-					switch (npcType)
-					{
 					case 207:
 						switch (WorldGen.genRand.Next(16))
 						{
-						case 0:
-							return "Abdosir";
-						case 1:
-							return "Akbar";
-						case 2:
-							return "Bodashtart";
-						case 3:
-							return "Danel";
-						case 4:
-							return "Hanno";
-						case 5:
-							return "Hiram";
-						case 6:
-							return "Kanmi";
-						case 7:
-							return "Philosir";
-						case 8:
-							return "Tabnit";
-						case 9:
-							return "Yutpan";
-						case 10:
-							return "Ahirom";
-						case 11:
-							return "Batnoam";
-						case 12:
-							return "Sikarbaal";
-						case 13:
-							return "Hannibal";
-						case 14:
-							return "Yehomilk";
-						default:
-							return "Ahinadab";
+							case 0:
+								return "Abdosir";
+							case 1:
+								return "Akbar";
+							case 2:
+								return "Bodashtart";
+							case 3:
+								return "Danel";
+							case 4:
+								return "Hanno";
+							case 5:
+								return "Hiram";
+							case 6:
+								return "Kanmi";
+							case 7:
+								return "Philosir";
+							case 8:
+								return "Tabnit";
+							case 9:
+								return "Yutpan";
+							case 10:
+								return "Ahirom";
+							case 11:
+								return "Batnoam";
+							case 12:
+								return "Sikarbaal";
+							case 13:
+								return "Hannibal";
+							case 14:
+								return "Yehomilk";
+							default:
+								return "Ahinadab";
 						}
+						break;
 					case 208:
 						switch (WorldGen.genRand.Next(17))
 						{
-						case 0:
-							return "Candy";
-						case 1:
-							return "Isis";
-						case 2:
-							return "Trixy";
-						case 3:
-							return "Destiny";
-						case 4:
-							return "Lexus";
-						case 5:
-							return "Bambi";
-						case 6:
-							return "Bailey";
-						case 7:
-							return "Glitter";
-						case 8:
-							return "Sparkle";
-						case 9:
-							return "Paris";
-						case 10:
-							return "Dazzle";
-						case 11:
-							return "Fantasy";
-						case 12:
-							return "Bunny";
-						case 13:
-							return "Sugar";
-						case 14:
-							return "Fantasia";
-						case 15:
-							return "Star";
-						default:
-							return "Cherry";
+							case 0:
+								return "Candy";
+							case 1:
+								return "Isis";
+							case 2:
+								return "Trixy";
+							case 3:
+								return "Destiny";
+							case 4:
+								return "Lexus";
+							case 5:
+								return "Bambi";
+							case 6:
+								return "Bailey";
+							case 7:
+								return "Glitter";
+							case 8:
+								return "Sparkle";
+							case 9:
+								return "Paris";
+							case 10:
+								return "Dazzle";
+							case 11:
+								return "Fantasy";
+							case 12:
+								return "Bunny";
+							case 13:
+								return "Sugar";
+							case 14:
+								return "Fantasia";
+							case 15:
+								return "Star";
+							default:
+								return "Cherry";
 						}
+						break;
 					case 209:
 						switch (WorldGen.genRand.Next(23))
 						{
-						case 0:
-							return "Alpha";
-						case 1:
-							return "Beta";
-						case 2:
-							return "Delta";
-						case 3:
-							return "Omega";
-						case 4:
-							return "Gamma";
-						case 5:
-							return "Theta";
-						case 6:
-							return "Kappa";
-						case 7:
-							return "Omicron";
-						case 8:
-							return "Sigma";
-						case 9:
-							return "Upsilon";
-						case 10:
-							return "Phi";
-						case 11:
-							return "Zeta";
-						case 12:
-							return "Lambda";
-						case 13:
-							return "Nu";
-						case 14:
-							return "Ci";
-						case 15:
-							return "Rho";
-						case 16:
-							return "Phi";
-						case 17:
-							return "Fender";
-						case 18:
-							return "T-3E0";
-						case 19:
-							return "Niner-7";
-						case 20:
-							return "A.N.D.Y";
-						case 21:
-							return "Syn-X";
-						default:
-							return "Mu";
+							case 0:
+								return "Alpha";
+							case 1:
+								return "Beta";
+							case 2:
+								return "Delta";
+							case 3:
+								return "Omega";
+							case 4:
+								return "Gamma";
+							case 5:
+								return "Theta";
+							case 6:
+								return "Kappa";
+							case 7:
+								return "Omicron";
+							case 8:
+								return "Sigma";
+							case 9:
+								return "Upsilon";
+							case 10:
+								return "Phi";
+							case 11:
+								return "Zeta";
+							case 12:
+								return "Lambda";
+							case 13:
+								return "Nu";
+							case 14:
+								return "Ci";
+							case 15:
+								return "Rho";
+							case 16:
+								return "Phi";
+							case 17:
+								return "Fender";
+							case 18:
+								return "T-3E0";
+							case 19:
+								return "Niner-7";
+							case 20:
+								return "A.N.D.Y";
+							case 21:
+								return "Syn-X";
+							default:
+								return "Mu";
 						}
+						break;
 					default:
 						switch (npcType)
 						{
-						case 227:
-							switch (WorldGen.genRand.Next(18))
-							{
-							case 0:
-								return "Marco";
-							case 1:
-								return "Guido";
-							case 2:
-								return "Enzo";
-							case 3:
-								return "Martino";
-							case 4:
-								return "Mauro";
-							case 5:
-								return "Lorenzo";
-							case 6:
-								return "Ludo";
-							case 7:
-								return "Luciano";
-							case 8:
-								return "Carlo";
-							case 9:
-								return "Bruno";
-							case 10:
-								return "Mario";
-							case 11:
-								return "Leonardo";
-							case 12:
-								return "Raphael";
-							case 13:
-								return "Luigi";
-							case 14:
-								return "Luca";
-							case 15:
-								return "Darren";
-							case 16:
-								return "Esreadel";
+							case 227:
+								switch (WorldGen.genRand.Next(18))
+								{
+									case 0:
+										return "Marco";
+									case 1:
+										return "Guido";
+									case 2:
+										return "Enzo";
+									case 3:
+										return "Martino";
+									case 4:
+										return "Mauro";
+									case 5:
+										return "Lorenzo";
+									case 6:
+										return "Ludo";
+									case 7:
+										return "Luciano";
+									case 8:
+										return "Carlo";
+									case 9:
+										return "Bruno";
+									case 10:
+										return "Mario";
+									case 11:
+										return "Leonardo";
+									case 12:
+										return "Raphael";
+									case 13:
+										return "Luigi";
+									case 14:
+										return "Luca";
+									case 15:
+										return "Darren";
+									case 16:
+										return "Esreadel";
+									default:
+										return "Stefano";
+								}
+								break;
+							case 228:
+								switch (WorldGen.genRand.Next(10))
+								{
+									case 0:
+										return "Abibe";
+									case 1:
+										return "Jamundi";
+									case 2:
+										return "U'wa";
+									case 3:
+										return "Tairona";
+									case 4:
+										return "Xirigua";
+									case 5:
+										return "Zop'a";
+									case 6:
+										return "Opuni";
+									case 7:
+										return "Kogi-ghi";
+									case 8:
+										return "Konah";
+									default:
+										return "Gboto";
+								}
+								break;
+							case 229:
+								switch (WorldGen.genRand.Next(11))
+								{
+									case 0:
+										return "David";
+									case 1:
+										return "Red Beard";
+									case 2:
+										return "Jack";
+									case 3:
+										return "Black Beard";
+									case 4:
+										return "Captain Morgan";
+									case 5:
+										return "Wet Beard";
+									case 6:
+										return "James T. Beard";
+									case 7:
+										return "Gunpowder Garry";
+									case 8:
+										return "Captain Stoney Dirt";
+									case 9:
+										return "Jake";
+									default:
+										return "Captain Bullywort";
+								}
+								break;
 							default:
-								return "Stefano";
-							}
-						case 228:
-							switch (WorldGen.genRand.Next(10))
-							{
-							case 0:
-								return "Abibe";
-							case 1:
-								return "Jamundi";
-							case 2:
-								return "U'wa";
-							case 3:
-								return "Tairona";
-							case 4:
-								return "Xirigua";
-							case 5:
-								return "Zop'a";
-							case 6:
-								return "Opuni";
-							case 7:
-								return "Kogi-ghi";
-							case 8:
-								return "Konah";
-							default:
-								return "Gboto";
-							}
-						case 229:
-							switch (WorldGen.genRand.Next(11))
-							{
-							case 0:
-								return "David";
-							case 1:
-								return "Red Beard";
-							case 2:
-								return "Jack";
-							case 3:
-								return "Black Beard";
-							case 4:
-								return "Captain Morgan";
-							case 5:
-								return "Wet Beard";
-							case 6:
-								return "James T. Beard";
-							case 7:
-								return "Gunpowder Garry";
-							case 8:
-								return "Captain Stoney Dirt";
-							case 9:
-								return "Jake";
-							default:
-								return "Captain Bullywort";
-							}
+								if (npcType == 353)
+								{
+									switch (WorldGen.genRand.Next(20))
+									{
+										case 0:
+											return "Bri";
+										case 1:
+											return "Brianne";
+										case 2:
+											return "Flora";
+										case 3:
+											return "Iris";
+										case 4:
+											return "Scarlett";
+										case 5:
+											return "Lola";
+										case 6:
+											return "Hazel";
+										case 7:
+											return "Stella";
+										case 8:
+											return "Pearl";
+										case 9:
+											return "Tallulah";
+										case 10:
+											return "Ruby";
+										case 11:
+											return "Esmeralda";
+										case 12:
+											return "Kylie";
+										case 13:
+											return "Kati";
+										case 14:
+											return "Biah";
+										case 15:
+											return "Meliyah";
+										case 16:
+											return "Petra";
+										case 17:
+											return "Rox";
+										case 18:
+											return "Roxanne";
+										default:
+											return "Annabel";
+									}
+								}
+								break;
 						}
 						break;
-					}
-				}
-				else
-				{
-					switch (WorldGen.genRand.Next(20))
-					{
-					case 0:
-						return "Whitney";
-					case 1:
-						return "Verity";
-					case 2:
-						return "Ada";
-					case 3:
-						return "Cornelia";
-					case 4:
-						return "Lydia";
-					case 5:
-						return "Leila";
-					case 6:
-						return "Minerva";
-					case 7:
-						return "Emeline";
-					case 8:
-						return "Cynthia";
-					case 9:
-						return "Fidelia";
-					case 10:
-						return "Lilly";
-					case 11:
-						return "Phoebe";
-					case 12:
-						return "Zylphia";
-					case 13:
-						return "Zelda";
-					case 14:
-						return "Selina";
-					case 15:
-						return "Hope";
-					case 16:
-						return "Isabella";
-					case 17:
-						return "Judith";
-					case 18:
-						return "Savannah";
-					default:
-						return "Vivian";
-					}
 				}
 			}
-			else if (npcType <= 369)
+			else if (npcType <= 441)
 			{
-				if (npcType != 353)
+				switch (npcType)
 				{
-					switch (npcType)
-					{
 					case 368:
 						switch (WorldGen.genRand.Next(13))
 						{
-						case 0:
-							return "Abraham";
-						case 1:
-							return "Bohemas";
-						case 2:
-							return "Eladon";
-						case 3:
-							return "Aphraim";
-						case 4:
-							return "Gallius";
-						case 5:
-							return "Llewellyn";
-						case 6:
-							return "Riley";
-						case 7:
-							return "Rawleigh";
-						case 8:
-							return "Shipton";
-						case 9:
-							return "Romeo";
-						case 10:
-							return "Aedan";
-						case 11:
-							return "Mercer";
-						default:
-							return "Willy";
+							case 0:
+								return "Abraham";
+							case 1:
+								return "Bohemas";
+							case 2:
+								return "Eladon";
+							case 3:
+								return "Aphraim";
+							case 4:
+								return "Gallius";
+							case 5:
+								return "Llewellyn";
+							case 6:
+								return "Riley";
+							case 7:
+								return "Rawleigh";
+							case 8:
+								return "Shipton";
+							case 9:
+								return "Romeo";
+							case 10:
+								return "Aedan";
+							case 11:
+								return "Mercer";
+							default:
+								return "Willy";
 						}
+						break;
 					case 369:
 						switch (WorldGen.genRand.Next(22))
 						{
-						case 0:
-							return "Bobby";
-						case 1:
-							return "Sammy";
-						case 2:
-							return "Jimmy";
-						case 3:
-							return "Danny";
-						case 4:
-							return "Timmy";
-						case 5:
-							return "Simon";
-						case 6:
-							return "Johnny";
-						case 7:
-							return "Billy";
-						case 8:
-							return "Matty";
-						case 9:
-							return "Bart";
-						case 10:
-							return "Phillip";
-						case 11:
-							return "Spencer";
-						case 12:
-							return "Nathan";
-						case 13:
-							return "Grayson";
-						case 14:
-							return "Bryce";
-						case 15:
-							return "Miles";
-						case 16:
-							return "Charles";
-						case 17:
-							return "Adam";
-						case 18:
-							return "Tyler";
-						case 19:
-							return "Jey";
-						case 20:
-							return "Ivan";
-						default:
-							return "Izzy";
+							case 0:
+								return "Bobby";
+							case 1:
+								return "Sammy";
+							case 2:
+								return "Jimmy";
+							case 3:
+								return "Danny";
+							case 4:
+								return "Timmy";
+							case 5:
+								return "Simon";
+							case 6:
+								return "Johnny";
+							case 7:
+								return "Billy";
+							case 8:
+								return "Matty";
+							case 9:
+								return "Bart";
+							case 10:
+								return "Phillip";
+							case 11:
+								return "Spencer";
+							case 12:
+								return "Nathan";
+							case 13:
+								return "Grayson";
+							case 14:
+								return "Bryce";
+							case 15:
+								return "Miles";
+							case 16:
+								return "Charles";
+							case 17:
+								return "Adam";
+							case 18:
+								return "Tyler";
+							case 19:
+								return "Jey";
+							case 20:
+								return "Ivan";
+							default:
+								return "Izzy";
 						}
-					}
-				}
-				else
-				{
-					switch (WorldGen.genRand.Next(20))
-					{
-					case 0:
-						return "Bri";
-					case 1:
-						return "Brianne";
-					case 2:
-						return "Flora";
-					case 3:
-						return "Iris";
-					case 4:
-						return "Scarlett";
-					case 5:
-						return "Lola";
-					case 6:
-						return "Hazel";
-					case 7:
-						return "Stella";
-					case 8:
-						return "Pearl";
-					case 9:
-						return "Tallulah";
-					case 10:
-						return "Ruby";
-					case 11:
-						return "Esmeralda";
-					case 12:
-						return "Kylie";
-					case 13:
-						return "Kati";
-					case 14:
-						return "Biah";
-					case 15:
-						return "Meliyah";
-					case 16:
-						return "Petra";
-					case 17:
-						return "Rox";
-					case 18:
-						return "Roxanne";
+						break;
 					default:
-						return "Annabel";
-					}
+						if (npcType == 441)
+						{
+							switch (WorldGen.genRand.Next(20))
+							{
+								case 0:
+									return "McKinly";
+								case 1:
+									return "Millard";
+								case 2:
+									return "Fillmore";
+								case 3:
+									return "Rutherford";
+								case 4:
+									return "Chester";
+								case 5:
+									return "Grover";
+								case 6:
+									return "Cleveland";
+								case 7:
+									return "Theodore";
+								case 8:
+									return "Herbert";
+								case 9:
+									return "Warren";
+								case 10:
+									return "Lyndon";
+								case 11:
+									return "Ronald";
+								case 12:
+									return "Harrison";
+								case 13:
+									return "Woodrow";
+								case 14:
+									return "Tweed";
+								case 15:
+									return "Blanton";
+								case 16:
+									return "Dwyer";
+								case 17:
+									return "Carroll";
+								default:
+									return "Agnew";
+							}
+						}
+						break;
 				}
 			}
-			else if (npcType != 441)
+			else if (npcType != 453)
 			{
-				if (npcType == 453)
+				if (npcType == 550)
 				{
-					switch (WorldGen.genRand.Next(9))
-					{
+					return Language.RandomFromCategory("BartenderNames", WorldGen.genRand).Value;
+				}
+			}
+			else
+			{
+				switch (WorldGen.genRand.Next(10))
+				{
 					case 0:
 						return "Skellington";
 					case 1:
@@ -1459,51 +1526,6 @@ namespace Terraria
 						return "Mika";
 					default:
 						return "No-Eyed Wiley";
-					}
-				}
-			}
-			else
-			{
-				switch (WorldGen.genRand.Next(20))
-				{
-				case 0:
-					return "McKinly";
-				case 1:
-					return "Millard";
-				case 2:
-					return "Fillmore";
-				case 3:
-					return "Rutherford";
-				case 4:
-					return "Chester";
-				case 5:
-					return "Grover";
-				case 6:
-					return "Cleveland";
-				case 7:
-					return "Theodore";
-				case 8:
-					return "Herbert";
-				case 9:
-					return "Warren";
-				case 10:
-					return "Lyndon";
-				case 11:
-					return "Ronald";
-				case 12:
-					return "Harrison";
-				case 13:
-					return "Woodrow";
-				case 14:
-					return "Tweed";
-				case 15:
-					return "Blanton";
-				case 16:
-					return "Dwyer";
-				case 17:
-					return "Carroll";
-				default:
-					return "Agnew";
 				}
 			}
 			return "";
@@ -1542,6 +1564,17 @@ namespace Terraria
 			}
 			return NPC.getNewNPCName(npcType);
 		}
+		public static string GetFirstNPCNameOrNull(int npcType)
+		{
+			for (int i = 0; i < 200; i++)
+			{
+				if (Main.npc[i].active && Main.npc[i].type == npcType)
+				{
+					return Main.npc[i].displayName;
+				}
+			}
+			return null;
+		}
 		private void FishTransformationDuringRain()
 		{
 			if (Main.netMode != 1)
@@ -1571,7 +1604,6 @@ namespace Terraria
 				}
 			}
 		}
-
 		public static bool MechSpawn(float x, float y, int type)
 		{
 			int num = 0;
@@ -1598,7 +1630,7 @@ namespace Terraria
 			}
 			return ServerApi.Hooks.InvokeGameStatueSpawn(num2, num3, num, (int)(x / 16), (int)(y / 16), type, true);
 		}
-		public static int TypeToNum(int type)
+		public static int TypeToHeadIndex(int type)
 		{
 			if (type == 17)
 			{
@@ -1692,103 +1724,50 @@ namespace Terraria
 			{
 				return 23;
 			}
+			if (type == 550)
+			{
+				return 24;
+			}
 			return -1;
 		}
-		public static int NumToType(int type)
+		public bool HasNPCTarget
 		{
-			if (type == 2)
+			get
 			{
-				return 17;
+				return this.target >= 300 && this.target < 500;
 			}
-			if (type == 3)
+		}
+		public bool HasPlayerTarget
+		{
+			get
 			{
-				return 18;
+				return this.target >= 0 && this.target < 255;
 			}
-			if (type == 6)
+		}
+		public bool SupportsNPCTargets
+		{
+			get
 			{
-				return 19;
+				return NPCID.Sets.UsesNewTargetting[this.type];
 			}
-			if (type == 5)
+		}
+		public int TranslatedTargetIndex
+		{
+			get
 			{
-				return 20;
+				if (this.HasNPCTarget)
+				{
+					return this.target - 300;
+				}
+				return this.target;
 			}
-			if (type == 1)
+		}
+		public int WhoAmIToTargettingIndex
+		{
+			get
 			{
-				return 22;
+				return this.whoAmI + 300;
 			}
-			if (type == 4)
-			{
-				return 38;
-			}
-			if (type == 7)
-			{
-				return 54;
-			}
-			if (type == 9)
-			{
-				return 107;
-			}
-			if (type == 10)
-			{
-				return 108;
-			}
-			if (type == 8)
-			{
-				return 124;
-			}
-			if (type == 11)
-			{
-				return 142;
-			}
-			if (type == 12)
-			{
-				return 160;
-			}
-			if (type == 13)
-			{
-				return 178;
-			}
-			if (type == 14)
-			{
-				return 207;
-			}
-			if (type == 15)
-			{
-				return 208;
-			}
-			if (type == 16)
-			{
-				return 209;
-			}
-			if (type == 17)
-			{
-				return 227;
-			}
-			if (type == 18)
-			{
-				return 228;
-			}
-			if (type == 19)
-			{
-				return 229;
-			}
-			if (type == 20)
-			{
-				return 353;
-			}
-			if (type == 21)
-			{
-				return 368;
-			}
-			if (type == 22)
-			{
-				return 369;
-			}
-			if (type == 23)
-			{
-				return 441;
-			}
-			return -1;
 		}
 		public int GetBossHeadTextureIndex()
 		{
@@ -3125,7 +3104,7 @@ namespace Terraria
 			{
 				for (int i = 1; i < Main.maxNPCTypes; i++)
 				{
-					if (Main.npcName[i] == Name)
+					if (Main.npcNameEnglish[i] == Name)
 					{
 						this.SetDefaults(i, -1f);
 						return;
@@ -3163,6 +3142,8 @@ namespace Terraria
 		}
 		public void SetDefaults(int Type, float scaleOverride = -1f)
 		{
+			this.waterMovementSpeed = (this.lavaMovementSpeed = 0.5f);
+			this.honeyMovementSpeed = 0.25f;
 			this.takenDamageMultiplier = 1f;
 			this.extraValue = 0f;
 			for (int i = 0; i < this.playerInteraction.Length; i++)
@@ -3222,6 +3203,7 @@ namespace Terraria
 			this.onFrostBurn = false;
 			this.confused = false;
 			this.loveStruck = false;
+			this.dontTakeDamageFromHostiles = false;
 			this.stinky = false;
 			this.dryadWard = false;
 			this.onFire2 = false;
@@ -3256,8 +3238,6 @@ namespace Terraria
 			this.displayName = "";
 			this.noGravity = false;
 			this.scale = 1f;
-			this.soundHit = 0;
-			this.soundKilled = 0;
 			this.spriteDirection = -1;
 			this.target = 255;
 			this.oldTarget = this.target;
@@ -3278,6 +3258,8 @@ namespace Terraria
 			this.daybreak = false;
 			this.celled = false;
 			this.dryadBane = false;
+			this.betsysCurse = false;
+			this.oiled = false;
 			for (int m = 0; m < NPC.maxAI; m++)
 			{
 				this.ai[m] = 0f;
@@ -3295,8 +3277,6 @@ namespace Terraria
 				this.damage = 7;
 				this.defense = 2;
 				this.lifeMax = 25;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.alpha = 175;
 				this.color = new Color(0, 80, 255, 100);
 				this.value = 25f;
@@ -3312,9 +3292,7 @@ namespace Terraria
 				this.damage = 18;
 				this.defense = 2;
 				this.lifeMax = 60;
-				this.soundHit = 1;
 				this.knockBackResist = 0.8f;
-				this.soundKilled = 1;
 				this.value = 75f;
 				this.buffImmune[31] = false;
 			}
@@ -3327,8 +3305,6 @@ namespace Terraria
 				this.damage = 14;
 				this.defense = 6;
 				this.lifeMax = 45;
-				this.soundHit = 1;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 60f;
 				this.buffImmune[31] = false;
@@ -3342,8 +3318,6 @@ namespace Terraria
 				this.damage = 14;
 				this.defense = 6;
 				this.lifeMax = 45;
-				this.soundHit = 1;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 60f;
 				this.buffImmune[31] = false;
@@ -3357,8 +3331,6 @@ namespace Terraria
 				this.damage = 16;
 				this.defense = 8;
 				this.lifeMax = 50;
-				this.soundHit = 1;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.45f;
 				this.value = 80f;
 				this.buffImmune[31] = false;
@@ -3373,8 +3345,6 @@ namespace Terraria
 				this.damage = 16;
 				this.defense = 8;
 				this.lifeMax = 50;
-				this.soundHit = 1;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.45f;
 				this.value = 65f;
 				this.buffImmune[31] = false;
@@ -3389,8 +3359,6 @@ namespace Terraria
 				this.damage = 13;
 				this.defense = 6;
 				this.lifeMax = 40;
-				this.soundHit = 1;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.55f;
 				this.value = 55f;
 				this.buffImmune[31] = false;
@@ -3405,8 +3373,6 @@ namespace Terraria
 				this.damage = 13;
 				this.defense = 8;
 				this.lifeMax = 45;
-				this.soundHit = 1;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.45f;
 				this.value = 80f;
 				this.buffImmune[31] = false;
@@ -3421,8 +3387,6 @@ namespace Terraria
 				this.damage = 16;
 				this.defense = 4;
 				this.lifeMax = 45;
-				this.soundHit = 1;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.55f;
 				this.value = 70f;
 				this.buffImmune[31] = false;
@@ -3437,8 +3401,6 @@ namespace Terraria
 				this.damage = 12;
 				this.defense = 4;
 				this.lifeMax = 38;
-				this.soundHit = 1;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.6f;
 				this.value = 65f;
 				this.buffImmune[31] = false;
@@ -3452,8 +3414,6 @@ namespace Terraria
 				this.damage = 15;
 				this.defense = 12;
 				this.lifeMax = 2800;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0f;
 				this.noGravity = true;
 				this.noTileCollide = true;
@@ -3471,8 +3431,6 @@ namespace Terraria
 				this.damage = 12;
 				this.defense = 0;
 				this.lifeMax = 8;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.noGravity = true;
 				this.noTileCollide = true;
 			}
@@ -3486,8 +3444,6 @@ namespace Terraria
 				this.damage = 22;
 				this.defense = 8;
 				this.lifeMax = 40;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.noGravity = true;
 				this.knockBackResist = 0.5f;
 				this.value = 90f;
@@ -3503,8 +3459,6 @@ namespace Terraria
 				this.damage = 31;
 				this.defense = 2;
 				this.lifeMax = 100;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0f;
@@ -3523,8 +3477,6 @@ namespace Terraria
 				this.damage = 16;
 				this.defense = 6;
 				this.lifeMax = 100;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0f;
@@ -3543,8 +3495,6 @@ namespace Terraria
 				this.damage = 13;
 				this.defense = 10;
 				this.lifeMax = 100;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0f;
@@ -3563,8 +3513,6 @@ namespace Terraria
 				this.damage = 8;
 				this.defense = 0;
 				this.lifeMax = 30;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0f;
@@ -3582,8 +3530,6 @@ namespace Terraria
 				this.damage = 4;
 				this.defense = 4;
 				this.lifeMax = 30;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0f;
@@ -3602,8 +3548,6 @@ namespace Terraria
 				this.damage = 4;
 				this.defense = 6;
 				this.lifeMax = 30;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0f;
@@ -3623,8 +3567,6 @@ namespace Terraria
 				this.damage = 22;
 				this.defense = 2;
 				this.lifeMax = 65;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0f;
@@ -3646,8 +3588,6 @@ namespace Terraria
 				this.damage = 13;
 				this.defense = 4;
 				this.lifeMax = 150;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0f;
@@ -3670,8 +3610,6 @@ namespace Terraria
 				this.damage = 11;
 				this.defense = 8;
 				this.lifeMax = 220;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0f;
@@ -3693,8 +3631,6 @@ namespace Terraria
 				this.damage = 20;
 				this.defense = 7;
 				this.lifeMax = 90;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.alpha = 120;
 				this.color = new Color(0, 0, 0, 50);
 				this.value = 75f;
@@ -3714,8 +3650,6 @@ namespace Terraria
 				this.damage = 10;
 				this.defense = 15;
 				this.lifeMax = 250;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 			}
 			else if (this.type == 18)
@@ -3729,8 +3663,6 @@ namespace Terraria
 				this.damage = 10;
 				this.defense = 15;
 				this.lifeMax = 250;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 			}
 			else if (this.type == 19)
@@ -3744,8 +3676,6 @@ namespace Terraria
 				this.damage = 10;
 				this.defense = 15;
 				this.lifeMax = 250;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 			}
 			else if (this.type == 20)
@@ -3759,8 +3689,6 @@ namespace Terraria
 				this.damage = 10;
 				this.defense = 15;
 				this.lifeMax = 250;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 			}
 			else if (this.type == 21)
@@ -3772,8 +3700,6 @@ namespace Terraria
 				this.damage = 20;
 				this.defense = 8;
 				this.lifeMax = 60;
-				this.soundHit = 2;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 100f;
 				this.buffImmune[20] = true;
@@ -3790,8 +3716,6 @@ namespace Terraria
 				this.damage = 10;
 				this.defense = 15;
 				this.lifeMax = 250;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 			}
 			else if (this.type == 23)
@@ -3803,8 +3727,6 @@ namespace Terraria
 				this.damage = 40;
 				this.defense = 6;
 				this.lifeMax = 26;
-				this.soundHit = 3;
-				this.soundKilled = 3;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.value = 80f;
@@ -3823,8 +3745,6 @@ namespace Terraria
 				this.damage = 30;
 				this.defense = 16;
 				this.lifeMax = 70;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 				this.lavaImmune = true;
 				this.value = 350f;
@@ -3840,8 +3760,6 @@ namespace Terraria
 				this.damage = 30;
 				this.defense = 0;
 				this.lifeMax = 1;
-				this.soundHit = 3;
-				this.soundKilled = 3;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0f;
@@ -3856,8 +3774,6 @@ namespace Terraria
 				this.damage = 26;
 				this.defense = 8;
 				this.lifeMax = 80;
-				this.soundHit = 2;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.8f;
 				this.value = 130f;
 				this.buffImmune[20] = true;
@@ -3872,8 +3788,6 @@ namespace Terraria
 				this.damage = 20;
 				this.defense = 2;
 				this.lifeMax = 50;
-				this.soundHit = 2;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.6f;
 				this.value = 140f;
 				this.npcSlots = 2f;
@@ -3888,8 +3802,6 @@ namespace Terraria
 				this.damage = 20;
 				this.defense = 0;
 				this.lifeMax = 1;
-				this.soundHit = 3;
-				this.soundKilled = 3;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.alpha = 255;
@@ -3904,8 +3816,6 @@ namespace Terraria
 				this.damage = 35;
 				this.defense = 6;
 				this.lifeMax = 40;
-				this.soundHit = 2;
-				this.soundKilled = 2;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.value = 150f;
@@ -3925,8 +3835,6 @@ namespace Terraria
 				this.damage = 32;
 				this.defense = 10;
 				this.lifeMax = 4400;
-				this.soundHit = 2;
-				this.soundKilled = 2;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.value = 50000f;
@@ -3948,8 +3856,6 @@ namespace Terraria
 				this.damage = 20;
 				this.defense = 14;
 				this.lifeMax = 600;
-				this.soundHit = 2;
-				this.soundKilled = 2;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0f;
@@ -3968,8 +3874,6 @@ namespace Terraria
 				this.damage = 10;
 				this.defense = 15;
 				this.lifeMax = 250;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 			}
 			else if (this.type == 38)
@@ -3983,8 +3887,6 @@ namespace Terraria
 				this.damage = 10;
 				this.defense = 15;
 				this.lifeMax = 250;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 			}
 			else if (this.type == 39)
@@ -3999,8 +3901,6 @@ namespace Terraria
 				this.damage = 30;
 				this.defense = 10;
 				this.lifeMax = 250;
-				this.soundHit = 2;
-				this.soundKilled = 5;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0f;
@@ -4021,8 +3921,6 @@ namespace Terraria
 				this.damage = 15;
 				this.defense = 12;
 				this.lifeMax = 250;
-				this.soundHit = 2;
-				this.soundKilled = 5;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0f;
@@ -4044,8 +3942,6 @@ namespace Terraria
 				this.damage = 10;
 				this.defense = 18;
 				this.lifeMax = 250;
-				this.soundHit = 2;
-				this.soundKilled = 5;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0f;
@@ -4065,9 +3961,7 @@ namespace Terraria
 				this.damage = 26;
 				this.defense = 12;
 				this.lifeMax = 48;
-				this.soundHit = 1;
 				this.knockBackResist = 0.5f;
-				this.soundKilled = 1;
 				this.value = 200f;
 				this.noGravity = true;
 				this.buffImmune[20] = true;
@@ -4083,9 +3977,7 @@ namespace Terraria
 				this.damage = 34;
 				this.defense = 10;
 				this.lifeMax = 110;
-				this.soundHit = 1;
 				this.knockBackResist = 0f;
-				this.soundKilled = 1;
 				this.value = 350f;
 				this.buffImmune[20] = true;
 			}
@@ -4098,8 +3990,6 @@ namespace Terraria
 				this.damage = 22;
 				this.defense = 9;
 				this.lifeMax = 70;
-				this.soundHit = 2;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 250f;
 				this.buffImmune[20] = true;
@@ -4114,8 +4004,6 @@ namespace Terraria
 				this.damage = 20;
 				this.defense = 4;
 				this.lifeMax = 200;
-				this.soundHit = 2;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.6f;
 				this.value = 5000f;
 				this.buffImmune[20] = true;
@@ -4130,8 +4018,6 @@ namespace Terraria
 				this.damage = 0;
 				this.defense = 0;
 				this.lifeMax = 5;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.catchItem = 2019;
 			}
 			else if (this.type == 47)
@@ -4143,8 +4029,6 @@ namespace Terraria
 				this.damage = 20;
 				this.defense = 4;
 				this.lifeMax = 70;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.value = 500f;
 				this.buffImmune[31] = false;
 			}
@@ -4157,9 +4041,7 @@ namespace Terraria
 				this.damage = 25;
 				this.defense = 8;
 				this.lifeMax = 100;
-				this.soundHit = 1;
 				this.knockBackResist = 0.6f;
-				this.soundKilled = 1;
 				this.value = 300f;
 			}
 			else if (this.type == 49)
@@ -4172,9 +4054,7 @@ namespace Terraria
 				this.damage = 13;
 				this.defense = 2;
 				this.lifeMax = 16;
-				this.soundHit = 1;
 				this.knockBackResist = 0.8f;
-				this.soundKilled = 4;
 				this.value = 90f;
 				this.buffImmune[31] = false;
 			}
@@ -4189,8 +4069,6 @@ namespace Terraria
 				this.defense = 10;
 				this.lifeMax = 2000;
 				this.knockBackResist = 0f;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.alpha = 30;
 				this.value = 10000f;
 				this.scale = 1.25f;
@@ -4207,9 +4085,7 @@ namespace Terraria
 				this.damage = 20;
 				this.defense = 4;
 				this.lifeMax = 34;
-				this.soundHit = 1;
 				this.knockBackResist = 0.8f;
-				this.soundKilled = 4;
 				this.value = 80f;
 				this.buffImmune[31] = false;
 			}
@@ -4222,8 +4098,6 @@ namespace Terraria
 				this.damage = 20;
 				this.defense = 10;
 				this.lifeMax = 500;
-				this.soundHit = 1;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 1000f;
 				this.buffImmune[31] = false;
@@ -4238,8 +4112,6 @@ namespace Terraria
 				this.damage = 14;
 				this.defense = 8;
 				this.lifeMax = 200;
-				this.soundHit = 1;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 1000f;
 				this.buffImmune[31] = false;
@@ -4256,8 +4128,6 @@ namespace Terraria
 				this.damage = 10;
 				this.defense = 15;
 				this.lifeMax = 250;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 			}
 			else if (this.type == 55)
@@ -4270,8 +4140,6 @@ namespace Terraria
 				this.damage = 0;
 				this.defense = 0;
 				this.lifeMax = 5;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 				this.catchItem = 261;
 			}
@@ -4286,9 +4154,7 @@ namespace Terraria
 				this.damage = 25;
 				this.defense = 10;
 				this.lifeMax = 60;
-				this.soundHit = 1;
 				this.knockBackResist = 0f;
-				this.soundKilled = 1;
 				this.value = 90f;
 				this.buffImmune[20] = true;
 			}
@@ -4302,8 +4168,6 @@ namespace Terraria
 				this.damage = 30;
 				this.defense = 6;
 				this.lifeMax = 100;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.value = 500f;
 			}
 			else if (this.type == 58)
@@ -4317,8 +4181,6 @@ namespace Terraria
 				this.damage = 25;
 				this.defense = 2;
 				this.lifeMax = 30;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.value = 50f;
 			}
 			else if (this.type == 59)
@@ -4330,8 +4192,6 @@ namespace Terraria
 				this.damage = 15;
 				this.defense = 10;
 				this.lifeMax = 50;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.scale = 1.1f;
 				this.alpha = 50;
 				this.lavaImmune = true;
@@ -4351,9 +4211,7 @@ namespace Terraria
 				this.damage = 35;
 				this.defense = 8;
 				this.lifeMax = 46;
-				this.soundHit = 1;
 				this.knockBackResist = 0.8f;
-				this.soundKilled = 4;
 				this.value = 120f;
 				this.scale = 1.1f;
 				this.lavaImmune = true;
@@ -4371,8 +4229,6 @@ namespace Terraria
 				this.defense = 4;
 				this.lifeMax = 40;
 				this.knockBackResist = 0.8f;
-				this.soundHit = 28;
-				this.soundKilled = 31;
 				this.value = 60f;
 			}
 			else if (this.type == 62)
@@ -4385,9 +4241,7 @@ namespace Terraria
 				this.damage = 32;
 				this.defense = 8;
 				this.lifeMax = 120;
-				this.soundHit = 21;
 				this.knockBackResist = 0.8f;
-				this.soundKilled = 24;
 				this.value = 300f;
 				this.lavaImmune = true;
 				this.buffImmune[24] = true;
@@ -4403,8 +4257,6 @@ namespace Terraria
 				this.damage = 25;
 				this.defense = 4;
 				this.lifeMax = 34;
-				this.soundHit = 25;
-				this.soundKilled = 28;
 				this.value = 100f;
 				this.alpha = 20;
 			}
@@ -4418,8 +4270,6 @@ namespace Terraria
 				this.damage = 30;
 				this.defense = 6;
 				this.lifeMax = 70;
-				this.soundHit = 25;
-				this.soundKilled = 28;
 				this.value = 100f;
 				this.alpha = 20;
 			}
@@ -4433,8 +4283,6 @@ namespace Terraria
 				this.damage = 40;
 				this.defense = 2;
 				this.lifeMax = 300;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.value = 400f;
 				this.knockBackResist = 0.7f;
 			}
@@ -4448,9 +4296,7 @@ namespace Terraria
 				this.damage = 32;
 				this.defense = 8;
 				this.lifeMax = 140;
-				this.soundHit = 1;
 				this.knockBackResist = 0.8f;
-				this.soundKilled = 1;
 				this.value = 1000f;
 				this.lavaImmune = true;
 				this.buffImmune[24] = true;
@@ -4465,8 +4311,6 @@ namespace Terraria
 				this.damage = 20;
 				this.defense = 10;
 				this.lifeMax = 40;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.value = 60f;
 			}
 			else if (this.type == 68)
@@ -4478,8 +4322,6 @@ namespace Terraria
 				this.damage = 1000;
 				this.defense = 9999;
 				this.lifeMax = 9999;
-				this.soundHit = 2;
-				this.soundKilled = 2;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0f;
@@ -4497,8 +4339,6 @@ namespace Terraria
 				this.damage = 10;
 				this.defense = 6;
 				this.lifeMax = 45;
-				this.soundHit = 31;
-				this.soundKilled = 34;
 				this.knockBackResist = 0f;
 				this.value = 60f;
 				this.behindTiles = true;
@@ -4513,8 +4353,6 @@ namespace Terraria
 				this.damage = 32;
 				this.defense = 100;
 				this.lifeMax = 100;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0f;
 				this.noGravity = true;
 				this.noTileCollide = true;
@@ -4531,8 +4369,6 @@ namespace Terraria
 				this.damage = 30;
 				this.defense = 7;
 				this.lifeMax = 150;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.alpha = 60;
 				this.value = 150f;
 				this.scale = 1.25f;
@@ -4553,8 +4389,6 @@ namespace Terraria
 				this.lifeMax = 100;
 				this.alpha = 100;
 				this.behindTiles = true;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0f;
 				this.noGravity = true;
 				this.dontTakeDamage = true;
@@ -4573,8 +4407,6 @@ namespace Terraria
 				this.damage = 20;
 				this.defense = 6;
 				this.lifeMax = 80;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.7f;
 				this.value = 200f;
 				this.buffImmune[31] = false;
@@ -4589,9 +4421,7 @@ namespace Terraria
 				this.damage = 0;
 				this.defense = 0;
 				this.lifeMax = 5;
-				this.soundHit = 1;
 				this.knockBackResist = 0.8f;
-				this.soundKilled = 1;
 				if (this.type == 74)
 				{
 					this.catchItem = 2015;
@@ -4616,9 +4446,7 @@ namespace Terraria
 				this.damage = 55;
 				this.defense = 20;
 				this.lifeMax = 150;
-				this.soundHit = 5;
 				this.knockBackResist = 0.6f;
-				this.soundKilled = 7;
 				this.value = 350f;
 				this.buffImmune[20] = true;
 				this.buffImmune[24] = true;
@@ -4634,8 +4462,6 @@ namespace Terraria
 				this.damage = 40;
 				this.defense = 28;
 				this.lifeMax = 260;
-				this.soundHit = 2;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.4f;
 				this.value = 400f;
 				this.buffImmune[20] = true;
@@ -4650,8 +4476,6 @@ namespace Terraria
 				this.damage = 50;
 				this.defense = 16;
 				this.lifeMax = 130;
-				this.soundHit = 1;
-				this.soundKilled = 6;
 				this.knockBackResist = 0.6f;
 				this.value = 600f;
 				this.buffImmune[31] = false;
@@ -4665,8 +4489,6 @@ namespace Terraria
 				this.damage = 60;
 				this.defense = 18;
 				this.lifeMax = 180;
-				this.soundHit = 1;
-				this.soundKilled = 6;
 				this.knockBackResist = 0.5f;
 				this.value = 700f;
 				this.buffImmune[31] = false;
@@ -4680,8 +4502,6 @@ namespace Terraria
 				this.damage = 55;
 				this.defense = 18;
 				this.lifeMax = 200;
-				this.soundHit = 1;
-				this.soundKilled = 6;
 				this.knockBackResist = 0.55f;
 				this.value = 700f;
 				this.buffImmune[31] = false;
@@ -4695,8 +4515,6 @@ namespace Terraria
 				this.damage = 55;
 				this.defense = 20;
 				this.lifeMax = 170;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.alpha = 55;
 				this.value = 400f;
 				this.scale = 1.1f;
@@ -4714,8 +4532,6 @@ namespace Terraria
 				this.damage = 65;
 				this.defense = 16;
 				this.lifeMax = 160;
-				this.soundHit = 54;
-				this.soundKilled = 52;
 				this.alpha = 100;
 				this.value = 500f;
 				this.buffImmune[20] = true;
@@ -4732,8 +4548,6 @@ namespace Terraria
 				this.damage = 80;
 				this.defense = 18;
 				this.lifeMax = 200;
-				this.soundHit = 4;
-				this.soundKilled = 6;
 				this.value = 1000f;
 				this.buffImmune[20] = true;
 				this.buffImmune[24] = true;
@@ -4749,8 +4563,6 @@ namespace Terraria
 				this.damage = 80;
 				this.defense = 18;
 				this.lifeMax = 200;
-				this.soundHit = 4;
-				this.soundKilled = 6;
 				this.value = 1000f;
 				this.buffImmune[20] = true;
 				this.buffImmune[24] = true;
@@ -4766,8 +4578,6 @@ namespace Terraria
 				this.damage = 80;
 				this.defense = 30;
 				this.lifeMax = 500;
-				this.soundHit = 4;
-				this.soundKilled = 6;
 				this.value = 100000f;
 				this.knockBackResist = 0.3f;
 				this.buffImmune[20] = true;
@@ -4784,8 +4594,6 @@ namespace Terraria
 				this.damage = 65;
 				this.defense = 30;
 				this.lifeMax = 400;
-				this.soundHit = 12;
-				this.soundKilled = 18;
 				this.knockBackResist = 0.3f;
 				this.value = 1000f;
 				this.buffImmune[31] = false;
@@ -4803,8 +4611,6 @@ namespace Terraria
 				this.damage = 80;
 				this.defense = 10;
 				this.lifeMax = 4000;
-				this.soundHit = 7;
-				this.soundKilled = 8;
 				this.noGravity = true;
 				this.knockBackResist = 0f;
 				this.value = 10000f;
@@ -4825,8 +4631,6 @@ namespace Terraria
 				this.damage = 40;
 				this.defense = 20;
 				this.lifeMax = 4000;
-				this.soundHit = 7;
-				this.soundKilled = 8;
 				this.noGravity = true;
 				this.knockBackResist = 0f;
 				this.value = 10000f;
@@ -4848,8 +4652,6 @@ namespace Terraria
 				this.damage = 40;
 				this.defense = 20;
 				this.lifeMax = 4000;
-				this.soundHit = 7;
-				this.soundKilled = 8;
 				this.noGravity = true;
 				this.knockBackResist = 0f;
 				this.value = 2000f;
@@ -4871,8 +4673,6 @@ namespace Terraria
 				this.damage = 40;
 				this.defense = 20;
 				this.lifeMax = 4000;
-				this.soundHit = 7;
-				this.soundKilled = 8;
 				this.noGravity = true;
 				this.knockBackResist = 0f;
 				this.value = 10000f;
@@ -4894,8 +4694,6 @@ namespace Terraria
 				this.damage = 40;
 				this.defense = 20;
 				this.lifeMax = 4000;
-				this.soundHit = 7;
-				this.soundKilled = 8;
 				this.noGravity = true;
 				this.knockBackResist = 0f;
 				this.value = 10000f;
@@ -4917,8 +4715,6 @@ namespace Terraria
 				this.damage = 40;
 				this.defense = 20;
 				this.lifeMax = 4000;
-				this.soundHit = 7;
-				this.soundKilled = 8;
 				this.noGravity = true;
 				this.knockBackResist = 0f;
 				this.value = 10000f;
@@ -4938,9 +4734,7 @@ namespace Terraria
 				this.damage = 45;
 				this.defense = 16;
 				this.lifeMax = 100;
-				this.soundHit = 1;
 				this.knockBackResist = 0.75f;
-				this.soundKilled = 4;
 				this.value = 400f;
 				this.buffImmune[31] = false;
 			}
@@ -4954,8 +4748,6 @@ namespace Terraria
 				this.damage = 60;
 				this.defense = 32;
 				this.lifeMax = 230;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.noGravity = true;
 				this.knockBackResist = 0.55f;
 				this.value = 500f;
@@ -4971,8 +4763,6 @@ namespace Terraria
 				this.damage = 45;
 				this.defense = 10;
 				this.lifeMax = 200;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0f;
@@ -4991,8 +4781,6 @@ namespace Terraria
 				this.damage = 28;
 				this.defense = 20;
 				this.lifeMax = 200;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0f;
@@ -5012,8 +4800,6 @@ namespace Terraria
 				this.damage = 26;
 				this.defense = 30;
 				this.lifeMax = 200;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0f;
@@ -5034,8 +4820,6 @@ namespace Terraria
 				this.damage = 70;
 				this.defense = 36;
 				this.lifeMax = 500;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0f;
@@ -5053,8 +4837,6 @@ namespace Terraria
 				this.damage = 55;
 				this.defense = 40;
 				this.lifeMax = 500;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0f;
@@ -5073,8 +4855,6 @@ namespace Terraria
 				this.damage = 40;
 				this.defense = 44;
 				this.lifeMax = 500;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0f;
@@ -5094,9 +4874,7 @@ namespace Terraria
 				this.damage = 70;
 				this.defense = 30;
 				this.lifeMax = 320;
-				this.soundHit = 1;
 				this.knockBackResist = 0.2f;
-				this.soundKilled = 1;
 				this.value = 600f;
 			}
 			else if (this.type == 102)
@@ -5110,8 +4888,6 @@ namespace Terraria
 				this.damage = 80;
 				this.defense = 22;
 				this.lifeMax = 90;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.value = 500f;
 			}
 			else if (this.type == 103)
@@ -5124,8 +4900,6 @@ namespace Terraria
 				this.damage = 80;
 				this.defense = 30;
 				this.lifeMax = 120;
-				this.soundHit = 25;
-				this.soundKilled = 28;
 				this.value = 800f;
 				this.alpha = 20;
 			}
@@ -5138,8 +4912,6 @@ namespace Terraria
 				this.damage = 70;
 				this.defense = 38;
 				this.lifeMax = 350;
-				this.soundHit = 6;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.4f;
 				this.value = 1000f;
 				this.buffImmune[31] = false;
@@ -5154,8 +4926,6 @@ namespace Terraria
 				this.damage = 10;
 				this.defense = 15;
 				this.lifeMax = 250;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 				this.scale = 0.9f;
 				this.rarity = 1;
@@ -5170,8 +4940,6 @@ namespace Terraria
 				this.damage = 10;
 				this.defense = 15;
 				this.lifeMax = 250;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 				this.rarity = 1;
 			}
@@ -5186,8 +4954,6 @@ namespace Terraria
 				this.damage = 10;
 				this.defense = 15;
 				this.lifeMax = 250;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 				this.scale = 0.9f;
 			}
@@ -5202,8 +4968,6 @@ namespace Terraria
 				this.damage = 10;
 				this.defense = 15;
 				this.lifeMax = 250;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 			}
 			else if (this.type == 109)
@@ -5215,8 +4979,6 @@ namespace Terraria
 				this.damage = 50;
 				this.defense = 20;
 				this.lifeMax = 400;
-				this.soundHit = 1;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.4f;
 				this.value = 8000f;
 			}
@@ -5229,8 +4991,6 @@ namespace Terraria
 				this.damage = 45;
 				this.defense = 14;
 				this.lifeMax = 210;
-				this.soundHit = 2;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.55f;
 				this.value = 400f;
 				this.buffImmune[20] = true;
@@ -5245,8 +5005,6 @@ namespace Terraria
 				this.damage = 65;
 				this.defense = 0;
 				this.lifeMax = 1;
-				this.soundHit = 0;
-				this.soundKilled = 9;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0f;
@@ -5263,8 +5021,6 @@ namespace Terraria
 				this.damage = 50;
 				this.defense = 12;
 				this.lifeMax = 8000;
-				this.soundHit = 8;
-				this.soundKilled = 10;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.behindTiles = true;
@@ -5286,8 +5042,6 @@ namespace Terraria
 				this.damage = 50;
 				this.defense = 0;
 				this.lifeMax = 8000;
-				this.soundHit = 8;
-				this.soundKilled = 10;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.behindTiles = true;
@@ -5307,8 +5061,6 @@ namespace Terraria
 				this.damage = 30;
 				this.defense = 10;
 				this.lifeMax = 240;
-				this.soundHit = 9;
-				this.soundKilled = 11;
 				this.noGravity = true;
 				this.behindTiles = true;
 				this.noTileCollide = true;
@@ -5324,9 +5076,7 @@ namespace Terraria
 				this.damage = 30;
 				this.defense = 6;
 				this.lifeMax = 80;
-				this.soundHit = 9;
 				this.knockBackResist = 0.8f;
-				this.soundKilled = 12;
 			}
 			else if (this.type == 117)
 			{
@@ -5339,8 +5089,6 @@ namespace Terraria
 				this.damage = 26;
 				this.defense = 2;
 				this.lifeMax = 60;
-				this.soundHit = 9;
-				this.soundKilled = 12;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0f;
@@ -5357,8 +5105,6 @@ namespace Terraria
 				this.damage = 22;
 				this.defense = 6;
 				this.lifeMax = 60;
-				this.soundHit = 9;
-				this.soundKilled = 12;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0f;
@@ -5375,8 +5121,6 @@ namespace Terraria
 				this.damage = 18;
 				this.defense = 10;
 				this.lifeMax = 60;
-				this.soundHit = 9;
-				this.soundKilled = 12;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0f;
@@ -5391,8 +5135,6 @@ namespace Terraria
 				this.damage = 40;
 				this.defense = 30;
 				this.lifeMax = 370;
-				this.soundHit = 1;
-				this.soundKilled = 6;
 				this.knockBackResist = 0.4f;
 				this.value = 600f;
 				this.buffImmune[20] = true;
@@ -5409,7 +5151,6 @@ namespace Terraria
 				this.damage = 45;
 				this.defense = 20;
 				this.lifeMax = 60;
-				this.soundHit = 1;
 				this.alpha = 55;
 				this.knockBackResist = 0.8f;
 				this.scale = 1.1f;
@@ -5426,9 +5167,7 @@ namespace Terraria
 				this.damage = 60;
 				this.defense = 22;
 				this.lifeMax = 220;
-				this.soundHit = 1;
 				this.knockBackResist = 0.8f;
-				this.soundKilled = 1;
 				this.value = 600f;
 				this.buffImmune[20] = true;
 			}
@@ -5442,8 +5181,6 @@ namespace Terraria
 				this.damage = 10;
 				this.defense = 15;
 				this.lifeMax = 250;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 				this.scale = 0.9f;
 				this.rarity = 1;
@@ -5459,8 +5196,6 @@ namespace Terraria
 				this.damage = 10;
 				this.defense = 15;
 				this.lifeMax = 250;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 			}
 			else if (this.type == 125)
@@ -5472,8 +5207,6 @@ namespace Terraria
 				this.defense = 10;
 				this.damage = 45;
 				this.lifeMax = 20000;
-				this.soundHit = 1;
-				this.soundKilled = 14;
 				this.knockBackResist = 0f;
 				this.noGravity = true;
 				this.noTileCollide = true;
@@ -5491,8 +5224,6 @@ namespace Terraria
 				this.defense = 10;
 				this.damage = 50;
 				this.lifeMax = 23000;
-				this.soundHit = 1;
-				this.soundKilled = 14;
 				this.knockBackResist = 0f;
 				this.noGravity = true;
 				this.noTileCollide = true;
@@ -5510,8 +5241,6 @@ namespace Terraria
 				this.damage = 47;
 				this.defense = 24;
 				this.lifeMax = 28000;
-				this.soundHit = 4;
-				this.soundKilled = 14;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.value = 120000f;
@@ -5533,8 +5262,6 @@ namespace Terraria
 				this.damage = 30;
 				this.defense = 23;
 				this.lifeMax = 7000;
-				this.soundHit = 4;
-				this.soundKilled = 14;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0f;
@@ -5551,8 +5278,6 @@ namespace Terraria
 				this.damage = 56;
 				this.defense = 38;
 				this.lifeMax = 9000;
-				this.soundHit = 4;
-				this.soundKilled = 14;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0f;
@@ -5569,8 +5294,6 @@ namespace Terraria
 				this.damage = 52;
 				this.defense = 34;
 				this.lifeMax = 9000;
-				this.soundHit = 4;
-				this.soundKilled = 14;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0f;
@@ -5587,8 +5310,6 @@ namespace Terraria
 				this.damage = 29;
 				this.defense = 20;
 				this.lifeMax = 6000;
-				this.soundHit = 4;
-				this.soundKilled = 14;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0f;
@@ -5606,8 +5327,6 @@ namespace Terraria
 				this.damage = 15;
 				this.defense = 5;
 				this.lifeMax = 40;
-				this.soundHit = 1;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 65f;
 				this.buffImmune[31] = false;
@@ -5621,9 +5340,7 @@ namespace Terraria
 				this.damage = 40;
 				this.defense = 20;
 				this.lifeMax = 300;
-				this.soundHit = 1;
 				this.knockBackResist = 0.8f;
-				this.soundKilled = 1;
 				this.value = 500f;
 				this.buffImmune[31] = false;
 			}
@@ -5638,8 +5355,6 @@ namespace Terraria
 				this.defense = 0;
 				this.damage = 70;
 				this.lifeMax = 80000;
-				this.soundHit = 4;
-				this.soundKilled = 14;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0f;
@@ -5665,8 +5380,6 @@ namespace Terraria
 				this.damage = 55;
 				this.defense = 30;
 				this.lifeMax = 80000;
-				this.soundHit = 4;
-				this.soundKilled = 14;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0f;
@@ -5691,8 +5404,6 @@ namespace Terraria
 				this.damage = 40;
 				this.defense = 35;
 				this.lifeMax = 80000;
-				this.soundHit = 4;
-				this.soundKilled = 14;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0f;
@@ -5716,8 +5427,6 @@ namespace Terraria
 				this.damage = 50;
 				this.defense = 20;
 				this.lifeMax = 200;
-				this.soundHit = 4;
-				this.soundKilled = 14;
 				this.noGravity = true;
 				this.knockBackResist = 0.8f;
 				this.noTileCollide = true;
@@ -5732,9 +5441,7 @@ namespace Terraria
 				this.damage = 75;
 				this.defense = 30;
 				this.lifeMax = 200;
-				this.soundHit = 1;
 				this.knockBackResist = 0.75f;
-				this.soundKilled = 6;
 				this.value = 500f;
 				this.buffImmune[20] = true;
 				this.buffImmune[24] = true;
@@ -5750,8 +5457,6 @@ namespace Terraria
 				this.damage = 70;
 				this.defense = 30;
 				this.lifeMax = 180;
-				this.soundHit = 1;
-				this.soundKilled = 6;
 				this.alpha = 100;
 				this.value = 400f;
 				this.buffImmune[20] = true;
@@ -5770,8 +5475,6 @@ namespace Terraria
 				this.damage = 55;
 				this.defense = 28;
 				this.lifeMax = 260;
-				this.soundHit = 4;
-				this.soundKilled = 6;
 				this.knockBackResist = 0.4f;
 				this.value = 400f;
 				this.buffImmune[20] = true;
@@ -5787,8 +5490,6 @@ namespace Terraria
 				this.damage = 50;
 				this.defense = 18;
 				this.lifeMax = 150;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.alpha = 55;
 				this.value = 400f;
 				this.scale = 1.1f;
@@ -5807,8 +5508,6 @@ namespace Terraria
 				this.damage = 10;
 				this.defense = 15;
 				this.lifeMax = 250;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 			}
 			else if (this.type == 143)
@@ -5820,8 +5519,6 @@ namespace Terraria
 				this.damage = 50;
 				this.defense = 20;
 				this.lifeMax = 200;
-				this.soundHit = 11;
-				this.soundKilled = 15;
 				this.knockBackResist = 0.6f;
 				this.value = 400f;
 				this.buffImmune[20] = true;
@@ -5838,8 +5535,6 @@ namespace Terraria
 				this.damage = 65;
 				this.defense = 26;
 				this.lifeMax = 240;
-				this.soundHit = 11;
-				this.soundKilled = 15;
 				this.knockBackResist = 0.6f;
 				this.value = 400f;
 				this.buffImmune[20] = true;
@@ -5857,8 +5552,6 @@ namespace Terraria
 				this.damage = 55;
 				this.defense = 22;
 				this.lifeMax = 220;
-				this.soundHit = 11;
-				this.soundKilled = 15;
 				this.knockBackResist = 0.6f;
 				this.value = 400f;
 				this.buffImmune[20] = true;
@@ -5876,8 +5569,6 @@ namespace Terraria
 				this.damage = 8;
 				this.defense = 4;
 				this.lifeMax = 30;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.alpha = 50;
 				this.value = 50f;
 				this.buffImmune[20] = true;
@@ -5893,8 +5584,6 @@ namespace Terraria
 				this.damage = 0;
 				this.defense = 0;
 				this.lifeMax = 5;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.catchItem = 2205;
 			}
 			else if (this.type == 149)
@@ -5906,8 +5595,6 @@ namespace Terraria
 				this.damage = 0;
 				this.defense = 0;
 				this.lifeMax = 5;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.catchItem = 2205;
 			}
 			else if (this.type == 150)
@@ -5920,9 +5607,7 @@ namespace Terraria
 				this.damage = 18;
 				this.defense = 6;
 				this.lifeMax = 30;
-				this.soundHit = 1;
 				this.knockBackResist = 0.8f;
-				this.soundKilled = 4;
 				this.value = 250f;
 				this.buffImmune[31] = false;
 			}
@@ -5936,9 +5621,7 @@ namespace Terraria
 				this.damage = 50;
 				this.defense = 16;
 				this.lifeMax = 160;
-				this.soundHit = 1;
 				this.knockBackResist = 0.6f;
-				this.soundKilled = 4;
 				this.value = 400f;
 				this.scale = 1.15f;
 				this.lavaImmune = true;
@@ -5956,9 +5639,7 @@ namespace Terraria
 				this.damage = 80;
 				this.defense = 24;
 				this.lifeMax = 220;
-				this.soundHit = 1;
 				this.knockBackResist = 0.65f;
-				this.soundKilled = 4;
 				this.value = 400f;
 				this.buffImmune[31] = false;
 			}
@@ -5972,9 +5653,7 @@ namespace Terraria
 				this.damage = 80;
 				this.defense = 30;
 				this.lifeMax = 470;
-				this.soundHit = 24;
 				this.knockBackResist = 0.3f;
-				this.soundKilled = 27;
 				this.value = 500f;
 				this.noGravity = false;
 				this.buffImmune[31] = false;
@@ -5989,9 +5668,7 @@ namespace Terraria
 				this.damage = 55;
 				this.defense = 28;
 				this.lifeMax = 400;
-				this.soundHit = 24;
 				this.knockBackResist = 0.3f;
-				this.soundKilled = 27;
 				this.value = 450f;
 				this.noGravity = false;
 				this.buffImmune[31] = false;
@@ -6005,8 +5682,6 @@ namespace Terraria
 				this.damage = 65;
 				this.defense = 30;
 				this.lifeMax = 300;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.3f;
 				this.value = 1000f;
 				this.buffImmune[31] = false;
@@ -6021,9 +5696,7 @@ namespace Terraria
 				this.damage = 50;
 				this.defense = 40;
 				this.lifeMax = 600;
-				this.soundHit = 21;
 				this.knockBackResist = 0.5f;
-				this.soundKilled = 24;
 				this.value = 1200f;
 				this.lavaImmune = true;
 				this.buffImmune[24] = true;
@@ -6040,8 +5713,6 @@ namespace Terraria
 				this.damage = 75;
 				this.defense = 30;
 				this.lifeMax = 200;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.value = 500f;
 			}
 			else if (this.type == 160)
@@ -6055,8 +5726,6 @@ namespace Terraria
 				this.damage = 10;
 				this.defense = 15;
 				this.lifeMax = 250;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 			}
 			else if (this.type == 161)
@@ -6068,8 +5737,6 @@ namespace Terraria
 				this.damage = 16;
 				this.defense = 8;
 				this.lifeMax = 50;
-				this.soundHit = 1;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.45f;
 				this.value = 80f;
 				this.buffImmune[31] = false;
@@ -6083,8 +5750,6 @@ namespace Terraria
 				this.damage = 90;
 				this.defense = 40;
 				this.lifeMax = 350;
-				this.soundHit = 29;
-				this.soundKilled = 31;
 				this.knockBackResist = 0.25f;
 				this.value = 500f;
 				this.buffImmune[20] = true;
@@ -6102,8 +5767,6 @@ namespace Terraria
 				this.damage = 100;
 				this.defense = 40;
 				this.lifeMax = 350;
-				this.soundHit = 29;
-				this.soundKilled = 31;
 				this.knockBackResist = 0.25f;
 				this.value = 500f;
 				this.timeLeft = NPC.activeTime * 2;
@@ -6120,8 +5783,6 @@ namespace Terraria
 				this.damage = 30;
 				this.defense = 10;
 				this.lifeMax = 80;
-				this.soundHit = 29;
-				this.soundKilled = 31;
 				this.knockBackResist = 0.25f;
 				this.value = 100f;
 				this.timeLeft = NPC.activeTime * 2;
@@ -6138,8 +5799,6 @@ namespace Terraria
 				this.damage = 30;
 				this.defense = 10;
 				this.lifeMax = 80;
-				this.soundHit = 29;
-				this.soundKilled = 31;
 				this.knockBackResist = 0.25f;
 				this.value = 100f;
 				this.timeLeft = NPC.activeTime * 2;
@@ -6155,8 +5814,6 @@ namespace Terraria
 				this.damage = 24;
 				this.defense = 10;
 				this.lifeMax = 70;
-				this.soundHit = 2;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 200f;
 				this.buffImmune[31] = false;
@@ -6171,8 +5828,6 @@ namespace Terraria
 				this.damage = 20;
 				this.defense = 4;
 				this.lifeMax = 70;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.value = 500f;
 				this.buffImmune[31] = false;
 			}
@@ -6186,9 +5841,7 @@ namespace Terraria
 				this.damage = 55;
 				this.defense = 20;
 				this.lifeMax = 200;
-				this.soundHit = 5;
 				this.knockBackResist = 0.6f;
-				this.soundKilled = 7;
 				this.value = 1500f;
 				this.buffImmune[20] = true;
 				this.buffImmune[24] = true;
@@ -6206,8 +5859,6 @@ namespace Terraria
 				this.damage = 70;
 				this.defense = 16;
 				this.lifeMax = 210;
-				this.soundHit = 27;
-				this.soundKilled = 30;
 				this.knockBackResist = 0.5f;
 				this.value = 2000f;
 				this.buffImmune[31] = false;
@@ -6221,8 +5872,6 @@ namespace Terraria
 				this.damage = 70;
 				this.defense = 16;
 				this.lifeMax = 210;
-				this.soundHit = 27;
-				this.soundKilled = 30;
 				this.knockBackResist = 0.5f;
 				this.value = 2000f;
 				this.buffImmune[31] = false;
@@ -6236,8 +5885,6 @@ namespace Terraria
 				this.damage = 200;
 				this.defense = 30;
 				this.lifeMax = 600;
-				this.soundHit = 2;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.3f;
 				this.value = 5000f;
 				this.buffImmune[20] = true;
@@ -6253,8 +5900,6 @@ namespace Terraria
 				this.damage = 22;
 				this.defense = 8;
 				this.lifeMax = 40;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.noGravity = true;
 				this.knockBackResist = 0.5f;
 				this.value = 90f;
@@ -6269,8 +5914,6 @@ namespace Terraria
 				this.damage = 65;
 				this.defense = 26;
 				this.lifeMax = 220;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.3f;
 				this.value = 450f;
 			}
@@ -6285,9 +5928,7 @@ namespace Terraria
 				this.damage = 100;
 				this.defense = 30;
 				this.lifeMax = 300;
-				this.soundHit = 1;
 				this.knockBackResist = 0.25f;
-				this.soundKilled = 1;
 				this.value = 650f;
 				this.buffImmune[20] = true;
 			}
@@ -6300,9 +5941,7 @@ namespace Terraria
 				this.damage = 70;
 				this.defense = 22;
 				this.lifeMax = 220;
-				this.soundHit = 1;
 				this.knockBackResist = 0.5f;
-				this.soundKilled = 1;
 				this.value = 600f;
 				this.noGravity = true;
 				this.buffImmune[20] = true;
@@ -6318,8 +5957,6 @@ namespace Terraria
 				this.damage = 80;
 				this.defense = 26;
 				this.lifeMax = 300;
-				this.soundHit = 22;
-				this.soundKilled = 25;
 				this.knockBackResist = 0.5f;
 				this.value = 500f;
 			}
@@ -6334,8 +5971,6 @@ namespace Terraria
 				this.damage = 10;
 				this.defense = 15;
 				this.lifeMax = 250;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 			}
 			else if (this.type == 179)
@@ -6347,8 +5982,6 @@ namespace Terraria
 				this.damage = 80;
 				this.defense = 18;
 				this.lifeMax = 200;
-				this.soundHit = 4;
-				this.soundKilled = 6;
 				this.value = 1000f;
 				this.buffImmune[20] = true;
 				this.buffImmune[24] = true;
@@ -6364,8 +5997,6 @@ namespace Terraria
 				this.damage = 70;
 				this.defense = 16;
 				this.lifeMax = 210;
-				this.soundHit = 27;
-				this.soundKilled = 30;
 				this.knockBackResist = 0.5f;
 				this.value = 4000f;
 				this.buffImmune[31] = false;
@@ -6379,8 +6010,6 @@ namespace Terraria
 				this.damage = 25;
 				this.defense = 10;
 				this.lifeMax = 70;
-				this.soundHit = 1;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.4f;
 				this.value = 200f;
 				this.buffImmune[20] = true;
@@ -6397,8 +6026,6 @@ namespace Terraria
 				this.damage = 65;
 				this.defense = 18;
 				this.lifeMax = 240;
-				this.soundHit = 1;
-				this.soundKilled = 2;
 				this.alpha = 100;
 				this.value = 500f;
 				this.buffImmune[20] = true;
@@ -6415,8 +6042,6 @@ namespace Terraria
 				this.damage = 60;
 				this.defense = 26;
 				this.lifeMax = 200;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.alpha = 55;
 				this.value = 400f;
 				this.scale = 1.1f;
@@ -6433,8 +6058,6 @@ namespace Terraria
 				this.defense = 8;
 				this.lifeMax = 60;
 				this.scale = 1.1f;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.alpha = 50;
 				this.value = 200f;
 				this.buffImmune[20] = true;
@@ -6450,8 +6073,6 @@ namespace Terraria
 				this.damage = 26;
 				this.defense = 12;
 				this.lifeMax = 70;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 1.1f;
 				this.value = 200f;
 				this.buffImmune[20] = true;
@@ -6468,8 +6089,6 @@ namespace Terraria
 				this.damage = 16;
 				this.defense = 8;
 				this.lifeMax = 50;
-				this.soundHit = 1;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.45f;
 				this.value = 65f;
 				this.buffImmune[31] = false;
@@ -6484,8 +6103,6 @@ namespace Terraria
 				this.damage = 13;
 				this.defense = 6;
 				this.lifeMax = 40;
-				this.soundHit = 1;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.55f;
 				this.value = 55f;
 				this.buffImmune[31] = false;
@@ -6500,8 +6117,6 @@ namespace Terraria
 				this.damage = 13;
 				this.defense = 8;
 				this.lifeMax = 45;
-				this.soundHit = 1;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.45f;
 				this.value = 80f;
 				this.buffImmune[31] = false;
@@ -6516,8 +6131,6 @@ namespace Terraria
 				this.damage = 16;
 				this.defense = 4;
 				this.lifeMax = 45;
-				this.soundHit = 1;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.55f;
 				this.value = 70f;
 				this.buffImmune[31] = false;
@@ -6532,9 +6145,7 @@ namespace Terraria
 				this.damage = 18;
 				this.defense = 4;
 				this.lifeMax = 65;
-				this.soundHit = 1;
 				this.knockBackResist = 0.7f;
-				this.soundKilled = 1;
 				this.value = 75f;
 				this.buffImmune[31] = false;
 			}
@@ -6548,9 +6159,7 @@ namespace Terraria
 				this.damage = 16;
 				this.defense = 2;
 				this.lifeMax = 60;
-				this.soundHit = 1;
 				this.knockBackResist = 0.85f;
-				this.soundKilled = 1;
 				this.value = 75f;
 				this.buffImmune[31] = false;
 			}
@@ -6564,9 +6173,7 @@ namespace Terraria
 				this.damage = 18;
 				this.defense = 2;
 				this.lifeMax = 50;
-				this.soundHit = 1;
 				this.knockBackResist = 0.8f;
-				this.soundKilled = 1;
 				this.value = 75f;
 				this.buffImmune[31] = false;
 			}
@@ -6580,9 +6187,7 @@ namespace Terraria
 				this.damage = 20;
 				this.defense = 0;
 				this.lifeMax = 60;
-				this.soundHit = 1;
 				this.knockBackResist = 0.8f;
-				this.soundKilled = 1;
 				this.value = 75f;
 				this.buffImmune[31] = false;
 			}
@@ -6596,9 +6201,7 @@ namespace Terraria
 				this.damage = 14;
 				this.defense = 4;
 				this.lifeMax = 60;
-				this.soundHit = 1;
 				this.knockBackResist = 0.8f;
-				this.soundKilled = 1;
 				this.value = 75f;
 				this.buffImmune[31] = false;
 			}
@@ -6611,8 +6214,6 @@ namespace Terraria
 				this.damage = 10;
 				this.defense = 30;
 				this.lifeMax = 250;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 				this.rarity = 1;
 			}
@@ -6625,8 +6226,6 @@ namespace Terraria
 				this.damage = 35;
 				this.defense = 16;
 				this.lifeMax = 300;
-				this.soundHit = 1;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.4f;
 				this.value = 10000f;
 				this.buffImmune[31] = false;
@@ -6641,8 +6240,6 @@ namespace Terraria
 				this.damage = 50;
 				this.defense = 28;
 				this.lifeMax = 280;
-				this.soundHit = 2;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.45f;
 				this.value = 500f;
 				this.buffImmune[20] = true;
@@ -6657,8 +6254,6 @@ namespace Terraria
 				this.damage = 38;
 				this.defense = 20;
 				this.lifeMax = 400;
-				this.soundHit = 26;
-				this.soundKilled = 29;
 				this.knockBackResist = 0.4f;
 				this.value = 650f;
 				this.buffImmune[20] = true;
@@ -6673,8 +6268,6 @@ namespace Terraria
 				this.damage = 60;
 				this.defense = 30;
 				this.lifeMax = 400;
-				this.soundHit = 26;
-				this.soundKilled = 29;
 				this.knockBackResist = 0f;
 				this.value = 650f;
 				this.buffImmune[20] = true;
@@ -6690,8 +6283,6 @@ namespace Terraria
 				this.damage = 12;
 				this.defense = 4;
 				this.lifeMax = 38;
-				this.soundHit = 1;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.6f;
 				this.value = 65f;
 				this.buffImmune[31] = false;
@@ -6706,8 +6297,6 @@ namespace Terraria
 				this.damage = 20;
 				this.defense = 12;
 				this.lifeMax = 55;
-				this.soundHit = 2;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 130f;
 				this.buffImmune[20] = true;
@@ -6723,8 +6312,6 @@ namespace Terraria
 				this.damage = 18;
 				this.defense = 8;
 				this.lifeMax = 65;
-				this.soundHit = 2;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 120f;
 				this.buffImmune[20] = true;
@@ -6740,8 +6327,6 @@ namespace Terraria
 				this.damage = 22;
 				this.defense = 8;
 				this.lifeMax = 60;
-				this.soundHit = 2;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 110f;
 				this.buffImmune[20] = true;
@@ -6757,8 +6342,6 @@ namespace Terraria
 				this.defense = 8;
 				this.lifeMax = 65;
 				this.scale = 1.15f;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.alpha = 50;
 				this.value = 300f;
 				this.buffImmune[20] = true;
@@ -6773,9 +6356,7 @@ namespace Terraria
 				this.damage = 70;
 				this.defense = 28;
 				this.lifeMax = 1000;
-				this.soundHit = 1;
 				this.knockBackResist = 0.4f;
-				this.soundKilled = 1;
 				this.value = 600f;
 				this.noGravity = true;
 				this.buffImmune[20] = true;
@@ -6790,8 +6371,6 @@ namespace Terraria
 				this.damage = 60;
 				this.defense = 30;
 				this.lifeMax = 280;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 				this.value = 500f;
 				this.buffImmune[31] = false;
@@ -6808,8 +6387,6 @@ namespace Terraria
 				this.damage = 10;
 				this.defense = 15;
 				this.lifeMax = 250;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 			}
 			else if (this.type == 208)
@@ -6823,8 +6400,6 @@ namespace Terraria
 				this.damage = 10;
 				this.defense = 15;
 				this.lifeMax = 250;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 			}
 			else if (this.type == 209)
@@ -6838,8 +6413,6 @@ namespace Terraria
 				this.damage = 10;
 				this.defense = 15;
 				this.lifeMax = 250;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 			}
 			else if (this.type == 210)
@@ -6851,9 +6424,7 @@ namespace Terraria
 				this.damage = 20;
 				this.defense = 5;
 				this.lifeMax = 20;
-				this.soundHit = 1;
 				this.knockBackResist = 0.5f;
-				this.soundKilled = 1;
 				this.noGravity = true;
 				this.buffImmune[20] = true;
 			}
@@ -6866,9 +6437,7 @@ namespace Terraria
 				this.damage = 15;
 				this.defense = 2;
 				this.lifeMax = 10;
-				this.soundHit = 1;
 				this.knockBackResist = 0.5f;
-				this.soundKilled = 1;
 				this.noGravity = true;
 				this.buffImmune[20] = true;
 			}
@@ -6881,8 +6450,6 @@ namespace Terraria
 				this.damage = 35;
 				this.defense = 17;
 				this.lifeMax = 300;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.4f;
 				this.value = 700f;
 				this.buffImmune[20] = true;
@@ -6897,8 +6464,6 @@ namespace Terraria
 				this.damage = 50;
 				this.defense = 22;
 				this.lifeMax = 450;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.2f;
 				this.value = 1000f;
 				this.buffImmune[20] = true;
@@ -6913,8 +6478,6 @@ namespace Terraria
 				this.damage = 30;
 				this.defense = 14;
 				this.lifeMax = 225;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.3f;
 				this.value = 1000f;
 				this.buffImmune[20] = true;
@@ -6929,8 +6492,6 @@ namespace Terraria
 				this.damage = 35;
 				this.defense = 20;
 				this.lifeMax = 350;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.35f;
 				this.value = 1500f;
 				this.buffImmune[20] = true;
@@ -6945,8 +6506,6 @@ namespace Terraria
 				this.damage = 70;
 				this.defense = 30;
 				this.lifeMax = 3000;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0f;
 				this.value = 50000f;
 				this.buffImmune[20] = true;
@@ -6961,8 +6520,6 @@ namespace Terraria
 				this.damage = 20;
 				this.defense = 10;
 				this.lifeMax = 40;
-				this.soundHit = 1;
-				this.soundKilled = 16;
 				this.value = 60f;
 			}
 			else if (this.type == 218)
@@ -6974,8 +6531,6 @@ namespace Terraria
 				this.damage = 20;
 				this.defense = 10;
 				this.lifeMax = 40;
-				this.soundHit = 1;
-				this.soundKilled = 16;
 				this.value = 60f;
 			}
 			else if (this.type == 219)
@@ -6987,8 +6542,6 @@ namespace Terraria
 				this.damage = 20;
 				this.defense = 10;
 				this.lifeMax = 40;
-				this.soundHit = 1;
-				this.soundKilled = 16;
 				this.value = 60f;
 			}
 			else if (this.type == 220)
@@ -7000,8 +6553,6 @@ namespace Terraria
 				this.damage = 20;
 				this.defense = 10;
 				this.lifeMax = 40;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.value = 60f;
 			}
 			else if (this.type == 221)
@@ -7014,8 +6565,6 @@ namespace Terraria
 				this.damage = 20;
 				this.defense = 2;
 				this.lifeMax = 30;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.value = 100f;
 				this.alpha = 20;
 			}
@@ -7028,8 +6577,6 @@ namespace Terraria
 				this.damage = 30;
 				this.defense = 8;
 				this.lifeMax = 3400;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0f;
 				this.noGravity = true;
 				this.noTileCollide = true;
@@ -7047,8 +6594,6 @@ namespace Terraria
 				this.damage = 16;
 				this.defense = 8;
 				this.lifeMax = 50;
-				this.soundHit = 1;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.45f;
 				this.value = 70f;
 				this.buffImmune[31] = false;
@@ -7062,9 +6607,7 @@ namespace Terraria
 				this.damage = 9;
 				this.defense = 4;
 				this.lifeMax = 20;
-				this.soundHit = 1;
 				this.knockBackResist = 0.8f;
-				this.soundKilled = 1;
 				this.value = 90f;
 				this.buffImmune[31] = false;
 			}
@@ -7077,8 +6620,6 @@ namespace Terraria
 				this.damage = 10;
 				this.defense = 5;
 				this.lifeMax = 35;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.75f;
 				this.value = 25f;
 				this.buffImmune[20] = true;
@@ -7094,9 +6635,7 @@ namespace Terraria
 				this.damage = 85;
 				this.defense = 28;
 				this.lifeMax = 260;
-				this.soundHit = 23;
 				this.knockBackResist = 0.65f;
-				this.soundKilled = 26;
 				this.value = 400f;
 				this.buffImmune[31] = false;
 			}
@@ -7111,8 +6650,6 @@ namespace Terraria
 				this.damage = 10;
 				this.defense = 15;
 				this.lifeMax = 250;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 			}
 			else if (this.type == 228)
@@ -7126,8 +6663,6 @@ namespace Terraria
 				this.damage = 10;
 				this.defense = 15;
 				this.lifeMax = 250;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 			}
 			else if (this.type == 229)
@@ -7141,8 +6676,6 @@ namespace Terraria
 				this.damage = 10;
 				this.defense = 15;
 				this.lifeMax = 250;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 			}
 			else if (this.type == 230)
@@ -7154,8 +6687,6 @@ namespace Terraria
 				this.damage = 0;
 				this.defense = 0;
 				this.lifeMax = 5;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.catchItem = 261;
 			}
 			else if (this.type == 231)
@@ -7167,9 +6698,7 @@ namespace Terraria
 				this.damage = 22;
 				this.defense = 16;
 				this.lifeMax = 50;
-				this.soundHit = 1;
 				this.knockBackResist = 0.3f;
-				this.soundKilled = 1;
 				this.value = 200f;
 				this.noGravity = true;
 				this.buffImmune[20] = true;
@@ -7183,9 +6712,7 @@ namespace Terraria
 				this.damage = 28;
 				this.defense = 12;
 				this.lifeMax = 42;
-				this.soundHit = 1;
 				this.knockBackResist = 0.6f;
-				this.soundKilled = 1;
 				this.value = 200f;
 				this.noGravity = true;
 				this.buffImmune[20] = true;
@@ -7199,9 +6726,7 @@ namespace Terraria
 				this.damage = 30;
 				this.defense = 14;
 				this.lifeMax = 38;
-				this.soundHit = 1;
 				this.knockBackResist = 0.45f;
-				this.soundKilled = 1;
 				this.value = 200f;
 				this.noGravity = true;
 				this.buffImmune[20] = true;
@@ -7215,9 +6740,7 @@ namespace Terraria
 				this.damage = 32;
 				this.defense = 6;
 				this.lifeMax = 42;
-				this.soundHit = 1;
 				this.knockBackResist = 0.55f;
-				this.soundKilled = 1;
 				this.value = 200f;
 				this.noGravity = true;
 				this.buffImmune[20] = true;
@@ -7231,9 +6754,7 @@ namespace Terraria
 				this.damage = 34;
 				this.defense = 4;
 				this.lifeMax = 38;
-				this.soundHit = 1;
 				this.knockBackResist = 0.6f;
-				this.soundKilled = 1;
 				this.value = 200f;
 				this.noGravity = true;
 				this.buffImmune[20] = true;
@@ -7247,8 +6768,6 @@ namespace Terraria
 				this.damage = 50;
 				this.defense = 14;
 				this.lifeMax = 120;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.25f;
 				this.value = 1000f;
 				this.timeLeft = NPC.activeTime * 2;
@@ -7265,8 +6784,6 @@ namespace Terraria
 				this.damage = 50;
 				this.defense = 14;
 				this.lifeMax = 120;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.25f;
 				this.value = 1000f;
 				this.timeLeft = NPC.activeTime * 2;
@@ -7282,8 +6799,6 @@ namespace Terraria
 				this.damage = 30;
 				this.defense = 8;
 				this.lifeMax = 60;
-				this.soundHit = 20;
-				this.soundKilled = 23;
 				this.knockBackResist = 0.5f;
 				this.value = 130f;
 				this.timeLeft = NPC.activeTime * 2;
@@ -7299,8 +6814,6 @@ namespace Terraria
 				this.damage = 30;
 				this.defense = 8;
 				this.lifeMax = 60;
-				this.soundHit = 20;
-				this.soundKilled = 23;
 				this.knockBackResist = 0.5f;
 				this.value = 130f;
 				this.timeLeft = NPC.activeTime * 2;
@@ -7317,8 +6830,6 @@ namespace Terraria
 				this.damage = 30;
 				this.defense = 4;
 				this.lifeMax = 20;
-				this.soundHit = 13;
-				this.soundKilled = 19;
 				this.value = 350f;
 			}
 			else if (this.type == 242)
@@ -7331,8 +6842,6 @@ namespace Terraria
 				this.damage = 75;
 				this.defense = 20;
 				this.lifeMax = 150;
-				this.soundHit = 13;
-				this.soundKilled = 19;
 				this.value = 800f;
 				this.alpha = 20;
 			}
@@ -7345,8 +6854,6 @@ namespace Terraria
 				this.damage = 60;
 				this.defense = 32;
 				this.lifeMax = 4000;
-				this.soundHit = 5;
-				this.soundKilled = 7;
 				this.knockBackResist = 0.05f;
 				this.value = (float)Item.buyPrice(0, 1, 50, 0);
 				this.buffImmune[20] = true;
@@ -7363,8 +6870,6 @@ namespace Terraria
 				this.damage = 85;
 				this.defense = 26;
 				this.lifeMax = 400;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.alpha = 175;
 				this.value = (float)Item.buyPrice(0, 0, 20, 0);
 				this.knockBackResist = 0.3f;
@@ -7381,8 +6886,6 @@ namespace Terraria
 				this.damage = 72;
 				this.defense = 26;
 				this.lifeMax = 9000;
-				this.soundHit = 4;
-				this.soundKilled = 14;
 				this.knockBackResist = 0f;
 				this.value = (float)Item.buyPrice(0, 15, 0, 0);
 				this.alpha = 255;
@@ -7400,8 +6903,6 @@ namespace Terraria
 				this.damage = 64;
 				this.defense = 20;
 				this.lifeMax = 16000;
-				this.soundHit = 4;
-				this.soundKilled = 0;
 				this.knockBackResist = 0f;
 				this.alpha = 255;
 				this.buffImmune[20] = true;
@@ -7417,8 +6918,6 @@ namespace Terraria
 				this.damage = 59;
 				this.defense = 28;
 				this.lifeMax = 7000;
-				this.soundHit = 4;
-				this.soundKilled = 14;
 				this.alpha = 255;
 				this.buffImmune[20] = true;
 				this.buffImmune[24] = true;
@@ -7433,8 +6932,6 @@ namespace Terraria
 				this.damage = 80;
 				this.defense = 32;
 				this.lifeMax = 11000;
-				this.soundHit = 4;
-				this.soundKilled = 14;
 				this.knockBackResist = 0f;
 				this.dontTakeDamage = true;
 				this.buffImmune[20] = true;
@@ -7449,8 +6946,6 @@ namespace Terraria
 				this.damage = 50;
 				this.defense = 24;
 				this.lifeMax = 300;
-				this.soundHit = 30;
-				this.soundKilled = 33;
 				this.knockBackResist = 0.3f;
 				this.value = 300f;
 				this.buffImmune[20] = true;
@@ -7464,8 +6959,6 @@ namespace Terraria
 				this.damage = 50;
 				this.defense = 30;
 				this.lifeMax = 1000;
-				this.soundHit = 1;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.3f;
 				this.value = (float)Item.buyPrice(0, 0, 50, 0);
 				this.buffImmune[31] = false;
@@ -7481,9 +6974,7 @@ namespace Terraria
 				this.damage = 80;
 				this.defense = 12;
 				this.lifeMax = 100;
-				this.soundHit = 46;
 				this.knockBackResist = 0.7f;
-				this.soundKilled = 48;
 				this.value = 500f;
 				this.buffImmune[31] = false;
 			}
@@ -7496,8 +6987,6 @@ namespace Terraria
 				this.damage = 40;
 				this.defense = 10;
 				this.lifeMax = 180;
-				this.soundHit = 1;
-				this.soundKilled = 6;
 				this.knockBackResist = 0.4f;
 				this.value = 1000f;
 				this.buffImmune[31] = false;
@@ -7511,8 +7000,6 @@ namespace Terraria
 				this.damage = 38;
 				this.defense = 16;
 				this.lifeMax = 220;
-				this.soundHit = 1;
-				this.soundKilled = 6;
 				this.knockBackResist = 0.3f;
 				this.value = 1200f;
 				this.buffImmune[31] = false;
@@ -7527,8 +7014,6 @@ namespace Terraria
 				this.damage = 90;
 				this.defense = 20;
 				this.lifeMax = 140;
-				this.soundHit = 1;
-				this.soundKilled = 6;
 				this.value = 1200f;
 				this.alpha = 20;
 				this.npcSlots = 0.3f;
@@ -7542,8 +7027,6 @@ namespace Terraria
 				this.damage = 38;
 				this.defense = 24;
 				this.lifeMax = 230;
-				this.soundHit = 1;
-				this.soundKilled = 6;
 				this.knockBackResist = 0.3f;
 				this.value = 1300f;
 				this.buffImmune[31] = false;
@@ -7558,8 +7041,6 @@ namespace Terraria
 				this.damage = 60;
 				this.defense = 16;
 				this.lifeMax = 220;
-				this.soundHit = 45;
-				this.soundKilled = 47;
 				this.knockBackResist = 0.3f;
 				this.value = 1500f;
 				this.buffImmune[31] = false;
@@ -7576,9 +7057,7 @@ namespace Terraria
 				this.damage = 24;
 				this.defense = 4;
 				this.lifeMax = 90;
-				this.soundHit = 1;
 				this.knockBackResist = 0f;
-				this.soundKilled = 1;
 				this.value = 350f;
 				this.buffImmune[20] = true;
 				this.npcSlots = 0.3f;
@@ -7594,9 +7073,7 @@ namespace Terraria
 				this.damage = 70;
 				this.defense = 20;
 				this.lifeMax = 300;
-				this.soundHit = 1;
 				this.knockBackResist = 0f;
-				this.soundKilled = 1;
 				this.value = 1250f;
 				this.buffImmune[20] = true;
 				this.npcSlots = 0.3f;
@@ -7610,8 +7087,6 @@ namespace Terraria
 				this.damage = 80;
 				this.defense = 0;
 				this.lifeMax = 1;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0f;
@@ -7627,8 +7102,6 @@ namespace Terraria
 				this.damage = 50;
 				this.defense = 14;
 				this.lifeMax = 30000;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0f;
 				this.value = (float)Item.buyPrice(0, 15, 0, 0);
 				this.noGravity = true;
@@ -7648,8 +7121,6 @@ namespace Terraria
 				this.defense = 24;
 				this.lifeMax = 4000;
 				this.dontTakeDamage = true;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.buffImmune[20] = true;
 			}
 			else if (this.type == 264)
@@ -7661,8 +7132,6 @@ namespace Terraria
 				this.damage = 60;
 				this.defense = 20;
 				this.lifeMax = 1000;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.buffImmune[20] = true;
@@ -7676,8 +7145,6 @@ namespace Terraria
 				this.damage = 70;
 				this.defense = 0;
 				this.lifeMax = 1;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0f;
@@ -7693,8 +7160,6 @@ namespace Terraria
 				this.damage = 30;
 				this.defense = 14;
 				this.lifeMax = 1000;
-				this.soundHit = 9;
-				this.soundKilled = 11;
 				this.knockBackResist = 0f;
 				this.noGravity = true;
 				this.noTileCollide = true;
@@ -7712,8 +7177,6 @@ namespace Terraria
 				this.damage = 20;
 				this.defense = 10;
 				this.lifeMax = 100;
-				this.soundHit = 9;
-				this.soundKilled = 11;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0.8f;
@@ -7728,8 +7191,6 @@ namespace Terraria
 				this.damage = 55;
 				this.defense = 20;
 				this.lifeMax = 340;
-				this.soundHit = 13;
-				this.soundKilled = 19;
 				this.knockBackResist = 0.6f;
 				this.value = 450f;
 				this.buffImmune[20] = true;
@@ -7744,8 +7205,6 @@ namespace Terraria
 				this.damage = 70;
 				this.defense = 34;
 				this.lifeMax = 550;
-				this.soundHit = 2;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.3f;
 				this.value = 1000f;
 				this.buffImmune[20] = true;
@@ -7760,8 +7219,6 @@ namespace Terraria
 				this.damage = 55;
 				this.defense = 50;
 				this.lifeMax = 400;
-				this.soundHit = 2;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.2f;
 				this.value = 1000f;
 				this.buffImmune[20] = true;
@@ -7776,8 +7233,6 @@ namespace Terraria
 				this.damage = 70;
 				this.defense = 40;
 				this.lifeMax = 450;
-				this.soundHit = 2;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.25f;
 				this.value = 1000f;
 				this.buffImmune[20] = true;
@@ -7792,8 +7247,6 @@ namespace Terraria
 				this.damage = 75;
 				this.defense = 28;
 				this.lifeMax = 400;
-				this.soundHit = 2;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.35f;
 				this.value = 1000f;
 				this.buffImmune[20] = true;
@@ -7808,8 +7261,6 @@ namespace Terraria
 				this.damage = 45;
 				this.defense = 50;
 				this.lifeMax = 500;
-				this.soundHit = 2;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.15f;
 				this.value = 1000f;
 				this.buffImmune[20] = true;
@@ -7824,8 +7275,6 @@ namespace Terraria
 				this.damage = 65;
 				this.defense = 34;
 				this.lifeMax = 350;
-				this.soundHit = 2;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.4f;
 				this.value = 1000f;
 				this.buffImmune[20] = true;
@@ -7840,8 +7289,6 @@ namespace Terraria
 				this.damage = 45;
 				this.defense = 50;
 				this.lifeMax = 550;
-				this.soundHit = 2;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.15f;
 				this.value = 1000f;
 				this.buffImmune[20] = true;
@@ -7856,8 +7303,6 @@ namespace Terraria
 				this.damage = 85;
 				this.defense = 54;
 				this.lifeMax = 500;
-				this.soundHit = 2;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.2f;
 				this.value = 1000f;
 				this.buffImmune[20] = true;
@@ -7872,8 +7317,6 @@ namespace Terraria
 				this.damage = 70;
 				this.defense = 32;
 				this.lifeMax = 400;
-				this.soundHit = 2;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.4f;
 				this.value = 1000f;
 				this.buffImmune[20] = true;
@@ -7889,8 +7332,6 @@ namespace Terraria
 				this.damage = 65;
 				this.defense = 48;
 				this.lifeMax = 450;
-				this.soundHit = 2;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.3f;
 				this.value = 1000f;
 				this.buffImmune[20] = true;
@@ -7906,8 +7347,6 @@ namespace Terraria
 				this.damage = 40;
 				this.defense = 54;
 				this.lifeMax = 500;
-				this.soundHit = 2;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.2f;
 				this.value = 1000f;
 				this.buffImmune[20] = true;
@@ -7923,8 +7362,6 @@ namespace Terraria
 				this.damage = 75;
 				this.defense = 34;
 				this.lifeMax = 500;
-				this.soundHit = 2;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.4f;
 				this.value = 1000f;
 				this.buffImmune[20] = true;
@@ -7940,8 +7377,6 @@ namespace Terraria
 				this.damage = 40;
 				this.defense = 20;
 				this.lifeMax = 400;
-				this.soundHit = 2;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.6f;
 				this.value = 1500f;
 				this.npcSlots = 2f;
@@ -7956,8 +7391,6 @@ namespace Terraria
 				this.damage = 35;
 				this.defense = 28;
 				this.lifeMax = 450;
-				this.soundHit = 2;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 1500f;
 				this.npcSlots = 2f;
@@ -7972,8 +7405,6 @@ namespace Terraria
 				this.damage = 50;
 				this.defense = 18;
 				this.lifeMax = 300;
-				this.soundHit = 2;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.55f;
 				this.value = 1500f;
 				this.npcSlots = 2f;
@@ -7988,8 +7419,6 @@ namespace Terraria
 				this.damage = 35;
 				this.defense = 24;
 				this.lifeMax = 450;
-				this.soundHit = 2;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 1500f;
 				this.npcSlots = 2f;
@@ -8004,8 +7433,6 @@ namespace Terraria
 				this.damage = 50;
 				this.defense = 12;
 				this.lifeMax = 200;
-				this.soundHit = 2;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.7f;
 				this.value = 1500f;
 				this.npcSlots = 2f;
@@ -8020,8 +7447,6 @@ namespace Terraria
 				this.damage = 60;
 				this.defense = 10;
 				this.lifeMax = 250;
-				this.soundHit = 2;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.65f;
 				this.value = 1500f;
 				this.npcSlots = 2f;
@@ -8036,8 +7461,6 @@ namespace Terraria
 				this.damage = 90;
 				this.defense = 42;
 				this.lifeMax = 1000;
-				this.soundHit = 2;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.3f;
 				this.value = 2000f;
 				this.buffImmune[20] = true;
@@ -8054,8 +7477,6 @@ namespace Terraria
 				this.defense = 30;
 				this.lifeMax = 200;
 				this.knockBackResist = 0.2f;
-				this.soundHit = 36;
-				this.soundKilled = 39;
 				this.value = 500f;
 				this.noTileCollide = true;
 				this.noGravity = true;
@@ -8070,8 +7491,6 @@ namespace Terraria
 				this.damage = 60;
 				this.defense = 20;
 				this.lifeMax = 400;
-				this.soundHit = 2;
-				this.soundKilled = 2;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.value = 150f;
@@ -8090,8 +7509,6 @@ namespace Terraria
 				this.damage = 100;
 				this.defense = 50;
 				this.lifeMax = 5000;
-				this.soundHit = 4;
-				this.soundKilled = 6;
 				this.knockBackResist = 0f;
 				this.value = 50000f;
 				this.buffImmune[20] = true;
@@ -8107,8 +7524,6 @@ namespace Terraria
 				this.damage = 60;
 				this.defense = 28;
 				this.lifeMax = 400;
-				this.soundHit = 2;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.4f;
 				this.value = 1000f;
 				this.buffImmune[20] = true;
@@ -8124,8 +7539,6 @@ namespace Terraria
 				this.damage = 60;
 				this.defense = 28;
 				this.lifeMax = 400;
-				this.soundHit = 2;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.4f;
 				this.value = 1000f;
 				this.buffImmune[20] = true;
@@ -8141,8 +7554,6 @@ namespace Terraria
 				this.damage = 60;
 				this.defense = 28;
 				this.lifeMax = 400;
-				this.soundHit = 2;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.4f;
 				this.value = 1000f;
 				this.buffImmune[20] = true;
@@ -8158,8 +7569,6 @@ namespace Terraria
 				this.damage = 34;
 				this.defense = 6;
 				this.lifeMax = 70;
-				this.soundHit = 2;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.9f;
 				this.value = 130f;
 				this.buffImmune[20] = true;
@@ -8174,8 +7583,6 @@ namespace Terraria
 				this.damage = 28;
 				this.defense = 12;
 				this.lifeMax = 70;
-				this.soundHit = 2;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.7f;
 				this.value = 130f;
 				this.buffImmune[20] = true;
@@ -8190,8 +7597,6 @@ namespace Terraria
 				this.damage = 24;
 				this.defense = 14;
 				this.lifeMax = 120;
-				this.soundHit = 2;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.6f;
 				this.value = 130f;
 				this.buffImmune[20] = true;
@@ -8206,8 +7611,6 @@ namespace Terraria
 				this.damage = 0;
 				this.defense = 0;
 				this.lifeMax = 5;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.catchItem = 2018;
 			}
 			else if (this.type == 300)
@@ -8219,8 +7622,6 @@ namespace Terraria
 				this.damage = 0;
 				this.defense = 0;
 				this.lifeMax = 5;
-				this.soundHit = 1;
-				this.soundKilled = 4;
 				this.npcSlots = 0.25f;
 				this.catchItem = 2003;
 			}
@@ -8233,9 +7634,7 @@ namespace Terraria
 				this.damage = 12;
 				this.defense = 2;
 				this.lifeMax = 35;
-				this.soundHit = 1;
 				this.knockBackResist = 0.85f;
-				this.soundKilled = 1;
 				this.value = 50f;
 			}
 			if (this.type == 302)
@@ -8247,8 +7646,6 @@ namespace Terraria
 				this.damage = 7;
 				this.defense = 2;
 				this.lifeMax = 25;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.value = 25f;
 				this.buffImmune[20] = true;
 				this.buffImmune[31] = false;
@@ -8262,8 +7659,6 @@ namespace Terraria
 				this.damage = 80;
 				this.defense = 20;
 				this.lifeMax = 175;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.value = 500f;
 				this.scale = 1.1f;
 				this.buffImmune[20] = true;
@@ -8277,8 +7672,6 @@ namespace Terraria
 				this.width = 18;
 				this.height = 40;
 				this.aiStyle = 3;
-				this.soundHit = 1;
-				this.soundKilled = 6;
 				this.value = 1200f;
 				this.buffImmune[31] = false;
 				this.npcSlots = 0.5f;
@@ -8331,8 +7724,6 @@ namespace Terraria
 				this.damage = 130;
 				this.defense = 40;
 				this.lifeMax = 10000;
-				this.soundHit = 12;
-				this.soundKilled = 18;
 				this.knockBackResist = 0f;
 				this.value = 10000f;
 				flag = true;
@@ -8348,8 +7739,6 @@ namespace Terraria
 				this.damage = 40;
 				this.defense = 14;
 				this.lifeMax = 100;
-				this.soundHit = 1;
-				this.soundKilled = 6;
 				this.alpha = 100;
 				this.value = 700f;
 				flag = true;
@@ -8364,9 +7753,7 @@ namespace Terraria
 				this.damage = 16;
 				this.defense = 6;
 				this.lifeMax = 75;
-				this.soundHit = 1;
 				this.knockBackResist = 0.7f;
-				this.soundKilled = 1;
 				this.value = 100f;
 				this.buffImmune[31] = false;
 			}
@@ -8379,9 +7766,7 @@ namespace Terraria
 				this.damage = 20;
 				this.defense = 4;
 				this.lifeMax = 60;
-				this.soundHit = 1;
 				this.knockBackResist = 0.65f;
-				this.soundKilled = 1;
 				this.value = 100f;
 				this.buffImmune[31] = false;
 			}
@@ -8394,8 +7779,6 @@ namespace Terraria
 				this.damage = 20;
 				this.defense = 6;
 				this.lifeMax = 40;
-				this.soundHit = 1;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.6f;
 				this.value = 85f;
 				this.buffImmune[31] = false;
@@ -8410,8 +7793,6 @@ namespace Terraria
 				this.damage = 15;
 				this.defense = 8;
 				this.lifeMax = 60;
-				this.soundHit = 1;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 105f;
 				this.buffImmune[31] = false;
@@ -8426,8 +7807,6 @@ namespace Terraria
 				this.damage = 20;
 				this.defense = 14;
 				this.lifeMax = 34;
-				this.soundHit = 1;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.3f;
 				this.value = 120f;
 				this.buffImmune[31] = false;
@@ -8442,8 +7821,6 @@ namespace Terraria
 				this.damage = 23;
 				this.defense = 0;
 				this.lifeMax = 115;
-				this.soundHit = 2;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.65f;
 				this.value = 130f;
 				this.buffImmune[20] = true;
@@ -8458,8 +7835,6 @@ namespace Terraria
 				this.damage = 18;
 				this.defense = 10;
 				this.lifeMax = 65;
-				this.soundHit = 2;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 120f;
 				this.buffImmune[20] = true;
@@ -8474,8 +7849,6 @@ namespace Terraria
 				this.damage = 22;
 				this.defense = 10;
 				this.lifeMax = 70;
-				this.soundHit = 2;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.4f;
 				this.value = 130f;
 				this.buffImmune[20] = true;
@@ -8491,8 +7864,6 @@ namespace Terraria
 				this.damage = 120;
 				this.defense = 28;
 				this.lifeMax = 12000;
-				this.soundHit = 7;
-				this.soundKilled = 5;
 				this.knockBackResist = 0f;
 				this.value = 10000f;
 				flag = true;
@@ -8506,8 +7877,6 @@ namespace Terraria
 				this.damage = 100;
 				this.defense = 32;
 				this.lifeMax = 900;
-				this.soundHit = 7;
-				this.soundKilled = 6;
 				this.knockBackResist = 0.2f;
 				this.value = 2000f;
 				this.buffImmune[20] = true;
@@ -8522,8 +7891,6 @@ namespace Terraria
 				this.damage = 50;
 				this.defense = 36;
 				this.lifeMax = 22000;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.value = 50000f;
@@ -8539,8 +7906,6 @@ namespace Terraria
 				this.damage = 65;
 				this.defense = 14;
 				this.lifeMax = 5000;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0f;
@@ -8557,8 +7922,6 @@ namespace Terraria
 				this.damage = 80;
 				this.defense = 38;
 				this.lifeMax = 1200;
-				this.soundHit = 1;
-				this.soundKilled = 5;
 				this.knockBackResist = 0.3f;
 				this.value = 3000f;
 				flag = true;
@@ -8574,8 +7937,6 @@ namespace Terraria
 				this.damage = 90;
 				this.defense = 44;
 				this.lifeMax = 2000;
-				this.soundHit = 1;
-				this.soundKilled = 6;
 				this.alpha = 100;
 				this.value = 4500f;
 				flag = true;
@@ -8590,8 +7951,6 @@ namespace Terraria
 				this.damage = 14;
 				this.defense = 6;
 				this.lifeMax = 45;
-				this.soundHit = 1;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 60f;
 				this.buffImmune[31] = false;
@@ -8605,8 +7964,6 @@ namespace Terraria
 				this.damage = 14;
 				this.defense = 6;
 				this.lifeMax = 45;
-				this.soundHit = 1;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 60f;
 				this.buffImmune[31] = false;
@@ -8620,8 +7977,6 @@ namespace Terraria
 				this.damage = 7;
 				this.defense = 2;
 				this.lifeMax = 25;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.value = 25f;
 				this.buffImmune[20] = true;
 				this.buffImmune[31] = false;
@@ -8635,8 +7990,6 @@ namespace Terraria
 				this.damage = 6;
 				this.defense = 2;
 				this.lifeMax = 23;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.scale = 0.9f;
 				this.value = 25f;
 				this.buffImmune[20] = true;
@@ -8652,8 +8005,6 @@ namespace Terraria
 				this.defense = 3;
 				this.lifeMax = 29;
 				this.scale = 1.05f;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.value = 25f;
 				this.buffImmune[20] = true;
 				this.buffImmune[31] = false;
@@ -8668,8 +8019,6 @@ namespace Terraria
 				this.defense = 1;
 				this.lifeMax = 22;
 				this.scale = 0.85f;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.value = 25f;
 				this.buffImmune[20] = true;
 				this.buffImmune[31] = false;
@@ -8680,8 +8029,6 @@ namespace Terraria
 				this.width = 18;
 				this.height = 40;
 				this.aiStyle = 3;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.value = 1200f;
 				this.buffImmune[31] = false;
 				this.npcSlots = 0.5f;
@@ -8718,8 +8065,6 @@ namespace Terraria
 				this.damage = 100;
 				this.defense = 32;
 				this.lifeMax = 900;
-				this.soundHit = 4;
-				this.soundKilled = 6;
 				this.value = (float)Item.buyPrice(0, 0, 20, 0);
 				this.knockBackResist = 0.25f;
 				this.buffImmune[20] = true;
@@ -8735,8 +8080,6 @@ namespace Terraria
 				this.damage = 90;
 				this.defense = 26;
 				this.lifeMax = 750;
-				this.soundHit = 7;
-				this.soundKilled = 6;
 				this.knockBackResist = 0.2f;
 				this.value = 1800f;
 				this.buffImmune[20] = true;
@@ -8751,8 +8094,6 @@ namespace Terraria
 				this.damage = 140;
 				this.defense = 50;
 				this.lifeMax = 3500;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0f;
 				this.value = 3000f;
 				this.buffImmune[31] = false;
@@ -8767,8 +8108,6 @@ namespace Terraria
 				this.damage = 110;
 				this.defense = 38;
 				this.lifeMax = 13000;
-				this.soundHit = 7;
-				this.soundKilled = 5;
 				this.knockBackResist = 0f;
 				this.value = 10000f;
 				this.buffImmune[20] = true;
@@ -8783,8 +8122,6 @@ namespace Terraria
 				this.damage = 120;
 				this.defense = 38;
 				this.lifeMax = 34000;
-				this.soundHit = 7;
-				this.soundKilled = 5;
 				this.knockBackResist = 0f;
 				this.value = 10000f;
 				this.buffImmune[20] = true;
@@ -8802,8 +8139,6 @@ namespace Terraria
 				this.damage = 120;
 				this.defense = 56;
 				this.lifeMax = 18000;
-				this.soundHit = 4;
-				this.soundKilled = 14;
 				this.knockBackResist = 0f;
 				this.value = 10000f;
 				this.buffImmune[20] = true;
@@ -8818,9 +8153,7 @@ namespace Terraria
 				this.damage = 60;
 				this.defense = 28;
 				this.lifeMax = 1200;
-				this.soundHit = 4;
 				this.knockBackResist = 0.4f;
-				this.soundKilled = 14;
 				this.value = 1000f;
 				this.noTileCollide = true;
 				this.noGravity = true;
@@ -8835,8 +8168,6 @@ namespace Terraria
 				this.damage = 80;
 				this.defense = 26;
 				this.lifeMax = 1800;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.4f;
 				this.value = 1500f;
 				this.buffImmune[31] = false;
@@ -8851,8 +8182,6 @@ namespace Terraria
 				this.damage = 100;
 				this.defense = 42;
 				this.lifeMax = 1800;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.1f;
 				this.value = 1500f;
 				this.buffImmune[31] = false;
@@ -8867,8 +8196,6 @@ namespace Terraria
 				this.damage = 70;
 				this.defense = 30;
 				this.lifeMax = 900;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.45f;
 				this.value = 900f;
 				this.buffImmune[20] = true;
@@ -8883,8 +8210,6 @@ namespace Terraria
 				this.damage = 100;
 				this.defense = 40;
 				this.lifeMax = 2500;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.1f;
 				this.value = 3000f;
 				this.buffImmune[20] = true;
@@ -8900,8 +8225,6 @@ namespace Terraria
 				this.damage = 75;
 				this.defense = 8;
 				this.lifeMax = 450;
-				this.soundHit = 1;
-				this.soundKilled = 6;
 				this.value = 500f;
 				this.buffImmune[20] = true;
 				this.buffImmune[24] = true;
@@ -8923,8 +8246,6 @@ namespace Terraria
 				this.damage = 10;
 				this.defense = 15;
 				this.lifeMax = 250;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 			}
 			else if (this.type == 354)
@@ -8937,8 +8258,6 @@ namespace Terraria
 				this.damage = 10;
 				this.defense = 15;
 				this.lifeMax = 250;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 				this.scale = 0.9f;
 				this.rarity = 1;
@@ -8952,8 +8271,6 @@ namespace Terraria
 				this.damage = 0;
 				this.defense = 0;
 				this.lifeMax = 5;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.npcSlots = 0.2f;
 				this.noGravity = true;
 				this.catchItem = 1992;
@@ -8967,8 +8284,6 @@ namespace Terraria
 				this.damage = 0;
 				this.defense = 0;
 				this.lifeMax = 5;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.npcSlots = 0.25f;
 				this.noGravity = true;
 				this.catchItem = 1994;
@@ -8982,8 +8297,6 @@ namespace Terraria
 				this.damage = 0;
 				this.defense = 0;
 				this.lifeMax = 5;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.npcSlots = 0.1f;
 				this.catchItem = 2002;
 				this.friendly = true;
@@ -8997,8 +8310,6 @@ namespace Terraria
 				this.damage = 0;
 				this.defense = 0;
 				this.lifeMax = 5;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.npcSlots = 0.2f;
 				this.noGravity = true;
 				this.catchItem = 2004;
@@ -9012,8 +8323,6 @@ namespace Terraria
 				this.damage = 0;
 				this.defense = 0;
 				this.lifeMax = 5;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.npcSlots = 0.5f;
 				this.noGravity = true;
 				this.catchItem = 2006;
@@ -9027,8 +8336,6 @@ namespace Terraria
 				this.damage = 0;
 				this.defense = 0;
 				this.lifeMax = 5;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.npcSlots = 0.5f;
 				this.noGravity = true;
 				this.catchItem = 2007;
@@ -9042,8 +8349,6 @@ namespace Terraria
 				this.damage = 0;
 				this.defense = 0;
 				this.lifeMax = 5;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.catchItem = 2121;
 			}
 			else if (this.type == 362)
@@ -9055,8 +8360,6 @@ namespace Terraria
 				this.damage = 0;
 				this.defense = 0;
 				this.lifeMax = 5;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.catchItem = 2122;
 			}
 			else if (this.type == 363)
@@ -9068,8 +8371,6 @@ namespace Terraria
 				this.damage = 0;
 				this.defense = 0;
 				this.lifeMax = 5;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.catchItem = 2122;
 			}
 			else if (this.type == 364)
@@ -9081,8 +8382,6 @@ namespace Terraria
 				this.damage = 0;
 				this.defense = 0;
 				this.lifeMax = 5;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.catchItem = 2123;
 			}
 			else if (this.type == 365)
@@ -9094,8 +8393,6 @@ namespace Terraria
 				this.damage = 0;
 				this.defense = 0;
 				this.lifeMax = 5;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.catchItem = 2123;
 			}
 			else if (this.type == 366 || this.type == 367)
@@ -9107,8 +8404,6 @@ namespace Terraria
 				this.damage = 0;
 				this.defense = 0;
 				this.lifeMax = 5;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.catchItem = (short)(2156 + this.type - 366);
 			}
 			else if (this.type == 368)
@@ -9122,8 +8417,6 @@ namespace Terraria
 				this.damage = 10;
 				this.defense = 15;
 				this.lifeMax = 250;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 			}
 			else if (this.type == 369)
@@ -9137,8 +8430,6 @@ namespace Terraria
 				this.damage = 10;
 				this.defense = 15;
 				this.lifeMax = 250;
-				this.soundHit = 1;
-				this.soundKilled = 6;
 				this.knockBackResist = 0.5f;
 			}
 			else if (this.type == 370)
@@ -9154,8 +8445,6 @@ namespace Terraria
 				this.noTileCollide = true;
 				this.noGravity = true;
 				this.npcSlots = 10f;
-				this.soundHit = 14;
-				this.soundKilled = 20;
 				this.value = 10000f;
 				this.boss = true;
 				this.netAlways = true;
@@ -9174,8 +8463,6 @@ namespace Terraria
 				this.damage = 100;
 				this.defense = 0;
 				this.lifeMax = 1;
-				this.soundHit = 3;
-				this.soundKilled = 3;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0f;
@@ -9191,8 +8478,6 @@ namespace Terraria
 				this.damage = 100;
 				this.defense = 100;
 				this.lifeMax = 100;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0f;
 				this.alpha = 255;
 			}
@@ -9207,8 +8492,6 @@ namespace Terraria
 				this.damage = 120;
 				this.defense = 100;
 				this.lifeMax = 100;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0f;
 				this.alpha = 255;
 			}
@@ -9221,8 +8504,6 @@ namespace Terraria
 				this.damage = 0;
 				this.defense = 0;
 				this.lifeMax = 5;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.npcSlots = 0.15f;
 				this.catchItem = 2673;
 				this.rarity = 4;
@@ -9237,8 +8518,6 @@ namespace Terraria
 				this.damage = 0;
 				this.defense = 0;
 				this.lifeMax = 5;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0f;
@@ -9256,8 +8535,6 @@ namespace Terraria
 				this.damage = 10;
 				this.defense = 15;
 				this.lifeMax = 250;
-				this.soundHit = 1;
-				this.soundKilled = 6;
 				this.knockBackResist = 0.5f;
 				this.scale = 0.9f;
 			}
@@ -9270,8 +8547,6 @@ namespace Terraria
 				this.damage = 0;
 				this.defense = 0;
 				this.lifeMax = 5;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.friendly = true;
 				this.catchItem = 2740;
 				this.npcSlots = 0.1f;
@@ -9286,8 +8561,6 @@ namespace Terraria
 				this.damage = 80;
 				this.defense = 30;
 				this.lifeMax = 200;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 				this.value = 450f;
 			}
@@ -9300,8 +8573,6 @@ namespace Terraria
 				this.damage = 45;
 				this.defense = 14;
 				this.lifeMax = 210;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.55f;
 				this.value = 1000f;
 				this.npcSlots = 0f;
@@ -9318,8 +8589,6 @@ namespace Terraria
 				this.damage = 50;
 				this.defense = 25;
 				this.lifeMax = 350;
-				this.soundHit = 2;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.35f;
 				this.value = 1000f;
 			}
@@ -9332,8 +8601,6 @@ namespace Terraria
 				this.width = 18;
 				this.height = 40;
 				this.aiStyle = 3;
-				this.soundHit = 43;
-				this.soundKilled = 45;
 				this.value = 1200f;
 				this.knockBackResist = 0.25f;
 				this.buffImmune[31] = false;
@@ -9346,8 +8613,6 @@ namespace Terraria
 				this.defense = 20;
 				this.height = 40;
 				this.aiStyle = 72;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				flag = true;
 				this.npcSlots = 0f;
 				this.noTileCollide = true;
@@ -9362,8 +8627,6 @@ namespace Terraria
 				this.width = 18;
 				this.height = 40;
 				this.aiStyle = 3;
-				this.soundHit = 43;
-				this.soundKilled = 45;
 				this.value = 600f;
 				this.knockBackResist = 0f;
 				this.npcSlots = 0.75f;
@@ -9377,8 +8640,6 @@ namespace Terraria
 				this.width = 18;
 				this.height = 40;
 				this.aiStyle = 3;
-				this.soundHit = 43;
-				this.soundKilled = 45;
 				this.value = 1200f;
 				this.knockBackResist = 0.4f;
 			}
@@ -9391,8 +8652,6 @@ namespace Terraria
 				this.damage = 10;
 				this.defense = 40;
 				this.lifeMax = 200;
-				this.soundHit = 53;
-				this.soundKilled = 56;
 				this.knockBackResist = 0f;
 				this.buffImmune[31] = true;
 				this.canGhostHeal = false;
@@ -9406,9 +8665,7 @@ namespace Terraria
 				this.damage = 60;
 				this.defense = 16;
 				this.lifeMax = 300;
-				this.soundHit = 42;
 				this.knockBackResist = 0.4f;
-				this.soundKilled = 44;
 				this.value = 1000f;
 				this.noTileCollide = true;
 				this.noGravity = true;
@@ -9424,8 +8681,6 @@ namespace Terraria
 				this.width = 18;
 				this.height = 40;
 				this.aiStyle = 3;
-				this.soundHit = 39;
-				this.soundKilled = 57;
 				this.value = 1200f;
 				this.npcSlots = 0.5f;
 				this.knockBackResist = 0.3f;
@@ -9439,8 +8694,6 @@ namespace Terraria
 				this.width = 18;
 				this.height = 40;
 				this.aiStyle = 75;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.value = 1200f;
 				this.npcSlots = 0.5f;
 			}
@@ -9453,8 +8706,6 @@ namespace Terraria
 				this.width = 60;
 				this.height = 40;
 				this.aiStyle = 3;
-				this.soundHit = 51;
-				this.soundKilled = 54;
 				this.value = 1200f;
 				this.npcSlots = 0.5f;
 				this.knockBackResist = 0.1f;
@@ -9468,8 +8719,6 @@ namespace Terraria
 				this.width = 150;
 				this.height = 80;
 				this.aiStyle = 75;
-				this.soundHit = 4;
-				this.soundKilled = 14;
 				this.value = 0f;
 				this.npcSlots = 0f;
 				this.knockBackResist = 0f;
@@ -9488,8 +8737,6 @@ namespace Terraria
 				this.width = 40;
 				this.height = 16;
 				this.aiStyle = 75;
-				this.soundHit = 4;
-				this.soundKilled = 14;
 				this.value = 0f;
 				this.npcSlots = 1f;
 				this.knockBackResist = 0f;
@@ -9507,8 +8754,6 @@ namespace Terraria
 				this.width = 46;
 				this.height = 36;
 				this.aiStyle = 75;
-				this.soundHit = 4;
-				this.soundKilled = 14;
 				this.value = 0f;
 				this.npcSlots = 1f;
 				this.knockBackResist = 0f;
@@ -9526,8 +8771,6 @@ namespace Terraria
 				this.width = 46;
 				this.height = 36;
 				this.aiStyle = 76;
-				this.soundHit = 4;
-				this.soundKilled = 14;
 				this.value = 0f;
 				this.npcSlots = 6f;
 				this.knockBackResist = 0f;
@@ -9549,8 +8792,6 @@ namespace Terraria
 				this.height = 72;
 				this.value = 0f;
 				this.knockBackResist = 0f;
-				this.soundHit = 4;
-				this.soundKilled = 14;
 				this.npcSlots = 0f;
 				this.noGravity = true;
 				this.timeLeft = NPC.activeTime * 30;
@@ -9567,8 +8808,6 @@ namespace Terraria
 				this.width = 38;
 				this.height = 56;
 				this.aiStyle = 79;
-				this.soundHit = 57;
-				this.soundKilled = 62;
 				this.value = 0f;
 				this.npcSlots = 6f;
 				this.knockBackResist = 0f;
@@ -9587,8 +8826,6 @@ namespace Terraria
 				this.width = 46;
 				this.height = 66;
 				this.aiStyle = 78;
-				this.soundHit = 57;
-				this.soundKilled = 62;
 				this.value = 0f;
 				this.npcSlots = 6f;
 				this.knockBackResist = 0f;
@@ -9607,8 +8844,6 @@ namespace Terraria
 				this.width = 46;
 				this.height = 66;
 				this.aiStyle = 77;
-				this.soundHit = 57;
-				this.soundKilled = 0;
 				this.value = 0f;
 				this.npcSlots = 6f;
 				this.knockBackResist = 0f;
@@ -9631,8 +8866,6 @@ namespace Terraria
 				this.height = 60;
 				this.value = 0f;
 				this.knockBackResist = 0f;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.npcSlots = 0f;
 				this.noGravity = true;
 				this.dontTakeDamage = true;
@@ -9648,8 +8881,6 @@ namespace Terraria
 				this.width = 30;
 				this.height = 30;
 				this.aiStyle = 82;
-				this.soundHit = 57;
-				this.soundKilled = 62;
 				this.value = 0f;
 				this.npcSlots = 0f;
 				this.knockBackResist = 0f;
@@ -9666,8 +8897,6 @@ namespace Terraria
 				this.width = 54;
 				this.height = 54;
 				this.aiStyle = 83;
-				this.soundHit = 4;
-				this.soundKilled = 14;
 				this.value = 0f;
 				this.npcSlots = 0f;
 				this.knockBackResist = 0f;
@@ -9685,8 +8914,6 @@ namespace Terraria
 				this.width = 22;
 				this.height = 40;
 				this.aiStyle = 83;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.value = 0f;
 				this.npcSlots = 0f;
 				this.knockBackResist = 0f;
@@ -9707,8 +8934,6 @@ namespace Terraria
 				this.noTileCollide = true;
 				this.noGravity = true;
 				this.npcSlots = 10f;
-				this.soundHit = 55;
-				this.soundKilled = 59;
 				this.value = 10000f;
 				this.boss = true;
 				this.netAlways = true;
@@ -9728,8 +8953,6 @@ namespace Terraria
 				this.noTileCollide = true;
 				this.noGravity = true;
 				this.npcSlots = 0f;
-				this.soundHit = 2;
-				this.soundKilled = 2;
 				this.netAlways = true;
 				this.timeLeft = NPC.activeTime * 30;
 				flag = true;
@@ -9744,9 +8967,7 @@ namespace Terraria
 				this.damage = 0;
 				this.defense = 0;
 				this.lifeMax = 5;
-				this.soundHit = 1;
 				this.knockBackResist = 0.8f;
-				this.soundKilled = 1;
 				this.catchItem = 2889;
 				this.npcSlots = 0.4f;
 				this.rarity = 3;
@@ -9760,8 +8981,6 @@ namespace Terraria
 				this.damage = 0;
 				this.defense = 0;
 				this.lifeMax = 5;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.catchItem = 2890;
 				this.rarity = 3;
 			}
@@ -9774,8 +8993,6 @@ namespace Terraria
 				this.damage = 0;
 				this.defense = 0;
 				this.lifeMax = 5;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.npcSlots = 0.25f;
 				this.noGravity = true;
 				this.catchItem = 2891;
@@ -9790,8 +9007,6 @@ namespace Terraria
 				this.damage = 0;
 				this.defense = 0;
 				this.lifeMax = 5;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.catchItem = 2892;
 				this.rarity = 3;
 			}
@@ -9804,8 +9019,6 @@ namespace Terraria
 				this.damage = 0;
 				this.defense = 0;
 				this.lifeMax = 5;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.friendly = true;
 				this.catchItem = 2893;
 				this.npcSlots = 0.1f;
@@ -9820,8 +9033,6 @@ namespace Terraria
 				this.damage = 0;
 				this.defense = 0;
 				this.lifeMax = 5;
-				this.soundHit = 1;
-				this.soundKilled = 4;
 				this.npcSlots = 0.25f;
 				this.catchItem = 2894;
 				this.rarity = 3;
@@ -9835,8 +9046,6 @@ namespace Terraria
 				this.damage = 0;
 				this.defense = 0;
 				this.lifeMax = 5;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.npcSlots = 0.1f;
 				this.catchItem = 2895;
 				this.friendly = true;
@@ -9851,8 +9060,6 @@ namespace Terraria
 				this.damage = 20;
 				this.defense = 8;
 				this.lifeMax = 60;
-				this.soundHit = 2;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 100f;
 				this.buffImmune[20] = true;
@@ -9868,8 +9075,6 @@ namespace Terraria
 				this.damage = 20;
 				this.defense = 12;
 				this.lifeMax = 55;
-				this.soundHit = 2;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 130f;
 				this.buffImmune[20] = true;
@@ -9885,8 +9090,6 @@ namespace Terraria
 				this.damage = 18;
 				this.defense = 8;
 				this.lifeMax = 65;
-				this.soundHit = 2;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 120f;
 				this.buffImmune[20] = true;
@@ -9902,8 +9105,6 @@ namespace Terraria
 				this.damage = 22;
 				this.defense = 8;
 				this.lifeMax = 60;
-				this.soundHit = 2;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 110f;
 				this.buffImmune[20] = true;
@@ -9919,8 +9120,6 @@ namespace Terraria
 				this.damage = 10;
 				this.defense = 30;
 				this.lifeMax = 250;
-				this.soundHit = 2;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.npcSlots = 7f;
 			}
@@ -9937,8 +9136,6 @@ namespace Terraria
 				this.damage = 80;
 				this.defense = 10;
 				this.lifeMax = 4000;
-				this.soundHit = 56;
-				this.soundKilled = 60;
 				this.noGravity = true;
 				this.knockBackResist = 0f;
 				this.value = 0f;
@@ -9958,8 +9155,6 @@ namespace Terraria
 				this.damage = 40;
 				this.defense = 20;
 				this.lifeMax = 4000;
-				this.soundHit = 56;
-				this.soundKilled = 60;
 				this.noGravity = true;
 				this.knockBackResist = 0f;
 				this.value = 0f;
@@ -9980,8 +9175,6 @@ namespace Terraria
 				this.damage = 40;
 				this.defense = 20;
 				this.lifeMax = 4000;
-				this.soundHit = 56;
-				this.soundKilled = 60;
 				this.noGravity = true;
 				this.knockBackResist = 0f;
 				this.value = 0f;
@@ -9999,8 +9192,6 @@ namespace Terraria
 				this.damage = 21;
 				this.defense = 5;
 				this.lifeMax = 75;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.value = 500f;
 				this.buffImmune[31] = false;
 			}
@@ -10014,8 +9205,6 @@ namespace Terraria
 				this.damage = 31;
 				this.defense = 7;
 				this.lifeMax = 110;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.value = 500f;
 			}
 			else if (this.type == 470)
@@ -10027,8 +9216,6 @@ namespace Terraria
 				this.damage = 21;
 				this.defense = 5;
 				this.lifeMax = 75;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.value = 500f;
 				this.buffImmune[31] = false;
 			}
@@ -10041,8 +9228,6 @@ namespace Terraria
 				this.damage = 90;
 				this.defense = 34;
 				this.lifeMax = 3500;
-				this.soundHit = 4;
-				this.soundKilled = 6;
 				this.value = 30000f;
 				this.knockBackResist = 0.1f;
 				this.buffImmune[20] = true;
@@ -10059,8 +9244,6 @@ namespace Terraria
 				this.damage = 30;
 				this.defense = 20;
 				this.lifeMax = 400;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.15f;
 				this.value = 1000f;
 			}
@@ -10070,11 +9253,9 @@ namespace Terraria
 				this.width = 18;
 				this.height = 40;
 				this.aiStyle = 3;
-				this.damage = 24;
-				this.defense = 12;
-				this.lifeMax = 80;
-				this.soundHit = 2;
-				this.soundKilled = 2;
+				this.damage = 22;
+				this.defense = 10;
+				this.lifeMax = 70;
 				this.knockBackResist = 0.4f;
 				this.value = 300f;
 				this.buffImmune[31] = false;
@@ -10089,8 +9270,6 @@ namespace Terraria
 				this.damage = 30;
 				this.defense = 18;
 				this.lifeMax = 110;
-				this.soundHit = 41;
-				this.soundKilled = 44;
 				this.knockBackResist = 0.35f;
 				this.value = 500f;
 				this.buffImmune[20] = true;
@@ -10103,12 +9282,10 @@ namespace Terraria
 				this.width = 20;
 				this.height = 30;
 				this.aiStyle = 91;
-				this.damage = 28;
-				this.defense = 16;
-				this.lifeMax = 50;
-				this.soundHit = 7;
+				this.damage = 24;
+				this.defense = 8;
+				this.lifeMax = 40;
 				this.knockBackResist = 0.6f;
-				this.soundKilled = 6;
 				this.value = 1000f;
 				this.buffImmune[20] = true;
 				this.buffImmune[24] = true;
@@ -10122,8 +9299,6 @@ namespace Terraria
 				this.damage = 0;
 				this.defense = 0;
 				this.lifeMax = 5;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.npcSlots = 0.1f;
 				this.catchItem = (short)(3191 + this.type - 484);
 				this.friendly = true;
@@ -10137,8 +9312,6 @@ namespace Terraria
 				this.damage = 0;
 				this.defense = 0;
 				this.lifeMax = 1000;
-				this.soundHit = 15;
-				this.soundKilled = 2;
 				this.knockBackResist = 0f;
 				this.value = 0f;
 				this.immortal = true;
@@ -10153,8 +9326,6 @@ namespace Terraria
 				this.damage = 20;
 				this.defense = 8;
 				this.lifeMax = 75;
-				this.soundHit = 18;
-				this.soundKilled = 21;
 				this.knockBackResist = 0.4f;
 				this.value = 150f;
 				this.buffImmune[31] = false;
@@ -10169,9 +9340,7 @@ namespace Terraria
 				this.damage = 28;
 				this.defense = 14;
 				this.lifeMax = 50;
-				this.soundHit = 19;
 				this.knockBackResist = 0.6f;
-				this.soundKilled = 22;
 				this.value = 150f;
 				this.buffImmune[31] = false;
 			}
@@ -10185,9 +9354,7 @@ namespace Terraria
 				this.damage = 0;
 				this.defense = 100;
 				this.lifeMax = 50;
-				this.soundHit = 19;
 				this.knockBackResist = 0f;
-				this.soundKilled = 22;
 				this.value = 0f;
 				flag = true;
 				this.dontTakeDamage = true;
@@ -10202,8 +9369,6 @@ namespace Terraria
 				this.width = 30;
 				this.height = 30;
 				this.aiStyle = 75;
-				this.soundHit = 4;
-				this.soundKilled = 14;
 				this.value = 0f;
 				this.npcSlots = 1f;
 				this.knockBackResist = 0f;
@@ -10222,8 +9387,6 @@ namespace Terraria
 				this.damage = 28;
 				this.defense = 6;
 				this.lifeMax = 50;
-				this.soundHit = 33;
-				this.soundKilled = 36;
 				this.value = 120f;
 			}
 			else if (this.type >= 496 && this.type <= 497)
@@ -10235,8 +9398,6 @@ namespace Terraria
 				this.damage = 16;
 				this.defense = 12;
 				this.lifeMax = 50;
-				this.soundHit = 38;
-				this.soundKilled = 41;
 				this.knockBackResist = 0.75f;
 				this.value = 120f;
 			}
@@ -10249,8 +9410,6 @@ namespace Terraria
 				this.damage = 18;
 				this.defense = 10;
 				this.lifeMax = 65;
-				this.soundHit = 50;
-				this.soundKilled = 53;
 				this.knockBackResist = 0.45f;
 				this.value = 120f;
 				this.buffImmune[31] = false;
@@ -10266,8 +9425,6 @@ namespace Terraria
 				this.damage = 10;
 				this.defense = 15;
 				this.lifeMax = 250;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 			}
 			else if (this.type == 513)
@@ -10281,8 +9438,6 @@ namespace Terraria
 				this.damage = 34;
 				this.defense = 0;
 				this.lifeMax = 80;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0f;
@@ -10300,8 +9455,6 @@ namespace Terraria
 				this.damage = 18;
 				this.defense = 12;
 				this.lifeMax = 80;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0f;
@@ -10321,8 +9474,6 @@ namespace Terraria
 				this.damage = 16;
 				this.defense = 20;
 				this.lifeMax = 80;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0f;
@@ -10342,8 +9493,6 @@ namespace Terraria
 				this.damage = 58;
 				this.defense = 18;
 				this.lifeMax = 500;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0f;
@@ -10361,8 +9510,6 @@ namespace Terraria
 				this.damage = 54;
 				this.defense = 28;
 				this.lifeMax = 500;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0f;
@@ -10382,8 +9529,6 @@ namespace Terraria
 				this.damage = 50;
 				this.defense = 34;
 				this.lifeMax = 500;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0f;
@@ -10401,8 +9546,6 @@ namespace Terraria
 				this.damage = 24;
 				this.defense = 16;
 				this.lifeMax = 70;
-				this.soundHit = 31;
-				this.soundKilled = 34;
 				this.knockBackResist = 0.2f;
 				this.value = 80f;
 				this.buffImmune[31] = false;
@@ -10418,8 +9561,6 @@ namespace Terraria
 				this.defense = 12;
 				this.lifeMax = 50;
 				this.knockBackResist = 0.6f;
-				this.soundHit = 32;
-				this.soundKilled = 35;
 				this.value = 90f;
 				this.buffImmune[31] = false;
 				this.npcSlots = 0.8f;
@@ -10433,8 +9574,6 @@ namespace Terraria
 				this.damage = 50;
 				this.defense = 26;
 				this.lifeMax = 180;
-				this.soundHit = 37;
-				this.soundKilled = 40;
 				this.knockBackResist = 0.6f;
 				this.value = 500f;
 				this.buffImmune[31] = false;
@@ -10473,8 +9612,6 @@ namespace Terraria
 				this.damage = 52;
 				this.defense = 28;
 				this.lifeMax = 350;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.35f;
 				this.value = 600f;
 				this.buffImmune[31] = false;
@@ -10488,8 +9625,6 @@ namespace Terraria
 				this.damage = 66;
 				this.defense = 24;
 				this.lifeMax = 320;
-				this.soundHit = 13;
-				this.soundKilled = 19;
 				this.knockBackResist = 0.5f;
 				this.value = 600f;
 				this.timeLeft = NPC.activeTime * 2;
@@ -10506,8 +9641,6 @@ namespace Terraria
 				this.damage = 66;
 				this.defense = 24;
 				this.lifeMax = 320;
-				this.soundHit = 13;
-				this.soundKilled = 19;
 				this.knockBackResist = 0.5f;
 				this.value = 600f;
 				this.timeLeft = NPC.activeTime * 2;
@@ -10523,8 +9656,6 @@ namespace Terraria
 				this.damage = 65;
 				this.defense = 34;
 				this.lifeMax = 270;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.3f;
 				this.value = 800f;
 				this.buffImmune[31] = false;
@@ -10539,8 +9670,6 @@ namespace Terraria
 				this.damage = 40;
 				this.defense = 20;
 				this.lifeMax = 220;
-				this.soundHit = 1;
-				this.soundKilled = 6;
 				this.knockBackResist = 0f;
 				this.value = 1200f;
 				this.npcSlots = 2f;
@@ -10548,15 +9677,13 @@ namespace Terraria
 			}
 			else if (this.type == 493)
 			{
-				this.name = "Stardust Tower";
+				this.name = "Stardust Pillar";
 				this.lifeMax = 20000;
 				this.defense = 20;
 				this.damage = 0;
 				this.width = 130;
 				this.height = 270;
 				this.aiStyle = 94;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.value = 0f;
 				this.knockBackResist = 0f;
 				this.noGravity = true;
@@ -10577,8 +9704,6 @@ namespace Terraria
 				this.damage = 80;
 				this.defense = 10;
 				this.lifeMax = 1200;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.noGravity = true;
 				this.knockBackResist = 0f;
 				this.value = 0f;
@@ -10594,8 +9719,6 @@ namespace Terraria
 				this.damage = 120;
 				this.defense = 50;
 				this.lifeMax = 300;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 				this.noGravity = true;
 				this.buffImmune[31] = true;
@@ -10610,8 +9733,6 @@ namespace Terraria
 				this.damage = 70;
 				this.defense = 0;
 				this.lifeMax = 300;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.4f;
 				this.noGravity = true;
 				this.buffImmune[31] = true;
@@ -10625,8 +9746,6 @@ namespace Terraria
 				this.damage = 80;
 				this.defense = 34;
 				this.lifeMax = 700;
-				this.soundHit = 6;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.4f;
 				this.buffImmune[31] = false;
 			}
@@ -10639,8 +9758,6 @@ namespace Terraria
 				this.damage = 70;
 				this.defense = 40;
 				this.lifeMax = 800;
-				this.soundHit = 6;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.4f;
 				this.buffImmune[31] = false;
 				this.npcSlots = 3f;
@@ -10654,8 +9771,6 @@ namespace Terraria
 				this.damage = 80;
 				this.defense = 10;
 				this.lifeMax = 200;
-				this.soundHit = 1;
-				this.soundKilled = 5;
 				this.knockBackResist = 0.3f;
 				this.buffImmune[31] = false;
 				this.npcSlots = 0.5f;
@@ -10669,8 +9784,6 @@ namespace Terraria
 				this.damage = 70;
 				this.defense = 38;
 				this.lifeMax = 1500;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.noGravity = true;
 				this.knockBackResist = 0.03f;
 				this.buffImmune[31] = true;
@@ -10678,15 +9791,13 @@ namespace Terraria
 			}
 			else if (this.type == 507)
 			{
-				this.name = "Nebula Tower";
+				this.name = "Nebula Pillar";
 				this.lifeMax = 20000;
 				this.defense = 20;
 				this.damage = 0;
 				this.width = 130;
 				this.height = 270;
 				this.aiStyle = 94;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.value = 0f;
 				this.knockBackResist = 0f;
 				this.noGravity = true;
@@ -10703,8 +9814,6 @@ namespace Terraria
 				this.damage = 90;
 				this.defense = 46;
 				this.lifeMax = 850;
-				this.soundHit = 6;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.2f;
 				flag = true;
 				this.npcSlots = 1f;
@@ -10718,8 +9827,6 @@ namespace Terraria
 				this.damage = 70;
 				this.defense = 34;
 				this.lifeMax = 330;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 				this.noGravity = true;
 				this.buffImmune[31] = true;
@@ -10734,8 +9841,6 @@ namespace Terraria
 				this.damage = 80;
 				this.defense = 30;
 				this.lifeMax = 700;
-				this.soundHit = 1;
-				this.soundKilled = 5;
 				this.knockBackResist = 0.6f;
 				this.buffImmune[31] = false;
 				this.npcSlots = 2f;
@@ -10749,8 +9854,6 @@ namespace Terraria
 				this.damage = 75;
 				this.defense = 20;
 				this.lifeMax = 1300;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 				this.noTileCollide = true;
 				this.noGravity = true;
@@ -10758,15 +9861,13 @@ namespace Terraria
 			}
 			else if (this.type == 422)
 			{
-				this.name = "Vortex Tower";
+				this.name = "Vortex Pillar";
 				this.lifeMax = 20000;
 				this.defense = 20;
 				this.damage = 0;
 				this.width = 130;
 				this.height = 270;
 				this.aiStyle = 94;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.value = 0f;
 				this.knockBackResist = 0f;
 				this.noGravity = true;
@@ -10783,8 +9884,6 @@ namespace Terraria
 				this.damage = 100;
 				this.defense = 40;
 				this.lifeMax = 800;
-				this.soundHit = 1;
-				this.soundKilled = 6;
 				this.knockBackResist = 0.4f;
 				this.buffImmune[31] = false;
 			}
@@ -10797,8 +9896,6 @@ namespace Terraria
 				this.damage = 90;
 				this.defense = 34;
 				this.lifeMax = 700;
-				this.soundHit = 1;
-				this.soundKilled = 5;
 				this.knockBackResist = 0.6f;
 				this.buffImmune[31] = false;
 				this.npcSlots = 2f;
@@ -10812,8 +9909,6 @@ namespace Terraria
 				this.damage = 50;
 				this.defense = 6;
 				this.lifeMax = 200;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 			}
 			else if (this.type == 427)
 			{
@@ -10824,8 +9919,6 @@ namespace Terraria
 				this.damage = 75;
 				this.defense = 20;
 				this.lifeMax = 500;
-				this.soundHit = 1;
-				this.soundKilled = 6;
 				this.knockBackResist = 0.5f;
 				this.buffImmune[31] = false;
 				this.npcSlots = 0.5f;
@@ -10839,22 +9932,18 @@ namespace Terraria
 				this.damage = 100;
 				this.defense = 44;
 				this.lifeMax = 1000;
-				this.soundHit = 1;
-				this.soundKilled = 6;
 				this.knockBackResist = 0.3f;
 				this.buffImmune[31] = false;
 			}
 			else if (this.type == 517)
 			{
-				this.name = "Solar Tower";
+				this.name = "Solar Pillar";
 				this.lifeMax = 20000;
 				this.defense = 20;
 				this.damage = 0;
 				this.width = 130;
 				this.height = 270;
 				this.aiStyle = 94;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.value = 0f;
 				this.knockBackResist = 0f;
 				this.noGravity = true;
@@ -10872,8 +9961,6 @@ namespace Terraria
 				this.damage = 150;
 				this.defense = 1000;
 				this.lifeMax = 10000;
-				this.soundHit = 11;
-				this.soundKilled = 22;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0f;
@@ -10890,8 +9977,6 @@ namespace Terraria
 				this.damage = 100;
 				this.defense = 1000;
 				this.lifeMax = 10000;
-				this.soundHit = 11;
-				this.soundKilled = 22;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0f;
@@ -10909,8 +9994,6 @@ namespace Terraria
 				this.damage = 50;
 				this.defense = 0;
 				this.lifeMax = 10000;
-				this.soundHit = 8;
-				this.soundKilled = 22;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0f;
@@ -10927,8 +10010,6 @@ namespace Terraria
 				this.width = 60;
 				this.height = 40;
 				this.aiStyle = 3;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.2f;
 			}
 			else if (this.type == 416)
@@ -10940,8 +10021,6 @@ namespace Terraria
 				this.width = 18;
 				this.height = 40;
 				this.aiStyle = 75;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.2f;
 			}
 			else if (this.type == 518)
@@ -10953,8 +10032,6 @@ namespace Terraria
 				this.width = 22;
 				this.height = 56;
 				this.aiStyle = 3;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.4f;
 			}
 			else if (this.type == 417)
@@ -10967,9 +10044,7 @@ namespace Terraria
 				this.damage = 80;
 				this.defense = 34;
 				this.lifeMax = 700;
-				this.soundHit = 7;
 				this.knockBackResist = 0f;
-				this.soundKilled = 5;
 			}
 			else if (this.type == 418)
 			{
@@ -10980,8 +10055,6 @@ namespace Terraria
 				this.damage = 70;
 				this.defense = 26;
 				this.lifeMax = 600;
-				this.soundHit = 3;
-				this.soundKilled = 3;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0.2f;
@@ -10998,8 +10071,6 @@ namespace Terraria
 				this.width = 22;
 				this.height = 56;
 				this.aiStyle = 3;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.4f;
 			}
 			else if (this.type == 516)
@@ -11011,8 +10082,6 @@ namespace Terraria
 				this.damage = 100;
 				this.defense = 0;
 				this.lifeMax = 1;
-				this.soundHit = 0;
-				this.soundKilled = 0;
 				this.noGravity = true;
 				this.noTileCollide = false;
 				this.alpha = 0;
@@ -11027,8 +10096,6 @@ namespace Terraria
 				this.damage = 120;
 				this.defense = 0;
 				this.lifeMax = 1;
-				this.soundHit = 0;
-				this.soundKilled = 0;
 				this.noGravity = true;
 				this.noTileCollide = false;
 				this.alpha = 0;
@@ -11043,8 +10110,6 @@ namespace Terraria
 				this.damage = 65;
 				this.defense = 18;
 				this.lifeMax = 350;
-				this.soundHit = 1;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.3f;
 				this.value = 600f;
 				this.buffImmune[31] = false;
@@ -11058,8 +10123,6 @@ namespace Terraria
 				this.damage = 70;
 				this.defense = 26;
 				this.lifeMax = 450;
-				this.soundHit = 1;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.2f;
 				this.value = 1000f;
 				this.buffImmune[31] = false;
@@ -11076,8 +10139,6 @@ namespace Terraria
 				this.damage = 80;
 				this.defense = 22;
 				this.lifeMax = 700;
-				this.soundHit = 49;
-				this.soundKilled = 51;
 				this.alpha = 100;
 				this.value = 1500f;
 				this.buffImmune[20] = true;
@@ -11095,9 +10156,7 @@ namespace Terraria
 				this.damage = 60;
 				this.defense = 32;
 				this.lifeMax = 750;
-				this.soundHit = 1;
 				this.knockBackResist = 0.75f;
-				this.soundKilled = 6;
 				this.value = 5000f;
 				this.buffImmune[31] = false;
 			}
@@ -11111,8 +10170,6 @@ namespace Terraria
 				this.damage = 80;
 				this.defense = 24;
 				this.lifeMax = 750;
-				this.soundHit = 1;
-				this.soundKilled = 6;
 				this.knockBackResist = 0.4f;
 				this.value = 5000f;
 				this.buffImmune[31] = false;
@@ -11126,8 +10183,6 @@ namespace Terraria
 				this.damage = 70;
 				this.defense = 30;
 				this.lifeMax = 700;
-				this.soundHit = 7;
-				this.soundKilled = 17;
 				this.knockBackResist = 0.25f;
 				this.value = 1000f;
 				this.buffImmune[31] = false;
@@ -11141,8 +10196,6 @@ namespace Terraria
 				this.damage = 60;
 				this.defense = 22;
 				this.lifeMax = 400;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.3f;
 				this.value = 1000f;
 			}
@@ -11155,8 +10208,6 @@ namespace Terraria
 				this.damage = 70;
 				this.defense = 14;
 				this.lifeMax = 270;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.7f;
 				this.value = 600f;
 				this.buffImmune[31] = false;
@@ -11171,8 +10222,6 @@ namespace Terraria
 				this.damage = 100;
 				this.defense = 34;
 				this.lifeMax = 4000;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.1f;
 				this.value = 3000f;
 			}
@@ -11185,8 +10234,6 @@ namespace Terraria
 				this.damage = 70;
 				this.defense = 40;
 				this.lifeMax = 550;
-				this.soundHit = 48;
-				this.soundKilled = 50;
 				this.knockBackResist = 0.5f;
 				this.value = 1500f;
 			}
@@ -11199,8 +10246,6 @@ namespace Terraria
 				this.damage = 100;
 				this.defense = 80;
 				this.lifeMax = 350;
-				this.soundHit = 34;
-				this.soundKilled = 37;
 				this.value = 900f;
 				this.buffImmune[20] = true;
 				this.buffImmune[24] = true;
@@ -11217,8 +10262,6 @@ namespace Terraria
 				this.damage = 68;
 				this.defense = 28;
 				this.lifeMax = 600;
-				this.soundHit = 47;
-				this.soundKilled = 49;
 				this.knockBackResist = 0.35f;
 				this.value = 1300f;
 			}
@@ -11231,8 +10274,6 @@ namespace Terraria
 				this.damage = 65;
 				this.defense = 24;
 				this.lifeMax = 500;
-				this.soundHit = 35;
-				this.soundKilled = 38;
 				this.knockBackResist = 0.6f;
 				this.value = 1300f;
 			}
@@ -11246,8 +10287,6 @@ namespace Terraria
 				this.damage = 80;
 				this.defense = 30;
 				this.lifeMax = 6000;
-				this.soundHit = 44;
-				this.soundKilled = 46;
 				this.value = 50000f;
 				this.knockBackResist = 0.2f;
 				this.buffImmune[20] = true;
@@ -11261,8 +10300,6 @@ namespace Terraria
 				this.damage = 0;
 				this.defense = 30;
 				this.lifeMax = 200;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.value = 0f;
 				this.knockBackResist = 0.7f;
 				flag = true;
@@ -11277,8 +10314,6 @@ namespace Terraria
 				this.damage = 50;
 				this.defense = 14;
 				this.lifeMax = 700;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.3f;
 				this.value = 0f;
 				this.npcSlots = 0.1f;
@@ -11293,8 +10328,6 @@ namespace Terraria
 				this.damage = 12;
 				this.defense = 4;
 				this.lifeMax = 60;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.8f;
 				this.value = 100f;
 				this.buffImmune[31] = false;
@@ -11309,8 +10342,6 @@ namespace Terraria
 				this.damage = 20;
 				this.defense = 6;
 				this.lifeMax = 80;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.7f;
 				this.value = 200f;
 				this.buffImmune[31] = false;
@@ -11325,8 +10356,6 @@ namespace Terraria
 				this.damage = 25;
 				this.defense = 8;
 				this.lifeMax = 110;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 				this.value = 150f;
 				this.buffImmune[31] = false;
@@ -11340,8 +10369,6 @@ namespace Terraria
 				this.damage = 20;
 				this.defense = 2;
 				this.lifeMax = 40;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.6f;
 				this.value = 200f;
 			}
@@ -11354,8 +10381,6 @@ namespace Terraria
 				this.damage = 20;
 				this.defense = 0;
 				this.lifeMax = 1;
-				this.soundHit = 3;
-				this.soundKilled = 3;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.alpha = 100;
@@ -11371,8 +10396,6 @@ namespace Terraria
 				this.damage = 20;
 				this.defense = 6;
 				this.lifeMax = 80;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.7f;
 				this.value = 200f;
 				this.buffImmune[31] = false;
@@ -11386,8 +10409,6 @@ namespace Terraria
 				this.damage = 80;
 				this.defense = 26;
 				this.lifeMax = 2000;
-				this.soundHit = 40;
-				this.soundKilled = 42;
 				this.knockBackResist = 0.15f;
 				this.value = 5000f;
 				flag = true;
@@ -11401,8 +10422,6 @@ namespace Terraria
 				this.damage = 50;
 				this.defense = 18;
 				this.lifeMax = 180;
-				this.soundHit = 52;
-				this.soundKilled = 55;
 				this.knockBackResist = 0f;
 				this.value = 0f;
 				flag = true;
@@ -11417,8 +10436,6 @@ namespace Terraria
 				this.damage = 60;
 				this.defense = 40;
 				this.lifeMax = 2000;
-				this.soundHit = 4;
-				this.soundKilled = 14;
 				this.knockBackResist = 0f;
 				this.buffImmune[20] = true;
 				this.buffImmune[24] = true;
@@ -11432,8 +10449,6 @@ namespace Terraria
 				this.damage = 90;
 				this.defense = 30;
 				this.lifeMax = 2000;
-				this.soundHit = 1;
-				this.soundKilled = 6;
 				this.knockBackResist = 0f;
 				flag = true;
 			}
@@ -11446,8 +10461,6 @@ namespace Terraria
 				this.damage = 120;
 				this.defense = 0;
 				this.lifeMax = 1;
-				this.soundHit = 0;
-				this.soundKilled = 0;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.alpha = 0;
@@ -11463,8 +10476,6 @@ namespace Terraria
 				this.damage = 30;
 				this.defense = 0;
 				this.lifeMax = 500;
-				this.soundHit = 1;
-				this.soundKilled = 6;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.alpha = 0;
@@ -11482,8 +10493,6 @@ namespace Terraria
 				this.damage = 14;
 				this.defense = 20;
 				this.lifeMax = 400;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.knockBackResist = 0.3f;
 				this.value = 0f;
 				this.buffImmune[31] = false;
@@ -11501,8 +10510,6 @@ namespace Terraria
 				this.defense = 5;
 				this.lifeMax = 50;
 				this.scale = 1.1f;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.alpha = 0;
 				this.value = 40f;
 				this.buffImmune[20] = true;
@@ -11517,8 +10524,6 @@ namespace Terraria
 				this.damage = 14;
 				this.defense = 8;
 				this.lifeMax = 200;
-				this.soundHit = 1;
-				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 1000f;
 				this.buffImmune[31] = false;
@@ -11531,15 +10536,13 @@ namespace Terraria
 				this.width = 30;
 				this.height = 24;
 				this.aiStyle = 1;
-				this.damage = 18;
-				this.defense = 5;
+				this.damage = 11;
+				this.defense = 8;
 				this.lifeMax = 60;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.alpha = 50;
 				this.color = new Color(255, 250, 0, 0) * 0.2f;
 				this.value = 75f;
-				this.knockBackResist = 0.6f;
+				this.knockBackResist = 0.8f;
 				this.buffImmune[20] = true;
 				this.buffImmune[31] = false;
 			}
@@ -11552,8 +10555,6 @@ namespace Terraria
 				this.damage = 0;
 				this.defense = 0;
 				this.lifeMax = 5;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.catchItem = 3563;
 			}
 			else if (this.type == 539)
@@ -11565,8 +10566,6 @@ namespace Terraria
 				this.damage = 0;
 				this.defense = 0;
 				this.lifeMax = 5;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.catchItem = 3564;
 				this.rarity = 3;
 			}
@@ -11579,8 +10578,6 @@ namespace Terraria
 				this.damage = 40;
 				this.defense = 30;
 				this.lifeMax = 5000;
-				this.soundHit = 23;
-				this.soundKilled = 39;
 				this.knockBackResist = 0.05f;
 				this.value = (float)Item.buyPrice(0, 1, 50, 0);
 				this.buffImmune[20] = true;
@@ -11597,8 +10594,6 @@ namespace Terraria
 				this.damage = 50;
 				this.defense = 20;
 				this.lifeMax = 360;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.value = 400f;
 				this.knockBackResist = 0.9f;
 				this.behindTiles = true;
@@ -11613,8 +10608,6 @@ namespace Terraria
 				this.damage = 60;
 				this.defense = 24;
 				this.lifeMax = 380;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.value = 400f;
 				this.knockBackResist = 0.8f;
 				this.behindTiles = true;
@@ -11629,8 +10622,6 @@ namespace Terraria
 				this.damage = 64;
 				this.defense = 22;
 				this.lifeMax = 400;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.value = 400f;
 				this.knockBackResist = 0.8f;
 				this.behindTiles = true;
@@ -11645,8 +10636,6 @@ namespace Terraria
 				this.damage = 54;
 				this.defense = 26;
 				this.lifeMax = 450;
-				this.soundHit = 1;
-				this.soundKilled = 1;
 				this.value = 400f;
 				this.knockBackResist = 0.7f;
 				this.behindTiles = true;
@@ -11660,11 +10649,523 @@ namespace Terraria
 				this.damage = 30;
 				this.defense = 10;
 				this.lifeMax = 60;
-				this.soundHit = 11;
-				this.soundKilled = 15;
 				this.knockBackResist = 0.8f;
 				this.value = 130f;
 				this.behindTiles = true;
+			}
+			else if (this.type == 547)
+			{
+				this.name = "Needs a better name";
+				this.width = 16;
+				this.height = 16;
+				this.aiStyle = 104;
+				this.defense = 10;
+				this.lifeMax = 10;
+				this.knockBackResist = 1f;
+				this.noGravity = true;
+				this.noTileCollide = true;
+			}
+			else if (this.type == 548)
+			{
+				this.name = "Elder Crystal";
+				this.width = 40;
+				this.height = 40;
+				this.aiStyle = 105;
+				this.defense = 14;
+				this.lifeMax = 1000;
+				this.knockBackResist = 0f;
+				this.friendly = true;
+				this.npcSlots = 0f;
+				this.hide = true;
+				if (Main.hardMode && NPC.downedMechBossAny)
+				{
+					this.defense = 18;
+					this.lifeMax = 3000;
+				}
+				else if (NPC.downedGolemBoss && Main.hardMode)
+				{
+					this.defense = 45;
+					this.lifeMax = 10000;
+				}
+				this.lavaImmune = true;
+				this.LazySetLiquidMovementDD2();
+			}
+			else if (this.type == 549)
+			{
+				this.name = "Mysterious Portal";
+				this.lifeMax = 5;
+				this.defense = 20;
+				this.damage = 0;
+				this.width = 78;
+				this.height = 130;
+				this.aiStyle = 106;
+				this.value = 0f;
+				this.knockBackResist = 0f;
+				this.noGravity = true;
+				this.noTileCollide = true;
+				flag = true;
+				this.npcSlots = 0f;
+				this.behindTiles = true;
+				this.dontTakeDamage = true;
+				this.lavaImmune = true;
+				this.LazySetLiquidMovementDD2();
+			}
+			else if (this.type == 552)
+			{
+				this.name = "Goblin";
+				this.lifeMax = 30;
+				this.defense = 14;
+				this.damage = 18;
+				this.width = 18;
+				this.height = 40;
+				this.aiStyle = 107;
+				this.knockBackResist = 0.2f;
+				this.value = 0f;
+				this.npcSlots = 0f;
+				this.lavaImmune = true;
+				this.LazySetLiquidMovementDD2();
+			}
+			else if (this.type == 553)
+			{
+				this.name = "Goblin";
+				this.lifeMax = 170;
+				this.defense = 20;
+				this.damage = 46;
+				this.width = 18;
+				this.height = 40;
+				this.aiStyle = 107;
+				this.knockBackResist = 0.2f;
+				this.value = 0f;
+				this.npcSlots = 0f;
+				this.lavaImmune = true;
+				this.LazySetLiquidMovementDD2();
+			}
+			else if (this.type == 554)
+			{
+				this.name = "Goblin";
+				this.lifeMax = 560;
+				this.defense = 28;
+				this.damage = 70;
+				this.width = 18;
+				this.height = 40;
+				this.aiStyle = 107;
+				this.knockBackResist = 0.15f;
+				this.value = 0f;
+				this.npcSlots = 0f;
+				this.lavaImmune = true;
+				this.LazySetLiquidMovementDD2();
+			}
+			else if (this.type == 561)
+			{
+				this.name = "Javelin Thrower";
+				this.lifeMax = 60;
+				this.defense = 18;
+				this.damage = 30;
+				this.width = 26;
+				this.height = 52;
+				this.aiStyle = 107;
+				this.knockBackResist = 0.1f;
+				this.value = 0f;
+				this.npcSlots = 0f;
+				this.lavaImmune = true;
+				this.LazySetLiquidMovementDD2();
+			}
+			else if (this.type == 562)
+			{
+				this.name = "Javelin Thrower";
+				this.lifeMax = 300;
+				this.defense = 28;
+				this.damage = 60;
+				this.width = 26;
+				this.height = 52;
+				this.aiStyle = 107;
+				this.knockBackResist = 0.1f;
+				this.value = 0f;
+				this.npcSlots = 0f;
+				this.lavaImmune = true;
+				this.LazySetLiquidMovementDD2();
+			}
+			else if (this.type == 563)
+			{
+				this.name = "Javelin Thrower";
+				this.lifeMax = 1000;
+				this.defense = 38;
+				this.damage = 80;
+				this.width = 26;
+				this.height = 52;
+				this.aiStyle = 107;
+				this.knockBackResist = 0.05f;
+				this.value = 0f;
+				this.npcSlots = 0f;
+				this.lavaImmune = true;
+				this.LazySetLiquidMovementDD2();
+			}
+			else if (this.type == 555)
+			{
+				this.name = "Goblin Bomber";
+				this.lifeMax = 50;
+				this.defense = 16;
+				this.damage = 26;
+				this.width = 18;
+				this.height = 40;
+				this.aiStyle = 107;
+				this.knockBackResist = 0.2f;
+				this.value = 0f;
+				this.npcSlots = 0f;
+				this.lavaImmune = true;
+				this.LazySetLiquidMovementDD2();
+			}
+			else if (this.type == 556)
+			{
+				this.name = "Goblin Bomber";
+				this.lifeMax = 200;
+				this.defense = 26;
+				this.damage = 55;
+				this.width = 18;
+				this.height = 40;
+				this.aiStyle = 107;
+				this.knockBackResist = 0.2f;
+				this.value = 0f;
+				this.npcSlots = 0f;
+				this.lavaImmune = true;
+				this.LazySetLiquidMovementDD2();
+			}
+			else if (this.type == 557)
+			{
+				this.name = "Goblin Bomber";
+				this.lifeMax = 700;
+				this.defense = 34;
+				this.damage = 75;
+				this.width = 18;
+				this.height = 40;
+				this.aiStyle = 107;
+				this.knockBackResist = 0.15f;
+				this.value = 0f;
+				this.npcSlots = 0f;
+				this.lavaImmune = true;
+				this.LazySetLiquidMovementDD2();
+			}
+			else if (this.type == 558)
+			{
+				this.name = "Wyvern";
+				this.width = 38;
+				this.height = 38;
+				this.aiStyle = 108;
+				this.damage = 30;
+				this.defense = 4;
+				this.lifeMax = 60;
+				this.noGravity = true;
+				this.noTileCollide = true;
+				this.knockBackResist = 0.2f;
+				this.npcSlots = 0f;
+				this.lavaImmune = true;
+				this.LazySetLiquidMovementDD2();
+			}
+			else if (this.type == 559)
+			{
+				this.name = "Wyvern";
+				this.width = 38;
+				this.height = 38;
+				this.aiStyle = 108;
+				this.damage = 75;
+				this.defense = 16;
+				this.lifeMax = 180;
+				this.noGravity = true;
+				this.noTileCollide = true;
+				this.knockBackResist = 0.2f;
+				this.npcSlots = 0f;
+				this.lavaImmune = true;
+				this.LazySetLiquidMovementDD2();
+			}
+			else if (this.type == 560)
+			{
+				this.name = "Wyvern";
+				this.width = 38;
+				this.height = 38;
+				this.aiStyle = 108;
+				this.damage = 100;
+				this.defense = 30;
+				this.lifeMax = 600;
+				this.noGravity = true;
+				this.noTileCollide = true;
+				this.knockBackResist = 0.05f;
+				this.npcSlots = 0f;
+				this.lavaImmune = true;
+				this.LazySetLiquidMovementDD2();
+			}
+			else if (this.type == 550)
+			{
+				this.townNPC = true;
+				this.friendly = true;
+				this.name = "Tavernkeep";
+				this.width = 18;
+				this.height = 40;
+				this.aiStyle = 7;
+				this.damage = 10;
+				this.defense = 15;
+				this.lifeMax = 250;
+				this.knockBackResist = 0.5f;
+			}
+			else if (this.type == 576)
+			{
+				this.name = "Ogre";
+				this.lifeMax = 5000;
+				this.defense = 34;
+				this.damage = 70;
+				this.width = 96;
+				this.height = 124;
+				this.aiStyle = 107;
+				this.knockBackResist = 0f;
+				this.value = 0f;
+				this.npcSlots = 0f;
+				this.lavaImmune = true;
+				this.LazySetLiquidMovementDD2();
+			}
+			else if (this.type == 577)
+			{
+				this.name = "Ogre";
+				this.lifeMax = 13000;
+				this.defense = 40;
+				this.damage = 90;
+				this.width = 96;
+				this.height = 124;
+				this.aiStyle = 107;
+				this.knockBackResist = 0f;
+				this.value = 0f;
+				this.npcSlots = 0f;
+				this.lavaImmune = true;
+				this.LazySetLiquidMovementDD2();
+			}
+			else if (this.type == 568)
+			{
+				this.name = "Wither Beast";
+				this.lifeMax = 500;
+				this.defense = 30;
+				this.damage = 50;
+				this.width = 18;
+				this.height = 40;
+				this.aiStyle = 107;
+				this.knockBackResist = 0.15f;
+				this.value = 0f;
+				this.npcSlots = 0f;
+				this.lavaImmune = true;
+				this.LazySetLiquidMovementDD2();
+			}
+			else if (this.type == 569)
+			{
+				this.name = "Wither Beast";
+				this.lifeMax = 1400;
+				this.defense = 40;
+				this.damage = 80;
+				this.width = 18;
+				this.height = 40;
+				this.aiStyle = 107;
+				this.knockBackResist = 0.05f;
+				this.value = 0f;
+				this.npcSlots = 0f;
+				this.lavaImmune = true;
+				this.LazySetLiquidMovementDD2();
+			}
+			else if (this.type == 566)
+			{
+				this.name = "Old One's Skeleton";
+				this.lifeMax = 25;
+				this.defense = 12;
+				this.damage = 18;
+				this.width = 18;
+				this.height = 40;
+				this.aiStyle = 107;
+				this.knockBackResist = 0.3f;
+				this.value = 0f;
+				this.npcSlots = 0f;
+				this.lavaImmune = true;
+				this.LazySetLiquidMovementDD2();
+			}
+			else if (this.type == 567)
+			{
+				this.name = "Old One's Skeleton";
+				this.lifeMax = 480;
+				this.defense = 22;
+				this.damage = 70;
+				this.width = 18;
+				this.height = 40;
+				this.aiStyle = 107;
+				this.knockBackResist = 0.2f;
+				this.value = 0f;
+				this.npcSlots = 0f;
+				this.lavaImmune = true;
+				this.LazySetLiquidMovementDD2();
+			}
+			else if (this.type == 572)
+			{
+				this.name = "Kobold";
+				this.lifeMax = 260;
+				this.defense = 26;
+				this.damage = 60;
+				this.width = 18;
+				this.height = 40;
+				this.aiStyle = 107;
+				this.knockBackResist = 0.2f;
+				this.value = 0f;
+				this.npcSlots = 0f;
+				this.lavaImmune = true;
+				this.LazySetLiquidMovementDD2();
+			}
+			else if (this.type == 573)
+			{
+				this.name = "Kobold";
+				this.lifeMax = 800;
+				this.defense = 32;
+				this.damage = 80;
+				this.width = 18;
+				this.height = 40;
+				this.aiStyle = 107;
+				this.knockBackResist = 0.1f;
+				this.value = 0f;
+				this.npcSlots = 0f;
+				this.lavaImmune = true;
+				this.LazySetLiquidMovementDD2();
+			}
+			else if (this.type == 570)
+			{
+				this.name = "Drakin";
+				this.lifeMax = 900;
+				this.defense = 30;
+				this.damage = 60;
+				this.width = 42;
+				this.height = 58;
+				this.aiStyle = 107;
+				this.knockBackResist = 0f;
+				this.value = 0f;
+				this.npcSlots = 0f;
+				this.lavaImmune = true;
+				this.LazySetLiquidMovementDD2();
+			}
+			else if (this.type == 571)
+			{
+				this.name = "Drakin";
+				this.lifeMax = 3000;
+				this.defense = 40;
+				this.damage = 90;
+				this.width = 42;
+				this.height = 58;
+				this.aiStyle = 107;
+				this.knockBackResist = 0f;
+				this.value = 0f;
+				this.npcSlots = 0f;
+				this.lavaImmune = true;
+				this.LazySetLiquidMovementDD2();
+			}
+			else if (this.type == 564)
+			{
+				this.name = "Dark Mage";
+				this.lifeMax = 800;
+				this.defense = 18;
+				this.damage = 40;
+				this.width = 34;
+				this.height = 62;
+				this.aiStyle = 109;
+				this.knockBackResist = 0f;
+				this.value = 0f;
+				this.npcSlots = 0f;
+				this.noGravity = true;
+				this.lavaImmune = true;
+				this.LazySetLiquidMovementDD2();
+			}
+			else if (this.type == 565)
+			{
+				this.name = "Dark Mage";
+				this.lifeMax = 4000;
+				this.defense = 38;
+				this.damage = 90;
+				this.width = 34;
+				this.height = 62;
+				this.aiStyle = 109;
+				this.knockBackResist = 0f;
+				this.value = 0f;
+				this.npcSlots = 0f;
+				this.noGravity = true;
+				this.lavaImmune = true;
+				this.LazySetLiquidMovementDD2();
+			}
+			else if (this.type == 574)
+			{
+				this.name = "Kobold Glider";
+				this.width = 38;
+				this.height = 38;
+				this.aiStyle = 108;
+				this.damage = 50;
+				this.defense = 16;
+				this.lifeMax = 170;
+				this.noGravity = true;
+				this.noTileCollide = true;
+				this.knockBackResist = 0.4f;
+				this.npcSlots = 0f;
+				this.lavaImmune = true;
+				this.LazySetLiquidMovementDD2();
+			}
+			else if (this.type == 575)
+			{
+				this.name = "Kobold Glider";
+				this.width = 38;
+				this.height = 38;
+				this.aiStyle = 108;
+				this.damage = 80;
+				this.defense = 32;
+				this.lifeMax = 580;
+				this.noGravity = true;
+				this.noTileCollide = true;
+				this.knockBackResist = 0.25f;
+				this.npcSlots = 0f;
+				this.lavaImmune = true;
+				this.LazySetLiquidMovementDD2();
+			}
+			else if (this.type == 551)
+			{
+				this.name = "Betsy";
+				this.damage = 80;
+				this.defense = 38;
+				this.lifeMax = 50000;
+				this.width = 190;
+				this.height = 90;
+				this.aiStyle = 110;
+				this.knockBackResist = 0f;
+				this.value = 0f;
+				this.noGravity = true;
+				this.noTileCollide = true;
+				this.npcSlots = 0f;
+				this.lavaImmune = true;
+				this.LazySetLiquidMovementDD2();
+			}
+			else if (this.type == 578)
+			{
+				this.name = "Lightning Bug";
+				this.width = 30;
+				this.height = 24;
+				this.aiStyle = 111;
+				this.damage = 80;
+				this.defense = 36;
+				this.lifeMax = 500;
+				this.noGravity = true;
+				this.noTileCollide = true;
+				this.knockBackResist = 0.8f;
+				this.npcSlots = 0f;
+				this.lavaImmune = true;
+				this.LazySetLiquidMovementDD2();
+			}
+			else if (this.type == 579)
+			{
+				this.friendly = true;
+				this.name = "Unconscious Man";
+				this.width = 34;
+				this.height = 8;
+				this.aiStyle = 0;
+				this.damage = 10;
+				this.defense = 15;
+				this.lifeMax = 250;
+				this.knockBackResist = 0.5f;
+				this.scale = 1f;
+				this.rarity = 1;
 			}
 			if (flag)
 			{
@@ -11991,6 +11492,11 @@ namespace Terraria
 				this.lifeMax = (int)((double)this.lifeMax * 0.75 * (double)num5);
 				this.damage = (int)((double)this.damage * 0.75);
 			}
+			if (this.type == 551)
+			{
+				this.lifeMax = (int)((double)this.lifeMax * 0.75 * (double)num5);
+				this.damage = (int)((double)this.damage * 0.65);
+			}
 			switch (this.type)
 			{
 			case 305:
@@ -12079,14 +11585,19 @@ namespace Terraria
 							this.Transform(369);
 							return;
 						}
+						if (this.type == 579)
+						{
+							this.Transform(550);
+							return;
+						}
 					}
 				}
-				if (this.type != 376)
+				if (this.type != 376 && this.type != 579)
 				{
 					this.TargetClosest(true);
 					this.spriteDirection = this.direction;
 				}
-				if (this.type == 376)
+				if (this.type == 376 || this.type == 579)
 				{
 					if (this.wet || Main.tile[(int)(base.Center.X / 16f), (int)(this.position.Y - 4f) / 16].liquid > 0)
 					{
@@ -12119,6 +11630,10 @@ namespace Terraria
 									flag = true;
 								}
 							}
+						}
+						if (this.type == 579)
+						{
+							flag = true;
 						}
 						if (flag)
 						{
@@ -15834,6 +15349,10 @@ namespace Terraria
 						{
 							num177 = 50;
 						}
+						if (this.type == 481)
+						{
+							num177 = 100;
+						}
 						if (this.type == 214)
 						{
 							num177 = 40;
@@ -15942,7 +15461,7 @@ namespace Terraria
 								}
 								if (this.type == 481)
 								{
-									num179 = 9f;
+									num179 = 8f;
 								}
 								if (this.type == 468)
 								{
@@ -16013,7 +15532,7 @@ namespace Terraria
 								}
 								if (this.type == 481)
 								{
-									num181 = Math.Abs(num180) * (float)Main.rand.Next(-10, 11) * 0.0025f;
+									num181 = Math.Abs(num180) * (float)Main.rand.Next(-10, 11) * 0.0035f;
 								}
 								if (this.type >= 498 && this.type <= 506)
 								{
@@ -16117,7 +15636,7 @@ namespace Terraria
 								if (this.type == 481)
 								{
 									num185 = 508;
-									num184 = 24;
+									num184 = 18;
 								}
 								if (this.type == 206)
 								{
@@ -19252,6 +18771,7 @@ namespace Terraria
 			}
 			else if (this.aiStyle == 7)
 			{
+				int maxValue3 = 300;
 				bool flag40 = Main.raining;
 				if (!Main.dayTime)
 				{
@@ -19367,7 +18887,7 @@ namespace Terraria
 					return;
 				}
 				int num75 = this.type;
-				if (num75 <= 124)
+				if (num75 <= 353)
 				{
 					switch (num75)
 					{
@@ -19378,32 +18898,39 @@ namespace Terraria
 							NPC.savedWizard = true;
 							break;
 						default:
-							if (num75 == 124)
+							if (num75 != 124)
+							{
+								if (num379 == 353)
+								{
+									NPC.savedStylist = true;
+								}
+							}
+							else
 							{
 								NPC.savedMech = true;
 							}
 							break;
 					}
 				}
-				else if (num75 != 353)
+				else if (num75 != 369)
 				{
-					if (num75 != 369)
+					if (num75 != 441)
 					{
-						if (num75 == 441)
+						if (num75 == 550)
 						{
-							NPC.savedTaxCollector = true;
+							NPC.savedBartender = true;
 						}
 					}
 					else
 					{
-						NPC.savedAngler = true;
+						NPC.savedTaxCollector = true;
 					}
 				}
 				else
 				{
-					NPC.savedStylist = true;
+					NPC.savedAngler = true;
 				}
-				if (this.type >= 0 && this.type < 547 && NPCID.Sets.TownCritter[this.type] && this.target == 255)
+				if (this.type >= 0 && this.type < Main.maxNPCTypes && NPCID.Sets.TownCritter[this.type] && this.target == 255)
 				{
 					this.TargetClosest(true);
 					if (this.position.X < Main.player[this.target].position.X)
@@ -20208,6 +19735,10 @@ namespace Terraria
 				}
 				else if (this.ai[0] == 6f || this.ai[0] == 7f)
 				{
+					if (this.ai[0] == 18f && (this.localAI[3] < 1f || this.localAI[3] > 2f))
+					{
+						this.localAI[3] = 2f;
+					}
 					this.velocity.X = this.velocity.X * 0.8f;
 					this.ai[1] -= 1f;
 					int num404 = (int)this.ai[2];
@@ -20241,7 +19772,7 @@ namespace Terraria
 					float scaleFactor7 = 0f;
 					int num408 = 0;
 					int num409 = 0;
-					int maxValue3 = 0;
+					int maxValue4 = 0;
 					float num410 = 0f;
 					float num411 = (float)NPCID.Sets.DangerDetectRange[this.type];
 					float num412 = 0f;
@@ -20260,6 +19791,17 @@ namespace Terraria
 						maxValue3 = 120;
 						num410 = 16f;
 						knockBack = 7f;
+					}
+					else if (this.type == 550)
+					{
+						num406 = 669;
+						scaleFactor7 = 6f;
+						num407 = 24;
+						num408 = 10;
+						num409 = 120;
+						maxValue3 = 60;
+						num410 = 16f;
+						knockBack = 9f;
 					}
 					else if (this.type == 208)
 					{
@@ -21115,6 +20657,25 @@ namespace Terraria
 							}
 						}
 					}
+					else if (flag58 && this.ai[0] == 0f && this.velocity.Y == 0f && Main.rand.Next(600) == 0 && this.type == 550)
+					{
+						int num464 = 300;
+						int num465 = 150;
+						for (int num466 = 0; num466 < 255; num466++)
+						{
+							Player player3 = Main.player[num466];
+							if (player3.active && !player3.dead && player3.Distance(base.Center) < (float)num465 && Collision.CanHitLine(base.Top, 0, 0, player3.Top, 0, 0))
+							{
+								int direction3 = (this.position.X < player3.position.X).ToDirectionInt();
+								this.ai[0] = 18f;
+								this.ai[1] = (float)num464;
+								this.ai[2] = (float)num466;
+								this.direction = direction3;
+								this.netUpdate = true;
+								break;
+							}
+						}
+					}
 					else if (flag58 && this.ai[0] == 0f && this.velocity.Y == 0f && Main.rand.Next(1800) == 0)
 					{
 						this.ai[0] = 2f;
@@ -21146,7 +20707,7 @@ namespace Terraria
 							}
 						}
 					}
-					else if (flag58 && this.ai[0] == 1f && this.velocity.Y == 0f && Main.rand.Next(300) == 0)
+					else if (flag58 && this.ai[0] == 1f && this.velocity.Y == 0f && Main.rand.Next(maxValue3) == 0)
 					{
 						Point b = base.Center.ToTileCoordinates();
 						bool flag62 = WorldGen.InWorld(b.X, b.Y, 1);
@@ -26717,7 +26278,6 @@ namespace Terraria
 						{
 							this.damage = (int)((double)this.defDamage * 1.5);
 							this.defense = this.defDefense + 10;
-							this.soundHit = 4;
 							if (this.ai[1] == 0f)
 							{
 								float num827 = 8f;
@@ -27233,7 +26793,6 @@ namespace Terraria
 						}
 						else
 						{
-							this.soundHit = 4;
 							this.damage = (int)((double)this.defDamage * 1.5);
 							this.defense = this.defDefense + 18;
 							if (this.ai[1] == 0f)
@@ -34478,6 +34037,35 @@ namespace Terraria
 												if (this.velocity.Y < 0f)
 												{
 													this.velocity.Y = this.velocity.Y * 0.9f;
+												}
+											}
+										}
+										if (this.localAI[1] > 0f)
+										{
+											this.localAI[1] -= 1f;
+										}
+										else
+										{
+											this.localAI[1] = 15f;
+											float num1403 = 0f;
+											Vector2 vector170 = Vector2.Zero;
+											for (int num1404 = 0; num1404 < 200; num1404++)
+											{
+												NPC nPC7 = Main.npc[num1404];
+												if (nPC7.active && nPC7.damage > 0 && !nPC7.friendly && nPC7.Hitbox.Distance(base.Center) <= 100f)
+												{
+													num1403 += 1f;
+													vector170 += base.DirectionFrom(nPC7.Center);
+												}
+											}
+											if (num1403 > 0f)
+											{
+												vector170 /= num1403;
+												vector170 *= 2f;
+												this.velocity += vector170;
+												if (this.velocity.Length() > 16f)
+												{
+													this.velocity = this.velocity.SafeNormalize(Vector2.Zero) * 16f;
 												}
 											}
 										}
@@ -42428,10 +42016,6 @@ namespace Terraria
 											}
 											else if (this.aiStyle == 92)
 											{
-												if (Main.rand.Next(20) == 0)
-												{
-													this.soundHit = Main.rand.Next(15, 18);
-												}
 												if (Main.netMode != 1)
 												{
 													bool flag181 = false;
@@ -44071,6 +43655,309 @@ namespace Terraria
 												if (this.rotation > 0.2f)
 												{
 													this.rotation = 0.2f;
+												}
+											}
+											else
+											{
+												if (this.aiStyle == 104)
+												{
+													this.active = false;
+													return;
+												}
+												if (this.aiStyle == 105)
+												{
+													if (this.ai[1] == 0f)
+													{
+														if (this.ai[0] > 0f)
+														{
+															this.ai[0] -= 1f;
+														}
+														if (this.ai[0] == 0f)
+														{
+															this.ai[0] = 30f;
+															Point p;
+															Point p2;
+															StrayMethods.CheckArenaScore(base.Center, out p, out p2, 5, 10);
+															if (this.localAI[0] == 0f)
+															{
+																this.localAI[0] = 1f;
+																p.X += 2;
+																p2.X -= 2;
+																int num2074 = NPC.NewNPC(p.X, p.Y, 549, 0, 0f, 0f, 0f, 0f, 255);
+																Main.npc[num2074].Bottom = p.ToWorldCoordinates(8f, 16f);
+																num2074 = NPC.NewNPC(p2.X, p2.Y, 549, 0, 0f, 0f, 0f, 0f, 255);
+																Main.npc[num2074].Bottom = p2.ToWorldCoordinates(8f, 16f);
+																if (Main.netMode != 1)
+																{
+																	DD2Event.FindArenaHitbox();
+																	return;
+																}
+															}
+														}
+													}
+													else if (this.ai[1] == 2f)
+													{
+														this.dontTakeDamageFromHostiles = true;
+														this.life = this.lifeMax;
+														if (this.ai[0] == 3f)
+														{
+															for (int num2075 = 0; num2075 < 200; num2075++)
+															{
+																NPC nPC21 = Main.npc[num2075];
+																if (nPC21.active && nPC21.type == 549)
+																{
+																	nPC21.ai[1] = 1f;
+																	nPC21.ai[0] = 0f;
+																	nPC21.netUpdate = true;
+																}
+															}
+															if (Main.netMode != 1)
+															{
+																Projectile.NewProjectile(base.Center - Vector2.UnitY * 40f, Vector2.Zero, 713, 0, 0f, Main.myPlayer, 0f, 0f);
+															}
+														}
+														this.ai[0] += 1f;
+														this.noGravity = true;
+														if (this.ai[0] <= 120f)
+														{
+															float num2076 = this.ai[0] / 120f;
+															this.velocity.Y = (float)Math.Cos((double)(num2076 * 6.28318548f)) * 0.25f - 0.25f;
+														}
+														else
+														{
+															this.velocity.Y = 0f;
+														}
+														float num2077 = Utils.InverseLerp(480f, 570f, this.ai[0], true);
+														if (num2077 != 0f)
+														{
+															MoonlordDeathDrama.RequestLight(num2077, base.Center);
+														}
+														if (this.ai[0] >= 600f)
+														{
+															DD2Event.StopInvasion(true);
+															this.dontTakeDamage = false;
+															this.life = 0;
+															this.checkDead();
+															this.netUpdate = true;
+														}
+														bool flag211 = true;
+														if (flag211)
+														{
+															Vector2 value104 = base.Center + new Vector2(0f, -20f);
+															float num2078 = 0.99f;
+															if (this.ai[0] >= 60f)
+															{
+																num2078 = 0.79f;
+															}
+															if (this.ai[0] >= 120f)
+															{
+																num2078 = 0.58f;
+															}
+															if (this.ai[0] >= 180f)
+															{
+																num2078 = 0.43f;
+															}
+															if (this.ai[0] >= 240f)
+															{
+																num2078 = 0.33f;
+															}
+															if (this.ai[0] >= 540f)
+															{
+																num2078 = 1f;
+															}
+														}
+														if (this.ai[0] == 100f || this.ai[0] == 160f || this.ai[0] == 220f || this.ai[0] == 280f || this.ai[0] == 340f || this.ai[0] == 370f || this.ai[0] == 400f || this.ai[0] == 430f || this.ai[0] == 460f || this.ai[0] == 500f || this.ai[0] == 520f || this.ai[0] == 540f)
+														{
+															Main.rand.NextFloat();
+															float num2082 = 120f;
+															int num2083 = 0;
+															while ((float)num2083 < num2082)
+															{
+																float num2084 = (float)num2083 / num2082 * 6.28318548f;
+																float num2085 = Main.rand.NextFloat();
+																Vector2 position11 = base.Center + new Vector2(0f, -20f) + num2084.ToRotationVector2() * (810f - this.ai[0]);
+																Vector2 vector296 = (num2084 - 3.14159274f).ToRotationVector2() * (14f + 5f * (this.ai[0] / 600f) + 8f * num2085);
+																num2083++;
+															}
+															return;
+														}
+													}
+													else if (this.ai[1] == 1f)
+													{
+														this.dontTakeDamageFromHostiles = true;
+														this.life = this.lifeMax;
+														if (this.ai[0] == 0f)
+														{
+															for (int num2086 = 0; num2086 < 200; num2086++)
+															{
+																NPC nPC22 = Main.npc[num2086];
+																if (nPC22.active && nPC22.type == 549)
+																{
+																	nPC22.ai[1] = 1f;
+																	nPC22.ai[0] = 0f;
+																	nPC22.netUpdate = true;
+																}
+															}
+															if (Main.netMode != 1)
+															{
+																DD2Event.ReportLoss();
+																Projectile.NewProjectile(base.Center - Vector2.UnitY * 40f, Vector2.Zero, 672, 0, 0f, Main.myPlayer, 0f, 0f);
+															}
+														}
+														this.ai[0] += 1f;
+														float num2087 = Utils.InverseLerp(480f, 600f, this.ai[0], true);
+														if (num2087 != 0f)
+														{
+															MoonlordDeathDrama.RequestLight(num2087, base.Center);
+														}
+														float num2088 = 96f;
+														if (this.ai[0] < num2088)
+														{
+															this.velocity.Y = MathHelper.Lerp(0f, -1f, this.ai[0] / num2088);
+														}
+														if (this.ai[0] >= num2088)
+														{
+															this.alpha += 50;
+															if (this.alpha > 255)
+															{
+																this.alpha = 255;
+															}
+														}
+														bool flag212 = true;
+														if (flag212)
+														{
+															Vector2 value105 = base.Center + new Vector2(0f, MathHelper.Lerp(0f, -70f, Utils.InverseLerp(0f, 300f, this.ai[0], true)));
+															float num2089 = 0.99f;
+															if (this.ai[0] >= 60f)
+															{
+																num2089 = 0.79f;
+															}
+															if (this.ai[0] >= 120f)
+															{
+																num2089 = 0.58f;
+															}
+															if (this.ai[0] >= 180f)
+															{
+																num2089 = 0.23f;
+															}
+															if (this.ai[0] >= 240f)
+															{
+																num2089 = 0.35f;
+															}
+															if (this.ai[0] >= 300f)
+															{
+																num2089 = 0.6f;
+															}
+															if (this.ai[0] >= 360f)
+															{
+																num2089 = 0.98f;
+															}
+															if (this.ai[0] >= 420f)
+															{
+																num2089 = 0.995f;
+															}
+															if (this.ai[0] >= 450f)
+															{
+																num2089 = 1f;
+															}
+														}
+														if (this.ai[0] >= 600f)
+														{
+															DD2Event.StopInvasion(false);
+															this.dontTakeDamage = false;
+															this.life = 0;
+															this.checkDead();
+															this.netUpdate = true;
+															return;
+														}
+													}
+												}
+												else if (this.aiStyle == 106)
+												{
+													if (this.ai[1] == 0f)
+													{
+														if (this.localAI[0] == 0f)
+														{
+															this.localAI[3] = SlotId.Invalid.ToFloat();
+														}
+														if (!DD2Event.EnemySpawningIsOnHold)
+														{
+															this.ai[0] += 1f;
+														}
+														if (this.ai[0] >= (float)DD2Event.LaneSpawnRate)
+														{
+															if (this.ai[0] >= (float)(DD2Event.LaneSpawnRate * 3))
+															{
+																this.ai[0] = 0f;
+															}
+															this.netUpdate = true;
+															if (Main.netMode != 1 && (int)this.ai[0] % DD2Event.LaneSpawnRate == 0)
+															{
+																DD2Event.SpawnMonsterFromGate(base.Bottom);
+																if (DD2Event.EnemySpawningIsOnHold)
+																{
+																	this.ai[0] += 1f;
+																}
+															}
+														}
+														this.localAI[0] += 1f;
+														if (this.localAI[0] > 180f)
+														{
+															this.localAI[0] = 180f;
+														}
+														if (Main.netMode != 1 && this.localAI[0] >= 180f)
+														{
+															bool flag213 = NPC.AnyNPCs(548);
+															if (flag213)
+															{
+																this.dontTakeDamage = true;
+																return;
+															}
+															this.ai[1] = 1f;
+															this.ai[0] = 0f;
+															this.dontTakeDamage = true;
+															return;
+														}
+													}
+													else if (this.ai[1] == 1f)
+													{
+														this.ai[0] += 1f;
+														this.scale = MathHelper.Lerp(1f, 0.05f, Utils.InverseLerp(500f, 600f, this.ai[0], true));
+														if (this.ai[0] >= 550f)
+														{
+															this.dontTakeDamage = false;
+															this.life = 0;
+															this.checkDead();
+															this.netUpdate = true;
+														}
+													}
+												}
+												else
+												{
+													if (this.aiStyle == 107)
+													{
+														this.AI_107_ImprovedWalkers();
+														return;
+													}
+													if (this.aiStyle == 108)
+													{
+														this.AI_108_DivingFlyer();
+														return;
+													}
+													if (this.aiStyle == 109)
+													{
+														this.AI_109_DarkMage();
+														return;
+													}
+													if (this.aiStyle == 110)
+													{
+														this.AI_110_Betsy();
+														return;
+													}
+													if (this.aiStyle == 111)
+													{
+														this.AI_111_DD2LightningBug();
+													}
 												}
 											}
 										}
@@ -58750,7 +58637,6 @@ namespace Terraria
 						{
 							this.damage = (int)((double)this.defDamage * 1.5);
 							this.defense = this.defDefense + 10;
-							this.soundHit = 4;
 							if (this.ai[1] == 0f)
 							{
 								float num823 = 8f;
@@ -59266,7 +59152,6 @@ namespace Terraria
 						}
 						else
 						{
-							this.soundHit = 4;
 							this.damage = (int)((double)this.defDamage * 1.5);
 							this.defense = this.defDefense + 18;
 							if (this.ai[1] == 0f)
@@ -74399,10 +74284,6 @@ namespace Terraria
 											}
 											else if (this.aiStyle == 92)
 											{
-												if (Main.rand.Next(20) == 0)
-												{
-													this.soundHit = Main.rand.Next(15, 18);
-												}
 												if (Main.netMode != 1)
 												{
 													bool flag176 = false;
@@ -84432,8 +84313,8 @@ namespace Terraria
 						2000,
 						0
 					};
-					int num4 = array[NPC.waveCount];
-					switch (NPC.waveCount)
+					int num4 = array[NPC.waveNumber];
+					switch (NPC.waveNumber)
 					{
 					case 1:
 						text = "Wave 2: Zombie Elf and Elf Archer";
@@ -84539,8 +84420,8 @@ namespace Terraria
 					if (NPC.waveKills >= (float)num4 && num4 != 0)
 					{
 						NPC.waveKills = 0f;
-						NPC.waveCount++;
-						num4 = array[NPC.waveCount];
+						NPC.waveNumber++;
+						num4 = array[NPC.waveNumber];
 						if (text != "")
 						{
 							if (Main.netMode == 0)
@@ -84551,7 +84432,7 @@ namespace Terraria
 							{
 								NetMessage.SendData(25, -1, -1, text, 255, 175f, 75f, 255f, 0, 0, 0);
 							}
-							if (NPC.waveCount == 15)
+							if (NPC.waveNumber == 15)
 							{
 								AchievementsHelper.NotifyProgressionEvent(14);
 							}
@@ -84561,11 +84442,11 @@ namespace Terraria
 					{
 						if (Main.netMode != 1)
 						{
-							Main.ReportInvasionProgress((int)NPC.waveKills, num4, 1, NPC.waveCount);
+							Main.ReportInvasionProgress((int)NPC.waveKills, num4, 1, NPC.waveNumber);
 						}
 						if (Main.netMode == 2)
 						{
-							NetMessage.SendData(78, -1, -1, "", Main.invasionProgress, (float)Main.invasionProgressMax, 1f, (float)NPC.waveCount, 0, 0, 0);
+							NetMessage.SendData(78, -1, -1, "", Main.invasionProgress, (float)Main.invasionProgressMax, 1f, (float)NPC.waveNumber, 0, 0, 0);
 						}
 					}
 				}
@@ -84591,8 +84472,8 @@ namespace Terraria
 						675,
 						0
 					};
-					int num7 = array2[NPC.waveCount];
-					switch (NPC.waveCount)
+					int num7 = array2[NPC.waveNumber];
+					switch (NPC.waveNumber)
 					{
 					case 1:
 						text2 = "Wave 2: " + Main.npcName[305] + " and " + Main.npcName[326];
@@ -84814,8 +84695,8 @@ namespace Terraria
 					if (NPC.waveKills >= (float)num7 && num7 != 0)
 					{
 						NPC.waveKills = 0f;
-						NPC.waveCount++;
-						num7 = array2[NPC.waveCount];
+						NPC.waveNumber++;
+						num7 = array2[NPC.waveNumber];
 						if (text2 != "")
 						{
 							if (Main.netMode == 0)
@@ -84826,7 +84707,7 @@ namespace Terraria
 							{
 								NetMessage.SendData(25, -1, -1, text2, 255, 175f, 75f, 255f, 0, 0, 0);
 							}
-							if (NPC.waveCount == 15)
+							if (NPC.waveNumber == 15)
 							{
 								AchievementsHelper.NotifyProgressionEvent(15);
 							}
@@ -84836,11 +84717,11 @@ namespace Terraria
 					{
 						if (Main.netMode != 1)
 						{
-							Main.ReportInvasionProgress((int)NPC.waveKills, num7, 2, NPC.waveCount);
+							Main.ReportInvasionProgress((int)NPC.waveKills, num7, 2, NPC.waveNumber);
 						}
 						if (Main.netMode == 2)
 						{
-							NetMessage.SendData(78, -1, -1, "", Main.invasionProgress, (float)Main.invasionProgressMax, 2f, (float)NPC.waveCount, 0, 0, 0);
+							NetMessage.SendData(78, -1, -1, "", Main.invasionProgress, (float)Main.invasionProgressMax, 2f, (float)NPC.waveNumber, 0, 0, 0);
 						}
 					}
 				}
@@ -85064,7 +84945,7 @@ namespace Terraria
 					{
 						NetMessage.SendData(83, -1, -1, "", num3, 0f, 0f, 0f, 0, 0, 0);
 					}
-					int num4 = 50;
+					int num4 = ItemID.Sets.KillsToBanner[Item.BannerToItem(num)];
 					if (NPC.killCount[num3] % num4 == 0 && num3 > 0)
 					{
 						int l = Item.BannerToNPC(num3);
@@ -85075,34 +84956,12 @@ namespace Terraria
 						{
 							num5 = this.FindClosestPlayer();
 						}
-						string text = string.Concat(new object[]
-						{
-							"The ",
-							NPC.killCount[num3],
-							"th ",
-							Lang.npcName(l, false),
-							" has been defeated!"
-						});
+						string textValue = Language.GetTextValue("Game.EnemiesDefeatedAnnouncement", NPC.killCount[num3], Lang.npcName(l, false));
 						if (num5 >= 0 && num5 < 255)
 						{
-							text = string.Concat(new object[]
-							{
-								Main.player[num5].name,
-								" has defeated the ",
-								NPC.killCount[num3],
-								"th ",
-								Lang.npcName(l, false),
-								"!"
-							});
+							textValue = Language.GetTextValue("Game.EnemiesDefeatedByAnnouncement", Main.player[num5].name, NPC.killCount[num3], Lang.npcName(l, false));
 						}
-						if (Main.netMode == 0)
-						{
-							Main.NewText(text, 250, 250, 0, false);
-						}
-						else if (Main.netMode == 2)
-						{
-							NetMessage.SendData(25, -1, -1, text, 255, 250f, 250f, 0f, 0, 0, 0);
-						}
+						NetMessage.SendData(25, -1, -1, textValue, 255, 250f, 250f, 0f, 0, 0, 0);
 						int num6 = 1615 + num3 - 1;
 						if (num3 >= 252)
 						{
@@ -85124,6 +84983,7 @@ namespace Terraria
 						{
 							num6 = 2897 + num3 - 88;
 						}
+						int num7 = Item.BannerToItem(num3);
 						Vector2 position = this.position;
 						if (num5 >= 0 && num5 < 255)
 						{
@@ -85315,6 +85175,10 @@ namespace Terraria
 			{
 				DropLoot(this.position, this.width, this.height, 3350, 1, false, 0, false, false);
 			}
+			if (this.type == 550 && Main.rand.Next(6) == 0)
+			{
+				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3821, 1, false, 0, false, false);
+			}
 			if (this.type == 208 && Main.rand.Next(4) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 3548, Main.rand.Next(30, 61), false, 0, false, false);
@@ -85372,13 +85236,189 @@ namespace Terraria
 					DropLoot(this.position, this.width, this.height, 1537, 1, false, 0, false, false);
 				}
 			}
+			if (DD2Event.Ongoing)
+			{
+				switch (this.type)
+				{
+					case 552:
+					case 553:
+					case 554:
+						DD2Event.AnnounceGoblinDeath(this);
+						if (DD2Event.ShouldDropCrystals())
+						{
+							Item.NewItem(this.position, base.Size, 3822, 1, false, 0, false, false);
+						}
+						break;
+					case 555:
+					case 556:
+					case 557:
+					case 561:
+					case 562:
+					case 563:
+					case 570:
+					case 571:
+					case 572:
+					case 573:
+						if (DD2Event.ShouldDropCrystals())
+						{
+							Item.NewItem(this.position, base.Size, 3822, 1, false, 0, false, false);
+						}
+						break;
+					case 558:
+					case 559:
+					case 560:
+					case 568:
+					case 569:
+						if (DD2Event.ShouldDropCrystals())
+						{
+							Item.NewItem(this.position, base.Size, 3822, 1, false, 0, false, false);
+						}
+						break;
+					case 564:
+						if (Main.rand.Next(7) == 0)
+						{
+							Item.NewItem(this.position, base.Size, 3864, 1, false, 0, false, false);
+						}
+						if (Main.rand.Next(5) == 0)
+						{
+							if (Main.rand.Next(2) == 0)
+							{
+								Item.NewItem(this.position, base.Size, 3815, 4, false, 0, false, false);
+							}
+							else
+							{
+								Item.NewItem(this.position, base.Size, 3814, 1, false, 0, false, false);
+							}
+						}
+						if (Main.rand.Next(Main.expertMode ? 2 : 3) == 0)
+						{
+							Item.NewItem(this.position, base.Size, (int)Utils.SelectRandom<short>(Main.rand, new short[]
+							{
+							3857,
+							3855
+							}), 1, false, 0, false, false);
+						}
+						if (DD2Event.ShouldDropCrystals())
+						{
+							Item.NewItem(this.position, base.Size, 3822, 1, false, 0, false, false);
+						}
+						break;
+					case 565:
+						if (Main.rand.Next(14) == 0)
+						{
+							Item.NewItem(this.position, base.Size, 3864, 1, false, 0, false, false);
+						}
+						if (Main.rand.Next(10) == 0)
+						{
+							if (Main.rand.Next(2) == 0)
+							{
+								Item.NewItem(this.position, base.Size, 3815, 4, false, 0, false, false);
+							}
+							else
+							{
+								Item.NewItem(this.position, base.Size, 3814, 1, false, 0, false, false);
+							}
+						}
+						if (Main.rand.Next(6) == 0)
+						{
+							Item.NewItem(this.position, base.Size, (int)Utils.SelectRandom<short>(Main.rand, new short[]
+							{
+							3857,
+							3855
+							}), 1, false, 0, false, false);
+						}
+						if (DD2Event.ShouldDropCrystals())
+						{
+							Item.NewItem(this.position, base.Size, 3822, 1, false, 0, false, false);
+						}
+						break;
+					case 574:
+					case 575:
+					case 578:
+						if (DD2Event.ShouldDropCrystals())
+						{
+							Item.NewItem(this.position, base.Size, 3822, 1, false, 0, false, false);
+						}
+						break;
+					case 576:
+						if (Main.rand.Next(7) == 0)
+						{
+							Item.NewItem(this.position, base.Size, 3865, 1, false, 0, false, false);
+						}
+						if (Main.rand.Next(Main.expertMode ? 2 : 3) == 0)
+						{
+							Item.NewItem(this.position, base.Size, (int)Utils.SelectRandom<short>(Main.rand, new short[]
+							{
+							3809,
+							3811,
+							3810,
+							3812
+							}), 1, false, 0, false, false);
+						}
+						if (Main.rand.Next(Main.expertMode ? 2 : 3) == 0)
+						{
+							Item.NewItem(this.position, base.Size, (int)Utils.SelectRandom<short>(Main.rand, new short[]
+							{
+							3852,
+							3854,
+							3823,
+							3835,
+							3836
+							}), 1, false, 0, false, false);
+						}
+						if (Main.rand.Next(Main.expertMode ? 4 : 5) == 0)
+						{
+							Item.NewItem(this.position, base.Size, 3856, 1, false, 0, false, false);
+						}
+						if (DD2Event.ShouldDropCrystals())
+						{
+							Item.NewItem(this.position, base.Size, 3822, 1, false, 0, false, false);
+						}
+						break;
+					case 577:
+						if (Main.rand.Next(14) == 0)
+						{
+							Item.NewItem(this.position, base.Size, 3865, 1, false, 0, false, false);
+						}
+						if (Main.rand.Next(6) == 0)
+						{
+							Item.NewItem(this.position, base.Size, (int)Utils.SelectRandom<short>(Main.rand, new short[]
+							{
+							3809,
+							3811,
+							3810,
+							3812
+							}), 1, false, 0, false, false);
+						}
+						if (Main.rand.Next(6) == 0)
+						{
+							Item.NewItem(this.position, base.Size, (int)Utils.SelectRandom<short>(Main.rand, new short[]
+							{
+							3852,
+							3854,
+							3823,
+							3835,
+							3836
+							}), 1, false, 0, false, false);
+						}
+						if (Main.rand.Next(10) == 0)
+						{
+							Item.NewItem(this.position, base.Size, 3856, 1, false, 0, false, false);
+						}
+						if (DD2Event.ShouldDropCrystals())
+						{
+							Item.NewItem(this.position, base.Size, 3822, 1, false, 0, false, false);
+						}
+						break;
+				}
+			}
 			if (this.type == 68)
 			{
 				DropLoot(this.position, this.width, this.height, 1169, 1, false, 0, false, false);
 			}
 			if (Main.snowMoon)
 			{
-				int num10 = NPC.waveCount;
+				int num10 = NPC.waveNumber;
 				if (Main.expertMode)
 				{
 					num10 += 7;
@@ -85486,7 +85526,7 @@ namespace Terraria
 					}
 					if (this.type == 345)
 					{
-						if (NPC.waveCount >= 15 && Main.rand.Next(30) == 0)
+						if (NPC.waveNumber >= 15 && Main.rand.Next(30) == 0)
 						{
 							DropLoot(this.position, this.width, this.height, 1914, 1, false, 0, false, false);
 						}
@@ -85547,7 +85587,7 @@ namespace Terraria
 				{
 					NPC.downedHalloweenKing = true;
 				}
-				int num17 = NPC.waveCount;
+				int num17 = NPC.waveNumber;
 				if (Main.expertMode)
 				{
 					num17 += 6;
@@ -85732,15 +85772,15 @@ namespace Terraria
 			{
 				DropLoot(this.position, this.width, this.height, 3086, Main.rand.Next(5, 11), false, -1, false, false);
 			}
-			if (!Main.hardMode && Main.rand.Next(100) == 0 && this.target >= 0 && this.lifeMax > 5 && !this.friendly && Main.rand.Next(4) == 0 && this.position.Y / 16f > (float)(Main.maxTilesY - 350) && NPC.downedBoss3)
+			if (!Main.hardMode && Main.rand.Next(100) == 0 && this.HasPlayerTarget && this.lifeMax > 5 && !this.friendly && Main.rand.Next(4) == 0 && this.position.Y / 16f > (float)(Main.maxTilesY - 350) && NPC.downedBoss3)
 			{
 				DropLoot(this.position, this.width, this.height, 3282, 1, false, -1, false, false);
 			}
-			if (Main.hardMode && Main.player[this.target].ZoneSnow && Main.rand.Next(80) == 0 && this.target >= 0 && this.lifeMax > 5 && !this.friendly && this.value > 0f)
+			if (Main.hardMode && Main.player[this.target].ZoneSnow && Main.rand.Next(80) == 0 && this.HasPlayerTarget && this.lifeMax > 5 && !this.friendly && this.value > 0f)
 			{
 				DropLoot(this.position, this.width, this.height, 3289, 1, false, -1, false, false);
 			}
-			else if (Main.hardMode && Main.rand.Next(200) == 0 && this.target >= 0 && this.lifeMax > 5 && !this.friendly && this.value > 0f)
+			else if (Main.hardMode && Main.rand.Next(200) == 0 && this.HasPlayerTarget && this.lifeMax > 5 && !this.friendly && this.value > 0f)
 			{
 				if (Main.player[this.target].ZoneJungle && NPC.downedMechBossAny)
 				{
@@ -86104,7 +86144,7 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.lifeMax > 100 && this.type != 288 && this.value > 0f && this.target >= 0 && Main.hardMode && NPC.downedPlantBoss && Main.player[this.target].ZoneDungeon)
+			if (this.lifeMax > 100 && this.type != 288 && this.value > 0f && this.HasPlayerTarget && Main.hardMode && NPC.downedPlantBoss && Main.player[this.target].ZoneDungeon)
 			{
 				int maxValue2 = 13;
 				if (Main.expertMode)
@@ -87229,6 +87269,41 @@ namespace Terraria
 					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3770, 1, false, 0, false, false);
 				}
 			}
+			if (this.type == 551)
+			{
+				if (Main.expertMode)
+				{
+					this.DropBossBags();
+				}
+				else
+				{
+					int num42 = Main.rand.Next(4);
+					if (num42 == 0)
+					{
+						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3859, 1, false, -1, false, false);
+					}
+					else if (num42 == 1)
+					{
+						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3827, 1, false, -1, false, false);
+					}
+					else if (num42 == 2)
+					{
+						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3870, 1, false, -1, false, false);
+					}
+					else
+					{
+						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3858, 1, false, -1, false, false);
+					}
+					if (Main.rand.Next(7) == 0)
+					{
+						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3863, 1, false, -1, false, false);
+					}
+					if (Main.rand.Next(4) == 0)
+					{
+						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3883, 1, false, -1, false, false);
+					}
+				}
+			}
 			if (this.type == 4)
 			{
 				if (Main.expertMode)
@@ -87609,7 +87684,7 @@ namespace Terraria
 							Main.tile[num54, num55].liquid = 0;
 							if (Main.netMode == 2)
 							{
-								NetMessage.SendTileSquare(-1, num54, num55, 1);
+								NetMessage.SendTileSquare(-1, num54, num55, 1, TileChangeType.None);
 							}
 							else
 							{
@@ -88254,7 +88329,7 @@ namespace Terraria
 					}
 				}
 			}
-			if ((this.boss || this.type == 125 || this.type == 126 || this.type == 491) && Main.rand.Next(10) == 0)
+			if ((this.boss || this.type == 125 || this.type == 126 || this.type == 491 || this.type == 551 || this.type == 576 || this.type == 577 || this.type == 564 || this.type == 565) && Main.rand.Next(10) == 0)
 			{
 				if (this.type == 4)
 				{
@@ -88328,6 +88403,18 @@ namespace Terraria
 				{
 					DropLoot(this.position, this.width, this.height, 3595, 1, false, 0, false, false);
 				}
+				if (this.type == 551)
+				{
+					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3866, 1, false, 0, false, false);
+				}
+				if (this.type == 564 || this.type == 565)
+				{
+					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3867, 1, false, 0, false, false);
+				}
+				if (this.type == 576 || this.type == 577)
+				{
+					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3868, 1, false, 0, false, false);
+				}
 			}
 			if (this.boss)
 			{
@@ -88338,17 +88425,14 @@ namespace Terraria
 				else if (this.type == 13 || this.type == 14 || this.type == 15)
 				{
 					NPC.downedBoss2 = true;
-					this.name = "Eater of Worlds";
 				}
 				else if (this.type == 266)
 				{
 					NPC.downedBoss2 = true;
-					this.name = "Brain of Cthulu";
 				}
 				else if (this.type == 35)
 				{
 					NPC.downedBoss3 = true;
-					this.name = "Skeletron";
 				}
 				else
 				{
@@ -88415,22 +88499,22 @@ namespace Terraria
 					NPC.downedMechBossAny = true;
 					if (Main.netMode == 0)
 					{
-						Main.NewText("The Twins " + Lang.misc[50], 175, 75, 255, false);
+						Main.NewText(Language.GetTextValue("Enemies.TheTwins") + " " + Lang.misc[50], 175, 75, 255, false);
 					}
 					else if (Main.netMode == 2)
 					{
-						NetMessage.SendData(25, -1, -1, "The Twins " + Lang.misc[50], 255, 175f, 75f, 255f, 0, 0, 0);
+						NetMessage.SendData(25, -1, -1, Language.GetTextValue("Enemies.TheTwins") + " " + Lang.misc[50], 255, 175f, 75f, 255f, 0, 0, 0);
 					}
 				}
 				else if (this.type == 398)
 				{
 					if (Main.netMode == 0)
 					{
-						Main.NewText("Moon Lord " + Lang.misc[17], 175, 75, 255, false);
+						Main.NewText(Language.GetTextValue("Enemies.MoonLord") + " " + Lang.misc[17], 175, 75, 255, false);
 					}
 					else if (Main.netMode == 2)
 					{
-						NetMessage.SendData(25, -1, -1, "Moon Lord " + Lang.misc[17], 255, 175f, 75f, 255f, 0, 0, 0);
+						NetMessage.SendData(25, -1, -1, Language.GetTextValue("Enemies.MoonLord") + " " + Lang.misc[17], 255, 175f, 75f, 255f, 0, 0, 0);
 					}
 				}
 				else if (Main.netMode == 0)
@@ -89229,6 +89313,11 @@ namespace Terraria
 						NPC.maxSpawns = (int)((double)NPC.defaultMaxSpawns * (2.0 + 0.3 * (double)num4));
 						NPC.spawnRate = 20;
 					}
+					if (DD2Event.Ongoing && Main.player[j].ZoneOldOneArmy)
+					{
+						NPC.maxSpawns = NPC.defaultMaxSpawns;
+						NPC.spawnRate = NPC.defaultSpawnRate;
+					}
 					if (flag4)
 					{
 						NPC.maxSpawns = (int)((double)NPC.defaultMaxSpawns * (2.0 + 0.3 * (double)num4));
@@ -89238,7 +89327,7 @@ namespace Terraria
 					{
 						NPC.spawnRate = 10;
 					}
-					if (!flag4 && ((!Main.bloodMoon && !Main.pumpkinMoon && !Main.snowMoon) || Main.dayTime) && (!Main.eclipse || !Main.dayTime) && !Main.player[j].ZoneDungeon && !Main.player[j].ZoneCorrupt && !Main.player[j].ZoneCrimson && !Main.player[j].ZoneMeteor)
+					if (!flag4 && ((!Main.bloodMoon && !Main.pumpkinMoon && !Main.snowMoon) || Main.dayTime) && (!Main.eclipse || !Main.dayTime) && !Main.player[j].ZoneDungeon && !Main.player[j].ZoneCorrupt && !Main.player[j].ZoneCrimson && !Main.player[j].ZoneMeteor && !Main.player[j].ZoneOldOneArmy)
 					{
 						if (Main.player[j].Center.Y / 16f > (float)(Main.maxTilesY - 200))
 						{
@@ -90017,6 +90106,10 @@ namespace Terraria
 								}
 							}
 						}
+						else if (!NPC.savedBartender && DD2Event.ReadyToFindBartender && !NPC.AnyNPCs(579) && Main.rand.Next(80) == 0 && !flag5)
+						{
+							NPC.NewNPC(num * 16 + 8, num2 * 16, 579, 0, 0f, 0f, 0f, 0f, 255);
+						}
 						else if (Main.tile[num, num2].wall == 62 || flag9)
 						{
 							if (Main.tile[num, num2].wall == 62 && Main.rand.Next(8) == 0 && !flag5 && (double)num2 >= Main.rockLayer && num2 < Main.maxTilesY - 210 && !NPC.savedStylist && !NPC.AnyNPCs(354))
@@ -90034,11 +90127,11 @@ namespace Terraria
 						}
 						else if ((WallID.Sets.Conversion.HardenedSand[(int)Main.tile[num, num2].wall] || WallID.Sets.Conversion.Sandstone[(int)Main.tile[num, num2].wall] || flag11) && WorldGen.checkUnderground(num, num2))
 						{
-							if (Main.hardMode && Main.rand.Next(33) == 0 && !flag3)
+							if (Main.hardMode && Main.rand.Next(33) == 0 && !flag3 && (double)num2 > Main.worldSurface + 100.0)
 							{
 								NPC.NewNPC(num * 16 + 8, num2 * 16, 510, 0, 0f, 0f, 0f, 0f, 255);
 							}
-							else if (Main.rand.Next(22) == 0 && !flag3)
+							else if (Main.rand.Next(22) == 0 && !flag3 && (double)num2 > Main.worldSurface + 100.0)
 							{
 								NPC.NewNPC(num * 16 + 8, num2 * 16, 513, 0, 0f, 0f, 0f, 0f, 255);
 							}
@@ -90564,13 +90657,18 @@ namespace Terraria
 						{
 							num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 23, 0, 0f, 0f, 0f, 0f, 255);
 						}
+						else if (DD2Event.Ongoing && Main.player[j].ZoneOldOneArmy)
+						{
+							DD2Event.SpawnNPC(ref num46);
+						}
 						else if ((double)num2 <= Main.worldSurface && !Main.dayTime && Main.snowMoon)
 						{
+							int num47 = NPC.waveNumber;
 							if (Main.rand.Next(30) == 0 && NPC.CountNPCS(341) < 4)
 							{
 								num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 341, 0, 0f, 0f, 0f, 0f, 255);
 							}
-							else if (NPC.waveCount >= 20)
+							else if (num47 >= 20)
 							{
 								int num71 = Main.rand.Next(3);
 								if (num71 == 0)
@@ -90586,7 +90684,7 @@ namespace Terraria
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 344, 0, 0f, 0f, 0f, 0f, 255);
 								}
 							}
-							else if (NPC.waveCount >= 19)
+							else if (num47 >= 19)
 							{
 								if (Main.rand.Next(10) == 0 && NPC.CountNPCS(345) < 4)
 								{
@@ -90605,7 +90703,7 @@ namespace Terraria
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 343, 0, 0f, 0f, 0f, 0f, 255);
 								}
 							}
-							else if (NPC.waveCount >= 18)
+							else if (num47 >= 18)
 							{
 								if (Main.rand.Next(10) == 0 && NPC.CountNPCS(345) < 3)
 								{
@@ -90632,7 +90730,7 @@ namespace Terraria
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 343, 0, 0f, 0f, 0f, 0f, 255);
 								}
 							}
-							else if (NPC.waveCount >= 17)
+							else if (num47 >= 17)
 							{
 								if (Main.rand.Next(10) == 0 && NPC.CountNPCS(345) < 2)
 								{
@@ -90659,7 +90757,7 @@ namespace Terraria
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 343, 0, 0f, 0f, 0f, 0f, 255);
 								}
 							}
-							else if (NPC.waveCount >= 16)
+							else if (num47 >= 16)
 							{
 								if (Main.rand.Next(10) == 0 && NPC.CountNPCS(345) < 2)
 								{
@@ -90682,7 +90780,7 @@ namespace Terraria
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 343, 0, 0f, 0f, 0f, 0f, 255);
 								}
 							}
-							else if (NPC.waveCount >= 15)
+							else if (num47 >= 15)
 							{
 								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(345))
 								{
@@ -90705,7 +90803,7 @@ namespace Terraria
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 343, 0, 0f, 0f, 0f, 0f, 255);
 								}
 							}
-							else if (NPC.waveCount == 14)
+							else if (num47 == 14)
 							{
 								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(345))
 								{
@@ -90724,7 +90822,7 @@ namespace Terraria
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 343, 0, 0f, 0f, 0f, 0f, 255);
 								}
 							}
-							else if (NPC.waveCount == 13)
+							else if (num47 == 13)
 							{
 								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(345))
 								{
@@ -90751,7 +90849,7 @@ namespace Terraria
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 347, 0, 0f, 0f, 0f, 0f, 255);
 								}
 							}
-							else if (NPC.waveCount == 12)
+							else if (num47 == 12)
 							{
 								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(345))
 								{
@@ -90774,7 +90872,7 @@ namespace Terraria
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, Main.rand.Next(338, 341), 0, 0f, 0f, 0f, 0f, 255);
 								}
 							}
-							else if (NPC.waveCount == 11)
+							else if (num47 == 11)
 							{
 								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(345))
 								{
@@ -90793,7 +90891,7 @@ namespace Terraria
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, Main.rand.Next(338, 341), 0, 0f, 0f, 0f, 0f, 255);
 								}
 							}
-							else if (NPC.waveCount == 10)
+							else if (num47 == 10)
 							{
 								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(346))
 								{
@@ -90820,7 +90918,7 @@ namespace Terraria
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, Main.rand.Next(338, 341), 0, 0f, 0f, 0f, 0f, 255);
 								}
 							}
-							else if (NPC.waveCount == 9)
+							else if (num47 == 9)
 							{
 								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(346))
 								{
@@ -90843,7 +90941,7 @@ namespace Terraria
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 342, 0, 0f, 0f, 0f, 0f, 255);
 								}
 							}
-							else if (NPC.waveCount == 8)
+							else if (num47 == 8)
 							{
 								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(346))
 								{
@@ -90866,7 +90964,7 @@ namespace Terraria
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 350, 0, 0f, 0f, 0f, 0f, 255);
 								}
 							}
-							else if (NPC.waveCount == 7)
+							else if (num47 == 7)
 							{
 								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(346))
 								{
@@ -90885,7 +90983,7 @@ namespace Terraria
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, Main.rand.Next(338, 341), 0, 0f, 0f, 0f, 0f, 255);
 								}
 							}
-							else if (NPC.waveCount == 6)
+							else if (num47 == 6)
 							{
 								if (Main.rand.Next(10) == 0 && NPC.CountNPCS(344) < 2)
 								{
@@ -90904,7 +91002,7 @@ namespace Terraria
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 350, 0, 0f, 0f, 0f, 0f, 255);
 								}
 							}
-							else if (NPC.waveCount == 5)
+							else if (num47 == 5)
 							{
 								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(344))
 								{
@@ -90923,7 +91021,7 @@ namespace Terraria
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, Main.rand.Next(338, 341), 0, 0f, 0f, 0f, 0f, 255);
 								}
 							}
-							else if (NPC.waveCount == 4)
+							else if (num47 == 4)
 							{
 								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(344))
 								{
@@ -90942,7 +91040,7 @@ namespace Terraria
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, Main.rand.Next(338, 341), 0, 0f, 0f, 0f, 0f, 255);
 								}
 							}
-							else if (NPC.waveCount == 3)
+							else if (num47 == 3)
 							{
 								if (Main.rand.Next(8) == 0)
 								{
@@ -90961,7 +91059,7 @@ namespace Terraria
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, Main.rand.Next(338, 341), 0, 0f, 0f, 0f, 0f, 255);
 								}
 							}
-							else if (NPC.waveCount == 2)
+							else if (num47 == 2)
 							{
 								if (Main.rand.Next(3) == 0)
 								{
@@ -90983,7 +91081,8 @@ namespace Terraria
 						}
 						else if ((double)num2 <= Main.worldSurface && !Main.dayTime && Main.pumpkinMoon)
 						{
-							if (NPC.waveCount >= 15)
+							int num47 = NPC.waveNumber;
+							if (NPC.waveNumber >= 15)
 							{
 								if (Main.rand.Next(2) == 0)
 								{
@@ -90994,7 +91093,7 @@ namespace Terraria
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 325, 0, 0f, 0f, 0f, 0f, 255);
 								}
 							}
-							else if (NPC.waveCount == 14)
+							else if (num47 == 14)
 							{
 								if (Main.rand.Next(5) == 0 && NPC.CountNPCS(327) < 3)
 								{
@@ -91009,7 +91108,7 @@ namespace Terraria
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 315, 0, 0f, 0f, 0f, 0f, 255);
 								}
 							}
-							else if (NPC.waveCount == 13)
+							else if (num47 == 13)
 							{
 								if (Main.rand.Next(7) == 0 && NPC.CountNPCS(327) < 2)
 								{
@@ -91032,7 +91131,7 @@ namespace Terraria
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 329, 0, 0f, 0f, 0f, 0f, 255);
 								}
 							}
-							else if (NPC.waveCount == 12)
+							else if (num47 == 12)
 							{
 								if (Main.rand.Next(7) == 0 && NPC.CountNPCS(327) < 2)
 								{
@@ -91059,7 +91158,7 @@ namespace Terraria
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 326, 0, 0f, 0f, 0f, 0f, 255);
 								}
 							}
-							else if (NPC.waveCount == 11)
+							else if (num47 == 11)
 							{
 								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(327))
 								{
@@ -91090,7 +91189,7 @@ namespace Terraria
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, Main.rand.Next(305, 315), 0, 0f, 0f, 0f, 0f, 255);
 								}
 							}
-							else if (NPC.waveCount == 10)
+							else if (num47 == 10)
 							{
 								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(327))
 								{
@@ -91117,7 +91216,7 @@ namespace Terraria
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 326, 0, 0f, 0f, 0f, 0f, 255);
 								}
 							}
-							else if (NPC.waveCount == 9)
+							else if (num47 == 9)
 							{
 								if (Main.rand.Next(8) == 0 && !NPC.AnyNPCs(327))
 								{
@@ -91136,7 +91235,7 @@ namespace Terraria
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, Main.rand.Next(305, 315), 0, 0f, 0f, 0f, 0f, 255);
 								}
 							}
-							else if (NPC.waveCount == 8)
+							else if (num47 == 8)
 							{
 								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(327))
 								{
@@ -91155,7 +91254,7 @@ namespace Terraria
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 326, 0, 0f, 0f, 0f, 0f, 255);
 								}
 							}
-							else if (NPC.waveCount == 7)
+							else if (num47 == 7)
 							{
 								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(327))
 								{
@@ -91174,7 +91273,7 @@ namespace Terraria
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, Main.rand.Next(305, 315), 0, 0f, 0f, 0f, 0f, 255);
 								}
 							}
-							else if (NPC.waveCount == 6)
+							else if (num47 == 6)
 							{
 								if (Main.rand.Next(7) == 0 && NPC.CountNPCS(325) < 2)
 								{
@@ -91193,7 +91292,7 @@ namespace Terraria
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 326, 0, 0f, 0f, 0f, 0f, 255);
 								}
 							}
-							else if (NPC.waveCount == 5)
+							else if (num47 == 5)
 							{
 								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(325))
 								{
@@ -91216,7 +91315,7 @@ namespace Terraria
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, Main.rand.Next(305, 315), 0, 0f, 0f, 0f, 0f, 255);
 								}
 							}
-							else if (NPC.waveCount == 4)
+							else if (num47 == 4)
 							{
 								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(325))
 								{
@@ -91235,7 +91334,7 @@ namespace Terraria
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, Main.rand.Next(305, 315), 0, 0f, 0f, 0f, 0f, 255);
 								}
 							}
-							else if (NPC.waveCount == 3)
+							else if (num47 == 3)
 							{
 								if (Main.rand.Next(6) == 0)
 								{
@@ -91250,7 +91349,7 @@ namespace Terraria
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, Main.rand.Next(305, 315), 0, 0f, 0f, 0f, 0f, 255);
 								}
 							}
-							else if (NPC.waveCount == 2)
+							else if (num47 == 2)
 							{
 								if (Main.rand.Next(3) == 0)
 								{
@@ -92539,7 +92638,7 @@ namespace Terraria
 							{
 								num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 45, 0, 0f, 0f, 0f, 0f, 255);
 							}
-							else if (flag8 && Main.rand.Next(5) != 0)
+							else if (flag8 && Main.rand.Next(4) != 0)
 							{
 								if (Main.rand.Next(6) != 0 && !NPC.AnyNPCs(480) && Main.hardMode)
 								{
@@ -92911,7 +93010,7 @@ namespace Terraria
 			{
 				int num3 = NPC.NewNPC((int)vector.X + num / 2, (int)vector.Y + num2 / 2, 35, 0, 0f, 0f, 0f, 0f, 255);
 				Main.npc[num3].netUpdate = true;
-				string str = "Skeletron";
+				string str = Main.npcName[21];
 				if (Main.netMode == 0)
 				{
 					Main.NewText(str + " " + Lang.misc[16], 175, 75, 255, false);
@@ -93232,12 +93331,12 @@ namespace Terraria
 				NPC.NewNPC((int)player2.Center.X, (int)player2.Center.Y - 150, Type, 0, 0f, 0f, 0f, 0f, 255);
 				if (Main.netMode == 0)
 				{
-					Main.NewText("Moon Lord " + Lang.misc[16], 175, 75, 255, false);
+					Main.NewText(Language.GetTextValue("Enemies.MoonLord") + " " + Lang.misc[16], 175, 75, 255, false);
 					return;
 				}
 				if (Main.netMode == 2)
 				{
-					NetMessage.SendData(25, -1, -1, "Moon Lord " + Lang.misc[16], 255, 175f, 75f, 255f, 0, 0, 0);
+					NetMessage.SendData(25, -1, -1, Language.GetTextValue("Enemies.MoonLord") + " " + Lang.misc[16], 255, 175f, 75f, 255f, 0, 0, 0);
 				}
 				return;
 			}
@@ -93271,7 +93370,7 @@ namespace Terraria
 			{
 				Main.npc[num] = new NPC();
 				Main.npc[num].SetDefaults(Type, -1f);
-				if (NPC.TypeToNum(Type) != -1 || Type == 453)
+				if (NPC.TypeToHeadIndex(Type) != -1 || Type == 453)
 				{
 					Main.npc[num].displayName = NPC.getNewNPCName(Type);
 				}
@@ -93390,7 +93489,7 @@ namespace Terraria
 					NetMessage.SendData(54, -1, -1, "", this.whoAmI, 0f, 0f, 0f, 0, 0, 0);
 				}
 				this.TransformVisuals(oldType, newType);
-				if (NPC.TypeToNum(this.type) != -1)
+				if (NPC.TypeToHeadIndex(this.type) != -1)
 				{
 					Main.npc[this.whoAmI].displayName = NPC.getNewNPCName(this.type);
 				}
@@ -93443,6 +93542,10 @@ namespace Terraria
 			if (this.ichor)
 			{
 				num2 -= 20;
+			}
+			if (this.betsysCurse)
+			{
+				num -= 40;
 			}
 			if (num2 < 0)
 			{
@@ -95262,6 +95365,14 @@ namespace Terraria
 						{
 							this.daybreak = true;
 						}
+						if (this.buffType[k] == 203)
+						{
+							this.betsysCurse = true;
+						}
+						if (this.buffType[k] == 204)
+						{
+							this.oiled = true;
+						}
 					}
 				}
 				if (this.soulDrain)
@@ -95353,6 +95464,23 @@ namespace Terraria
 						if (num19 < 5)
 						{
 							num19 = 5;
+						}
+					}
+					if (this.oiled)
+					{
+						int num20 = this.onFire ? 2 : 0;
+						num20 += (this.onFrostBurn ? 4 : 0);
+						num20 += (this.onFire2 ? 3 : 0);
+						num20 += (this.shadowFlame ? 8 : 0);
+						if (num20 > 0)
+						{
+							int num21 = num20 * 4 + 12;
+							this.lifeRegen -= num21;
+							int num22 = num21 / 6;
+							if (num19 < num22)
+							{
+								num19 = num22;
+							}
 						}
 					}
 					if (this.javelined)
@@ -95638,6 +95766,14 @@ namespace Terraria
 						this.velocity.Y = 2f;
 					}
 				}
+				else if ((this.type == 576 || this.type == 577) && this.ai[0] > 0f && this.ai[1] == 2f)
+				{
+					NPC.gravity = 0.45f;
+					if (this.velocity.Y > 32f)
+					{
+						this.velocity.Y = 32f;
+					}
+				}
 				else if (this.type == 427 && this.ai[2] == 1f)
 				{
 					NPC.gravity = 0.1f;
@@ -95757,61 +95893,8 @@ namespace Terraria
 					{
 						this.CheckDrowning();
 					}
-					if (this.life < this.lifeMax)
-					{
-						this.friendlyRegen++;
-						if (this.dryadWard)
-						{
-							this.friendlyRegen += 10;
-						}
-						if (this.friendlyRegen > 180)
-						{
-							this.friendlyRegen = 0;
-							this.life++;
-							this.netUpdate = true;
-						}
-					}
-					if (this.immune[255] == 0)
-					{
-						Rectangle rectangle = new Rectangle((int)this.position.X, (int)this.position.Y, this.width, this.height);
-						for (int num39 = 0; num39 < 200; num39++)
-						{
-							if (Main.npc[num39].active && !Main.npc[num39].friendly && Main.npc[num39].damage > 0)
-							{
-								Rectangle rectangle2 = new Rectangle((int)Main.npc[num39].position.X, (int)Main.npc[num39].position.Y, Main.npc[num39].width, Main.npc[num39].height);
-								if (rectangle.Intersects(rectangle2) && (this.type != 453 || !NPCID.Sets.Skeletons.Contains(Main.npc[num39].netID)))
-								{
-									int num40 = Main.npc[num39].damage;
-									int num41 = 6;
-									int num42 = 1;
-									if (Main.npc[num39].position.X + (float)(Main.npc[num39].width / 2) > this.position.X + (float)(this.width / 2))
-									{
-										num42 = -1;
-									}
-									double num43 = Main.npc[i].StrikeNPCNoInteraction(num40, (float)num41, num42, false, false, false);
-									if (Main.netMode != 0)
-									{
-										NetMessage.SendData(28, -1, -1, "", i, (float)num40, (float)num41, (float)num42, 0, 0, 0);
-									}
-									this.netUpdate = true;
-									this.immune[255] = 30;
-									if (this.dryadWard)
-									{
-										num40 = (int)num43 / 3;
-										num41 = 6;
-										num42 *= -1;
-										Main.npc[num39].StrikeNPCNoInteraction(num40, (float)num41, num42, false, false, false);
-										if (Main.netMode != 0)
-										{
-											NetMessage.SendData(28, -1, -1, "", num39, (float)num40, (float)num41, (float)num42, 0, 0, 0);
-										}
-										Main.npc[num39].netUpdate = true;
-										Main.npc[num39].immune[255] = 30;
-									}
-								}
-							}
-						}
-					}
+					this.CheckLifeRegen();
+					this.CheckMeleeCollision();
 				}
 				if (!this.noTileCollide)
 				{
@@ -95920,7 +96003,7 @@ namespace Terraria
 					}
 					this.oldPos[0] = this.position;
 				}
-				else if (this.type == 402 || this.type == 417 || this.type == 419 || this.type == 418 || this.type == 519 || this.type == 521 || this.type == 522 || this.type == 546)
+				else if (this.type == 402 || this.type == 417 || this.type == 419 || this.type == 418 || this.type == 574 || this.type == 575 || this.type == 519 || this.type == 521 || this.type == 522 || this.type == 546 || this.type == 558 || this.type == 551 || this.type == 559 || this.type == 560)
 				{
 					for (int num75 = this.oldPos.Length - 1; num75 > 0; num75--)
 					{
@@ -96022,7 +96105,7 @@ namespace Terraria
 					{
 						this.netSpam--;
 					}
-					if (this.active && this.townNPC && NPC.TypeToNum(this.type) != -1)
+					if (this.active && this.townNPC && NPC.TypeToHeadIndex(this.type) != -1)
 					{
 						if (this.homeless != this.oldHomeless || this.homeTileX != this.oldHomeTileX || this.homeTileY != this.oldHomeTileY)
 						{
@@ -96220,22 +96303,31 @@ namespace Terraria
 						num3 = 150;
 					}
 				}
-				else if (this.type == 64 || this.type == 63 || this.type == 75 || this.type == 103 || this.type == 400)
+				else
 				{
-					num2 = (int)((double)newColor.R * 1.5);
-					num3 = (int)((double)newColor.G * 1.5);
-					num4 = (int)((double)newColor.B * 1.5);
-					if (num2 > 255)
+					if (this.type == 549)
 					{
-						num2 = 255;
+						newColor = Color.Lerp(newColor, Color.White, 0.4f);
+						newColor *= (float)num5 / 255f;
+						return newColor;
 					}
-					if (num3 > 255)
+					if (this.type == 64 || this.type == 63 || this.type == 75 || this.type == 103 || this.type == 400)
 					{
-						num3 = 255;
-					}
-					if (num4 > 255)
-					{
-						num4 = 255;
+						num2 = (int)((double)newColor.R * 1.5);
+						num3 = (int)((double)newColor.G * 1.5);
+						num4 = (int)((double)newColor.B * 1.5);
+						if (num2 > 255)
+						{
+							num2 = 255;
+						}
+						if (num3 > 255)
+						{
+							num3 = 255;
+						}
+						if (num4 > 255)
+						{
+							num4 = 255;
+						}
 					}
 				}
 			}
@@ -96249,6 +96341,7 @@ namespace Terraria
 			}
 			return new Color(num2, num3, num4, num5);
 		}
+
 		public Color GetColor(Color newColor)
 		{
 			int num = (int)(this.color.R - (255 - newColor.R));
@@ -96308,6 +96401,7 @@ namespace Terraria
 			bool flag14 = false;
 			bool flag15 = false;
 			bool flag16 = false;
+			object obj = Lang.CreateDialogSubstitutionObject(this);
 			bool flag17 = false;
 			for (int i = 0; i < 200; i++)
 			{
@@ -96380,6 +96474,10 @@ namespace Terraria
 					else if (Main.npc[i].type == 2)
 					{
 						flag17 = true;
+					}
+					else
+					{
+						int arg_210_0 = Main.npc[i].type;
 					}
 				}
 			}
@@ -96641,7 +96739,12 @@ namespace Terraria
 				}
 				else
 				{
-					int num10 = Main.rand.Next(4);
+					LocalizedText[] array = Language.FindAll(Lang.CreateDialogFilter("NurseChatter.", obj));
+					int num10 = Main.rand.Next(4 + array.Length);
+					if (num10 > 4)
+					{
+						result = array[num10 - 4].FormatWith(obj);
+					}
 					if (num10 == 0)
 					{
 						result = Lang.dialog(48, false);
@@ -96723,6 +96826,17 @@ namespace Terraria
 				if (BirthdayParty.PartyIsUp && Main.rand.Next(3) == 0)
 				{
 					result = Lang.GetBirthdayDialog(this, false);
+				}
+				else if (DD2Event.DownedInvasionT1 && Main.rand.Next(6) == 0)
+				{
+					if (DD2Event.DownedInvasionT2)
+					{
+						result = Language.GetTextValueWith("DryadSpecialText.AfterDD2Tier2", obj);
+					}
+					else
+					{
+						result = Language.GetTextValueWith("DryadSpecialText.AfterDD2Tier1", obj);
+					}
 				}
 				else if (!NPC.downedBoss2 && Main.rand.Next(3) == 0)
 				{
@@ -96888,6 +97002,10 @@ namespace Terraria
 						result = Lang.dialog(96, false);
 					}
 				}
+				else if ((DD2Event.DownedInvasionT1 || DD2Event.Ongoing) && Main.rand.Next(5) == 0)
+				{
+					result = Language.GetTextValueWith("DemolitionistSpecialText.AfterDD2Start", obj);
+				}
 				else if (flag3 && Main.rand.Next(5) == 0)
 				{
 					result = Lang.dialog(97, false);
@@ -97046,46 +97164,50 @@ namespace Terraria
 				{
 					result = Lang.dialog(309, false);
 				}
-				else if (!Main.dayTime)
-				{
-					int num22 = Main.rand.Next(5);
-					if (num22 == 0)
-					{
-						result = Lang.dialog(127, false);
-					}
-					else if (num22 == 1)
-					{
-						result = Lang.dialog(128, false);
-					}
-					else if (num22 == 2)
-					{
-						result = Lang.dialog(129, false);
-					}
-					else if (num22 == 3)
-					{
-						result = Lang.dialog(130, false);
-					}
-					else
-					{
-						result = Lang.dialog(131, false);
-					}
-				}
 				else
 				{
-					int num23 = Main.rand.Next(5);
-					if (num23 == 0)
+					LocalizedText[] array2 = Language.FindAll(Lang.CreateDialogFilter("GoblinTinkererChatter.", obj));
+					int num22 = Main.rand.Next(array2.Length + 5);
+					if (num22 >= 5)
+					{
+						result = array2[num22 - 5].FormatWith(obj);
+					}
+					else if (!Main.dayTime)
+					{
+						if (num22 == 0)
+						{
+							result = Lang.dialog(127, false);
+						}
+						else if (num22 == 1)
+						{
+							result = Lang.dialog(128, false);
+						}
+						else if (num22 == 2)
+						{
+							result = Lang.dialog(129, false);
+						}
+						else if (num22 == 3)
+						{
+							result = Lang.dialog(130, false);
+						}
+						else
+						{
+							result = Lang.dialog(131, false);
+						}
+					}
+					else if (num22 == 0)
 					{
 						result = Lang.dialog(132, false);
 					}
-					else if (num23 == 1)
+					else if (num22 == 1)
 					{
 						result = Lang.dialog(133, false);
 					}
-					else if (num23 == 2)
+					else if (num22 == 2)
 					{
 						result = Lang.dialog(134, false);
 					}
-					else if (num23 == 3)
+					else if (num22 == 3)
 					{
 						result = Lang.dialog(135, false);
 					}
@@ -97124,6 +97246,10 @@ namespace Terraria
 				else if (BirthdayParty.PartyIsUp && Main.rand.Next(3) == 0)
 				{
 					result = Lang.GetBirthdayDialog(this, false);
+				}
+				else if (DD2Event.DownedInvasionT1 && Main.rand.Next(6) == 0)
+				{
+					result = Language.GetTextValueWith("WizardSpecialText.AfterDD2Tier1", obj);
 				}
 				else if (Main.player[Main.myPlayer].Male && flag17 && Main.rand.Next(6) == 0)
 				{
@@ -97250,12 +97376,18 @@ namespace Terraria
 				}
 				else
 				{
-					int num29 = Main.rand.Next(3);
-					if (num29 == 0)
+
+					LocalizedText[] array3 = Language.FindAll(Lang.CreateDialogFilter("MechanicChatter.", obj));
+					int num28 = Main.rand.Next(3 + array3.Length);
+					if (num28 >= 3)
+					{
+						result = array3[num28 - 3].FormatWith(obj);
+					}
+					else if (num28 == 0)
 					{
 						result = Lang.dialog(167, false);
 					}
-					else if (num29 == 1)
+					else if (num28 == 1)
 					{
 						result = Lang.dialog(168, false);
 					}
@@ -97439,6 +97571,10 @@ namespace Terraria
 				{
 					result = Lang.GetBirthdayDialog(this, false);
 				}
+				else if (DD2Event.DownedInvasionT1 && Main.rand.Next(5) == 0)
+				{
+					result = Language.GetTextValueWith("PartyGirlSpecialText.AfterDD2Tier1", obj);
+				}
 				else if (Main.player[Main.myPlayer].Male && Main.rand.Next(5) == 0)
 				{
 					result = Lang.dialog(268, false);
@@ -97478,7 +97614,6 @@ namespace Terraria
 			}
 			else if (this.type == 209)
 			{
-				int num37 = Main.rand.Next(5);
 				if (BirthdayParty.PartyIsUp && Main.rand.Next(3) == 0)
 				{
 					result = Lang.GetBirthdayDialog(this, false);
@@ -97491,25 +97626,34 @@ namespace Terraria
 				{
 					result = Lang.dialog(283, false);
 				}
-				else if (num37 == 0)
+				else
 				{
-					result = Lang.dialog(280, false);
-				}
-				else if (num37 == 1)
-				{
-					result = Lang.dialog(281, false);
-				}
-				else if (num37 == 2)
-				{
-					result = Lang.dialog(282, false);
-				}
-				else if (num37 == 3)
-				{
-					result = Lang.dialog(285, false);
-				}
-				else if (num37 == 4)
-				{
-					result = Lang.dialog(286, false);
+					LocalizedText[] array4 = Language.FindAll(Lang.CreateDialogFilter("CyborgChatter.", obj));
+					int num36 = Main.rand.Next(5 + array4.Length);
+					if (num36 >= 5)
+					{
+						result = array4[num36 - 5].FormatWith(obj);
+					}
+					else if (num36 == 0)
+					{
+						result = Lang.dialog(280, false);
+					}
+					else if (num36 == 1)
+					{
+						result = Lang.dialog(281, false);
+					}
+					else if (num36 == 2)
+					{
+						result = Lang.dialog(282, false);
+					}
+					else if (num36 == 3)
+					{
+						result = Lang.dialog(285, false);
+					}
+					else if (num36 == 4)
+					{
+						result = Lang.dialog(286, false);
+					}
 				}
 			}
 			else if (this.type == 227)
@@ -97550,7 +97694,7 @@ namespace Terraria
 			}
 			else if (this.type == 228)
 			{
-				int num39 = Main.rand.Next(3);
+				int num39 = Main.rand.Next(4);
 				if (BirthdayParty.PartyIsUp && Main.rand.Next(3) == 0)
 				{
 					result = Lang.GetBirthdayDialog(this, false);
@@ -97571,11 +97715,20 @@ namespace Terraria
 				{
 					result = Lang.dialog(264, false);
 				}
+				else if (num39 == 3)
+				{
+					result = Language.GetTextValueWith("WitchDoctorSpecialText.AfterDD2Tier1", obj);
+				}
 			}
 			else if (this.type == 229)
 			{
-				int num40 = Main.rand.Next(6);
-				if (BirthdayParty.PartyIsUp && Main.rand.Next(3) == 0)
+				LocalizedText[] array5 = Language.FindAll(Lang.CreateDialogFilter("PirateChatter.", obj));
+				int num40 = Main.rand.Next(6 + array5.Length);
+				if (num40 >= 6)
+				{
+					result = array5[num40 - 6].FormatWith(obj);
+				}
+				else if (BirthdayParty.PartyIsUp && Main.rand.Next(3) == 0)
 				{
 					result = Lang.GetBirthdayDialog(this, false);
 				}
@@ -97682,66 +97835,70 @@ namespace Terraria
 				{
 					result = Lang.dialog(308, false);
 				}
-				else if (Main.moonPhase < 3)
-				{
-					int num44 = Main.rand.Next(5);
-					if (num44 == 0)
-					{
-						result = Lang.dialog(287, false);
-					}
-					else if (num44 == 1)
-					{
-						result = Lang.dialog(288, false);
-					}
-					else if (num44 == 2)
-					{
-						result = Lang.dialog(289, false);
-					}
-					else if (num44 == 3)
-					{
-						result = Lang.dialog(290, false);
-					}
-					else if (num44 == 4)
-					{
-						result = Lang.dialog(294, false);
-					}
-				}
-				else if (Main.moonPhase < 6)
-				{
-					int num45 = Main.rand.Next(4);
-					if (num45 == 0)
-					{
-						result = Lang.dialog(295, false);
-					}
-					else if (num45 == 1)
-					{
-						result = Lang.dialog(296, false);
-					}
-					else if (num45 == 2)
-					{
-						result = Lang.dialog(297, false);
-					}
-					else if (num45 == 3)
-					{
-						result = Lang.dialog(298, false);
-					}
-				}
 				else
 				{
-					int num46 = Main.rand.Next(4);
-					if (num46 == 0)
+					LocalizedText[] array6 = Language.FindAll(Lang.CreateDialogFilter("StylistChatter.", obj));
+					int num43 = (Main.moonPhase < 3) ? 5 : 4;
+					int num44 = Main.rand.Next(num43 + array6.Length);
+					if (num44 >= num43)
+					{
+						result = array6[num44 - num43].FormatWith(obj);
+					}
+					else if (Main.moonPhase < 3)
+					{
+						if (num44 == 0)
+						{
+							result = Lang.dialog(287, false);
+						}
+						else if (num44 == 1)
+						{
+							result = Lang.dialog(288, false);
+						}
+						else if (num44 == 2)
+						{
+							result = Lang.dialog(289, false);
+						}
+						else if (num44 == 3)
+						{
+							result = Lang.dialog(290, false);
+						}
+						else if (num44 == 4)
+						{
+							result = Lang.dialog(294, false);
+						}
+					}
+					else if (Main.moonPhase < 6)
+					{
+						if (num44 == 0)
+						{
+							result = Lang.dialog(295, false);
+						}
+						else if (num44 == 1)
+						{
+							result = Lang.dialog(296, false);
+						}
+						else if (num44 == 2)
+						{
+							result = Lang.dialog(297, false);
+						}
+						else if (num44 == 3)
+						{
+							result = Lang.dialog(298, false);
+						}
+					}
+					else if (num44 == 0)
 					{
 						result = Lang.dialog(299, false);
 					}
-					else if (num46 == 1)
+					else if (num44 == 1)
 					{
 						result = Lang.dialog(301, false);
 					}
-					else if (num46 == 2)
+					else if (num44 == 2)
 					{
 						result = Lang.dialog(313, false);
 					}
-					else if (num46 == 3)
+					else if (num44 == 3)
 					{
 						result = Lang.dialog(314, false);
 					}
@@ -97801,7 +97958,16 @@ namespace Terraria
 				}
 				else
 				{
-					result = Lang.dialog(Main.rand.Next(338, 347), false);
+					LocalizedText[] array7 = Language.FindAll(Lang.CreateDialogFilter("AnglerChatter.", obj));
+					int num45 = Main.rand.Next(array7.Length + 9);
+					if (num45 >= 9)
+					{
+						result = array7[num45 - 9].FormatWith(obj);
+					}
+					else
+					{
+						result = Lang.dialog(338 + num45, false);
+					}
 				}
 			}
 			else if (this.type == 453)
@@ -97830,6 +97996,14 @@ namespace Terraria
 				{
 					result = Lang.dialog(Main.rand.Next(364, 370), false);
 				}
+			}
+			else if (this.type == 579)
+			{
+				result = Language.GetTextValue("BartenderSpecialText.FirstMeeting");
+			}
+			else if (this.type == 550)
+			{
+				result = Lang.BartenderChat(this);
 			}
 			return result;
 		}
@@ -98358,11 +98532,15 @@ namespace Terraria
 			{
 				if (this.honeyWet)
 				{
-					this.Collision_MoveWhileWet(velocity, 0.25f);
+					this.Collision_MoveWhileWet(velocity, this.honeyMovementSpeed);
+				}
+				else if (this.lavaWet)
+				{
+					this.Collision_MoveWhileWet(velocity, this.lavaMovementSpeed);
 				}
 				else
 				{
-					this.Collision_MoveWhileWet(velocity, 0.5f);
+					this.Collision_MoveWhileWet(velocity, this.waterMovementSpeed);
 				}
 			}
 			else
@@ -98396,8 +98574,2708 @@ namespace Terraria
 			}
 		}
 
-        #endregion
+		#endregion
+
+		#region 1.3.4
+		private void AI_107_ImprovedWalkers()
+		{
+			bool flag = this.velocity.X == 0f && this.velocity.Y == 0f && !this.justHit;
+			bool flag2 = false;
+			bool flag3 = false;
+			bool flag4 = false;
+			int num = 32;
+			int num2 = 15;
+			float num3 = 9f;
+			bool flag5 = false;
+			float num4 = 40f;
+			int num5 = 30;
+			int num6 = 0;
+			bool flag6 = false;
+			bool flag7 = true;
+			float num7 = 0.9f;
+			bool flag8 = false;
+			bool flag9 = false;
+			bool flag10 = false;
+			bool flag11 = false;
+			bool flag12 = false;
+			bool flag13 = false;
+			bool flag14 = false;
+			bool flag15 = true;
+			int num8 = 70;
+			int num9 = num8 / 2;
+			float scaleFactor = 11f;
+			Vector2 zero = Vector2.Zero;
+			int num10 = 1;
+			int num11 = 81;
+			float num12 = 700f;
+			float num13 = 0f;
+			float num14 = 0.1f;
+			Vector2? vector = null;
+			float num15 = 0.5f;
+			int num16 = 1;
+			float scaleFactor2 = 1f;
+			bool flag16 = false;
+			bool flag17 = true;
+			bool flag18 = false;
+			int num17 = 30;
+			bool flag19 = false;
+			bool flag20 = false;
+			bool flag21 = false;
+			bool flag22 = false;
+			int num18 = 0;
+			bool flag23 = false;
+			float num19 = 1f;
+			float num20 = 0.07f;
+			float num21 = 0.8f;
+			float num22 = (float)(this.width / 2 + 6);
+			bool flag24 = this.directionY < 0;
+			bool flag25 = false;
+			int num23 = 1;
+			bool flag26 = false;
+			float num24 = 0.025f;
+			NPCAimedTarget targetData = this.GetTargetData(true);
+			if (targetData.Type == NPCTargetType.NPC && Main.npc[this.TranslatedTargetIndex].type == 548 && Main.npc[this.TranslatedTargetIndex].dontTakeDamageFromHostiles)
+			{
+				NPCUtils.TargetClosestOldOnesInvasion(this, true, null);
+				targetData = this.GetTargetData(true);
+			}
+			if (!targetData.Invalid)
+			{
+				flag2 = (!Collision.CanHit(base.Center, 0, 0, targetData.Center, 0, 0) && (this.direction == Math.Sign(targetData.Center.X - base.Center.X) || (this.noGravity && base.Distance(targetData.Center) > 50f && base.Center.Y > targetData.Center.Y)));
+			}
+			flag2 &= (this.ai[0] <= 0f);
+			if (flag2)
+			{
+				if (this.velocity.Y == 0f || Math.Abs(targetData.Center.Y - base.Center.Y) > 800f)
+				{
+					this.noGravity = true;
+					this.noTileCollide = true;
+				}
+			}
+			else
+			{
+				this.noGravity = false;
+				this.noTileCollide = false;
+			}
+			bool flag27 = NPCID.Sets.FighterUsesDD2PortalAppearEffect[this.type];
+			switch (this.type)
+			{
+				case 552:
+				case 553:
+				case 554:
+					num18 = 1000;
+					flag5 = true;
+					flag20 = DD2Event.EnemiesShouldChasePlayers;
+					if (this.type == 553)
+					{
+						num20 += 0.01f;
+						num19 += 0.2f;
+					}
+					if (this.type == 554)
+					{
+						num20 += 0.02f;
+						num19 += 0.4f;
+					}
+					if (this.localAI[3] < 60f)
+					{
+						num20 = 0.01f + this.localAI[3] / 60f * 0.05f;
+					}
+					break;
+				case 555:
+				case 556:
+				case 557:
+					{
+						num18 = 800;
+						bool flag28 = this.localAI[3] >= 60f;
+						flag20 = DD2Event.EnemiesShouldChasePlayers;
+						flag23 = true;
+						flag12 = true;
+						flag15 = (this.ai[1] > 18f);
+						num8 = 42;
+						num9 = 18;
+						num11 = 681;
+						num10 = 10;
+						zero.Y -= 14f;
+						num14 = 0.4f;
+						num15 = 0.5f;
+						num12 = 280f;
+						scaleFactor = 6f;
+						if (!flag28)
+						{
+							num12 = 1f;
+							num20 = 0.01f + this.localAI[3] / 60f * 0.05f;
+						}
+						if (this.type == 555)
+						{
+							num19 = 0.88f;
+							num15 = 0.6f;
+							num10 = (Main.expertMode ? 15 : 20);
+						}
+						if (this.type == 555)
+						{
+							num19 = 0.88f;
+							num15 = 0.6f;
+							num10 = (Main.expertMode ? 25 : 30);
+						}
+						if (this.type == 557)
+						{
+							num19 = 1.12f;
+							num15 = 0.4f;
+							num10 = (Main.expertMode ? 35 : 40);
+						}
+						break;
+					}
+				case 561:
+				case 562:
+				case 563:
+					{
+						bool flag29 = this.localAI[3] >= 60f;
+						if (this.ai[1] == 82f)
+						{
+							num18 = 7;
+						}
+						flag20 = DD2Event.EnemiesShouldChasePlayers;
+						flag23 = true;
+						flag12 = true;
+						flag15 = (this.ai[1] > 82f);
+						num8 = 90;
+						num9 = 82;
+						num11 = 662;
+						if (this.type == 563)
+						{
+							num11 = 685;
+						}
+						zero.Y -= 14f;
+						num14 = 0f;
+						num15 = 0.5f;
+						num12 = 600f;
+						scaleFactor = 13f;
+						if (!flag29)
+						{
+							num12 = 1f;
+							num20 = 0.01f + this.localAI[3] / 60f * 0.05f;
+						}
+						if (this.type == 561)
+						{
+							num19 = 0.88f;
+							num15 = 0.6f;
+							num10 = (Main.expertMode ? 10 : 15);
+							scaleFactor = 11.5f;
+							num12 -= 100f;
+						}
+						if (this.type == 562)
+						{
+							num19 = 0.94f;
+							num15 = 0.5f;
+							num10 = (Main.expertMode ? 20 : 30);
+							scaleFactor = 12.2f;
+							num12 -= 50f;
+						}
+						if (this.type == 563)
+						{
+							num19 = 1f;
+							num15 = 0.4f;
+							num10 = (Main.expertMode ? 30 : 45);
+						}
+						break;
+					}
+				case 566:
+				case 567:
+					{
+						Vector3 v3_ = new Vector3(0.3f, 0.05f, 0.45f) * 1.5f;
+						DelegateMethods.v3_1 = v3_;
+						Utils.PlotTileLine(base.Top, base.Bottom, (float)this.width, new Utils.PerLinePoint(DelegateMethods.CastLightOpen));
+						flag20 = DD2Event.EnemiesShouldChasePlayers;
+						bool flag30 = this.localAI[3] >= 120f;
+						if (!flag30)
+						{
+							num20 = 0f;
+						}
+						if (flag30)
+						{
+							this.dontTakeDamage = false;
+						}
+						else
+						{
+							this.dontTakeDamage = true;
+							this.velocity.X = 0f;
+							flag23 = true;
+							flag19 = true;
+							this.ai[3] = 0f;
+							if (this.localAI[3] == 0f)
+							{
+								this.alpha = 255;
+							}
+							this.localAI[3] += 1f;
+							float num25 = this.localAI[3];
+							if (num25 >= 110f)
+							{
+								this.alpha -= 26;
+								if (this.alpha < 0)
+								{
+									this.alpha = 0;
+								}
+							}
+						}
+						break;
+					}
+				case 568:
+				case 569:
+					num5 = 110;
+					num20 = 0.16f;
+					num21 = 0.7f;
+					num19 = 1.4f;
+					flag5 = true;
+					num4 = 600f;
+					flag20 = DD2Event.EnemiesShouldChasePlayers;
+					if (this.localAI[3] < 60f)
+					{
+						num20 = 0.01f + this.localAI[3] / 60f * 0.05f;
+					}
+					if (this.ai[0] == 0f)
+					{
+						this.localAI[1] = SlotId.Invalid.ToFloat();
+					}
+					if (this.ai[0] == 1f)
+					{
+						this.ai[0] += 1f;
+						this.localAI[0] += 1f;
+						if (this.localAI[0] > 60f && Main.rand.Next(10) == 0)
+						{
+							Vector2 vector2 = base.Center + (Main.rand.NextFloat() * 6.28318548f).ToRotationVector2() * 400f * (0.3f + 0.7f * Main.rand.NextFloat());
+							Point point = vector2.ToTileCoordinates();
+						}
+						if (Main.netMode != 2)
+						{
+							Player player = Main.player[Main.myPlayer];
+							if (!player.dead && player.active && (player.Center - base.Center).Length() < 400f)
+							{
+								player.AddBuff(195, 3, false);
+							}
+						}
+						if (this.ai[1] > 0f)
+						{
+							this.ai[1] -= 1f;
+						}
+						if (this.ai[1] <= 0f)
+						{
+							this.ai[1] = 60f;
+							if (Main.netMode != 1)
+							{
+								int num31 = this.lifeMax / 20;
+								if (num31 > this.lifeMax - this.life)
+								{
+									num31 = this.lifeMax - this.life;
+								}
+								if (num31 > 0)
+								{
+									this.life += num31;
+									this.HealEffect(num31, true);
+									this.netUpdate = true;
+								}
+							}
+						}
+					}
+					break;
+				case 570:
+				case 571:
+					flag20 = DD2Event.EnemiesShouldChasePlayers;
+					flag23 = true;
+					flag12 = true;
+					flag15 = (this.ai[1] > 40f);
+					num8 = 60;
+					num9 = 40;
+					if (this.type == 571 && this.ai[1] > 10f && this.ai[1] <= 40f && (int)this.ai[1] % 6 == 0)
+					{
+						num9 = (int)this.ai[1] - 1;
+					}
+					if (this.type == 570 && this.ai[1] > 10f && this.ai[1] <= 40f && (int)this.ai[1] % 9 == 0)
+					{
+						num9 = (int)this.ai[1] - 1;
+					}
+					num11 = 671;
+					zero.X += (float)(22 * this.direction);
+					num14 = 0.15f;
+					num15 = 1.5f;
+					num12 = 600f;
+					scaleFactor = 13f;
+					num16 = 1;
+					scaleFactor2 = 0f;
+					if (this.type == 570)
+					{
+						num15 = 2.5f;
+					}
+					num10 = (Main.expertMode ? 25 : 35);
+					if (this.type == 571)
+					{
+						num10 = (Main.expertMode ? 45 : 60);
+					}
+					num19 = 0.77f;
+					if (this.localAI[3] < 60f)
+					{
+						num12 = 1f;
+						num20 = 0.01f + this.localAI[3] / 60f * 0.05f;
+					}
+					break;
+				case 572:
+				case 573:
+					if (this.localAI[3] == 0f)
+					{
+						this.localAI[0] = SlotId.Invalid.ToFloat();
+						this.localAI[1] = SlotId.Invalid.ToFloat();
+					}
+					flag20 = DD2Event.EnemiesShouldChasePlayers;
+					if (this.ai[1] == 2f)
+					{
+						this.position = base.Center;
+						this.width = (this.height = 192);
+						base.Center = this.position;
+						this.velocity = Vector2.Zero;
+						this.damage = (int)(80f * Main.damageMultiplier);
+						this.alpha = 255;
+						this.ai[0] += 1f;
+						if (this.ai[0] >= 3f)
+						{
+							this.life = 0;
+							this.HitEffect(0, 10.0);
+							this.active = false;
+						}
+						return;
+					}
+					if (this.ai[0] > 0f && this.ai[1] == 1f)
+					{
+						this.ai[0] = 0f;
+						this.ai[1] = 2f;
+						this.netUpdate = true;
+						return;
+					}
+					num19 = 0.88f;
+					if (this.ai[0] == 1f)
+					{
+						this.ai[1] = 1f;
+					}
+					if (this.ai[1] > 0f && this.ai[0] == 0f)
+					{
+						flag5 = true;
+						num5 = 40;
+						num4 = 64f;
+						num20 = 0.3f;
+						num19 = 4f;
+						Vector2 position = base.Center + new Vector2((float)(this.spriteDirection * 12), 0f);
+					}
+					else
+					{
+						flag5 = true;
+						num5 = 40;
+						num4 = 700f;
+					}
+					if (this.localAI[3] < 60f)
+					{
+						num20 = 0.01f + this.localAI[3] / 60f * 0.05f;
+					}
+					break;
+				case 576:
+				case 577:
+					num18 = 700;
+					num22 -= 32f;
+					flag5 = true;
+					num6 = 60;
+					num4 = 130f;
+					num5 = 44;
+					flag20 = DD2Event.EnemiesShouldChasePlayers;
+					num7 = 0.7f;
+					if (this.localAI[0] > 0f)
+					{
+						this.localAI[0] -= 1f;
+					}
+					if (this.ai[0] <= 0f)
+					{
+						float num37 = this.ai[1];
+						float num38 = base.Distance(targetData.Center);
+						bool flag31 = this.localAI[3] >= 60f;
+						if (flag31)
+						{
+							if (num38 <= num4 + 300f && this.localAI[0] <= 0f)
+							{
+								this.ai[1] = 2f;
+							}
+							else if (num38 > num4 + 30f)
+							{
+								this.ai[1] = 1f;
+							}
+							else if (num38 <= num4)
+							{
+								this.ai[1] = 0f;
+								if (num37 == 1f)
+								{
+									this.ai[0] = 0f;
+								}
+							}
+						}
+						if (num37 != this.ai[1])
+						{
+							this.netUpdate = true;
+						}
+					}
+					else if (this.ai[1] == 2f)
+					{
+						this.localAI[0] = 300f;
+					}
+					switch ((int)this.ai[1])
+					{
+						case 0:
+							num5 = 44;
+							break;
+						case 1:
+							flag3 = true;
+							num5 = 90;
+							num4 = 1000f;
+							num6 = 240;
+							if (this.type == 576)
+							{
+								num10 = (Main.expertMode ? 30 : 40);
+							}
+							else
+							{
+								num10 = (Main.expertMode ? 30 : 40);
+							}
+							flag15 = false;
+							zero = new Vector2((float)(this.direction * 30), -70f);
+							num11 = 676;
+							break;
+						case 2:
+							num5 = 90;
+							num4 = 250f;
+							flag4 = true;
+							if (this.type == 576)
+							{
+								num10 = (Main.expertMode ? 40 : 60);
+							}
+							else
+							{
+								num10 = (Main.expertMode ? 40 : 60);
+							}
+							num9 = 36;
+							num = 56;
+							num2 = 41;
+							num3 = 13f;
+							flag3 = true;
+							num11 = 683;
+							flag15 = false;
+							zero = new Vector2((float)(-(float)this.direction * 20), (float)(this.height / 2 - 1));
+							break;
+					}
+					if (this.ai[0] < (float)(-(float)num6))
+					{
+						this.ai[0] = (float)(-(float)num6);
+					}
+					break;
+			}
+			if (flag26)
+			{
+				bool flag32 = this.velocity.Y == 0f;
+				for (int num39 = 0; num39 < 200; num39++)
+				{
+					if (num39 != this.whoAmI && Main.npc[num39].active && Main.npc[num39].type == this.type && Math.Abs(this.position.X - Main.npc[num39].position.X) + Math.Abs(this.position.Y - Main.npc[num39].position.Y) < (float)this.width)
+					{
+						if (this.position.X < Main.npc[num39].position.X)
+						{
+							this.velocity.X = this.velocity.X - num24;
+						}
+						else
+						{
+							this.velocity.X = this.velocity.X + num24;
+						}
+						if (this.position.Y < Main.npc[num39].position.Y)
+						{
+							this.velocity.Y = this.velocity.Y - num24;
+						}
+						else
+						{
+							this.velocity.Y = this.velocity.Y + num24;
+						}
+					}
+				}
+				if (flag32)
+				{
+					this.velocity.Y = 0f;
+				}
+			}
+			if (flag27)
+			{
+				if (this.localAI[3] == 0f)
+				{
+					this.alpha = 255;
+				}
+				if (this.localAI[3] < 60f)
+				{
+					this.localAI[3] += 1f;
+					this.alpha -= 5;
+					if (this.alpha < 0)
+					{
+						this.alpha = 0;
+					}
+					int num40 = (int)this.localAI[3] / 10;
+					float num41 = base.Size.Length() / 2f;
+					num41 /= 20f;
+					int maxValue3 = 5;
+					if (this.type == 576 || this.type == 577)
+					{
+						maxValue3 = 1;
+					}
+				}
+			}
+			bool flag33 = false;
+			if ((flag12 || flag5) && this.ai[0] > 0f)
+			{
+				flag17 = false;
+			}
+			if (flag12 && this.ai[1] > 0f)
+			{
+				flag21 = true;
+			}
+			if (flag5 && this.ai[0] > 0f)
+			{
+				flag21 = true;
+			}
+			if (flag5)
+			{
+				if (this.ai[0] < 0f)
+				{
+					this.ai[0] += 1f;
+					flag = false;
+				}
+				if (this.ai[0] == 0f && (this.velocity.Y == 0f || flag6) && targetData.Type != NPCTargetType.None)
+				{
+					bool flag34 = Collision.CanHit(this.position, this.width, this.height, targetData.Position, targetData.Width, targetData.Height) || Collision.CanHitLine(this.position, this.width, this.height, targetData.Position, targetData.Width, targetData.Height);
+					if (flag34)
+					{
+						float num43 = (targetData.Center - base.Center).Length();
+						if (num43 < num4)
+						{
+							this.ai[0] = (float)num5;
+							this.netUpdate = true;
+						}
+					}
+				}
+				if (this.ai[0] > 0f)
+				{
+					this.spriteDirection = this.direction * num23;
+					if (flag7)
+					{
+						this.velocity.X = this.velocity.X * num7;
+						flag23 = true;
+						flag19 = true;
+						this.ai[3] = 0f;
+					}
+					this.ai[0] -= 1f;
+					if (this.ai[0] == 0f)
+					{
+						this.ai[0] = (float)(-(float)num6);
+					}
+				}
+			}
+			if (flag3 && this.ai[0] > 0f)
+			{
+				if (flag15)
+				{
+					NPCUtils.TargetClosestOldOnesInvasion(this, true, null);
+					targetData = this.GetTargetData(true);
+				}
+				if (this.ai[0] == (float)num9)
+				{
+					Vector2 vector3 = base.Center + zero;
+					Vector2 v = targetData.Center - vector3;
+					v.Y -= Math.Abs(v.X) * num14;
+					Vector2 vector4 = v.SafeNormalize(-Vector2.UnitY) * scaleFactor;
+					for (int num44 = 0; num44 < num16; num44++)
+					{
+						Vector2 vector5 = vector4;
+						Vector2 vector6 = vector3;
+						if (vector.HasValue)
+						{
+							vector5 += vector.Value;
+						}
+						else
+						{
+							vector5 += Utils.RandomVector2(Main.rand, -num15, num15);
+						}
+						vector6 += vector4 * scaleFactor2;
+						if (Main.netMode != 1)
+						{
+							Projectile.NewProjectile(vector6, vector5, num11, num10, 0f, Main.myPlayer, 0f, 0f);
+						}
+					}
+				}
+			}
+			if (flag4 && this.ai[0] > 0f)
+			{
+				if (this.velocity.Y != 0f && this.ai[0] < (float)num2)
+				{
+					this.ai[0] = (float)num2;
+				}
+				if (this.ai[0] == (float)num)
+				{
+					this.velocity.Y = -num3;
+				}
+			}
+			if (!flag16 && flag17)
+			{
+				if (this.velocity.Y == 0f && this.velocity.X * (float)this.direction < 0f)
+				{
+					flag18 = true;
+				}
+				if (this.position.X == this.oldPosition.X || this.ai[3] >= (float)num17 || flag18)
+				{
+					this.ai[3] += 1f;
+				}
+				else if (Math.Abs(this.velocity.X) > 0.9f && this.ai[3] > 0f)
+				{
+					this.ai[3] -= 1f;
+				}
+				if (this.ai[3] > (float)(num17 * 10))
+				{
+					this.ai[3] = 0f;
+				}
+				if (this.justHit)
+				{
+					this.ai[3] = 0f;
+				}
+				if (this.ai[3] == (float)num17)
+				{
+					this.netUpdate = true;
+				}
+			}
+			if (!flag19)
+			{
+				if (this.ai[3] < (float)num17 && flag20)
+				{
+					NPCUtils.TargetClosestOldOnesInvasion(this, true, null);
+					targetData = this.GetTargetData(true);
+				}
+				else if (!flag21)
+				{
+					if (flag22 && this.timeLeft > 10)
+					{
+						this.timeLeft = 10;
+					}
+					if (this.velocity.X == 0f)
+					{
+						if (this.velocity.Y == 0f)
+						{
+							this.ai[2] += 1f;
+							if (this.ai[2] >= 2f)
+							{
+								this.direction *= -1;
+								this.spriteDirection = this.direction * num23;
+								this.ai[2] = 0f;
+							}
+						}
+					}
+					else
+					{
+						this.ai[2] = 0f;
+					}
+					if (this.direction == 0)
+					{
+						this.direction = 1;
+					}
+				}
+			}
+			if (!flag23)
+			{
+				if (this.velocity.X < -num19 || this.velocity.X > num19)
+				{
+					if (this.velocity.Y == 0f)
+					{
+						this.velocity *= num21;
+					}
+				}
+				else if ((this.velocity.X < num19 && this.direction == 1) || (this.velocity.X > -num19 && this.direction == -1))
+				{
+					this.velocity.X = MathHelper.Clamp(this.velocity.X + num20 * (float)this.direction, -num19, num19);
+				}
+			}
+			if (flag12)
+			{
+				if (this.confused)
+				{
+					this.ai[0] = 0f;
+				}
+				else
+				{
+					if (this.ai[1] > 0f)
+					{
+						this.ai[1] -= 1f;
+					}
+					if (this.justHit)
+					{
+						this.ai[1] = 30f;
+						this.ai[0] = 0f;
+					}
+					if (this.ai[0] > 0f)
+					{
+						if (flag15)
+						{
+							NPCUtils.TargetClosestOldOnesInvasion(this, true, null);
+							targetData = this.GetTargetData(true);
+						}
+						if (this.ai[1] == (float)num9)
+						{
+							Vector2 vector7 = base.Center + zero;
+							Vector2 v2 = targetData.Center - vector7;
+							v2.Y -= Math.Abs(v2.X) * num14;
+							Vector2 vector8 = v2.SafeNormalize(-Vector2.UnitY) * scaleFactor;
+							for (int num45 = 0; num45 < num16; num45++)
+							{
+								Vector2 vector9 = vector7;
+								Vector2 vector10 = vector8;
+								if (vector.HasValue)
+								{
+									vector10 += vector.Value;
+								}
+								else
+								{
+									vector10 += Utils.RandomVector2(Main.rand, -num15, num15);
+								}
+								vector9 += vector10 * scaleFactor2;
+								if (Main.netMode != 1)
+								{
+									Projectile.NewProjectile(vector9, vector10, num11, num10, 0f, Main.myPlayer, 0f, 0f);
+								}
+							}
+							if (Math.Abs(vector8.Y) > Math.Abs(vector8.X) * 2f)
+							{
+								this.ai[0] = (float)((vector8.Y > 0f) ? 1 : 5);
+							}
+							else if (Math.Abs(vector8.X) > Math.Abs(vector8.Y) * 2f)
+							{
+								this.ai[0] = 3f;
+							}
+							else
+							{
+								this.ai[0] = (float)((vector8.Y > 0f) ? 2 : 4);
+							}
+						}
+						if ((this.velocity.Y != 0f && !flag14) || this.ai[1] <= 0f)
+						{
+							this.ai[0] = 0f;
+							this.ai[1] = 0f;
+						}
+						else if (!flag13)
+						{
+							this.velocity.X = this.velocity.X * 0.9f;
+							this.spriteDirection = this.direction * num23;
+						}
+					}
+					if ((this.ai[0] <= 0f || flag13) && (this.velocity.Y == 0f || flag14) && this.ai[1] <= 0f && targetData.Type != NPCTargetType.None)
+					{
+						bool flag35 = Collision.CanHit(this.position, this.width, this.height, targetData.Position, targetData.Width, targetData.Height);
+						if (flag35)
+						{
+							Vector2 vector11 = targetData.Center - base.Center;
+							float num46 = vector11.Length();
+							if (num46 < num12)
+							{
+								this.netUpdate = true;
+								this.velocity.X = this.velocity.X * 0.5f;
+								this.ai[0] = 3f;
+								this.ai[1] = (float)num8;
+								if (Math.Abs(vector11.Y) > Math.Abs(vector11.X) * 2f)
+								{
+									this.ai[0] = (float)((vector11.Y > 0f) ? 1 : 5);
+								}
+								else if (Math.Abs(vector11.X) > Math.Abs(vector11.Y) * 2f)
+								{
+									this.ai[0] = 3f;
+								}
+								else
+								{
+									this.ai[0] = (float)((vector11.Y > 0f) ? 2 : 4);
+								}
+							}
+						}
+					}
+					if (this.ai[0] <= 0f || flag13)
+					{
+						bool flag36 = base.Distance(targetData.Center) < num13;
+						if (flag36 && Collision.CanHitLine(this.position, this.width, this.height, targetData.Position, targetData.Width, targetData.Height))
+						{
+							this.ai[3] = 0f;
+						}
+						if (this.velocity.X < -num19 || this.velocity.X > num19 || flag36)
+						{
+							if (this.velocity.Y == 0f)
+							{
+								this.velocity.X = this.velocity.X * num21;
+							}
+						}
+						else if ((this.velocity.X < num19 && this.direction == 1) || (this.velocity.X > -num19 && this.direction == -1))
+						{
+							this.velocity.X = MathHelper.Clamp(this.velocity.X + num20 * (float)this.direction, -num19, num19);
+						}
+					}
+				}
+			}
+			if (this.velocity.Y == 0f)
+			{
+				int num47 = (int)(base.Bottom.Y + 7f) / 16;
+				int num48 = (int)base.Left.X / 16;
+				int num49 = (int)base.Right.X / 16;
+				for (int num50 = num48; num50 <= num49; num50++)
+				{
+					Tile tile = Main.tile[num50, num47];
+					if (tile == null)
+					{
+						return;
+					}
+					if (tile.nactive() && Main.tileSolid[(int)tile.type])
+					{
+						flag33 = true;
+						break;
+					}
+				}
+			}
+			Point point2 = base.Center.ToTileCoordinates();
+			if (WorldGen.InWorld(point2.X, point2.Y, 5))
+			{
+				Vector2 vector12;
+				int width;
+				int height;
+				this.GetTileCollisionParameters(out vector12, out width, out height);
+				Vector2 value = this.position - vector12;
+				Collision.StepUp(ref vector12, ref this.velocity, width, height, ref this.stepSpeed, ref this.gfxOffY, 1, false, 0);
+				this.position = vector12 + value;
+			}
+			if (flag33)
+			{
+				int num51 = (int)(base.Center.X + num22 * (float)this.direction) / 16;
+				int num52 = ((int)base.Bottom.Y - 15) / 16;
+				bool flag37 = this.position.Y + (float)this.height - (float)(num52 * 16) > 20f;
+				Tile tileSafely = Framing.GetTileSafely(num51 + this.direction, num52 + 1);
+				Tile tileSafely2 = Framing.GetTileSafely(num51, num52 + 1);
+				Tile tileSafely3 = Framing.GetTileSafely(num51, num52);
+				Tile tileSafely4 = Framing.GetTileSafely(num51, num52 - 1);
+				Tile tileSafely5 = Framing.GetTileSafely(num51, num52 - 2);
+				Tile tileSafely6 = Framing.GetTileSafely(num51, num52 - 3);
+				if (flag8 && tileSafely4.nactive() && (tileSafely4.type == 10 || tileSafely4.type == 388))
+				{
+					this.ai[0] += 1f;
+					this.ai[3] = 0f;
+					if (this.ai[0] >= 60f)
+					{
+						if (flag9)
+						{
+							this.ai[1] = 0f;
+						}
+						int num53 = 5;
+						if (Main.tile[num51, num52 - 1].type == 388)
+						{
+							num53 = 2;
+						}
+						this.velocity.X = 0.5f * (float)(-(float)this.direction);
+						this.ai[1] += (float)num53;
+						bool flag38 = false;
+						if (this.ai[1] >= 10f)
+						{
+							flag38 = true;
+							this.ai[1] = 10f;
+						}
+						if (flag10)
+						{
+							flag38 = true;
+						}
+						WorldGen.KillTile(num51, num52 - 1, true, false, false);
+						if (Main.netMode != 1 && flag38)
+						{
+							if (flag11)
+							{
+								WorldGen.KillTile(num51, num52 - 1, false, false, false);
+								if (Main.netMode == 2)
+								{
+									NetMessage.SendData(17, -1, -1, "", 0, (float)num51, (float)(num52 - 1), 0f, 0, 0, 0);
+								}
+							}
+							else
+							{
+								if (tileSafely4.type == 10)
+								{
+									bool flag39 = WorldGen.OpenDoor(num51, num52 - 1, this.direction);
+									if (!flag39)
+									{
+										this.ai[3] = (float)num17;
+										this.netUpdate = true;
+									}
+									if (Main.netMode == 2 && flag39)
+									{
+										NetMessage.SendData(19, -1, -1, "", 0, (float)num51, (float)(num52 - 1), (float)this.direction, 0, 0, 0);
+									}
+								}
+								if (tileSafely4.type == 388)
+								{
+									bool flag40 = WorldGen.ShiftTallGate(num51, num52 - 1, false);
+									if (!flag40)
+									{
+										this.ai[3] = (float)num17;
+										this.netUpdate = true;
+									}
+									if (Main.netMode == 2 && flag40)
+									{
+										NetMessage.SendData(19, -1, -1, "", 4, (float)num51, (float)(num52 - 1), (float)this.direction, 0, 0, 0);
+									}
+								}
+							}
+						}
+					}
+				}
+				else
+				{
+					int num54 = this.spriteDirection * num23;
+					if (this.velocity.X * (float)num54 > 0f)
+					{
+						if (this.height >= 32 && tileSafely5.nactive() && Main.tileSolid[(int)tileSafely5.type])
+						{
+							this.netUpdate = true;
+							this.velocity.Y = -7f;
+							if (tileSafely6.nactive() && Main.tileSolid[(int)tileSafely6.type])
+							{
+								this.velocity.Y = -8f;
+							}
+						}
+						else if (tileSafely4.nactive() && Main.tileSolid[(int)tileSafely4.type])
+						{
+							this.velocity.Y = -6f;
+							this.netUpdate = true;
+						}
+						else if (flag37 && tileSafely3.nactive() && !tileSafely3.topSlope() && Main.tileSolid[(int)tileSafely3.type])
+						{
+							this.velocity.Y = -5f;
+							this.netUpdate = true;
+						}
+						else if (flag24 && (!tileSafely2.nactive() || !Main.tileSolid[(int)tileSafely2.type]) && (!tileSafely.nactive() || !Main.tileSolid[(int)tileSafely.type]))
+						{
+							this.velocity.X = this.velocity.X * 1.5f;
+							this.velocity.Y = -8f;
+							this.netUpdate = true;
+						}
+						else if (flag8)
+						{
+							this.ai[0] = 0f;
+							this.ai[1] = 0f;
+						}
+						if (this.velocity.Y == 0f && flag && this.ai[3] == 1f)
+						{
+							this.velocity.Y = -5f;
+							this.netUpdate = true;
+						}
+					}
+					if (flag25 && this.velocity.Y == 0f && Math.Abs(targetData.Center.X - base.Center.X) < 100f && Math.Abs(targetData.Center.Y - base.Center.Y) < 50f && Math.Abs(this.velocity.X) >= 1f && this.velocity.X * (float)this.direction > 0f)
+					{
+						this.velocity.X = MathHelper.Clamp(this.velocity.X * 2f, -3f, 3f);
+						this.velocity.Y = -4f;
+						this.netAlways = true;
+					}
+				}
+			}
+			else if (flag8)
+			{
+				this.ai[0] = 0f;
+				this.ai[1] = 0f;
+			}
+			if (flag2 && this.noTileCollide)
+			{
+				if (flag27)
+				{
+					if (this.alpha < 60)
+					{
+						this.alpha += 20;
+					}
+					this.localAI[3] = 40f;
+				}
+				bool flag41 = this.velocity.Y == 0f;
+				if (Math.Abs(base.Center.X - targetData.Center.X) > 200f)
+				{
+					this.spriteDirection = (this.direction = ((targetData.Center.X > base.Center.X) ? 1 : -1));
+					this.velocity.X = MathHelper.Lerp(this.velocity.X, (float)this.direction, 0.05f);
+				}
+				int num55 = 80;
+				int height2 = this.height;
+				Vector2 position2 = new Vector2(base.Center.X - (float)(num55 / 2), this.position.Y + (float)this.height - (float)height2);
+				bool flag42 = false;
+				if (this.position.Y + (float)this.height < targetData.Position.Y + (float)targetData.Height - 16f)
+				{
+					flag42 = true;
+				}
+				if (flag42)
+				{
+					this.velocity.Y = this.velocity.Y + 0.5f;
+				}
+				else if (Collision.SolidCollision(position2, num55, height2) || targetData.Center.Y - base.Center.Y < -100f)
+				{
+					if (this.velocity.Y > 0f)
+					{
+						this.velocity.Y = 0f;
+					}
+					if ((double)this.velocity.Y > -0.2)
+					{
+						this.velocity.Y = this.velocity.Y - 0.025f;
+					}
+					else
+					{
+						this.velocity.Y = this.velocity.Y - 0.2f;
+					}
+					if (this.velocity.Y < -4f)
+					{
+						this.velocity.Y = -4f;
+					}
+				}
+				else
+				{
+					if (this.velocity.Y < 0f)
+					{
+						this.velocity.Y = 0f;
+					}
+					if ((double)this.velocity.Y < 0.1)
+					{
+						this.velocity.Y = this.velocity.Y + 0.025f;
+					}
+					else
+					{
+						this.velocity.Y = this.velocity.Y + 0.5f;
+					}
+				}
+				if (this.velocity.Y > 10f)
+				{
+					this.velocity.Y = 10f;
+				}
+				if (flag41)
+				{
+					this.velocity.Y = 0f;
+				}
+			}
+		}
 
 
-    }
+		private void AI_108_DivingFlyer()
+		{
+			this.rotation = this.velocity.ToRotation();
+			float num = 0.4f;
+			float num2 = 10f;
+			float scaleFactor = 200f;
+			float num3 = 750f;
+			float num4 = 30f;
+			float num5 = 30f;
+			float scaleFactor2 = 0.95f;
+			int num6 = 50;
+			float scaleFactor3 = 14f;
+			float num7 = 30f;
+			float num8 = 100f;
+			float num9 = 20f;
+			float num10 = 0f;
+			float num11 = 7f;
+			bool flag = true;
+			bool flag2 = true;
+			int num12 = 120;
+			bool flag3 = false;
+			bool flag4 = false;
+			float num13 = 0.05f;
+			float num14 = 0f;
+			bool flag5 = false;
+			int num15 = this.type;
+			switch (num15)
+			{
+				case 558:
+				case 559:
+				case 560:
+					flag4 = true;
+					num = 0.7f;
+					if (this.type == 559)
+					{
+						num = 0.5f;
+					}
+					if (this.type == 560)
+					{
+						num = 0.2f;
+					}
+					num2 = 3f;
+					scaleFactor = 400f;
+					num3 = 500f;
+					num4 = 90f;
+					num5 = 20f;
+					scaleFactor2 = 0.95f;
+					num6 = 0;
+					scaleFactor3 = 8f;
+					num7 = 30f;
+					num8 = 150f;
+					num9 = 60f;
+					num10 = 0.05f;
+					num11 = 6f;
+					flag2 = false;
+					flag5 = true;
+					break;
+				default:
+					switch (num15)
+					{
+						case 574:
+						case 575:
+							flag4 = true;
+							num = 0.6f;
+							if (this.type == 575)
+							{
+								num = 0.4f;
+							}
+							num2 = 4f;
+							scaleFactor = 400f;
+							num3 = 500f;
+							num4 = 90f;
+							num5 = 30f;
+							scaleFactor2 = 0.95f;
+							num6 = 3;
+							scaleFactor3 = 8f;
+							num7 = 30f;
+							num8 = 150f;
+							num9 = 10f;
+							num10 = 0.05f;
+							num11 = 0f;
+							num14 = -0.1f;
+							flag3 = true;
+							flag5 = true;
+							break;
+					}
+					break;
+			}
+			NPCUtils.TargetClosestOldOnesInvasion(this, true, null);
+			NPCAimedTarget targetData = this.GetTargetData(true);
+			if (flag5)
+			{
+				if (this.localAI[0] == 0f)
+				{
+					this.alpha = 255;
+				}
+				if (this.localAI[0] < 60f)
+				{
+					this.localAI[0] += 1f;
+					this.alpha -= 5;
+					if (this.alpha < 0)
+					{
+						this.alpha = 0;
+					}
+					int num16 = (int)this.localAI[0] / 10;
+					float num17 = base.Size.Length() / 2f;
+					num17 /= 20f;
+					int maxValue = 5;
+					if (this.type == 576 || this.type == 577)
+					{
+						maxValue = 1;
+					}
+				}
+			}
+			if (flag4)
+			{
+				for (int j = 0; j < 200; j++)
+				{
+					if (j != this.whoAmI && Main.npc[j].active && Main.npc[j].type == this.type && Math.Abs(this.position.X - Main.npc[j].position.X) + Math.Abs(this.position.Y - Main.npc[j].position.Y) < (float)this.width)
+					{
+						if (this.position.X < Main.npc[j].position.X)
+						{
+							this.velocity.X = this.velocity.X - num13;
+						}
+						else
+						{
+							this.velocity.X = this.velocity.X + num13;
+						}
+						if (this.position.Y < Main.npc[j].position.Y)
+						{
+							this.velocity.Y = this.velocity.Y - num13;
+						}
+						else
+						{
+							this.velocity.Y = this.velocity.Y + num13;
+						}
+					}
+				}
+			}
+			if (Math.Sign(this.velocity.X) != 0)
+			{
+				this.spriteDirection = -Math.Sign(this.velocity.X);
+			}
+			if (this.rotation < -1.57079637f)
+			{
+				this.rotation += 3.14159274f;
+			}
+			if (this.rotation > 1.57079637f)
+			{
+				this.rotation -= 3.14159274f;
+			}
+			num10 *= num9;
+			if (Main.expertMode)
+			{
+				num *= Main.expertKnockBack;
+			}
+			if (this.ai[0] == 0f)
+			{
+				this.knockBackResist = num;
+				float scaleFactor4 = num2;
+				Vector2 center = base.Center;
+				Vector2 center2 = targetData.Center;
+				Vector2 vector = center2 - center;
+				Vector2 vector2 = vector - Vector2.UnitY * scaleFactor;
+				float num18 = vector.Length();
+				vector = Vector2.Normalize(vector) * scaleFactor4;
+				vector2 = Vector2.Normalize(vector2) * scaleFactor4;
+				bool flag6 = Collision.CanHit(base.Center, 1, 1, targetData.Center, 1, 1);
+				if (this.ai[3] >= (float)num12)
+				{
+					flag6 = true;
+				}
+				float num19 = 8f;
+				flag6 = (flag6 && vector.ToRotation() > 3.14159274f / num19 && vector.ToRotation() < 3.14159274f - 3.14159274f / num19);
+				if (num18 > num3 || !flag6)
+				{
+					this.velocity.X = (this.velocity.X * (num4 - 1f) + vector2.X) / num4;
+					this.velocity.Y = (this.velocity.Y * (num4 - 1f) + vector2.Y) / num4;
+					if (!flag6)
+					{
+						this.ai[3] += 1f;
+						if (this.ai[3] == (float)num12)
+						{
+							this.netUpdate = true;
+						}
+					}
+					else
+					{
+						this.ai[3] = 0f;
+					}
+				}
+				else
+				{
+					this.ai[0] = 1f;
+					this.ai[2] = vector.X;
+					this.ai[3] = vector.Y;
+					this.netUpdate = true;
+				}
+			}
+			else if (this.ai[0] == 1f)
+			{
+				this.knockBackResist = 0f;
+				this.velocity *= scaleFactor2;
+				this.velocity.Y = this.velocity.Y + num14;
+				this.ai[1] += 1f;
+				if (this.ai[1] >= num5)
+				{
+					this.ai[0] = 2f;
+					this.ai[1] = 0f;
+					this.netUpdate = true;
+					Vector2 velocity = new Vector2(this.ai[2], this.ai[3]) + new Vector2((float)Main.rand.Next(-num6, num6 + 1), (float)Main.rand.Next(-num6, num6 + 1)) * 0.04f;
+					velocity.Normalize();
+					velocity *= scaleFactor3;
+					this.velocity = velocity;
+				}
+			}
+			else if (this.ai[0] == 2f)
+			{
+				this.knockBackResist = 0f;
+				float num20 = num7;
+				this.ai[1] += 1f;
+				bool flag7 = Vector2.Distance(base.Center, targetData.Center) > num8 && base.Center.Y > targetData.Center.Y;
+				if (flag3)
+				{
+					flag7 = false;
+				}
+				if ((this.ai[1] >= num20 && flag7) || this.velocity.Length() < num11)
+				{
+					this.ai[0] = 0f;
+					this.ai[1] = 0f;
+					this.ai[2] = 0f;
+					this.ai[3] = 0f;
+					this.velocity /= 2f;
+					this.netUpdate = true;
+					if (flag)
+					{
+						this.ai[1] = 45f;
+						this.ai[0] = 4f;
+					}
+				}
+				else
+				{
+					Vector2 center3 = base.Center;
+					Vector2 center4 = targetData.Center;
+					Vector2 vec = center4 - center3;
+					vec.Normalize();
+					if (vec.HasNaNs())
+					{
+						vec = new Vector2((float)this.direction, 0f);
+					}
+					this.velocity = (this.velocity * (num9 - 1f) + vec * (this.velocity.Length() + num10)) / num9;
+				}
+				if (flag2 && Collision.SolidCollision(this.position, this.width, this.height))
+				{
+					this.ai[0] = 3f;
+					this.ai[1] = 0f;
+					this.ai[2] = 0f;
+					this.ai[3] = 0f;
+					this.netUpdate = true;
+				}
+			}
+			else if (this.ai[0] == 4f)
+			{
+				this.ai[1] -= 3f;
+				if (this.ai[1] <= 0f)
+				{
+					this.ai[0] = 0f;
+					this.ai[1] = 0f;
+					this.netUpdate = true;
+				}
+				this.velocity *= 0.95f;
+			}
+			if (flag2 && this.ai[0] != 3f && Vector2.Distance(base.Center, targetData.Center) < 64f)
+			{
+				this.ai[0] = 3f;
+				this.ai[1] = 0f;
+				this.ai[2] = 0f;
+				this.ai[3] = 0f;
+				this.netUpdate = true;
+			}
+			if (this.ai[0] == 3f)
+			{
+				this.position = base.Center;
+				this.width = (this.height = 192);
+				this.position.X = this.position.X - (float)(this.width / 2);
+				this.position.Y = this.position.Y - (float)(this.height / 2);
+				this.velocity = Vector2.Zero;
+				this.damage = (int)(80f * Main.damageMultiplier);
+				this.alpha = 255;
+				this.ai[1] += 1f;
+				if (this.ai[1] >= 3f)
+				{
+					this.life = 0;
+					this.HitEffect(0, 10.0);
+					this.active = false;
+				}
+			}
+		}
+
+		private void AI_109_DarkMage()
+		{
+			bool flag = false;
+			bool flag2 = false;
+			bool flag3 = true;
+			bool flag4 = false;
+			int num = 4;
+			int num2 = 3;
+			int num3 = 0;
+			float num4 = 0.2f;
+			float num5 = 2f;
+			float num6 = -0.2f;
+			float num7 = -4f;
+			bool flag5 = true;
+			float num8 = 2f;
+			float num9 = 0.1f;
+			float num10 = 1f;
+			float num11 = 0.04f;
+			bool flag6 = false;
+			float scaleFactor = 0.96f;
+			bool flag7 = true;
+			NPCAimedTarget targetData = this.GetTargetData(true);
+			if (this.type == 564 || this.type == 565)
+			{
+				flag5 = false;
+				this.rotation = this.velocity.X * 0.04f;
+				this.spriteDirection = ((this.direction > 0) ? 1 : -1);
+				num3 = 2;
+				num6 = -0.05f;
+				num7 = -0.4f;
+				num4 = 0.05f;
+				num5 = 0.2f;
+				num10 = 0.5f;
+				num11 = 0.02f;
+				num8 = 0.5f;
+				num9 = 0.1f;
+				this.localAI[2] = 0f;
+				Vector3 v3_ = new Vector3(0.3f, 0.05f, 0.45f) * 1.5f;
+				DelegateMethods.v3_1 = v3_;
+				if (this.ai[0] < 0f)
+				{
+					this.ai[0] = MathHelper.Min(this.ai[0] + 1f, 0f);
+				}
+				if (this.ai[0] > 0f)
+				{
+					flag7 = false;
+					flag6 = true;
+					scaleFactor = 0.9f;
+					this.ai[0] -= 1f;
+					if (this.ai[1] == 2f && this.ai[0] == 64f && Main.netMode != 1)
+					{
+						Projectile.NewProjectile(base.Center + new Vector2((float)(this.direction * 24), -40f), Vector2.Zero, 673, 0, 0f, Main.myPlayer, 0f, 0f);
+						DD2Event.RaiseGoblins(base.Center);
+					}
+					if (this.ai[1] == 0f && this.ai[0] == 32f)
+					{
+						Vector2 velocity = (targetData.Center - (base.Center + new Vector2((float)(this.direction * 10), -16f))).SafeNormalize(Vector2.UnitY) * 14f;
+						this.direction = ((velocity.X > 0f) ? 1 : -1);
+						if (Main.netMode != 1)
+						{
+							Projectile.NewProjectile(base.Center + new Vector2((float)(this.direction * 10), -16f), velocity, 675, 40, 0f, Main.myPlayer, 0f, 0f);
+						}
+					}
+					if (this.ai[1] == 1f && Main.netMode != 1 && (this.ai[0] == 40f || this.ai[0] == 48f || this.ai[0] == 56f))
+					{
+						Point origin = new Vector2(base.Center.X + (float)(this.direction * 240), base.Center.Y).ToTileCoordinates();
+						Point p;
+						if (WorldUtils.Find(origin, Searches.Chain(new Searches.Down(50), new GenCondition[]
+						{
+							new Conditions.IsSolid()
+						}), out p))
+						{
+							Projectile.NewProjectile(p.ToWorldCoordinates(8f, 0f), Vector2.Zero, 674, 0, 0f, Main.myPlayer, 0f, 0f);
+						}
+					}
+					if (this.ai[0] <= 0f)
+					{
+						float num12 = this.ai[1];
+						this.ai[1] += 1f;
+						if (this.ai[1] >= 3f)
+						{
+							this.ai[1] = 0f;
+						}
+						this.ai[0] = -120f;
+						if (num12 == 0f)
+						{
+							this.ai[0] = -20f;
+						}
+						this.netUpdate = true;
+					}
+				}
+				if (this.ai[0] == 0f && this.localAI[3] >= 60f)
+				{
+					bool flag8 = false;
+					Vector2 minimum = base.Center + new Vector2(-600f, -200f);
+					Vector2 maximum = base.Center + new Vector2(600f, 200f);
+					int num13 = 0;
+					for (int i = 0; i < 200; i++)
+					{
+						NPC nPC = Main.npc[i];
+						if (nPC.active && nPC.lifeMax != nPC.life && nPC.Center.Between(minimum, maximum) && ++num13 >= 2)
+						{
+							flag8 = true;
+							break;
+						}
+					}
+					if (!flag8)
+					{
+						this.ai[1] = 2f;
+					}
+					if (this.ai[1] == 2f && !DD2Event.CanRaiseGoblinsHere(base.Center))
+					{
+						this.ai[1] = 0f;
+					}
+					bool flag9 = true;
+					if (this.ai[1] == 0f && (base.Distance(targetData.Center) >= 1000f || !Collision.CanHitLine(base.Center, 0, 0, targetData.Center, 0, 0)))
+					{
+						flag9 = false;
+					}
+					if (flag9)
+					{
+						switch ((int)this.ai[1])
+						{
+							case 0:
+								this.ai[0] = 97f;
+								break;
+							case 1:
+								this.ai[0] = 127f;
+								break;
+							case 2:
+								this.ai[0] = 183f;
+								break;
+						}
+						this.netUpdate = true;
+						flag6 = true;
+					}
+				}
+				if (this.localAI[3] == 0f)
+				{
+					this.alpha = 255;
+				}
+				if (this.localAI[3] < 60f)
+				{
+					this.localAI[3] += 1f;
+					this.alpha -= 5;
+					if (this.alpha < 0)
+					{
+						this.alpha = 0;
+					}
+					int num14 = (int)this.localAI[3] / 10;
+					float num15 = base.Size.Length() / 2f;
+					num15 /= 20f;
+					int maxValue = 5;
+					if (this.type == 576 || this.type == 577)
+					{
+						maxValue = 1;
+					}
+				}
+			}
+			if (this.justHit)
+			{
+				this.localAI[2] = 0f;
+			}
+			if (!flag2)
+			{
+				if (this.localAI[2] >= 0f)
+				{
+					float num16 = 16f;
+					bool flag10 = false;
+					bool flag11 = false;
+					if (this.position.X > this.localAI[0] - num16 && this.position.X < this.localAI[0] + num16)
+					{
+						flag10 = true;
+					}
+					else if ((this.velocity.X < 0f && this.direction > 0) || (this.velocity.X > 0f && this.direction < 0))
+					{
+						flag10 = true;
+						num16 += 24f;
+					}
+					if (this.position.Y > this.localAI[1] - num16 && this.position.Y < this.localAI[1] + num16)
+					{
+						flag11 = true;
+					}
+					if (flag10 && flag11)
+					{
+						this.localAI[2] += 1f;
+						if (this.localAI[2] >= 30f && num16 == 16f)
+						{
+							flag = true;
+						}
+						if (this.localAI[2] >= 60f)
+						{
+							this.localAI[2] = -180f;
+							this.direction *= -1;
+							this.velocity.X = this.velocity.X * -1f;
+							this.collideX = false;
+						}
+					}
+					else
+					{
+						this.localAI[0] = this.position.X;
+						this.localAI[1] = this.position.Y;
+						this.localAI[2] = 0f;
+					}
+					if (flag7)
+					{
+						NPCUtils.TargetClosestOldOnesInvasion(this, true, null);
+					}
+				}
+				else
+				{
+					this.localAI[2] += 1f;
+					this.direction = ((targetData.Center.X > base.Center.X) ? 1 : -1);
+				}
+			}
+			int num17 = (int)((this.position.X + (float)(this.width / 2)) / 16f) + this.direction * 2;
+			int num18 = (int)((this.position.Y + (float)this.height) / 16f);
+			int num19 = (int)base.Bottom.Y / 16;
+			int num20 = (int)base.Bottom.X / 16;
+			if (flag6)
+			{
+				this.velocity *= scaleFactor;
+				return;
+			}
+			for (int k = num18; k < num18 + num; k++)
+			{
+				if (Main.tile[num17, k] == null)
+				{
+					Main.tile[num17, k] = new Tile();
+				}
+				if ((Main.tile[num17, k].nactive() && Main.tileSolid[(int)Main.tile[num17, k].type]) || Main.tile[num17, k].liquid > 0)
+				{
+					if (k <= num18 + 1)
+					{
+						flag4 = true;
+					}
+					flag3 = false;
+					break;
+				}
+			}
+			for (int l = num19; l < num19 + num3; l++)
+			{
+				if (Main.tile[num20, l] == null)
+				{
+					Main.tile[num20, l] = new Tile();
+				}
+				if ((Main.tile[num20, l].nactive() && Main.tileSolid[(int)Main.tile[num20, l].type]) || Main.tile[num20, l].liquid > 0)
+				{
+					flag4 = true;
+					flag3 = false;
+					break;
+				}
+			}
+			if (flag5)
+			{
+				for (int m = num18 - num2; m < num18; m++)
+				{
+					if (Main.tile[num17, m] == null)
+					{
+						Main.tile[num17, m] = new Tile();
+					}
+					if ((Main.tile[num17, m].nactive() && Main.tileSolid[(int)Main.tile[num17, m].type]) || Main.tile[num17, m].liquid > 0)
+					{
+						flag4 = false;
+						flag = true;
+						break;
+					}
+				}
+			}
+			if (flag)
+			{
+				flag4 = false;
+				flag3 = true;
+			}
+			if (flag3)
+			{
+				this.velocity.Y = this.velocity.Y + num4;
+				if (this.velocity.Y > num5)
+				{
+					this.velocity.Y = num5;
+				}
+			}
+			else
+			{
+				if ((this.directionY < 0 && this.velocity.Y > 0f) || flag4)
+				{
+					this.velocity.Y = this.velocity.Y + num6;
+				}
+				if (this.velocity.Y < num7)
+				{
+					this.velocity.Y = num7;
+				}
+			}
+			if (this.collideX)
+			{
+				this.velocity.X = this.oldVelocity.X * -0.4f;
+				if (this.direction == -1 && this.velocity.X > 0f && this.velocity.X < 1f)
+				{
+					this.velocity.X = 1f;
+				}
+				if (this.direction == 1 && this.velocity.X < 0f && this.velocity.X > -1f)
+				{
+					this.velocity.X = -1f;
+				}
+			}
+			if (this.collideY)
+			{
+				this.velocity.Y = this.oldVelocity.Y * -0.25f;
+				if (this.velocity.Y > 0f && this.velocity.Y < 1f)
+				{
+					this.velocity.Y = 1f;
+				}
+				if (this.velocity.Y < 0f && this.velocity.Y > -1f)
+				{
+					this.velocity.Y = -1f;
+				}
+			}
+			if (this.direction == -1 && this.velocity.X > -num8)
+			{
+				this.velocity.X = this.velocity.X - num9;
+				if (this.velocity.X > num8)
+				{
+					this.velocity.X = this.velocity.X - num9;
+				}
+				else if (this.velocity.X > 0f)
+				{
+					this.velocity.X = this.velocity.X + num9 / 2f;
+				}
+				if (this.velocity.X < -num8)
+				{
+					this.velocity.X = -num8;
+				}
+			}
+			else if (this.direction == 1 && this.velocity.X < num8)
+			{
+				this.velocity.X = this.velocity.X + num9;
+				if (this.velocity.X < -num8)
+				{
+					this.velocity.X = this.velocity.X + num9;
+				}
+				else if (this.velocity.X < 0f)
+				{
+					this.velocity.X = this.velocity.X - num9 / 2f;
+				}
+				if (this.velocity.X > num8)
+				{
+					this.velocity.X = num8;
+				}
+			}
+			if (this.directionY == -1 && this.velocity.Y > -num10)
+			{
+				this.velocity.Y = this.velocity.Y - num11;
+				if (this.velocity.Y > num10)
+				{
+					this.velocity.Y = this.velocity.Y - num11 * 1.25f;
+				}
+				else if (this.velocity.Y > 0f)
+				{
+					this.velocity.Y = this.velocity.Y + num11 * 0.75f;
+				}
+				if (this.velocity.Y < -num10)
+				{
+					this.velocity.Y = -num8;
+					return;
+				}
+			}
+			else if (this.directionY == 1 && this.velocity.Y < num10)
+			{
+				this.velocity.Y = this.velocity.Y + num11;
+				if (this.velocity.Y < -num10)
+				{
+					this.velocity.Y = this.velocity.Y + num11 * 1.25f;
+				}
+				else if (this.velocity.Y < 0f)
+				{
+					this.velocity.Y = this.velocity.Y - num11 * 0.75f;
+				}
+				if (this.velocity.Y > num10)
+				{
+					this.velocity.Y = num10;
+				}
+			}
+		}
+
+
+		private void AI_110_Betsy()
+		{
+			NPCUtils.TargetClosestBetsy(this, false, null);
+			NPCAimedTarget targetData = this.GetTargetData(true);
+			int num = -1;
+			float num2 = 1f;
+			int num3 = 35;
+			int num4 = 35;
+			float num5 = 10f;
+			float num6 = 0.45f;
+			float scaleFactor = 7.5f;
+			float num7 = 30f;
+			float num8 = 30f;
+			float scaleFactor2 = 23f;
+			float num9 = 600f;
+			float num10 = 12f;
+			float num11 = 40f;
+			float num12 = 80f;
+			float num13 = num11 + num12;
+			float num14 = 1500f;
+			float num15 = 60f;
+			float scaleFactor3 = 13f;
+			float amount = 0.0333333351f;
+			float scaleFactor4 = 12f;
+			int num16 = 10;
+			int num17 = 6 * num16;
+			float num18 = 60f;
+			float num19 = num15 + (float)num17 + num18;
+			float num20 = 60f;
+			float num21 = 1f;
+			float num22 = 6.28318548f * (num21 / num20);
+			float num23 = 0.1f;
+			float scaleFactor5 = 32f;
+			float num24 = 90f;
+			float num25 = 20f;
+			float arg_F9_0 = this.ai[0];
+			if (this.ai[0] == 0f)
+			{
+				if ((this.ai[1] += 1f) >= num5)
+				{
+					this.ai[1] = 0f;
+					this.ai[0] = 1f;
+					this.ai[2] = 0f;
+					this.netUpdate = true;
+				}
+			}
+			else if (this.ai[0] == 1f)
+			{
+				if (this.ai[2] == 0f)
+				{
+					this.ai[2] = (float)((base.Center.X < targetData.Center.X) ? 1 : -1);
+				}
+				Vector2 destination = targetData.Center + new Vector2(-this.ai[2] * 300f, -200f);
+				Vector2 desiredVelocity = base.DirectionTo(destination) * scaleFactor;
+				this.SimpleFlyMovement(desiredVelocity, num6);
+				int num26 = (base.Center.X < targetData.Center.X) ? 1 : -1;
+				this.direction = (this.spriteDirection = num26);
+				if ((this.ai[1] += 1f) >= num7)
+				{
+					int num27 = 1;
+					if (this.ai[3] == 5f && Main.rand.Next(3) == 0)
+					{
+						this.ai[3] += 1f;
+					}
+					switch ((int)this.ai[3])
+					{
+						case 0:
+						case 1:
+						case 3:
+							num27 = 2;
+							break;
+						case 2:
+							num27 = 3;
+							break;
+						case 4:
+							num27 = 4;
+							break;
+						case 5:
+							num27 = 5;
+							break;
+						case 6:
+							num27 = 3;
+							break;
+						case 7:
+							num27 = 6;
+							break;
+					}
+					this.ai[0] = (float)num27;
+					this.ai[1] = 0f;
+					this.ai[2] = 0f;
+					this.ai[3] += 1f;
+					this.netUpdate = true;
+					if (this.ai[3] >= 8f)
+					{
+						this.ai[3] = 0f;
+					}
+					switch (num27)
+					{
+						case 2:
+							{
+								Vector2 v = base.DirectionTo(targetData.Center);
+								this.spriteDirection = ((v.X > 0f) ? 1 : -1);
+								this.rotation = v.ToRotation();
+								if (this.spriteDirection == -1)
+								{
+									this.rotation += 3.14159274f;
+								}
+								this.velocity = v * scaleFactor2;
+								break;
+							}
+						case 3:
+							{
+								Vector2 vector = new Vector2((float)((targetData.Center.X > base.Center.X) ? 1 : -1), 0f);
+								this.spriteDirection = ((vector.X > 0f) ? 1 : -1);
+								this.velocity = vector * -2f;
+								break;
+							}
+						case 5:
+							{
+								Vector2 v2 = base.DirectionTo(targetData.Center);
+								this.spriteDirection = ((v2.X > 0f) ? 1 : -1);
+								this.rotation = v2.ToRotation();
+								if (this.spriteDirection == -1)
+								{
+									this.rotation += 3.14159274f;
+								}
+								this.velocity = v2 * scaleFactor5;
+								break;
+							}
+					}
+				}
+			}
+			else if (this.ai[0] == 2f)
+			{
+				if ((this.ai[1] += 1f) >= num8)
+				{
+					this.ai[0] = 1f;
+					this.ai[1] = 0f;
+					this.ai[2] = 0f;
+				}
+			}
+			else if (this.ai[0] == 3f)
+			{
+				this.ai[1] += 1f;
+				int num28 = (base.Center.X < targetData.Center.X) ? 1 : -1;
+				this.ai[2] = (float)num28;
+				if (this.ai[1] < num11)
+				{
+					Vector2 vector2 = targetData.Center + new Vector2((float)num28 * -num9, -250f);
+					Vector2 value = base.DirectionTo(vector2) * num10;
+					if (base.Distance(vector2) < num10)
+					{
+						base.Center = vector2;
+					}
+					else
+					{
+						this.position += value;
+					}
+					if (Vector2.Distance(vector2, base.Center) < 16f)
+					{
+						this.ai[1] = num11 - 1f;
+					}
+					num2 = 1.5f;
+				}
+				if (this.ai[1] == num11)
+				{
+					int num29 = (targetData.Center.X > base.Center.X) ? 1 : -1;
+					this.velocity = new Vector2((float)num29, 0f) * 10f;
+					this.direction = (this.spriteDirection = num29);
+					if (Main.netMode != 1)
+					{
+						Projectile.NewProjectile(base.Center, this.velocity, 687, num3, 0f, Main.myPlayer, 0f, (float)this.whoAmI);
+					}
+				}
+				if (this.ai[1] >= num11)
+				{
+					num2 = 1.5f;
+					if (Math.Abs(targetData.Center.X - base.Center.X) > 550f && Math.Abs(this.velocity.X) < 20f)
+					{
+						this.velocity.X = this.velocity.X + (float)Math.Sign(this.velocity.X) * 0.5f;
+					}
+				}
+				if (this.ai[1] >= num13)
+				{
+					this.ai[0] = 1f;
+					this.ai[1] = 0f;
+					this.ai[2] = 0f;
+				}
+			}
+			else if (this.ai[0] == 4f)
+			{
+				int num30 = (base.Center.X < targetData.Center.X) ? 1 : -1;
+				this.ai[2] = (float)num30;
+				if (this.ai[1] < num15)
+				{
+					Vector2 vector3 = targetData.Center + new Vector2((float)num30 * -num14, -350f);
+					Vector2 value2 = base.DirectionTo(vector3) * scaleFactor3;
+					this.velocity = Vector2.Lerp(this.velocity, value2, amount);
+					int num31 = (base.Center.X < targetData.Center.X) ? 1 : -1;
+					this.direction = (this.spriteDirection = num31);
+					if (Vector2.Distance(vector3, base.Center) < 16f)
+					{
+						this.ai[1] = num15 - 1f;
+					}
+					num2 = 1.5f;
+				}
+				else if (this.ai[1] == num15)
+				{
+					Vector2 v3 = base.DirectionTo(targetData.Center);
+					v3.Y *= 0.25f;
+					v3 = v3.SafeNormalize(Vector2.UnitX * (float)this.direction);
+					this.spriteDirection = ((v3.X > 0f) ? 1 : -1);
+					this.rotation = v3.ToRotation();
+					if (this.spriteDirection == -1)
+					{
+						this.rotation += 3.14159274f;
+					}
+					this.velocity = v3 * scaleFactor4;
+				}
+				else
+				{
+					this.position.X = this.position.X + base.DirectionTo(targetData.Center).X * 7f;
+					this.position.Y = this.position.Y + base.DirectionTo(targetData.Center + new Vector2(0f, -400f)).Y * 6f;
+					if (this.ai[1] <= num19 - num18)
+					{
+						num2 = 1.5f;
+					}
+					float num32 = 30f;
+					Vector2 position = base.Center + new Vector2((110f + num32) * (float)this.direction, 20f).RotatedBy((double)this.rotation, default(Vector2));
+					int num33 = (int)(this.ai[1] - num15 + 1f);
+					if (num33 <= num17 && num33 % num16 == 0 && Main.netMode != 1)
+					{
+						Projectile.NewProjectile(position, this.velocity, 686, num4, 0f, Main.myPlayer, 0f, 0f);
+					}
+				}
+				if (this.ai[1] > num19 - num18)
+				{
+					this.velocity.Y = this.velocity.Y - 0.1f;
+				}
+				this.ai[1] += 1f;
+				if (this.ai[1] >= num19)
+				{
+					this.ai[0] = 1f;
+					this.ai[1] = 0f;
+					this.ai[2] = 0f;
+				}
+			}
+			else if (this.ai[0] == 5f)
+			{
+				this.velocity = this.velocity.RotatedBy((double)(-(double)num22 * (float)this.direction), default(Vector2));
+				this.position.Y = this.position.Y - num23;
+				this.position += base.DirectionTo(targetData.Center) * 10f;
+				this.rotation -= num22 * (float)this.direction;
+				num2 *= 0.7f;
+				if ((this.ai[1] += 1f) >= num20)
+				{
+					this.ai[0] = 1f;
+					this.ai[1] = 0f;
+					this.ai[2] = 0f;
+					this.velocity /= 2f;
+				}
+			}
+			else if (this.ai[0] == 6f)
+			{
+				if (this.ai[1] == 0f)
+				{
+					Vector2 destination2 = targetData.Center + new Vector2(0f, -200f);
+					Vector2 desiredVelocity2 = base.DirectionTo(destination2) * scaleFactor * 2f;
+					this.SimpleFlyMovement(desiredVelocity2, num6 * 2f);
+					int num34 = (base.Center.X < targetData.Center.X) ? 1 : -1;
+					this.direction = (this.spriteDirection = num34);
+					this.ai[2] += 1f;
+					if (base.Distance(targetData.Center) < 350f || this.ai[2] >= 180f)
+					{
+						this.ai[1] = 1f;
+						this.netUpdate = true;
+					}
+				}
+				else
+				{
+					if (this.ai[1] < num25)
+					{
+						this.velocity *= 0.95f;
+					}
+					else
+					{
+						this.velocity *= 0.98f;
+					}
+					if (this.ai[1] == num25)
+					{
+						if (this.velocity.Y > 0f)
+						{
+							this.velocity.Y = this.velocity.Y / 3f;
+						}
+						this.velocity.Y = this.velocity.Y - 3f;
+					}
+					num2 *= 0.85f;
+					bool flag = this.ai[1] == 20f || this.ai[1] == 25f || this.ai[1] == 30f;
+					if (flag)
+					{
+						Point point = base.Center.ToTileCoordinates();
+						int num35 = 30;
+						int num36 = 35;
+						int num37 = 4;
+						for (int i = point.X - num35; i <= point.X + num35; i++)
+						{
+							bool flag2 = false;
+							for (int j = point.Y - num36 / 3; j < point.Y + num36; j++)
+							{
+								Tile tileSafely = Framing.GetTileSafely(i, j);
+								bool flag3 = tileSafely.active() && Main.tileSolid[(int)tileSafely.type] && !Main.tileFrameImportant[(int)tileSafely.type];
+								flag2 = !flag3;
+							}
+						}
+					}
+					bool flag4 = this.ai[1] == 20f || this.ai[1] == 45f || this.ai[1] == 70f;
+					if (NPC.CountNPCS(560) > 4)
+					{
+						flag4 = false;
+					}
+					if (flag4 && Main.netMode != 1)
+					{
+						for (int m = 0; m < 1; m++)
+						{
+							Vector2 vector4 = base.Center + (6.28318548f * Main.rand.NextFloat()).ToRotationVector2() * new Vector2(2f, 1f) * 300f * (0.6f + Main.rand.NextFloat() * 0.4f);
+							if (Vector2.Distance(vector4, targetData.Center) > 100f)
+							{
+								Point point2 = vector4.ToPoint();
+								NPC.NewNPC(point2.X, point2.Y, 560, this.whoAmI, 0f, 0f, 0f, 0f, 255);
+							}
+						}
+						List<NPC> list = new List<NPC>();
+						for (int n = 0; n < 200; n++)
+						{
+							NPC nPC = Main.npc[n];
+							if (nPC.active && nPC.type == 549)
+							{
+								list.Add(nPC);
+							}
+						}
+						if (list.Count > 0)
+						{
+							for (int num40 = 0; num40 < 3; num40++)
+							{
+								NPC nPC2 = list[Main.rand.Next(list.Count)];
+								Point point3 = nPC2.Center.ToPoint();
+								NPC.NewNPC(point3.X, point3.Y, 560, 0, 0f, 0f, 0f, 0f, 255);
+							}
+						}
+					}
+					this.ai[1] += 1f;
+				}
+				if (this.ai[1] >= num24)
+				{
+					this.ai[0] = 1f;
+					this.ai[1] = 0f;
+					this.ai[2] = 0f;
+				}
+			}
+			this.localAI[0] += num2;
+			if (this.localAI[0] >= 36f)
+			{
+				this.localAI[0] = 0f;
+			}
+			if (num != -1)
+			{
+				this.localAI[0] = (float)(num * 4);
+			}
+			if ((this.localAI[1] += 1f) >= 60f)
+			{
+				this.localAI[1] = 0f;
+			}
+			float num41 = base.DirectionTo(targetData.Center).ToRotation();
+			float num42 = 0.04f;
+			switch ((int)this.ai[0])
+			{
+				case 2:
+				case 5:
+					num42 = 0f;
+					break;
+				case 3:
+					num42 = 0.01f;
+					num41 = 0f;
+					if (this.spriteDirection == -1)
+					{
+						num41 -= 3.14159274f;
+					}
+					if (this.ai[1] >= num11)
+					{
+						num41 += (float)this.spriteDirection * 3.14159274f / 12f;
+						num42 = 0.05f;
+					}
+					break;
+				case 4:
+					num42 = 0.01f;
+					num41 = 3.14159274f;
+					if (this.spriteDirection == 1)
+					{
+						num41 += 3.14159274f;
+					}
+					break;
+				case 6:
+					num42 = 0.02f;
+					num41 = 0f;
+					if (this.spriteDirection == -1)
+					{
+						num41 -= 3.14159274f;
+					}
+					break;
+			}
+			if (this.spriteDirection == -1)
+			{
+				num41 += 3.14159274f;
+			}
+			if (num42 != 0f)
+			{
+				this.rotation = this.rotation.AngleTowards(num41, num42);
+			}
+		}
+
+
+		private void AI_111_DD2LightningBug()
+		{
+			bool flag = true;
+			float scaleFactor = 7f;
+			float num = 60f;
+			float num2 = 60f;
+			float num3 = 1f;
+			float scaleFactor2 = 0.96f;
+			int num4 = 30;
+			int num5 = 20;
+			float num6 = 200f;
+			int num7 = 40;
+			int num8 = 438;
+			float scaleFactor3 = 10f;
+			float num9 = 100f;
+			bool flag2 = false;
+			float num10 = 0.05f;
+			Vector2 vector = base.Center;
+			NPCUtils.TargetClosestOldOnesInvasion(this, true, null);
+			NPCAimedTarget targetData = this.GetTargetData(true);
+			bool flag3 = false;
+			int num11 = this.type;
+			if (num11 == 578)
+			{
+				scaleFactor = 4f;
+				num = 20f;
+				num2 = 20f;
+				flag3 = true;
+				flag2 = true;
+				num10 = 0.1f;
+				num8 = 682;
+				num7 = 10;
+				scaleFactor3 = 10f;
+				num9 = 50f;
+				num4 = 5;
+				num5 = 30;
+				vector += new Vector2((float)(-(float)this.spriteDirection * 20), 10f);
+			}
+			if (flag3)
+			{
+				if (this.localAI[1] == 0f)
+				{
+					this.alpha = 255;
+				}
+				if (this.localAI[1] < 60f)
+				{
+					this.localAI[1] += 1f;
+					this.alpha -= 5;
+					if (this.alpha < 0)
+					{
+						this.alpha = 0;
+					}
+					int num12 = (int)this.localAI[1] / 10;
+					float num13 = base.Size.Length() / 2f;
+					num13 /= 20f;
+					int maxValue = 5;
+					if (this.type == 576 || this.type == 577)
+					{
+						maxValue = 1;
+					}
+				}
+			}
+			if (flag2)
+			{
+				for (int j = 0; j < 200; j++)
+				{
+					if (j != this.whoAmI && Main.npc[j].active && Main.npc[j].type == this.type && Math.Abs(this.position.X - Main.npc[j].position.X) + Math.Abs(this.position.Y - Main.npc[j].position.Y) < (float)this.width)
+					{
+						if (this.position.X < Main.npc[j].position.X)
+						{
+							this.velocity.X = this.velocity.X - num10;
+						}
+						else
+						{
+							this.velocity.X = this.velocity.X + num10;
+						}
+						if (this.position.Y < Main.npc[j].position.Y)
+						{
+							this.velocity.Y = this.velocity.Y - num10;
+						}
+						else
+						{
+							this.velocity.Y = this.velocity.Y + num10;
+						}
+					}
+				}
+			}
+			this.rotation = Math.Abs(this.velocity.X) * (float)this.direction * 0.1f;
+			this.spriteDirection = this.direction;
+			Vector2 vector3 = vector;
+			Vector2 vector4 = targetData.Center - vector3;
+			Vector2 vector5 = vector4.SafeNormalize(Vector2.UnitY) * scaleFactor;
+			bool flag4 = Collision.CanHit(base.Center, 1, 1, targetData.Center, 1, 1);
+			if (this.localAI[0] < 0f)
+			{
+				this.localAI[0] += 1f;
+			}
+			if (!flag)
+			{
+				this.velocity = (this.velocity * (num - 1f) + vector5) / num;
+				if (this.timeLeft > 10)
+				{
+					this.timeLeft = 10;
+					return;
+				}
+			}
+			else
+			{
+				if (vector4.Length() > num6 || !flag4)
+				{
+					this.velocity = (this.velocity * (num2 - 1f) + vector5) / num2;
+					return;
+				}
+				if (vector4.Y < num9)
+				{
+					this.velocity.Y = this.velocity.Y - 0.03f;
+					return;
+				}
+				if (this.localAI[0] >= 0f)
+				{
+					this.velocity *= scaleFactor2;
+					if (this.velocity.Length() < num3 && Main.netMode != 1)
+					{
+						this.localAI[0] += 1f;
+						if (this.localAI[0] >= (float)num4)
+						{
+							this.localAI[0] = (float)(-(float)num5);
+							this.direction = (this.spriteDirection = ((vector5.X > 0f) ? 1 : -1));
+							vector5 = vector4 + Utils.RandomVector2(Main.rand, -25f, 25f);
+							vector5.X *= 1f + (float)Main.rand.Next(-20, 21) * 0.005f;
+							vector5.Y *= 1f + (float)Main.rand.Next(-20, 21) * 0.005f;
+							vector5 = vector5.SafeNormalize(Vector2.UnitY) * scaleFactor3;
+							vector5.X *= 1f + (float)Main.rand.Next(-20, 21) * 0.00625f;
+							vector5.Y *= 1f + (float)Main.rand.Next(-20, 21) * 0.00625f;
+							Projectile.NewProjectile(vector3, vector5, num8, num7, 0f, Main.myPlayer, 0f, 0f);
+						}
+					}
+				}
+			}
+		}
+
+		public static void GetMeleeCollisionData(Rectangle victimHitbox, int enemyIndex, ref int specialHitSetter, ref float damageMultiplier, ref Rectangle npcRect)
+		{
+			NPC nPC = Main.npc[enemyIndex];
+			if (nPC.type >= 430 && nPC.type <= 436 && nPC.ai[2] > 5f)
+			{
+				int num = 34;
+				if (nPC.spriteDirection < 0)
+				{
+					npcRect.X -= num;
+					npcRect.Width += num;
+				}
+				else
+				{
+					npcRect.Width += num;
+				}
+				damageMultiplier *= 1.25f;
+				return;
+			}
+			if (nPC.type >= 494 && nPC.type <= 495 && nPC.ai[2] > 5f)
+			{
+				int num2 = 18;
+				if (nPC.spriteDirection < 0)
+				{
+					npcRect.X -= num2;
+					npcRect.Width += num2;
+				}
+				else
+				{
+					npcRect.Width += num2;
+				}
+				damageMultiplier *= 1.25f;
+				return;
+			}
+			if (nPC.type == 460)
+			{
+				Rectangle rectangle = new Rectangle(0, 0, 30, 14);
+				rectangle.X = (int)nPC.Center.X;
+				if (nPC.direction < 0)
+				{
+					rectangle.X -= rectangle.Width;
+				}
+				rectangle.Y = (int)nPC.position.Y + nPC.height - 20;
+				if (victimHitbox.Intersects(rectangle))
+				{
+					npcRect = rectangle;
+					damageMultiplier *= 1.35f;
+					return;
+				}
+			}
+			else if (nPC.type == 417 && nPC.ai[0] == 6f && nPC.ai[3] > 0f && nPC.ai[3] < 4f)
+			{
+				Rectangle rectangle2 = Utils.CenteredRectangle(nPC.Center, new Vector2(100f));
+				if (victimHitbox.Intersects(rectangle2))
+				{
+					npcRect = rectangle2;
+					damageMultiplier *= 1.35f;
+					return;
+				}
+			}
+			else if (nPC.type == 466)
+			{
+				Rectangle rectangle3 = new Rectangle(0, 0, 30, 8);
+				rectangle3.X = (int)nPC.Center.X;
+				if (nPC.direction < 0)
+				{
+					rectangle3.X -= rectangle3.Width;
+				}
+				rectangle3.Y = (int)nPC.position.Y + nPC.height - 32;
+				if (victimHitbox.Intersects(rectangle3))
+				{
+					npcRect = rectangle3;
+					damageMultiplier *= 1.75f;
+					return;
+				}
+			}
+			else if (nPC.type == 576 || nPC.type == 577)
+			{
+				NPC nPC2 = nPC;
+				bool flag = true;
+				int y = nPC2.frame.Y;
+				int num3 = 0;
+				int num4 = 0;
+				Rectangle rectangle4 = new Rectangle(0, 0, 30, 8);
+				switch (y)
+				{
+					case 15:
+						specialHitSetter = 2;
+						rectangle4.Width = 120;
+						rectangle4.Height = 30;
+						num4 = 24;
+						break;
+					case 16:
+						specialHitSetter = 2;
+						rectangle4.Width = 120;
+						rectangle4.Height = 60;
+						num3 = 10;
+						break;
+					case 17:
+						specialHitSetter = 2;
+						rectangle4.Width = 100;
+						rectangle4.Height = 90;
+						num3 = 50;
+						break;
+					case 18:
+						specialHitSetter = 2;
+						rectangle4.Width = 100;
+						rectangle4.Height = 50;
+						num3 = 90;
+						num4 = 10;
+						break;
+					default:
+						flag = false;
+						break;
+				}
+				if (flag)
+				{
+					rectangle4.X = (int)nPC2.Center.X - num3 * nPC2.direction;
+					if (nPC2.direction < 0)
+					{
+						rectangle4.X -= rectangle4.Width;
+					}
+					rectangle4.Y = (int)nPC2.Center.Y - rectangle4.Height + num4;
+					if (victimHitbox.Intersects(rectangle4))
+					{
+						npcRect = rectangle4;
+						damageMultiplier *= 1.75f;
+						return;
+					}
+				}
+			}
+			else if ((nPC.type == 552 || nPC.type == 553 || nPC.type == 554) && nPC.ai[0] > 0f && nPC.ai[0] < 24f)
+			{
+				Rectangle rectangle5 = new Rectangle(0, 0, 34, 14);
+				rectangle5.X = (int)nPC.Center.X;
+				if (nPC.direction < 0)
+				{
+					rectangle5.X -= rectangle5.Width;
+				}
+				rectangle5.Y = (int)nPC.position.Y + nPC.height - 20;
+				if (victimHitbox.Intersects(rectangle5))
+				{
+					npcRect = rectangle5;
+					damageMultiplier *= 1.35f;
+				}
+			}
+		}
+
+		public NPCAimedTarget GetTargetData(bool ignorePlayerTankPets = true)
+		{
+			if (!this.HasValidTarget)
+			{
+				return default(NPCAimedTarget);
+			}
+			if (this.SupportsNPCTargets && this.HasNPCTarget)
+			{
+				return new NPCAimedTarget(Main.npc[this.TranslatedTargetIndex]);
+			}
+			return new NPCAimedTarget(Main.player[this.target], ignorePlayerTankPets);
+		}
+
+		private void LazySetLiquidMovementDD2()
+		{
+			this.waterMovementSpeed = 1f;
+			this.lavaMovementSpeed = 1f;
+			this.honeyMovementSpeed = 1f;
+		}
+
+		public bool ShouldFaceTarget(ref NPCUtils.TargetSearchResults searchResults, NPCUtils.TargetType? overrideTargetType = null)
+		{
+			NPCUtils.TargetType nearestTargetType = searchResults.NearestTargetType;
+			if (overrideTargetType.HasValue)
+			{
+				nearestTargetType = overrideTargetType.Value;
+			}
+			switch (nearestTargetType)
+			{
+				case NPCUtils.TargetType.NPC:
+				case NPCUtils.TargetType.TankPet:
+					return true;
+				case NPCUtils.TargetType.Player:
+					{
+						bool flag = true;
+						Player nearestTankOwner = searchResults.NearestTankOwner;
+						if (nearestTankOwner.dead || (nearestTankOwner.npcTypeNoAggro[this.type] && this.direction != 0))
+						{
+							flag = false;
+						}
+						if (flag)
+						{
+							float num = (float)(nearestTankOwner.width + nearestTankOwner.height + this.width + this.height) / 4f + 800f;
+							return nearestTankOwner.itemAnimation != 0 || nearestTankOwner.aggro >= 0 || searchResults.NearestTankDistance <= num || this.oldTarget < 0 || this.oldTarget >= 255;
+						}
+						break;
+					}
+			}
+			return false;
+		}
+
+		public void TargetClosestUpgraded(bool faceTarget = true, Vector2? checkPosition = null)
+		{
+			int num = -1;
+			int num2 = -1;
+			int num3 = -1;
+			Vector2 center = base.Center;
+			if (checkPosition.HasValue)
+			{
+				center = checkPosition.Value;
+			}
+			bool flag = this.direction == 0;
+			float num4 = 9999999f;
+			for (int i = 0; i < 255; i++)
+			{
+				Player player = Main.player[i];
+				if (player.active && !player.dead && !player.ghost)
+				{
+					float num5 = Vector2.Distance(center, player.Center);
+					num5 -= (float)player.aggro;
+					bool flag2 = player.npcTypeNoAggro[this.type];
+					if (flag2 && !flag)
+					{
+						num5 += 1000f;
+					}
+					if (num5 < num4)
+					{
+						num = i;
+						num2 = -1;
+						num4 = num5;
+					}
+					if (player.tankPet >= 0 && !flag2)
+					{
+						num5 = Vector2.Distance(center, Main.projectile[player.tankPet].Center);
+						num5 -= 200f;
+						if (num5 < num4 && num5 < 200f && Collision.CanHit(base.Center, 0, 0, Main.projectile[player.tankPet].Center, 0, 0))
+						{
+							num2 = player.tankPet;
+							num4 = num5;
+						}
+					}
+				}
+			}
+			for (int j = 0; j < 200; j++)
+			{
+				NPC nPC = Main.npc[j];
+				if (nPC.active && nPC.type == 548)
+				{
+					float num6 = Vector2.Distance(center, nPC.Center);
+					if (num4 > num6)
+					{
+						num3 = j;
+						num = -1;
+						num2 = -1;
+						num4 = num6;
+					}
+				}
+			}
+			if (num4 == 9999999f)
+			{
+				return;
+			}
+			if (num3 >= 0)
+			{
+				this.target = Main.npc[num3].WhoAmIToTargettingIndex;
+				this.targetRect = Main.npc[num3].Hitbox;
+				this.direction = (((float)this.targetRect.Center.X < base.Center.X) ? -1 : 1);
+				this.directionY = (((float)this.targetRect.Center.Y < base.Center.Y) ? -1 : 1);
+				return;
+			}
+			if (num2 >= 0)
+			{
+				this.target = Main.projectile[num2].owner;
+				this.targetRect = Main.projectile[num2].Hitbox;
+				this.direction = (((float)this.targetRect.Center.X < base.Center.X) ? -1 : 1);
+				this.directionY = (((float)this.targetRect.Center.Y < base.Center.Y) ? -1 : 1);
+				return;
+			}
+			if (num < 0 || num >= 255)
+			{
+				num = 0;
+			}
+			Player player2 = Main.player[num];
+			this.targetRect = player2.Hitbox;
+			this.target = num;
+			if (player2.dead || (player2.npcTypeNoAggro[this.type] && !flag))
+			{
+				faceTarget = false;
+			}
+			if (faceTarget)
+			{
+				float num7 = (float)(player2.width + player2.height + this.width + this.height) / 4f + 800f;
+				float num8 = num4 - (float)player2.aggro;
+				if (player2.itemAnimation == 0 && player2.aggro < 0 && num8 > num7 && this.oldTarget >= 0 && this.oldTarget < 255)
+				{
+					return;
+				}
+				this.direction = (((float)this.targetRect.Center.X < base.Center.X) ? -1 : 1);
+				this.directionY = (((float)this.targetRect.Center.Y < base.Center.Y) ? -1 : 1);
+			}
+		}
+		
+		private void CheckLifeRegen()
+		{
+			if (this.life < this.lifeMax)
+			{
+				this.friendlyRegen++;
+				if (this.dryadWard)
+				{
+					this.friendlyRegen += 10;
+				}
+				if (this.friendlyRegen > 180)
+				{
+					this.friendlyRegen = 0;
+					this.life++;
+					this.netUpdate = true;
+				}
+			}
+		}
+
+		private void CheckMeleeCollision()
+		{
+			if (this.dontTakeDamageFromHostiles)
+			{
+				return;
+			}
+			int num = 1;
+			if (this.immune[255] == 0)
+			{
+				int num2 = 30;
+				if (this.type == 548)
+				{
+					num2 = 20;
+				}
+				Rectangle hitbox = base.Hitbox;
+				for (int i = 0; i < 200; i++)
+				{
+					NPC nPC = Main.npc[i];
+					if (nPC.active && !nPC.friendly && nPC.damage > 0)
+					{
+						Rectangle hitbox2 = nPC.Hitbox;
+						float num3 = 1f;
+						NPC.GetMeleeCollisionData(hitbox, i, ref num, ref num3, ref hitbox2);
+						if (hitbox.Intersects(hitbox2) && (this.type != 453 || !NPCID.Sets.Skeletons.Contains(nPC.netID)))
+						{
+							int num4 = nPC.damage;
+							int num5 = 6;
+							int num6 = 1;
+							if (nPC.position.X + (float)(nPC.width / 2) > this.position.X + (float)(this.width / 2))
+							{
+								num6 = -1;
+							}
+							double num7 = this.StrikeNPCNoInteraction(num4, (float)num5, num6, false, false, false);
+							if (Main.netMode != 0)
+							{
+								NetMessage.SendData(28, -1, -1, "", this.whoAmI, (float)num4, (float)num5, (float)num6, 0, 0, 0);
+							}
+							this.netUpdate = true;
+							this.immune[255] = num2;
+							if (this.dryadWard)
+							{
+								num4 = (int)num7 / 3;
+								num5 = 6;
+								num6 *= -1;
+								nPC.StrikeNPCNoInteraction(num4, (float)num5, num6, false, false, false);
+								if (Main.netMode != 0)
+								{
+									NetMessage.SendData(28, -1, -1, "", i, (float)num4, (float)num5, (float)num6, 0, 0, 0);
+								}
+								nPC.netUpdate = true;
+								nPC.immune[255] = num2;
+							}
+						}
+					}
+				}
+			}
+		}
+		#endregion
+	}
 }

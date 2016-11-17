@@ -1,12 +1,7 @@
-﻿using Microsoft.Win32;
-using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using Terraria.Achievements;
@@ -14,13 +9,11 @@ using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.GameContent.Achievements;
 using Terraria.GameContent.Events;
-using Terraria.GameContent.Tile_Entities;
-using Terraria.ID;
+using Terraria.GameContent.UI;
 using Terraria.Initializers;
 using Terraria.IO;
-//using Terraria.Map;
+using Terraria.Localization;
 using Terraria.Net;
-using Terraria.Net.Sockets;
 using Terraria.ObjectData;
 using Terraria.Utilities;
 using Terraria.World.Generation;
@@ -30,6 +23,12 @@ namespace Terraria
 {
 	public class Main
 	{
+		public static event Action OnEngineLoad;
+
+		public static event Action OnEnginePreload;
+
+		public static event Action OnTick;
+
 		public const int offLimitBorderTiles = 40;
 
 		public const int maxItemTypes = 3884;
@@ -156,7 +155,7 @@ namespace Terraria
 
 		public static int curRelease;
 
-		public const ulong WorldGeneratorVersion = 790273982465uL;
+		public const ulong WorldGeneratorVersion = 798863917057uL;
 
 		public static string versionNumber;
 
@@ -1405,6 +1404,8 @@ namespace Terraria
 
 		public static string[] npcName;
 
+		public static string[] npcNameEnglish;
+
 		public static int PendingResolutionWidth;
 
 		public static int PendingResolutionHeight;
@@ -1653,6 +1654,9 @@ namespace Terraria
 
 		public static GenerationProgress AutogenProgress = new GenerationProgress();
 
+		public static bool UseExperimentalFeatures;
+
+		private static bool IsEnginePreloaded;
 
 		public static AchievementManager Achievements
 		{
@@ -1727,11 +1731,19 @@ namespace Terraria
 			}
 		}
 
+		public static bool UseSeedUI
+		{
+			get
+			{
+				return Main.UseExperimentalFeatures;
+			}
+		}
+
 		static Main()
 		{
-			Main.curRelease = 184;
-			Main.versionNumber = "v1.3.4";
-			Main.versionNumber2 = "v1.3.4";
+			Main.curRelease = 186;
+			Main.versionNumber = "v1.3.4.2";
+			Main.versionNumber2 = "v1.3.4.2";
 			Main.destroyerHB = new Vector2(0f, 0f);
 			Main.drawBackGore = false;
 			Main.expertLife = 2f;
@@ -2269,6 +2281,7 @@ namespace Terraria
 			Main.Configuration = new Preferences(string.Concat(Main.SavePath, Path.DirectorySeparatorChar, "config.json"), false, false);
 			Main.itemName = new string[Main.maxItemTypes];
 			Main.npcName = new string[Main.maxNPCTypes];
+			Main.npcNameEnglish = new string[Main.maxNPCTypes];
 			Main.PendingResolutionWidth = 800;
 			Main.PendingResolutionHeight = 600;
 			Main.invasionType = 0;
@@ -2377,6 +2390,8 @@ namespace Terraria
 			Main.bgW = (int)(1024f * Main.bgScale);
 			Main.backColor = Color.White;
 			Main.trueBackColor = Main.backColor;
+			Main.UseExperimentalFeatures = false;
+			Main.IsEnginePreloaded = false;
 		}
 
 		public Main()
@@ -2530,6 +2545,7 @@ namespace Terraria
 			{
 				nPC.SetDefaults(i, -1f);
 				Main.npcName[i] = Lang.npcName(nPC.netID, false);
+				Main.npcNameEnglish[i] = Lang.npcName(nPC.netID, true);
 			}
 			Projectile projectile = new Projectile();
 			for (int j = 0; j < 714; j++)
@@ -8016,6 +8032,7 @@ namespace Terraria
 			Main.tileNoFail[331] = true;
 			Main.tileNoFail[332] = true;
 			Main.tileNoFail[333] = true;
+			Main.tileNoFail[254] = true;
 			Main.tileNoFail[129] = true;
 			Main.tileNoFail[192] = true;
 			Main.tileHammer[26] = true;
@@ -10164,7 +10181,7 @@ namespace Terraria
 							{
 								num1 = 12;
 							}
-							object[] objArray12 = new object[] { Language.GetTextValue("CLI.Time", num1, ":", str2, " ", str1 };
+							object[] objArray12 = new object[] { Language.GetTextValue("CLI.Time", num1, ":", str2, " ", str1) };
 							Console.WriteLine(string.Concat(objArray12));
 						}
 						else if (lower == Language.GetTextValue("CLI.MaxPlayers_Command"))
@@ -10281,7 +10298,7 @@ namespace Terraria
 									{
 										string arg = str.Substring(length + 1);
 										Console.WriteLine(Language.GetTextValue("CLI.ServerMessage", arg));
-										NetMessage.SendData(25, -1, -1, string.Concat("<Server> ", str4), 255, 255f, 240f, 20f, 0, 0, 0);
+										NetMessage.SendData(25, -1, -1, string.Concat("<Server> ", arg), 255, 255f, 240f, 20f, 0, 0, 0);
 
 									}
 								}

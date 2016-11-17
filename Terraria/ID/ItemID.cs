@@ -7834,33 +7834,6 @@ namespace Terraria.ID
 			public readonly bool Enabled;
 		}
 
-		public static ItemID.BannerEffect[] BannerStrength = ItemID.Sets.Factory.CreateCustomSet<ItemID.BannerEffect>(new ItemID.BannerEffect(1f), new object[]
-			{
-				3838,
-				ItemID.Sets.DD2BannerEffect,
-				3845,
-				ItemID.Sets.DD2BannerEffect,
-				3837,
-				ItemID.Sets.DD2BannerEffect,
-				3844,
-				ItemID.Sets.DD2BannerEffect,
-				3843,
-				ItemID.Sets.DD2BannerEffect,
-				3839,
-				ItemID.Sets.DD2BannerEffect,
-				3840,
-				ItemID.Sets.DD2BannerEffect,
-				3842,
-				ItemID.Sets.DD2BannerEffect,
-				3841,
-				ItemID.Sets.DD2BannerEffect,
-				3846,
-				ItemID.Sets.DD2BannerEffect
-			});
-
-
-		private static ItemID.BannerEffect DD2BannerEffect = ItemID.BannerEffect.None;
-
 		public class Sets
 		{
 			public static SetFactory Factory = new SetFactory(Count);
@@ -8729,6 +8702,33 @@ namespace Terraria.ID
 				431,
 				432
 			});
+
+			public static ItemID.BannerEffect[] BannerStrength = ItemID.Sets.Factory.CreateCustomSet<ItemID.BannerEffect>(new ItemID.BannerEffect(1f), new object[]
+			{
+				3838,
+				ItemID.Sets.DD2BannerEffect,
+				3845,
+				ItemID.Sets.DD2BannerEffect,
+				3837,
+				ItemID.Sets.DD2BannerEffect,
+				3844,
+				ItemID.Sets.DD2BannerEffect,
+				3843,
+				ItemID.Sets.DD2BannerEffect,
+				3839,
+				ItemID.Sets.DD2BannerEffect,
+				3840,
+				ItemID.Sets.DD2BannerEffect,
+				3842,
+				ItemID.Sets.DD2BannerEffect,
+				3841,
+				ItemID.Sets.DD2BannerEffect,
+				3846,
+				ItemID.Sets.DD2BannerEffect
+			});
+
+
+			private static ItemID.BannerEffect DD2BannerEffect = ItemID.BannerEffect.None;
 		}
 	}
 }
