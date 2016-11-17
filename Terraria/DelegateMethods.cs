@@ -1,5 +1,5 @@
-
 using System;
+using Terraria.Enums;
 using Terraria.ID;
 
 namespace Terraria
@@ -13,6 +13,8 @@ namespace Terraria
 		public static Color c_1;
 
 		public static int i_1;
+
+		public static TileCuttingContext tilecut_0 = TileCuttingContext.Unknown;
 
 		static DelegateMethods()
 		{
@@ -42,7 +44,7 @@ namespace Terraria
 			{
 				return true;
 			}
-			if (Main.tile[x, y + 1] != null && Main.tile[x, y + 1].type != 78 && Main.tile[x, y + 1].type != 380)
+			if (WorldGen.CanCutTile(x, y, DelegateMethods.tilecut_0))
 			{
 				WorldGen.KillTile(x, y, false, false, false);
 				if (Main.netMode != 0)

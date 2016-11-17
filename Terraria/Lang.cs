@@ -15,7 +15,7 @@ namespace Terraria
 
 		public static string[] gen = new string[82];
 
-		public static string[] inter = new string[128];
+		public static string[] inter = new string[129];
 
 		public static string[] tip = new string[60];
 
@@ -9101,7 +9101,7 @@ namespace Terraria
 											case 3805:
 												return "10% increased minion damage and 20% increased movement speed";
 											case 3806:
-												return "Increases your max number of sentries and increases attack speed by 20%";
+												return "Increases your max number of sentries and increases melee attack speed by 20%";
 											case 3807:
 												return "20% increased minion and melee damage";
 											case 3808:
@@ -16657,7 +16657,7 @@ namespace Terraria
 						case 3810:
 						case 3811:
 						case 3812:
-							return "Increases sentry damage by 10%";
+							return "Increases minion damage by 10%";
 						case 3813:
 						case 3814:
 						case 3815:

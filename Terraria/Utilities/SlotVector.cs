@@ -8,7 +8,7 @@ namespace Terraria.Utilities
 	{
 		public SlotVector(int capacity)
 		{
-			this._array = new SlotVector<T>.ItemPair[capacity];
+			this._array = new ItemPair[capacity];
 			this.Clear();
 		}
 
@@ -19,15 +19,15 @@ namespace Terraria.Utilities
 				return new SlotId(MAX_INDEX);
 			}
 			uint freeHead = this._freeHead;
-			SlotVector<T>.ItemPair itemPair = this._array[(int)((UIntPtr)freeHead)];
+			ItemPair itemPair = this._array[(int)(freeHead)];
 			if (this._freeHead >= this._usedSpaceLength)
 			{
 				this._usedSpaceLength = this._freeHead + 1u;
 			}
 			this._freeHead = itemPair.Id.Index;
-			this._array[(int)((UIntPtr)freeHead)] = new SlotVector<T>.ItemPair(value, itemPair.Id.ToActive(freeHead));
+			this._array[(int)(freeHead)] = new ItemPair(value, itemPair.Id.ToActive(freeHead));
 			this._count++;
-			return this._array[(int)((UIntPtr)freeHead)].Id;
+			return this._array[(int)(freeHead)].Id;
 		}
 
 		public void Clear()
@@ -35,28 +35,28 @@ namespace Terraria.Utilities
 			this._usedSpaceLength = 0u;
 			this._count = 0;
 			this._freeHead = 0u;
-			uint num = 0u;
-			while ((ulong)num < (ulong)((long)(this._array.Length - 1)))
+			int num = 0;
+			while (num < this._array.Length - 1)
 			{
-				this._array[(int)((UIntPtr)num)] = new SlotVector<T>.ItemPair(default(T), new SlotId(num + 1u));
-				num += 1u;
+				this._array[num] = new ItemPair(default(T), new SlotId((uint)num + 1));
+				num += 1;
 			}
-			this._array[this._array.Length - 1] = new SlotVector<T>.ItemPair(default(T), new SlotId(MAX_INDEX));
+			this._array[this._array.Length - 1] = new ItemPair(default(T), new SlotId(MAX_INDEX));
 		}
 
-		public SlotVector<T>.ItemPair GetPair(int index)
+		public ItemPair GetPair(int index)
 		{
 			if (this.Has(index))
 			{
 				return this._array[index];
 			}
-			return new SlotVector<T>.ItemPair(default(T), SlotId.Invalid);
+			return new ItemPair(default(T), SlotId.Invalid);
 		}
 
 		public bool Has(SlotId id)
 		{
 			uint index = id.Index;
-			return index >= 0u && (ulong)index < (ulong)((long)this._array.Length) && this._array[(int)((UIntPtr)index)].Id.IsActive && !(id != this._array[(int)((UIntPtr)index)].Id);
+			return index >= 0u && index < (ulong)this._array.Length && this._array[(int)index].Id.IsActive && !(id != this._array[(int)index].Id);
 		}
 
 		public bool Has(int index)
@@ -69,7 +69,7 @@ namespace Terraria.Utilities
 			if (id.IsActive)
 			{
 				uint index = id.Index;
-				this._array[(int)((UIntPtr)index)] = new SlotVector<T>.ItemPair(default(T), id.ToInactive(this._freeHead));
+				this._array[(int)index] = new ItemPair(default(T), id.ToInactive(this._freeHead));
 				this._freeHead = index;
 				this._count--;
 				return true;
@@ -77,14 +77,14 @@ namespace Terraria.Utilities
 			return false;
 		}
 
-		IEnumerator<SlotVector<T>.ItemPair> IEnumerable<SlotVector<T>.ItemPair>.GetEnumerator()
+		IEnumerator<ItemPair> IEnumerable<ItemPair>.GetEnumerator()
 		{
-			return new SlotVector<T>.Enumerator(this);
+			return new Enumerator(this);
 		}
 
 		IEnumerator IEnumerable.GetEnumerator()
 		{
-			return new SlotVector<T>.Enumerator(this);
+			return new Enumerator(this);
 		}
 
 		public int Capacity
@@ -127,7 +127,7 @@ namespace Terraria.Utilities
 				{
 					throw new KeyNotFoundException();
 				}
-				this._array[index] = new SlotVector<T>.ItemPair(value, this._array[index].Id);
+				this._array[index] = new ItemPair(value, this._array[index].Id);
 			}
 		}
 
@@ -136,34 +136,34 @@ namespace Terraria.Utilities
 			get
 			{
 				uint index = id.Index;
-				if (index < 0u || (ulong)index >= (ulong)((long)this._array.Length))
+				if (index < 0u || index >= (ulong)this._array.Length)
 				{
 					throw new IndexOutOfRangeException();
 				}
-				if (!this._array[(int)((UIntPtr)index)].Id.IsActive || id != this._array[(int)((UIntPtr)index)].Id)
+				if (!this._array[(int)index].Id.IsActive || id != this._array[(int)index].Id)
 				{
 					throw new KeyNotFoundException();
 				}
-				return this._array[(int)((UIntPtr)index)].Value;
+				return this._array[(int)index].Value;
 			}
 			set
 			{
 				uint index = id.Index;
-				if (index < 0u || (ulong)index >= (ulong)((long)this._array.Length))
+				if (index < 0u || index >= (ulong)this._array.Length)
 				{
 					throw new IndexOutOfRangeException();
 				}
-				if (!this._array[(int)((UIntPtr)index)].Id.IsActive || id != this._array[(int)((UIntPtr)index)].Id)
+				if (!this._array[(int)index].Id.IsActive || id != this._array[(int)index].Id)
 				{
 					throw new KeyNotFoundException();
 				}
-				this._array[(int)((UIntPtr)index)] = new SlotVector<T>.ItemPair(value, id);
+				this._array[(int)index] = new ItemPair(value, id);
 			}
 		}
 
 		private const uint MAX_INDEX = 65535u;
 
-		private SlotVector<T>.ItemPair[] _array;
+		private ItemPair[] _array;
 
 		private int _count;
 
@@ -171,7 +171,7 @@ namespace Terraria.Utilities
 
 		private uint _usedSpaceLength;
 
-		public class Enumerator : IEnumerator<SlotVector<T>.ItemPair>, IDisposable, IEnumerator
+		public class Enumerator : IEnumerator<ItemPair>, IDisposable, IEnumerator
 		{
 			public Enumerator(SlotVector<T> slotVector)
 			{
@@ -180,7 +180,7 @@ namespace Terraria.Utilities
 
 			public bool MoveNext()
 			{
-				while ((long)(++this._index) < (long)((ulong)this._slotVector._usedSpaceLength))
+				while (++this._index < (long)((ulong)this._slotVector._usedSpaceLength))
 				{
 					if (this._slotVector.Has(this._index))
 					{
@@ -200,7 +200,7 @@ namespace Terraria.Utilities
 				this._slotVector = null;
 			}
 
-			SlotVector<T>.ItemPair IEnumerator<SlotVector<T>.ItemPair>.Current
+			ItemPair IEnumerator<ItemPair>.Current
 			{
 				get
 				{

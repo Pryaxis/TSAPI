@@ -77,6 +77,11 @@ namespace Terraria.Utilities
 			}
 		}
 
+		public override int GetHashCode()
+		{
+			return this.Value.GetHashCode();
+		}
+
 		private const uint KEY_INC = 65536u;
 
 		private const uint INDEX_MASK = 65535u;
