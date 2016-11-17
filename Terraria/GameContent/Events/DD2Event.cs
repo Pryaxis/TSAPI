@@ -3,32 +3,58 @@ using System.Collections.Generic;
 using System.IO;
 using Terraria.ID;
 using Terraria.Localization;
-using Terraria.World.Generation;namespace Terraria.GameContent.Events
-{	public class DD2Event
-	{		public static Rectangle ArenaHitbox = default(Rectangle);
+using Terraria.World.Generation;
+namespace Terraria.GameContent.Events
+{
+	public class DD2Event
+	{
+		public static Rectangle ArenaHitbox = default(Rectangle);
+
 		public static bool DownedInvasionT1 = false;
+
 		public static bool DownedInvasionT2 = false;
+
 		public static bool DownedInvasionT3 = false;
+
 		private static readonly Color INFO_NEW_WAVE_COLOR = new Color(175, 55, 255);
+
 		private static readonly Color INFO_START_INVASION_COLOR = new Color(50, 255, 130);
+
 		private const int INVASION_ID = 3;
+
 		public static int LaneSpawnRate = 60;
+
 		public static bool LostThisRun = false;
+
 		public static bool Ongoing = false;
+
 		public static int OngoingDifficulty = 0;
+
 		public static bool WonThisRun = false;
+
 		private static int _arenaHitboxingCooldown = 0;
+
 		private static int _crystalsDropping_alreadyDropped = 0;
+
 		private static int _crystalsDropping_lastWave = 0;
+
 		private static int _crystalsDropping_toDrop = 0;
+
 		private static List<Vector2> _deadGoblinSpots = new List<Vector2>();
+
 		private static bool _downedDarkMageT1 = false;
+
 		private static bool _downedOgreT2 = false;
+
 		private static bool _spawnedBetsyT3 = false;
-		private static int _timeLeftUntilSpawningBegins = 0;		public static void AnnounceGoblinDeath(NPC n)
+
+		private static int _timeLeftUntilSpawningBegins = 0;
+
+		public static void AnnounceGoblinDeath(NPC n)
 		{
 			DD2Event._deadGoblinSpots.Add(n.Bottom);
 		}
+
 		public static bool CanRaiseGoblinsHere(Vector2 spot)
 		{
 			int num = 0;
@@ -45,6 +71,7 @@ using Terraria.World.Generation;namespace Terraria.GameContent.Events
 			}
 			return false;
 		}
+
 		public static void CheckProgress(int slainMonsterID)
 		{
 			if (Main.netMode == 1)
@@ -176,6 +203,7 @@ using Terraria.World.Generation;namespace Terraria.GameContent.Events
 				}
 			}
 		}
+
 		public static void ClearAllDD2EnergyCrystalsInGame()
 		{
 			for (int i = 0; i < 400; i++)
@@ -191,6 +219,7 @@ using Terraria.World.Generation;namespace Terraria.GameContent.Events
 				}
 			}
 		}
+
 		public static void ClearAllDD2HostilesInGame()
 		{
 			for (int i = 0; i < 200; i++)
@@ -205,6 +234,7 @@ using Terraria.World.Generation;namespace Terraria.GameContent.Events
 				}
 			}
 		}
+
 		public static void ClearAllTowersInGame()
 		{
 			for (int i = 0; i < 1000; i++)
@@ -215,6 +245,7 @@ using Terraria.World.Generation;namespace Terraria.GameContent.Events
 				}
 			}
 		}
+
 		private static short[] Difficulty_1_GetEnemiesForWave(int wave)
 		{
 			DD2Event.LaneSpawnRate = 60;
@@ -266,6 +297,7 @@ using Terraria.World.Generation;namespace Terraria.GameContent.Events
 					};
 			}
 		}
+
 		private static int Difficulty_1_GetMonsterPointsWorth(int slainMonsterID)
 		{
 			if (NPC.waveNumber != 5 || NPC.waveKills < 139f)
@@ -317,6 +349,7 @@ using Terraria.World.Generation;namespace Terraria.GameContent.Events
 			}
 			return 0;
 		}
+
 		private static int Difficulty_1_GetRequiredWaveKills(ref int waveNumber, ref int currentKillCount, bool currentlyInCheckProgress)
 		{
 			switch (waveNumber)
@@ -349,6 +382,7 @@ using Terraria.World.Generation;namespace Terraria.GameContent.Events
 			}
 			return 10;
 		}
+
 		private static void Difficulty_1_SpawnMonsterFromGate(Vector2 gateBottom)
 		{
 			int x = (int)gateBottom.X;
@@ -474,6 +508,7 @@ using Terraria.World.Generation;namespace Terraria.GameContent.Events
 				NetMessage.SendData(23, -1, -1, "", num4, 0f, 0f, 0f, 0, 0, 0);
 			}
 		}
+
 		private static short[] Difficulty_2_GetEnemiesForWave(int wave)
 		{
 			DD2Event.LaneSpawnRate = 60;
@@ -557,6 +592,7 @@ using Terraria.World.Generation;namespace Terraria.GameContent.Events
 					};
 			}
 		}
+
 		private static int Difficulty_2_GetMonsterPointsWorth(int slainMonsterID)
 		{
 			if (NPC.waveNumber != 7 || NPC.waveKills < 219f)
@@ -608,6 +644,7 @@ using Terraria.World.Generation;namespace Terraria.GameContent.Events
 			}
 			return 0;
 		}
+
 		private static int Difficulty_2_GetRequiredWaveKills(ref int waveNumber, ref int currentKillCount, bool currentlyInCheckProgress)
 		{
 			switch (waveNumber)
@@ -643,6 +680,7 @@ using Terraria.World.Generation;namespace Terraria.GameContent.Events
 			}
 			return 10;
 		}
+
 		private static void Difficulty_2_SpawnMonsterFromGate(Vector2 gateBottom)
 		{
 			int x = (int)gateBottom.X;
@@ -878,6 +916,7 @@ using Terraria.World.Generation;namespace Terraria.GameContent.Events
 				NetMessage.SendData(23, -1, -1, "", num8, 0f, 0f, 0f, 0, 0, 0);
 			}
 		}
+
 		private static short[] Difficulty_3_GetEnemiesForWave(int wave)
 		{
 			DD2Event.LaneSpawnRate = 60;
@@ -966,6 +1005,7 @@ using Terraria.World.Generation;namespace Terraria.GameContent.Events
 					};
 			}
 		}
+
 		private static int Difficulty_3_GetMonsterPointsWorth(int slainMonsterID)
 		{
 			if (NPC.waveNumber != 7)
@@ -1012,6 +1052,7 @@ using Terraria.World.Generation;namespace Terraria.GameContent.Events
 			}
 			return 0;
 		}
+
 		private static int Difficulty_3_GetRequiredWaveKills(ref int waveNumber, ref int currentKillCount, bool currentlyInCheckProgress)
 		{
 			switch (waveNumber)
@@ -1051,6 +1092,7 @@ using Terraria.World.Generation;namespace Terraria.GameContent.Events
 			}
 			return 10;
 		}
+
 		private static void Difficulty_3_SpawnMonsterFromGate(Vector2 gateBottom)
 		{
 			int x = (int)gateBottom.X;
@@ -1306,6 +1348,7 @@ using Terraria.World.Generation;namespace Terraria.GameContent.Events
 				NetMessage.SendData(23, -1, -1, "", num9, 0f, 0f, 0f, 0, 0, 0);
 			}
 		}
+
 		public static void DropMedals(int numberOfMedals)
 		{
 			for (int i = 0; i < 200; i++)
@@ -1316,6 +1359,7 @@ using Terraria.World.Generation;namespace Terraria.GameContent.Events
 				}
 			}
 		}
+
 		private static void DropStarterCrystals()
 		{
 			for (int i = 0; i < 200; i++)
@@ -1330,6 +1374,7 @@ using Terraria.World.Generation;namespace Terraria.GameContent.Events
 				}
 			}
 		}
+
 		public static void FailureMessage(int client)
 		{
 			string textValue = Language.GetTextValue("DungeonDefenders2.BartenderWarning");
@@ -1341,6 +1386,7 @@ using Terraria.World.Generation;namespace Terraria.GameContent.Events
 			}
 			Main.NewText(textValue, color.R, color.G, color.B, false);
 		}
+
 		public static void FindArenaHitbox()
 		{
 			if (DD2Event._arenaHitboxingCooldown > 0)
@@ -1349,7 +1395,7 @@ using Terraria.World.Generation;namespace Terraria.GameContent.Events
 				return;
 			}
 			DD2Event._arenaHitboxingCooldown = 60;
-			Vector2 vector = new Vector2(3.40282347E+38f, 3.40282347E+38f);
+			Vector2 vector = new Vector2(float.MaxValue, float.MaxValue);
 			Vector2 value = new Vector2(0f, 0f);
 			for (int i = 0; i < 200; i++)
 			{
@@ -1385,6 +1431,7 @@ using Terraria.World.Generation;namespace Terraria.GameContent.Events
 			DD2Event.ArenaHitbox.Width = (int)vector3.X;
 			DD2Event.ArenaHitbox.Height = (int)vector3.Y;
 		}
+
 		private static void FindProperDifficulty()
 		{
 			DD2Event.OngoingDifficulty = 1;
@@ -1397,6 +1444,7 @@ using Terraria.World.Generation;namespace Terraria.GameContent.Events
 				DD2Event.OngoingDifficulty = 3;
 			}
 		}
+
 		private static short[] GetEnemiesForWave(int wave)
 		{
 			switch (DD2Event.OngoingDifficulty)
@@ -1409,6 +1457,7 @@ using Terraria.World.Generation;namespace Terraria.GameContent.Events
 					return DD2Event.Difficulty_1_GetEnemiesForWave(wave);
 			}
 		}
+
 		private static void GetInvasionStatus(out int currentWave, out int requiredKillCount, out int currentKillCount, bool currentlyInCheckProgress = false)
 		{
 			currentWave = NPC.waveNumber;
@@ -1427,6 +1476,7 @@ using Terraria.World.Generation;namespace Terraria.GameContent.Events
 					return;
 			}
 		}
+
 		private static int GetMonsterPointsWorth(int slainMonsterID)
 		{
 			switch (DD2Event.OngoingDifficulty)
@@ -1439,6 +1489,7 @@ using Terraria.World.Generation;namespace Terraria.GameContent.Events
 					return DD2Event.Difficulty_1_GetMonsterPointsWorth(slainMonsterID);
 			}
 		}
+
 		public static void Load(BinaryReader reader, int gameVersionNumber)
 		{
 			if (gameVersionNumber < 178)
@@ -1452,6 +1503,7 @@ using Terraria.World.Generation;namespace Terraria.GameContent.Events
 			DD2Event.DownedInvasionT2 = reader.ReadBoolean();
 			DD2Event.DownedInvasionT3 = reader.ReadBoolean();
 		}
+
 		public static void RaiseGoblins(Vector2 spot)
 		{
 			List<Vector2> list = new List<Vector2>();
@@ -1492,6 +1544,7 @@ using Terraria.World.Generation;namespace Terraria.GameContent.Events
 				}
 			}
 		}
+
 		public static void ReportEventProgress()
 		{
 			int progressWave;
@@ -1500,11 +1553,13 @@ using Terraria.World.Generation;namespace Terraria.GameContent.Events
 			DD2Event.GetInvasionStatus(out progressWave, out progressMax, out progress, false);
 			Main.ReportInvasionProgress(progress, progressMax, 3, progressWave);
 		}
+
 		public static void ReportLoss()
 		{
 			DD2Event.LostThisRun = true;
 			DD2Event.SetEnemySpawningOnHold(30);
 		}
+
 		public static void ResetProgressEntirely()
 		{
 			DD2Event.DownedInvasionT1 = (DD2Event.DownedInvasionT2 = (DD2Event.DownedInvasionT3 = false));
@@ -1513,12 +1568,14 @@ using Terraria.World.Generation;namespace Terraria.GameContent.Events
 			DD2Event._arenaHitboxingCooldown = 0;
 			DD2Event._timeLeftUntilSpawningBegins = 0;
 		}
+
 		public static void Save(BinaryWriter writer)
 		{
 			writer.Write(DD2Event.DownedInvasionT1);
 			writer.Write(DD2Event.DownedInvasionT2);
 			writer.Write(DD2Event.DownedInvasionT3);
 		}
+
 		private static void SetEnemySpawningOnHold(int forHowLong)
 		{
 			DD2Event._timeLeftUntilSpawningBegins = forHowLong;
@@ -1527,10 +1584,12 @@ using Terraria.World.Generation;namespace Terraria.GameContent.Events
 				NetMessage.SendData(116, -1, -1, "", DD2Event._timeLeftUntilSpawningBegins, 0f, 0f, 0f, 0, 0, 0);
 			}
 		}
+
 		public static bool ShouldBlockBuilding(Vector2 worldPosition)
 		{
 			return DD2Event.ArenaHitbox.Contains(worldPosition.ToPoint());
 		}
+
 		public static bool ShouldDropCrystals()
 		{
 			int num;
@@ -1628,6 +1687,7 @@ using Terraria.World.Generation;namespace Terraria.GameContent.Events
 			}
 			return false;
 		}
+
 		public static void SpawnMonsterFromGate(Vector2 gateBottom)
 		{
 			switch (DD2Event.OngoingDifficulty)
@@ -1643,9 +1703,11 @@ using Terraria.World.Generation;namespace Terraria.GameContent.Events
 					return;
 			}
 		}
+
 		public static void SpawnNPC(ref int newNPC)
 		{
 		}
+
 		public static void StartInvasion(int difficultyOverride = -1)
 		{
 			if (Main.netMode != 1)
@@ -1684,6 +1746,7 @@ using Terraria.World.Generation;namespace Terraria.GameContent.Events
 				DD2Event.WipeEntities();
 			}
 		}
+
 		public static void StartVictoryScene()
 		{
 			DD2Event.WonThisRun = true;
@@ -1705,6 +1768,7 @@ using Terraria.World.Generation;namespace Terraria.GameContent.Events
 				}
 			}
 		}
+
 		public static void StopInvasion(bool win = false)
 		{
 			if (DD2Event.Ongoing)
@@ -1724,6 +1788,7 @@ using Terraria.World.Generation;namespace Terraria.GameContent.Events
 				}
 			}
 		}
+
 		private static void SummonBetsy()
 		{
 			if (DD2Event._spawnedBetsyT3)
@@ -1744,6 +1809,7 @@ using Terraria.World.Generation;namespace Terraria.GameContent.Events
 			NPC.SpawnOnPlayer(plr, 551);
 			DD2Event._spawnedBetsyT3 = true;
 		}
+
 		public static void SummonCrystal(int x, int y)
 		{
 			if (Main.netMode == 1)
@@ -1753,6 +1819,7 @@ using Terraria.World.Generation;namespace Terraria.GameContent.Events
 			}
 			DD2Event.SummonCrystalDirect(x, y);
 		}
+
 		public static void SummonCrystalDirect(int x, int y)
 		{
 			if (NPC.AnyNPCs(548))
@@ -1773,6 +1840,7 @@ using Terraria.World.Generation;namespace Terraria.GameContent.Events
 			NPC.NewNPC(point.X, point.Y, 548, 0, 0f, 0f, 0f, 0f, 255);
 			DD2Event.DropStarterCrystals();
 		}
+
 		public static void SyncInvasionProgress(int toWho)
 		{
 			int num;
@@ -1781,6 +1849,7 @@ using Terraria.World.Generation;namespace Terraria.GameContent.Events
 			DD2Event.GetInvasionStatus(out num, out num2, out number, false);
 			NetMessage.SendData(78, toWho, -1, "", number, (float)num2, 3f, (float)num, 0, 0, 0);
 		}
+
 		public static void UpdateTime()
 		{
 			if (!DD2Event.Ongoing && !Main.dedServ)
@@ -1836,6 +1905,7 @@ using Terraria.World.Generation;namespace Terraria.GameContent.Events
 				DD2Event._timeLeftUntilSpawningBegins = 0;
 			}
 		}
+
 		private static void WinInvasionInternal()
 		{
 			if (DD2Event.OngoingDifficulty <= 1)
@@ -1865,6 +1935,7 @@ using Terraria.World.Generation;namespace Terraria.GameContent.Events
 			string textValue = Language.GetTextValue("DungeonDefenders2.InvasionWin");
 			WorldGen.BroadcastText(textValue, DD2Event.INFO_START_INVASION_COLOR);
 		}
+
 		public static void WipeEntities()
 		{
 			DD2Event.ClearAllTowersInGame();
@@ -1874,6 +1945,7 @@ using Terraria.World.Generation;namespace Terraria.GameContent.Events
 				NetMessage.SendData(114, -1, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
 			}
 		}
+
 		public static bool WouldFailSpawningHere(int x, int y)
 		{
 			Point point;
@@ -1883,48 +1955,63 @@ using Terraria.World.Generation;namespace Terraria.GameContent.Events
 			int num2 = x - point.X;
 			return num < 60 || num2 < 60;
 		}
+
 		public static bool DownedInvasionAnyDifficulty
-		{			get
+		{
+			get
 			{
 				return DD2Event.DownedInvasionT1 || DD2Event.DownedInvasionT2 || DD2Event.DownedInvasionT3;
 			}
 		}
+
 		public static bool EnemiesShouldChasePlayers
-		{			get
+		{
+			get
 			{
 				bool arg_05_0 = DD2Event.Ongoing;
 				return true;
 			}
 		}
+
 		public static bool EnemySpawningIsOnHold
-		{			get
+		{
+			get
 			{
 				return DD2Event._timeLeftUntilSpawningBegins != 0;
 			}
 		}
+
 		public static bool ReadyForTier2
-		{			get
+		{
+			get
 			{
 				return Main.hardMode && NPC.downedMechBossAny;
 			}
 		}
+
 		public static bool ReadyForTier3
-		{			get
+		{
+			get
 			{
 				return Main.hardMode && NPC.downedGolemBoss;
 			}
 		}
+
 		public static bool ReadyToFindBartender
-		{			get
+		{
+			get
 			{
 				return NPC.downedBoss2;
 			}
 		}
+
 		public static int TimeLeftBetweenWaves
-		{			get
+		{
+			get
 			{
 				return DD2Event._timeLeftUntilSpawningBegins;
-			}			set
+			}
+			set
 			{
 				DD2Event._timeLeftUntilSpawningBegins = value;
 			}

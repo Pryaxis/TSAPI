@@ -1,6 +1,11 @@
-﻿using System;namespace Terraria.Utilities
-{	public static class NPCUtils
-	{		public static NPCUtils.TargetSearchResults SearchForTarget(Vector2 position, NPCUtils.TargetSearchFlag flags = NPCUtils.TargetSearchFlag.All, NPCUtils.SearchFilter<Player> playerFilter = null, NPCUtils.SearchFilter<NPC> npcFilter = null)
+﻿using System;
+
+namespace Terraria.Utilities
+{
+
+	public static class NPCUtils
+	{
+		public static NPCUtils.TargetSearchResults SearchForTarget(Vector2 position, NPCUtils.TargetSearchFlag flags = NPCUtils.TargetSearchFlag.All, NPCUtils.SearchFilter<Player> playerFilter = null, NPCUtils.SearchFilter<NPC> npcFilter = null)
 		{
 			return NPCUtils.SearchForTarget(null, position, flags, playerFilter, npcFilter);
 		}
@@ -13,10 +18,10 @@
 		public static NPCUtils.TargetSearchResults SearchForTarget(NPC searcher, Vector2 position, NPCUtils.TargetSearchFlag flags = NPCUtils.TargetSearchFlag.All, NPCUtils.SearchFilter<Player> playerFilter = null, NPCUtils.SearchFilter<NPC> npcFilter = null)
 		{
 
-			float num = 3.40282347E+38f;
+			float num = float.MaxValue;
 			int nearestNPCIndex = -1;
-			float num2 = 3.40282347E+38f;
-			float nearestTankDistance = 3.40282347E+38f;
+			float num2 = float.MaxValue;
+			float nearestTankDistance = float.MaxValue;
 			int nearestTankIndex = -1;
 			NPCUtils.TargetType tankType = NPCUtils.TargetType.Player;
 
@@ -117,7 +122,8 @@
 		}
 
 		public static class SearchFilters
-		{			public static bool OnlyCrystal(NPC npc)
+		{
+			public static bool OnlyCrystal(NPC npc)
 			{
 				return npc.type == 548 && !npc.dontTakeDamageFromHostiles;
 			}
@@ -127,15 +133,22 @@
 			}
 			public static float f_1;
 			public static Vector2 v2_1;
-		}		public delegate bool SearchFilter<T>(T entity) where T : Entity;
+		}
+
+		public delegate bool SearchFilter<T>(T entity) where T : Entity;
 
 		[Flags]
 		public enum TargetSearchFlag
-		{			None = 0,			NPCs = 1,			Players = 2,			All = 3
+		{
+			None = 0,
+			NPCs = 1,
+			Players = 2,
+			All = 3
 		}
 
 		public struct TargetSearchResults
-		{			public TargetSearchResults(NPC searcher, int nearestNPCIndex, float nearestNPCDistance, int nearestTankIndex, float nearestTankDistance, float adjustedTankDistance, NPCUtils.TargetType tankType)
+		{
+			public TargetSearchResults(NPC searcher, int nearestNPCIndex, float nearestNPCDistance, int nearestTankIndex, float nearestTankDistance, float adjustedTankDistance, NPCUtils.TargetType tankType)
 			{
 				this._nearestNPCIndex = nearestNPCIndex;
 				this._nearestNPCDistance = nearestNPCDistance;
@@ -171,35 +184,40 @@
 			}
 
 			public float AdjustedTankDistance
-			{				get
+			{
+				get
 				{
 					return this._adjustedTankDistance;
 				}
 			}
 
 			public bool FoundNPC
-			{				get
+			{
+				get
 				{
 					return this._nearestNPCIndex != -1;
 				}
 			}
 
 			public bool FoundTank
-			{				get
+			{
+				get
 				{
 					return this._nearestTankIndex != -1;
 				}
 			}
 
 			public bool FoundTarget
-			{				get
+			{
+				get
 				{
 					return this._nearestTargetType != NPCUtils.TargetType.None;
 				}
 			}
 
 			public NPC NearestNPC
-			{				get
+			{
+				get
 				{
 					if (this._nearestNPCIndex != -1)
 					{
@@ -210,28 +228,32 @@
 			}
 
 			public float NearestNPCDistance
-			{				get
+			{
+				get
 				{
 					return this._nearestNPCDistance;
 				}
 			}
 
 			public int NearestNPCIndex
-			{				get
+			{
+				get
 				{
 					return this._nearestNPCIndex;
 				}
 			}
 
 			public float NearestTankDistance
-			{				get
+			{
+				get
 				{
 					return this._nearestTankDistance;
 				}
 			}
 
 			public Player NearestTankOwner
-			{				get
+			{
+				get
 				{
 					if (this._nearestTankIndex != -1)
 					{
@@ -242,21 +264,24 @@
 			}
 
 			public int NearestTankOwnerIndex
-			{				get
+			{
+				get
 				{
 					return this._nearestTankIndex;
 				}
 			}
 
 			public NPCUtils.TargetType NearestTankType
-			{				get
+			{
+				get
 				{
 					return this._nearestTankType;
 				}
 			}
 
 			public Rectangle NearestTargetHitbox
-			{				get
+			{
+				get
 				{
 					switch (this._nearestTargetType)
 					{
@@ -273,7 +298,8 @@
 			}
 
 			public int NearestTargetIndex
-			{				get
+			{
+				get
 				{
 					switch (this._nearestTargetType)
 					{
@@ -289,7 +315,8 @@
 			}
 
 			public NPCUtils.TargetType NearestTargetType
-			{				get
+			{
+				get
 				{
 					return this._nearestTargetType;
 				}
@@ -311,7 +338,11 @@
 		}
 
 		public enum TargetType
-		{			None,			NPC,			Player,			TankPet
+		{
+			None,
+			NPC,
+			Player,
+			TankPet
 		}
 	}
 }

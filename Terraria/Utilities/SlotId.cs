@@ -31,8 +31,8 @@ namespace Terraria.Utilities
 
 		internal SlotId ToActive(uint index)
 		{
-			uint num = 2147418112u & this.Key + 65536u;
-			return new SlotId(2147483648u | num | index);
+			uint num = KEY_MASK & this.Key + KEY_INC;
+			return new SlotId(ACTIVE_MASK | num | index);
 		}
 
 		public float ToFloat()
@@ -49,7 +49,7 @@ namespace Terraria.Utilities
 		{
 			get
 			{
-				return this.Value & 65535u;
+				return this.Value & INDEX_MASK;
 			}
 		}
 
@@ -57,7 +57,7 @@ namespace Terraria.Utilities
 		{
 			get
 			{
-				return (this.Value & 2147483648u) != 0u && this.IsValid;
+				return (this.Value & ACTIVE_MASK) != 0u && this.IsValid;
 			}
 		}
 
@@ -65,7 +65,7 @@ namespace Terraria.Utilities
 		{
 			get
 			{
-				return (this.Value & 65535u) != 65535u;
+				return (this.Value & INDEX_MASK) != INDEX_MASK;
 			}
 		}
 
@@ -73,7 +73,7 @@ namespace Terraria.Utilities
 		{
 			get
 			{
-				return this.Value & 2147418112u;
+				return this.Value & KEY_MASK;
 			}
 		}
 
@@ -85,7 +85,7 @@ namespace Terraria.Utilities
 
 		private const uint KEY_MASK = 2147418112u;
 
-		public static readonly SlotId Invalid = new SlotId(65535u);
+		public static readonly SlotId Invalid = new SlotId(INDEX_MASK);
 
 		public readonly uint Value;
 	}

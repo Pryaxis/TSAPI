@@ -83722,7 +83722,7 @@ namespace Terraria
 		public int FindClosestPlayer(out float distanceToPlayer)
 		{
 			Vector2 center = base.Center;
-			float num = 3.40282347E+38f;
+			float num = float.MaxValue;
 			int num2 = -1;
 			for (int i = 0; i < 255; i++)
 			{
