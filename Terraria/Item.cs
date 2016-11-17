@@ -1736,7 +1736,7 @@ namespace Terraria
 			Main.item[num].active = true;
 			Main.item[num].spawnTime = 0;
 			Main.item[num].stack = Stack;
-			if (ItemSlot.Options.HighlightNewItems && Main.item[num].type >= 0 && !ItemID.Sets.NeverShiny[Main.item[num].type])
+			if (Main.item[num].type >= 0 && !ItemID.Sets.NeverShiny[Main.item[num].type])
 			{
 				Main.item[num].newAndShiny = true;
 			}

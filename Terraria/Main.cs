@@ -769,8 +769,6 @@ namespace Terraria
 
 		public static int numDust;
 
-		public static int numPlayers;
-
 		public static int maxNetPlayers;
 
 		public static int maxRain;
@@ -1658,6 +1656,12 @@ namespace Terraria
 
 		private static bool IsEnginePreloaded;
 
+		public static int ActivePlayersCount;
+
+		public static int BartenderHelpTextIndex;
+
+		public static string DefaultSeed;
+
 		public static AchievementManager Achievements
 		{
 			get
@@ -1999,7 +2003,6 @@ namespace Terraria
 			Main.maxSectionsX = Main.maxTilesX / 200;
 			Main.maxSectionsY = Main.maxTilesY / 150;
 			Main.numDust = 6000;
-			Main.numPlayers = 0;
 			Main.maxNetPlayers = 255;
 			Main.maxRain = 750;
 			Main.slimeWarningTime = 0;
@@ -2392,6 +2395,9 @@ namespace Terraria
 			Main.trueBackColor = Main.backColor;
 			Main.UseExperimentalFeatures = false;
 			Main.IsEnginePreloaded = false;
+			Main.ActivePlayersCount = 0;
+			Main.BartenderHelpTextIndex = 0;
+			Main.DefaultSeed = "";
 		}
 
 		public Main()
@@ -2538,7 +2544,7 @@ namespace Terraria
 		{
 		}
 
-		private static void CacheEntityNames()
+		public static void CacheEntityNames()
 		{
 			NPC nPC = new NPC();
 			for (int i = 0; i < Main.maxNPCTypes; i++)
@@ -2858,14 +2864,14 @@ namespace Terraria
 			{
 				if (Main.snowMoon)
 				{
-					int num3 = (new int[] { 0, 25, 15, 10, 30, 100, 160, 180, 200, 250, 300, 375, 450, 525, 675, 850, 1025, 1325, 1550, 2000, 0 })[NPC.waveCount];
-					Main.ReportInvasionProgress((int)NPC.waveKills, num3, 1, NPC.waveCount);
+					int num3 = (new int[] { 0, 25, 15, 10, 30, 100, 160, 180, 200, 250, 300, 375, 450, 525, 675, 850, 1025, 1325, 1550, 2000, 0 })[NPC.waveNumber];
+					Main.ReportInvasionProgress((int)NPC.waveKills, num3, 1, NPC.waveNumber);
 					return;
 				}
 				if (Main.pumpkinMoon)
 				{
-					int num4 = (new int[] { 0, 25, 40, 50, 80, 100, 160, 180, 200, 250, 300, 375, 450, 525, 675, 0 })[NPC.waveCount];
-					Main.ReportInvasionProgress((int)NPC.waveKills, num4, 2, NPC.waveCount);
+					int num4 = (new int[] { 0, 25, 40, 50, 80, 100, 160, 180, 200, 250, 300, 375, 450, 525, 675, 0 })[NPC.waveNumber];
+					Main.ReportInvasionProgress((int)NPC.waveKills, num4, 2, NPC.waveNumber);
 					return;
 				}
 				int num5 = 1;
@@ -5870,7 +5876,6 @@ namespace Terraria
 			Main.gamePaused = false;
 			PortalHelper.UpdatePortalPoints();
 			Main.tileSolid[379] = false;
-			Main.numPlayers = 0;
 			int num19 = 0;
 			while (num19 < 255)
 			{
@@ -6608,7 +6613,7 @@ namespace Terraria
 		{
 		}
 
-		public static Color HslToRgb(float Hue, float Saturation, float Luminosity)
+		public static Color hslToRgb(float Hue, float Saturation, float Luminosity)
 		{
 			byte num;
 			byte num1;
@@ -9769,7 +9774,7 @@ namespace Terraria
 			return box;
 		}
 
-		public static Vector3 RgbToHsl(Color newColor)
+		public static Vector3 rgbToHsl(Color newColor)
 		{
 			float single;
 			float r = (float)newColor.R;
@@ -10441,7 +10446,7 @@ namespace Terraria
 			if (Main.netMode != 1)
 			{
 				NPC.waveKills = 0f;
-				NPC.waveCount = 1;
+				NPC.waveNumber = 1;
 				string invasionWaveText = Lang.GetInvasionWaveText(1, new short[]
 				{
 					305
@@ -10551,7 +10556,7 @@ namespace Terraria
 			if (Main.netMode != 1)
 			{
 				NPC.waveKills = 0f;
-				NPC.waveCount = 1;
+				NPC.waveNumber = 1;
 				string invasionWaveText = Lang.GetInvasionWaveText(1, new short[]
 				{
 					338,
@@ -10577,7 +10582,7 @@ namespace Terraria
 				if (Main.netMode != 1)
 				{
 					NPC.waveKills = 0f;
-					NPC.waveCount = 0;
+					NPC.waveNumber = 0;
 				}
 			}
 			if (Main.snowMoon)
@@ -10586,7 +10591,7 @@ namespace Terraria
 				if (Main.netMode != 1)
 				{
 					NPC.waveKills = 0f;
-					NPC.waveCount = 0;
+					NPC.waveNumber = 0;
 				}
 			}
 		}
@@ -10660,14 +10665,14 @@ namespace Terraria
 		{
 			if (Main.snowMoon)
 			{
-				int num = (new int[] { 0, 25, 15, 10, 30, 100, 160, 180, 200, 250, 300, 375, 450, 525, 675, 850, 1025, 1325, 1550, 2000, 0 })[NPC.waveCount];
-				NetMessage.SendData(78, toWho, -1, "", (int)NPC.waveKills, (float)num, 1f, (float)NPC.waveCount, 0, 0, 0);
+				int num = (new int[] { 0, 25, 15, 10, 30, 100, 160, 180, 200, 250, 300, 375, 450, 525, 675, 850, 1025, 1325, 1550, 2000, 0 })[NPC.waveNumber];
+				NetMessage.SendData(78, toWho, -1, "", (int)NPC.waveKills, (float)num, 1f, (float)NPC.waveNumber, 0, 0, 0);
 				return;
 			}
 			if (Main.pumpkinMoon)
 			{
-				int num1 = (new int[] { 0, 25, 40, 50, 80, 100, 160, 180, 200, 250, 300, 375, 450, 525, 675, 0 })[NPC.waveCount];
-				NetMessage.SendData(78, toWho, -1, "", (int)NPC.waveKills, (float)num1, 2f, (float)NPC.waveCount, 0, 0, 0);
+				int num1 = (new int[] { 0, 25, 40, 50, 80, 100, 160, 180, 200, 250, 300, 375, 450, 525, 675, 0 })[NPC.waveNumber];
+				NetMessage.SendData(78, toWho, -1, "", (int)NPC.waveKills, (float)num1, 2f, (float)NPC.waveNumber, 0, 0, 0);
 				return;
 			}
 			if (Main.invasionType > 0)

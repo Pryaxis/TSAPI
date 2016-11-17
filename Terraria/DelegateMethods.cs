@@ -140,5 +140,18 @@ namespace Terraria
 			}
 			return true;
 		}
+
+		public static bool CastLight(int x, int y)
+		{
+			if (x < 0 || x >= Main.maxTilesX || y < 0 || y >= Main.maxTilesY)
+			{
+				return false;
+			}
+			if (Main.tile[x, y] == null)
+			{
+				return false;
+			}
+			return true;
+		}
 	}
 }

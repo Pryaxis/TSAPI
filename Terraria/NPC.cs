@@ -101276,6 +101276,30 @@ namespace Terraria
 				}
 			}
 		}
+
+		public void DropItemInstanced(Vector2 Position, Vector2 HitboxSize, int itemType, int itemStack = 1, bool interactionRequired = true)
+		{
+			if (itemType > 0)
+			{
+				int num = Item.NewItem((int)Position.X, (int)Position.Y, (int)HitboxSize.X, (int)HitboxSize.Y, itemType, itemStack, true, 0, false, false);
+				Main.itemLockoutTime[num] = 54000;
+				for (int i = 0; i < 255; i++)
+				{
+					if ((this.playerInteraction[i] || !interactionRequired) && Main.player[i].active)
+					{
+						NetMessage.SendData(90, i, -1, "", num, 0f, 0f, 0f, 0, 0, 0);
+					}
+				}
+				Main.item[num].active = false;
+				this.value = 0f;
+			}
+		}
+
+		public void FaceTarget()
+		{
+			this.direction = (((float)this.targetRect.Center.X < base.Center.X) ? -1 : 1);
+			this.directionY = (((float)this.targetRect.Center.Y < base.Center.Y) ? -1 : 1);
+		}
 		#endregion
 	}
 }

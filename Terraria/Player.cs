@@ -3274,7 +3274,7 @@ namespace Terraria
 			int num3 = 0;
 			for (int i = 0; i < 200; i++)
 			{
-				if (Main.npc[i].active && !Main.npc[i].homeless && NPC.TypeToNum(Main.npc[i].type) > 0)
+				if (Main.npc[i].active && !Main.npc[i].homeless && NPC.TypeToHeadIndex(Main.npc[i].type) > 0)
 				{
 					num3++;
 				}
@@ -3319,23 +3319,7 @@ namespace Terraria
 			}
 			return num;
 		}
-		public bool consumeItem(int type)
-		{
-			for (int i = 0; i < 58; i++)
-			{
-				if (this.inventory[i].stack > 0 && this.inventory[i].type == type)
-				{
-					this.inventory[i].stack--;
-					if (this.inventory[i].stack <= 0)
-					{
-						this.inventory[i].SetDefaults(0, false);
-					}
-					return true;
-				}
-			}
-			return false;
-		}
-
+		
 		public bool ConsumeSolarFlare()
 		{
 			if (!this.setSolar || this.solarShields <= 0)
@@ -20728,12 +20712,12 @@ namespace Terraria
 							{
 								if (Main.netMode != 1)
 								{
-									this.consumeItem(num23);
+									this.ConsumeItem(num23);
 									WorldGen.ToggleGemLock(myX, myY, true);
 								}
 								else
 								{
-									this.consumeItem(num23);
+									this.ConsumeItem(num23);
 									NetMessage.SendData(105, -1, -1, "", myX, (float)myY, 1f, 0f, 0, 0, 0);
 								}
 							}
@@ -21641,7 +21625,7 @@ namespace Terraria
 					this.height = 42;
 					this.position.Y = this.position.Y - (float)this.height;
 				}
-				Main.numPlayers++;
+				Main.ActivePlayersCount++;
 				this.outOfRange = false;
 				if (this.whoAmI != Main.myPlayer)
 				{

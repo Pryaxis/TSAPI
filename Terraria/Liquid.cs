@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Terraria.GameContent.NetModules;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.Net;
 using Terraria.ObjectData;
 
@@ -147,7 +148,7 @@ namespace Terraria
 									Tile expr_2AA = Main.tile[num9, num10 + 1];
 									expr_2AA.liquid += (byte)num12;
 									b2 -= (byte)num12;
-									if (b2 <= 0)
+									if (b2 == 0)
 									{
 										num++;
 										break;
@@ -773,7 +774,7 @@ namespace Terraria
 				Liquid.panicY = Main.maxTilesY - 3;
 				if (Main.dedServ)
 				{
-					Console.WriteLine("Forcing water to settle.");
+					Console.WriteLine(Language.GetTextValue("Misc.ForceWaterSettling"));
 				}
 			}
 		}
@@ -808,7 +809,7 @@ namespace Terraria
 						Liquid.panicY--;
 						if (Liquid.panicY < 3)
 						{
-							Console.WriteLine("Water has been settled.");
+							Console.WriteLine(Language.GetTextValue("Misc.WaterSettled"));
 							Liquid.panicCounter = 0;
 							Liquid.panicMode = false;
 							WorldGen.WaterCheck();
@@ -1036,7 +1037,7 @@ namespace Terraria
 						WorldGen.SquareTileFrame(x, y, true);
 						if (Main.netMode == 2)
 						{
-							NetMessage.SendTileSquare(-1, x - 1, y - 1, 3);
+							NetMessage.SendTileSquare(-1, x - 1, y - 1, 3, TileChangeType.None);
 							return;
 						}
 					}
@@ -1073,7 +1074,7 @@ namespace Terraria
 						tile5.liquidType(0);
 						if (Main.netMode == 2)
 						{
-							NetMessage.SendTileSquare(-1, x - 1, y, 3);
+							NetMessage.SendTileSquare(-1, x - 1, y, 3, TileChangeType.None);
 							return;
 						}
 					}
@@ -1091,7 +1092,7 @@ namespace Terraria
 						WorldGen.SquareTileFrame(x, y + 1, true);
 						if (Main.netMode == 2)
 						{
-							NetMessage.SendTileSquare(-1, x - 1, y, 3);
+							NetMessage.SendTileSquare(-1, x - 1, y, 3, TileChangeType.None);
 						}
 					}
 				}
@@ -1105,6 +1106,7 @@ namespace Terraria
 			Tile tile3 = Main.tile[x, y - 1];
 			Tile tile4 = Main.tile[x, y + 1];
 			Tile tile5 = Main.tile[x, y];
+			bool flag = false;
 			if ((tile.liquid > 0 && tile.liquidType() == 0) || (tile2.liquid > 0 && tile2.liquidType() == 0) || (tile3.liquid > 0 && tile3.liquidType() == 0))
 			{
 				int num = 0;
@@ -1122,6 +1124,10 @@ namespace Terraria
 				{
 					num += (int)tile3.liquid;
 					tile3.liquid = 0;
+				}
+				if (tile.lava() || tile2.lava() || tile3.lava())
+				{
+					flag = true;
 				}
 				if (num >= 32)
 				{
@@ -1141,7 +1147,7 @@ namespace Terraria
 						WorldGen.SquareTileFrame(x, y, true);
 						if (Main.netMode == 2)
 						{
-							NetMessage.SendTileSquare(-1, x - 1, y - 1, 3);
+							NetMessage.SendTileSquare(-1, x - 1, y - 1, 3, TileChangeType.None);
 							return;
 						}
 					}
@@ -1167,13 +1173,17 @@ namespace Terraria
 				}
 				if (!tile4.active())
 				{
+					if (tile4.lava())
+					{
+						flag = true;
+					}
 					if (tile5.liquid < 32)
 					{
 						tile5.liquid = 0;
 						tile5.liquidType(0);
 						if (Main.netMode == 2)
 						{
-							NetMessage.SendTileSquare(-1, x - 1, y, 3);
+							NetMessage.SendTileSquare(-1, x - 1, y, 3, TileChangeType.None);
 							return;
 						}
 					}
@@ -1187,7 +1197,7 @@ namespace Terraria
 						WorldGen.SquareTileFrame(x, y + 1, true);
 						if (Main.netMode == 2)
 						{
-							NetMessage.SendTileSquare(-1, x - 1, y, 3);
+							NetMessage.SendTileSquare(-1, x - 1, y, 3, TileChangeType.None);
 						}
 					}
 				}
@@ -1266,7 +1276,7 @@ namespace Terraria
 									WorldGen.SquareTileFrame(i, j, true);
 									if (Main.netMode == 2)
 									{
-										NetMessage.SendTileSquare(-1, num, num2, 3);
+										NetMessage.SendTileSquare(-1, num, num2, 3, TileChangeType.None);
 									}
 								}
 								else if (tile5.type == 60 || tile5.type == 70)
@@ -1275,7 +1285,7 @@ namespace Terraria
 									WorldGen.SquareTileFrame(i, j, true);
 									if (Main.netMode == 2)
 									{
-										NetMessage.SendTileSquare(-1, num, num2, 3);
+										NetMessage.SendTileSquare(-1, num, num2, 3, TileChangeType.None);
 									}
 								}
 							}
@@ -1300,6 +1310,24 @@ namespace Terraria
 			{
 				WorldGen.CheckAlch(num, num2);
 			}
+		}
+
+		public static void ReInit()
+		{
+			Liquid.skipCount = 0;
+			Liquid.stuckCount = 0;
+			Liquid.stuckAmount = 0;
+			Liquid.cycles = 10;
+			Liquid.resLiquid = 5000;
+			Liquid.maxLiquid = 5000;
+			Liquid.numLiquid = 0;
+			Liquid.stuck = false;
+			Liquid.quickFall = false;
+			Liquid.quickSettle = false;
+			Liquid.wetCounter = 0;
+			Liquid.panicCounter = 0;
+			Liquid.panicMode = false;
+			Liquid.panicY = 0;
 		}
 	}
 }
