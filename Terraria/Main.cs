@@ -201,7 +201,7 @@ namespace Terraria
 
 		public static bool ContentLoaded;
 
-		public static int maxMsg = 112;
+		public static int maxMsg = 118;
 
 		public static float GlobalTime;
 
@@ -1552,6 +1552,8 @@ namespace Terraria
 
 		public List<int> DrawCacheProjsBehindProjectiles = new List<int>(1000);
 
+		public List<int> DrawCacheNPCsBehindNonSolidTiles = new List<int>(200);
+
 		public List<int> DrawCacheNPCProjectiles = new List<int>(200);
 
 		public static string oldStatusText;
@@ -1662,6 +1664,8 @@ namespace Terraria
 
 		public static string DefaultSeed;
 
+		public static bool FirstDrawAfterUpdate;
+
 		public static AchievementManager Achievements
 		{
 			get
@@ -1771,26 +1775,26 @@ namespace Terraria
 			Main.superFast = false;
 			Main.hairLoaded = new bool[134];
 			Main.wingsLoaded = new bool[37];
-			Main.goreLoaded = new bool[943];
+			Main.goreLoaded = new bool[Main.maxGoreTypes];
 			Main.projectileLoaded = new bool[Main.maxProjectileTypes];
 			Main.itemFlameLoaded = new bool[Main.maxItemTypes];
 			Main.backgroundLoaded = new bool[207];
 			Main.tileSetsLoaded = new bool[Main.maxTileSets];
 			Main.wallLoaded = new bool[Main.maxWallTypes];
 			Main.NPCLoaded = new bool[541];
-			Main.armorHeadLoaded = new bool[199];
-			Main.armorBodyLoaded = new bool[195];
-			Main.armorLegsLoaded = new bool[135];
-			Main.accHandsOnLoaded = new bool[19];
+			Main.armorHeadLoaded = new bool[214];
+			Main.armorBodyLoaded = new bool[208];
+			Main.armorLegsLoaded = new bool[157];
+			Main.accHandsOnLoaded = new bool[20];
 			Main.accHandsOffLoaded = new bool[12];
-			Main.accBackLoaded = new bool[10];
+			Main.accBackLoaded = new bool[14];
 			Main.accFrontLoaded = new bool[5];
 			Main.accShoesLoaded = new bool[18];
-			Main.accWaistLoaded = new bool[12];
-			Main.accShieldLoaded = new bool[6];
-			Main.accNeckLoaded = new bool[9];
+			Main.accWaistLoaded = new bool[13];
+			Main.accShieldLoaded = new bool[7];
+			Main.accNeckLoaded = new bool[10];
 			Main.accFaceLoaded = new bool[9];
-			Main.accballoonLoaded = new bool[16];
+			Main.accballoonLoaded = new bool[18];
 			Vector2[] vector2 = new Vector2[] { new Vector2(14f, 34f), new Vector2(14f, 32f), new Vector2(14f, 26f), new Vector2(14f, 22f), new Vector2(14f, 18f) };
 			Main.OffsetsNPCOffhand = vector2;
 			Vector2[] vector2Array = new Vector2[] { new Vector2(14f, 20f), new Vector2(14f, 20f), new Vector2(14f, 20f), new Vector2(14f, 18f), new Vector2(14f, 20f), new Vector2(16f, 4f), new Vector2(16f, 16f), new Vector2(18f, 14f), new Vector2(18f, 14f), new Vector2(18f, 14f), new Vector2(16f, 16f), new Vector2(16f, 16f), new Vector2(16f, 16f), new Vector2(16f, 16f), new Vector2(14f, 14f), new Vector2(14f, 14f), new Vector2(12f, 14f), new Vector2(14f, 16f), new Vector2(16f, 16f), new Vector2(16f, 16f) };
@@ -1961,7 +1965,7 @@ namespace Terraria
 			Main.armorHide = false;
 			Main.craftingAlpha = 1f;
 			Main.armorAlpha = 1f;
-			Main.buffAlpha = new float[193];
+			Main.buffAlpha = new float[Main.maxBuffTypes];
 			Main.trashItem = new Item();
 			Main.hardMode = false;
 			Main.sceneWaterPos = Vector2.Zero;
@@ -2398,7 +2402,8 @@ namespace Terraria
 			Main.ActivePlayersCount = 0;
 			Main.BartenderHelpTextIndex = 0;
 			Main.DefaultSeed = "";
-		}
+			Main.FirstDrawAfterUpdate = true;
+	}
 
 		public Main()
 		{
@@ -5032,7 +5037,7 @@ namespace Terraria
 				Main.ActiveWorldFileData.Path = Main.WorldPathClassic;
 			}
 			this.Initialize();
-			Lang.setLang(false);
+			Lang.setLang(true);
 			Main.CacheEntityNames();
 
 			if (Console.IsInputRedirected == true && string.IsNullOrEmpty(Main.WorldPathClassic) == true && !Main.autoGen)
@@ -5109,7 +5114,7 @@ namespace Terraria
 #endif
 						}
 					}
-					else if (str2 == "n" || str2 == "N")
+					else if (str3 == "n" || str3 == "N")
 					{
 						bool flag1 = true;
 						while (flag1)
@@ -5371,7 +5376,7 @@ namespace Terraria
 						try
 						{
 							int num3;
-							int.TryParse(str2, out num3);
+							int.TryParse(str3, out num3);
 							num3--;
 							if (num3 >= 0 && num3 < Main.WorldList.Count)
 							{
@@ -5876,6 +5881,7 @@ namespace Terraria
 			Main.gamePaused = false;
 			PortalHelper.UpdatePortalPoints();
 			Main.tileSolid[379] = false;
+			Main.ActivePlayersCount = 0;
 			int num19 = 0;
 			while (num19 < 255)
 			{
@@ -11054,6 +11060,7 @@ namespace Terraria
 			CultistRitual.UpdateTime();
 			BirthdayParty.UpdateTime();
 			Sandstorm.UpdateTime();
+			DD2Event.UpdateTime();
 			if (NPC.MoonLordCountdown > 0)
 			{
 				NPC.MoonLordCountdown = NPC.MoonLordCountdown - 1;

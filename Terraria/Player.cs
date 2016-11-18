@@ -21574,6 +21574,10 @@ namespace Terraria
 			if (Main.myPlayer == i)
 			{
 				TileObject.objectPreview.Reset();
+				if (DD2Event.DownedInvasionAnyDifficulty)
+				{
+					this.downedDD2EventAnyDifficulty = true;
+				}
 			}
 			if (this.active)
 			{
