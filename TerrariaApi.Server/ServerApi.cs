@@ -18,7 +18,7 @@ namespace TerrariaApi.Server
 	{
 		public const string PluginsPath = "ServerPlugins";
 
-		public static readonly Version ApiVersion = new Version(1, 25, 0, 0);
+		public static readonly Version ApiVersion = new Version(1, 26, 0, 0);
 		private static Main game;
 		private static readonly Dictionary<string, Assembly> loadedAssemblies = new Dictionary<string, Assembly>();
 		private static readonly List<PluginContainer> plugins = new List<PluginContainer>();
