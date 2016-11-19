@@ -8729,6 +8729,11 @@ namespace Terraria.ID
 
 
 			private static ItemID.BannerEffect DD2BannerEffect = ItemID.BannerEffect.None;
+
+			public static bool[] CanFishInLava = ItemID.Sets.Factory.CreateBoolSet(new int[]
+			{
+				2422
+			});
 		}
 	}
 }

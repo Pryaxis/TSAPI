@@ -1,5 +1,6 @@
 using System;
 using System.Text.RegularExpressions;
+using Terraria.Utilities;
 
 namespace Terraria.Localization
 {
@@ -60,7 +61,7 @@ namespace Terraria.Localization
 			return LanguageManager.Instance.GetText(key).FormatWith(obj);
 		}
 
-		public static LocalizedText RandomFromCategory(string categoryName, Random random = null)
+		public static LocalizedText RandomFromCategory(string categoryName, UnifiedRandom random = null)
 		{
 			return LanguageManager.Instance.RandomFromCategory(categoryName, random);
 		}

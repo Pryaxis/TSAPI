@@ -206,6 +206,7 @@
     <Compile Include="Terraria\Utilities\NPCUtils.cs" />
     <Compile Include="Terraria\Utilities\SlotId.cs" />
     <Compile Include="Terraria\Utilities\SlotVector.cs" />
+    <Compile Include="Terraria\Utilities\UnifiedRandom.cs" />
     <Compile Include="Terraria\Utilities\WeightedRandom.cs" />
     <Compile Include="Terraria\World.Generation\GenerationProgress.cs">
       <AutoGen>false</AutoGen>
@@ -1044,7 +1045,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Terraria\Localization\Content\English.json" />
+    <EmbeddedResource Include="Terraria\Localization\Content\English.json" />
     <None Include="Terraria\Localization\Content\English\Town.json" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

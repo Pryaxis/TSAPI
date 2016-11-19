@@ -81,7 +81,7 @@ namespace Terraria.IO
 
 		public void SetSeedToRandom()
 		{
-			this.SetSeed(new Random().Next().ToString());
+			this.SetSeed(new UnifiedRandom().Next().ToString());
 		}
 
 		public void SetWorldSize(int x, int y)

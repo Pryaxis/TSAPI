@@ -1,4 +1,5 @@
 using System;
+using Terraria.Utilities;
 
 namespace Terraria
 {
@@ -14,7 +15,7 @@ namespace Terraria
 
 		internal const int TIMETOLIVE = 60;
 
-		private static Random rand;
+		private static UnifiedRandom rand;
 
 		private static int lastCrack;
 
@@ -31,10 +32,10 @@ namespace Terraria
 
 		public HitTile()
 		{
-			HitTile.rand = new Random();
+			HitTile.rand = new UnifiedRandom();
 			this.data = new HitTile.HitTileObject[21];
 			this.order = new int[21];
-			for (int i = 0; i <= 20; i++)
+			for (int i = 0; i <= MAX_HITTILES; i++)
 			{
 				this.data[i] = new HitTile.HitTileObject();
 				this.order[i] = i;
@@ -45,7 +46,7 @@ namespace Terraria
 		public int AddDamage(int tileId, int damageAmount, bool updateAmount = true)
 		{
 			int i;
-			if (tileId < 0 || tileId > 20)
+			if (tileId < 0 || tileId > MAX_HITTILES)
 			{
 				return 0;
 			}
@@ -60,13 +61,13 @@ namespace Terraria
 			}
 			HitTile.HitTileObject hitTileObject1 = hitTileObject;
 			hitTileObject1.damage = hitTileObject1.damage + damageAmount;
-			hitTileObject.timeToLive = 60;
+			hitTileObject.timeToLive = TIMETOLIVE;
 			if (tileId != this.bufferLocation)
 			{
 				i = 0;
 				while (true)
 				{
-					if (i <= 20)
+					if (i <= MAX_HITTILES)
 					{
 						if (this.order[i] == tileId)
 						{
@@ -90,9 +91,9 @@ namespace Terraria
 			}
 			else
 			{
-				this.bufferLocation = this.order[20];
+				this.bufferLocation = this.order[MAX_HITTILES];
 				this.data[this.bufferLocation].Clear();
-				for (i = 20; i > 0; i--)
+				for (i = MAX_HITTILES; i > 0; i--)
 				{
 					this.order[i] = this.order[i - 1];
 				}
@@ -103,7 +104,7 @@ namespace Terraria
 
 		public void Clear(int tileId)
 		{
-			if (tileId < 0 || tileId > 20)
+			if (tileId < 0 || tileId > MAX_HITTILES)
 			{
 				return;
 			}
@@ -111,7 +112,7 @@ namespace Terraria
 			int num = 0;
 			while (true)
 			{
-				if (num < 20)
+				if (num < MAX_HITTILES)
 				{
 					if (this.order[num] == tileId)
 					{
@@ -124,18 +125,18 @@ namespace Terraria
 					break;
 				}
 			}
-			while (num < 20)
+			while (num < MAX_HITTILES)
 			{
 				this.order[num] = this.order[num + 1];
 				num++;
 			}
-			this.order[20] = tileId;
+			this.order[MAX_HITTILES] = tileId;
 		}
 
 		public int HitObject(int x, int y, int hitType)
 		{
 			HitTile.HitTileObject hitTileObject;
-			for (int i = 0; i <= 20; i++)
+			for (int i = 0; i <= MAX_HITTILES; i++)
 			{
 				int num = this.order[i];
 				hitTileObject = this.data[num];
@@ -161,7 +162,7 @@ namespace Terraria
 		public void Prune()
 		{
 			bool flag = false;
-			for (int i = 0; i <= 20; i++)
+			for (int i = 0; i <= MAX_HITTILES; i++)
 			{
 				HitTile.HitTileObject hitTileObject = this.data[i];
 				if (hitTileObject.type != 0)
@@ -225,7 +226,7 @@ namespace Terraria
 			while (flag)
 			{
 				flag = false;
-				for (int j = num; j < 20; j++)
+				for (int j = num; j < MAX_HITTILES; j++)
 				{
 					if (this.data[this.order[j]].type == 0 && this.data[this.order[j + 1]].type != 0)
 					{
@@ -240,7 +241,7 @@ namespace Terraria
 
 		public void UpdatePosition(int tileId, int x, int y)
 		{
-			if (tileId < 0 || tileId > 20)
+			if (tileId < 0 || tileId > MAX_HITTILES)
 			{
 				return;
 			}
@@ -277,7 +278,7 @@ namespace Terraria
 				this.timeToLive = 0;
 				if (HitTile.rand == null)
 				{
-					HitTile.rand = new Random((int)DateTime.Now.Ticks);
+					HitTile.rand = new UnifiedRandom((int)DateTime.Now.Ticks);
 				}
 				this.crackStyle = HitTile.rand.Next(4);
 				while (this.crackStyle == HitTile.lastCrack)

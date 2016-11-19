@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using Terraria;
+using Terraria.Utilities;
 
 namespace Terraria.World.Generation
 {
@@ -41,8 +42,8 @@ namespace Terraria.World.Generation
 			Main.menuMode = 888;
 			foreach (GenPass genPass in this._passes)
 			{
-				WorldGen._genRand = new Random(this._seed);
-				Main.rand = new Random(this._seed);
+				WorldGen._genRand = new UnifiedRandom(this._seed);
+				Main.rand = new UnifiedRandom(this._seed);
 				stopwatch.Start();
 				progress.Start(genPass.Weight);
 				genPass.Apply(progress);

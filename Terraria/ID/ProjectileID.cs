@@ -341,6 +341,33 @@ namespace Terraria.ID
 					513
 				});
 			}
+
+			public static bool[] MinionShot = ProjectileID.Sets.Factory.CreateBoolSet(new int[]
+			{
+				374,
+				376,
+				389,
+				195,
+				385,
+				433,
+				614
+			});
+
+			public static bool[] SentryShot = ProjectileID.Sets.Factory.CreateBoolSet(new int[]
+			{
+				680,
+				664,
+				666,
+				668,
+				694,
+				695,
+				696,
+				644,
+				642,
+				378,
+				379,
+				309
+			});
 		}
 
 		public const short None = 0;

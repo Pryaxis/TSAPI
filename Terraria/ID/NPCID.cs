@@ -766,58 +766,6 @@ namespace Terraria.ID
 
 			public static int[] AttackType;
 
-			//public static int[] AttackType = Factory.CreateIntSet(-1, new int[]
-			//{
-			//	38,
-			//	0,
-			//	17,
-			//	0,
-			//	107,
-			//	0,
-			//	19,
-			//	1,
-			//	22,
-			//	1,
-			//	124,
-			//	0,
-			//	228,
-			//	1,
-			//	178,
-			//	1,
-			//	18,
-			//	0,
-			//	229,
-			//	1,
-			//	209,
-			//	1,
-			//	54,
-			//	2,
-			//	108,
-			//	2,
-			//	160,
-			//	2,
-			//	20,
-			//	2,
-			//	369,
-			//	0,
-			//	453,
-			//	0,
-			//	368,
-			//	1,
-			//	207,
-			//	3,
-			//	227,
-			//	1,
-			//	208,
-			//	0,
-			//	142,
-			//	0,
-			//	441,
-			//	3,
-			//	353,
-			//	3
-			//});
-
 			public static bool[] BelongsToInvasionOldOnesArmy = NPCID.Sets.Factory.CreateBoolSet(new int[]
 			{
 				552,
@@ -854,182 +802,17 @@ namespace Terraria.ID
 
 			public static int[] PrettySafe;
 
-			//public static int[] PrettySafe = Factory.CreateIntSet(-1, new int[]
-			//{
-			//	19,
-			//	300,
-			//	22,
-			//	200,
-			//	124,
-			//	200,
-			//	228,
-			//	300,
-			//	178,
-			//	300,
-			//	229,
-			//	300,
-			//	209,
-			//	300,
-			//	54,
-			//	100,
-			//	108,
-			//	100,
-			//	160,
-			//	100,
-			//	20,
-			//	200,
-			//	368,
-			//	200,
-			//	227,
-			//	200
-			//});
-
 			public static Color[] MagicAuraColor;
-
-			//public static Color[] MagicAuraColor = Factory.CreateCustomSet(Color.White, new object[]
-			//{
-			//	54,
-			//	new Color(100, 4, 227, 127),
-			//	108,
-			//	new Color(255, 80, 60, 127),
-			//	160,
-			//	new Color(40, 80, 255, 127),
-			//	20,
-			//	new Color(40, 255, 80, 127)
-			//});
 
 			public static List<int> Skeletons;
 
-			//public static List<int> Skeletons = new List<int>
-			//{
-			//	77,
-			//	-49,
-			//	-51,
-			//	-53,
-			//	-47,
-			//	449,
-			//	450,
-			//	451,
-			//	452,
-			//	481,
-			//	201,
-			//	-15,
-			//	202,
-			//	203,
-			//	21,
-			//	324,
-			//	110,
-			//	323,
-			//	293,
-			//	291,
-			//	322,
-			//	-48,
-			//	-50,
-			//	-52,
-			//	-46,
-			//	292,
-			//	197,
-			//	167,
-			//	44
-			//};
-
 			public static int[] BossHeadTextures;
-
-			//public static int[] BossHeadTextures = Factory.CreateIntSet(-1, new int[]
-			//{
-			//	4,
-			//	0,
-			//	13,
-			//	2,
-			//	344,
-			//	3,
-			//	370,
-			//	4,
-			//	246,
-			//	5,
-			//	249,
-			//	5,
-			//	345,
-			//	6,
-			//	50,
-			//	7,
-			//	396,
-			//	8,
-			//	395,
-			//	9,
-			//	325,
-			//	10,
-			//	262,
-			//	11,
-			//	327,
-			//	13,
-			//	222,
-			//	14,
-			//	125,
-			//	15,
-			//	126,
-			//	16,
-			//	346,
-			//	17,
-			//	127,
-			//	18,
-			//	35,
-			//	19,
-			//	68,
-			//	19,
-			//	113,
-			//	22,
-			//	266,
-			//	23,
-			//	439,
-			//	24,
-			//	440,
-			//	24,
-			//	134,
-			//	25,
-			//	491,
-			//	26,
-			//	517,
-			//	27,
-			//	422,
-			//	28,
-			//	507,
-			//	29,
-			//	493,
-			//	30
-			//});
 
 			public static bool[] ExcludedFromDeathTally;
 
-			//public static bool[] ExcludedFromDeathTally = Factory.CreateBoolSet(false, new int[]
-			//{
-			//	121,
-			//	384,
-			//	406
-			//});
-
 			public static bool[] TechnicallyABoss;
 
-			//public static bool[] TechnicallyABoss = Factory.CreateBoolSet(new int[]
-			//{
-			//	517,
-			//	422,
-			//	507,
-			//	493,
-			//	399
-			//});
-
 			public static bool[] MustAlwaysDraw;
-
-			//public static bool[] MustAlwaysDraw = Factory.CreateBoolSet(new int[]
-			//{
-			//	113,
-			//	114,
-			//	115,
-			//	116,
-			//	126,
-			//	125
-			//});
 
 			public static bool[] FighterUsesDD2PortalAppearEffect = NPCID.Sets.Factory.CreateBoolSet(new int[]
 			{
@@ -1119,6 +902,118 @@ namespace Terraria.ID
 				575,
 				551,
 				578
+			});
+
+			public static int[] TrailingMode = NPCID.Sets.Factory.CreateIntSet(-1, new int[]
+			{
+				439,
+				0,
+				440,
+				0,
+				370,
+				1,
+				372,
+				1,
+				373,
+				1,
+				396,
+				1,
+				400,
+				1,
+				401,
+				1,
+				473,
+				2,
+				474,
+				2,
+				475,
+				2,
+				476,
+				2,
+				4,
+				3,
+				471,
+				3,
+				477,
+				3,
+				479,
+				3,
+				120,
+				4,
+				137,
+				4,
+				138,
+				4,
+				94,
+				5,
+				125,
+				6,
+				126,
+				6,
+				127,
+				6,
+				128,
+				6,
+				129,
+				6,
+				130,
+				6,
+				131,
+				6,
+				139,
+				6,
+				140,
+				6,
+				407,
+				6,
+				420,
+				6,
+				425,
+				6,
+				427,
+				6,
+				426,
+				6,
+				509,
+				6,
+				516,
+				6,
+				542,
+				6,
+				543,
+				6,
+				544,
+				6,
+				545,
+				6,
+				402,
+				7,
+				417,
+				7,
+				419,
+				7,
+				418,
+				7,
+				574,
+				7,
+				575,
+				7,
+				519,
+				7,
+				521,
+				7,
+				522,
+				7,
+				546,
+				7,
+				558,
+				7,
+				559,
+				7,
+				560,
+				7,
+				551,
+				7
 			});
 		}
 

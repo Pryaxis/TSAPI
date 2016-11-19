@@ -7,6 +7,7 @@ using Terraria.IO;
 using Terraria.Localization;
 using Terraria.Net;
 using Terraria.Net.Sockets;
+using Terraria.Utilities;
 using TerrariaApi.Server;
 
 namespace Terraria
@@ -125,7 +126,7 @@ namespace Terraria
 			Main.ServerSideCharacter = false;
 			if (Main.rand == null)
 			{
-				Main.rand = new Random((int)DateTime.Now.Ticks);
+				Main.rand = new UnifiedRandom((int)DateTime.Now.Ticks);
 			}
 			Main.player[Main.myPlayer].hostile = false;
 			Main.clientPlayer = (Player)Main.player[Main.myPlayer].clientClone();
@@ -190,7 +191,7 @@ namespace Terraria
 			ResetNetDiag();
 			if (Main.rand == null)
 			{
-				Main.rand = new Random((int)DateTime.Now.Ticks);
+				Main.rand = new UnifiedRandom((int)DateTime.Now.Ticks);
 			}
 			Main.myPlayer = 255;
 			Main.menuMode = 14;

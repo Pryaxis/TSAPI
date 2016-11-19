@@ -2583,16 +2583,22 @@ namespace Terraria
 							drillBeam.curTileTarget = point;
 							int pickPower = Mount.drillPickPower;
 							bool flag = mountedPlayer.whoAmI == Main.myPlayer;
-							if (mountedPlayer.noBuilding)
-							{
-								flag = false;
-							}
 							if (flag)
 							{
-								mountedPlayer.PickTile((int)point.X, (int)point.Y, pickPower);
-							}
-							if (flag)
-							{
+								bool flag2 = true;
+								if (WorldGen.InWorld((int)point.X, (int)point.Y, 0) && Main.tile[(int)point.X, (int)point.Y] != null && Main.tile[(int)point.X, (int)point.Y].type == 26 && !Main.hardMode)
+								{
+									flag2 = false;
+									mountedPlayer.Hurt(PlayerDeathReason.ByOther(4), mountedPlayer.statLife / 2, -mountedPlayer.direction, false, false, false, -1);
+								}
+								if (mountedPlayer.noBuilding)
+								{
+									flag2 = false;
+								}
+								if (flag2)
+								{
+									mountedPlayer.PickTile((int)point.X, (int)point.Y, pickPower);
+								}
 								Tile.SmoothSlope((int)point.X, (int)point.Y, true);
 							}
 							drillBeam.cooldown = Mount.drillPickTime;

@@ -936,7 +936,7 @@ namespace Terraria
 		public static int WorldGenParam_Evil = -1;
 
 		[ThreadStatic]
-		public static Random _genRand;
+		public static UnifiedRandom _genRand;
 
 		[ThreadStatic]
 		public static int _genRandSeed = -2;
@@ -2348,7 +2348,7 @@ namespace Terraria
 
 		public static void CreateNewWorld(GenerationProgress progress = null)
 		{
-			Main.rand = new Random(Main.ActiveWorldFileData.Seed);
+			Main.rand = new UnifiedRandom(Main.ActiveWorldFileData.Seed);
 			Thread t = new Thread(worldGenCallBack);
 			t.Name = "WorldGen Thread";
 			t.Start(progress);
@@ -2396,7 +2396,7 @@ namespace Terraria
 		{
 			if (Main.rand == null)
 			{
-				Main.rand = new Random((int)DateTime.Now.Ticks);
+				Main.rand = new UnifiedRandom((int)DateTime.Now.Ticks);
 			}
 			for (int i = 0; i < 255; i++)
 			{
@@ -2533,7 +2533,7 @@ namespace Terraria
 
 		public static void serverLoadWorldCallBack(object threadContext)
 		{
-			Main.rand = new Random((int)DateTime.Now.Ticks);
+			Main.rand = new UnifiedRandom((int)DateTime.Now.Ticks);
 			WorldFile.loadWorld();
 			if (WorldGen.loadFailed || !WorldGen.loadSuccess)
 			{
@@ -4599,7 +4599,7 @@ namespace Terraria
 		{
 			WorldGen._lastSeed = seed;
 			WorldGen._generator = new WorldGenerator(seed);
-			Main.rand = new Random(seed);
+			Main.rand = new UnifiedRandom(seed);
 			MicroBiome.ResetAll();
 			StructureMap structures = new StructureMap();
 			double worldSurface = 0.0;
@@ -13396,7 +13396,7 @@ namespace Terraria
 			WorldGen.IsGeneratingHardMode = true;
 			if (Main.rand == null)
 			{
-				Main.rand = new Random((int)DateTime.Now.Ticks);
+				Main.rand = new UnifiedRandom((int)DateTime.Now.Ticks);
 			}
 			float num = (float)Main.rand.Next(300, 400) * 0.001f;
 			float num2 = (float)Main.rand.Next(200, 300) * 0.001f;
@@ -38992,7 +38992,7 @@ namespace Terraria
 
 		public static void plantDye(int i, int j, bool exoticPlant = false)
 		{
-			Random random = WorldGen.gen ? WorldGen.genRand : Main.rand;
+			UnifiedRandom unifiedRandom = WorldGen.gen ? WorldGen.genRand : Main.rand;
 			if (Main.tile[i, j].active())
 			{
 				if (i < 95 || i > Main.maxTilesX - 95 || j < 95 || j > Main.maxTilesY - 95)
@@ -39034,14 +39034,14 @@ namespace Terraria
 						}
 						if (flag)
 						{
-							WorldGen.PlaceTile(i, j - 1, 227, true, false, -1, random.Next(8, 12));
+							WorldGen.PlaceTile(i, j - 1, 227, true, false, -1, unifiedRandom.Next(8, 12));
 							return;
 						}
 						return;
 					}
 					else if (Main.tile[i, j].type == 2 || Main.tile[i, j].type == 109)
 					{
-						if (random.Next(4) == 0)
+						if (unifiedRandom.Next(4) == 0)
 						{
 							WorldGen.PlaceTile(i, j - 1, 227, true, false, -1, 4);
 							return;
@@ -39051,7 +39051,7 @@ namespace Terraria
 					}
 					else if (Main.tile[i, j].type == 60)
 					{
-						if (random.Next(2) == 0)
+						if (unifiedRandom.Next(2) == 0)
 						{
 							WorldGen.PlaceTile(i, j - 1, 227, true, false, -1, 2);
 							return;
@@ -39119,16 +39119,16 @@ namespace Terraria
 							bool flag3 = TileID.Sets.Conversion.Grass[type2] || TileID.Sets.Conversion.Moss[type2] || type2 == 0;
 							if (flag3)
 							{
-								WorldGen.PlaceTile(i, j - 1, 227, true, false, -1, random.Next(8, 12));
+								WorldGen.PlaceTile(i, j - 1, 227, true, false, -1, unifiedRandom.Next(8, 12));
 							}
 						}
 						else if (Main.tile[i, j].type == 60)
 						{
-							if (random.Next(2) == 0)
+							if (unifiedRandom.Next(2) == 0)
 							{
 								WorldGen.PlaceTile(i, j - 1, 227, true, false, -1, 2);
 							}
-							else if (random.Next(2) == 0)
+							else if (unifiedRandom.Next(2) == 0)
 							{
 								WorldGen.PlaceTile(i, j - 1, 227, true, false, -1, 0);
 							}
@@ -39139,7 +39139,7 @@ namespace Terraria
 						}
 						else if (Main.tile[i, j].type == 0 || Main.tile[i, j].type == 1 || Main.tile[i, j].type == 59)
 						{
-							if (random.Next(2) == 0)
+							if (unifiedRandom.Next(2) == 0)
 							{
 								WorldGen.PlaceTile(i, j - 1, 227, true, false, -1, 0);
 							}
@@ -50203,18 +50203,18 @@ namespace Terraria
 			return Main.tile[x, y + 1] != null && Main.tile[x, y + 1].type != 78 && Main.tile[x, y + 1].type != 380 && (Main.tile[x, y].type != 254 || context == TileCuttingContext.TilePlacement);
 		}
 
-		public static Random genRand
+		public static UnifiedRandom genRand
 		{
 			get
 			{
 				if (WorldGen._lastSeed != WorldGen._genRandSeed)
 				{
-					WorldGen._genRand = new Random(WorldGen._lastSeed);
+					WorldGen._genRand = new UnifiedRandom(WorldGen._lastSeed);
 					WorldGen._genRandSeed = WorldGen._lastSeed;
 				}
 				if (WorldGen._genRand == null)
 				{
-					WorldGen._genRand = new Random(WorldGen._lastSeed);
+					WorldGen._genRand = new UnifiedRandom(WorldGen._lastSeed);
 					WorldGen._genRandSeed = WorldGen._lastSeed;
 				}
 				return WorldGen._genRand;

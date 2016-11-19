@@ -16,6 +16,7 @@ namespace Terraria
 	public class NetMessage
 	{
 		public static MessageBuffer[] buffer = new MessageBuffer[257];
+		private static PlayerDeathReason _currentPlayerDeathReason;
 
 		public static void SendData(int msgType, int remoteClient = -1, int ignoreClient = -1, string text = "",
 			int number = 0, float number2 = 0f, float number3 = 0f, float number4 = 0f, int number5 = 0, int number6 = 0,
@@ -1209,6 +1210,21 @@ namespace Terraria
 					break;
 				case 116:
 					writer.Write(number);
+					break;
+				case 117:
+					writer.Write((byte)number);
+					NetMessage._currentPlayerDeathReason.WriteSelfTo(writer);
+					writer.Write((short)number2);
+					writer.Write((byte)(number3 + 1f));
+					writer.Write((byte)number4);
+					writer.Write((sbyte)number5);
+					break;
+				case 118:
+					writer.Write((byte)number);
+					NetMessage._currentPlayerDeathReason.WriteSelfTo(writer);
+					writer.Write((short)number2);
+					writer.Write((byte)(number3 + 1f));
+					writer.Write((byte)number4);
 					break;
 			}
 			int num19 = (int)writer.BaseStream.Position;
@@ -2506,6 +2522,23 @@ namespace Terraria
 					Netplay.Clients[plr].Name = "Anonymous";
 				}
 			}
+		}
+
+		public static void SendPlayerDeath(int playerTargetIndex, PlayerDeathReason reason, int damage, int direction, bool pvp, int remoteClient = -1, int ignoreClient = -1)
+		{
+			NetMessage._currentPlayerDeathReason = reason;
+			BitsByte bb = 0;
+			bb[0] = pvp;
+			NetMessage.SendData(118, remoteClient, ignoreClient, "", playerTargetIndex, (float)damage, (float)direction, (float)bb, 0, 0, 0);
+		}
+
+		public static void SendPlayerHurt(int playerTargetIndex, PlayerDeathReason reason, int damage, int direction, bool critical, bool pvp, int hitContext, int remoteClient = -1, int ignoreClient = -1)
+		{
+			NetMessage._currentPlayerDeathReason = reason;
+			BitsByte bb = 0;
+			bb[0] = critical;
+			bb[1] = pvp;
+			NetMessage.SendData(117, remoteClient, ignoreClient, "", playerTargetIndex, (float)damage, (float)direction, (float)bb, hitContext, 0, 0);
 		}
 	}
 }

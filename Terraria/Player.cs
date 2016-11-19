@@ -496,6 +496,20 @@ namespace Terraria
 
 		public int anglerQuestsFinished;
 
+		public bool armorEffectDrawOutlines;
+
+		public bool armorEffectDrawOutlinesForbidden;
+
+		public bool armorEffectDrawShadow;
+
+		public bool armorEffectDrawShadowBasilisk;
+
+		public bool armorEffectDrawShadowEOCShield;
+
+		public bool armorEffectDrawShadowLokis;
+
+		public bool armorEffectDrawShadowSubtle;
+
 		public int bartenderQuestLog;
 
 		public bool downedDD2EventAnyDifficulty;
@@ -1624,7 +1638,7 @@ namespace Terraria
 
 		public bool socialIgnoreLight;
 
-		public bool socialShadow;
+		public bool socialShadowRocketBoots;
 
 		public int solarCounter;
 
@@ -3064,7 +3078,7 @@ namespace Terraria
 							if (this.statLife <= 0)
 							{
 								this.statLife = 0;
-								this.KillMe(10.0, 0, false, Lang.deathMsg(-1, -1, -1, 1));
+								this.KillMe(PlayerDeathReason.ByOther(1), 10.0, 0, false);
 							}
 						}
 					}
@@ -3792,9 +3806,7 @@ namespace Terraria
 						this.inventory[j].stack++;
 						this.inventory[i].SetDefaults(0, false);
 						this.inventory[i].active = false;
-						this.inventory[i].name = "";
-						this.inventory[i].type = 0;
-						this.inventory[i].stack = 0;
+						this.inventory[i].TurnToAir();
 						this.DoCoins(j);
 					}
 				}
@@ -4663,6 +4675,22 @@ namespace Terraria
 				}
 			}
 			return newItem;
+		}
+
+		public int FindBuffIndex(int type)
+		{
+			if (this.buffImmune[type])
+			{
+				return -1;
+			}
+			for (int i = 0; i < 22; i++)
+			{
+				if (this.buffTime[i] >= 1 && this.buffType[i] == type)
+				{
+					return i;
+				}
+			}
+			return -1;
 		}
 
 		public static byte FindClosest(Vector2 Position, int Width, int Height)
@@ -5613,15 +5641,15 @@ namespace Terraria
 				else if (sItem.ranged)
 				{
 					num = (int)((float)num * this.rangedDamage + 5E-06f);
-					if (sItem.useAmmo == 1 || sItem.useAmmo == 323)
+					if (sItem.useAmmo == AmmoID.Arrow || sItem.useAmmo == AmmoID.Stake)
 					{
 						num = (int)((float)num * this.arrowDamage + 5E-06f);
 					}
-					if (sItem.useAmmo == 14 || sItem.useAmmo == 311)
+					if (sItem.useAmmo == AmmoID.Bullet || sItem.useAmmo == AmmoID.CandyCorn)
 					{
 						num = (int)((float)num * this.bulletDamage + 5E-06f);
 					}
-					if (sItem.useAmmo == 771 || sItem.useAmmo == 246 || sItem.useAmmo == 312 || sItem.useAmmo == 514)
+					if (sItem.useAmmo == AmmoID.Rocket || sItem.useAmmo == AmmoID.StyngerBolt || sItem.useAmmo == AmmoID.JackOLantern || sItem.useAmmo == AmmoID.NailFriendly)
 					{
 						num = (int)((float)num * this.rocketDamage + 5E-06f);
 					}
@@ -6206,22 +6234,6 @@ namespace Terraria
 			return canUse;
 		}
 
-		public int HasBuff(int type)
-		{
-			if (this.buffImmune[type])
-			{
-				return -1;
-			}
-			for (int i = 0; i < 22; i++)
-			{
-				if (this.buffTime[i] >= 1 && this.buffType[i] == type)
-				{
-					return i;
-				}
-			}
-			return -1;
-		}
-
 		public bool HasItem(int type)
 		{
 			for (int i = 0; i < 58; i++)
@@ -6611,11 +6623,11 @@ namespace Terraria
 			}
 		}
 
-		public double Hurt(int Damage, int hitDirection, bool pvp = false, bool quiet = false, string deathText = " was slain...", bool Crit = false, int cooldownCounter = -1)
+		public double Hurt(PlayerDeathReason damageSource, int Damage, int hitDirection, bool pvp = false, bool quiet = false, bool Crit = false, int cooldownCounter = -1)
 		{
 			bool flag = !this.immune;
 			bool flag2 = false;
-			int number = cooldownCounter;
+			int hitContext = cooldownCounter;
 			if (cooldownCounter == 0)
 			{
 				flag = (this.hurtCooldowns[cooldownCounter] <= 0);
@@ -6751,7 +6763,7 @@ namespace Terraria
 								{
 									int damage = (int)(num2 * 0.25);
 									num2 = (double)((int)(num2 * 0.75));
-									player.Hurt(damage, 0, false, false, "", false, -1);
+									player.Hurt(PlayerDeathReason.LegacyEmpty(), damage, 0, false, false, false, -1);
 								}
 							}
 						}
@@ -6929,7 +6941,7 @@ namespace Terraria
 					this.statLife = 0;
 					if (this.whoAmI == Main.myPlayer)
 					{
-						this.KillMe(num2, hitDirection, pvp, deathText);
+						this.KillMe(damageSource, num2, hitDirection, pvp);
 					}
 				}
 			}
@@ -6938,6 +6950,11 @@ namespace Terraria
 				num2 = Main.CalculateDamage(num, this.statDefense);
 			}
 			return num2;
+		}
+
+		public double HurtOld(int Damage, int hitDirection, bool pvp = false, bool quiet = false, string deathText = " was slain...", bool Crit = false, int cooldownCounter = -1)
+		{
+			return 0.0;
 		}
 
 		public bool IsStackingItems()
@@ -9877,7 +9894,7 @@ namespace Terraria
 										if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 26 && (item.hammer < 80 || !Main.hardMode))
 										{
 											num232 = 0;
-											this.Hurt(this.statLife / 2, -this.direction, false, false, Lang.deathMsg(-1, -1, -1, 4, 0, 0), false, -1);
+											this.Hurt(PlayerDeathReason.ByOther(4), this.statLife / 2, -this.direction, false, false, false, -1);
 										}
 										AchievementsHelper.CurrentlyMining = true;
 										if (this.hitTile.AddDamage(tileId, num232, true) >= 100)
@@ -10505,26 +10522,19 @@ namespace Terraria
 								this.statLife -= this.statLifeMax2 / 7;
 								if (Lang.lang <= 1)
 								{
-									string deathText = Language.GetTextValue("Deaths.Teleport_1");
+									PlayerDeathReason damageSource = PlayerDeathReason.ByOther(13);
 									if (Main.rand.Next(2) == 0)
 									{
-										if (this.Male)
-										{
-											deathText = Language.GetTextValue("Deaths.Teleport_2_Male");
-										}
-										else
-										{
-											deathText = Language.GetTextValue("Deaths.Teleport_2_Female");
-										}
+										damageSource = PlayerDeathReason.ByOther(this.Male ? 14 : 15);
 									}
 									if (this.statLife <= 0)
 									{
-										this.KillMe(1.0, 0, false, deathText);
+										this.KillMe(damageSource, 1.0, 0, false);
 									}
 								}
 								else if (this.statLife <= 0)
 								{
-									this.KillMe(1.0, 0, false, "");
+									this.KillMe(PlayerDeathReason.LegacyEmpty(), 1.0, 0, false);
 								}
 								this.lifeRegenCount = 0;
 								this.lifeRegenTime = 0;
@@ -10635,7 +10645,27 @@ namespace Terraria
 				{
 					if (Main.myPlayer == i && (item.damage > 0 || item.type == 3183))
 					{
-						int num304 = (int)((float)item.damage * this.meleeDamage);
+						int num304 = item.damage;
+						if (item.melee)
+						{
+							num304 = (int)((float)item.damage * this.meleeDamage);
+						}
+						if (item.ranged)
+						{
+							num304 = (int)((float)item.damage * this.rangedDamage);
+						}
+						if (item.magic)
+						{
+							num304 = (int)((float)item.damage * this.magicDamage);
+						}
+						if (item.summon)
+						{
+							num304 = (int)((float)item.damage * this.minionDamage);
+						}
+						if (item.thrown)
+						{
+							num304 = (int)((float)item.damage * this.thrownDamage);
+						}
 						float num305 = item.knockBack;
 						float num306 = 1f;
 						if (this.kbGlove)
@@ -10740,7 +10770,19 @@ namespace Terraria
 											if (r2.Intersects(value16) && (Main.npc[num314].noTileCollide || this.CanHit(Main.npc[num314])))
 											{
 												bool flag25 = false;
-												if (Main.rand.Next(1, 101) <= this.meleeCrit)
+												if (item.melee && Main.rand.Next(1, 101) <= this.meleeCrit)
+												{
+													flag25 = true;
+												}
+												if (item.ranged && Main.rand.Next(1, 101) <= this.rangedCrit)
+												{
+													flag25 = true;
+												}
+												if (item.magic && Main.rand.Next(1, 101) <= this.magicCrit)
+												{
+													flag25 = true;
+												}
+												if (item.thrown && Main.rand.Next(1, 101) <= this.thrownCrit)
 												{
 													flag25 = true;
 												}
@@ -10756,7 +10798,7 @@ namespace Terraria
 														num304 = (int)((float)num304 * ItemID.Sets.BannerStrength[Item.BannerToItem(num315)].NormalDamageDealt);
 													}
 												}
-												if (this.parryDamageBuff)
+												if (this.parryDamageBuff && item.melee)
 												{
 													num304 *= 5;
 													this.parryDamageBuff = false;
@@ -10867,7 +10909,7 @@ namespace Terraria
 										Rectangle value19 = new Rectangle((int)Main.npc[num314].position.X, (int)Main.npc[num314].position.Y, Main.npc[num314].width, Main.npc[num314].height);
 										if (r2.Intersects(value19) && (Main.npc[num314].noTileCollide || this.CanHit(Main.npc[num314])))
 										{
-											this.Hurt((int)((double)Main.npc[num314].damage * 1.3), -this.direction, false, false, " was slain...", false, -1);
+											this.Hurt(PlayerDeathReason.LegacyDefault(), (int)((double)Main.npc[num314].damage * 1.3), -this.direction, false, false, false, -1);
 											Main.npc[num314].immune[i] = this.itemAnimation;
 											this.attackCD = (int)((double)this.itemAnimationMax * 0.33);
 										}
@@ -10878,7 +10920,8 @@ namespace Terraria
 							{
 								for (int num324 = 0; num324 < 255; num324++)
 								{
-									if (num324 != i && Main.player[num324].active && Main.player[num324].hostile && !Main.player[num324].immune && !Main.player[num324].dead && (Main.player[i].team == 0 || Main.player[i].team != Main.player[num324].team))
+									bool flag29 = num324 != i && Main.player[num324].active && Main.player[num324].hostile && !Main.player[num324].immune && !Main.player[num324].dead;
+									if (flag29 && (Main.player[i].team == 0 || Main.player[i].team != Main.player[num324].team))
 									{
 										Rectangle value20 = new Rectangle((int)Main.player[num324].position.X, (int)Main.player[num324].position.Y, Main.player[num324].width, Main.player[num324].height);
 										if (r2.Intersects(value20) && this.CanHit(Main.player[num324]))
@@ -10891,7 +10934,8 @@ namespace Terraria
 											int num325 = Main.DamageVar((float)num304);
 											this.StatusPvP(item.type, num324);
 											this.OnHit(Main.player[num324].Center.X, Main.player[num324].Center.Y, Main.player[num324]);
-											int num326 = (int)Main.player[num324].Hurt(num325, this.direction, true, false, "", flag27, -1);
+											PlayerDeathReason playerDeathReason = PlayerDeathReason.ByPlayer(this.whoAmI);
+											int num326 = (int)Main.player[num324].Hurt(playerDeathReason, num325, this.direction, true, false, flag27, -1);
 											if (this.inventory[this.selectedItem].type == 3211)
 											{
 												Vector2 value21 = new Vector2((float)(this.direction * 100 + Main.rand.Next(-25, 26)), (float)Main.rand.Next(-75, 76));
@@ -10940,14 +10984,7 @@ namespace Terraria
 											}
 											if (Main.netMode != 0)
 											{
-												if (flag27)
-												{
-													NetMessage.SendData(26, -1, -1, Lang.deathMsg(this.whoAmI, -1, -1, -1, 0, 0), num324, (float)this.direction, (float)num325, 1f, 1, 0, 0);
-												}
-												else
-												{
-													NetMessage.SendData(26, -1, -1, Lang.deathMsg(this.whoAmI, -1, -1, -1, 0, 0), num324, (float)this.direction, (float)num325, 1f, 0, 0, 0);
-												}
+												NetMessage.SendPlayerHurt(num324, playerDeathReason, num325, this.direction, flag27, true, -1, -1, -1);
 											}
 											this.attackCD = (int)((double)this.itemAnimationMax * 0.33);
 										}
@@ -11979,7 +12016,7 @@ namespace Terraria
 			}
 		}
 
-		public void KillMe(double dmg, int hitDirection, bool pvp = false, string deathText = " was slain...")
+		public void KillMe(PlayerDeathReason damageSource, double dmg, int hitDirection, bool pvp = false)
 		{
 			if (this.dead)
 			{
@@ -12083,6 +12120,7 @@ namespace Terraria
 			this.palladiumRegen = false;
 			this.iceBarrier = false;
 			this.crystalLeaf = false;
+			string deathText = damageSource.GetDeathText();
 			if (Main.netMode == 2)
 			{
 				NetMessage.SendData(25, -1, -1, this.name + deathText, 255, 225f, 25f, 25f, 0, 0, 0);
@@ -12123,6 +12161,10 @@ namespace Terraria
 				{
 				}
 			}
+		}
+
+		public void KillMeOld(double dmg, int hitDirection, bool pvp = false, string deathText = " was slain...")
+		{
 		}
 
 		public void KillMeForGood()
@@ -12168,7 +12210,7 @@ namespace Terraria
 			PlayerFileData playerFileDatum1 = new PlayerFileData(playerPath);
 			if (Main.rand == null)
 			{
-				Main.rand = new Random((int)DateTime.Now.Ticks);
+				Main.rand = new UnifiedRandom((int)DateTime.Now.Ticks);
 			}
 			Player player = new Player();
 			try
@@ -15384,7 +15426,7 @@ namespace Terraria
 				{
 					shoot = 338 + item.type - 771;
 				}
-				else if (sItem.useAmmo == 771)
+				else if (sItem.useAmmo == AmmoID.Rocket)
 				{
 					shoot += item.shoot;
 				}
@@ -15430,7 +15472,7 @@ namespace Terraria
 				{
 					shoot = 469;
 				}
-				if (this.magicQuiver && (sItem.useAmmo == 1 || sItem.useAmmo == 323))
+				if (this.magicQuiver && (sItem.useAmmo == AmmoID.Arrow || sItem.useAmmo == AmmoID.Stake))
 				{
 					KnockBack = (float)((int)((double)KnockBack * 1.1));
 					speed *= 1.1f;
@@ -15447,7 +15489,7 @@ namespace Terraria
 				{
 					Damage += item.damage;
 				}
-				if (sItem.useAmmo == 1 && this.archery)
+				if (sItem.useAmmo == AmmoID.Arrow && this.archery)
 				{
 					if (speed < 20f)
 					{
@@ -15484,7 +15526,7 @@ namespace Terraria
 				{
 					flag2 = true;
 				}
-				if (this.magicQuiver && sItem.useAmmo == 1 && Main.rand.Next(5) == 0)
+				if (this.magicQuiver && sItem.useAmmo == AmmoID.Arrow && Main.rand.Next(5) == 0)
 				{
 					flag2 = true;
 				}
@@ -15546,8 +15588,7 @@ namespace Terraria
 					if (item.stack <= 0)
 					{
 						item.active = false;
-						item.name = "";
-						item.type = 0;
+						item.TurnToAir();
 					}
 				}
 			}
@@ -16118,7 +16159,7 @@ namespace Terraria
 							{
 								for (int num28 = -1; num28 < 1; num28++)
 								{
-									if (!WorldGen.CanCutTile(Player.tileTargetX + num28, Player.tileTargetY + n, TileCuttingContext.AttackMelee))
+									if (!WorldGen.CanCutTile(Player.tileTargetX + num28, Player.tileTargetY + n, TileCuttingContext.TilePlacement))
 									{
 										flag3 = false;
 									}
@@ -17187,9 +17228,16 @@ namespace Terraria
 					this.wings = 0;
 				}
 			}
-			this.socialShadow = false;
+			this.socialShadowRocketBoots = false;
 			this.socialIgnoreLight = false;
 			this.socialGhost = false;
+			this.armorEffectDrawShadow = false;
+			this.armorEffectDrawShadowSubtle = false;
+			this.armorEffectDrawOutlines = false;
+			this.armorEffectDrawShadowLokis = false;
+			this.armorEffectDrawShadowBasilisk = false;
+			this.armorEffectDrawOutlinesForbidden = false;
+			this.armorEffectDrawShadowEOCShield = false;
 			if (this.head == 101 && this.body == 66 && this.legs == 55)
 			{
 				this.socialGhost = true;
@@ -17198,6 +17246,7 @@ namespace Terraria
 			{
 				this.socialGhost = true;
 			}
+			this.SetArmorEffectVisuals(this);
 			if (this.head == 99 && this.body == 65 && this.legs == 54)
 			{
 				this.turtleArmor = true;
@@ -17229,15 +17278,15 @@ namespace Terraria
 			}
 			if (this.head == 5 && this.body == 5 && this.legs == 5)
 			{
-				this.socialShadow = true;
+				this.socialShadowRocketBoots = true;
 			}
 			if (this.head == 76 && this.body == 49 && this.legs == 45)
 			{
-				this.socialShadow = true;
+				this.socialShadowRocketBoots = true;
 			}
 			if (this.head == 74 && this.body == 48 && this.legs == 44)
 			{
-				this.socialShadow = true;
+				this.socialShadowRocketBoots = true;
 			}
 			if (this.body == 27 && this.head == 46 && this.legs == 26)
 			{
@@ -17785,8 +17834,7 @@ namespace Terraria
 							this.inventory[i].stack--;
 							if (this.inventory[i].stack <= 0)
 							{
-								this.inventory[i].type = 0;
-								this.inventory[i].name = "";
+								this.inventory[i].TurnToAir();
 							}
 						}
 					}
@@ -18123,8 +18171,7 @@ namespace Terraria
 			item.stack--;
 			if (item.stack <= 0)
 			{
-				item.type = 0;
-				item.name = "";
+				item.TurnToAir();
 			}
 			Recipe.FindRecipes();
 		}
@@ -18210,8 +18257,7 @@ namespace Terraria
 					this.inventory[i].stack--;
 					if (this.inventory[i].stack <= 0)
 					{
-						this.inventory[i].type = 0;
-						this.inventory[i].name = "";
+						this.inventory[i].TurnToAir();
 					}
 					Recipe.FindRecipes();
 					return;
@@ -19127,6 +19173,149 @@ namespace Terraria
 				return false;
 			}
 			return true;
+		}
+
+		public void SetArmorEffectVisuals(Player drawPlayer)
+		{
+			if (drawPlayer.head == 111 && drawPlayer.body == 73 && drawPlayer.legs == 62)
+			{
+				this.armorEffectDrawShadowSubtle = true;
+				this.armorEffectDrawOutlines = true;
+			}
+			if (drawPlayer.head == 134 && drawPlayer.body == 95 && drawPlayer.legs == 79)
+			{
+				this.armorEffectDrawShadowSubtle = true;
+				this.armorEffectDrawOutlines = true;
+			}
+			if (drawPlayer.head == 107 && drawPlayer.body == 69 && drawPlayer.legs == 58)
+			{
+				this.armorEffectDrawShadowSubtle = true;
+				this.armorEffectDrawShadow = true;
+			}
+			if (drawPlayer.head == 108 && drawPlayer.body == 70 && drawPlayer.legs == 59)
+			{
+				this.armorEffectDrawShadowSubtle = true;
+				this.armorEffectDrawShadow = true;
+			}
+			if (drawPlayer.head == 109 && drawPlayer.body == 71 && drawPlayer.legs == 60)
+			{
+				this.armorEffectDrawShadowSubtle = true;
+				this.armorEffectDrawShadow = true;
+			}
+			if (drawPlayer.head == 110 && drawPlayer.body == 72 && drawPlayer.legs == 61)
+			{
+				this.armorEffectDrawShadowSubtle = true;
+				this.armorEffectDrawShadow = true;
+			}
+			if (drawPlayer.head == 193 && drawPlayer.body == 194 && drawPlayer.legs == 134)
+			{
+				this.armorEffectDrawShadowSubtle = true;
+				this.armorEffectDrawShadowLokis = true;
+				this.armorEffectDrawOutlines = true;
+			}
+			if (drawPlayer.mount.Active && drawPlayer.mount.Type == 3 && drawPlayer.velocity.Y != 0f && !drawPlayer.SlimeDontHyperJump)
+			{
+				this.armorEffectDrawShadow = true;
+			}
+			if (drawPlayer.mount.Active && drawPlayer.mount.Type == 10 && Math.Abs(drawPlayer.velocity.X) > drawPlayer.mount.DashSpeed - drawPlayer.mount.RunSpeed / 2f)
+			{
+				this.armorEffectDrawShadow = true;
+			}
+			if (drawPlayer.mount.Active && drawPlayer.mount.Type == 14 && Math.Abs(drawPlayer.velocity.X) > drawPlayer.mount.RunSpeed / 2f)
+			{
+				this.armorEffectDrawShadowBasilisk = true;
+			}
+			if (drawPlayer.body == 67 && drawPlayer.legs == 56 && drawPlayer.head >= 103 && drawPlayer.head <= 105)
+			{
+				this.armorEffectDrawShadow = true;
+			}
+			if ((drawPlayer.head == 78 || drawPlayer.head == 79 || drawPlayer.head == 80) && drawPlayer.body == 51 && drawPlayer.legs == 47)
+			{
+				this.armorEffectDrawShadowSubtle = true;
+			}
+			if (drawPlayer.head == 200 && drawPlayer.body == 198 && drawPlayer.legs == 142)
+			{
+				this.armorEffectDrawShadowLokis = true;
+				this.armorEffectDrawOutlinesForbidden = true;
+			}
+			if (drawPlayer.head == 171 && drawPlayer.body == 177 && drawPlayer.legs == 112)
+			{
+				this.armorEffectDrawShadow = true;
+				this.armorEffectDrawOutlines = true;
+			}
+			if (drawPlayer.head == 169 && drawPlayer.body == 175 && drawPlayer.legs == 110)
+			{
+				this.armorEffectDrawShadow = true;
+			}
+			if (drawPlayer.head == 170 && drawPlayer.body == 176 && drawPlayer.legs == 111)
+			{
+				this.armorEffectDrawShadowLokis = true;
+				this.armorEffectDrawOutlines = true;
+			}
+			if (drawPlayer.eocDash > 0)
+			{
+				this.armorEffectDrawShadowEOCShield = true;
+			}
+			else if (drawPlayer.dashDelay < 0)
+			{
+				this.armorEffectDrawShadow = true;
+			}
+			if (drawPlayer.head == 5 && drawPlayer.body == 5 && drawPlayer.legs == 5)
+			{
+				this.armorEffectDrawShadow = true;
+			}
+			if (drawPlayer.head == 74 && drawPlayer.body == 48 && drawPlayer.legs == 44)
+			{
+				this.armorEffectDrawShadow = true;
+			}
+			if (drawPlayer.head == 76 && drawPlayer.body == 49 && drawPlayer.legs == 45)
+			{
+				this.armorEffectDrawShadow = true;
+			}
+			if (drawPlayer.head == 7 && drawPlayer.body == 7 && drawPlayer.legs == 7)
+			{
+				this.armorEffectDrawShadow = true;
+			}
+			if (drawPlayer.head == 22 && drawPlayer.body == 14 && drawPlayer.legs == 14)
+			{
+				this.armorEffectDrawShadow = true;
+			}
+			if (drawPlayer.dye[0].dye == 30 && drawPlayer.dye[1].dye == 30 && drawPlayer.dye[2].dye == 30 && drawPlayer.head == 4 && drawPlayer.body == 27 && drawPlayer.legs == 26)
+			{
+				this.armorEffectDrawShadow = true;
+				this.armorEffectDrawOutlines = true;
+			}
+			if (drawPlayer.head == 189 && drawPlayer.body == 190 && drawPlayer.legs == 130)
+			{
+				this.armorEffectDrawOutlines = true;
+			}
+			if (drawPlayer.body == 17 && drawPlayer.legs == 16 && (drawPlayer.head == 29 || drawPlayer.head == 30 || drawPlayer.head == 31))
+			{
+				this.armorEffectDrawShadow = true;
+			}
+			if (drawPlayer.body == 19 && drawPlayer.legs == 18 && (drawPlayer.head == 35 || drawPlayer.head == 36 || drawPlayer.head == 37))
+			{
+				this.armorEffectDrawOutlines = true;
+			}
+			if (drawPlayer.body == 24 && drawPlayer.legs == 23 && (drawPlayer.head == 41 || drawPlayer.head == 42 || drawPlayer.head == 43))
+			{
+				this.armorEffectDrawOutlines = true;
+				this.armorEffectDrawShadow = true;
+			}
+			if (drawPlayer.head == 157 && drawPlayer.legs == 98 && drawPlayer.body != 105)
+			{
+				int arg_584_0 = drawPlayer.body;
+			}
+			if (drawPlayer.body == 36 && drawPlayer.head == 56)
+			{
+				this.armorEffectDrawOutlines = true;
+			}
+			if (drawPlayer.stoned || drawPlayer.stealth != 1f)
+			{
+				this.armorEffectDrawOutlines = false;
+				this.armorEffectDrawShadow = false;
+				this.armorEffectDrawShadowSubtle = false;
+			}
 		}
 
 		public static int SetMatch(int armorslot, int type, bool male, ref bool somethingSpecial)
@@ -20604,14 +20793,28 @@ namespace Terraria
 					else if (Main.tile[myX, myY].type == 466)
 					{
 						flag2 = true;
-						bool flag6 = !DD2Event.Ongoing && !NPC.AnyNPCs(548);
+						int num17 = myY;
+						Tile tileSafely = Framing.GetTileSafely(myX, myY);
+						if (tileSafely.frameY == 0)
+						{
+							num17 += 3;
+						}
+						if (tileSafely.frameY == 18)
+						{
+							num17 += 2;
+						}
+						if (tileSafely.frameY == 36)
+						{
+							num17++;
+						}
+						bool flag6 = !DD2Event.Ongoing && !NPC.AnyNPCs(548) && !Main.pumpkinMoon && !Main.snowMoon;
 						if (flag6)
 						{
 							flag6 = this.HasItem(3828);
 						}
 						if (flag6)
 						{
-							flag6 = !DD2Event.WouldFailSpawningHere(myX, myY);
+							flag6 = !DD2Event.WouldFailSpawningHere(myX, num17);
 							if (!flag6)
 							{
 								DD2Event.FailureMessage(-1);
@@ -20623,7 +20826,7 @@ namespace Terraria
 						}
 						if (flag6)
 						{
-							DD2Event.SummonCrystal(myX, myY);
+							DD2Event.SummonCrystal(myX, num17);
 						}
 					}
 					else if (Main.tile[myX, myY].type == 334)
@@ -21887,7 +22090,7 @@ namespace Terraria
 					if (this.whoAmI == Main.myPlayer && this.stoned)
 					{
 						int damage = (int)(20.0 * (double)Main.damageMultiplier);
-						this.Hurt(damage, 0, false, false, Lang.deathMsg(-1, -1, -1, 4), false, -1);
+						this.Hurt(PlayerDeathReason.ByOther(4), damage, 0, false, false, false, -1);
 					}
 				}
 				this.lastStoned = this.stoned;
@@ -22032,7 +22235,7 @@ namespace Terraria
 						int num23 = (int)(((float)num22 * this.gravDir - 2f) * 20f);
 						if (num23 > 0)
 						{
-							this.Hurt(num23, 0, false, false, Lang.deathMsg(-1, -1, -1, 4), false, -1);
+							this.Hurt(PlayerDeathReason.ByOther(4), num23, 0, false, false, false, -1);
 							this.immune = false;
 						}
 					}
@@ -22044,7 +22247,7 @@ namespace Terraria
 						{
 							num24 = (int)((float)num24 * this.mount.FallDamage);
 						}
-						this.Hurt(num24, 0, false, false, Lang.deathMsg(-1, -1, -1, 0), false, -1);
+						this.Hurt(PlayerDeathReason.ByOther(0), num24, 0, false, false, false, -1);
 						if (!this.dead && this.statLife <= this.statLifeMax2 / 10)
 						{
 							AchievementsHelper.HandleSpecialEvent(this, 8);
@@ -22300,10 +22503,7 @@ namespace Terraria
 				{
 					if (this.inventory[num27].type == 0 || this.inventory[num27].stack == 0)
 					{
-						this.inventory[num27].type = 0;
-						this.inventory[num27].stack = 0;
-						this.inventory[num27].name = "";
-						this.inventory[num27].netID = 0;
+						this.inventory[num27].TurnToAir();
 					}
 					if (this.inventory[num27].type >= 1522 && this.inventory[num27].type <= 1527)
 					{
@@ -23817,7 +24017,7 @@ namespace Terraria
 								scale2 = 1f;
 								alpha2 = 20;
 							}
-							else if (this.socialShadow)
+							else if (this.socialShadowRocketBoots)
 							{
 								type2 = 27;
 								scale2 = 1.5f;
@@ -24360,7 +24560,7 @@ namespace Terraria
 								{
 									this.StatusPlayer(Main.npc[num140]);
 								}
-								this.Hurt(num146, num145, false, false, Lang.deathMsg(-1, num140, -1, -1), false, num141);
+								this.Hurt(PlayerDeathReason.ByNPC(i), num146, num145, false, false, false, num141);
 							}
 						}
 					}
@@ -24406,7 +24606,7 @@ namespace Terraria
 				else if (vector3.Y != 0f)
 				{
 					int damage4 = Main.DamageVar(vector3.Y);
-					this.Hurt(damage4, 0, false, false, Lang.deathMsg(-1, -1, -1, 3), false, 0);
+					this.Hurt(PlayerDeathReason.ByOther(3), damage4, 0, false, false, false, 0);
 				}
 				else
 				{
@@ -24472,12 +24672,12 @@ namespace Terraria
 					}
 					else if (this.lavaRose)
 					{
-						this.Hurt(50, 0, false, false, Lang.deathMsg(-1, -1, -1, 2), false, -1);
+						this.Hurt(PlayerDeathReason.ByOther(2), 50, 0, false, false, false, -1);
 						this.AddBuff(24, 210, true);
 					}
 					else
 					{
-						this.Hurt(80, 0, false, false, Lang.deathMsg(-1, -1, -1, 2), false, -1);
+						this.Hurt(PlayerDeathReason.ByOther(2), 80, 0, false, false, false, -1);
 						this.AddBuff(24, 420, true);
 					}
 				}
@@ -24845,7 +25045,7 @@ namespace Terraria
 							}
 							if (flag)
 							{
-								this.Hurt(num5, num4, false, false, Lang.deathMsg(-1, i, -1, -1, 0, 0), false, num);
+								this.Hurt(PlayerDeathReason.ByNPC(i), num5, num4, false, false, false, num);
 							}
 							if (flag3)
 							{
@@ -24869,13 +25069,16 @@ namespace Terraria
 		}
 		private void PurgeDD2EnergyCrystals()
 		{
+			if (this.trashItem.type == 3822)
+			{
+				this.trashItem.TurnToAir();
+			}
 			for (int i = 0; i < 58; i++)
 			{
 				Item item = this.inventory[i];
 				if (item.stack > 0 && item.type == 3822)
 				{
-					item.stack = 0;
-					item.type = 0;
+					item.TurnToAir();
 				}
 			}
 			if (this.chest == -2)
@@ -24885,8 +25088,7 @@ namespace Terraria
 				{
 					if (chest.item[j].stack > 0 && chest.item[j].type == 3822)
 					{
-						chest.item[j].stack = 0;
-						chest.item[j].type = 0;
+						chest.item[j].TurnToAir();
 					}
 				}
 			}
@@ -24897,8 +25099,7 @@ namespace Terraria
 				{
 					if (chest2.item[k].stack > 0 && chest2.item[k].type == 3822)
 					{
-						chest2.item[k].stack = 0;
-						chest2.item[k].type = 0;
+						chest2.item[k].TurnToAir();
 					}
 				}
 			}
@@ -24909,8 +25110,7 @@ namespace Terraria
 				{
 					if (chest3.item[l].stack > 0 && chest3.item[l].type == 3822)
 					{
-						chest3.item[l].stack = 0;
-						chest3.item[l].type = 0;
+						chest3.item[l].TurnToAir();
 					}
 				}
 			}
@@ -24921,8 +25121,7 @@ namespace Terraria
 				{
 					if (chest4.item[m].stack > 0 && chest4.item[m].type == 3822)
 					{
-						chest4.item[m].stack = 0;
-						chest4.item[m].type = 0;
+						chest4.item[m].TurnToAir();
 						if (Main.netMode == 1)
 						{
 							NetMessage.SendData(32, -1, -1, "", this.chest, (float)m, 0f, 0f, 0, 0, 0);
@@ -25401,7 +25600,7 @@ namespace Terraria
 				this.setStardust = true;
 				if (this.whoAmI == Main.myPlayer)
 				{
-					if (this.HasBuff(187) == -1)
+					if (this.FindBuffIndex(187) == -1)
 					{
 						this.AddBuff(187, 3600, true);
 					}
@@ -25412,9 +25611,9 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.HasBuff(187) != -1)
+			else if (this.FindBuffIndex(187) != -1)
 			{
-				this.DelBuff(this.HasBuff(187));
+				this.DelBuff(this.FindBuffIndex(187));
 			}
 			if (this.head == 200 && this.body == 198 && this.legs == 142)
 			{
@@ -25848,7 +26047,7 @@ namespace Terraria
 						int num = 24;
 						float num2 = 200f;
 						bool flag = this.infernoCounter % 60 == 0;
-						int num3 = 10;
+						int damage = 10;
 						if (this.whoAmI == Main.myPlayer)
 						{
 							for (int l = 0; l < 200; l++)
@@ -25856,13 +26055,13 @@ namespace Terraria
 								NPC nPC = Main.npc[l];
 								if (nPC.active && !nPC.friendly && nPC.damage > 0 && !nPC.dontTakeDamage && !nPC.buffImmune[num] && Vector2.Distance(base.Center, nPC.Center) <= num2)
 								{
-									if (nPC.HasBuff(num) == -1)
+									if (nPC.FindBuffIndex(num) == -1)
 									{
 										nPC.AddBuff(num, 120, false);
 									}
 									if (flag)
 									{
-										this.ApplyDamageToNPC(nPC, num3, 0f, 0, false);
+										this.ApplyDamageToNPC(nPC, damage, 0f, 0, false);
 									}
 								}
 							}
@@ -25873,16 +26072,17 @@ namespace Terraria
 									Player player = Main.player[m];
 									if (player != this && player.active && !player.dead && player.hostile && !player.buffImmune[num] && (player.team != this.team || player.team == 0) && Vector2.Distance(base.Center, player.Center) <= num2)
 									{
-										if (player.HasBuff(num) == -1)
+										if (player.FindBuffIndex(num) == -1)
 										{
 											player.AddBuff(num, 120, true);
 										}
 										if (flag)
 										{
-											player.Hurt(num3, 0, true, false, "", false, -1);
+											player.Hurt(PlayerDeathReason.LegacyEmpty(), damage, 0, true, false, false, -1);
 											if (Main.netMode != 0)
 											{
-												NetMessage.SendData(26, -1, -1, Lang.deathMsg(this.whoAmI, -1, -1, -1), m, 0f, (float)num3, 1f, 0, 0, 0);
+												PlayerDeathReason reason = PlayerDeathReason.ByPlayer(this.whoAmI);
+												NetMessage.SendPlayerHurt(m, reason, damage, 0, false, true, 0, -1, -1);
 											}
 										}
 									}
@@ -28682,7 +28882,7 @@ namespace Terraria
 					{
 						this.panic = true;
 					}
-					if ((this.armor[l].type == 1300 || this.armor[l].type == 1858) && (this.inventory[this.selectedItem].useAmmo == 14 || this.inventory[this.selectedItem].useAmmo == 311 || this.inventory[this.selectedItem].useAmmo == 323 || this.inventory[this.selectedItem].useAmmo == 23))
+					if ((this.armor[l].type == 1300 || this.armor[l].type == 1858) && (this.inventory[this.selectedItem].useAmmo == AmmoID.Bullet || this.inventory[this.selectedItem].useAmmo == AmmoID.CandyCorn || this.inventory[this.selectedItem].useAmmo == AmmoID.Stake || this.inventory[this.selectedItem].useAmmo == 23))
 					{
 						this.scope = true;
 					}
@@ -30140,15 +30340,15 @@ namespace Terraria
 						{
 							if (this.poisoned || this.venom)
 							{
-								this.KillMe(10.0, 0, false, " " + Lang.dt[0]);
+								this.KillMe(PlayerDeathReason.ByOther(9), 10.0, 0, false);
 							}
 							else if (this.electrified)
 							{
-								this.KillMe(10.0, 0, false, " " + Lang.dt[3]);
+								this.KillMe(PlayerDeathReason.ByOther(10), 10.0, 0, false);
 							}
 							else
 							{
-								this.KillMe(10.0, 0, false, " " + Lang.dt[1]);
+								this.KillMe(PlayerDeathReason.ByOther(8), 10.0, 0, false);
 							}
 						}
 					}
@@ -30164,11 +30364,11 @@ namespace Terraria
 				{
 					if (this.suffocating)
 					{
-						this.KillMe(10.0, 0, false, " " + Lang.dt[2]);
+						this.KillMe(PlayerDeathReason.ByOther(7), 10.0, 0, false);
 					}
 					else
 					{
-						this.KillMe(10.0, 0, false, " " + Lang.dt[1]);
+						this.KillMe(PlayerDeathReason.ByOther(8), 10.0, 0, false);
 					}
 				}
 			}
@@ -30299,7 +30499,7 @@ namespace Terraria
 			{
 				return;
 			}
-			int num2 = this.HasBuff(num);
+			int num2 = this.FindBuffIndex(num);
 			if (num2 == -1)
 			{
 				this.AddBuff(num, 3600, true);
@@ -30329,14 +30529,14 @@ namespace Terraria
 			{
 				return;
 			}
-			int num2 = this.HasBuff(num);
+			int num2 = this.FindBuffIndex(num);
 			if (num == 27 && num2 == -1)
 			{
-				num2 = this.HasBuff(102);
+				num2 = this.FindBuffIndex(102);
 			}
 			if (num == 27 && num2 == -1)
 			{
-				num2 = this.HasBuff(101);
+				num2 = this.FindBuffIndex(101);
 			}
 			if (num2 == -1)
 			{
@@ -30667,7 +30867,7 @@ namespace Terraria
 				if (this.position.X + (float)this.width > num && this.position.X < num + 140f && this.gross)
 				{
 					this.noKnockback = false;
-					this.Hurt(50, Main.npc[Main.wof].direction, false, false, " was slain...", false, -1);
+					this.Hurt(PlayerDeathReason.LegacyDefault(), 50, Main.npc[Main.wof].direction, false, false, false, -1);
 				}
 				if (!this.gross && this.position.Y > (float)((Main.maxTilesY - 250) * 16) && this.position.X > num - 1920f && this.position.X < num + 1920f)
 				{
@@ -30708,12 +30908,12 @@ namespace Terraria
 					float num4 = (float)Math.Sqrt((double)(num2 * num2 + num3 * num3));
 					if (num4 > 3000f)
 					{
-						this.KillMe(1000.0, 0, false, Language.GetTextValue("Deaths.TriedToEscape"));
+						this.KillMe(PlayerDeathReason.ByOther(11), 1000.0, 0, false);
 						return;
 					}
 					if (Main.npc[Main.wof].position.X < 608f || Main.npc[Main.wof].position.X > (float)((Main.maxTilesX - 38) * 16))
 					{
-						this.KillMe(1000.0, 0, false, Language.GetTextValue("Deaths.WasLicked"));
+						this.KillMe(PlayerDeathReason.ByOther(12), 1000.0, 0, false);
 					}
 				}
 			}

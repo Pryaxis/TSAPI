@@ -236,6 +236,10 @@ namespace Terraria.ID
 
 		public const byte CrystalInvasionSendWaitTime = 116;
 
-		public const byte Count = 117;
+		public const byte PlayerHurtV2 = 117;
+
+		public const byte PlayerDeathV2 = 118;
+
+		public const byte Count = 119;
 	}
 }

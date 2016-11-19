@@ -1,12 +1,11 @@
-using System;
-using Terraria;
+using Terraria.Utilities;
 using TerrariaApi.Server;
 
 namespace Terraria.World.Generation
 {
 	public class GenBase
 	{
-		protected static Random _random
+		protected static UnifiedRandom _random
 		{
 			get
 			{

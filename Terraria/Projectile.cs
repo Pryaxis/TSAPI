@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Terraria.DataStructures;
 using Terraria.Enums;
 using Terraria.GameContent;
 using Terraria.GameContent.Achievements;
@@ -83,6 +84,7 @@ namespace Terraria
 		private bool usesIDStaticNPCImmunity;
 		private bool usesLocalNPCImmunity;
 		private static float[] _CompanionCubeScreamCooldown = new float[255];
+		public float ownerHitCheckDistance = 1000f;
 		public int MaxUpdates
 		{
 			get
@@ -6994,7 +6996,7 @@ namespace Terraria
 															}
 															else
 															{
-																player2.Hurt(3, 0, false, false, Lang.deathMsg(-1, -1, -1, 6, 0, 0), false, -1);
+																player2.Hurt(PlayerDeathReason.ByOther(6), 3, 0, false, false, false, -1);
 																player2.immune = false;
 																player2.immuneTime = 0;
 																this.localAI[1] = (float)(-300 + Main.rand.Next(30) * -10);
@@ -8812,13 +8814,13 @@ namespace Terraria
 																			{
 																				this.frameCounter = 0;
 																				float num875 = this.velocity.Length();
-																				Random random = new Random((int)this.ai[1]);
+																				UnifiedRandom unifiedRandom = new UnifiedRandom((int)this.ai[1]);
 																				int num876 = 0;
 																				Vector2 spinningpoint2 = -Vector2.UnitY;
 																				Vector2 vector87;
 																				do
 																				{
-																					int num877 = random.Next();
+																					int num877 = unifiedRandom.Next();
 																					this.ai[1] = (float)num877;
 																					num877 %= 100;
 																					float f = (float)num877 / 100f * 6.28318548f;
@@ -8900,13 +8902,13 @@ namespace Terraria
 																			{
 																				this.frameCounter = 0;
 																				float num884 = this.velocity.Length();
-																				Random random2 = new Random((int)this.ai[1]);
+																				UnifiedRandom unifiedRandom2 = new UnifiedRandom((int)this.ai[1]);
 																				int num885 = 0;
 																				Vector2 spinningpoint3 = -Vector2.UnitY;
 																				Vector2 vector89;
 																				do
 																				{
-																					int num886 = random2.Next();
+																					int num886 = unifiedRandom2.Next();
 																					this.ai[1] = (float)num886;
 																					num886 %= 100;
 																					float f2 = (float)num886 / 100f * 6.28318548f;
@@ -10486,7 +10488,7 @@ namespace Terraria
 																								if (this.ai[0] >= 30f && Main.netMode != 2)
 																								{
 																									Player player6 = Main.player[Main.myPlayer];
-																									if (player6.active && !player6.dead && base.Distance(player6.Center) <= num977 && player6.HasBuff(165) == -1)
+																									if (player6.active && !player6.dead && base.Distance(player6.Center) <= num977 && player6.FindBuffIndex(165) == -1)
 																									{
 																										player6.AddBuff(165, 120, true);
 																									}
@@ -10498,11 +10500,11 @@ namespace Terraria
 																										NPC nPC10 = Main.npc[num982];
 																										if (nPC10.type != 488 && nPC10.active && base.Distance(nPC10.Center) <= num977)
 																										{
-																											if (nPC10.townNPC && (nPC10.HasBuff(165) == -1 || nPC10.buffTime[nPC10.HasBuff(165)] <= 20))
+																											if (nPC10.townNPC && (nPC10.FindBuffIndex(165) == -1 || nPC10.buffTime[nPC10.FindBuffIndex(165)] <= 20))
 																											{
 																												nPC10.AddBuff(165, 120, false);
 																											}
-																											else if (!nPC10.friendly && nPC10.lifeMax > 5 && !nPC10.dontTakeDamage && (nPC10.HasBuff(186) == -1 || nPC10.buffTime[nPC10.HasBuff(186)] <= 20) && (nPC10.dryadBane || Collision.CanHit(base.Center, 1, 1, nPC10.position, nPC10.width, nPC10.height)))
+																											else if (!nPC10.friendly && nPC10.lifeMax > 5 && !nPC10.dontTakeDamage && (nPC10.FindBuffIndex(186) == -1 || nPC10.buffTime[nPC10.FindBuffIndex(186)] <= 20) && (nPC10.dryadBane || Collision.CanHit(base.Center, 1, 1, nPC10.position, nPC10.width, nPC10.height)))
 																											{
 																												nPC10.AddBuff(186, 120, false);
 																											}
@@ -13600,7 +13602,8 @@ namespace Terraria
 				bool flag2 = false;
 				for (int num119 = 0; num119 < 200; num119++)
 				{
-					if (Main.npc[num119].active && !Main.npc[num119].dontTakeDamage && Main.npc[num119].immune[this.owner] == 0 && this.localNPCImmunity[num119] == 0 && Main.npc[num119].Hitbox.Intersects(hitbox))
+					NPC nPC = Main.npc[num119];
+					if (nPC.active && !nPC.dontTakeDamage && nPC.immune[this.owner] == 0 && this.localNPCImmunity[num119] == 0 && nPC.Hitbox.Intersects(hitbox) && !nPC.friendly)
 					{
 						flag2 = true;
 						break;
@@ -22116,7 +22119,7 @@ namespace Terraria
 
 		public bool CanHit(Entity ent)
 		{
-			return Collision.CanHit(Main.player[this.owner].position, Main.player[this.owner].width, Main.player[this.owner].height, ent.position, ent.width, ent.height) || Collision.CanHitLine(Main.player[this.owner].Center + new Vector2((float)(Main.player[this.owner].direction * Main.player[this.owner].width / 2), Main.player[this.owner].gravDir * (float)(-(float)Main.player[this.owner].height) / 3f), 0, 0, ent.Center + new Vector2(0f, (float)(-(float)ent.height / 3)), 0, 0) || Collision.CanHitLine(Main.player[this.owner].Center + new Vector2((float)(Main.player[this.owner].direction * Main.player[this.owner].width / 2), Main.player[this.owner].gravDir * (float)(-(float)Main.player[this.owner].height) / 3f), 0, 0, ent.Center, 0, 0) || Collision.CanHitLine(Main.player[this.owner].Center + new Vector2((float)(Main.player[this.owner].direction * Main.player[this.owner].width / 2), 0f), 0, 0, ent.Center + new Vector2(0f, (float)(ent.height / 3)), 0, 0);
+			return base.Distance(ent.Center) <= this.ownerHitCheckDistance && (Collision.CanHit(Main.player[this.owner].position, Main.player[this.owner].width, Main.player[this.owner].height, ent.position, ent.width, ent.height) || Collision.CanHitLine(Main.player[this.owner].Center + new Vector2((float)(Main.player[this.owner].direction * Main.player[this.owner].width / 2), Main.player[this.owner].gravDir * (float)(-(float)Main.player[this.owner].height) / 3f), 0, 0, ent.Center + new Vector2(0f, (float)(-(float)ent.height / 3)), 0, 0) || Collision.CanHitLine(Main.player[this.owner].Center + new Vector2((float)(Main.player[this.owner].direction * Main.player[this.owner].width / 2), Main.player[this.owner].gravDir * (float)(-(float)Main.player[this.owner].height) / 3f), 0, 0, ent.Center, 0, 0) || Collision.CanHitLine(Main.player[this.owner].Center + new Vector2((float)(Main.player[this.owner].direction * Main.player[this.owner].width / 2), 0f), 0, 0, ent.Center + new Vector2(0f, (float)(ent.height / 3)), 0, 0));
 		}
 
 		public bool CanReflect()
@@ -22452,7 +22455,7 @@ namespace Terraria
 							}
 							int num4 = Main.DamageVar((float)this.damage);
 							this.StatusPlayer(myPlayer);
-							Main.player[myPlayer].Hurt(num4, this.direction, true, false, Lang.deathMsg(this.owner, -1, this.whoAmI, -1, 0, 0), false, -1);
+							Main.player[myPlayer].Hurt(PlayerDeathReason.ByProjectilePVP(this.owner, this.whoAmI), num4, this.direction, true, false, false, -1);
 							if (this.trap)
 							{
 								Main.player[myPlayer].trapDebuffSource = true;
@@ -22675,7 +22678,7 @@ namespace Terraria
 										this.netUpdate = true;
 										this.ai[0] += 50f;
 									}
-									if (this.type == 688 || this.type == 689 || this.type == 690)
+									if ((this.type == 688 || this.type == 689 || this.type == 690) && Main.npc[i].type != 68 && Main.npc[i].defense < 999)
 									{
 										num8 += Main.npc[i].defense / 2;
 									}
@@ -23329,6 +23332,7 @@ namespace Terraria
 										this.direction = 1;
 									}
 								}
+								PlayerDeathReason playerDeathReason = PlayerDeathReason.ByProjectilePVP(this.owner, this.whoAmI);
 								if (this.type == 41 && this.timeLeft > 1)
 								{
 									this.timeLeft = 1;
@@ -23347,7 +23351,7 @@ namespace Terraria
 								{
 									Main.player[this.owner].OnHit(Main.player[n].Center.X, Main.player[n].Center.Y, Main.player[n]);
 								}
-								int num31 = (int)Main.player[n].Hurt(num30, this.direction, true, false, Lang.deathMsg(this.owner, -1, this.whoAmI, -1, 0, 0), flag7, -1);
+								int num31 = (int)Main.player[n].Hurt(playerDeathReason, num30, this.direction, true, false, flag7, -1);
 								if (num31 > 0 && Main.player[this.owner].ghostHeal && this.friendly && !this.hostile)
 								{
 									this.ghostHeal(num31, new Vector2(Main.player[n].Center.X, Main.player[n].Center.Y));
@@ -23362,14 +23366,7 @@ namespace Terraria
 								}
 								if (Main.netMode != 0)
 								{
-									if (flag7)
-									{
-										NetMessage.SendData(26, -1, -1, Lang.deathMsg(this.owner, -1, this.whoAmI, -1, 0, 0), n, (float)this.direction, (float)num30, 1f, 1, 0, 0);
-									}
-									else
-									{
-										NetMessage.SendData(26, -1, -1, Lang.deathMsg(this.owner, -1, this.whoAmI, -1, 0, 0), n, (float)this.direction, (float)num30, 1f, 0, 0, 0);
-									}
+									NetMessage.SendPlayerHurt(n, playerDeathReason, num30, this.direction, flag7, true, 0, -1, -1);
 								}
 								this.playerImmune[n] = 40;
 								if (this.penetrate > 0)
@@ -23518,7 +23515,7 @@ namespace Terraria
 							{
 								num36 = (int)((float)num36 * Main.expertDamage);
 							}
-							Main.player[myPlayer2].Hurt(num36 * 2, hitDirection2, false, false, Lang.deathMsg(-1, -1, this.whoAmI, -1, 0, 0), false, num35);
+							Main.player[myPlayer2].Hurt(PlayerDeathReason.ByProjectilePVP(-1, this.whoAmI), num36 * 2, hitDirection2, false, false, false, num35);
 							if (this.trap)
 							{
 								Main.player[myPlayer2].trapDebuffSource = true;
@@ -23745,7 +23742,7 @@ namespace Terraria
 			}
 			if (flag)
 			{
-				if (Main.player[this.owner].inventory[Main.player[this.owner].selectedItem].type != 2422)
+				if (!ItemID.Sets.CanFishInLava[Main.player[this.owner].HeldItem.type])
 				{
 					return;
 				}
@@ -27509,6 +27506,31 @@ namespace Terraria
 					this.position.Y = this.position.Y - (float)(this.height / 2);
 				}
 			}
+			if (this.owner == Main.myPlayer && (this.type == 370 || this.type == 371))
+			{
+				float num810 = 80f;
+				int num811 = 119;
+				if (this.type == 371)
+				{
+					num811 = 120;
+				}
+				for (int num812 = 0; num812 < 255; num812++)
+				{
+					Player player2 = Main.player[num812];
+					if (player2.active && !player2.dead && Vector2.Distance(base.Center, player2.Center) < num810)
+					{
+						player2.AddBuff(num811, 1800, false);
+					}
+				}
+				for (int num813 = 0; num813 < 200; num813++)
+				{
+					NPC nPC = Main.npc[num813];
+					if (nPC.active && nPC.life > 0 && Vector2.Distance(base.Center, nPC.Center) < num810)
+					{
+						nPC.AddBuff(num811, 1800, false);
+					}
+				}
+			}
 			if (this.owner == Main.myPlayer)
 			{
 				if (this.type == 28 || this.type == 29 || this.type == 37 || this.type == 108 || this.type == 136 || this.type == 137 || this.type == 138 || this.type == 142 || this.type == 143 || this.type == 144 || this.type == 339 || this.type == 341 || this.type == 470 || this.type == 516 || this.type == 519 || this.type == 637)
@@ -27930,31 +27952,6 @@ namespace Terraria
 					if (this.type == 621)
 					{
 						WorldGen.Convert(i2, j2, 4, 4);
-					}
-				}
-				if (this.type == 370 || this.type == 371)
-				{
-					float num833 = 80f;
-					int num834 = 119;
-					if (this.type == 371)
-					{
-						num834 = 120;
-					}
-					for (int num835 = 0; num835 < 255; num835++)
-					{
-						Player player2 = Main.player[num835];
-						if (player2.active && !player2.dead && Vector2.Distance(base.Center, player2.Center) < num833)
-						{
-							player2.AddBuff(num834, 1800, true);
-						}
-					}
-					for (int num836 = 0; num836 < 200; num836++)
-					{
-						NPC nPC = Main.npc[num836];
-						if (nPC.active && nPC.life > 0 && Vector2.Distance(base.Center, nPC.Center) < num833)
-						{
-							nPC.AddBuff(num834, 1800, false);
-						}
 					}
 				}
 				if (this.type == 378)
@@ -28622,6 +28619,7 @@ namespace Terraria
 
 		public void SetDefaults(int Type)
 		{
+			this.ownerHitCheckDistance = 1000f;
 			this.counterweight = false;
 			this.sentry = false;
 			this.arrow = false;

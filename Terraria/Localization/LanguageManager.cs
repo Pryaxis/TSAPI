@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using Terraria.Utilities;
 
 namespace Terraria.Localization
 {
@@ -144,7 +145,7 @@ namespace Terraria.Localization
 			}
 		}
 
-		public LocalizedText RandomFromCategory(string categoryName, Random random = null)
+		public LocalizedText RandomFromCategory(string categoryName, UnifiedRandom random = null)
 		{
 			if (!this._categoryLists.ContainsKey(categoryName))
 			{

@@ -71,11 +71,27 @@ namespace Terraria.ID
 					183,
 					181
 				});
+
+				public static bool[] DrawsWalls = TileID.Sets.Factory.CreateBoolSet(new int[]
+			{
+				10,
+				54,
+				138,
+				388,
+				191,
+				137,
+				328,
+				162,
+				387,
+				48,
+				232,
+				127,
+				459
+			});
 			}
 
 			public static class ForAdvancedCollision
 			{
-				// Token: 0x04000870 RID: 2160
 				public static bool[] ForSandshark = TileID.Sets.Factory.CreateBoolSet(new int[]
 				{
 					397,

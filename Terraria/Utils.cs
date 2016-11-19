@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using Terraria.Utilities;
 using Terraria.DataStructures;
 
 namespace Terraria
@@ -456,32 +457,32 @@ namespace Terraria
 			return new Color((int)((float)(firstColor.R * secondColor.R) / 255f), (int)((float)(firstColor.G * secondColor.G) / 255f), (int)((float)(firstColor.B * secondColor.B) / 255f), (int)((float)(firstColor.A * secondColor.A) / 255f));
 		}
 
-		public static float NextFloat(this Random r)
+		public static float NextFloat(this UnifiedRandom r)
 		{
 			return (float)r.NextDouble();
 		}
 
-		public static float NextFloatDirection(this Random r)
+		public static float NextFloatDirection(this UnifiedRandom r)
 		{
 			return (float)r.NextDouble() * 2f - 1f;
 		}
 
-		public static Vector2 NextVector2Circular(this Random r, float circleHalfWidth, float circleHalfHeight)
+		public static Vector2 NextVector2Circular(this UnifiedRandom r, float circleHalfWidth, float circleHalfHeight)
 		{
 			return r.NextVector2Unit(0f, 6.28318548f) * new Vector2(circleHalfWidth, circleHalfHeight) * r.NextFloat();
 		}
 
-		public static Vector2 NextVector2CircularEdge(this Random r, float circleHalfWidth, float circleHalfHeight)
+		public static Vector2 NextVector2CircularEdge(this UnifiedRandom r, float circleHalfWidth, float circleHalfHeight)
 		{
 			return r.NextVector2Unit(0f, 6.28318548f) * new Vector2(circleHalfWidth, circleHalfHeight);
 		}
 
-		public static Vector2 NextVector2Square(this Random r, float min, float max)
+		public static Vector2 NextVector2Square(this UnifiedRandom r, float min, float max)
 		{
 			return new Vector2((max - min) * (float)r.NextDouble() + min, (max - min) * (float)r.NextDouble() + min);
 		}
 
-		public static Vector2 NextVector2Unit(this Random r, float startRotation = 0f, float rotationRange = 6.28318548f)
+		public static Vector2 NextVector2Unit(this UnifiedRandom r, float startRotation = 0f, float rotationRange = 6.28318548f)
 		{
 			return (startRotation + rotationRange * r.NextFloat()).ToRotationVector2();
 		}
@@ -679,7 +680,7 @@ namespace Terraria
 			return seed * 25214903917L + (long)11 & 281474976710655L;
 		}
 
-		public static Vector2 RandomVector2(Random random, float min, float max)
+		public static Vector2 RandomVector2(UnifiedRandom random, float min, float max)
 		{
 			return new Vector2((max - min) * (float)random.NextDouble() + min, (max - min) * (float)random.NextDouble() + min);
 		}
@@ -748,7 +749,7 @@ namespace Terraria
 			return spinninpoint.RotatedBy(Main.rand.NextDouble() * maxRadians - Main.rand.NextDouble() * maxRadians, default(Vector2));
 		}
 
-		public static T SelectRandom<T>(Random random, params T[] choices)
+		public static T SelectRandom<T>(UnifiedRandom random, params T[] choices)
 		{
 			return choices[random.Next((int)choices.Length)];
 		}
