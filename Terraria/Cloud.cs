@@ -1,5 +1,5 @@
-
 using System;
+using Terraria.Utilities;
 
 namespace Terraria
 {
@@ -27,11 +27,11 @@ namespace Terraria
 
 		public bool kill;
 
-		private static Random rand;
+		private static UnifiedRandom rand;
 
 		static Cloud()
 		{
-			Cloud.rand = new Random();
+			Cloud.rand = new UnifiedRandom();
 		}
 
 		public Cloud()

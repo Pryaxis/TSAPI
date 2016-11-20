@@ -10,32 +10,32 @@ namespace Terraria.Utilities
 	{
 		public WeightedRandom()
 		{
-			this.random = new Random();
+			this.random = new UnifiedRandom();
 		}
 
 		public WeightedRandom(int seed)
 		{
-			this.random = new Random(seed);
+			this.random = new UnifiedRandom(seed);
 		}
 
-		public WeightedRandom(Random random)
+		public WeightedRandom(UnifiedRandom random)
 		{
 			this.random = random;
 		}
 
 		public WeightedRandom(params Tuple<T, double>[] theElements)
 		{
-			this.random = new Random();
+			this.random = new UnifiedRandom();
 			this.elements = theElements.ToList<Tuple<T, double>>();
 		}
 
 		public WeightedRandom(int seed, params Tuple<T, double>[] theElements)
 		{
-			this.random = new Random(seed);
+			this.random = new UnifiedRandom(seed);
 			this.elements = theElements.ToList<Tuple<T, double>>();
 		}
 
-		public WeightedRandom(Random random, params Tuple<T, double>[] theElements)
+		public WeightedRandom(UnifiedRandom random, params Tuple<T, double>[] theElements)
 		{
 			this.random = random;
 			this.elements = theElements.ToList<Tuple<T, double>>();
@@ -90,7 +90,7 @@ namespace Terraria.Utilities
 
 		public bool needsRefresh = true;
 
-		public readonly Random random;
+		public readonly UnifiedRandom random;
 
 		private double _totalWeight;
 	}

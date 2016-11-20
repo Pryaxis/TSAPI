@@ -1,12 +1,7 @@
-﻿using Microsoft.Win32;
-using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using Terraria.Achievements;
@@ -14,13 +9,11 @@ using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.GameContent.Achievements;
 using Terraria.GameContent.Events;
-using Terraria.GameContent.Tile_Entities;
-using Terraria.ID;
+using Terraria.GameContent.UI;
 using Terraria.Initializers;
 using Terraria.IO;
-//using Terraria.Map;
+using Terraria.Localization;
 using Terraria.Net;
-using Terraria.Net.Sockets;
 using Terraria.ObjectData;
 using Terraria.Utilities;
 using Terraria.World.Generation;
@@ -30,6 +23,12 @@ namespace Terraria
 {
 	public class Main
 	{
+		public static event Action OnEngineLoad;
+
+		public static event Action OnEnginePreload;
+
+		public static event Action OnTick;
+
 		public const int offLimitBorderTiles = 40;
 
 		public const int maxItemTypes = 3884;
@@ -156,7 +155,7 @@ namespace Terraria
 
 		public static int curRelease;
 
-		public const ulong WorldGeneratorVersion = 790273982465uL;
+		public const ulong WorldGeneratorVersion = 798863917057uL;
 
 		public static string versionNumber;
 
@@ -202,7 +201,7 @@ namespace Terraria
 
 		public static bool ContentLoaded;
 
-		public static int maxMsg = 112;
+		public static int maxMsg = 118;
 
 		public static float GlobalTime;
 
@@ -770,8 +769,6 @@ namespace Terraria
 
 		public static int numDust;
 
-		public static int numPlayers;
-
 		public static int maxNetPlayers;
 
 		public static int maxRain;
@@ -981,7 +978,7 @@ namespace Terraria
 		public static float invDir;
 
 		[ThreadStatic]
-		public static Random rand;
+		public static UnifiedRandom rand;
 
 		public static int maxMoons;
 
@@ -1405,6 +1402,8 @@ namespace Terraria
 
 		public static string[] npcName;
 
+		public static string[] npcNameEnglish;
+
 		public static int PendingResolutionWidth;
 
 		public static int PendingResolutionHeight;
@@ -1553,6 +1552,8 @@ namespace Terraria
 
 		public List<int> DrawCacheProjsBehindProjectiles = new List<int>(1000);
 
+		public List<int> DrawCacheNPCsBehindNonSolidTiles = new List<int>(200);
+
 		public List<int> DrawCacheNPCProjectiles = new List<int>(200);
 
 		public static string oldStatusText;
@@ -1653,6 +1654,17 @@ namespace Terraria
 
 		public static GenerationProgress AutogenProgress = new GenerationProgress();
 
+		public static bool UseExperimentalFeatures;
+
+		private static bool IsEnginePreloaded;
+
+		public static int ActivePlayersCount;
+
+		public static int BartenderHelpTextIndex;
+
+		public static string DefaultSeed;
+
+		public static bool FirstDrawAfterUpdate;
 
 		public static AchievementManager Achievements
 		{
@@ -1727,11 +1739,19 @@ namespace Terraria
 			}
 		}
 
+		public static bool UseSeedUI
+		{
+			get
+			{
+				return Main.UseExperimentalFeatures;
+			}
+		}
+
 		static Main()
 		{
-			Main.curRelease = 184;
-			Main.versionNumber = "v1.3.4";
-			Main.versionNumber2 = "v1.3.4";
+			Main.curRelease = 187;
+			Main.versionNumber = "v1.3.4.3";
+			Main.versionNumber2 = "v1.3.4.3";
 			Main.destroyerHB = new Vector2(0f, 0f);
 			Main.drawBackGore = false;
 			Main.expertLife = 2f;
@@ -1755,26 +1775,26 @@ namespace Terraria
 			Main.superFast = false;
 			Main.hairLoaded = new bool[134];
 			Main.wingsLoaded = new bool[37];
-			Main.goreLoaded = new bool[943];
+			Main.goreLoaded = new bool[Main.maxGoreTypes];
 			Main.projectileLoaded = new bool[Main.maxProjectileTypes];
 			Main.itemFlameLoaded = new bool[Main.maxItemTypes];
 			Main.backgroundLoaded = new bool[207];
 			Main.tileSetsLoaded = new bool[Main.maxTileSets];
 			Main.wallLoaded = new bool[Main.maxWallTypes];
-			Main.NPCLoaded = new bool[541];
-			Main.armorHeadLoaded = new bool[199];
-			Main.armorBodyLoaded = new bool[195];
-			Main.armorLegsLoaded = new bool[135];
-			Main.accHandsOnLoaded = new bool[19];
+			Main.NPCLoaded = new bool[Main.maxNPCTypes];
+			Main.armorHeadLoaded = new bool[214];
+			Main.armorBodyLoaded = new bool[208];
+			Main.armorLegsLoaded = new bool[157];
+			Main.accHandsOnLoaded = new bool[20];
 			Main.accHandsOffLoaded = new bool[12];
-			Main.accBackLoaded = new bool[10];
+			Main.accBackLoaded = new bool[14];
 			Main.accFrontLoaded = new bool[5];
 			Main.accShoesLoaded = new bool[18];
-			Main.accWaistLoaded = new bool[12];
-			Main.accShieldLoaded = new bool[6];
-			Main.accNeckLoaded = new bool[9];
+			Main.accWaistLoaded = new bool[13];
+			Main.accShieldLoaded = new bool[7];
+			Main.accNeckLoaded = new bool[10];
 			Main.accFaceLoaded = new bool[9];
-			Main.accballoonLoaded = new bool[16];
+			Main.accballoonLoaded = new bool[18];
 			Vector2[] vector2 = new Vector2[] { new Vector2(14f, 34f), new Vector2(14f, 32f), new Vector2(14f, 26f), new Vector2(14f, 22f), new Vector2(14f, 18f) };
 			Main.OffsetsNPCOffhand = vector2;
 			Vector2[] vector2Array = new Vector2[] { new Vector2(14f, 20f), new Vector2(14f, 20f), new Vector2(14f, 20f), new Vector2(14f, 18f), new Vector2(14f, 20f), new Vector2(16f, 4f), new Vector2(16f, 16f), new Vector2(18f, 14f), new Vector2(18f, 14f), new Vector2(18f, 14f), new Vector2(16f, 16f), new Vector2(16f, 16f), new Vector2(16f, 16f), new Vector2(16f, 16f), new Vector2(14f, 14f), new Vector2(14f, 14f), new Vector2(12f, 14f), new Vector2(14f, 16f), new Vector2(16f, 16f), new Vector2(16f, 16f) };
@@ -1945,7 +1965,7 @@ namespace Terraria
 			Main.armorHide = false;
 			Main.craftingAlpha = 1f;
 			Main.armorAlpha = 1f;
-			Main.buffAlpha = new float[193];
+			Main.buffAlpha = new float[Main.maxBuffTypes];
 			Main.trashItem = new Item();
 			Main.hardMode = false;
 			Main.sceneWaterPos = Vector2.Zero;
@@ -1987,7 +2007,6 @@ namespace Terraria
 			Main.maxSectionsX = Main.maxTilesX / 200;
 			Main.maxSectionsY = Main.maxTilesY / 150;
 			Main.numDust = 6000;
-			Main.numPlayers = 0;
 			Main.maxNetPlayers = 255;
 			Main.maxRain = 750;
 			Main.slimeWarningTime = 0;
@@ -2269,6 +2288,7 @@ namespace Terraria
 			Main.Configuration = new Preferences(string.Concat(Main.SavePath, Path.DirectorySeparatorChar, "config.json"), false, false);
 			Main.itemName = new string[Main.maxItemTypes];
 			Main.npcName = new string[Main.maxNPCTypes];
+			Main.npcNameEnglish = new string[Main.maxNPCTypes];
 			Main.PendingResolutionWidth = 800;
 			Main.PendingResolutionHeight = 600;
 			Main.invasionType = 0;
@@ -2285,7 +2305,7 @@ namespace Terraria
 			Main.invasionProgressWave = 0;
 			Main.invasionProgressDisplayLeft = 0;
 			Main.invasionProgressAlpha = 0f;
-			Main.npcFrameCount = new int[] { 1, 2, 2, 3, 6, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 25, 23, 25, 21, 15, 26, 2, 10, 1, 16, 16, 16, 3, 1, 15, 3, 1, 3, 1, 1, 21, 25, 1, 1, 1, 3, 3, 15, 3, 7, 7, 4, 5, 6, 5, 3, 3, 23, 6, 3, 6, 6, 2, 5, 3, 2, 7, 7, 4, 2, 8, 1, 5, 1, 2, 4, 16, 5, 4, 4, 15, 15, 15, 15, 2, 4, 6, 6, 24, 16, 1, 1, 1, 1, 1, 1, 4, 3, 1, 1, 1, 1, 1, 1, 5, 6, 7, 16, 1, 1, 25, 23, 12, 20, 21, 1, 2, 2, 3, 6, 1, 1, 1, 15, 4, 11, 1, 23, 6, 6, 3, 1, 2, 2, 1, 3, 4, 1, 2, 1, 4, 2, 1, 15, 3, 25, 4, 5, 7, 3, 2, 12, 12, 4, 4, 4, 8, 8, 9, 5, 6, 4, 15, 23, 3, 3, 8, 5, 4, 13, 15, 12, 4, 14, 14, 3, 2, 5, 3, 2, 3, 23, 5, 14, 16, 5, 2, 2, 12, 3, 3, 3, 3, 2, 2, 2, 2, 2, 7, 14, 15, 16, 8, 3, 15, 15, 15, 2, 3, 20, 25, 23, 26, 4, 4, 16, 16, 20, 20, 20, 2, 2, 2, 2, 8, 12, 3, 4, 2, 4, 25, 26, 26, 6, 3, 3, 3, 3, 3, 3, 4, 4, 5, 4, 6, 7, 15, 4, 7, 6, 1, 1, 2, 4, 3, 5, 3, 3, 3, 4, 5, 6, 4, 2, 1, 8, 4, 4, 1, 8, 1, 4, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 3, 3, 3, 3, 3, 3, 15, 3, 6, 12, 20, 20, 20, 15, 15, 15, 5, 5, 6, 6, 5, 2, 7, 2, 6, 6, 6, 6, 6, 15, 15, 15, 15, 15, 11, 4, 2, 2, 3, 3, 3, 15, 15, 15, 10, 14, 12, 1, 10, 8, 3, 3, 2, 2, 2, 2, 7, 15, 15, 15, 6, 3, 10, 10, 6, 9, 8, 9, 8, 20, 10, 6, 23, 1, 4, 24, 2, 4, 6, 6, 10, 15, 15, 15, 15, 4, 4, 26, 23, 8, 2, 4, 4, 4, 4, 2, 2, 4, 12, 12, 9, 9, 9, 1, 9, 11, 2, 2, 9, 5, 6, 4, 18, 8, 11, 1, 4, 5, 8, 4, 1, 1, 1, 1, 4, 2, 5, 4, 11, 5, 11, 1, 1, 1, 10, 10, 15, 8, 17, 6, 6, 1, 12, 12, 13, 15, 9, 5, 10, 7, 7, 7, 7, 7, 7, 7, 4, 4, 16, 16, 25, 5, 7, 3, 10, 2, 6, 2, 19, 19, 19, 19, 26, 3, 1, 1, 1, 1, 1, 16, 21, 9, 16, 7, 6, 18, 13, 20, 12, 12, 20, 6, 14, 14, 14, 14, 6, 1, 3, 25, 19, 20, 22, 2, 4, 4, 4, 11, 9, 8, 1, 9, 1, 8, 8, 12, 12, 11, 11, 11, 11, 11, 11, 11, 11, 11, 1, 6, 9, 1, 1, 1, 1, 1, 1, 4, 1, 10, 1, 8, 4, 1, 5, 8, 8, 8, 8, 9, 9, 5, 4, 8, 16, 8, 2, 3, 3, 6, 6, 7 };
+			Main.npcFrameCount = new int[] { 1, 2, 2, 3, 6, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 25, 23, 25, 21, 15, 26, 2, 10, 1, 16, 16, 16, 3, 1, 15, 3, 1, 3, 1, 1, 21, 25, 1, 1, 1, 3, 3, 15, 3, 7, 7, 4, 5, 6, 5, 3, 3, 23, 6, 3, 6, 6, 2, 5, 3, 2, 7, 7, 4, 2, 8, 1, 5, 1, 2, 4, 16, 5, 4, 4, 15, 15, 15, 15, 2, 4, 6, 6, 24, 16, 1, 1, 1, 1, 1, 1, 4, 3, 1, 1, 1, 1, 1, 1, 5, 6, 7, 16, 1, 1, 25, 23, 12, 20, 21, 1, 2, 2, 3, 6, 1, 1, 1, 15, 4, 11, 1, 23, 6, 6, 3, 1, 2, 2, 1, 3, 4, 1, 2, 1, 4, 2, 1, 15, 3, 25, 4, 5, 7, 3, 2, 12, 12, 4, 4, 4, 8, 8, 9, 5, 6, 4, 15, 23, 3, 3, 8, 5, 4, 13, 15, 12, 4, 14, 14, 3, 2, 5, 3, 2, 3, 23, 5, 14, 16, 5, 2, 2, 12, 3, 3, 3, 3, 2, 2, 2, 2, 2, 7, 14, 15, 16, 8, 3, 15, 15, 15, 2, 3, 20, 25, 23, 26, 4, 4, 16, 16, 20, 20, 20, 2, 2, 2, 2, 8, 12, 3, 4, 2, 4, 25, 26, 26, 6, 3, 3, 3, 3, 3, 3, 4, 4, 5, 4, 6, 7, 15, 4, 7, 6, 1, 1, 2, 4, 3, 5, 3, 3, 3, 4, 5, 6, 4, 2, 1, 8, 4, 4, 1, 8, 1, 4, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 3, 3, 3, 3, 3, 3, 15, 3, 6, 12, 20, 20, 20, 15, 15, 15, 5, 5, 6, 6, 5, 2, 7, 2, 6, 6, 6, 6, 6, 15, 15, 15, 15, 15, 11, 4, 2, 2, 3, 3, 3, 15, 15, 15, 10, 14, 12, 1, 10, 8, 3, 3, 2, 2, 2, 2, 7, 15, 15, 15, 6, 3, 10, 10, 6, 9, 8, 9, 8, 20, 10, 6, 23, 1, 4, 24, 2, 4, 6, 6, 10, 15, 15, 15, 15, 4, 4, 26, 23, 8, 2, 4, 4, 4, 4, 2, 2, 4, 12, 12, 9, 9, 9, 1, 9, 11, 2, 2, 9, 5, 6, 4, 18, 8, 11, 1, 4, 5, 8, 4, 1, 1, 1, 1, 4, 2, 5, 4, 11, 5, 11, 1, 1, 1, 10, 10, 15, 8, 17, 6, 6, 1, 12, 12, 13, 15, 9, 5, 10, 7, 7, 7, 7, 7, 7, 7, 4, 4, 16, 16, 25, 5, 7, 3, 10, 2, 6, 2, 19, 19, 19, 19, 26, 3, 1, 1, 1, 1, 1, 16, 21, 9, 16, 7, 6, 18, 13, 20, 12, 12, 20, 6, 14, 14, 14, 14, 6, 1, 3, 25, 19, 20, 22, 2, 4, 4, 4, 11, 9, 8, 1, 9, 1, 8, 8, 12, 12, 11, 11, 11, 11, 11, 11, 11, 11, 11, 1, 6, 9, 1, 1, 1, 1, 1, 1, 4, 1, 10, 1, 8, 4, 1, 5, 8, 8, 8, 8, 9, 9, 5, 4, 8, 16, 8, 2, 3, 3, 6, 6, 7, 13, 4, 4, 4, 4, 1, 1, 1, 8, 25, 11, 14, 14, 14, 17, 17, 17, 5, 5, 5, 14, 14, 14, 9, 9, 9, 9, 17, 17, 16, 16, 18, 18, 10, 10, 10, 10, 4, 1 };
 			Main.npcLifeBytes = new Dictionary<int, byte>();
 			Main.clientPlayer = new Player();
 			Main.getIP = Main.defaultIP;
@@ -2377,7 +2397,13 @@ namespace Terraria
 			Main.bgW = (int)(1024f * Main.bgScale);
 			Main.backColor = Color.White;
 			Main.trueBackColor = Main.backColor;
-		}
+			Main.UseExperimentalFeatures = false;
+			Main.IsEnginePreloaded = false;
+			Main.ActivePlayersCount = 0;
+			Main.BartenderHelpTextIndex = 0;
+			Main.DefaultSeed = "";
+			Main.FirstDrawAfterUpdate = true;
+	}
 
 		public Main()
 		{
@@ -2523,13 +2549,14 @@ namespace Terraria
 		{
 		}
 
-		private static void CacheEntityNames()
+		public static void CacheEntityNames()
 		{
 			NPC nPC = new NPC();
 			for (int i = 0; i < Main.maxNPCTypes; i++)
 			{
 				nPC.SetDefaults(i, -1f);
 				Main.npcName[i] = Lang.npcName(nPC.netID, false);
+				Main.npcNameEnglish[i] = Lang.npcName(nPC.netID, true);
 			}
 			Projectile projectile = new Projectile();
 			for (int j = 0; j < 714; j++)
@@ -2842,14 +2869,14 @@ namespace Terraria
 			{
 				if (Main.snowMoon)
 				{
-					int num3 = (new int[] { 0, 25, 15, 10, 30, 100, 160, 180, 200, 250, 300, 375, 450, 525, 675, 850, 1025, 1325, 1550, 2000, 0 })[NPC.waveCount];
-					Main.ReportInvasionProgress((int)NPC.waveKills, num3, 1, NPC.waveCount);
+					int num3 = (new int[] { 0, 25, 15, 10, 30, 100, 160, 180, 200, 250, 300, 375, 450, 525, 675, 850, 1025, 1325, 1550, 2000, 0 })[NPC.waveNumber];
+					Main.ReportInvasionProgress((int)NPC.waveKills, num3, 1, NPC.waveNumber);
 					return;
 				}
 				if (Main.pumpkinMoon)
 				{
-					int num4 = (new int[] { 0, 25, 40, 50, 80, 100, 160, 180, 200, 250, 300, 375, 450, 525, 675, 0 })[NPC.waveCount];
-					Main.ReportInvasionProgress((int)NPC.waveKills, num4, 2, NPC.waveCount);
+					int num4 = (new int[] { 0, 25, 40, 50, 80, 100, 160, 180, 200, 250, 300, 375, 450, 525, 675, 0 })[NPC.waveNumber];
+					Main.ReportInvasionProgress((int)NPC.waveKills, num4, 2, NPC.waveNumber);
 					return;
 				}
 				int num5 = 1;
@@ -5000,7 +5027,7 @@ namespace Terraria
 		{
 			ServerApi.Hooks.InvokeGameInitialize();
 			string str;
-			Main.rand = new Random();
+			Main.rand = new UnifiedRandom();
 			Console.Title = string.Concat("Terraria Server ", Main.versionNumber2);
 			Main.dedServ = true;
 			Main.showSplash = false;
@@ -5010,7 +5037,7 @@ namespace Terraria
 				Main.ActiveWorldFileData.Path = Main.WorldPathClassic;
 			}
 			this.Initialize();
-			Lang.setLang(false);
+			Lang.setLang(true);
 			Main.CacheEntityNames();
 
 			if (Console.IsInputRedirected == true && string.IsNullOrEmpty(Main.WorldPathClassic) == true && !Main.autoGen)
@@ -5087,7 +5114,7 @@ namespace Terraria
 #endif
 						}
 					}
-					else if (str2 == "n" || str2 == "N")
+					else if (str3 == "n" || str3 == "N")
 					{
 						bool flag1 = true;
 						while (flag1)
@@ -5349,7 +5376,7 @@ namespace Terraria
 						try
 						{
 							int num3;
-							int.TryParse(str2, out num3);
+							int.TryParse(str3, out num3);
 							num3--;
 							if (num3 >= 0 && num3 < Main.WorldList.Count)
 							{
@@ -5854,7 +5881,7 @@ namespace Terraria
 			Main.gamePaused = false;
 			PortalHelper.UpdatePortalPoints();
 			Main.tileSolid[379] = false;
-			Main.numPlayers = 0;
+			Main.ActivePlayersCount = 0;
 			int num19 = 0;
 			while (num19 < 255)
 			{
@@ -6592,7 +6619,7 @@ namespace Terraria
 		{
 		}
 
-		public static Color HslToRgb(float Hue, float Saturation, float Luminosity)
+		public static Color hslToRgb(float Hue, float Saturation, float Luminosity)
 		{
 			byte num;
 			byte num1;
@@ -7860,7 +7887,7 @@ namespace Terraria
 			}
 			if (Main.rand == null)
 			{
-				Main.rand = new Random((int)DateTime.Now.Ticks);
+				Main.rand = new UnifiedRandom((int)DateTime.Now.Ticks);
 			}
 			this.SetTitle();
 			Main.lo = Main.rand.Next(6);
@@ -8016,6 +8043,7 @@ namespace Terraria
 			Main.tileNoFail[331] = true;
 			Main.tileNoFail[332] = true;
 			Main.tileNoFail[333] = true;
+			Main.tileNoFail[254] = true;
 			Main.tileNoFail[129] = true;
 			Main.tileNoFail[192] = true;
 			Main.tileHammer[26] = true;
@@ -9752,7 +9780,7 @@ namespace Terraria
 			return box;
 		}
 
-		public static Vector3 RgbToHsl(Color newColor)
+		public static Vector3 rgbToHsl(Color newColor)
 		{
 			float single;
 			float r = (float)newColor.R;
@@ -10164,7 +10192,7 @@ namespace Terraria
 							{
 								num1 = 12;
 							}
-							object[] objArray12 = new object[] { Language.GetTextValue("CLI.Time", num1, ":", str2, " ", str1 };
+							object[] objArray12 = new object[] { Language.GetTextValue("CLI.Time", num1, ":", str2, " ", str1) };
 							Console.WriteLine(string.Concat(objArray12));
 						}
 						else if (lower == Language.GetTextValue("CLI.MaxPlayers_Command"))
@@ -10281,7 +10309,7 @@ namespace Terraria
 									{
 										string arg = str.Substring(length + 1);
 										Console.WriteLine(Language.GetTextValue("CLI.ServerMessage", arg));
-										NetMessage.SendData(25, -1, -1, string.Concat("<Server> ", str4), 255, 255f, 240f, 20f, 0, 0, 0);
+										NetMessage.SendData(25, -1, -1, string.Concat("<Server> ", arg), 255, 255f, 240f, 20f, 0, 0, 0);
 
 									}
 								}
@@ -10424,7 +10452,7 @@ namespace Terraria
 			if (Main.netMode != 1)
 			{
 				NPC.waveKills = 0f;
-				NPC.waveCount = 1;
+				NPC.waveNumber = 1;
 				string invasionWaveText = Lang.GetInvasionWaveText(1, new short[]
 				{
 					305
@@ -10534,7 +10562,7 @@ namespace Terraria
 			if (Main.netMode != 1)
 			{
 				NPC.waveKills = 0f;
-				NPC.waveCount = 1;
+				NPC.waveNumber = 1;
 				string invasionWaveText = Lang.GetInvasionWaveText(1, new short[]
 				{
 					338,
@@ -10560,7 +10588,7 @@ namespace Terraria
 				if (Main.netMode != 1)
 				{
 					NPC.waveKills = 0f;
-					NPC.waveCount = 0;
+					NPC.waveNumber = 0;
 				}
 			}
 			if (Main.snowMoon)
@@ -10569,7 +10597,7 @@ namespace Terraria
 				if (Main.netMode != 1)
 				{
 					NPC.waveKills = 0f;
-					NPC.waveCount = 0;
+					NPC.waveNumber = 0;
 				}
 			}
 		}
@@ -10643,14 +10671,14 @@ namespace Terraria
 		{
 			if (Main.snowMoon)
 			{
-				int num = (new int[] { 0, 25, 15, 10, 30, 100, 160, 180, 200, 250, 300, 375, 450, 525, 675, 850, 1025, 1325, 1550, 2000, 0 })[NPC.waveCount];
-				NetMessage.SendData(78, toWho, -1, "", (int)NPC.waveKills, (float)num, 1f, (float)NPC.waveCount, 0, 0, 0);
+				int num = (new int[] { 0, 25, 15, 10, 30, 100, 160, 180, 200, 250, 300, 375, 450, 525, 675, 850, 1025, 1325, 1550, 2000, 0 })[NPC.waveNumber];
+				NetMessage.SendData(78, toWho, -1, "", (int)NPC.waveKills, (float)num, 1f, (float)NPC.waveNumber, 0, 0, 0);
 				return;
 			}
 			if (Main.pumpkinMoon)
 			{
-				int num1 = (new int[] { 0, 25, 40, 50, 80, 100, 160, 180, 200, 250, 300, 375, 450, 525, 675, 0 })[NPC.waveCount];
-				NetMessage.SendData(78, toWho, -1, "", (int)NPC.waveKills, (float)num1, 2f, (float)NPC.waveCount, 0, 0, 0);
+				int num1 = (new int[] { 0, 25, 40, 50, 80, 100, 160, 180, 200, 250, 300, 375, 450, 525, 675, 0 })[NPC.waveNumber];
+				NetMessage.SendData(78, toWho, -1, "", (int)NPC.waveKills, (float)num1, 2f, (float)NPC.waveNumber, 0, 0, 0);
 				return;
 			}
 			if (Main.invasionType > 0)
@@ -11032,6 +11060,7 @@ namespace Terraria
 			CultistRitual.UpdateTime();
 			BirthdayParty.UpdateTime();
 			Sandstorm.UpdateTime();
+			DD2Event.UpdateTime();
 			if (NPC.MoonLordCountdown > 0)
 			{
 				NPC.MoonLordCountdown = NPC.MoonLordCountdown - 1;

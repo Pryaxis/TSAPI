@@ -114,5 +114,11 @@ public enum PacketTypes
 	MassWireOperation = 109,
 	MassWireOperationPay = 110,
 	ToggleParty = 111,
-	TreeGrowFX = 112
+	TreeGrowFX = 112,
+	CrystalInvasionStart = 113,
+	CrystalInvasionWipeAll = 114,
+	MinionAttackTargetUpdate = 115,
+	CrystalInvasionSendWaitTime = 116,
+	PlayerHurtV2 = 117,
+	PlayerDeathV2 = 118
 }

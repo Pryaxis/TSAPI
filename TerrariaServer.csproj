@@ -112,6 +112,7 @@
     <Compile Include="Terraria\DataStructures\NPCAimedTarget.cs" />
     <Compile Include="Terraria\DataStructures\PlayerDeathReason.cs" />
     <Compile Include="Terraria\Enums\NPCTargetType.cs" />
+    <Compile Include="Terraria\Enums\TileCuttingContext.cs" />
     <Compile Include="Terraria\GameContent\Events\DD2Event.cs" />
     <Compile Include="Terraria\GameContent\UI\CustomCurrencyManager.cs" />
     <Compile Include="Terraria\GameContent\UI\CustomCurrencySingleCoin.cs" />
@@ -125,6 +126,7 @@
     <Compile Include="Terraria\Localization\LanguageManager.cs" />
     <Compile Include="Terraria\Localization\LanguageSearchFilter.cs" />
     <Compile Include="Terraria\Localization\LocalizedText.cs" />
+    <Compile Include="Terraria\ResolutionChangeEvent.cs" />
     <Compile Include="Terraria\StrayMethods.cs" />
     <Compile Include="TerrariaApi.Server\ApiVersionAttribute.cs" />
     <Compile Include="TerrariaApi.Server\EventArgs\ChatEventArgs.cs" />
@@ -200,9 +202,11 @@
     <Compile Include="Terraria\Terraria.GameContent.UI\EmoteID.cs" />
     <Compile Include="Terraria\Terraria.GameContent.UI\ItemRarity.cs" />
     <Compile Include="Terraria\Terraria.GameContent.UI\WorldUIAnchor.cs" />
+    <Compile Include="Terraria\TileChangeReceivedEvent.cs" />
     <Compile Include="Terraria\Utilities\NPCUtils.cs" />
     <Compile Include="Terraria\Utilities\SlotId.cs" />
     <Compile Include="Terraria\Utilities\SlotVector.cs" />
+    <Compile Include="Terraria\Utilities\UnifiedRandom.cs" />
     <Compile Include="Terraria\Utilities\WeightedRandom.cs" />
     <Compile Include="Terraria\World.Generation\GenerationProgress.cs">
       <AutoGen>false</AutoGen>
@@ -1041,7 +1045,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Terraria\Localization\Content\English.json" />
+    <EmbeddedResource Include="Terraria\Localization\Content\English.json" />
     <None Include="Terraria\Localization\Content\English\Town.json" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

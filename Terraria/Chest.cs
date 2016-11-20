@@ -2,7 +2,7 @@ using System;
 using Terraria.DataStructures;
 using Terraria.GameContent.Achievements;
 using Terraria.GameContent.Events;
-
+using Terraria.ID;
 using Terraria.ObjectData;
 
 namespace Terraria

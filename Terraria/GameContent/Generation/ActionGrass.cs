@@ -1,6 +1,4 @@
-
-using System;
-using Terraria;
+using Terraria.Utilities;
 using Terraria.World.Generation;
 
 namespace Terraria.GameContent.Generation
@@ -17,7 +15,7 @@ namespace Terraria.GameContent.Generation
 			{
 				return false;
 			}
-			Random random = GenBase._random;
+			UnifiedRandom random = GenBase._random;
 			ushort[] numArray = new ushort[] { 3, 73 };
 			WorldGen.PlaceTile(x, y, (int)Utils.SelectRandom<ushort>(random, numArray), true, false, -1, 0);
 			return base.UnitApply(origin, x, y, args);

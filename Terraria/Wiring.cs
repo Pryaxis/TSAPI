@@ -2440,11 +2440,11 @@ namespace Terraria
 			}
 			for (int j = 0; j < num5; j++)
 			{
-				master.consumeItem(530, false);
+				master.ConsumeItem(530, false);
 			}
 			for (int k = 0; k < num6; k++)
 			{
-				master.consumeItem(849, false);
+				master.ConsumeItem(849, false);
 			}
 		}
 

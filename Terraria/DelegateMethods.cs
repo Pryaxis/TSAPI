@@ -24,7 +24,6 @@ namespace Terraria
 			DelegateMethods.i_1 = 0;
 		}
 
-
 		public static int CompareYReverse(Point a, Point b)
 		{
 			return b.Y.CompareTo(a.Y);
@@ -127,6 +126,32 @@ namespace Terraria
 			public static void SparksMech(Vector2 dustPosition)
 			{
 			}
+		}
+
+		public static bool CastLightOpen(int x, int y)
+		{
+			if (x < 0 || x >= Main.maxTilesX || y < 0 || y >= Main.maxTilesY)
+			{
+				return false;
+			}
+			if (Main.tile[x, y] == null)
+			{
+				return false;
+			}
+			return true;
+		}
+
+		public static bool CastLight(int x, int y)
+		{
+			if (x < 0 || x >= Main.maxTilesX || y < 0 || y >= Main.maxTilesY)
+			{
+				return false;
+			}
+			if (Main.tile[x, y] == null)
+			{
+				return false;
+			}
+			return true;
 		}
 	}
 }
