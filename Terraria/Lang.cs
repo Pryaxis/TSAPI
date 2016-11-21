@@ -38302,7 +38302,7 @@ namespace Terraria
 			string text3 = "";
 			if (proj >= 0)
 			{
-				text = Main.projName[Main.projectile[proj].type];
+				text = Main.projName[projType];
 			}
 			if (npc >= 0)
 			{
