@@ -70782,438 +70782,438 @@ namespace Terraria
 			}
 		}
 
-        private const int NPC_TARGETS_START = 300;
+		private static int activeRangeX = (int)((double)NPC.sWidth * 2.1);
 
-        public const int MaxMoonLordCountdown = 3600;
+		private static int activeRangeY = (int)((double)NPC.sHeight * 2.1);
 
-        public const float nameOverIncrement = 0.025f;
+		private static int activeTime = 750;
 
-        public const float nameOverDistance = 400f;
+		public float[] ai = new float[NPC.maxAI];
 
-        public const int maxBuffs = 5;
+		public int aiAction;
 
-        public const int breathMax = 200;
+		public int aiStyle;
 
-        private float waterMovementSpeed = 0.5f;
+		public int alpha;
 
-        private float lavaMovementSpeed = 0.5f;
+		public int altTexture;
 
-        private float honeyMovementSpeed = 0.25f;
+		private static int[] attackNPC = new int[NPC.maxAttack];
 
-        public static readonly int[,,,] MoonLordAttacksArray = NPC.InitializeMoonLordAttacks();
+		public bool behindTiles;
 
-        public static readonly int[,] MoonLordAttacksArray2 = NPC.InitializeMoonLordAttacks2();
+		public bool betsysCurse;
 
-        public static int MoonLordCountdown = 0;
+		public bool boss;
 
-        public int teleportStyle;
+		public int breath;
 
-        public float teleportTime;
+		public int breathCounter;
 
-        public static int immuneTime = 20;
+		public const int breathMax = 200;
 
-        public static int maxAI = 4;
+		public bool[] buffImmune = new bool[206];
 
-        public int netSpam;
+		public int[] buffTime = new int[5];
 
-        public static int goldCritterChance = 150;
+		public int[] buffType = new int[5];
 
-        public static int[] killCount = new int[Main.maxNPCTypes];
+		public static int butterflyChance = 0;
 
-        public static float waveKills = 0f;
+		public bool canGhostHeal = true;
 
-        public static int waveNumber = 0;
+		public short catchItem;
 
-        public float nameOver;
+		public static int[,] cavernMonsterType = new int[2, 3];
 
-        public bool SpawnedFromStatue;
+		public bool celled;
 
-        public bool dripping;
+		public bool chaseable = true;
 
-        public bool drippingSlime;
+		public bool closeDoor;
 
-        public int altTexture;
+		public bool coldDamage;
 
-        public Vector2 visualOffset = Vector2.Zero;
+		public bool collideX;
 
-        public short catchItem;
+		public bool collideY;
 
-        public short releaseOwner = 255;
+		public Color color;
 
-        public int rarity;
+		public bool confused;
 
-        public static bool taxCollector = false;
+		public static int crimsonBoss = -1;
 
-        public bool[] playerInteraction = new bool[256];
+		public int damage;
 
-        public int lastInteraction = 255;
+		public bool daybreak;
 
-        public float takenDamageMultiplier = 1f;
+		public static int defaultMaxSpawns = 5;
 
-        private static int spawnSpaceX = 3;
+		public static int defaultSpawnRate = 600;
 
-        private static int spawnSpaceY = 3;
+		public int defDamage;
 
-        public float gfxOffY;
+		public int defDefense;
 
-        public float stepSpeed;
+		public int defense;
 
-        private static float gravity = 0.3f;
+		public int directionY = 1;
 
-        public bool teleporting;
+		public string displayName;
 
-        private static int maxAttack = 20;
+		public bool dontCountMe;
 
-        private static int[] attackNPC = new int[NPC.maxAttack];
+		public bool dontTakeDamage;
 
-        public bool stairFall;
+		public bool dontTakeDamageFromHostiles;
 
-        public static int fireFlyFriendly = 0;
+		public int doorX;
 
-        public static int fireFlyChance = 0;
+		public int doorY;
 
-        public static int fireFlyMultiple = 0;
+		public static bool downedAncientCultist = false;
 
-        public static int butterflyChance = 0;
+		public static bool downedBoss1 = false;
 
-        private byte netStream;
+		public static bool downedBoss2 = false;
 
-        private byte[] streamPlayer = new byte[255];
+		public static bool downedBoss3 = false;
 
-        private byte npcNameLookup;
+		public static bool downedChristmasIceQueen = false;
 
-        public Vector2[] oldPos = new Vector2[10];
+		public static bool downedChristmasSantank = false;
 
-        public float[] oldRot = new float[10];
+		public static bool downedChristmasTree = false;
 
-        public bool setFrameSize;
+		public static bool downedClown = false;
 
-        public static int golemBoss = -1;
+		public static bool downedFishron = false;
 
-        public static int plantBoss = -1;
+		public static bool downedFrost = false;
 
-        public static int crimsonBoss = -1;
+		public static bool downedGoblins = false;
 
-        public int netSkip;
+		public static bool downedGolemBoss = false;
 
-        public bool netAlways;
+		public static bool downedHalloweenKing = false;
 
-        public int realLife = -1;
+		public static bool downedHalloweenTree = false;
 
-        public static int sWidth = 1920;
+		public static bool downedMartians = false;
 
-        public static int sHeight = 1080;
+		public static bool downedMechBoss1 = false;
 
-        private static int spawnRangeX = (int)((double)(NPC.sWidth / 16) * 0.7);
+		public static bool downedMechBoss2 = false;
 
-        private static int spawnRangeY = (int)((double)(NPC.sHeight / 16) * 0.7);
+		public static bool downedMechBoss3 = false;
 
-        public static int safeRangeX = (int)((double)(NPC.sWidth / 16) * 0.52);
+		public static bool downedMechBossAny = false;
 
-        public static int safeRangeY = (int)((double)(NPC.sHeight / 16) * 0.52);
+		public static bool downedMoonlord = false;
 
-        private static int activeRangeX = (int)((double)NPC.sWidth * 2.1);
+		public static bool downedPirates = false;
 
-        private static int activeRangeY = (int)((double)NPC.sHeight * 2.1);
+		public static bool downedPlantBoss = false;
 
-        private static int townRangeX = NPC.sWidth;
+		public static bool downedQueenBee = false;
 
-        private static int townRangeY = NPC.sHeight;
+		public static bool downedSlimeKing = false;
 
-        public float npcSlots = 1f;
+		public static bool downedTowerNebula = false;
 
-        private static bool noSpawnCycle = false;
+		public static bool downedTowerSolar = false;
 
-        private static int activeTime = 750;
+		public static bool downedTowerStardust = false;
 
-        public static int defaultSpawnRate = 600;
+		public static bool downedTowerVortex = false;
 
-        public static int defaultMaxSpawns = 5;
+		public bool dripping;
 
-        public bool dontCountMe;
+		public bool drippingSlime;
 
-        public int[] buffType = new int[5];
+		public bool dryadBane;
 
-        public int[] buffTime = new int[5];
+		public bool dryadWard;
 
-        public bool[] buffImmune = new bool[Main.maxBuffTypes];
+		public float extraValue;
 
-        public bool midas;
+		public static int fireFlyChance = 0;
 
-        public bool ichor;
+		public static int fireFlyFriendly = 0;
 
-        public bool onFire;
+		public static int fireFlyMultiple = 0;
 
-        public bool onFire2;
+		public Rectangle frame;
 
-        public bool onFrostBurn;
+		public double frameCounter;
 
-        public bool poisoned;
+		public bool friendly;
 
-        public bool venom;
+		public int friendlyRegen;
 
-        public bool shadowFlame;
+		public float gfxOffY;
 
-        public bool soulDrain;
+		public static int goldCritterChance = 150;
 
-        public int lifeRegen;
+		public static int golemBoss = -1;
 
-        public int lifeRegenCount;
+		private static float gravity = 0.3f;
 
-        public int lifeRegenExpectedLossPerSecond = -1;
+		public bool hide;
 
-        public bool confused;
+		public bool homeless;
 
-        public bool loveStruck;
+		public int homeTileX = -1;
 
-        public bool stinky;
+		public int homeTileY = -1;
 
-        public bool dryadWard;
+		private float honeyMovementSpeed = 0.25f;
 
-        public bool immortal;
+		public bool ichor;
 
-        public bool chaseable = true;
+		private static int ignorePlayerInteractions = 0;
 
-        public bool canGhostHeal = true;
+		public bool immortal;
 
-        public bool javelined;
+		public int[] immune = new int[256];
 
-        public bool celled;
+		public static int immuneTime = 20;
 
-        public bool dryadBane;
+		public bool javelined;
 
-        public bool daybreak;
+		public bool justHit;
 
-        public bool dontTakeDamageFromHostiles;
+		public static int[] killCount = new int[580];
 
-        public bool betsysCurse;
+		public float knockBackResist = 1f;
 
-        public bool oiled;
+		public int lastInteraction = 255;
 
-        public static bool savedTaxCollector = false;
+		public int lastPortalColorIndex;
 
-        public static bool savedGoblin = false;
+		public bool lavaImmune;
 
-        public static bool savedWizard = false;
+		private float lavaMovementSpeed = 0.5f;
 
-        public static bool savedMech = false;
+		public int life;
 
-        public static bool savedAngler = false;
+		public int lifeMax;
 
-        public static bool savedStylist = false;
+		public int lifeRegen;
 
-        public static bool savedBartender = false;
+		public int lifeRegenCount;
 
-        public static bool downedBoss1 = false;
+		public int lifeRegenExpectedLossPerSecond = -1;
 
-        public static bool downedBoss2 = false;
+		public float[] localAI = new float[NPC.maxAI];
 
-        public static bool downedBoss3 = false;
+		public bool loveStruck;
 
-        public static bool downedQueenBee = false;
+		public static bool LunarApocalypseIsUp = false;
 
-        public static bool downedSlimeKing = false;
+		public static int LunarShieldPowerExpert = 150;
 
-        public static bool downedGoblins = false;
+		public static int LunarShieldPowerNormal = 100;
 
-        public static bool downedFrost = false;
+		public static int maxAI = 4;
 
-        public static bool downedPirates = false;
+		private static int maxAttack = 20;
 
-        public static bool downedClown = false;
+		public const int maxBuffs = 5;
 
-        public static bool downedPlantBoss = false;
+		public const int MaxMoonLordCountdown = 3600;
 
-        public static bool downedGolemBoss = false;
+		private static int maxSpawns = NPC.defaultMaxSpawns;
 
-        public static bool downedMartians = false;
+		public bool midas;
 
-        public static bool downedFishron = false;
+		public static readonly int[,,,] MoonLordAttacksArray = NPC.InitializeMoonLordAttacks();
 
-        public static bool downedHalloweenTree = false;
+		public static readonly int[,] MoonLordAttacksArray2 = NPC.InitializeMoonLordAttacks2();
 
-        public static bool downedHalloweenKing = false;
+		public static int MoonLordCountdown = 0;
 
-        public static bool downedChristmasIceQueen = false;
+		public float nameOver;
 
-        public static bool downedChristmasTree = false;
+		public const float nameOverDistance = 400f;
 
-        public static bool downedChristmasSantank = false;
+		public const float nameOverIncrement = 0.025f;
 
-        public static bool downedAncientCultist = false;
+		public bool netAlways;
 
-        public static bool downedMoonlord = false;
+		public int netID;
 
-        public static bool downedTowerSolar = false;
+		public int netSkip;
 
-        public static bool downedTowerVortex = false;
+		public int netSpam;
 
-        public static bool downedTowerNebula = false;
+		private byte netStream;
 
-        public static bool downedTowerStardust = false;
+		public bool netUpdate;
 
-        public static int ShieldStrengthTowerSolar = 0;
+		public bool netUpdate2;
 
-        public static int ShieldStrengthTowerVortex = 0;
+		public bool noGravity;
 
-        public static int ShieldStrengthTowerNebula = 0;
+		private static bool noSpawnCycle = false;
 
-        public static int ShieldStrengthTowerStardust = 0;
+		public bool noTileCollide;
 
-        public static int LunarShieldPowerNormal = 100;
+		private byte npcNameLookup;
 
-        public static int LunarShieldPowerExpert = 150;
+		public static bool[] npcsFoundForCheckActive = new bool[580];
 
-        public static bool TowerActiveSolar = false;
+		public float npcSlots = 1f;
 
-        public static bool TowerActiveVortex = false;
+		private const int NPC_TARGETS_START = 300;
 
-        public static bool TowerActiveNebula = false;
+		public bool oiled;
 
-        public static bool TowerActiveStardust = false;
+		public int oldDirectionY;
 
-        public static bool LunarApocalypseIsUp = false;
+		public bool oldHomeless;
 
-        public static bool downedMechBossAny = false;
+		public int oldHomeTileX = -1;
 
-        public static bool downedMechBoss1 = false;
+		public int oldHomeTileY = -1;
 
-        public static bool downedMechBoss2 = false;
+		public Vector2[] oldPos = new Vector2[10];
 
-        public static bool downedMechBoss3 = false;
+		public float[] oldRot = new float[10];
 
-        public static bool[] npcsFoundForCheckActive = new bool[580];
+		public int oldTarget;
 
-        private static int spawnRate = NPC.defaultSpawnRate;
+		public bool onFire;
 
-        private static int maxSpawns = NPC.defaultMaxSpawns;
+		public bool onFire2;
 
-        public int soundDelay;
+		public bool onFrostBurn;
 
-        public int[] immune = new int[256];
+		public static int plantBoss = -1;
 
-        public int directionY = 1;
+		public bool[] playerInteraction = new bool[256];
 
-        public int type;
+		public bool poisoned;
 
-        public float[] ai = new float[NPC.maxAI];
+		public int rarity;
 
-        public float[] localAI = new float[NPC.maxAI];
+		public int realLife = -1;
 
-        public int aiAction;
+		public bool reflectingProjectiles;
 
-        public int aiStyle;
+		public short releaseOwner = 255;
 
-        public bool justHit;
+		public float rotation;
 
-        public int timeLeft;
+		public static int safeRangeX = (int)((double)(NPC.sWidth / 16) * 0.52);
 
-        public int target = -1;
+		public static int safeRangeY = (int)((double)(NPC.sHeight / 16) * 0.52);
 
-        public int damage;
+		public static bool savedAngler = false;
 
-        public int defense;
+		public static bool savedBartender = false;
 
-        public int defDamage;
+		public static bool savedGoblin = false;
 
-        public int defDefense;
+		public static bool savedMech = false;
 
-        public bool coldDamage;
+		public static bool savedStylist = false;
 
-        public bool trapImmune;
+		public static bool savedTaxCollector = false;
 
-        public int life;
+		public static bool savedWizard = false;
 
-        public int lifeMax;
+		public float scale = 1f;
 
-        public Rectangle targetRect;
+		public bool setFrameSize;
 
-        public double frameCounter;
+		public bool shadowFlame;
 
-        public Rectangle frame;
+		public static int sHeight = 1080;
 
-        public string displayName;
+		public static int ShieldStrengthTowerNebula = 0;
 
-        public Color color;
+		public static int ShieldStrengthTowerSolar = 0;
 
-        public int alpha;
+		public static int ShieldStrengthTowerStardust = 0;
 
-        public bool hide;
+		public static int ShieldStrengthTowerVortex = 0;
 
-        public float scale = 1f;
+		public bool soulDrain;
 
-        public float knockBackResist = 1f;
+		public int soundDelay;
 
-        public int oldDirectionY;
+		public bool SpawnedFromStatue;
 
-        public int oldTarget;
+		private static int spawnRangeX = (int)((double)(NPC.sWidth / 16) * 0.7);
 
-        public float rotation;
+		private static int spawnRangeY = (int)((double)(NPC.sHeight / 16) * 0.7);
 
-        public bool noGravity;
+		private static int spawnRate = NPC.defaultSpawnRate;
 
-        public bool noTileCollide;
+		private static int spawnSpaceX = 3;
 
-        public bool netUpdate;
+		private static int spawnSpaceY = 3;
 
-        public bool netUpdate2;
+		public int spriteDirection = -1;
 
-        public bool collideX;
+		public bool stairFall;
 
-        public bool collideY;
+		public float stepSpeed;
 
-        public bool boss;
+		public bool stinky;
 
-        public int spriteDirection = -1;
+		private byte[] streamPlayer = new byte[255];
 
-        public bool behindTiles;
+		public static int sWidth = 1920;
 
-        public bool lavaImmune;
+		public float takenDamageMultiplier = 1f;
 
-        public float value;
+		public int target = -1;
 
-        public float extraValue;
+		public Rectangle targetRect;
 
-        public bool dontTakeDamage;
+		public static bool taxCollector = false;
 
-        public int netID;
+		public bool teleporting;
 
-        public bool townNPC;
+		public int teleportStyle;
 
-        public static bool travelNPC = false;
+		public float teleportTime;
 
-        public bool homeless;
+		public int timeLeft;
 
-        public int homeTileX = -1;
+		public static bool TowerActiveNebula = false;
 
-        public int homeTileY = -1;
+		public static bool TowerActiveSolar = false;
 
-        public bool oldHomeless;
+		public static bool TowerActiveStardust = false;
 
-        public int oldHomeTileX = -1;
+		public static bool TowerActiveVortex = false;
 
-        public int oldHomeTileY = -1;
+		public bool townNPC;
 
-        public bool friendly;
+		private static int townRangeX = NPC.sWidth;
 
-        public bool closeDoor;
+		private static int townRangeY = NPC.sHeight;
 
-        public int doorX;
+		public bool trapImmune;
 
-        public int doorY;
+		public static bool travelNPC = false;
 
-        public int friendlyRegen;
+		public int type;
 
-        public int breath;
+		public float value;
 
-        public int breathCounter;
+		public bool venom;
 
-        public bool reflectingProjectiles;
+		public Vector2 visualOffset = Vector2.Zero;
 
-        public int lastPortalColorIndex;
+		private float waterMovementSpeed = 0.5f;
 
-        public static int[,] cavernMonsterType = new int[2, 3];
+		public static float waveKills = 0f;
 
-        private static int ignorePlayerInteractions = 0;
-    }
+		public static int waveNumber = 0;
+	}
 }
