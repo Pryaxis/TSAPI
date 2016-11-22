@@ -153,7 +153,7 @@ namespace Terraria
 
 		public static Main instance;
 
-		public static int curRelease;
+		public const int curRelease = 187;
 
 		public const ulong WorldGeneratorVersion = 798863917057uL;
 
@@ -447,15 +447,11 @@ namespace Terraria
 
 		public static int[] txDataType = new int[Main.maxMsg];
 
-		public static float uCarry;
-
 		public static bool drawSkip;
 
 		public static int fpsCount;
 
 		public static Stopwatch fpsTimer;
-
-		public static Stopwatch updateTimer;
 
 		public bool gammaTest;
 
@@ -1338,11 +1334,9 @@ namespace Terraria
 
 		public static int npcShop;
 
-		public static int numShops;
-
 		public static int npcChatCornerItem;
 
-		public Chest[] shop = new Chest[Main.numShops];
+		public Chest[] shop = new Chest[Main.MaxShopIDs];
 
 		public static int[] travelShop;
 
@@ -1749,7 +1743,6 @@ namespace Terraria
 
 		static Main()
 		{
-			Main.curRelease = 187;
 			Main.versionNumber = "v1.3.4.3";
 			Main.versionNumber2 = "v1.3.4.3";
 			Main.destroyerHB = new Vector2(0f, 0f);
@@ -1866,11 +1859,9 @@ namespace Terraria
 			Main.rxData = 0;
 			Main.txMsg = 0;
 			Main.rxMsg = 0;
-			Main.uCarry = 0f;
 			Main.drawSkip = false;
 			Main.fpsCount = 0;
 			Main.fpsTimer = new Stopwatch();
-			Main.updateTimer = new Stopwatch();
 			Main.fountainColor = -1;
 			Main.monolithType = -1;
 			Main.showSplash = true;
@@ -2258,7 +2249,6 @@ namespace Terraria
 			Main.npcChatFocus2 = false;
 			Main.npcChatFocus3 = false;
 			Main.npcShop = 0;
-			Main.numShops = 21;
 			Main.npcChatCornerItem = 0;
 			Main.travelShop = new int[40];
 			Main.anglerWhoFinishedToday = new List<string>();
@@ -9106,7 +9096,7 @@ namespace Terraria
 			this.waterfallManager = new WaterfallManager();
 			this.shop[0] = new Chest(false);
 			Chest.SetupTravelShop();
-			for (int k1 = 1; k1 < Main.numShops; k1++)
+			for (int k1 = 1; k1 < Main.MaxShopIDs; k1++)
 			{
 				this.shop[k1] = new Chest(false);
 				this.shop[k1].SetupShop(k1);

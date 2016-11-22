@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Terraria.DataStructures;
 using Terraria.Enums;
@@ -11,12 +11,554 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.Utilities;
 using Terraria.World.Generation;
-using TerrariaApi.Server;
 
 namespace Terraria
 {
 	public class NPC : Entity
 	{
+		public const int breathMax = 200;
+
+		public const int maxBuffs = 5;
+
+		public const int MaxMoonLordCountdown = 3600;
+
+		public const float nameOverDistance = 400f;
+
+		public const float nameOverIncrement = 0.025f;
+
+		private const int NPC_TARGETS_START = 300;
+
+		public static int sHeight = 1080;
+
+		public static int sWidth = 1920;
+
+		private static int activeRangeX = (int)((double)NPC.sWidth * 2.1);
+
+		private static int activeRangeY = (int)((double)NPC.sHeight * 2.1);
+
+		private static int activeTime = 750;
+
+		private static int maxAttack = 20;
+
+		private static int[] attackNPC = new int[NPC.maxAttack];
+
+		public static int butterflyChance = 0;
+
+		public static int[,] cavernMonsterType = new int[2, 3];
+
+		public static int crimsonBoss = -1;
+
+		public static int defaultMaxSpawns = 5;
+
+		public static int defaultSpawnRate = 600;
+
+		public static bool downedAncientCultist = false;
+
+		public static bool downedBoss1 = false;
+
+		public static bool downedBoss2 = false;
+
+		public static bool downedBoss3 = false;
+
+		public static bool downedChristmasIceQueen = false;
+
+		public static bool downedChristmasSantank = false;
+
+		public static bool downedChristmasTree = false;
+
+		public static bool downedClown = false;
+
+		public static bool downedFishron = false;
+
+		public static bool downedFrost = false;
+
+		public static bool downedGoblins = false;
+
+		public static bool downedGolemBoss = false;
+
+		public static bool downedHalloweenKing = false;
+
+		public static bool downedHalloweenTree = false;
+
+		public static bool downedMartians = false;
+
+		public static bool downedMechBoss1 = false;
+
+		public static bool downedMechBoss2 = false;
+
+		public static bool downedMechBoss3 = false;
+
+		public static bool downedMechBossAny = false;
+
+		public static bool downedMoonlord = false;
+
+		public static bool downedPirates = false;
+
+		public static bool downedPlantBoss = false;
+
+		public static bool downedQueenBee = false;
+
+		public static bool downedSlimeKing = false;
+
+		public static bool downedTowerNebula = false;
+
+		public static bool downedTowerSolar = false;
+
+		public static bool downedTowerStardust = false;
+
+		public static bool downedTowerVortex = false;
+
+		public static int fireFlyChance = 0;
+
+		public static int fireFlyFriendly = 0;
+
+		public static int fireFlyMultiple = 0;
+
+		public static int goldCritterChance = 150;
+
+		public static int golemBoss = -1;
+
+		private static float gravity = 0.3f;
+
+		private static int ignorePlayerInteractions = 0;
+
+		public static int immuneTime = 20;
+
+		public static int[] killCount = new int[Main.maxNPCTypes];
+
+		public static bool LunarApocalypseIsUp = false;
+
+		public static int LunarShieldPowerExpert = 150;
+
+		public static int LunarShieldPowerNormal = 100;
+
+		public static int maxAI = 4;
+
+		private static int maxSpawns = NPC.defaultMaxSpawns;
+
+		public static readonly int[,,,] MoonLordAttacksArray = NPC.InitializeMoonLordAttacks();
+
+		public static readonly int[,] MoonLordAttacksArray2 = NPC.InitializeMoonLordAttacks2();
+
+		public static int MoonLordCountdown = 0;
+
+		private static bool noSpawnCycle = false;
+
+		public static bool[] npcsFoundForCheckActive = new bool[580];
+
+		public static int plantBoss = -1;
+
+		public static int safeRangeX = (int)((double)(NPC.sWidth / 16) * 0.52);
+
+		public static int safeRangeY = (int)((double)(NPC.sHeight / 16) * 0.52);
+
+		public static bool savedAngler = false;
+
+		public static bool savedBartender = false;
+
+		public static bool savedGoblin = false;
+
+		public static bool savedMech = false;
+
+		public static bool savedStylist = false;
+
+		public static bool savedTaxCollector = false;
+
+		public static bool savedWizard = false;
+
+		public static int ShieldStrengthTowerNebula = 0;
+
+		public static int ShieldStrengthTowerSolar = 0;
+
+		public static int ShieldStrengthTowerStardust = 0;
+
+		public static int ShieldStrengthTowerVortex = 0;
+
+		private static int spawnRangeX = (int)((double)(NPC.sWidth / 16) * 0.7);
+
+		private static int spawnRangeY = (int)((double)(NPC.sHeight / 16) * 0.7);
+
+		private static int spawnRate = NPC.defaultSpawnRate;
+
+		private static int spawnSpaceX = 3;
+
+		private static int spawnSpaceY = 3;
+
+		public static bool taxCollector = false;
+
+		public static bool TowerActiveNebula = false;
+
+		public static bool TowerActiveSolar = false;
+
+		public static bool TowerActiveStardust = false;
+
+		public static bool TowerActiveVortex = false;
+
+		private static int townRangeX = NPC.sWidth;
+
+		private static int townRangeY = NPC.sHeight;
+
+		public static bool travelNPC = false;
+
+		public static float waveKills = 0f;
+
+		public static int waveNumber = 0;
+
+		public float[] ai = new float[NPC.maxAI];
+
+		public int aiAction;
+
+		public int aiStyle;
+
+		public int alpha;
+
+		public int altTexture;
+
+		public bool behindTiles;
+
+		public bool betsysCurse;
+
+		public bool boss;
+
+		public int breath;
+
+		public int breathCounter;
+
+		public bool[] buffImmune = new bool[Main.maxBuffTypes];
+
+		public int[] buffTime = new int[5];
+
+		public int[] buffType = new int[5];
+
+		public bool canGhostHeal = true;
+
+		public short catchItem;
+
+		public bool celled;
+
+		public bool chaseable = true;
+
+		public bool closeDoor;
+
+		public bool coldDamage;
+
+		public bool collideX;
+
+		public bool collideY;
+
+		public Color color;
+
+		public bool confused;
+
+		public int damage;
+
+		public bool daybreak;
+
+		public int defDamage;
+
+		public int defDefense;
+
+		public int defense;
+
+		public int directionY = 1;
+
+		public string displayName;
+
+		public bool dontCountMe;
+
+		public bool dontTakeDamage;
+
+		public bool dontTakeDamageFromHostiles;
+
+		public int doorX;
+
+		public int doorY;
+
+		public bool dripping;
+
+		public bool drippingSlime;
+
+		public bool dryadBane;
+
+		public bool dryadWard;
+
+		public float extraValue;
+
+		public Rectangle frame;
+
+		public double frameCounter;
+
+		public bool friendly;
+
+		public int friendlyRegen;
+
+		public float gfxOffY;
+
+		public bool hide;
+
+		public bool homeless;
+
+		public int homeTileX = -1;
+
+		public int homeTileY = -1;
+
+		private float honeyMovementSpeed = 0.25f;
+
+		public bool ichor;
+
+		public bool immortal;
+
+		public int[] immune = new int[256];
+
+		public bool javelined;
+
+		public bool justHit;
+
+		public float knockBackResist = 1f;
+
+		public int lastInteraction = 255;
+
+		public int lastPortalColorIndex;
+
+		public bool lavaImmune;
+
+		private float lavaMovementSpeed = 0.5f;
+
+		public int life;
+
+		public int lifeMax;
+
+		public int lifeRegen;
+
+		public int lifeRegenCount;
+
+		public int lifeRegenExpectedLossPerSecond = -1;
+
+		public float[] localAI = new float[NPC.maxAI];
+
+		public bool loveStruck;
+
+		public bool midas;
+
+		public float nameOver;
+
+		public bool netAlways;
+
+		public int netID;
+
+		public int netSkip;
+
+		public int netSpam;
+
+		private byte netStream;
+
+		public bool netUpdate;
+
+		public bool netUpdate2;
+
+		public bool noGravity;
+
+		public bool noTileCollide;
+
+		private byte npcNameLookup;
+
+		public float npcSlots = 1f;
+
+		public bool oiled;
+
+		public int oldDirectionY;
+
+		public bool oldHomeless;
+
+		public int oldHomeTileX = -1;
+
+		public int oldHomeTileY = -1;
+
+		public Vector2[] oldPos = new Vector2[10];
+
+		public float[] oldRot = new float[10];
+
+		public int oldTarget;
+
+		public bool onFire;
+
+		public bool onFire2;
+
+		public bool onFrostBurn;
+
+		
+
+		public bool[] playerInteraction = new bool[256];
+
+		public bool poisoned;
+
+		public int rarity;
+
+		public int realLife = -1;
+
+		public bool reflectingProjectiles;
+
+		public short releaseOwner = 255;
+
+		public float rotation;
+
+		public float scale = 1f;
+
+		public bool setFrameSize;
+
+		public bool shadowFlame;
+
+		public bool soulDrain;
+
+		public int soundDelay;
+
+		public bool SpawnedFromStatue;
+
+		public int spriteDirection = -1;
+
+		public bool stairFall;
+
+		public float stepSpeed;
+
+		public bool stinky;
+
+		private byte[] streamPlayer = new byte[255];
+
+		
+
+		public float takenDamageMultiplier = 1f;
+
+		public int target = -1;
+
+		public Rectangle targetRect;
+
+		public bool teleporting;
+
+		public int teleportStyle;
+
+		public float teleportTime;
+
+		public int timeLeft;
+
+		public bool townNPC;
+
+		public bool trapImmune;
+
+		public int type;
+
+		public float value;
+
+		public bool venom;
+
+		public Vector2 visualOffset = Vector2.Zero;
+
+		private float waterMovementSpeed = 0.5f;
+
+		public bool UsesPartyHat()
+		{
+			return this.frame.Height > 0 && this.townNPC && BirthdayParty.PartyIsUp && this.type != 441 && this.type != 37;
+		}
+
+		public bool CanTalk
+		{
+			get
+			{
+				return (this.townNPC || this.type == 453) && this.aiStyle == 7 && this.velocity.Y == 0f;
+			}
+		}
+
+		public static bool downedTowers
+		{
+			get
+			{
+				return NPC.downedTowerSolar && NPC.downedTowerVortex && NPC.downedTowerNebula && NPC.downedTowerStardust;
+			}
+		}
+
+		public bool HasNPCTarget
+		{
+			get
+			{
+				return this.target >= 300 && this.target < 500;
+			}
+		}
+
+		public bool HasPlayerTarget
+		{
+			get
+			{
+				return this.target >= 0 && this.target < 255;
+			}
+		}
+
+		public bool HasValidTarget
+		{
+			get
+			{
+				return (this.HasPlayerTarget && Main.player[this.target].active && !Main.player[this.target].dead && !Main.player[this.target].ghost) || (this.SupportsNPCTargets && this.HasNPCTarget && Main.npc[this.TranslatedTargetIndex].active);
+			}
+		}
+
+		public float Opacity
+		{
+			get
+			{
+				return 1f - (float)this.alpha / 255f;
+			}
+			set
+			{
+				this.alpha = (int)MathHelper.Clamp((1f - value) * 255f, 0f, 255f);
+			}
+		}
+
+		public static int ShieldStrengthTowerMax
+		{
+			get
+			{
+				if (!Main.expertMode)
+				{
+					return NPC.LunarShieldPowerNormal;
+				}
+				return NPC.LunarShieldPowerExpert;
+			}
+		}
+
+		public bool SupportsNPCTargets
+		{
+			get
+			{
+				return NPCID.Sets.UsesNewTargetting[this.type];
+			}
+		}
+
+		public static bool TowersDefeated
+		{
+			get
+			{
+				return NPC.TowerActiveSolar && NPC.TowerActiveVortex && NPC.TowerActiveNebula && NPC.TowerActiveStardust;
+			}
+		}
+
+		public int TranslatedTargetIndex
+		{
+			get
+			{
+				if (this.HasNPCTarget)
+				{
+					return this.target - 300;
+				}
+				return this.target;
+			}
+		}
+
+		public int WhoAmIToTargettingIndex
+		{
+			get
+			{
+				return this.whoAmI + 300;
+			}
+		}
+
 		public void AddBuff(int type, int time, bool quiet = false)
 		{
 			if (this.buffImmune[type])
@@ -908,9 +1450,6 @@ namespace Terraria
 						}
 						else if (this.ai[1] == 4f)
 						{
-							if (this.ai[2] == 0f)
-							{
-							}
 							float num59 = num4;
 							this.ai[2] += 1f;
 							if (this.ai[2] == num59 && Vector2.Distance(this.position, Main.player[this.target].position) < 200f)
@@ -1278,9 +1817,6 @@ namespace Terraria
 								}
 								else
 								{
-									if (this.type != 172)
-									{
-									}
 									if (Main.netMode != 1)
 									{
 										if (this.type == 29 || this.type == 45)
@@ -1777,9 +2313,6 @@ namespace Terraria
 						{
 							this.defense -= 10;
 							this.ai[2] += 1f;
-							if (this.ai[2] == 2f)
-							{
-							}
 							if (this.ai[2] >= 400f)
 							{
 								this.ai[2] = 0f;
@@ -1873,10 +2406,6 @@ namespace Terraria
 							{
 								this.timeLeft = 50;
 							}
-						}
-						if (this.ai[1] != 2f && this.ai[1] != 3f && this.type != 68)
-						{
-							return;
 						}
 					}
 					else if (this.aiStyle == 12)
@@ -3141,9 +3670,6 @@ namespace Terraria
 							{
 								flag9 = true;
 							}
-							if (this.ai[0] == 60f)
-							{
-							}
 							if (this.ai[0] >= 60f && Main.netMode != 1)
 							{
 								base.Bottom = new Vector2(this.localAI[1], this.localAI[2]);
@@ -3340,9 +3866,6 @@ namespace Terraria
 										this.ai[0] = 1f;
 									}
 								}
-							}
-							if (this.type == 102)
-							{
 							}
 							if (flag14)
 							{
@@ -3751,15 +4274,6 @@ namespace Terraria
 						{
 							num257 += 0.5f;
 						}
-						if (this.type == 63)
-						{
-						}
-						else if (this.type == 103)
-						{
-						}
-						else if (this.type != 221 && this.type != 242)
-						{
-						}
 						if (this.direction == 0)
 						{
 							this.TargetClosest(true);
@@ -3960,9 +4474,6 @@ namespace Terraria
 							}
 							if (this.ai[0] > 0f)
 							{
-								if (this.ai[0] == 200f)
-								{
-								}
 								this.ai[0] -= 1f;
 							}
 							if (Main.netMode != 1 && flag17 && this.ai[0] == 0f && Collision.CanHit(this.position, this.width, this.height, Main.player[this.target].position, Main.player[this.target].width, Main.player[this.target].height))
@@ -4662,15 +5173,6 @@ namespace Terraria
 							{
 								this.noGravity = true;
 								this.noTileCollide = true;
-								if (this.type == 83)
-								{
-								}
-								else if (this.type == 179)
-								{
-								}
-								else
-								{
-								}
 								if (this.target < 0 || this.target == 255 || Main.player[this.target].dead)
 								{
 									this.TargetClosest(true);
@@ -5961,15 +6463,6 @@ namespace Terraria
 											{
 												this.ai[2] = 0f;
 											}
-											else
-											{
-												for (int num387 = 0; num387 < 2; num387++)
-												{
-												}
-												for (int num388 = 0; num388 < 20; num388++)
-												{
-												}
-											}
 										}
 										this.velocity.X = this.velocity.X * 0.98f;
 										this.velocity.Y = this.velocity.Y * 0.98f;
@@ -6487,15 +6980,6 @@ namespace Terraria
 											{
 												this.ai[2] = 0f;
 											}
-											else
-											{
-												for (int num425 = 0; num425 < 2; num425++)
-												{
-												}
-												for (int num426 = 0; num426 < 20; num426++)
-												{
-												}
-											}
 										}
 										this.velocity.X = this.velocity.X * 0.98f;
 										this.velocity.Y = this.velocity.Y * 0.98f;
@@ -6826,9 +7310,6 @@ namespace Terraria
 											this.defense *= 2;
 											this.damage *= 2;
 											this.ai[2] += 1f;
-											if (this.ai[2] == 2f)
-											{
-											}
 											if (this.ai[2] >= 400f)
 											{
 												this.ai[2] = 0f;
@@ -11456,9 +11937,6 @@ namespace Terraria
 												if (this.localAI[2] == 0f)
 												{
 													this.localAI[2] = 1f;
-													for (int num766 = 0; num766 < 20; num766++)
-													{
-													}
 												}
 												this.dontTakeDamage = false;
 												this.knockBackResist = 0.5f;
@@ -13132,15 +13610,6 @@ namespace Terraria
 														{
 															int i3 = (int)base.Center.X / 16;
 															int j3 = (int)base.Center.Y / 16;
-															if (this.localAI[2] > 3f)
-															{
-																if (this.type == 358)
-																{
-																}
-																else
-																{
-																}
-															}
 															this.localAI[2] -= 1f;
 														}
 														else if (this.localAI[1] > 0f)
@@ -13540,9 +14009,6 @@ namespace Terraria
 																this.ai[3] = (float)Main.rand.Next(80, 111) * 0.01f;
 																this.netUpdate = true;
 															}
-														}
-														if (this.type == 360)
-														{
 														}
 														float num966 = 0.3f;
 														if (this.type == 360)
@@ -14275,35 +14741,6 @@ namespace Terraria
 																	this.dontTakeDamage = true;
 																	this.frameCounter = 0.0;
 																	this.frame.Y = 0;
-																	float num993 = this.ai[1] / num991;
-																	Vector2 spinningpoint = new Vector2(0f, -30f);
-																	spinningpoint = spinningpoint.RotatedBy((double)(num993 * 1.5f * 6.28318548f), default(Vector2)) * new Vector2(1f, 0.4f);
-																	for (int num994 = 0; num994 < 4; num994++)
-																	{
-																		Vector2 value5 = Vector2.Zero;
-																		float scaleFactor2 = 1f;
-																		if (num994 == 0)
-																		{
-																			value5 = Vector2.UnitY * -15f;
-																			scaleFactor2 = 0.15f;
-																		}
-																		if (num994 == 1)
-																		{
-																			value5 = Vector2.UnitY * -5f;
-																			scaleFactor2 = 0.3f;
-																		}
-																		if (num994 == 2)
-																		{
-																			value5 = Vector2.UnitY * 5f;
-																			scaleFactor2 = 0.6f;
-																		}
-																		if (num994 == 3)
-																		{
-																			value5 = Vector2.UnitY * 20f;
-																			scaleFactor2 = 0.45f;
-																		}
-																		spinningpoint *= -1f;
-																	}
 																	return;
 																}
 																this.dontTakeDamage = false;
@@ -14398,15 +14835,6 @@ namespace Terraria
 															if (Main.expertMode)
 															{
 																num997 *= Main.expertKnockBack;
-															}
-															if (this.type == 388 && this.ai[0] != 3f)
-															{
-																Vector2 vector125 = new Vector2(-10f, 10f);
-																if (this.spriteDirection == 1)
-																{
-																	vector125.X *= -1f;
-																}
-																vector125 = vector125.RotatedBy((double)this.rotation, default(Vector2));
 															}
 															if (this.ai[0] == 0f)
 															{
@@ -15574,9 +16002,6 @@ namespace Terraria
 														}
 														else if (this.aiStyle == 77)
 														{
-															if (this.ai[0] != -1f && this.ai[0] != 2f && Main.rand.Next(200) == 0)
-															{
-															}
 															if (this.localAI[3] == 0f)
 															{
 																this.netUpdate = true;
@@ -15587,9 +16012,6 @@ namespace Terraria
 															{
 																this.dontTakeDamage = true;
 																this.ai[1] += 1f;
-																if (this.ai[1] == 30f)
-																{
-																}
 																if (this.ai[1] < 60f)
 																{
 																	MoonlordDeathDrama.RequestLight(this.ai[1] / 30f, base.Center);
@@ -15610,9 +16032,6 @@ namespace Terraria
 															{
 																this.dontTakeDamage = true;
 																this.ai[1] += 1f;
-																if (this.ai[1] == 30f)
-																{
-																}
 																if (this.ai[1] < 60f)
 																{
 																	MoonlordDeathDrama.RequestLight(this.ai[1] / 30f, base.Center);
@@ -15779,29 +16198,6 @@ namespace Terraria
 																		31,
 																		229
 																	});
-																	for (float num1124 = 0f; num1124 < this.ai[1] / 60f; num1124 += 1f)
-																	{
-																		Vector2 vector144 = Utils.RandomVector2(Main.rand, -1f, 1f);
-																		if (vector144 != Vector2.Zero)
-																		{
-																			vector144.Normalize();
-																		}
-																		vector144 *= 20f + Main.rand.NextFloat() * 800f;
-																		Vector2 vector145 = base.Center + vector144;
-																		Point point6 = vector145.ToTileCoordinates();
-																		bool flag87 = true;
-																		if (!WorldGen.InWorld(point6.X, point6.Y, 0))
-																		{
-																			flag87 = false;
-																		}
-																		if (flag87 && WorldGen.SolidTile(point6.X, point6.Y))
-																		{
-																			flag87 = false;
-																		}
-																		if (flag87)
-																		{
-																		}
-																	}
 																}
 																if (this.ai[1] % 15f == 0f && this.ai[1] < 480f && this.ai[1] >= 90f && Main.netMode != 1)
 																{
@@ -15828,9 +16224,6 @@ namespace Terraria
 																		Vector2 vector147 = new Vector2(0f, -Main.rand.NextFloat() * 0.5f - 0.5f).RotatedBy((double)num1125, default(Vector2)) * 6f;
 																		Projectile.NewProjectile(vec4.X, vec4.Y, vector147.X, vector147.Y, 622, 0, 0f, Main.myPlayer, 0f, 0f);
 																	}
-																}
-																if (this.ai[1] == 1f)
-																{
 																}
 																if (this.ai[1] >= 480f)
 																{
@@ -16225,9 +16618,6 @@ namespace Terraria
 																if (this.localAI[1] > 1f)
 																{
 																	this.localAI[1] = 1f;
-																}
-																if (num1133 == num1134 - 35f)
-																{
 																}
 																if ((num1133 == num1134 - 14f || num1133 == num1134 - 7f || num1133 == num1134) && Main.netMode != 1)
 																{
@@ -16744,9 +17134,6 @@ namespace Terraria
 																{
 																	this.localAI[1] = 1f;
 																}
-																if (num1159 == num1160 - 35f)
-																{
-																}
 																if ((num1159 == num1160 - 14f || num1159 == num1160 - 7f || num1159 == num1160) && Main.netMode != 1)
 																{
 																	Vector2 vector178 = Utils.Vector2FromElipse(this.localAI[0].ToRotationVector2(), value24 * this.localAI[1]);
@@ -16851,9 +17238,6 @@ namespace Terraria
 																this.localAI[0] = this.localAI[0].AngleLerp(v7.ToRotation(), 0.5f);
 																this.localAI[1] = 1f;
 																this.ai[1] += 1f;
-																if (this.ai[1] == 55f)
-																{
-																}
 																if (this.ai[1] == 76f || this.ai[1] == 83f || this.ai[1] == 90f)
 																{
 																	value24 = new Vector2(27f, 59f);
@@ -16967,9 +17351,6 @@ namespace Terraria
 															}
 															if (this.aiStyle == 81)
 															{
-																if (Main.rand.Next(420) == 0)
-																{
-																}
 																Vector2 value31 = new Vector2(30f);
 																if (!Main.npc[(int)this.ai[3]].active || Main.npc[(int)this.ai[3]].type != 398)
 																{
@@ -17114,9 +17495,6 @@ namespace Terraria
 																	else
 																	{
 																		this.localAI[2] = MathHelper.Lerp(this.localAI[2], 0.4f, 0.2f);
-																	}
-																	if (num1197 == num1193 - 35f)
-																	{
 																	}
 																	if ((num1197 == num1193 - 14f || num1197 == num1193 - 7f || num1197 == num1193) && Main.netMode != 1)
 																	{
@@ -17335,10 +17713,6 @@ namespace Terraria
 																		{
 																			this.velocity = Vector2.Zero;
 																		}
-																		if (num1197 >= 60f)
-																		{
-																			return;
-																		}
 																	}
 																	else
 																	{
@@ -17486,8 +17860,6 @@ namespace Terraria
 																}
 																this.velocity = Vector2.Zero;
 																base.Center = Vector2.Lerp(Main.projectile[num1218].Center, Main.npc[(int)Math.Abs(this.ai[0]) - 1].Center + value37, this.ai[2] / num1216);
-																Vector2 spinningpoint9 = Vector2.UnitY * (float)(-(float)this.height) / 2f;
-																spinningpoint9 = Vector2.UnitY * (float)(-(float)this.height) / 6f;
 																return;
 															}
 															else if (this.aiStyle == 83)
@@ -18003,13 +18375,6 @@ namespace Terraria
 																				}
 																			}
 																			this.localAI[0] += 1f;
-																			float num1278 = 1f - this.localAI[0] / num1275;
-																			float num1279 = num1278 * 20f;
-																			int num1280 = 0;
-																			while ((float)num1280 < num1279)
-																			{
-																				num1280++;
-																			}
 																		}
 																	}
 																	if (this.type == 521)
@@ -18030,7 +18395,6 @@ namespace Terraria
 																				}
 																			}
 																			this.localAI[0] += 1f;
-																			int num1283 = 10;
 																		}
 																	}
 																	if (this.ai[0] == 0f)
@@ -19566,13 +19930,6 @@ namespace Terraria
 																	}
 																	this.rotation = this.velocity.X * 0.025f;
 																	this.spriteDirection = -Math.Sign(this.velocity.X);
-																	for (int num1357 = 0; num1357 < 2; num1357++)
-																	{
-																		if (Main.rand.Next(2) != 0)
-																		{
-																			Vector2 value66 = new Vector2((Main.rand.NextFloat() - 0.5f) * (float)(this.width - 70), (Main.rand.NextFloat() - 0.5f) * 20f + (float)(this.height / 2) + 10f).RotatedBy((double)this.rotation, default(Vector2));
-																		}
-																	}
 																	return;
 																}
 																else if (this.aiStyle == 94)
@@ -19622,38 +19979,6 @@ namespace Terraria
 																		{
 																			num1358 = 242;
 																		}
-																		if (Main.rand.Next(5) == 0 && this.ai[1] < 120f)
-																		{
-																			for (int num1360 = 0; num1360 < 3; num1360++)
-																			{
-																			}
-																		}
-																		if (this.ai[1] < 150f)
-																		{
-																			for (int num1361 = 0; num1361 < 3; num1361++)
-																			{
-																				if (Main.rand.Next(4) == 0)
-																				{
-																				}
-																			}
-																		}
-																		if (Main.rand.Next(5) == 0 && this.ai[1] < 150f)
-																		{
-																			for (int num1362 = 0; num1362 < 3; num1362++)
-																			{
-																				Vector2 position6 = base.Center + Vector2.UnitY.RotatedByRandom(4.1887903213500977) * new Vector2((float)this.width, (float)this.height) * 0.7f * Main.rand.NextFloat();
-																				float num1363 = 1f + Main.rand.NextFloat() * 2f + this.ai[1] / 180f * 4f;
-																				for (int num1364 = 0; num1364 < 6; num1364++)
-																				{
-																				}
-																			}
-																		}
-																		if (Main.rand.Next(3) != 0 && this.ai[1] < 150f)
-																		{
-																		}
-																		if (this.ai[1] % 60f == 1f)
-																		{
-																		}
 																		if (this.ai[1] >= 180f)
 																		{
 																			this.life = 0;
@@ -19690,12 +20015,6 @@ namespace Terraria
 																		else
 																		{
 																			flag99 = (NPC.ShieldStrengthTowerNebula != 0);
-																		}
-																		if (flag99 != this.dontTakeDamage)
-																		{
-																		}
-																		else if (this.ai[3] == 1f)
-																		{
 																		}
 																		this.ai[3] += 1f;
 																		if (this.ai[3] > 120f)
@@ -19757,15 +20076,6 @@ namespace Terraria
 																	}
 																	if (this.type == 493)
 																	{
-																		if (Main.rand.Next(5) == 0)
-																		{
-																		}
-																		for (int num1365 = 0; num1365 < 3; num1365++)
-																		{
-																			if (Main.rand.Next(5) == 0)
-																			{
-																			}
-																		}
 																		if (this.ai[1] > 0f)
 																		{
 																			this.ai[1] -= 1f;
@@ -19862,29 +20172,8 @@ namespace Terraria
 																			}
 																		}
 																	}
-																	if (this.type == 507)
-																	{
-																		if (Main.rand.Next(5) == 0)
-																		{
-																		}
-																		for (int num1378 = 0; num1378 < 3; num1378++)
-																		{
-																			if (Main.rand.Next(5) == 0)
-																			{
-																			}
-																		}
-																	}
 																	if (this.type == 422)
 																	{
-																		if (Main.rand.Next(5) == 0)
-																		{
-																		}
-																		for (int num1379 = 0; num1379 < 3; num1379++)
-																		{
-																			if (Main.rand.Next(5) == 0)
-																			{
-																			}
-																		}
 																		if (this.ai[1] > 0f)
 																		{
 																			this.ai[1] -= 1f;
@@ -19960,15 +20249,6 @@ namespace Terraria
 																	}
 																	if (this.type == 517)
 																	{
-																		if (Main.rand.Next(5) == 0)
-																		{
-																		}
-																		for (int num1388 = 0; num1388 < 3; num1388++)
-																		{
-																			if (Main.rand.Next(5) == 0)
-																			{
-																			}
-																		}
 																		if (this.ai[1] > 0f)
 																		{
 																			this.ai[1] -= 1f;
@@ -20581,18 +20861,6 @@ namespace Terraria
 																	this.scale = MathHelper.Lerp(value73, value74, num1451);
 																	base.Center = this.position;
 																	this.alpha = (int)(255f - num1451 * 255f);
-																	if (Main.rand.Next(6) == 0)
-																	{
-																		Vector2 spinningpoint10 = Vector2.UnitY.RotatedByRandom(6.2831854820251465);
-																	}
-																	if (Main.rand.Next(6) == 0)
-																	{
-																		Vector2 spinningpoint11 = Vector2.UnitY.RotatedByRandom(6.2831854820251465);
-																	}
-																	if (Main.rand.Next(6) == 0)
-																	{
-																		Vector2 vector219 = Vector2.UnitY.RotatedByRandom(6.2831854820251465);
-																	}
 																	this.localAI[0] += 0.05235988f;
 																	this.localAI[1] = 0.25f + Vector2.UnitY.RotatedBy((double)(this.ai[1] * 6.28318548f / 60f), default(Vector2)).Y * 0.25f;
 																	if (this.ai[1] >= num1447)
@@ -20707,47 +20975,6 @@ namespace Terraria
 																					Projectile.NewProjectile((float)(current2.X * 16), (float)(current2.Y * 16), 0f, 0f, 658, 0, 0f, Main.myPlayer, 0f, 0f);
 																				}
 																			}
-																			new Vector2(0.9f, 2f);
-																			if (this.ai[0] < 114f && this.ai[0] > 0f)
-																			{
-																				List<Vector2> list5 = new List<Vector2>();
-																				for (int num1471 = 0; num1471 < 1000; num1471++)
-																				{
-																					Projectile projectile9 = Main.projectile[num1471];
-																					if (projectile9.active && projectile9.type == 658)
-																					{
-																						list5.Add(projectile9.Center);
-																					}
-																				}
-																				Vector2 value76 = new Vector2(0f, 1500f);
-																				float num1472 = (this.ai[0] - 54f) / 30f;
-																				if (num1472 < 0.95f && num1472 >= 0f)
-																				{
-																					foreach (Vector2 current3 in list5)
-																					{
-																						Vector2 value77 = Vector2.CatmullRom(vector222 + value76, vector222, current3, current3 + value76, num1472);
-																						Vector2 value78 = Vector2.CatmullRom(vector222 + value76, vector222, current3, current3 + value76, num1472 + 0.05f);
-																						float num1473 = num1472;
-																						if (num1473 > 0.5f)
-																						{
-																							num1473 = 1f - num1473;
-																						}
-																						float num1474 = 2f;
-																						if (Vector2.Distance(value77, value78) > 5f)
-																						{
-																							num1474 = 3f;
-																						}
-																						if (Vector2.Distance(value77, value78) > 10f)
-																						{
-																							num1474 = 4f;
-																						}
-																						for (float num1475 = 0f; num1475 < num1474; num1475 += 1f)
-																						{
-																						}
-																					}
-																				}
-																			}
-																			float arg_46046_0 = this.ai[0];
 																		}
 																		if (this.ai[0] == 0f)
 																		{
@@ -21169,9 +21396,6 @@ namespace Terraria
 																	}
 																	if (this.aiStyle == 105)
 																	{
-																		if (this.alpha == 0)
-																		{
-																		}
 																		if (this.ai[1] == 0f)
 																		{
 																			if (this.ai[0] > 0f)
@@ -21246,55 +21470,8 @@ namespace Terraria
 																				this.checkDead();
 																				this.netUpdate = true;
 																			}
-																			bool flag125 = true;
-																			if (flag125)
-																			{
-																				Vector2 value79 = base.Center + new Vector2(0f, -20f);
-																				float num1493 = 0.99f;
-																				if (this.ai[0] >= 60f)
-																				{
-																					num1493 = 0.79f;
-																				}
-																				if (this.ai[0] >= 120f)
-																				{
-																					num1493 = 0.58f;
-																				}
-																				if (this.ai[0] >= 180f)
-																				{
-																					num1493 = 0.43f;
-																				}
-																				if (this.ai[0] >= 240f)
-																				{
-																					num1493 = 0.33f;
-																				}
-																				if (this.ai[0] >= 540f)
-																				{
-																					num1493 = 1f;
-																				}
-																				for (int num1494 = 0; num1494 < 9; num1494++)
-																				{
-																					if (Main.rand.NextFloat() >= num1493)
-																					{
-																						float num1495 = Main.rand.NextFloat() * 6.28318548f;
-																						float num1496 = Main.rand.NextFloat();
-																						Vector2 position7 = value79 + num1495.ToRotationVector2() * (110f + 600f * num1496);
-																						Vector2 vector225 = (num1495 - 3.14159274f).ToRotationVector2() * (14f + 0f * Main.rand.NextFloat() + 8f * num1496);
-																					}
-																				}
-																			}
 																			if (this.ai[0] == 100f || this.ai[0] == 160f || this.ai[0] == 220f || this.ai[0] == 280f || this.ai[0] == 340f || this.ai[0] == 370f || this.ai[0] == 400f || this.ai[0] == 430f || this.ai[0] == 460f || this.ai[0] == 500f || this.ai[0] == 520f || this.ai[0] == 540f)
 																			{
-																				Main.rand.NextFloat();
-																				float num1497 = 120f;
-																				int num1498 = 0;
-																				while ((float)num1498 < num1497)
-																				{
-																					float num1499 = (float)num1498 / num1497 * 6.28318548f;
-																					float num1500 = Main.rand.NextFloat();
-																					Vector2 position8 = base.Center + new Vector2(0f, -20f) + num1499.ToRotationVector2() * (810f - this.ai[0]);
-																					Vector2 vector226 = (num1499 - 3.14159274f).ToRotationVector2() * (14f + 5f * (this.ai[0] / 600f) + 8f * num1500);
-																					num1498++;
-																				}
 																				return;
 																			}
 																		}
@@ -21339,54 +21516,6 @@ namespace Terraria
 																					this.alpha = 255;
 																				}
 																			}
-																			bool flag126 = true;
-																			if (flag126)
-																			{
-																				Vector2 value80 = base.Center + new Vector2(0f, MathHelper.Lerp(0f, -70f, Utils.InverseLerp(0f, 300f, this.ai[0], true)));
-																				float num1504 = 0.99f;
-																				if (this.ai[0] >= 60f)
-																				{
-																					num1504 = 0.79f;
-																				}
-																				if (this.ai[0] >= 120f)
-																				{
-																					num1504 = 0.58f;
-																				}
-																				if (this.ai[0] >= 180f)
-																				{
-																					num1504 = 0.23f;
-																				}
-																				if (this.ai[0] >= 240f)
-																				{
-																					num1504 = 0.35f;
-																				}
-																				if (this.ai[0] >= 300f)
-																				{
-																					num1504 = 0.6f;
-																				}
-																				if (this.ai[0] >= 360f)
-																				{
-																					num1504 = 0.98f;
-																				}
-																				if (this.ai[0] >= 420f)
-																				{
-																					num1504 = 0.995f;
-																				}
-																				if (this.ai[0] >= 450f)
-																				{
-																					num1504 = 1f;
-																				}
-																				for (int num1505 = 0; num1505 < 12; num1505++)
-																				{
-																					if (Main.rand.NextFloat() >= num1504)
-																					{
-																						float num1506 = Main.rand.NextFloat() * 6.28318548f;
-																						float num1507 = Main.rand.NextFloat();
-																						Vector2 position9 = value80 + num1506.ToRotationVector2() * (70f + 600f * num1507);
-																						Vector2 vector227 = (num1506 - 1.57079637f - 0.3926991f).ToRotationVector2() * (12f + 9f * Main.rand.NextFloat() + 4f * num1507);
-																					}
-																				}
-																			}
 																			if (this.ai[0] >= 600f)
 																			{
 																				DD2Event.StopInvasion(false);
@@ -21400,9 +21529,6 @@ namespace Terraria
 																	}
 																	else if (this.aiStyle == 106)
 																	{
-																		if (this.alpha == 0)
-																		{
-																		}
 																		if (this.ai[1] == 0f)
 																		{
 																			if (this.localAI[0] == 0f)
@@ -21452,6 +21578,7 @@ namespace Terraria
 																		{
 																			this.ai[0] += 1f;
 																			this.scale = MathHelper.Lerp(1f, 0.05f, Utils.InverseLerp(500f, 600f, this.ai[0], true));
+																			
 																			if (this.ai[0] >= 550f)
 																			{
 																				this.dontTakeDamage = false;
@@ -22024,9 +22151,6 @@ namespace Terraria
 
 		private void AI_002_FloatingEye()
 		{
-			if ((this.type == 170 || this.type == 171 || this.type == 180) && Main.rand.Next(1000) == 0)
-			{
-			}
 			this.noGravity = true;
 			if (!this.noTileCollide)
 			{
@@ -22775,20 +22899,6 @@ namespace Terraria
 								this.ai[2] = (float)num11;
 							}
 						}
-						float num15 = this.ai[2] + (float)num12 + (float)num14;
-						if (num15 == 1f)
-						{
-						}
-						if (num15 < (float)num14)
-						{
-							Vector2 vector = base.Top + new Vector2((float)(this.spriteDirection * 6), 6f);
-							float scaleFactor = MathHelper.Lerp(20f, 30f, (num15 * 3f + 50f) / 182f);
-							Main.rand.NextFloat();
-							for (float num16 = 0f; num16 < 2f; num16 += 1f)
-							{
-								Vector2 vector2 = Vector2.UnitY.RotatedByRandom(6.2831854820251465) * (Main.rand.NextFloat() * 0.5f + 0.5f);
-							}
-						}
 						return;
 					}
 					if (this.ai[2] < 0f && this.ai[2] >= (float)(-(float)num12))
@@ -22807,16 +22917,6 @@ namespace Terraria
 							}
 						}
 						float num17 = this.ai[2] + (float)num12;
-						if (num17 < 180f && (Main.rand.Next(3) == 0 || this.ai[2] % 3f == 0f))
-						{
-							Vector2 vector3 = base.Top + new Vector2((float)(this.spriteDirection * 10), 10f);
-							float scaleFactor2 = MathHelper.Lerp(20f, 30f, (num17 * 3f + 50f) / 182f);
-							Main.rand.NextFloat();
-							for (float num18 = 0f; num18 < 1f; num18 += 1f)
-							{
-								Vector2 vector4 = Vector2.UnitY.RotatedByRandom(6.2831854820251465) * (Main.rand.NextFloat() * 0.5f + 0.5f);
-							}
-						}
 						if (Main.netMode != 2)
 						{
 							Player player = Main.player[Main.myPlayer];
@@ -23176,11 +23276,6 @@ namespace Terraria
 					this.velocity.X = this.velocity.X * 0.8f;
 					if (this.ai[2] == (float)(-(float)num30) || this.ai[2] == (float)(-(float)num30 - 8) || this.ai[2] == (float)(-(float)num30 - 16))
 					{
-						for (int l = 0; l < 20; l++)
-						{
-							Vector2 vector8 = base.Center + Vector2.UnitX * (float)this.spriteDirection * 40f;
-							Vector2 vector9 = Vector2.UnitY.RotatedByRandom(6.2831854820251465);
-						}
 						if (this.velocity.X > -0.5f && this.velocity.X < 0.5f)
 						{
 							this.velocity.X = 0f;
@@ -23208,34 +23303,6 @@ namespace Terraria
 						return;
 					}
 				}
-				int maxValue;
-				if (this.localAI[0] < 60f)
-				{
-					maxValue = 16;
-				}
-				else if (this.localAI[0] < 120f)
-				{
-					maxValue = 8;
-				}
-				else if (this.localAI[0] < 180f)
-				{
-					maxValue = 4;
-				}
-				else if (this.localAI[0] < 240f)
-				{
-					maxValue = 2;
-				}
-				else if (this.localAI[0] < 300f)
-				{
-					maxValue = 1;
-				}
-				else
-				{
-					maxValue = 1;
-				}
-				if (Main.rand.Next(maxValue) == 0)
-				{
-				}
 			}
 			if (this.type == 427)
 			{
@@ -23252,34 +23319,6 @@ namespace Terraria
 						this.localAI[0] = 0f;
 						return;
 					}
-				}
-				int maxValue2;
-				if (this.localAI[0] < 360f)
-				{
-					maxValue2 = 32;
-				}
-				else if (this.localAI[0] < 720f)
-				{
-					maxValue2 = 16;
-				}
-				else if (this.localAI[0] < 1080f)
-				{
-					maxValue2 = 6;
-				}
-				else if (this.localAI[0] < 1440f)
-				{
-					maxValue2 = 2;
-				}
-				else if (this.localAI[0] < 1800f)
-				{
-					maxValue2 = 1;
-				}
-				else
-				{
-					maxValue2 = 1;
-				}
-				if (Main.rand.Next(maxValue2) == 0)
-				{
 				}
 			}
 			bool flag4 = false;
@@ -23617,27 +23656,6 @@ namespace Terraria
 			}
 			if (this.ai[3] < (float)num36 && (Main.eclipse || !Main.dayTime || (double)this.position.Y > Main.worldSurface * 16.0 || (Main.invasionType == 1 && (this.type == 343 || this.type == 350)) || (Main.invasionType == 1 && (this.type == 26 || this.type == 27 || this.type == 28 || this.type == 111 || this.type == 471)) || (this.type == 73 || (Main.invasionType == 3 && this.type >= 212 && this.type <= 216)) || (Main.invasionType == 4 && (this.type == 381 || this.type == 382 || this.type == 383 || this.type == 385 || this.type == 386 || this.type == 389 || this.type == 391 || this.type == 520)) || (this.type == 31 || this.type == 294 || this.type == 295 || this.type == 296 || this.type == 47 || this.type == 67 || this.type == 77 || this.type == 78 || this.type == 79 || this.type == 80 || this.type == 110 || this.type == 120 || this.type == 168 || this.type == 181 || this.type == 185 || this.type == 198 || this.type == 199 || this.type == 206 || this.type == 217 || this.type == 218 || this.type == 219 || this.type == 220 || this.type == 239 || this.type == 243 || this.type == 254 || this.type == 255 || this.type == 257 || this.type == 258 || this.type == 291 || this.type == 292 || this.type == 293 || this.type == 379 || this.type == 380 || this.type == 464 || this.type == 470 || this.type == 424 || (this.type == 411 && (this.ai[1] >= 180f || this.ai[1] < 90f))) || (this.type == 409 || this.type == 425 || this.type == 429 || this.type == 427 || this.type == 428 || this.type == 508 || this.type == 415 || this.type == 419 || (this.type >= 524 && this.type <= 527)) || this.type == 528 || this.type == 529 || this.type == 530 || this.type == 532))
 			{
-				if ((this.type == 3 || this.type == 331 || this.type == 332 || this.type == 21 || (this.type >= 449 && this.type <= 452) || this.type == 31 || this.type == 294 || this.type == 295 || this.type == 296 || this.type == 77 || this.type == 110 || this.type == 132 || this.type == 167 || this.type == 161 || this.type == 162 || this.type == 186 || this.type == 187 || this.type == 188 || this.type == 189 || this.type == 197 || this.type == 200 || this.type == 201 || this.type == 202 || this.type == 203 || this.type == 223 || this.type == 291 || this.type == 292 || this.type == 293 || this.type == 320 || this.type == 321 || this.type == 319 || this.type == 481) && Main.rand.Next(1000) == 0)
-				{
-				}
-				if (this.type == 489 && Main.rand.Next(800) == 0)
-				{
-				}
-				if ((this.type == 78 || this.type == 79 || this.type == 80) && Main.rand.Next(500) == 0)
-				{
-				}
-				if (this.type == 159 && Main.rand.Next(500) == 0)
-				{
-				}
-				if (this.type == 162 && Main.rand.Next(500) == 0)
-				{
-				}
-				if (this.type == 181 && Main.rand.Next(500) == 0)
-				{
-				}
-				if (this.type >= 269 && this.type <= 280 && Main.rand.Next(1000) == 0)
-				{
-				}
 				this.TargetClosest(true);
 			}
 			else if (this.ai[2] <= 0f || (this.type != 110 && this.type != 111 && this.type != 206 && this.type != 216 && this.type != 214 && this.type != 215 && this.type != 291 && this.type != 292 && this.type != 293 && this.type != 350 && this.type != 381 && this.type != 382 && this.type != 383 && this.type != 385 && this.type != 386 && this.type != 389 && this.type != 391 && this.type != 469 && this.type != 166 && this.type != 466 && this.type != 471 && this.type != 411 && this.type != 409 && this.type != 424 && this.type != 425 && this.type != 426 && this.type != 415 && this.type != 419 && this.type != 520))
@@ -24579,25 +24597,7 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type >= 277 && this.type <= 280)
-			{
-			}
-			else if (this.type == 520)
-			{
-			}
-			else if (this.type == 525)
-			{
-				Vector3 rgb = new Vector3(0.7f, 1f, 0.2f) * 0.5f;
-			}
-			else if (this.type == 526)
-			{
-				Vector3 rgb2 = new Vector3(1f, 1f, 0.5f) * 0.4f;
-			}
-			else if (this.type == 527)
-			{
-				Vector3 rgb3 = new Vector3(0.6f, 0.3f, 1f) * 0.4f;
-			}
-			else if (this.type == 415)
+			if (this.type == 415)
 			{
 				this.hide = false;
 				for (int num81 = 0; num81 < 200; num81++)
@@ -24691,11 +24691,6 @@ namespace Terraria
 						{
 							this.velocity.Y = this.velocity.Y + 0.3f;
 						}
-					}
-					if (Main.rand.Next(3) == 0)
-					{
-						Vector2 position = base.Center + new Vector2((float)(this.direction * -14), -8f) - Vector2.One * 4f;
-						Vector2 velocity = new Vector2((float)(this.direction * -6), 12f) * 0.2f + Utils.RandomVector2(Main.rand, -1f, 1f) * 0.1f;
 					}
 					for (int num84 = 0; num84 < 200; num84++)
 					{
@@ -26497,9 +26492,6 @@ namespace Terraria
 				int num11 = (int)this.position.Y + this.height / 2;
 				num10 /= 16;
 				num11 /= 16;
-				if (!WorldGen.SolidTile(num10, num11))
-				{
-				}
 				if (num4 > 0f)
 				{
 					this.spriteDirection = 1;
@@ -26710,9 +26702,6 @@ namespace Terraria
 				if (this.velocity.X < 0f)
 				{
 					num = -1;
-				}
-				for (int i = 0; i < 20; i++)
-				{
 				}
 			}
 			if (this.type == 454 && this.localAI[3] == 0f)
@@ -27366,11 +27355,6 @@ namespace Terraria
 					this.localAI[2] = 128f;
 					this.localAI[3] -= 1f;
 				}
-			}
-			if (this.type == 412)
-			{
-				Vector2 value = base.Center + (this.rotation - 1.57079637f).ToRotationVector2() * 8f;
-				Vector2 value2 = this.rotation.ToRotationVector2() * 16f;
 			}
 			float num37 = 8f;
 			float num38 = 0.07f;
@@ -28158,9 +28142,6 @@ namespace Terraria
 				this.HitEffect(0, 10.0);
 				this.active = false;
 				this.netUpdate = true;
-				if (this.type == 37)
-				{
-				}
 				return;
 			}
 			if (this.type == 37 && Main.netMode != 1)
@@ -29568,10 +29549,6 @@ namespace Terraria
 						Main.projectile[num56].noDropItem = true;
 					}
 				}
-				if (num47 > 0f)
-				{
-					Vector3 vector7 = NPCID.Sets.MagicAuraColor[this.type].ToVector3() * num47;
-				}
 				if (this.ai[1] <= 0f && !false)
 				{
 					this.ai[0] = (float)((this.localAI[2] == 8f && flag6) ? 8 : 0);
@@ -30189,19 +30166,6 @@ namespace Terraria
 				{
 					this.ai[1] += 1f;
 					this.velocity.X = this.velocity.X * 0.7f;
-					if (this.ai[1] < 30f)
-					{
-						Vector2 vector2 = base.Center + Vector2.UnitX * (float)this.spriteDirection * -20f;
-						Vector2 vector3 = Vector2.UnitY.RotatedByRandom(6.2831854820251465);
-					}
-					else if (this.ai[1] == 30f)
-					{
-						for (int l = 0; l < 20; l++)
-						{
-							Vector2 vector4 = base.Center + Vector2.UnitX * (float)this.spriteDirection * -20f;
-							Vector2 vector5 = Vector2.UnitY.RotatedByRandom(6.2831854820251465);
-						}
-					}
 					if (this.velocity.X > -0.5f && this.velocity.X < 0.5f)
 					{
 						this.velocity.X = 0f;
@@ -30547,16 +30511,6 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type == 423 && Math.Abs(this.velocity.X) >= num7 * 0.95f)
-			{
-				Rectangle hitbox = base.Hitbox;
-				for (int m = 0; m < 2; m++)
-				{
-					if (Main.rand.Next(3) == 0)
-					{
-					}
-				}
-			}
 			if (this.type == 546)
 			{
 				this.rotation += this.velocity.X * 0.05f;
@@ -30705,9 +30659,6 @@ namespace Terraria
 			}
 			if (!flag2)
 			{
-				if (this.type != 135 || this.ai[2] != 1f)
-				{
-				}
 				this.localAI[1] = 1f;
 				if (this.type == 134)
 				{
@@ -31427,9 +31378,6 @@ namespace Terraria
 						this.velocity.Y = this.velocity.Y - num8;
 					}
 				}
-				if (this.ai[2] == 0f)
-				{
-				}
 				if (this.ai[2] % (float)num7 == 0f)
 				{
 					if (Main.netMode != 1)
@@ -31462,9 +31410,6 @@ namespace Terraria
 			{
 				this.velocity *= 0.98f;
 				this.velocity.Y = MathHelper.Lerp(this.velocity.Y, 0f, 0.02f);
-				if (this.ai[2] == (float)(num9 - 30))
-				{
-				}
 				if (Main.netMode != 1 && this.ai[2] == (float)(num9 - 30))
 				{
 					Vector2 vector7 = this.rotation.ToRotationVector2() * (Vector2.UnitX * (float)this.direction) * (float)(this.width + 20) / 2f + vector;
@@ -31485,9 +31430,6 @@ namespace Terraria
 			{
 				this.velocity *= 0.98f;
 				this.velocity.Y = MathHelper.Lerp(this.velocity.Y, 0f, 0.02f);
-				if (this.ai[2] == (float)(num10 - 60))
-				{
-				}
 				this.ai[2] += 1f;
 				if (this.ai[2] >= (float)num10)
 				{
@@ -31645,9 +31587,6 @@ namespace Terraria
 			}
 			else if (this.ai[0] == 7f)
 			{
-				if (this.ai[2] == 0f)
-				{
-				}
 				if (this.ai[2] % (float)num14 == 0f)
 				{
 					if (Main.netMode != 1)
@@ -31676,9 +31615,6 @@ namespace Terraria
 			{
 				this.velocity *= 0.98f;
 				this.velocity.Y = MathHelper.Lerp(this.velocity.Y, 0f, 0.02f);
-				if (this.ai[2] == (float)(num9 - 30))
-				{
-				}
 				if (Main.netMode != 1 && this.ai[2] == (float)(num9 - 30))
 				{
 					Projectile.NewProjectile(vector.X, vector.Y, 0f, 0f, 385, 0, 0f, Main.myPlayer, 1f, (float)(this.target + 1));
@@ -31725,9 +31661,6 @@ namespace Terraria
 				}
 				this.velocity *= 0.98f;
 				this.velocity.Y = MathHelper.Lerp(this.velocity.Y, 0f, 0.02f);
-				if (this.ai[2] == (float)(num11 - 60))
-				{
-				}
 				this.ai[2] += 1f;
 				if (this.ai[2] >= (float)num11)
 				{
@@ -31863,9 +31796,6 @@ namespace Terraria
 				}
 				this.velocity *= 0.98f;
 				this.velocity.Y = MathHelper.Lerp(this.velocity.Y, 0f, 0.02f);
-				if (this.ai[2] == (float)(num12 / 2))
-				{
-				}
 				if (Main.netMode != 1 && this.ai[2] == (float)(num12 / 2))
 				{
 					if (this.ai[1] == 0f)
@@ -31910,9 +31840,6 @@ namespace Terraria
 			}
 			else if (this.ai[0] == 13f)
 			{
-				if (this.ai[2] == 0f)
-				{
-				}
 				this.velocity = this.velocity.RotatedBy((double)(-(double)num15 * (float)this.direction), default(Vector2));
 				this.rotation -= num15 * (float)this.direction;
 				this.ai[2] += 1f;
@@ -31929,9 +31856,6 @@ namespace Terraria
 
 		private void AI_084_LunaticCultist()
 		{
-			if (this.ai[0] != -1f && Main.rand.Next(1000) == 0)
-			{
-			}
 			bool expertMode = Main.expertMode;
 			bool flag = this.life <= this.lifeMax / 2;
 			int num = 120;
@@ -32115,9 +32039,6 @@ namespace Terraria
 				else if (this.ai[1] > 360f)
 				{
 					this.velocity *= 0.95f;
-					if (this.localAI[2] != 13f)
-					{
-					}
 					this.localAI[2] = 13f;
 				}
 				else if (this.ai[1] > 300f)
@@ -33113,9 +33034,6 @@ namespace Terraria
 					num15 = 0.4f;
 					num10 = (Main.expertMode ? 35 : 40);
 				}
-				if (this.ai[1] == (float)num9)
-				{
-				}
 				break;
 			}
 			case 561:
@@ -33209,37 +33127,6 @@ namespace Terraria
 							this.alpha = 0;
 						}
 					}
-					if (num25 >= 100f)
-					{
-						int num26 = (int)this.localAI[3] / 20;
-						float num27 = base.Size.Length() / 2f;
-						num27 /= 20f;
-						int maxValue = 5;
-						for (int i = 0; i < num26 * 2; i++)
-						{
-							if (Main.rand.Next(maxValue) == 0)
-							{
-							}
-						}
-					}
-					else
-					{
-						int num28 = (int)this.localAI[3] / 10;
-						float num29 = base.Size.Length() / 2f;
-						num29 /= 20f;
-						int maxValue2 = 5;
-						int num30 = 0;
-						while ((float)num30 < (float)num28 * 1.3f)
-						{
-							if (Main.rand.Next(maxValue2) == 0)
-							{
-							}
-							num30++;
-						}
-					}
-					if (num25 > 100f && (int)num25 % 4 == 0)
-					{
-					}
 				}
 				break;
 			}
@@ -33262,13 +33149,7 @@ namespace Terraria
 				}
 				if (this.ai[0] == 1f)
 				{
-					this.ai[0] += 1f;
 					this.localAI[0] += 1f;
-					if (this.localAI[0] > 60f && Main.rand.Next(10) == 0)
-					{
-						Vector2 vector2 = base.Center + (Main.rand.NextFloat() * 6.28318548f).ToRotationVector2() * 400f * (0.3f + 0.7f * Main.rand.NextFloat());
-						Point point = vector2.ToTileCoordinates();
-					}
 					if (Main.netMode != 2)
 					{
 						Player player = Main.player[Main.myPlayer];
@@ -33335,15 +33216,6 @@ namespace Terraria
 					num10 = (Main.expertMode ? 45 : 60);
 				}
 				num19 = 0.77f;
-				if (this.ai[0] > 0f)
-				{
-					if (this.ai[1] == 40f)
-					{
-					}
-					else if (this.ai[1] == 60f)
-					{
-					}
-				}
 				if (this.localAI[3] < 60f)
 				{
 					num12 = 1f;
@@ -33390,6 +33262,24 @@ namespace Terraria
 				if (this.ai[0] == 1f)
 				{
 					this.ai[1] = 1f;
+				}
+				if (this.ai[1] > 0f && this.ai[0] == 0f)
+				{
+					flag5 = true;
+					num5 = 40;
+					num4 = 64f;
+					num20 = 0.3f;
+					num19 = 4f;
+				}
+				else
+				{
+					flag5 = true;
+					num5 = 40;
+					num4 = 700f;
+				}
+				if (this.localAI[3] < 60f)
+				{
+					num20 = 0.01f + this.localAI[3] / 60f * 0.05f;
 				}
 				break;
 			case 576:
@@ -33481,9 +33371,6 @@ namespace Terraria
 					num11 = 683;
 					flag15 = false;
 					zero = new Vector2((float)(-(float)this.direction * 20), (float)(this.height / 2 - 1));
-					if (this.ai[0] == 40f)
-					{
-					}
 					break;
 				}
 				if (this.ai[0] < (float)(-(float)num6))
@@ -33528,9 +33415,6 @@ namespace Terraria
 				{
 					this.alpha = 255;
 				}
-				if (this.localAI[3] == 30f)
-				{
-				}
 				if (this.localAI[3] < 60f)
 				{
 					this.localAI[3] += 1f;
@@ -33546,12 +33430,6 @@ namespace Terraria
 					if (this.type == 576 || this.type == 577)
 					{
 						maxValue3 = 1;
-					}
-					for (int num42 = 0; num42 < num40; num42++)
-					{
-						if (Main.rand.Next(maxValue3) == 0)
-						{
-						}
 					}
 				}
 			}
@@ -33687,12 +33565,6 @@ namespace Terraria
 						{
 							maxValue4 = 1;
 						}
-						for (int num47 = 0; num47 < num45; num47++)
-						{
-							if (Main.rand.Next(maxValue4) == 0)
-							{
-							}
-						}
 						return;
 					}
 				}
@@ -33701,9 +33573,6 @@ namespace Terraria
 			{
 				if (this.ai[3] < (float)num17 && flag20)
 				{
-					if (num18 > 0 && Main.rand.Next(num18) == 0)
-					{
-					}
 					NPCUtils.TargetClosestOldOnesInvasion(this, true, null);
 					targetData = this.GetTargetData(true);
 				}
@@ -34205,9 +34074,6 @@ namespace Terraria
 				{
 					this.alpha = 255;
 				}
-				if (this.localAI[0] == 30f)
-				{
-				}
 				if (this.localAI[0] < 60f)
 				{
 					this.localAI[0] += 1f;
@@ -34215,20 +34081,6 @@ namespace Terraria
 					if (this.alpha < 0)
 					{
 						this.alpha = 0;
-					}
-					int num16 = (int)this.localAI[0] / 10;
-					float num17 = base.Size.Length() / 2f;
-					num17 /= 20f;
-					int maxValue = 5;
-					if (this.type == 576 || this.type == 577)
-					{
-						maxValue = 1;
-					}
-					for (int i = 0; i < num16; i++)
-					{
-						if (Main.rand.Next(maxValue) == 0)
-						{
-						}
 					}
 				}
 			}
@@ -34467,9 +34319,6 @@ namespace Terraria
 					flag6 = true;
 					scaleFactor = 0.9f;
 					this.ai[0] -= 1f;
-					if (this.ai[0] == 80f && this.ai[1] == 2f)
-					{
-					}
 					if (this.ai[1] == 2f && this.ai[0] == 64f && Main.netMode != 1)
 					{
 						Projectile.NewProjectile(base.Center + new Vector2((float)(this.direction * 24), -40f), Vector2.Zero, 673, 0, 0f, Main.myPlayer, 0f, 0f);
@@ -34483,9 +34332,6 @@ namespace Terraria
 						{
 							Projectile.NewProjectile(base.Center + new Vector2((float)(this.direction * 10), -16f), velocity, 675, 40, 0f, Main.myPlayer, 0f, 0f);
 						}
-					}
-					if (this.ai[0] == 126f && this.ai[1] == 1f)
-					{
 					}
 					if (this.ai[1] == 1f && Main.netMode != 1 && (this.ai[0] == 40f || this.ai[0] == 48f || this.ai[0] == 56f))
 					{
@@ -34565,9 +34411,6 @@ namespace Terraria
 				{
 					this.alpha = 255;
 				}
-				if (this.localAI[3] == 30f)
-				{
-				}
 				if (this.localAI[3] < 60f)
 				{
 					this.localAI[3] += 1f;
@@ -34575,20 +34418,6 @@ namespace Terraria
 					if (this.alpha < 0)
 					{
 						this.alpha = 0;
-					}
-					int num14 = (int)this.localAI[3] / 10;
-					float num15 = base.Size.Length() / 2f;
-					num15 /= 20f;
-					int maxValue = 5;
-					if (this.type == 576 || this.type == 577)
-					{
-						maxValue = 1;
-					}
-					for (int j = 0; j < num14; j++)
-					{
-						if (Main.rand.Next(maxValue) == 0)
-						{
-						}
 					}
 				}
 			}
@@ -35071,9 +34900,6 @@ namespace Terraria
 				this.position += base.DirectionTo(targetData.Center) * 10f;
 				this.rotation -= num22 * (float)this.direction;
 				num2 *= 0.7f;
-				if (this.ai[1] == 1f)
-				{
-				}
 				if ((this.ai[1] += 1f) >= num20)
 				{
 					this.ai[0] = 1f;
@@ -35100,9 +34926,6 @@ namespace Terraria
 				}
 				else
 				{
-					if (this.ai[1] == 1f)
-					{
-					}
 					if (this.ai[1] < num25)
 					{
 						this.velocity *= 0.95f;
@@ -35121,37 +34944,6 @@ namespace Terraria
 					}
 					num2 *= 0.85f;
 					bool flag = this.ai[1] == 20f || this.ai[1] == 25f || this.ai[1] == 30f;
-					if (flag)
-					{
-						Point point = base.Center.ToTileCoordinates();
-						int num35 = 30;
-						int num36 = 35;
-						int num37 = 4;
-						for (int i = point.X - num35; i <= point.X + num35; i++)
-						{
-							bool flag2 = false;
-							for (int j = point.Y - num36 / 3; j < point.Y + num36; j++)
-							{
-								Tile tileSafely = Framing.GetTileSafely(i, j);
-								bool flag3 = tileSafely.active() && Main.tileSolid[(int)tileSafely.type] && !Main.tileFrameImportant[(int)tileSafely.type];
-								if (flag2 && flag3)
-								{
-									int num38 = WorldGen.KillTile_GetTileDustAmount(true, tileSafely);
-									for (int k = 0; k < num38; k++)
-									{
-									}
-									for (int l = 0; l < num38 - 1; l++)
-									{
-									}
-									if (num38 > 0 && Main.rand.Next(3) != 0)
-									{
-										float num39 = (float)(Math.Abs(point.X - i) / (num35 / 2));
-									}
-								}
-								flag2 = !flag3;
-							}
-						}
-					}
 					bool flag4 = this.ai[1] == 20f || this.ai[1] == 45f || this.ai[1] == 70f;
 					if (NPC.CountNPCS(560) > 4)
 					{
@@ -35294,27 +35086,12 @@ namespace Terraria
 				num4 = 5;
 				num5 = 30;
 				vector += new Vector2((float)(-(float)this.spriteDirection * 20), 10f);
-				if (Main.rand.Next(15) == 0)
-				{
-					Vector2 position = this.position;
-					if (this.direction == -1)
-					{
-						position.X += (float)(this.width / 2);
-					}
-				}
-				if (Main.rand.Next(80) == 0)
-				{
-					Vector2 vector2 = (Main.rand.NextFloat() * 6.28318548f).ToRotationVector2();
-				}
 			}
 			if (flag3)
 			{
 				if (this.localAI[1] == 0f)
 				{
 					this.alpha = 255;
-				}
-				if (this.localAI[1] == 30f)
-				{
 				}
 				if (this.localAI[1] < 60f)
 				{
@@ -35331,12 +35108,6 @@ namespace Terraria
 					if (this.type == 576 || this.type == 577)
 					{
 						maxValue = 1;
-					}
-					for (int i = 0; i < num12; i++)
-					{
-						if (Main.rand.Next(maxValue) == 0)
-						{
-						}
 					}
 				}
 			}
@@ -35559,8 +35330,11 @@ namespace Terraria
 
 		public void BigMimicSpawnSmoke()
 		{
-			NetMessage.SendData(51, -1, -1, "", this.whoAmI, 4f, 0f, 0f, 0, 0, 0);
-			return;
+			if (Main.netMode == 2)
+			{
+				NetMessage.SendData(51, -1, -1, "", this.whoAmI, 4f, 0f, 0f, 0, 0, 0);
+				return;
+			}
 		}
 
 		public static bool BigMimicSummonCheck(int x, int y)
@@ -36411,15 +36185,6 @@ namespace Terraria
 						this.breath = 200;
 					}
 					this.breathCounter = 0;
-				}
-			}
-			if (flag && Main.rand.Next(20) == 0 && !this.lavaWet && !this.honeyWet)
-			{
-				int num = 0;
-				int num2 = 0;
-				if (this.type == 369)
-				{
-					num2 = 8;
 				}
 			}
 		}
@@ -37656,13 +37421,6 @@ namespace Terraria
 		public void FindFrame()
 		{
 			int num = 1;
-			if (!Main.dedServ)
-			{
-				if (!Main.NPCLoaded[this.type])
-				{
-					return;
-				}
-			}
 			int num2 = 0;
 			if (this.aiAction == 0)
 			{
@@ -38468,40 +38226,6 @@ namespace Terraria
 					{
 						this.frameCounter = 0.0;
 						this.frame.Y = this.frame.Y + num;
-						if (this.frame.Y == num * 9)
-						{
-							for (int i = 0; i < 8; i++)
-							{
-							}
-						}
-					}
-					if (this.frame.Y >= num * 9 && this.ai[0] < 3f)
-					{
-						Vector2 value = vector;
-						Vector2 value2 = vector + (this.oldPos[3] - this.position);
-						int maxValue = 5;
-						if (this.frameCounter > 60.0)
-						{
-							maxValue = 4;
-						}
-						if (this.frameCounter > 180.0)
-						{
-							maxValue = 3;
-						}
-						if (this.frameCounter > 300.0)
-						{
-							maxValue = 2;
-						}
-						if (this.frameCounter > 600.0)
-						{
-							maxValue = 1;
-						}
-						for (int j = 0; j < 2; j++)
-						{
-							if (Main.rand.Next(maxValue) == 0)
-							{
-							}
-						}
 					}
 				}
 				else if ((this.frameCounter += 1.0) >= 6.0)
@@ -38868,7 +38592,6 @@ namespace Terraria
 						case 5:
 							goto IL_2E2B;
 						case 3:
-							IL_2E0C:
 							if (num33 != 0)
 							{
 								this.frame.Y = 0;
@@ -39004,7 +38727,6 @@ namespace Terraria
 						case 5:
 							goto IL_328A;
 						case 3:
-							IL_326B:
 							if (num37 != 0)
 							{
 								this.frame.Y = 0;
@@ -39068,7 +38790,6 @@ namespace Terraria
 						case 5:
 							goto IL_3435;
 						case 3:
-							IL_3416:
 							if (num39 != 0)
 							{
 								this.frame.Y = 0;
@@ -39120,7 +38841,6 @@ namespace Terraria
 						case 5:
 							goto IL_3522;
 						case 3:
-							IL_3503:
 							if (num41 != 0)
 							{
 								this.frame.Y = 0;
@@ -39306,7 +39026,6 @@ namespace Terraria
 						case 5:
 							goto IL_396C;
 						case 3:
-							IL_394D:
 							if (num55 != 0)
 							{
 								this.frame.Y = 0;
@@ -39437,7 +39156,6 @@ namespace Terraria
 						case 5:
 							goto IL_3CE0;
 						case 3:
-							IL_3CC1:
 							if (num60 != 0)
 							{
 								this.frame.Y = 0;
@@ -40243,11 +39961,7 @@ namespace Terraria
 					this.frame.Y = num;
 				}
 			}
-			if (this.type == 416)
-			{
-				int num79 = (int)this.ai[0];
-			}
-			else if (this.type == 417)
+			if (this.type == 417)
 			{
 				if (this.ai[0] == 0f)
 				{
@@ -50091,16 +49805,16 @@ namespace Terraria
 					{
 						switch (num)
 						{
-						case 17:
-							goto IL_27E;
-						case 18:
-							goto IL_27E;
-						default:
-							if (num == 38)
-							{
+							case 17:
 								goto IL_27E;
-							}
-							break;
+							case 18:
+								goto IL_27E;
+							default:
+								if (num == 38)
+								{
+									goto IL_27E;
+								}
+								break;
 						}
 					}
 					else
@@ -50127,10 +49841,10 @@ namespace Terraria
 					}
 					switch (num)
 					{
-					case 227:
-						goto IL_27E;
-					case 229:
-						goto IL_27E;
+						case 227:
+							goto IL_27E;
+						case 229:
+							goto IL_27E;
 					}
 				}
 				else
@@ -50155,33 +49869,24 @@ namespace Terraria
 					int num2 = 926;
 					switch (this.GetPartyHatColor())
 					{
-					case PartyHatColor.Pink:
-						num2 = 939;
-						break;
-					case PartyHatColor.Cyan:
-						num2 = 940;
-						break;
-					case PartyHatColor.Purple:
-						num2 = 941;
-						break;
-					case PartyHatColor.White:
-						num2 = 942;
-						break;
+						case PartyHatColor.Pink:
+							num2 = 939;
+							break;
+						case PartyHatColor.Cyan:
+							num2 = 940;
+							break;
+						case PartyHatColor.Purple:
+							num2 = 941;
+							break;
+						case PartyHatColor.White:
+							num2 = 942;
+							break;
 					}
 				}
 			}
 			if (this.daybreak && this.life <= 0)
 			{
 				Rectangle hitbox = base.Hitbox;
-				for (int i = 0; i < 20; i++)
-				{
-					int num3 = Utils.SelectRandom<int>(Main.rand, new int[]
-					{
-						6,
-						259,
-						158
-					});
-				}
 				if (Main.netMode != 1)
 				{
 					for (int j = 0; j < 200; j++)
@@ -50220,7 +49925,7 @@ namespace Terraria
 				}
 				this.localAI[1] = (float)hitDirection;
 			}
-			if (this.type == 426)
+			else if (this.type == 426)
 			{
 				if (this.life > 0)
 				{
@@ -50358,7 +50063,9 @@ namespace Terraria
 							Main.npc[num262].velocity.X = this.velocity.X * 2f;
 							Main.npc[num262].velocity.Y = this.velocity.Y;
 							NPC expr_B97C_cp_0 = Main.npc[num262];
+							expr_B97C_cp_0.velocity.X = expr_B97C_cp_0.velocity.X + ((float)Main.rand.Next(-20, 20) * 0.1f + (float)(num261 * this.direction) * 0.3f);
 							NPC expr_B9BF_cp_0 = Main.npc[num262];
+							expr_B9BF_cp_0.velocity.Y = expr_B9BF_cp_0.velocity.Y - ((float)Main.rand.Next(0, 10) * 0.1f + (float)num261);
 							Main.npc[num262].ai[0] = (float)(-1000 * Main.rand.Next(3));
 							if (Main.netMode == 2 && num262 < 200)
 							{
@@ -50411,7 +50118,9 @@ namespace Terraria
 								Main.npc[num338].velocity.X = this.velocity.X * 3f;
 								Main.npc[num338].velocity.Y = this.velocity.Y;
 								NPC expr_E01B_cp_0 = Main.npc[num338];
+								expr_E01B_cp_0.velocity.X = expr_E01B_cp_0.velocity.X + ((float)Main.rand.Next(-10, 10) * 0.1f + (float)(num337 * this.direction) * 0.3f);
 								NPC expr_E05E_cp_0 = Main.npc[num338];
+								expr_E05E_cp_0.velocity.Y = expr_E05E_cp_0.velocity.Y - ((float)Main.rand.Next(0, 10) * 0.1f + (float)num337);
 								Main.npc[num338].ai[1] = (float)num337;
 								if (Main.netMode == 2 && num338 < 200)
 								{
@@ -68858,7 +68567,7 @@ namespace Terraria
 			}
 		}
 
-		public double StrikeNPC(int Damage, float knockBack, int hitDirection, bool crit = false, bool noEffect = false, bool fromNet = false)
+		public double StrikeNPC(int Damage, float knockBack, int hitDirection, bool crit = false, bool noEffect = false, bool fromNet = false, Player Player = null)
 		{
 			bool flag = Main.netMode == 0;
 			if (flag && NPC.ignorePlayerInteractions > 0)
@@ -68979,9 +68688,6 @@ namespace Terraria
 					this.ai[0] = 1f;
 					this.ai[1] = 4f;
 					this.dontTakeDamage = true;
-				}
-				if (this.type == 346 && (double)this.life >= (double)this.lifeMax * 0.5 && (double)this.life - num < (double)this.lifeMax * 0.5)
-				{
 				}
 				if (this.type == 184)
 				{
@@ -69348,14 +69054,12 @@ namespace Terraria
 				extraInfo2 = this.lastPortalColorIndex;
 			}
 			float dustCountMult = (this.teleportTime > 0f) ? 0.3f : 1f;
-			Main.TeleportEffect(this.getRect(), Style, extraInfo2);
 			this.position = newPos;
 			if (Style == 4)
 			{
 				this.lastPortalColorIndex = extraInfo;
 				extraInfo2 = this.lastPortalColorIndex;
 			}
-			Main.TeleportEffect(this.getRect(), Style, extraInfo2);
 			this.teleportTime = 1f;
 			this.teleportStyle = Style;
 			if (Main.netMode == 2 && Style != 4)
@@ -69588,6 +69292,22 @@ namespace Terraria
 
 		private void UpdateAltTexture()
 		{
+			if (this.townNPC)
+			{
+				int num = this.altTexture;
+				if (BirthdayParty.PartyIsUp)
+				{
+					this.altTexture = 1;
+				}
+				else
+				{
+					this.altTexture = 0;
+				}
+				if (this.type == 441 || this.type == 453)
+				{
+					this.altTexture = 0;
+				}
+			}
 		}
 
 		private void UpdateCollision()
@@ -69865,27 +69585,6 @@ namespace Terraria
 							{
 								if (Main.player[m].active)
 								{
-									float num10 = Math.Abs(base.Center.X - Main.player[m].Center.X) + Math.Abs(base.Center.Y - Main.player[m].Center.Y);
-									if (num10 < 250f)
-									{
-										byte[] expr_9F3_cp_0 = this.streamPlayer;
-										int expr_9F3_cp_1 = m;
-									}
-									else if (num10 < 500f)
-									{
-										byte[] expr_A19_cp_0 = this.streamPlayer;
-										int expr_A19_cp_1 = m;
-									}
-									else if (num10 < 1000f)
-									{
-										byte[] expr_A3F_cp_0 = this.streamPlayer;
-										int expr_A3F_cp_1 = m;
-									}
-									else if (num10 < 1500f)
-									{
-										byte[] expr_A65_cp_0 = this.streamPlayer;
-										int expr_A65_cp_1 = m;
-									}
 									if (this.streamPlayer[m] <= 0)
 									{
 										this.streamPlayer[m] = 8;
@@ -70676,544 +70375,5 @@ namespace Terraria
 				Item.NewItem(position, new Vector2(sizeX, sizeY), 3822, 1, false, 0, false, false);
 			}
 		}
-
-		public bool UsesPartyHat()
-		{
-			return this.frame.Height > 0 && this.townNPC && BirthdayParty.PartyIsUp && this.type != 441 && this.type != 37;
-		}
-
-		public bool CanTalk
-		{
-			get
-			{
-				return (this.townNPC || this.type == 453) && this.aiStyle == 7 && this.velocity.Y == 0f;
-			}
-		}
-
-		public static bool downedTowers
-		{
-			get
-			{
-				return NPC.downedTowerSolar && NPC.downedTowerVortex && NPC.downedTowerNebula && NPC.downedTowerStardust;
-			}
-		}
-
-		public bool HasNPCTarget
-		{
-			get
-			{
-				return this.target >= 300 && this.target < 500;
-			}
-		}
-
-		public bool HasPlayerTarget
-		{
-			get
-			{
-				return this.target >= 0 && this.target < 255;
-			}
-		}
-
-		public bool HasValidTarget
-		{
-			get
-			{
-				return (this.HasPlayerTarget && Main.player[this.target].active && !Main.player[this.target].dead && !Main.player[this.target].ghost) || (this.SupportsNPCTargets && this.HasNPCTarget && Main.npc[this.TranslatedTargetIndex].active);
-			}
-		}
-
-		public float Opacity
-		{
-			get
-			{
-				return 1f - (float)this.alpha / 255f;
-			}
-			set
-			{
-				this.alpha = (int)MathHelper.Clamp((1f - value) * 255f, 0f, 255f);
-			}
-		}
-
-		public static int ShieldStrengthTowerMax
-		{
-			get
-			{
-				if (!Main.expertMode)
-				{
-					return NPC.LunarShieldPowerNormal;
-				}
-				return NPC.LunarShieldPowerExpert;
-			}
-		}
-
-		public bool SupportsNPCTargets
-		{
-			get
-			{
-				return NPCID.Sets.UsesNewTargetting[this.type];
-			}
-		}
-
-		public static bool TowersDefeated
-		{
-			get
-			{
-				return NPC.TowerActiveSolar && NPC.TowerActiveVortex && NPC.TowerActiveNebula && NPC.TowerActiveStardust;
-			}
-		}
-
-		public int TranslatedTargetIndex
-		{
-			get
-			{
-				if (this.HasNPCTarget)
-				{
-					return this.target - 300;
-				}
-				return this.target;
-			}
-		}
-
-		public int WhoAmIToTargettingIndex
-		{
-			get
-			{
-				return this.whoAmI + 300;
-			}
-		}
-
-		private static int activeRangeX = (int)((double)NPC.sWidth * 2.1);
-
-		private static int activeRangeY = (int)((double)NPC.sHeight * 2.1);
-
-		private static int activeTime = 750;
-
-		public float[] ai = new float[NPC.maxAI];
-
-		public int aiAction;
-
-		public int aiStyle;
-
-		public int alpha;
-
-		public int altTexture;
-
-		private static int[] attackNPC = new int[NPC.maxAttack];
-
-		public bool behindTiles;
-
-		public bool betsysCurse;
-
-		public bool boss;
-
-		public int breath;
-
-		public int breathCounter;
-
-		public const int breathMax = 200;
-
-		public bool[] buffImmune = new bool[206];
-
-		public int[] buffTime = new int[5];
-
-		public int[] buffType = new int[5];
-
-		public static int butterflyChance = 0;
-
-		public bool canGhostHeal = true;
-
-		public short catchItem;
-
-		public static int[,] cavernMonsterType = new int[2, 3];
-
-		public bool celled;
-
-		public bool chaseable = true;
-
-		public bool closeDoor;
-
-		public bool coldDamage;
-
-		public bool collideX;
-
-		public bool collideY;
-
-		public Color color;
-
-		public bool confused;
-
-		public static int crimsonBoss = -1;
-
-		public int damage;
-
-		public bool daybreak;
-
-		public static int defaultMaxSpawns = 5;
-
-		public static int defaultSpawnRate = 600;
-
-		public int defDamage;
-
-		public int defDefense;
-
-		public int defense;
-
-		public int directionY = 1;
-
-		public string displayName;
-
-		public bool dontCountMe;
-
-		public bool dontTakeDamage;
-
-		public bool dontTakeDamageFromHostiles;
-
-		public int doorX;
-
-		public int doorY;
-
-		public static bool downedAncientCultist = false;
-
-		public static bool downedBoss1 = false;
-
-		public static bool downedBoss2 = false;
-
-		public static bool downedBoss3 = false;
-
-		public static bool downedChristmasIceQueen = false;
-
-		public static bool downedChristmasSantank = false;
-
-		public static bool downedChristmasTree = false;
-
-		public static bool downedClown = false;
-
-		public static bool downedFishron = false;
-
-		public static bool downedFrost = false;
-
-		public static bool downedGoblins = false;
-
-		public static bool downedGolemBoss = false;
-
-		public static bool downedHalloweenKing = false;
-
-		public static bool downedHalloweenTree = false;
-
-		public static bool downedMartians = false;
-
-		public static bool downedMechBoss1 = false;
-
-		public static bool downedMechBoss2 = false;
-
-		public static bool downedMechBoss3 = false;
-
-		public static bool downedMechBossAny = false;
-
-		public static bool downedMoonlord = false;
-
-		public static bool downedPirates = false;
-
-		public static bool downedPlantBoss = false;
-
-		public static bool downedQueenBee = false;
-
-		public static bool downedSlimeKing = false;
-
-		public static bool downedTowerNebula = false;
-
-		public static bool downedTowerSolar = false;
-
-		public static bool downedTowerStardust = false;
-
-		public static bool downedTowerVortex = false;
-
-		public bool dripping;
-
-		public bool drippingSlime;
-
-		public bool dryadBane;
-
-		public bool dryadWard;
-
-		public float extraValue;
-
-		public static int fireFlyChance = 0;
-
-		public static int fireFlyFriendly = 0;
-
-		public static int fireFlyMultiple = 0;
-
-		public Rectangle frame;
-
-		public double frameCounter;
-
-		public bool friendly;
-
-		public int friendlyRegen;
-
-		public float gfxOffY;
-
-		public static int goldCritterChance = 150;
-
-		public static int golemBoss = -1;
-
-		private static float gravity = 0.3f;
-
-		public bool hide;
-
-		public bool homeless;
-
-		public int homeTileX = -1;
-
-		public int homeTileY = -1;
-
-		private float honeyMovementSpeed = 0.25f;
-
-		public bool ichor;
-
-		private static int ignorePlayerInteractions = 0;
-
-		public bool immortal;
-
-		public int[] immune = new int[256];
-
-		public static int immuneTime = 20;
-
-		public bool javelined;
-
-		public bool justHit;
-
-		public static int[] killCount = new int[580];
-
-		public float knockBackResist = 1f;
-
-		public int lastInteraction = 255;
-
-		public int lastPortalColorIndex;
-
-		public bool lavaImmune;
-
-		private float lavaMovementSpeed = 0.5f;
-
-		public int life;
-
-		public int lifeMax;
-
-		public int lifeRegen;
-
-		public int lifeRegenCount;
-
-		public int lifeRegenExpectedLossPerSecond = -1;
-
-		public float[] localAI = new float[NPC.maxAI];
-
-		public bool loveStruck;
-
-		public static bool LunarApocalypseIsUp = false;
-
-		public static int LunarShieldPowerExpert = 150;
-
-		public static int LunarShieldPowerNormal = 100;
-
-		public static int maxAI = 4;
-
-		private static int maxAttack = 20;
-
-		public const int maxBuffs = 5;
-
-		public const int MaxMoonLordCountdown = 3600;
-
-		private static int maxSpawns = NPC.defaultMaxSpawns;
-
-		public bool midas;
-
-		public static readonly int[,,,] MoonLordAttacksArray = NPC.InitializeMoonLordAttacks();
-
-		public static readonly int[,] MoonLordAttacksArray2 = NPC.InitializeMoonLordAttacks2();
-
-		public static int MoonLordCountdown = 0;
-
-		public float nameOver;
-
-		public const float nameOverDistance = 400f;
-
-		public const float nameOverIncrement = 0.025f;
-
-		public bool netAlways;
-
-		public int netID;
-
-		public int netSkip;
-
-		public int netSpam;
-
-		private byte netStream;
-
-		public bool netUpdate;
-
-		public bool netUpdate2;
-
-		public bool noGravity;
-
-		private static bool noSpawnCycle = false;
-
-		public bool noTileCollide;
-
-		private byte npcNameLookup;
-
-		public static bool[] npcsFoundForCheckActive = new bool[580];
-
-		public float npcSlots = 1f;
-
-		private const int NPC_TARGETS_START = 300;
-
-		public bool oiled;
-
-		public int oldDirectionY;
-
-		public bool oldHomeless;
-
-		public int oldHomeTileX = -1;
-
-		public int oldHomeTileY = -1;
-
-		public Vector2[] oldPos = new Vector2[10];
-
-		public float[] oldRot = new float[10];
-
-		public int oldTarget;
-
-		public bool onFire;
-
-		public bool onFire2;
-
-		public bool onFrostBurn;
-
-		public static int plantBoss = -1;
-
-		public bool[] playerInteraction = new bool[256];
-
-		public bool poisoned;
-
-		public int rarity;
-
-		public int realLife = -1;
-
-		public bool reflectingProjectiles;
-
-		public short releaseOwner = 255;
-
-		public float rotation;
-
-		public static int safeRangeX = (int)((double)(NPC.sWidth / 16) * 0.52);
-
-		public static int safeRangeY = (int)((double)(NPC.sHeight / 16) * 0.52);
-
-		public static bool savedAngler = false;
-
-		public static bool savedBartender = false;
-
-		public static bool savedGoblin = false;
-
-		public static bool savedMech = false;
-
-		public static bool savedStylist = false;
-
-		public static bool savedTaxCollector = false;
-
-		public static bool savedWizard = false;
-
-		public float scale = 1f;
-
-		public bool setFrameSize;
-
-		public bool shadowFlame;
-
-		public static int sHeight = 1080;
-
-		public static int ShieldStrengthTowerNebula = 0;
-
-		public static int ShieldStrengthTowerSolar = 0;
-
-		public static int ShieldStrengthTowerStardust = 0;
-
-		public static int ShieldStrengthTowerVortex = 0;
-
-		public bool soulDrain;
-
-		public int soundDelay;
-
-		public bool SpawnedFromStatue;
-
-		private static int spawnRangeX = (int)((double)(NPC.sWidth / 16) * 0.7);
-
-		private static int spawnRangeY = (int)((double)(NPC.sHeight / 16) * 0.7);
-
-		private static int spawnRate = NPC.defaultSpawnRate;
-
-		private static int spawnSpaceX = 3;
-
-		private static int spawnSpaceY = 3;
-
-		public int spriteDirection = -1;
-
-		public bool stairFall;
-
-		public float stepSpeed;
-
-		public bool stinky;
-
-		private byte[] streamPlayer = new byte[255];
-
-		public static int sWidth = 1920;
-
-		public float takenDamageMultiplier = 1f;
-
-		public int target = -1;
-
-		public Rectangle targetRect;
-
-		public static bool taxCollector = false;
-
-		public bool teleporting;
-
-		public int teleportStyle;
-
-		public float teleportTime;
-
-		public int timeLeft;
-
-		public static bool TowerActiveNebula = false;
-
-		public static bool TowerActiveSolar = false;
-
-		public static bool TowerActiveStardust = false;
-
-		public static bool TowerActiveVortex = false;
-
-		public bool townNPC;
-
-		private static int townRangeX = NPC.sWidth;
-
-		private static int townRangeY = NPC.sHeight;
-
-		public bool trapImmune;
-
-		public static bool travelNPC = false;
-
-		public int type;
-
-		public float value;
-
-		public bool venom;
-
-		public Vector2 visualOffset = Vector2.Zero;
-
-		private float waterMovementSpeed = 0.5f;
-
-		public static float waveKills = 0f;
-
-		public static int waveNumber = 0;
 	}
 }
