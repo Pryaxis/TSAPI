@@ -5,13 +5,13 @@ namespace Terraria.DataStructures
 {
 	public class PlayerDeathReason
 	{
-		private int SourceItemPrefix;
-		private int SourceItemType;
-		private int SourceNPCIndex = -1;
-		private int SourceOtherIndex = -1;
-		private int SourcePlayerIndex = -1;
-		private int SourceProjectileIndex = -1;
-		private int SourceProjectileType;
+		public int SourceItemPrefix;
+		public int SourceItemType;
+		public int SourceNPCIndex = -1;
+		public int SourceOtherIndex = -1;
+		public int SourcePlayerIndex = -1;
+		public int SourceProjectileIndex = -1;
+		public int SourceProjectileType;
 
 		public static PlayerDeathReason ByNPC(int index)
 		{
