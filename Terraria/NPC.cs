@@ -11,6 +11,7 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.Utilities;
 using Terraria.World.Generation;
+using TerrariaApi.Server;
 
 namespace Terraria
 {
