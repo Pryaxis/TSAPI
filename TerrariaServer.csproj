@@ -1046,7 +1046,7 @@
   <ItemGroup>
     <None Include="packages.config" />
     <EmbeddedResource Include="Terraria\Localization\Content\English.json" />
-    <None Include="Terraria\Localization\Content\English\Town.json" />
+    <EmbeddedResource Include="Terraria\Localization\Content\English\Town.json" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
