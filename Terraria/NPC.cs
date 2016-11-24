@@ -37313,7 +37313,32 @@ namespace Terraria
 			{
 				itemType = 3860;
 			}
-			this.DropItemInstanced(this.position, base.Size, itemType, 1, true);
+			if (itemType > 0)
+			{
+				Vector2 position = this.position;
+				int width = this.width;
+				int height = this.height;
+				int ID = itemType;
+				int stack = 1;
+				bool broadcast = false;
+				int prefix = 0;
+				bool nodelay = false;
+				bool reverseLookup = false;
+
+				if (!ServerApi.Hooks.InvokeDropBossBag(ref position, ref width, ref height, ref ID, ref stack, ref broadcast, ref prefix, type, whoAmI, ref nodelay, ref reverseLookup))
+				{
+					int num2 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, ID, 1, true, 0, false, false);
+					Main.itemLockoutTime[num2] = 54000;
+					for (int i = 0; i < 255; i++)
+					{
+						if (this.playerInteraction[i] && Main.player[i].active)
+						{
+							NetMessage.SendData(90, i, -1, "", num2, 0f, 0f, 0f, 0, 0, 0);
+						}
+					}
+					Main.item[num2].active = false;
+				}
+			}
 		}
 
 		public void DropItemInstanced(Vector2 Position, Vector2 HitboxSize, int itemType, int itemStack = 1, bool interactionRequired = true)
@@ -50794,6 +50819,10 @@ namespace Terraria
 				Main.npc[num].ai[2] = ai2;
 				Main.npc[num].ai[3] = ai3;
 				Main.npc[num].target = Target;
+				if (ServerApi.Hooks.InvokeNpcSpawn(ref num))
+				{
+					return num;
+				}
 				if (Type == 50)
 				{
 					if (Main.netMode == 0)
@@ -68570,6 +68599,9 @@ namespace Terraria
 
 		public double StrikeNPC(int Damage, float knockBack, int hitDirection, bool crit = false, bool noEffect = false, bool fromNet = false, Player Player = null)
 		{
+			bool handled = ServerApi.Hooks.InvokeNpcStrike(this, ref Damage, ref knockBack, ref hitDirection, ref crit, ref noEffect, ref fromNet, Player);
+			if (handled)
+				return 0.0;
 			bool flag = Main.netMode == 0;
 			if (flag && NPC.ignorePlayerInteractions > 0)
 			{
@@ -69131,6 +69163,7 @@ namespace Terraria
 					this.buffType[j] = array[j];
 					this.buffTime[j] = array2[j];
 				}
+				ServerApi.Hooks.InvokeNpcTransformation(this.whoAmI);
 				if (Main.netMode == 2)
 				{
 					this.netUpdate = true;

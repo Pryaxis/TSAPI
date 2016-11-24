@@ -6,7 +6,7 @@ namespace Terraria.GameContent.UI
 	public class EmoteBubble
 	{
 		private const int frameSpeed = 8;
-		private static int[] CountNPCs = new int[540];
+		private static int[] CountNPCs = new int[Main.maxNPCTypes];
 		public static Dictionary<int, EmoteBubble> byID = new Dictionary<int, EmoteBubble>();
 		private static List<int> toClean = new List<int>();
 		public static int NextID;
