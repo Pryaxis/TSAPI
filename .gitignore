@@ -3,3 +3,7 @@
 *.suo
 /*.user
 packages/
+
+.DS_Store
+
+Output/

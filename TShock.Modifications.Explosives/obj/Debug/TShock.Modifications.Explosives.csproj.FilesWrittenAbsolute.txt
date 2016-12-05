@@ -1,0 +1,10 @@
+/Users/shank/Downloads/20161206/TShock.Modifications.Explosives/obj/Debug/.NETFramework,Version=v4.5.2.AssemblyAttribute.cs
+/Users/shank/Downloads/20161206/TShock.Modifications.Explosives/bin/Debug/OTAPI.Patcher.Engine.dll
+/Users/shank/Downloads/20161206/TShock.Modifications.Explosives/bin/Debug/TShock.Modifications.Explosives.dll.mdb
+/Users/shank/Downloads/20161206/TShock.Modifications.Explosives/bin/Debug/TShock.Modifications.Explosives.dll
+/Users/shank/Downloads/20161206/TShock.Modifications.Explosives/obj/Debug/TShock.Modifications.Explosives.dll
+/Users/shank/Downloads/20161206/TShock.Modifications.Explosives/obj/Debug/TShock.Modifications.Explosives.dll.mdb
+/Users/shank/Downloads/20161206/TShock.Modifications.Explosives/bin/Debug/Mono.Cecil.dll
+/Users/shank/Downloads/20161206/TShock.Modifications.Explosives/bin/Debug/Mono.Cecil.Mdb.dll
+/Users/shank/Downloads/20161206/TShock.Modifications.Explosives/bin/Debug/Mono.Cecil.Pdb.dll
+/Users/shank/Downloads/20161206/TShock.Modifications.Explosives/bin/Debug/Mono.Cecil.Rocks.dll

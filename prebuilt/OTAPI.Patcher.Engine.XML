@@ -1,0 +1,444 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>OTAPI.Patcher.Engine</name>
+    </assembly>
+    <members>
+        <member name="M:OTAPI.Patcher.Engine.Extensions.CecilHelpers.Type``1(Mono.Cecil.AssemblyDefinition)">
+            <summary>
+            Returns the TypeDefintion of the type specified
+            </summary>
+        </member>
+        <member name="M:OTAPI.Patcher.Engine.Extensions.CecilHelpers.Type(Mono.Cecil.ModuleDefinition,System.String)">
+            <summary>
+            Returns a type from the current module by its fullName
+            </summary>
+        </member>
+        <member name="M:OTAPI.Patcher.Engine.Extensions.CecilHelpers.ForEachMethod(Mono.Cecil.ModuleDefinition,System.Action{Mono.Cecil.MethodDefinition})">
+            <summary>
+            Enumerates all methods in the current module
+            </summary>
+        </member>
+        <member name="M:OTAPI.Patcher.Engine.Extensions.CecilHelpers.ForEachInstruction(Mono.Cecil.ModuleDefinition,System.Action{Mono.Cecil.MethodDefinition,Mono.Cecil.Cil.Instruction})">
+            <summary>
+            Enumerates all instructions in all methods across each type of the assembly
+            </summary>
+        </member>
+        <member name="M:OTAPI.Patcher.Engine.Extensions.CecilHelpers.ForEachType(Mono.Cecil.ModuleDefinition,System.Action{Mono.Cecil.TypeDefinition})">
+            <summary>
+            Enumerates over each type in the assembly, including nested types
+            </summary>
+        </member>
+        <member name="M:OTAPI.Patcher.Engine.Extensions.CecilHelpers.Constructor(Mono.Cecil.TypeDefinition)">
+            <summary>
+            Returns the default constructor, expecting only one in the type.
+            </summary>
+        </member>
+        <member name="M:OTAPI.Patcher.Engine.Extensions.CecilHelpers.StaticConstructor(Mono.Cecil.TypeDefinition)">
+            <summary>
+            Returns the static constructor of the type, if any
+            </summary>
+        </member>
+        <member name="M:OTAPI.Patcher.Engine.Extensions.FieldReplacementExtensions.ReplaceWith(Mono.Cecil.FieldDefinition,Mono.Cecil.PropertyDefinition)">
+            <summary>
+            Replaces all occurrences of a field with a property call by simply swapping
+            the field instructions that load/set.
+            </summary>
+            <param name="field"></param>
+            <param name="property"></param>
+        </member>
+        <member name="M:OTAPI.Patcher.Engine.Extensions.ILProcessor.InsertExtensions.InsertAfter(Mono.Cecil.Cil.ILProcessor,Mono.Cecil.Cil.Instruction,System.Collections.Generic.IEnumerable{Mono.Cecil.Cil.Instruction})">
+            <summary>
+            Inserts a group of instructions after the target instruction
+            </summary>
+        </member>
+        <member name="M:OTAPI.Patcher.Engine.Extensions.ILProcessor.InsertExtensions.AnonymousToInstruction(System.Object)">
+            <summary>
+            Converts a anonymous type into an Instruction
+            </summary>
+            <param name="anon"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OTAPI.Patcher.Engine.Extensions.ILProcessor.InsertExtensions.InsertAfter(Mono.Cecil.Cil.ILProcessor,Mono.Cecil.Cil.Instruction,System.Object[])">
+            <summary>
+            Inserts a list of anonymous instructions after the target instruction
+            </summary>
+        </member>
+        <member name="M:OTAPI.Patcher.Engine.Extensions.ILProcessor.InsertExtensions.InsertBefore(Mono.Cecil.Cil.ILProcessor,Mono.Cecil.Cil.Instruction,System.Object[])">
+            <summary>
+            Inserts a list of anonymous instructions before the target instruction
+            </summary>
+        </member>
+        <member name="M:OTAPI.Patcher.Engine.Extensions.WrappingExtensions.EmitBeginCallback(Mono.Cecil.MethodDefinition,Mono.Cecil.MethodReference,System.Boolean,System.Boolean,System.Boolean,System.Int32)">
+            <summary>
+            Emits il for a callback at the start of a method
+            </summary>
+            <param name="current">The method being generated</param>
+            <param name="callback">The callback to be executed at runtime</param>
+            <param name="callbackRequiresInstance">Indicates the provided callback expects an instance argument at the first index</param>
+            <param name="isCancelable">Generates il to handle canceling, emits a nop for continuation</param>
+            <returns>The first instruction this method emitted</returns>
+        </member>
+        <member name="M:OTAPI.Patcher.Engine.Extensions.WrappingExtensions.EmitEndCallback(Mono.Cecil.MethodDefinition,Mono.Cecil.MethodReference,System.Boolean,System.Boolean)">
+            <summary>
+            Emits a method-end callback into the current method.
+            Optionally, if <param name="callbackRequiresInstance"/> is specified it will insert a 'this' argument that
+            will be sent to the first parameter of the callback.
+            </summary>
+        </member>
+        <member name="M:OTAPI.Patcher.Engine.Extensions.WrappingExtensions.EmitMethodEnding(Mono.Cecil.MethodDefinition,System.Boolean)">
+            <summary>
+            Emits IL that is used to exit a method.
+            This expects that you are appending to a method being built.
+            </summary>
+        </member>
+        <member name="M:OTAPI.Patcher.Engine.Extensions.WrappingExtensions.EmitMethodCallback(Mono.Cecil.MethodDefinition,Mono.Cecil.MethodReference,System.Boolean,System.Boolean)">
+            <summary>
+            Emits IL that is used to execute a generic method call.
+            </summary>
+            <param name="method"></param>
+            <param name="target"></param>
+            <param name="methodExpectsInstance"></param>
+            <param name="emitNonVoidPop"></param>
+            <returns>The first instruction emitted</returns>
+            <remarks>We use this to execute a vanilla wrapped method</remarks>
+        </member>
+        <member name="F:OTAPI.Patcher.Engine.Extensions.WrappingExtensions.WrappedMethodNameSuffix">
+            <summary>
+            Default wrapped name that will be appended to wrapped methods
+            </summary>
+        </member>
+        <member name="M:OTAPI.Patcher.Engine.Extensions.WrappingExtensions.ReplaceWith(Mono.Cecil.MethodDefinition,Mono.Cecil.MethodReference)">
+            <summary>
+            Replaces all occurrences of the current method in the assembly with the provided method
+            </summary>
+            <param name="method"></param>
+            <param name="replacement"></param>
+        </member>
+        <member name="M:OTAPI.Patcher.Engine.Extensions.WrappingExtensions.CreateMethodParameter(Mono.Cecil.MethodDefinition,System.Int32)">
+            <summary>
+            Creates a new parameter instruction for a method.
+            </summary>
+            <remarks>Useful if you are altering IL in a method and need a parameter reference</remarks>
+        </member>
+        <member name="M:OTAPI.Patcher.Engine.Extensions.WrappingExtensions.ReplaceTransfer(Mono.Cecil.Cil.Instruction,Mono.Cecil.Cil.Instruction,Mono.Cecil.MethodDefinition)">
+            <summary>
+            Replaces instruction references (ie if, try) to a new instruction target.
+            This is useful if you are injecting new code before a section of code that is already
+            the receiver of a try/if block.
+            </summary>
+            <param name="current">The original instruction</param>
+            <param name="newTarget">The new instruction that will receive the transfer</param>
+            <param name="originalMethod">The original method that is used to search for transfers</param>
+        </member>
+        <member name="M:OTAPI.Patcher.Engine.Extensions.WrappingExtensions.Wrap(Mono.Cecil.MethodDefinition,Mono.Cecil.MethodReference,Mono.Cecil.MethodReference,System.Boolean,System.Boolean,System.Boolean,Mono.Cecil.TypeReference)">
+            <summary>
+            Wraps the current method with begin/end callbacks.
+            </summary>
+            <remarks>
+            This will rename the current method and replace it with a new method that will take its place.
+            In the new method it will call the callbacks and perform canceling on the begin callback if required.</remarks>
+            <param name="current">The current method to be wrapped</param>
+            <param name="beginCallback">The callback to be executed at the start of the method</param>
+            <param name="endCallback">The optional end callback that will be executed at the end of the method</param>
+            <param name="beginIsCancellable">Indicates that the begin callback can cancel the method execution</param>
+            <param name="noEndHandling">Indicates to only return from the method and not do any special popping and so on</param>
+            <param name="allowCallbackInstance">Indicates that the callbacks expect an instance parameter at the first parameter index</param>
+            <returns></returns>
+        </member>
+        <member name="M:OTAPI.Patcher.Engine.Extensions.WrappingExtensions.InjectNonVoidBeginCallback(Mono.Cecil.MethodDefinition,Mono.Cecil.MethodDefinition)">
+            <summary>
+            Injects a cancelable (boolean) callback into the current method with the ability to return a value from the 
+            method using a custom variable.
+            
+            The callback must expect an instance parameter if the current method is instanced.
+            Additionally, it must also have the result value by reference before any of the current method parameters are specified.
+            </summary>
+        </member>
+        <member name="M:OTAPI.Patcher.Engine.Extensions.TypeDefinitionExtensions.MakePublic(Mono.Cecil.TypeDefinition,System.Boolean)">
+            <summary>
+            Ensures all members of the type are publicly accessible
+            </summary>
+            <param name="type">The type to be made accessible</param>
+            <param name="nested">To make all nested classes public as well.</param>
+        </member>
+        <member name="P:OTAPI.Patcher.Engine.Modification.ModificationBase.SourceDefinitionFilePath">
+            <summary>
+            Location of the source definition on disk
+            </summary>
+        </member>
+        <member name="P:OTAPI.Patcher.Engine.Modification.ModificationBase.AssemblyTargets">
+            <summary>
+            Returns the list of applicable assembly targets the modification can be ran against
+            </summary>
+        </member>
+        <member name="M:OTAPI.Patcher.Engine.Modification.ModificationBase.Run">
+            <summary>
+            Occurs when the modification is triggered to run
+            </summary>
+            <param name="options"></param>
+        </member>
+        <member name="P:OTAPI.Patcher.Engine.Modification.ModificationBase.Description">
+            <summary>
+            Description of the modification running
+            </summary>
+        </member>
+        <member name="P:OTAPI.Patcher.Engine.Modification.ModificationBase.TypeSystem">
+            <summary>
+            The type system used in the source assembly
+            </summary>
+        </member>
+        <member name="M:OTAPI.Patcher.Engine.Modification.ModificationBase.GetOrder">
+            <summary>
+            Determines the sort order for the current modification.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:OTAPI.Patcher.Engine.Modification.ModificationBase.Type``1">
+            <summary>
+            Returns the TypeDefintion of the type specified
+            </summary>
+        </member>
+        <member name="M:OTAPI.Patcher.Engine.Modification.ModificationBase.Method(System.Linq.Expressions.Expression{System.Action})">
+            <summary>
+            Returns the MethodDefinition for the specified action
+            </summary>
+        </member>
+        <member name="M:OTAPI.Patcher.Engine.NugetAssemblyResolver.ResolvePackage(System.String,NuGet.SemanticVersion)">
+            <summary>
+            Resolves a nuget packege locally or from the internet and automatically installs it.
+            </summary>
+            <param name="name">Name of the package to find</param>
+            <param name="version">Version of the package</param>
+            <returns>Nuget package details</returns>
+        </member>
+        <member name="M:OTAPI.Patcher.Engine.NugetAssemblyResolver.ResolvePackage(System.String,System.Version)">
+            <summary>
+            Resolves a package from nuget using a specified name and version.
+            </summary>
+            <param name="name">Name of the package to find</param>
+            <param name="version">Version of the package</param>
+            <returns>File path if the nuget package is found</returns>
+        </member>
+        <member name="M:OTAPI.Patcher.Engine.NugetAssemblyResolver.Resolve(System.Reflection.AssemblyName)">
+            <summary>
+            Resolves a assembly from nuget and loads it as a .net assembly
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="T:OTAPI.Patcher.Engine.Patcher">
+            <summary>
+            Contains the meat of the patcher, organises the source assembly, and a 
+            list of all the modification instances that will run against the source
+            assembly.
+            </summary>
+        </member>
+        <member name="P:OTAPI.Patcher.Engine.Patcher.SourceAssemblyPath">
+            <summary>
+            Gets or sets the path on disk for the source assembly that will have all
+            the patches run against it.
+            </summary>
+        </member>
+        <member name="P:OTAPI.Patcher.Engine.Patcher.OutputAssemblyPath">
+            <summary>
+            Gets or sets the path on disk for the output assembly that will be saved
+            once all modifications have been applied
+            </summary>
+        </member>
+        <member name="P:OTAPI.Patcher.Engine.Patcher.SourceAssembly">
+            <summary>
+            Gets or sets the assembly definition loaded from the source assembly path.
+            This assemblydefinition gets modified and rewritten by all the ModificationBase
+            instances
+            </summary>
+        </member>
+        <member name="P:OTAPI.Patcher.Engine.Patcher.Modifications">
+            <summary>
+            Contains a list of all the ModificationBase instances yielded from all the
+            patch assemblies.
+            </summary>
+        </member>
+        <member name="F:OTAPI.Patcher.Engine.Patcher.tempSourceOutput">
+            <summary>
+            Temporary storage path for the patched source assembly.
+            We need it in order to pass it through to ILRepack
+            </summary>
+        </member>
+        <member name="F:OTAPI.Patcher.Engine.Patcher.tempPackedOutput">
+            <summary>
+            Temporary storage path for the ILRepacked source assembly.
+            We need it in order to do cleanups on the final assembly.
+            </summary>
+        </member>
+        <member name="F:OTAPI.Patcher.Engine.Patcher.modificationAssemblyGlob">
+            <summary>
+            Glob pattern for the list of modification assemblies that will run against the source
+            assembly.
+            </summary>
+        </member>
+        <member name="M:OTAPI.Patcher.Engine.Patcher.#ctor(System.String,System.Collections.Generic.IEnumerable{System.String},System.String)">
+            <summary>
+            Creates a new instance of the patcher with the specified source assembly path and
+            a glob containing all the modification assemblies.
+            </summary>
+            <param name="SourceAssemblyPath"></param>
+        </member>
+        <member name="M:OTAPI.Patcher.Engine.Patcher.AllowDuplicateModificationTypes(System.Collections.Hashtable)">
+            <summary>
+            This will allow ILRepack to merge all our modifications into one assembly.
+            In our case we define hooks in the same namespace across different modification
+            assemblies, and of course ILRepack detects the conflict.
+            By enumerating each type of the modifications, we add each full name to the
+            allowed list.
+            </summary>
+            <param name="allowedTypes"></param>
+        </member>
+        <member name="M:OTAPI.Patcher.Engine.Patcher.RemoveModificationsFromPackedAssembly">
+            <summary>
+            Removes all ModificationBase implementations from the output assembly.
+            Additionally it will also remove references that were added due to ModificationBases
+            being merged in.
+            </summary>
+        </member>
+        <member name="M:OTAPI.Patcher.Engine.Patcher.Cleanup">
+            <summary>
+            Cleans up data after a successful patch
+            </summary>
+        </member>
+        <member name="T:Glob.Glob">
+            <summary>
+            Finds files and directories by matching their path names against a pattern.
+            </summary>
+        </member>
+        <member name="P:Glob.Glob.Pattern">
+            <summary>
+            Gets or sets a value indicating the pattern to match file and directory names against.
+            The pattern can contain the following special characters:
+            <list type="table">
+            <item>
+            <term>?</term>
+            <description>Matches any single character in a file or directory name.</description>
+            </item>
+            <item>
+            <term>*</term>
+            <description>Matches zero or more characters in a file or directory name.</description>
+            </item>
+            <item>
+            <term>**</term>
+            <description>Matches zero or more recursve directories.</description>
+            </item>
+            <item>
+            <term>[...]</term>
+            <description>Matches a set of characters in a name. Syntax is equivalent to character groups in <see cref="T:System.Text.RegularExpressions.Regex"/>.</description>
+            </item>
+            <item>
+            <term>{group1,group2,...}</term>
+            <description>Matches any of the pattern groups. Groups can contain groups and patterns.</description>
+            </item>
+            </list>
+            </summary>
+        </member>
+        <member name="P:Glob.Glob.ErrorLog">
+            <summary>
+            Gets or sets a value indicating an action to be performed when an error occurs during pattern matching.
+            </summary>
+        </member>
+        <member name="P:Glob.Glob.Cancelled">
+            <summary>
+            Gets or sets a value indicating that a running pattern match should be cancelled.
+            </summary>
+        </member>
+        <member name="P:Glob.Glob.ThrowOnError">
+            <summary>
+            Gets or sets a value indicating whether exceptions that occur during matching should be rethrown. Default is false.
+            </summary>
+        </member>
+        <member name="P:Glob.Glob.IgnoreCase">
+            <summary>
+            Gets or sets a value indicating whether case should be ignored in file and directory names. Default is true.
+            </summary>
+        </member>
+        <member name="P:Glob.Glob.DirectoriesOnly">
+            <summary>
+            Gets or sets a value indicating whether only directories should be matched. Default is false.
+            </summary>
+        </member>
+        <member name="P:Glob.Glob.CacheRegexes">
+            <summary>
+            Gets or sets a value indicating whether <see cref="T:System.Text.RegularExpressions.Regex"/> objects should be cached. Default is true.
+            </summary>
+        </member>
+        <member name="M:Glob.Glob.Cancel">
+            <summary>
+            Cancels a running pattern match.
+            </summary>
+        </member>
+        <member name="M:Glob.Glob.#ctor">
+            <summary>
+            Creates a new instance.
+            </summary>
+        </member>
+        <member name="M:Glob.Glob.#ctor(System.String)">
+            <summary>
+            Creates a new instance.
+            </summary>
+            <param name="pattern">The pattern to be matched. See <see cref="P:Glob.Glob.Pattern"/> for syntax.</param>
+        </member>
+        <member name="M:Glob.Glob.ExpandNames(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Performs a pattern match.
+            </summary>
+            <param name="pattern">The pattern to be matched.</param>
+            <param name="ignoreCase">true if case should be ignored; false, otherwise.</param>
+            <param name="dirOnly">true if only directories shoud be matched; false, otherwise.</param>
+            <returns>The matched path names</returns>
+        </member>
+        <member name="M:Glob.Glob.Expand(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Performs a pattern match.
+            </summary>
+            <param name="pattern">The pattern to be matched.</param>
+            <param name="ignoreCase">true if case should be ignored; false, otherwise.</param>
+            <param name="dirOnly">true if only directories shoud be matched; false, otherwise.</param>
+            <returns>The matched <see cref="T:System.IO.FileSystemInfo"/> objects</returns>
+        </member>
+        <member name="M:Glob.Glob.ExpandNames">
+            <summary>
+            Performs a pattern match.
+            </summary>
+            <returns>The matched path names</returns>
+        </member>
+        <member name="M:Glob.Glob.Expand">
+            <summary>
+            Performs a pattern match.
+            </summary>
+            <returns>The matched <see cref="T:System.IO.FileSystemInfo"/> objects</returns>
+        </member>
+        <member name="M:Glob.Glob.ToString">
+            <summary>
+            Returns a <see cref="T:System.String" /> that represents this instance.
+            </summary>
+            <returns>
+            A <see cref="T:System.String" /> that represents this instance.
+            </returns>
+        </member>
+        <member name="M:Glob.Glob.GetHashCode">
+            <summary>
+            Returns a hash code for this instance.
+            </summary>
+            <returns>
+            A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.
+            </returns>
+        </member>
+        <member name="M:Glob.Glob.Equals(System.Object)">
+            <summary>
+            Determines whether the specified <see cref="T:System.Object" />, is equal to this instance.
+            </summary>
+            <param name="obj">The <see cref="T:System.Object" /> to compare with this instance.</param>
+            <returns>
+              <c>true</c> if the specified <see cref="T:System.Object" /> is equal to this instance; otherwise, <c>false</c>.
+            </returns>
+        </member>
+    </members>
+</doc>

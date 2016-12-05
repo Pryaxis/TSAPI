@@ -1,0 +1,17 @@
+/Users/shank/Downloads/20161206/TShock.Modifications.Bootstrapper/obj/Debug/.NETFramework,Version=v4.5.2.AssemblyAttribute.cs
+/Users/shank/Downloads/20161206/TShock.Modifications.Bootstrapper/bin/Debug/OTAPI.Shims.TShock.Merge.exe.config
+/Users/shank/Downloads/20161206/TShock.Modifications.Bootstrapper/bin/Debug/OTAPI.Shims.TShock.Merge.exe.mdb
+/Users/shank/Downloads/20161206/TShock.Modifications.Bootstrapper/bin/Debug/OTAPI.Shims.TShock.Merge.exe
+/Users/shank/Downloads/20161206/TShock.Modifications.Bootstrapper/obj/Debug/OTAPI.Shims.TShock.Merge.exe
+/Users/shank/Downloads/20161206/TShock.Modifications.Bootstrapper/obj/Debug/OTAPI.Shims.TShock.Merge.exe.mdb
+/Users/shank/Downloads/20161206/TShock.Modifications.Bootstrapper/bin/Debug/ILRepack.dll
+/Users/shank/Downloads/20161206/TShock.Modifications.Bootstrapper/bin/Debug/Microsoft.Web.XmlTransform.dll
+/Users/shank/Downloads/20161206/TShock.Modifications.Bootstrapper/bin/Debug/Mono.Cecil.dll
+/Users/shank/Downloads/20161206/TShock.Modifications.Bootstrapper/bin/Debug/Mono.Cecil.Mdb.dll
+/Users/shank/Downloads/20161206/TShock.Modifications.Bootstrapper/bin/Debug/Mono.Cecil.Pdb.dll
+/Users/shank/Downloads/20161206/TShock.Modifications.Bootstrapper/bin/Debug/Mono.Cecil.Rocks.dll
+/Users/shank/Downloads/20161206/TShock.Modifications.Bootstrapper/bin/Debug/NDesk.Options.dll
+/Users/shank/Downloads/20161206/TShock.Modifications.Bootstrapper/bin/Debug/Newtonsoft.Json.dll
+/Users/shank/Downloads/20161206/TShock.Modifications.Bootstrapper/bin/Debug/NuGet.Core.dll
+/Users/shank/Downloads/20161206/TShock.Modifications.Bootstrapper/bin/Debug/OTAPI.dll
+/Users/shank/Downloads/20161206/TShock.Modifications.Bootstrapper/bin/Debug/OTAPI.Patcher.Engine.dll
