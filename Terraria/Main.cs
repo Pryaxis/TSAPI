@@ -5746,16 +5746,16 @@ namespace Terraria
 						NetMessage.SendData(5, -1, -1, "", Main.myPlayer, (float)(58 + Main.player[Main.myPlayer].armor.Length + Main.player[Main.myPlayer].dye.Length + Main.player[Main.myPlayer].miscEquips.Length + Main.player[Main.myPlayer].miscDyes.Length + Main.player[Main.myPlayer].bank.item.Length + 1 + num9), (float)Main.player[Main.myPlayer].bank2.item[num9].prefix, 0f, 0, 0, 0);
 					}
 				}
-				if (Main.player[Main.myPlayer].trashItem.IsNotTheSameAs(Main.clientPlayer.trashItem))
-				{
-					NetMessage.SendData(5, -1, -1, "", Main.myPlayer, (float)(58 + Main.player[Main.myPlayer].armor.Length + Main.player[Main.myPlayer].dye.Length + Main.player[Main.myPlayer].miscEquips.Length + Main.player[Main.myPlayer].miscDyes.Length + Main.player[Main.myPlayer].bank.item.Length + Main.player[Main.myPlayer].bank2.item.Length + 1), (float)Main.player[Main.myPlayer].trashItem.prefix, 0f, 0, 0, 0);
-				}
 				for (int num8 = 0; num8 < Main.player[Main.myPlayer].bank3.item.Length; num8++)
 				{
 					if (Main.player[Main.myPlayer].bank3.item[num8].IsNotTheSameAs(Main.clientPlayer.bank3.item[num8]))
 					{
-						NetMessage.SendData(5, -1, -1, "", Main.myPlayer, (float)(58 + Main.player[Main.myPlayer].armor.Length + Main.player[Main.myPlayer].dye.Length + Main.player[Main.myPlayer].miscEquips.Length + Main.player[Main.myPlayer].miscDyes.Length + Main.player[Main.myPlayer].bank.item.Length + Main.player[Main.myPlayer].bank2.item.Length + 2 + num8), (float)Main.player[Main.myPlayer].bank3.item[num8].prefix, 0f, 0, 0, 0);
+						NetMessage.SendData(5, -1, -1, "", Main.myPlayer, (float)(58 + Main.player[Main.myPlayer].armor.Length + Main.player[Main.myPlayer].dye.Length + Main.player[Main.myPlayer].miscEquips.Length + Main.player[Main.myPlayer].miscDyes.Length + Main.player[Main.myPlayer].bank.item.Length + Main.player[Main.myPlayer].bank2.item.Length + 1 + num8), (float)Main.player[Main.myPlayer].bank3.item[num8].prefix, 0f, 0, 0, 0);
 					}
+				}
+				if (Main.player[Main.myPlayer].trashItem.IsNotTheSameAs(Main.clientPlayer.trashItem))
+				{
+					NetMessage.SendData(5, -1, -1, "", Main.myPlayer, (float)(58 + Main.player[Main.myPlayer].armor.Length + Main.player[Main.myPlayer].dye.Length + Main.player[Main.myPlayer].miscEquips.Length + Main.player[Main.myPlayer].miscDyes.Length + Main.player[Main.myPlayer].bank.item.Length + Main.player[Main.myPlayer].bank2.item.Length + Main.player[Main.myPlayer].bank3.item.Length + 1), (float)Main.player[Main.myPlayer].trashItem.prefix, 0f, 0, 0, 0);
 				}
 				for (int num10 = 0; num10 < Main.player[Main.myPlayer].dye.Length; num10++)
 				{
