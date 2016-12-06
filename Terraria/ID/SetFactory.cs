@@ -7,6 +7,8 @@ namespace Terraria.ID
 	{
 		protected int _size;
 
+		private Queue<float[]> _floatBufferCache = new Queue<float[]>();
+
 		private Queue<int[]> _intBufferCache = new Queue<int[]>();
 
 		private Queue<ushort[]> _ushortBufferCache = new Queue<ushort[]>();
@@ -71,6 +73,23 @@ namespace Terraria.ID
 			return result;
 		}
 
+		protected float[] GetFloatBuffer()
+		{
+			float[] result;
+			lock (this._queueLock)
+			{
+				if (this._floatBufferCache.Count == 0)
+				{
+					result = new float[this._size];
+				}
+				else
+				{
+					result = this._floatBufferCache.Dequeue();
+				}
+			}
+			return result;
+		}
+
 		public void Recycle<T>(T[] buffer)
 		{
 			lock (this._queueLock)
@@ -103,6 +122,24 @@ namespace Terraria.ID
 				boolBuffer[types[j]] = !defaultState;
 			}
 			return boolBuffer;
+		}
+
+		public float[] CreateFloatSet(float defaultState, params float[] inputs)
+		{
+			if (inputs.Length % 2 != 0)
+			{
+				throw new Exception("You have a bad length for inputs on CreateArraySet");
+			}
+			float[] floatBuffer = this.GetFloatBuffer();
+			for (int i = 0; i < floatBuffer.Length; i++)
+			{
+				floatBuffer[i] = defaultState;
+			}
+			for (int j = 0; j < inputs.Length; j += 2)
+			{
+				floatBuffer[(int)inputs[j]] = inputs[j + 1];
+			}
+			return floatBuffer;
 		}
 
 		public int[] CreateIntSet(int defaultState, params int[] inputs)

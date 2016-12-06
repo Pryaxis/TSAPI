@@ -33222,11 +33222,11 @@ namespace Terraria
 			if (Main.rand.Next(5) == 0)
 			{
 				string key;
-				if (DD2Event.DownedInvasionT1 && DD2Event.DownedInvasionT2 && DD2Event.DownedInvasionT3)
+				if (DD2Event.DownedInvasionT3)
 				{
 					key = "BartenderSpecialText.AfterDD2Tier3";
 				}
-				else if (DD2Event.DownedInvasionT1 && DD2Event.DownedInvasionT2)
+				else if (DD2Event.DownedInvasionT2)
 				{
 					key = "BartenderSpecialText.AfterDD2Tier2";
 				}

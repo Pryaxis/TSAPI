@@ -7202,7 +7202,7 @@ namespace Terraria
 				{
 					flag2 = false;
 				}
-				if (item.shoot > -1 && ProjectileID.Sets.IsADD2Turret[item.shoot] && !this.downedDD2EventAnyDifficulty && !DD2Event.Ongoing)
+				if (this.whoAmI == Main.myPlayer && item.shoot > -1 && ProjectileID.Sets.IsADD2Turret[item.shoot] && !this.downedDD2EventAnyDifficulty && !DD2Event.Ongoing)
 				{
 					flag2 = false;
 				}

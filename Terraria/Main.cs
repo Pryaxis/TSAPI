@@ -153,9 +153,9 @@ namespace Terraria
 
 		public static Main instance;
 
-		public const int curRelease = 187;
+		public const int curRelease = 188;
 
-		public const ulong WorldGeneratorVersion = 798863917057uL;
+		public const ulong WorldGeneratorVersion = 807453851649uL;
 
 		public static string versionNumber;
 
@@ -1743,8 +1743,8 @@ namespace Terraria
 
 		static Main()
 		{
-			Main.versionNumber = "v1.3.4.3";
-			Main.versionNumber2 = "v1.3.4.3";
+			Main.versionNumber = "v1.3.4.4";
+			Main.versionNumber2 = "v1.3.4.4";
 			Main.destroyerHB = new Vector2(0f, 0f);
 			Main.drawBackGore = false;
 			Main.expertLife = 2f;
@@ -5746,16 +5746,16 @@ namespace Terraria
 						NetMessage.SendData(5, -1, -1, "", Main.myPlayer, (float)(58 + Main.player[Main.myPlayer].armor.Length + Main.player[Main.myPlayer].dye.Length + Main.player[Main.myPlayer].miscEquips.Length + Main.player[Main.myPlayer].miscDyes.Length + Main.player[Main.myPlayer].bank.item.Length + 1 + num9), (float)Main.player[Main.myPlayer].bank2.item[num9].prefix, 0f, 0, 0, 0);
 					}
 				}
-				if (Main.player[Main.myPlayer].trashItem.IsNotTheSameAs(Main.clientPlayer.trashItem))
-				{
-					NetMessage.SendData(5, -1, -1, "", Main.myPlayer, (float)(58 + Main.player[Main.myPlayer].armor.Length + Main.player[Main.myPlayer].dye.Length + Main.player[Main.myPlayer].miscEquips.Length + Main.player[Main.myPlayer].miscDyes.Length + Main.player[Main.myPlayer].bank.item.Length + Main.player[Main.myPlayer].bank2.item.Length + 1), (float)Main.player[Main.myPlayer].trashItem.prefix, 0f, 0, 0, 0);
-				}
 				for (int num8 = 0; num8 < Main.player[Main.myPlayer].bank3.item.Length; num8++)
 				{
 					if (Main.player[Main.myPlayer].bank3.item[num8].IsNotTheSameAs(Main.clientPlayer.bank3.item[num8]))
 					{
-						NetMessage.SendData(5, -1, -1, "", Main.myPlayer, (float)(58 + Main.player[Main.myPlayer].armor.Length + Main.player[Main.myPlayer].dye.Length + Main.player[Main.myPlayer].miscEquips.Length + Main.player[Main.myPlayer].miscDyes.Length + Main.player[Main.myPlayer].bank.item.Length + Main.player[Main.myPlayer].bank2.item.Length + 2 + num8), (float)Main.player[Main.myPlayer].bank3.item[num8].prefix, 0f, 0, 0, 0);
+						NetMessage.SendData(5, -1, -1, "", Main.myPlayer, (float)(58 + Main.player[Main.myPlayer].armor.Length + Main.player[Main.myPlayer].dye.Length + Main.player[Main.myPlayer].miscEquips.Length + Main.player[Main.myPlayer].miscDyes.Length + Main.player[Main.myPlayer].bank.item.Length + Main.player[Main.myPlayer].bank2.item.Length + 1 + num8), (float)Main.player[Main.myPlayer].bank3.item[num8].prefix, 0f, 0, 0, 0);
 					}
+				}
+				if (Main.player[Main.myPlayer].trashItem.IsNotTheSameAs(Main.clientPlayer.trashItem))
+				{
+					NetMessage.SendData(5, -1, -1, "", Main.myPlayer, (float)(58 + Main.player[Main.myPlayer].armor.Length + Main.player[Main.myPlayer].dye.Length + Main.player[Main.myPlayer].miscEquips.Length + Main.player[Main.myPlayer].miscDyes.Length + Main.player[Main.myPlayer].bank.item.Length + Main.player[Main.myPlayer].bank2.item.Length + Main.player[Main.myPlayer].bank3.item.Length + 1), (float)Main.player[Main.myPlayer].trashItem.prefix, 0f, 0, 0, 0);
 				}
 				for (int num10 = 0; num10 < Main.player[Main.myPlayer].dye.Length; num10++)
 				{
@@ -6876,7 +6876,6 @@ namespace Terraria
 			Main.projPet[353] = true;
 			Main.projPet[373] = true;
 			Main.projPet[375] = true;
-			Main.projPet[377] = true;
 			Main.projPet[380] = true;
 			Main.projPet[387] = true;
 			Main.projPet[388] = true;
@@ -9917,7 +9916,6 @@ namespace Terraria
 
 		protected void SetTitle()
 		{
-			Console.Title = Lang.title();
 		}
 
 		public static void SetupTileMerge()

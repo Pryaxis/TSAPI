@@ -244,7 +244,12 @@ namespace Terraria
 							Item[] itemArray = null;
 							int num13 = 0;
 							bool flag1 = false;
-							if (num9 > 58 + (int)item1.armor.Length + (int)item1.dye.Length + (int)item1.miscEquips.Length + (int)item1.miscDyes.Length + (int)item1.bank.item.Length + (int)item1.bank2.item.Length)
+							if (num9 > 58 + item1.armor.Length + item1.dye.Length + item1.miscEquips.Length + item1.miscDyes.Length + item1.bank.item.Length + item1.bank2.item.Length + 1)
+							{
+								num13 = num9 - 58 - (item1.armor.Length + item1.dye.Length + item1.miscEquips.Length + item1.miscDyes.Length + item1.bank.item.Length + item1.bank2.item.Length + 1) - 1;
+								itemArray = item1.bank3.item;
+							}
+							else if (num9 > 58 + (int)item1.armor.Length + (int)item1.dye.Length + (int)item1.miscEquips.Length + (int)item1.miscDyes.Length + (int)item1.bank.item.Length + (int)item1.bank2.item.Length)
 							{
 								flag1 = true;
 							}
