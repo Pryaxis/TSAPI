@@ -153,9 +153,9 @@ namespace Terraria
 
 		public static Main instance;
 
-		public const int curRelease = 187;
+		public const int curRelease = 188;
 
-		public const ulong WorldGeneratorVersion = 798863917057uL;
+		public const ulong WorldGeneratorVersion = 807453851649uL;
 
 		public static string versionNumber;
 
@@ -1743,8 +1743,8 @@ namespace Terraria
 
 		static Main()
 		{
-			Main.versionNumber = "v1.3.4.3";
-			Main.versionNumber2 = "v1.3.4.3";
+			Main.versionNumber = "v1.3.4.4";
+			Main.versionNumber2 = "v1.3.4.4";
 			Main.destroyerHB = new Vector2(0f, 0f);
 			Main.drawBackGore = false;
 			Main.expertLife = 2f;
@@ -6876,7 +6876,6 @@ namespace Terraria
 			Main.projPet[353] = true;
 			Main.projPet[373] = true;
 			Main.projPet[375] = true;
-			Main.projPet[377] = true;
 			Main.projPet[380] = true;
 			Main.projPet[387] = true;
 			Main.projPet[388] = true;
@@ -9917,7 +9916,6 @@ namespace Terraria
 
 		protected void SetTitle()
 		{
-			Console.Title = Lang.title();
 		}
 
 		public static void SetupTileMerge()

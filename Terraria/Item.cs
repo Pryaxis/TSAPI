@@ -36996,7 +36996,7 @@ namespace Terraria
 												width = 50;
 												height = 18;
 												shoot = 444;
-												useAmmo = 14;
+												useAmmo = AmmoID.Bullet;
 												glowMask = 38;
 
 												damage = 45;
@@ -43669,7 +43669,7 @@ namespace Terraria
 										height = 20;
 										maxStack = 99;
 										value = 10000;
-										rare = 1;
+										rare = 2;
 										return;
 									}
 									if (type == 3561)

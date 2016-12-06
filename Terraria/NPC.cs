@@ -33748,6 +33748,8 @@ namespace Terraria
 				int num52 = (int)base.Right.X / 16;
 				for (int num53 = num51; num53 <= num52; num53++)
 				{
+					num53 = Utils.Clamp<int>(num53, 0, Main.maxTilesX);
+					num50 = Utils.Clamp<int>(num50, 0, Main.maxTilesY);
 					Tile tile = Main.tile[num53, num50];
 					if (tile == null)
 					{
@@ -54860,6 +54862,8 @@ namespace Terraria
 			if (this.type != 5 && (this.type < 13 || this.type > 15) && this.type != 267 && (this.type < 113 || this.type > 119) && Main.hardMode && !this.boss && this.lifeMax < 1000)
 			{
 				int num = this.damage + this.defense + this.lifeMax / 4;
+				if (num == 0)
+					num = 1;
 				int num2 = 80;
 				if (NPC.downedPlantBoss)
 				{
@@ -63559,6 +63563,7 @@ namespace Terraria
 				}
 				this.lavaImmune = true;
 				this.LazySetLiquidMovementDD2();
+				this.netAlways = true;
 			}
 			else if (this.type == 549)
 			{
@@ -63579,6 +63584,7 @@ namespace Terraria
 				this.dontTakeDamage = true;
 				this.lavaImmune = true;
 				this.LazySetLiquidMovementDD2();
+				this.netAlways = true;
 			}
 			else if (this.type == 552)
 			{
@@ -63594,6 +63600,7 @@ namespace Terraria
 				this.npcSlots = 0f;
 				this.lavaImmune = true;
 				this.LazySetLiquidMovementDD2();
+				this.netAlways = true;
 			}
 			else if (this.type == 553)
 			{
@@ -63609,6 +63616,7 @@ namespace Terraria
 				this.npcSlots = 0f;
 				this.lavaImmune = true;
 				this.LazySetLiquidMovementDD2();
+				this.netAlways = true;
 			}
 			else if (this.type == 554)
 			{
@@ -63624,6 +63632,7 @@ namespace Terraria
 				this.npcSlots = 0f;
 				this.lavaImmune = true;
 				this.LazySetLiquidMovementDD2();
+				this.netAlways = true;
 			}
 			else if (this.type == 561)
 			{
@@ -63639,6 +63648,7 @@ namespace Terraria
 				this.npcSlots = 0f;
 				this.lavaImmune = true;
 				this.LazySetLiquidMovementDD2();
+				this.netAlways = true;
 			}
 			else if (this.type == 562)
 			{
@@ -63654,6 +63664,7 @@ namespace Terraria
 				this.npcSlots = 0f;
 				this.lavaImmune = true;
 				this.LazySetLiquidMovementDD2();
+				this.netAlways = true;
 			}
 			else if (this.type == 563)
 			{
@@ -63669,6 +63680,7 @@ namespace Terraria
 				this.npcSlots = 0f;
 				this.lavaImmune = true;
 				this.LazySetLiquidMovementDD2();
+				this.netAlways = true;
 			}
 			else if (this.type == 555)
 			{
@@ -63684,6 +63696,7 @@ namespace Terraria
 				this.npcSlots = 0f;
 				this.lavaImmune = true;
 				this.LazySetLiquidMovementDD2();
+				this.netAlways = true;
 			}
 			else if (this.type == 556)
 			{
@@ -63699,6 +63712,7 @@ namespace Terraria
 				this.npcSlots = 0f;
 				this.lavaImmune = true;
 				this.LazySetLiquidMovementDD2();
+				this.netAlways = true;
 			}
 			else if (this.type == 557)
 			{
@@ -63714,6 +63728,7 @@ namespace Terraria
 				this.npcSlots = 0f;
 				this.lavaImmune = true;
 				this.LazySetLiquidMovementDD2();
+				this.netAlways = true;
 			}
 			else if (this.type == 558)
 			{
@@ -63730,6 +63745,7 @@ namespace Terraria
 				this.npcSlots = 0f;
 				this.lavaImmune = true;
 				this.LazySetLiquidMovementDD2();
+				this.netAlways = true;
 			}
 			else if (this.type == 559)
 			{
@@ -63746,6 +63762,7 @@ namespace Terraria
 				this.npcSlots = 0f;
 				this.lavaImmune = true;
 				this.LazySetLiquidMovementDD2();
+				this.netAlways = true;
 			}
 			else if (this.type == 560)
 			{
@@ -63762,6 +63779,7 @@ namespace Terraria
 				this.npcSlots = 0f;
 				this.lavaImmune = true;
 				this.LazySetLiquidMovementDD2();
+				this.netAlways = true;
 			}
 			else if (this.type == 550)
 			{
@@ -63790,6 +63808,7 @@ namespace Terraria
 				this.npcSlots = 0f;
 				this.lavaImmune = true;
 				this.LazySetLiquidMovementDD2();
+				this.netAlways = true;
 			}
 			else if (this.type == 577)
 			{
@@ -63805,6 +63824,7 @@ namespace Terraria
 				this.npcSlots = 0f;
 				this.lavaImmune = true;
 				this.LazySetLiquidMovementDD2();
+				this.netAlways = true;
 			}
 			else if (this.type == 568)
 			{
@@ -63820,6 +63840,7 @@ namespace Terraria
 				this.npcSlots = 0f;
 				this.lavaImmune = true;
 				this.LazySetLiquidMovementDD2();
+				this.netAlways = true;
 			}
 			else if (this.type == 569)
 			{
@@ -63835,6 +63856,7 @@ namespace Terraria
 				this.npcSlots = 0f;
 				this.lavaImmune = true;
 				this.LazySetLiquidMovementDD2();
+				this.netAlways = true;
 			}
 			else if (this.type == 566)
 			{
@@ -63850,6 +63872,7 @@ namespace Terraria
 				this.npcSlots = 0f;
 				this.lavaImmune = true;
 				this.LazySetLiquidMovementDD2();
+				this.netAlways = true;
 			}
 			else if (this.type == 567)
 			{
@@ -63865,6 +63888,7 @@ namespace Terraria
 				this.npcSlots = 0f;
 				this.lavaImmune = true;
 				this.LazySetLiquidMovementDD2();
+				this.netAlways = true;
 			}
 			else if (this.type == 572)
 			{
@@ -63880,6 +63904,7 @@ namespace Terraria
 				this.npcSlots = 0f;
 				this.lavaImmune = true;
 				this.LazySetLiquidMovementDD2();
+				this.netAlways = true;
 			}
 			else if (this.type == 573)
 			{
@@ -63895,6 +63920,7 @@ namespace Terraria
 				this.npcSlots = 0f;
 				this.lavaImmune = true;
 				this.LazySetLiquidMovementDD2();
+				this.netAlways = true;
 			}
 			else if (this.type == 570)
 			{
@@ -63910,6 +63936,7 @@ namespace Terraria
 				this.npcSlots = 0f;
 				this.lavaImmune = true;
 				this.LazySetLiquidMovementDD2();
+				this.netAlways = true;
 			}
 			else if (this.type == 571)
 			{
@@ -63925,6 +63952,7 @@ namespace Terraria
 				this.npcSlots = 0f;
 				this.lavaImmune = true;
 				this.LazySetLiquidMovementDD2();
+				this.netAlways = true;
 			}
 			else if (this.type == 564)
 			{
@@ -63941,6 +63969,7 @@ namespace Terraria
 				this.noGravity = true;
 				this.lavaImmune = true;
 				this.LazySetLiquidMovementDD2();
+				this.netAlways = true;
 			}
 			else if (this.type == 565)
 			{
@@ -63957,6 +63986,7 @@ namespace Terraria
 				this.noGravity = true;
 				this.lavaImmune = true;
 				this.LazySetLiquidMovementDD2();
+				this.netAlways = true;
 			}
 			else if (this.type == 574)
 			{
@@ -63973,6 +64003,7 @@ namespace Terraria
 				this.npcSlots = 0f;
 				this.lavaImmune = true;
 				this.LazySetLiquidMovementDD2();
+				this.netAlways = true;
 			}
 			else if (this.type == 575)
 			{
@@ -63989,6 +64020,7 @@ namespace Terraria
 				this.npcSlots = 0f;
 				this.lavaImmune = true;
 				this.LazySetLiquidMovementDD2();
+				this.netAlways = true;
 			}
 			else if (this.type == 551)
 			{
@@ -64006,6 +64038,7 @@ namespace Terraria
 				this.npcSlots = 0f;
 				this.lavaImmune = true;
 				this.LazySetLiquidMovementDD2();
+				this.netAlways = true;
 			}
 			else if (this.type == 578)
 			{
@@ -64022,6 +64055,7 @@ namespace Terraria
 				this.npcSlots = 0f;
 				this.lavaImmune = true;
 				this.LazySetLiquidMovementDD2();
+				this.netAlways = true;
 			}
 			else if (this.type == 579)
 			{

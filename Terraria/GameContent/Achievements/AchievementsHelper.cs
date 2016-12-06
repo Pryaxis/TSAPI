@@ -443,6 +443,6 @@ namespace Terraria.GameContent.Achievements
 
 		public delegate void ProgressionEventEvent(int eventID);
 
-		public delegate void TileDestroyedEvent(Player player, ushort itemId);
+		public delegate void TileDestroyedEvent(Player player, ushort tileId);
 	}
 }

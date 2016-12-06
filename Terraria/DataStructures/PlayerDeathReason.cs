@@ -12,6 +12,15 @@ namespace Terraria.DataStructures
 		public int SourcePlayerIndex = -1;
 		public int SourceProjectileIndex = -1;
 		public int SourceProjectileType;
+		public string SourceCustomReason;
+
+		public static PlayerDeathReason ByCustomReason(string reasonInEnglish)
+		{
+			return new PlayerDeathReason
+			{
+				SourceCustomReason = reasonInEnglish
+			};
+		}
 
 		public static PlayerDeathReason ByNPC(int index)
 		{
@@ -39,7 +48,7 @@ namespace Terraria.DataStructures
 			};
 		}
 
-		public static PlayerDeathReason ByProjectilePVP(int playerIndex, int projectileIndex)
+		public static PlayerDeathReason ByProjectile(int playerIndex, int projectileIndex)
 		{
 			PlayerDeathReason playerDeathReason = new PlayerDeathReason
 			{
@@ -87,11 +96,19 @@ namespace Terraria.DataStructures
 			{
 				playerDeathReason.SourceItemPrefix = (int)reader.ReadByte();
 			}
+			if (bitsByte[7])
+			{
+				playerDeathReason.SourceCustomReason = reader.ReadString();
+			}
 			return playerDeathReason;
 		}
 
 		public string GetDeathText()
 		{
+			if (this.SourceCustomReason != null)
+			{
+				return this.SourceCustomReason;
+			}
 			return Lang.deathMsg(this.SourcePlayerIndex, this.SourceNPCIndex, this.SourceProjectileIndex, this.SourceOtherIndex, this.SourceProjectileType, this.SourceItemType);
 		}
 
@@ -121,6 +138,7 @@ namespace Terraria.DataStructures
 			bb[4] = (this.SourceProjectileType != 0);
 			bb[5] = (this.SourceItemType != 0);
 			bb[6] = (this.SourceItemPrefix != 0);
+			bb[7] = (this.SourceCustomReason != null);
 			writer.Write(bb);
 			if (bb[0])
 			{
@@ -149,6 +167,10 @@ namespace Terraria.DataStructures
 			if (bb[6])
 			{
 				writer.Write((byte)this.SourceItemPrefix);
+			}
+			if (bb[7])
+			{
+				writer.Write(this.SourceCustomReason);
 			}
 		}
 	}

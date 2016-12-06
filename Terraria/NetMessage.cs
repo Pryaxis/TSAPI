@@ -198,6 +198,7 @@ namespace Terraria
 						writer.Write((short)Main.rockLayer);
 						writer.Write(Main.worldID);
 						writer.Write(Main.worldName); //possibly null?
+						writer.Write(Main.ActiveWorldFileData.UniqueId.ToString());
 						writer.Write((byte)Main.moonType);
 						writer.Write((byte)WorldGen.treeBG);
 						writer.Write((byte)WorldGen.corruptBG);
