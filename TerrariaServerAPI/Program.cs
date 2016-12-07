@@ -69,7 +69,10 @@ namespace OTAPI.Shims.TShock
 				//Game.DedServ();
 
 				OTAPI.Shims.TShock.Program.InitialiseInternals();
-				ServerApi.Hooks.AttachHooks();
+				ServerApi.Hooks.AttachHooks(args);
+
+                //TODO: temporary fix until OTAPI's shims are in place
+                Terraria.Main.SkipAssemblyLoad = true;
 
 				Terraria.WindowsLaunch.Main(args);
 				ServerApi.DeInitialize();

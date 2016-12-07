@@ -49,12 +49,16 @@ namespace TerrariaApi.Server
         }
 
         #region
-        public void AttachHooks()
+        public void AttachHooks(string[] args)
         {
-            Hooks.Tile.CreateCollection = () =>
+            if (args.Any(x => x == "-heaptile"))
             {
-                return new TileProvider();
-            };
+                Console.WriteLine($"Using {nameof(HeapTile)} for tile implementation");
+                Hooks.Tile.CreateCollection = () =>
+                {
+                    return new TileProvider();
+                };
+            }
             #region Game Hooks
             OTAPI.Hooks.Game.PreUpdate = (ref GameTime gameTime) =>
             {
