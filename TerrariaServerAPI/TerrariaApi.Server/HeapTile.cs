@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TerrariaApi.Server
+﻿namespace TerrariaApi.Server
 {
-    public class HeapTile : Terraria.Tile
+	public class HeapTile : Terraria.Tile
     {
         protected readonly int offset;
         protected byte[] heap;
 
         public const int kHeapTileSize = 13;
-        
+
         public const int kHeapTileTypeOffset = 0;
         public const int kHeapTileWallOffset = 2;
         public const int kHeapTileLiquidOffset = 3;
@@ -32,9 +26,20 @@ namespace TerrariaApi.Server
             this.offset = (Terraria.Main.maxTilesY * x + y) * kHeapTileSize;
             this.x = x;
             this.y = y;
+
+			// reset all values to 0 manually since we disable resetting in the base constructor
+			base.Initialise();
         }
 
-        public override ushort type
+		public override void Initialise()
+		{
+			// called in the base constructor
+			// here we prevent initialisation before the heap array is set.
+
+			//base.Initialise();
+		}
+
+		public override ushort type
         {
             get
             {

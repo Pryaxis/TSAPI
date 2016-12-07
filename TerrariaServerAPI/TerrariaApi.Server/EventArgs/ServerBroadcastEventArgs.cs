@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.ComponentModel;
 
 namespace TerrariaApi.Server

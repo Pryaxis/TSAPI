@@ -198,7 +198,7 @@ namespace TerrariaApi.Server
 						}
 					case "-world":
 						{
-							game.SetWorld(arg.Value);
+							game.SetWorld(arg.Value, false);
 
 							break;
 						}
@@ -216,7 +216,7 @@ namespace TerrariaApi.Server
 						}
 					case "-autoshutdown":
 						{
-							game.autoShut();
+							game.EnableAutoShutdown();
 
 							break;
 						}

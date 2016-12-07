@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using OTAPI;
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
@@ -13,10 +15,425 @@ namespace TerrariaApi.Server
 	public delegate void HookHandler<in ArgumentType>(ArgumentType args) where ArgumentType: EventArgs;
 
 	public class HookManager
-	{
-		#region Game Hooks
-		#region GameUpdate
-		private readonly HandlerCollection<EventArgs> gameUpdate = 
+    {
+        public static void InitialiseAPI()
+        {
+            //AppDomain.CurrentDomain.AssemblyResolve += delegate (object sender, ResolveEventArgs sargs)
+            //{
+            //	if (sargs.Name.StartsWith("TerrariaServer"))
+            //	{
+            //		return typeof(OTAPI.Shims.TShock.Program).Assembly;
+            //	}
+            //	return null;
+            //};
+
+            //Terraria.Program.LaunchParameters = Utils.ParseArguements(args);
+
+            //Game = new Main();
+
+            try
+            {
+                Console.WriteLine("TerrariaAPI Version: " + ServerApi.ApiVersion + " (Protocol {0} ({1}), OTAPI {2})",
+                    Terraria.Main.versionNumber2, Terraria.Main.curRelease,
+                    typeof(OTAPI.Hooks).Assembly.GetName().Version);
+                ServerApi.Initialize(Environment.GetCommandLineArgs(), Main.instance);
+            }
+            catch (Exception ex)
+            {
+                ServerApi.LogWriter.ServerWriteLine(
+                    "Startup aborted due to an exception in the Server API initialization:\n" + ex, TraceLevel.Error);
+
+                Console.ReadLine();
+                return;
+            }
+        }
+
+        #region
+        public void AttachHooks()
+        {
+            Hooks.Tile.CreateCollection = () =>
+            {
+                return new TileProvider();
+            };
+            #region Game Hooks
+            OTAPI.Hooks.Game.PreUpdate = (ref GameTime gameTime) =>
+            {
+                InvokeGameUpdate();
+            };
+            OTAPI.Hooks.Game.PostUpdate = (ref GameTime gameTime) =>
+            {
+                InvokeGamePostUpdate();
+            };
+            OTAPI.Hooks.World.HardmodeTileUpdate = (int x, int y, ref ushort type) =>
+            {
+                if (InvokeGameHardmodeTileUpdate(x, y, type))
+                {
+                    return OTAPI.HardmodeTileUpdateResult.Cancel;
+                }
+                return OTAPI.HardmodeTileUpdateResult.Continue;
+            };
+            OTAPI.Hooks.Game.PreInitialize = () =>
+            {
+                HookManager.InitialiseAPI();
+                //InitialiseAPI();
+                InvokeGameInitialize();
+            };
+            //OTAPI.Hooks.Game.PostInitialize = () =>
+            //{
+            //	InvokeGamePostInitialize();
+            //};
+            OTAPI.Hooks.Game.Started = () =>
+            {
+                InvokeGamePostInitialize();
+            };
+            OTAPI.Hooks.World.Statue = (StatueType caller, float x, float y, int type, ref int num, ref int num2, ref int num3) =>
+            {
+                if (InvokeGameStatueSpawn(num2, num3, num, (int)x, (int)y, type, caller == StatueType.Item))
+                {
+                    return HookResult.Cancel;
+                }
+                return OTAPI.HookResult.Continue;
+            };
+            #endregion
+            #region Item Hooks
+            OTAPI.Hooks.Item.PreSetDefaultsById = (Item item, ref int type, ref bool noMatCheck) =>
+            {
+                if (InvokeItemSetDefaultsInt(ref type, item))
+                {
+                    return HookResult.Cancel;
+                }
+                return HookResult.Continue;
+            };
+            Hooks.Item.PreSetDefaultsByName = (Item item, ref string name) =>
+            {
+                if (InvokeItemSetDefaultsString(ref name, item))
+                {
+                    return HookResult.Cancel;
+                }
+                return HookResult.Continue;
+            };
+            Hooks.Item.PreNetDefaults = (Item item, ref int type) =>
+            {
+                if (InvokeItemNetDefaults(ref type, item))
+                {
+                    return HookResult.Cancel;
+                }
+                return HookResult.Continue;
+            };
+            Hooks.Chest.QuickStack = (int playerId, Item item, int chestIndex) =>
+            {
+                if (InvokeItemForceIntoChest(Main.chest[chestIndex], item, Main.player[playerId]))
+                {
+                    return HookResult.Cancel;
+                }
+                return HookResult.Continue;
+            };
+            #endregion
+            #region Net Hooks
+            Hooks.Net.SendData = (ref int bufferId, ref int msgType, ref int remoteClient, ref int ignoreClient, ref string text,
+                  ref int number, ref float number2, ref float number3, ref float number4, ref int number5, ref int number6,
+                  ref int number7) =>
+            {
+                if (InvokeNetSendData(ref msgType, ref remoteClient, ref ignoreClient, ref text, ref number,
+                    ref number2, ref number3, ref number4, ref number5, ref number6, ref number7))
+                {
+                    return HookResult.Cancel;
+                }
+
+                if (msgType == 25)
+                {
+                    if (InvokeServerBroadcast(ref text, ref number2, ref number3, ref number4))
+                    {
+                        return HookResult.Cancel;
+                    }
+                }
+
+                return HookResult.Continue;
+            };
+            Hooks.Net.ReceiveData = (MessageBuffer buffer, ref byte packetId, ref int readOffset, ref int start, ref int length,
+                  ref int messageType) =>
+            {
+                try
+                {
+                    if (!Enum.IsDefined(typeof(PacketTypes), (int)packetId))
+                    {
+                        return HookResult.Cancel;
+                    }
+                    if (InvokeNetGetData(ref packetId, buffer, ref readOffset, ref length))
+                    {
+                        return HookResult.Cancel;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("TSAPI.HookManager.ReceiveData: " + ex);
+                }
+                return HookResult.Continue;
+            };
+            Hooks.Player.PreGreet = (ref int playerId) =>
+            {
+                if (InvokeNetGreetPlayer(playerId))
+                {
+                    return HookResult.Cancel;
+                }
+                return HookResult.Continue;
+            };
+            Hooks.Net.SendBytes = (ref int remoteClient, ref byte[] data, ref int offset, ref int size,
+                  ref Terraria.Net.Sockets.SocketSendCallback callback, ref object state) =>
+            {
+                if (InvokeNetSendBytes(Netplay.Clients[remoteClient], data, offset, size))
+                {
+                    return HookResult.Cancel;
+                }
+                return HookResult.Continue;
+            };
+            Hooks.Player.NameCollision = (Player player) =>
+            {
+                if (InvokeNetNameCollision(player.whoAmI, player.name))
+                {
+                    return HookResult.Cancel;
+                }
+                return HookResult.Continue;
+            };
+            #endregion
+            #region Npc Hooks
+            Hooks.Npc.PreSetDefaultsById = (NPC npc, ref int type, ref float scaleOverride) =>
+            {
+                if (InvokeNpcSetDefaultsInt(ref type, npc))
+                {
+                    return HookResult.Cancel;
+                }
+                return HookResult.Continue;
+            };
+            Hooks.Npc.PreSetDefaultsByName = (NPC npc, ref string name) =>
+            {
+                if (InvokeNpcSetDefaultsString(ref name, npc))
+                {
+                    return HookResult.Cancel;
+                }
+                return HookResult.Continue;
+            };
+            Hooks.Npc.PreNetDefaults = (NPC npc, ref int type) =>
+            {
+                if (InvokeNpcNetDefaults(ref type, npc))
+                {
+                    return HookResult.Cancel;
+                }
+                return HookResult.Continue;
+            };
+            Hooks.Npc.Strike = (NPC npc, ref int cancelResult, ref int damage, ref float knockBack,
+               ref int hitDirection, ref bool critical, ref bool noEffect, ref bool fromNet, Entity entity) =>
+            {
+                var player = entity as Player;
+                if (player != null)
+                {
+                    if (InvokeNpcStrike(npc, ref damage, ref knockBack, ref hitDirection,
+                        ref critical, ref noEffect, ref fromNet, player))
+                    {
+                        return HookResult.Cancel;
+                    }
+                }
+                return HookResult.Continue;
+            };
+            Hooks.Npc.PreTransform = (NPC npc, ref int newType) =>
+            {
+                if (InvokeNpcTransformation(npc.whoAmI))
+                {
+                    return HookResult.Cancel;
+                }
+                return HookResult.Continue;
+            };
+            Hooks.Npc.Spawn = (ref int index) =>
+            {
+                if (InvokeNpcSpawn(ref index))
+                {
+                    return HookResult.Cancel;
+                }
+                return HookResult.Continue;
+            };
+            Hooks.Npc.PreDropLoot = (
+                 global::Terraria.NPC npc,
+                 ref int itemId,
+                 ref int x,
+                 ref int y,
+                 ref int width,
+                 ref int height,
+                 ref int type,
+                 ref int stack,
+                 ref bool noBroadcast,
+                 ref int prefix,
+                 ref bool noGrabDelay,
+                 ref bool reverseLookup) =>
+            {
+                var position = new Vector2(x, y);
+                if (InvokeNpcLootDrop(ref position, ref width, ref height, ref itemId,
+                    ref stack, ref noBroadcast, ref prefix, npc.type, npc.whoAmI, ref noGrabDelay, ref reverseLookup))
+                {
+                    x = (int)position.X;
+                    y = (int)position.Y;
+                    return HookResult.Cancel;
+                }
+                x = (int)position.X;
+                y = (int)position.Y;
+                return HookResult.Continue;
+            };
+
+            Hooks.Npc.BossBagItem = (
+                global::Terraria.NPC npc,
+            ref int X,
+            ref int Y,
+            ref int Width,
+             ref int Height,
+             ref int Type,
+             ref int Stack,
+             ref bool noBroadcast,
+             ref int pfix,
+            ref bool noGrabDelay,
+             ref bool reverseLookup) =>
+            {
+                var positon = new Vector2(X, Y);
+                if (InvokeDropBossBag(ref positon, ref Width, ref Height, ref Type, ref Stack, ref noBroadcast, ref pfix,
+                   npc.type, npc.whoAmI, ref noGrabDelay, ref reverseLookup))
+                {
+                    return HookResult.Cancel;
+                }
+                return HookResult.Continue;
+            };
+            Hooks.Npc.PreAI = (NPC npc) =>
+            {
+                if (InvokeNpcAIUpdate(npc))
+                {
+                    return HookResult.Cancel;
+                }
+                return HookResult.Continue;
+            };
+            #endregion
+            Hooks.Collision.PressurePlate = (ref int x, ref int y, ref Entity entity) =>
+            {
+                var npc = entity as NPC;
+                if (npc != null)
+                {
+                    if (InvokeNpcTriggerPressurePlate(npc, x, y))
+                    {
+                        return HookResult.Cancel;
+                    }
+                }
+                else
+                {
+                    var player = entity as Player;
+                    if (player != null)
+                    {
+                        if (InvokePlayerTriggerPressurePlate(player, x, y))
+                        {
+                            return HookResult.Cancel;
+                        }
+                    }
+                    else
+                    {
+                        var projectile = entity as Projectile;
+                        if (projectile != null)
+                        {
+                            if (InvokeProjectileTriggerPressurePlate(projectile, x, y))
+                            {
+                                return HookResult.Cancel;
+                            }
+                        }
+                    }
+                }
+
+                return HookResult.Continue;
+            };
+            #region Projectile Hooks
+            Hooks.Projectile.PreSetDefaultsById = (Projectile projectile, ref int type) =>
+            {
+                if (InvokeProjectileSetDefaults(ref type, projectile))
+                {
+                    return HookResult.Cancel;
+                }
+                return HookResult.Continue;
+            };
+            Hooks.Projectile.PreAI = (Projectile projectile) =>
+            {
+                if (InvokeProjectileAIUpdate(projectile))
+                {
+                    return HookResult.Cancel;
+                }
+                return HookResult.Continue;
+            };
+            #endregion
+            #region Server Hooks
+            Hooks.Command.Process = (string lowered, string raw) =>
+            {
+                if (InvokeServerCommand(raw))
+                {
+                    return HookResult.Cancel;
+                }
+                return HookResult.Continue;
+            };
+            Hooks.Net.RemoteClient.PreReset = (RemoteClient remoteClient) =>
+            {
+                InvokeServerLeave(remoteClient.Id);
+                InvokeServerSocketReset(remoteClient);
+                return HookResult.Continue;
+            };
+            #endregion
+            #region World Hooks
+            Hooks.World.IO.PreSaveWorld = (ref bool useCloudSaving, ref bool resetTime) =>
+            {
+                if (InvokeWorldSave(resetTime))
+                {
+                    return HookResult.Cancel;
+                }
+                return HookResult.Continue;
+            };
+            Hooks.World.PreHardmode = () =>
+            {
+                if (InvokeWorldStartHardMode())
+                {
+                    return HookResult.Cancel;
+                }
+                return HookResult.Continue;
+            };
+            Hooks.World.DropMeteor = (ref int x, ref int y) =>
+            {
+                if (InvokeWorldMeteorDrop(x, y))
+                {
+                    return HookResult.Cancel;
+                }
+                return HookResult.Continue;
+            };
+            Hooks.Game.Christmas = () =>
+            {
+                if (InvokeWorldChristmasCheck(ref Terraria.Main.xMas))
+                {
+                    return HookResult.Cancel;
+                }
+                return HookResult.Continue;
+            };
+            Hooks.Game.Halloween = () =>
+            {
+                if (InvokeWorldHalloweenCheck(ref Main.halloween))
+                {
+                    return HookResult.Cancel;
+                }
+                return HookResult.Continue;
+            };
+            #endregion
+            #region Wiring Hooks
+            Hooks.Wiring.AnnouncementBox = (int x, int y, int signId) =>
+            {
+                if (InvokeWireTriggerAnnouncementBox(Wiring.CurrentUser, x, y, signId, Main.sign[signId].text))
+                {
+                    return HookResult.Cancel;
+                }
+                return HookResult.Continue;
+            };
+            #endregion
+        }
+        #endregion
+        #region Game Hooks
+        #region GameUpdate
+        private readonly HandlerCollection<EventArgs> gameUpdate = 
 			new HandlerCollection<EventArgs>("GameUpdate");
 
 		public HandlerCollection<EventArgs> GameUpdate

@@ -1,3 +1,4 @@
+using Microsoft.Xna.Framework;
 using System;
 
 public interface IPackedVector
