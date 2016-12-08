@@ -7,8 +7,8 @@
     <ProjectGuid>{99902AD0-5503-4B36-A741-2E173A2F8DD6}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OTAPI.Shims.TShock.Merge</RootNamespace>
-    <AssemblyName>OTAPI.Shims.TShock.Merge</AssemblyName>
+    <RootNamespace>TShock.Modifications.Bootstrapper</RootNamespace>
+    <AssemblyName>TShock.Modifications.Bootstrapper</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -70,7 +70,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="OTAPI, Version=1.3.4.4, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\OTAPI.2.0.0.9\lib\net451\OTAPI.dll</HintPath>
+      <HintPath>..\packages\OTAPI.2.0.0.10\lib\net451\OTAPI.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="OTAPI.Patcher.Engine">

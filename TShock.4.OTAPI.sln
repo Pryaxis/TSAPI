@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TShock.Modifications.Explos
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{3FB93F08-4F2C-4261-86D2-992C183F4FD4}"
 	ProjectSection(SolutionItems) = preProject
-		readme.txt = readme.txt
+		build_instructions.txt = build_instructions.txt
 	EndProjectSection
 EndProject
 Global

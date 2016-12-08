@@ -10,7 +10,7 @@ namespace TShock.Modifications.Bootstrapper
 	{
 		static Patcher patcher;
 		static OptionSet options;
-		
+
 		static void Main(string[] args)
 		{
 			string sourceAsm = null;
@@ -50,7 +50,10 @@ namespace TShock.Modifications.Bootstrapper
 
 			patcher = new Patcher(sourceAsm, new[] {
 				modificationGlob
-			}, outputPath);
+			}, outputPath)
+			{
+				PackModifications = false
+			};
 			patcher.Run();
 		}
 	}

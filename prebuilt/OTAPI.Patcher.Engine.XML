@@ -259,6 +259,11 @@
             patch assemblies.
             </summary>
         </member>
+        <member name="P:OTAPI.Patcher.Engine.Patcher.PackModifications">
+            <summary>
+            Gets or sets the flag to indicate that the source modification should be merged with the modifications
+            </summary>
+        </member>
         <member name="F:OTAPI.Patcher.Engine.Patcher.tempSourceOutput">
             <summary>
             Temporary storage path for the patched source assembly.
