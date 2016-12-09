@@ -17,7 +17,7 @@ namespace TShock.Modifications.Bootstrapper
 			string modificationGlob = null;
 			string outputPath = null;
 
-			Console.WriteLine("Open Terraria API v2.0");
+			Console.WriteLine("TShock Mintaka Bootstrapper, Open Terraria API v2.0");
 
 			if (args.Length == 0)
 			{
