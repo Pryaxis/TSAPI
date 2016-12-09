@@ -347,16 +347,12 @@ namespace TerrariaApi.Server
 
                 return HookResult.Continue;
             };
-            #region Projectile Hooks
-            Hooks.Projectile.PreSetDefaultsById = (Projectile projectile, ref int type) =>
-            {
-                if (InvokeProjectileSetDefaults(ref type, projectile))
-                {
-                    return HookResult.Cancel;
-                }
-                return HookResult.Continue;
-            };
-            Hooks.Projectile.PreAI = (Projectile projectile) =>
+			#region Projectile Hooks
+			Hooks.Projectile.PostSetDefaultsById = (Projectile projectile, int type) =>
+			{
+				InvokeProjectileSetDefaults(ref type, projectile);
+			};
+			Hooks.Projectile.PreAI = (Projectile projectile) =>
             {
                 if (InvokeProjectileAIUpdate(projectile))
                 {
