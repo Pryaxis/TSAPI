@@ -92,11 +92,11 @@ namespace TerrariaApi.Server
             };
             OTAPI.Hooks.World.Statue = (StatueType caller, float x, float y, int type, ref int num, ref int num2, ref int num3) =>
             {
-                if (InvokeGameStatueSpawn(num2, num3, num, (int)x, (int)y, type, caller == StatueType.Item))
+                if (InvokeGameStatueSpawn(num2, num3, num, (int)x, (int)y, type, caller == StatueType.Npc))
                 {
-                    return HookResult.Cancel;
+                    return HookResult.Continue;
                 }
-                return OTAPI.HookResult.Continue;
+                return OTAPI.HookResult.Cancel;
             };
             #endregion
             #region Item Hooks
@@ -437,7 +437,7 @@ namespace TerrariaApi.Server
         #endregion
         #region Game Hooks
         #region GameUpdate
-        private readonly HandlerCollection<EventArgs> gameUpdate = 
+        private readonly HandlerCollection<EventArgs> gameUpdate =
 			new HandlerCollection<EventArgs>("GameUpdate");
 
 		public HandlerCollection<EventArgs> GameUpdate
@@ -465,7 +465,7 @@ namespace TerrariaApi.Server
 		#endregion
 
 		#region GamePostUpdate
-		private readonly HandlerCollection<EventArgs> gamePostUpdate = 
+		private readonly HandlerCollection<EventArgs> gamePostUpdate =
 			new HandlerCollection<EventArgs>("GamePostUpdate");
 
 		public HandlerCollection<EventArgs> GamePostUpdate
@@ -480,7 +480,7 @@ namespace TerrariaApi.Server
 		#endregion
 
 		#region GameHardmodeTileUpdate
-		private readonly HandlerCollection<HardmodeTileUpdateEventArgs> gameHardmodeTileUpdate = 
+		private readonly HandlerCollection<HardmodeTileUpdateEventArgs> gameHardmodeTileUpdate =
 			new HandlerCollection<HardmodeTileUpdateEventArgs>("GameHardmodeTileUpdate");
 
 		public HandlerCollection<HardmodeTileUpdateEventArgs> GameHardmodeTileUpdate
@@ -503,7 +503,7 @@ namespace TerrariaApi.Server
 		#endregion
 
 		#region GameInitialize
-		private readonly HandlerCollection<EventArgs> gameInitialize = 
+		private readonly HandlerCollection<EventArgs> gameInitialize =
 			new HandlerCollection<EventArgs>("GameInitialize");
 
 		public HandlerCollection<EventArgs> GameInitialize
@@ -518,7 +518,7 @@ namespace TerrariaApi.Server
 		#endregion
 
 		#region GamePostInitialize
-		private readonly HandlerCollection<EventArgs> gamePostInitialize = 
+		private readonly HandlerCollection<EventArgs> gamePostInitialize =
 			new HandlerCollection<EventArgs>("GamePostInitialize");
 
 		public HandlerCollection<EventArgs> GamePostInitialize
@@ -533,7 +533,7 @@ namespace TerrariaApi.Server
 		#endregion
 
 		#region GameWorldConnect
-		private readonly HandlerCollection<EventArgs> gameWorldConnect = 
+		private readonly HandlerCollection<EventArgs> gameWorldConnect =
 			new HandlerCollection<EventArgs>("GameWorldConnect");
 
 		public HandlerCollection<EventArgs> GameWorldConnect
@@ -548,7 +548,7 @@ namespace TerrariaApi.Server
 		#endregion
 
 		#region GameWorldDisconnect
-		private readonly HandlerCollection<EventArgs> gameWorldDisconnect = 
+		private readonly HandlerCollection<EventArgs> gameWorldDisconnect =
 			new HandlerCollection<EventArgs>("GameWorldDisconnect");
 
 		public HandlerCollection<EventArgs> GameWorldDisconnect
@@ -563,7 +563,7 @@ namespace TerrariaApi.Server
 		#endregion
 
 		#region GameStatueSpawn
-		private readonly HandlerCollection<StatueSpawnEventArgs> gameStatueSpawn = 
+		private readonly HandlerCollection<StatueSpawnEventArgs> gameStatueSpawn =
 			new HandlerCollection<StatueSpawnEventArgs>("GameStatueSpawn");
 
 		public HandlerCollection<StatueSpawnEventArgs> GameStatueSpawn
@@ -592,7 +592,7 @@ namespace TerrariaApi.Server
 
 		#region Item Hooks
 		#region ItemSetDefaultsInt
-		private readonly HandlerCollection<SetDefaultsEventArgs<Item, int>> itemSetDefaultsInt = 
+		private readonly HandlerCollection<SetDefaultsEventArgs<Item, int>> itemSetDefaultsInt =
 			new HandlerCollection<SetDefaultsEventArgs<Item, int>>("ItemSetDefaultsInt");
 
 		public HandlerCollection<SetDefaultsEventArgs<Item, int>> ItemSetDefaultsInt
@@ -616,7 +616,7 @@ namespace TerrariaApi.Server
 		#endregion
 
 		#region ItemSetDefaultsString
-		private readonly HandlerCollection<SetDefaultsEventArgs<Item, string>> itemSetDefaultsString = 
+		private readonly HandlerCollection<SetDefaultsEventArgs<Item, string>> itemSetDefaultsString =
 			new HandlerCollection<SetDefaultsEventArgs<Item, string>>("ItemSetDefaultsString");
 
 		public HandlerCollection<SetDefaultsEventArgs<Item, string>> ItemSetDefaultsString
@@ -640,7 +640,7 @@ namespace TerrariaApi.Server
 		#endregion
 
 		#region ItemNetDefaults
-		private readonly HandlerCollection<SetDefaultsEventArgs<Item, int>> itemNetDefaults = 
+		private readonly HandlerCollection<SetDefaultsEventArgs<Item, int>> itemNetDefaults =
 			new HandlerCollection<SetDefaultsEventArgs<Item, int>>("ItemNetDefaults");
 
 		public HandlerCollection<SetDefaultsEventArgs<Item, int>> ItemNetDefaults
@@ -690,7 +690,7 @@ namespace TerrariaApi.Server
 
 		#region Net Hooks
 		#region NetSendData
-		private readonly HandlerCollection<SendDataEventArgs> netSendData = 
+		private readonly HandlerCollection<SendDataEventArgs> netSendData =
 			new HandlerCollection<SendDataEventArgs>("NetSendData");
 
 		public HandlerCollection<SendDataEventArgs> NetSendData
@@ -737,7 +737,7 @@ namespace TerrariaApi.Server
 		#endregion
 
 		#region NetGetData
-		private readonly HandlerCollection<GetDataEventArgs> netGetData = 
+		private readonly HandlerCollection<GetDataEventArgs> netGetData =
 			new HandlerCollection<GetDataEventArgs>("NetGetData");
 
 		public HandlerCollection<GetDataEventArgs> NetGetData
@@ -810,9 +810,9 @@ namespace TerrariaApi.Server
 
 			GetDataEventArgs args = new GetDataEventArgs
 			{
-				MsgID = (PacketTypes)msgId, 
-				Msg = buffer, 
-				Index = index, 
+				MsgID = (PacketTypes)msgId,
+				Msg = buffer,
+				Index = index,
 				Length = length
 			};
 
@@ -826,7 +826,7 @@ namespace TerrariaApi.Server
 		#endregion
 
 		#region NetGreetPlayer
-		private readonly HandlerCollection<GreetPlayerEventArgs> netGreetPlayer = 
+		private readonly HandlerCollection<GreetPlayerEventArgs> netGreetPlayer =
 			new HandlerCollection<GreetPlayerEventArgs>("NetGreetPlayer");
 
 		public HandlerCollection<GreetPlayerEventArgs> NetGreetPlayer
@@ -842,13 +842,13 @@ namespace TerrariaApi.Server
 			};
 
 			this.NetGreetPlayer.Invoke(args);
-			
+
 			return args.Handled;
 		}
 		#endregion
 
 		#region NetSendBytes
-		private readonly HandlerCollection<SendBytesEventArgs> netSendBytes = 
+		private readonly HandlerCollection<SendBytesEventArgs> netSendBytes =
 			new HandlerCollection<SendBytesEventArgs>("NetSendBytes");
 
 		public HandlerCollection<SendBytesEventArgs> NetSendBytes
@@ -872,7 +872,7 @@ namespace TerrariaApi.Server
 		#endregion
 
 		#region NetNameCollision
-		private readonly HandlerCollection<NameCollisionEventArgs> netNameCollision = 
+		private readonly HandlerCollection<NameCollisionEventArgs> netNameCollision =
 			new HandlerCollection<NameCollisionEventArgs>("NetNameCollision");
 
 		public HandlerCollection<NameCollisionEventArgs> NetNameCollision
@@ -896,7 +896,7 @@ namespace TerrariaApi.Server
 
 		#region Npc Hooks
 		#region NpcSetDefaultsInt
-		private readonly HandlerCollection<SetDefaultsEventArgs<NPC, int>> npcSetDefaultsInt = 
+		private readonly HandlerCollection<SetDefaultsEventArgs<NPC, int>> npcSetDefaultsInt =
 			new HandlerCollection<SetDefaultsEventArgs<NPC, int>>("NpcSetDefaultsInt");
 
 		public HandlerCollection<SetDefaultsEventArgs<NPC, int>> NpcSetDefaultsInt
@@ -908,7 +908,7 @@ namespace TerrariaApi.Server
 		{
 			SetDefaultsEventArgs<NPC, int> args = new SetDefaultsEventArgs<NPC, int>
 			{
-				Object = npc, 
+				Object = npc,
 				Info = npcType
 			};
 
@@ -920,7 +920,7 @@ namespace TerrariaApi.Server
 		#endregion
 
 		#region NpcSetDefaultsString
-		private readonly HandlerCollection<SetDefaultsEventArgs<NPC, string>> npcSetDefaultsString = 
+		private readonly HandlerCollection<SetDefaultsEventArgs<NPC, string>> npcSetDefaultsString =
 			new HandlerCollection<SetDefaultsEventArgs<NPC, string>>("NpcSetDefaultsString");
 
 		public HandlerCollection<SetDefaultsEventArgs<NPC, string>> NpcSetDefaultsString
@@ -932,7 +932,7 @@ namespace TerrariaApi.Server
 		{
 			SetDefaultsEventArgs<NPC, string> args = new SetDefaultsEventArgs<NPC, string>
 			{
-				Object = npc, 
+				Object = npc,
 				Info = npcName
 			};
 
@@ -944,7 +944,7 @@ namespace TerrariaApi.Server
 		#endregion
 
 		#region NpcNetDefaults
-		private readonly HandlerCollection<SetDefaultsEventArgs<NPC, int>> npcNetDefaults = 
+		private readonly HandlerCollection<SetDefaultsEventArgs<NPC, int>> npcNetDefaults =
 			new HandlerCollection<SetDefaultsEventArgs<NPC, int>>("NpcNetDefaults");
 
 		public HandlerCollection<SetDefaultsEventArgs<NPC, int>> NpcNetDefaults
@@ -968,7 +968,7 @@ namespace TerrariaApi.Server
 		#endregion
 
 		#region NpcStrike
-		private readonly HandlerCollection<NpcStrikeEventArgs> npcStrike = 
+		private readonly HandlerCollection<NpcStrikeEventArgs> npcStrike =
 			new HandlerCollection<NpcStrikeEventArgs>("NpcStrike");
 
 		public HandlerCollection<NpcStrikeEventArgs> NpcStrike
@@ -977,15 +977,15 @@ namespace TerrariaApi.Server
 		}
 
 		internal bool InvokeNpcStrike(
-			NPC npc, ref int damage, ref float knockback, ref int hitDirection, ref bool crit, ref bool noEffect, 
+			NPC npc, ref int damage, ref float knockback, ref int hitDirection, ref bool crit, ref bool noEffect,
 			ref bool fromNet, Player player)
 		{
 			NpcStrikeEventArgs args = new NpcStrikeEventArgs
 			{
-				Npc = npc, 
-				Damage = damage, 
-				KnockBack = knockback, 
-				HitDirection = hitDirection, 
+				Npc = npc,
+				Damage = damage,
+				KnockBack = knockback,
+				HitDirection = hitDirection,
 				Critical = crit,
 				NoEffect = noEffect,
 				FromNet = fromNet,
@@ -1027,7 +1027,7 @@ namespace TerrariaApi.Server
 		#endregion
 
 		#region NpcSpawn
-		private readonly HandlerCollection<NpcSpawnEventArgs> npcSpawn = 
+		private readonly HandlerCollection<NpcSpawnEventArgs> npcSpawn =
 			new HandlerCollection<NpcSpawnEventArgs>("NpcSpawn");
 
 		public HandlerCollection<NpcSpawnEventArgs> NpcSpawn
@@ -1049,7 +1049,7 @@ namespace TerrariaApi.Server
 		#endregion
 
 		#region NpcLootDrop
-		private readonly HandlerCollection<NpcLootDropEventArgs> npcLootDrop = 
+		private readonly HandlerCollection<NpcLootDropEventArgs> npcLootDrop =
 			new HandlerCollection<NpcLootDropEventArgs>("NpcLootDrop");
 
 		public HandlerCollection<NpcLootDropEventArgs> NpcLootDrop
@@ -1058,7 +1058,7 @@ namespace TerrariaApi.Server
 		}
 
 		internal bool InvokeNpcLootDrop(
-			ref Vector2 position, ref int w, ref int h, ref int itemId, ref int stack, ref bool broadcast, ref int prefix, 
+			ref Vector2 position, ref int w, ref int h, ref int itemId, ref int stack, ref bool broadcast, ref int prefix,
 			int npcId, int npcArrayIndex, ref bool nodelay, ref bool reverseLookup)
 		{
 			NpcLootDropEventArgs args = new NpcLootDropEventArgs
@@ -1091,7 +1091,7 @@ namespace TerrariaApi.Server
 		#endregion
 
 		#region NpcTriggerPressurePlate
-		private readonly HandlerCollection<TriggerPressurePlateEventArgs<NPC>> npcTriggerPressurePlate = 
+		private readonly HandlerCollection<TriggerPressurePlateEventArgs<NPC>> npcTriggerPressurePlate =
 			new HandlerCollection<TriggerPressurePlateEventArgs<NPC>>("NpcTriggerPressurePlate");
 
 		public HandlerCollection<TriggerPressurePlateEventArgs<NPC>> NpcTriggerPressurePlate
@@ -1123,7 +1123,7 @@ namespace TerrariaApi.Server
 			get { return this.dropBossBag; }
 		}
 
-		internal bool InvokeDropBossBag(ref Vector2 position, ref int w, ref int h, ref int itemId, ref int stack, ref bool broadcast, ref int prefix, 
+		internal bool InvokeDropBossBag(ref Vector2 position, ref int w, ref int h, ref int itemId, ref int stack, ref bool broadcast, ref int prefix,
 			int npcId, int npcArrayIndex, ref bool nodelay, ref bool reverseLookup)
 		{
 			DropBossBagEventArgs args = new DropBossBagEventArgs
@@ -1180,7 +1180,7 @@ namespace TerrariaApi.Server
 
 		#region Player Hooks
 		#region PlayerUpdatePhysics
-		private readonly HandlerCollection<UpdatePhysicsEventArgs> playerUpdatePhysics = 
+		private readonly HandlerCollection<UpdatePhysicsEventArgs> playerUpdatePhysics =
 			new HandlerCollection<UpdatePhysicsEventArgs>("PlayerUpdatePhysics");
 
 		public HandlerCollection<UpdatePhysicsEventArgs> PlayerUpdatePhysics
@@ -1206,7 +1206,7 @@ namespace TerrariaApi.Server
 		{
 			get { return this.playerTriggerPressurePlate; }
 		}
-		
+
 		internal bool InvokePlayerTriggerPressurePlate(Player player, int tileX, int tileY)
 		{
 			TriggerPressurePlateEventArgs<Player> args = new TriggerPressurePlateEventArgs<Player>
@@ -1225,7 +1225,7 @@ namespace TerrariaApi.Server
 
 		#region Projectile Hooks
 		#region ProjectileSetDefaults
-		private readonly HandlerCollection<SetDefaultsEventArgs<Projectile, int>> projectileSetDefaults = 
+		private readonly HandlerCollection<SetDefaultsEventArgs<Projectile, int>> projectileSetDefaults =
 			new HandlerCollection<SetDefaultsEventArgs<Projectile, int>>("ProjectileSetDefaults");
 
 		public HandlerCollection<SetDefaultsEventArgs<Projectile, int>> ProjectileSetDefaults
@@ -1249,7 +1249,7 @@ namespace TerrariaApi.Server
 		#endregion
 
 		#region ProjectileTriggerPressurePlate
-		private readonly HandlerCollection<TriggerPressurePlateEventArgs<Projectile>> projectileTriggerPressurePlate = 
+		private readonly HandlerCollection<TriggerPressurePlateEventArgs<Projectile>> projectileTriggerPressurePlate =
 			new HandlerCollection<TriggerPressurePlateEventArgs<Projectile>>("ProjectileTriggerPressurePlate");
 
 		public HandlerCollection<TriggerPressurePlateEventArgs<Projectile>> ProjectileTriggerPressurePlate
@@ -1297,7 +1297,7 @@ namespace TerrariaApi.Server
 
 		#region Server Hooks
 		#region ServerCommand
-		private readonly HandlerCollection<CommandEventArgs> serverCommand = 
+		private readonly HandlerCollection<CommandEventArgs> serverCommand =
 			new HandlerCollection<CommandEventArgs>("ServerCommand");
 
 		public HandlerCollection<CommandEventArgs> ServerCommand
@@ -1318,7 +1318,7 @@ namespace TerrariaApi.Server
 		#endregion
 
 		#region ServerConnect
-		private readonly HandlerCollection<ConnectEventArgs> serverConnect = 
+		private readonly HandlerCollection<ConnectEventArgs> serverConnect =
 			new HandlerCollection<ConnectEventArgs>("ServerConnect");
 
 		public HandlerCollection<ConnectEventArgs> ServerConnect
@@ -1344,7 +1344,7 @@ namespace TerrariaApi.Server
 		#endregion
 
 		#region ServerJoin
-		private readonly HandlerCollection<JoinEventArgs> serverJoin = 
+		private readonly HandlerCollection<JoinEventArgs> serverJoin =
 			new HandlerCollection<JoinEventArgs>("ServerJoin");
 
 		public HandlerCollection<JoinEventArgs> ServerJoin
@@ -1365,7 +1365,7 @@ namespace TerrariaApi.Server
 		#endregion
 
 		#region ServerLeave
-		private readonly HandlerCollection<LeaveEventArgs> serverLeave = 
+		private readonly HandlerCollection<LeaveEventArgs> serverLeave =
 			new HandlerCollection<LeaveEventArgs>("ServerLeave");
 
 		public HandlerCollection<LeaveEventArgs> ServerLeave
@@ -1385,7 +1385,7 @@ namespace TerrariaApi.Server
 		#endregion
 
 		#region ServerChat
-		private readonly HandlerCollection<ServerChatEventArgs> serverChat = 
+		private readonly HandlerCollection<ServerChatEventArgs> serverChat =
 			new HandlerCollection<ServerChatEventArgs>("ServerChat");
 
 		public HandlerCollection<ServerChatEventArgs> ServerChat
@@ -1436,7 +1436,7 @@ namespace TerrariaApi.Server
 		#endregion
 
 		#region ServerSocketReset
-		private readonly HandlerCollection<SocketResetEventArgs> serverSocketReset = 
+		private readonly HandlerCollection<SocketResetEventArgs> serverSocketReset =
 			new HandlerCollection<SocketResetEventArgs>("ServerSocketReset");
 
 		public HandlerCollection<SocketResetEventArgs> ServerSocketReset
@@ -1458,7 +1458,7 @@ namespace TerrariaApi.Server
 
 		#region World Hooks
 		#region WorldSave
-		private readonly HandlerCollection<WorldSaveEventArgs> worldSave = 
+		private readonly HandlerCollection<WorldSaveEventArgs> worldSave =
 			new HandlerCollection<WorldSaveEventArgs>("WorldSave");
 
 		public HandlerCollection<WorldSaveEventArgs> WorldSave
@@ -1479,7 +1479,7 @@ namespace TerrariaApi.Server
 		#endregion
 
 		#region WorldStartHardMode
-		private readonly HandlerCollection<HandledEventArgs> worldStartHardMode = 
+		private readonly HandlerCollection<HandledEventArgs> worldStartHardMode =
 			new HandlerCollection<HandledEventArgs>("WorldStartHardMode");
 
 		public HandlerCollection<HandledEventArgs> WorldStartHardMode
@@ -1496,7 +1496,7 @@ namespace TerrariaApi.Server
 		#endregion
 
 		#region WorldMeteorDrop
-		private readonly HandlerCollection<MeteorDropEventArgs> worldMeteorDrop = 
+		private readonly HandlerCollection<MeteorDropEventArgs> worldMeteorDrop =
 			new HandlerCollection<MeteorDropEventArgs>("WorldMeteorDrop");
 
 		public HandlerCollection<MeteorDropEventArgs> WorldMeteorDrop
@@ -1518,7 +1518,7 @@ namespace TerrariaApi.Server
 		#endregion
 
 		#region WorldChristmasCheck
-		private readonly HandlerCollection<ChristmasCheckEventArgs> worldChristmasCheck = 
+		private readonly HandlerCollection<ChristmasCheckEventArgs> worldChristmasCheck =
 			new HandlerCollection<ChristmasCheckEventArgs>("WorldChristmasCheck");
 
 		public HandlerCollection<ChristmasCheckEventArgs> WorldChristmasCheck
@@ -1573,7 +1573,7 @@ namespace TerrariaApi.Server
 			get { return this.wireTriggerAnnouncementBox; }
 		}
 
-		internal bool InvokeWireTriggerAnnouncementBox(int player, int tileX, int tileY, int signIndex, string text) 
+		internal bool InvokeWireTriggerAnnouncementBox(int player, int tileX, int tileY, int signIndex, string text)
 		{
 			TriggerAnnouncementBoxEventArgs args = new TriggerAnnouncementBoxEventArgs
 			{

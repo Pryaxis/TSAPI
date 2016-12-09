@@ -21,12 +21,12 @@ namespace TShock.Modifications.Bootstrapper
 
 			if (args.Length == 0)
 			{
-				args = args.Concat(new[]
+				args = new[]
 				{
 					@"-in=OTAPI.dll",
 					@"-mod=..\..\..\TShock.Modifications.**\bin\Debug\TShock.Modifications.*.dll",
 					@"-o=Output\OTAPI.dll"
-				}).ToArray();
+				};
 			}
 
 			options = new OptionSet();

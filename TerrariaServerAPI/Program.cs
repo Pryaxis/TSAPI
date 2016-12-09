@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
-using Terraria;
+using System.Linq;
 using Terraria.ID;
 using TerrariaApi.Server;
 
@@ -34,58 +34,32 @@ namespace OTAPI.Shims.TShock
 			AppDomain.CurrentDomain.UnhandledException += UnhandledException;
 			try
 			{
-				//AppDomain.CurrentDomain.AssemblyResolve += delegate (object sender, ResolveEventArgs sargs)
-				//{
-				//	if (sargs.Name.StartsWith("TerrariaServer"))
-				//	{
-				//		return typeof(OTAPI.Shims.TShock.Program).Assembly;
-				//	}
-				//	return null;
-				//};
-
-				//Terraria.Program.LaunchParameters = Utils.ParseArguements(args);
-
-				//InitialiseInternals();
-
-				////Game = new Main();
-
-				//try
-				//{
-				//	Console.WriteLine("TerrariaAPI Version: " + ServerApi.ApiVersion + " (Protocol {0} ({1}), OTAPI {2})",
-				//		Terraria.Main.versionNumber2, Terraria.Main.curRelease,
-				//		typeof(OTAPI.Hooks).Assembly.GetName().Version);
-				//	ServerApi.Initialize(args, Game);
-				//}
-				//catch (Exception ex)
-				//{
-				//	ServerApi.LogWriter.ServerWriteLine(
-				//		"Startup aborted due to an exception in the Server API initialization:\n" + ex, TraceLevel.Error);
-
-				//	Console.ReadLine();
-				//	return;
-				//}
-
-
-				//Game.DedServ();
-
-				OTAPI.Shims.TShock.Program.InitialiseInternals();
+				InitialiseInternals();
 				ServerApi.Hooks.AttachHooks(args);
 
-                //TODO: temporary fix until OTAPI's shims are in place
-                Terraria.Main.SkipAssemblyLoad = true;
+				if (args.Any(x => x == "-skipassemblyload"))
+				{
+					Terraria.Main.SkipAssemblyLoad = true;
+				}
 
 				Terraria.WindowsLaunch.Main(args);
 				ServerApi.DeInitialize();
 			}
-			catch (Exception exception1)
+			catch (Exception ex)
 			{
-				ServerApi.LogWriter.ServerWriteLine("Server crashed due to an unhandled exception:\n" + exception1, TraceLevel.Error);
+				ServerApi.LogWriter.ServerWriteLine("Server crashed due to an unhandled exception:\n" + ex, TraceLevel.Error);
 			}
 		}
 
+		/// <summary>
+		/// TShock sets up its own unhandled exception handler; this one is just to catch possible
+		/// startup exceptions
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private static void UnhandledException(object sender, UnhandledExceptionEventArgs e)
 		{
-			Console.WriteLine("Unhandled exception");
+			Console.WriteLine($"Unhandled exception\n{e}");
 		}
 	}
 }
