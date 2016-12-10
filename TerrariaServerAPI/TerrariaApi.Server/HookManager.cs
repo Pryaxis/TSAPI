@@ -154,8 +154,7 @@ namespace TerrariaApi.Server
 
                 return HookResult.Continue;
             };
-            Hooks.Net.ReceiveData = (MessageBuffer buffer, ref byte packetId, ref int readOffset, ref int start, ref int length,
-                  ref int messageType) =>
+            Hooks.Net.ReceiveData = (MessageBuffer buffer, ref byte packetId, ref int readOffset, ref int start, ref int length) =>
             {
                 try
                 {
@@ -225,7 +224,7 @@ namespace TerrariaApi.Server
                 }
                 return HookResult.Continue;
             };
-            Hooks.Npc.Strike = (NPC npc, ref int cancelResult, ref int damage, ref float knockBack,
+            Hooks.Npc.Strike = (NPC npc, ref double cancelResult, ref int damage, ref float knockBack,
                ref int hitDirection, ref bool critical, ref bool noEffect, ref bool fromNet, Entity entity) =>
             {
                 var player = entity as Player;
@@ -312,7 +311,7 @@ namespace TerrariaApi.Server
                 return HookResult.Continue;
             };
             #endregion
-            Hooks.Collision.PressurePlate = (ref int x, ref int y, ref Entity entity) =>
+            Hooks.Collision.PressurePlate = (ref int x, ref int y, ref IEntity entity) =>
             {
                 var npc = entity as NPC;
                 if (npc != null)

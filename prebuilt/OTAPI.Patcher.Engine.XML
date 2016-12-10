@@ -287,7 +287,9 @@
             Creates a new instance of the patcher with the specified source assembly path and
             a glob containing all the modification assemblies.
             </summary>
-            <param name="SourceAssemblyPath"></param>
+            <param name="sourceAssemblyPath">Path to the source assembly that modifications need to applied to</param>
+            <param name="modificationAssemblyGlob">A list of globs that yields a list of modifications</param>
+            <param name="outputAssemblyPath">Path for the modified assembly to be saved</param>
         </member>
         <member name="M:OTAPI.Patcher.Engine.Patcher.AllowDuplicateModificationTypes(System.Collections.Hashtable)">
             <summary>
