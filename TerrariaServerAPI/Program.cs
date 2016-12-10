@@ -37,18 +37,27 @@ namespace OTAPI.Shims.TShock
 				InitialiseInternals();
 				ServerApi.Hooks.AttachHooks(args);
 
-				if (args.Any(x => x == "-skipassemblyload"))
-				{
-					Terraria.Main.SkipAssemblyLoad = true;
-				}
+				// avoid any Terraria.Main calls here or the heaptile hook will not work.
+				// this is because the hook is executed on the Terraria.Main static constructor,
+				// and simply referencing it in this method will trigger the constructor.
+				StartServer(args);
 
-				Terraria.WindowsLaunch.Main(args);
 				ServerApi.DeInitialize();
 			}
 			catch (Exception ex)
 			{
 				ServerApi.LogWriter.ServerWriteLine("Server crashed due to an unhandled exception:\n" + ex, TraceLevel.Error);
 			}
+		}
+		
+		static void StartServer(string[] args)
+		{
+			if (args.Any(x => x == "-skipassemblyload"))
+			{
+				Terraria.Main.SkipAssemblyLoad = true;
+			}
+
+			Terraria.WindowsLaunch.Main(args);
 		}
 
 		/// <summary>
