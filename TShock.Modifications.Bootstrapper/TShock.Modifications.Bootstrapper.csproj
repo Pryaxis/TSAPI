@@ -69,9 +69,8 @@
       <HintPath>..\packages\NuGet.Core.2.12.0\lib\net40-Client\NuGet.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="OTAPI, Version=1.3.4.4, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\OTAPI.2.0.0.14\lib\net451\OTAPI.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="OTAPI">
+      <HintPath>..\packages\OTAPI.2.0.0.15\lib\net451\OTAPI.dll</HintPath>
     </Reference>
     <Reference Include="OTAPI.Patcher.Engine">
       <HintPath>..\prebuilt\OTAPI.Patcher.Engine.dll</HintPath>
