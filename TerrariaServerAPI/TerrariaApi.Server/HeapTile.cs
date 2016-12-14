@@ -26,15 +26,11 @@
             this.offset = (Terraria.Main.maxTilesY * x + y) * kHeapTileSize;
             this.x = x;
             this.y = y;
-
-			// reset all values to 0 manually since we disable resetting in the base constructor
-			base.Initialise();
         }
 
 		public override void Initialise()
 		{
-			// called in the base constructor
-			// here we prevent initialisation before the heap array is set.
+			// here we prevent reinitialisation of the tile which would reset the tile in the heap
 
 			//base.Initialise();
 		}
