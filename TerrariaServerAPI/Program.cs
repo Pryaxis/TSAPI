@@ -8,8 +8,9 @@ namespace OTAPI.Shims.TShock
 {
 	class Program
 	{
-		//private static Main Game;
-
+		/// <summary>
+		/// Initialises any internal values before any server initialisation begins
+		/// </summary>
 		public static void InitialiseInternals()
 		{
 			ItemID.Sets.Explosives = ItemID.Sets.Factory.CreateBoolSet(new int[]
@@ -35,7 +36,7 @@ namespace OTAPI.Shims.TShock
 			try
 			{
 				InitialiseInternals();
-				ServerApi.Hooks.AttachHooks(args);
+				ServerApi.Hooks.AttachOTAPIHooks(args);
 
 				// avoid any Terraria.Main calls here or the heaptile hook will not work.
 				// this is because the hook is executed on the Terraria.Main static constructor,
@@ -49,7 +50,7 @@ namespace OTAPI.Shims.TShock
 				ServerApi.LogWriter.ServerWriteLine("Server crashed due to an unhandled exception:\n" + ex, TraceLevel.Error);
 			}
 		}
-		
+
 		static void StartServer(string[] args)
 		{
 			if (args.Any(x => x == "-skipassemblyload"))

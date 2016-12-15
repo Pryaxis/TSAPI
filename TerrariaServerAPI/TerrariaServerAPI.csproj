@@ -149,7 +149,15 @@
     <Compile Include="TerrariaApi.Server\HandlerCollection.cs" />
     <Compile Include="TerrariaApi.Server\HandlerRegistration.cs" />
     <Compile Include="TerrariaApi.Server\HeapTile.cs" />
+    <Compile Include="TerrariaApi.Server\Hooking\GameHooks.cs" />
+    <Compile Include="TerrariaApi.Server\Hooking\ItemHooks.cs" />
+    <Compile Include="TerrariaApi.Server\Hooking\NpcHooks.cs" />
+    <Compile Include="TerrariaApi.Server\Hooking\ProjectileHooks.cs" />
+    <Compile Include="TerrariaApi.Server\Hooking\ServerHooks.cs" />
+    <Compile Include="TerrariaApi.Server\Hooking\WiringHooks.cs" />
+    <Compile Include="TerrariaApi.Server\Hooking\WorldHooks.cs" />
     <Compile Include="TerrariaApi.Server\HookManager.cs" />
+    <Compile Include="TerrariaApi.Server\Hooking\NetHooks.cs" />
     <Compile Include="TerrariaApi.Server\ILogWriter.cs" />
     <Compile Include="TerrariaApi.Server\IProfiler.cs" />
     <Compile Include="TerrariaApi.Server\LogWriterManager.cs" />
