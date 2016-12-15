@@ -58,7 +58,7 @@ namespace TerrariaApi.Server.Hooking
 			{
 				return HookResult.Continue;
 			}
-			return .Cancel;
+			return HookResult.Cancel;
 		}
 	}
 }
