@@ -20,7 +20,7 @@ namespace TShock.Modifications.SSC
 		public override string Description => "Adding server side character support...";
 		public override void Run()
 		{
-			var sendData = this.Method(() => Terraria.NetMessage.SendDataDirect(0, 0, 0, "", 0, 0, 0, 0, 0, 0, 0));
+			var sendData = this.Method(() => Terraria.NetMessage.SendDataDirect(0, 0, 0, Terraria.Localization.NetworkText.Empty, 0, 0, 0, 0, 0, 0, 0));
 
 			//find the offset where we want to inject the Terraria.Main.ServerSideCharacter variable
 			var downedClown = sendData.Body.Instructions.Single( //expect one for the signature this modification is based around.
