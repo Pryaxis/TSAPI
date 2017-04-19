@@ -8,7 +8,7 @@ namespace TShock.Modifications.Explosives
 	{
 		public override System.Collections.Generic.IEnumerable<string> AssemblyTargets => new[]
 		{
-			"OTAPI, Version=1.3.5.0, Culture=neutral, PublicKeyToken=null"
+			"OTAPI, Version=1.3.5.1, Culture=neutral, PublicKeyToken=null"
 		};
 		public override string Description => "Adding ItemID.Sets.Explosives...";
 		public override void Run()
