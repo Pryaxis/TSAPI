@@ -182,12 +182,8 @@ namespace TerrariaApi.Server
 						goto case "-pass";
 					case "-lang":
 						{
-							if (!Int32.TryParse(arg.Value, out Lang.lang)) {
-								ServerApi.LogWriter.ServerWriteLine("Invalid language. Using English", TraceLevel.Warning);
-
-								Lang.lang = 1;
-							}
-
+							Terraria.Localization.LanguageManager.Instance.SetLanguage(arg.Value);
+							
 							break;
 						}
 					case "-worldname":

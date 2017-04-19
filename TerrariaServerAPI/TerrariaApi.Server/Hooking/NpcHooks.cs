@@ -17,7 +17,6 @@ namespace TerrariaApi.Server.Hooking
 			_hookManager = hookManager;
 
 			Hooks.Npc.PreSetDefaultsById = OnPreSetDefaultsById;
-			Hooks.Npc.PreSetDefaultsByName = OnPreSetDefaultsByName;
 			Hooks.Npc.PreNetDefaults = OnPreNetDefaults;
 			Hooks.Npc.Strike = OnStrike;
 			Hooks.Npc.PreTransform = OnPreTransform;
@@ -30,15 +29,6 @@ namespace TerrariaApi.Server.Hooking
 		static HookResult OnPreSetDefaultsById(NPC npc, ref int type, ref float scaleOverride)
 		{
 			if (_hookManager.InvokeNpcSetDefaultsInt(ref type, npc))
-			{
-				return HookResult.Cancel;
-			}
-			return HookResult.Continue;
-		}
-
-		static HookResult OnPreSetDefaultsByName(NPC npc, ref string name)
-		{
-			if (_hookManager.InvokeNpcSetDefaultsString(ref name, npc))
 			{
 				return HookResult.Cancel;
 			}

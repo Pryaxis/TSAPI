@@ -26,6 +26,10 @@ namespace TerrariaApi.Server
 
         protected readonly object syncRoot = new object();
 
+        public int Width { get; private set; }
+
+        public int Height { get; private set; }
+
         /// <summary>
         /// Retrieves the Terraria.Tile instance at X and Y position.  Used for ABI compatibility with all of
         /// TSAPI's tile accessor mechansims.

@@ -16,7 +16,6 @@ namespace TerrariaApi.Server.Hooking
 			_hookManager = hookManager;
 
 			Hooks.Item.PreSetDefaultsById = OnPreSetDefaultsById;
-			Hooks.Item.PreSetDefaultsByName = OnPreSetDefaultsByName;
 			Hooks.Item.PreNetDefaults = OnPreNetDefaults;
 			Hooks.Chest.QuickStack = OnQuickStack;
 		}
@@ -24,15 +23,6 @@ namespace TerrariaApi.Server.Hooking
 		static HookResult OnPreSetDefaultsById(Item item, ref int type, ref bool noMatCheck)
 		{
 			if (_hookManager.InvokeItemSetDefaultsInt(ref type, item))
-			{
-				return HookResult.Cancel;
-			}
-			return HookResult.Continue;
-		}
-
-		static HookResult OnPreSetDefaultsByName(Item item, ref string name)
-		{
-			if (_hookManager.InvokeItemSetDefaultsString(ref name, item))
 			{
 				return HookResult.Cancel;
 			}
