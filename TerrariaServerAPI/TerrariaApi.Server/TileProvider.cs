@@ -45,6 +45,8 @@ namespace TerrariaApi.Server
             {
 				if (tileHeap == null)
                 {
+                    this.Width = Terraria.Main.maxTilesX;
+                    this.Height = Terraria.Main.maxTilesY;
                     /*
                      * The checker must be null here, because Main.maxTilesX is always
                      * initialized to the large world size, wasting RAM for smaller
