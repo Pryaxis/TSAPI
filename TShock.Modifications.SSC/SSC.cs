@@ -15,7 +15,7 @@ namespace TShock.Modifications.SSC
 	{
 		public override System.Collections.Generic.IEnumerable<string> AssemblyTargets => new[]
 		{
-			"OTAPI, Version=1.3.4.4, Culture=neutral, PublicKeyToken=null"
+			"OTAPI, Version=1.3.5.0, Culture=neutral, PublicKeyToken=null"
 		};
 		public override string Description => "Adding server side character support...";
 		public override void Run()
