@@ -73,6 +73,7 @@ namespace TerrariaApi.Server
 			ForceUpdate = false;
 			Type t = Type.GetType("Mono.Runtime");
 			RunningMono = (t != null);
+			Main.SkipAssemblyLoad = true;
 		}
 
 		internal static void Initialize(string[] commandLineArgs, Main game)
