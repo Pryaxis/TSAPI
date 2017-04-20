@@ -415,15 +415,20 @@ namespace TerrariaApi.Server
 		private static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
 		{
 			string fileName = args.Name.Split(',')[0];
-			string path = Path.Combine(ServerPluginsDirectoryPath, fileName + ".dll");
+			IEnumerable<string> paths = Directory.EnumerateFiles(ServerPluginsDirectoryPath, "*.dll", SearchOption.AllDirectories)
+				.Concat(Directory.EnumerateFiles(ServerPluginsDirectoryPath, "*.dll-plugin", SearchOption.AllDirectories));
 			try
 			{
-				if (File.Exists(path))
+				string targetFile = paths.FirstOrDefault(
+					file => Path.GetFileName(file ?? "").Equals(fileName + ".dll", StringComparison.OrdinalIgnoreCase) ||
+					        Path.GetFileName(file ?? "").Equals(fileName + ".dll-plugin", StringComparison.OrdinalIgnoreCase));
+
+				if (File.Exists(targetFile))
 				{
 					Assembly assembly;
 					if (!loadedAssemblies.TryGetValue(fileName, out assembly))
 					{
-						assembly = Assembly.Load(File.ReadAllBytes(path));
+						assembly = Assembly.Load(File.ReadAllBytes(targetFile));
 						// We just do this to return a proper error message incase this is a resolved plugin assembly
 						// referencing an old TerrariaServer version.
 						if (!InvalidateAssembly(assembly, fileName))
