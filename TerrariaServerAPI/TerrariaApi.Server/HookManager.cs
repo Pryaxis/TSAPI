@@ -389,21 +389,27 @@ namespace TerrariaApi.Server
 						}
 
 						break;
-					case PacketTypes.ChatText:
-						var text = "";
+					case PacketTypes.LoadNetModule:
 						using (var stream = new MemoryStream(buffer.readBuffer))
 						{
 							stream.Position = index;
 							using (var reader = new BinaryReader(stream))
 							{
-								reader.ReadByte();
-								reader.ReadRGB();
-								text = reader.ReadString();
+								ushort moduleId = reader.ReadUInt16();
+								//LoadNetModule is now used for sending chat text.
+								//Read the module ID to determine if this is in fact the text module
+								if (moduleId == Terraria.Net.NetManager.Instance.GetId<Terraria.GameContent.NetModules.NetTextModule>())
+								{
+									//Then deserialize the message from the reader
+									Terraria.Chat.ChatMessage msg = Terraria.Chat.ChatMessage.Deserialize(reader);
+
+									if (InvokeServerChat(buffer, buffer.whoAmI, @msg.Text))
+									{
+										return true;
+									}
+								}
 							}
 						}
-
-						if (this.InvokeServerChat(buffer, buffer.whoAmI, @text))
-							return true;
 
 						break;
 
