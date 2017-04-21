@@ -70,7 +70,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="OTAPI, Version=1.3.5.1, Culture=neutral, PublicKeyToken=null">
-      <HintPath>../packages/OTAPI.2.0.0.21/lib/net451/OTAPI.dll</HintPath>
+      <HintPath>../packages/OTAPI.2.0.0.22/lib/net451/OTAPI.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="OTAPI.Patcher.Engine">
