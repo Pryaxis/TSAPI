@@ -403,7 +403,7 @@ namespace TerrariaApi.Server
 									//Then deserialize the message from the reader
 									Terraria.Chat.ChatMessage msg = Terraria.Chat.ChatMessage.Deserialize(reader);
 
-									if (InvokeServerChat(buffer, buffer.whoAmI, @msg.Text))
+									if (InvokeServerChat(buffer, buffer.whoAmI, @msg.Text, msg.CommandId))
 									{
 										return true;
 									}
@@ -1022,13 +1022,14 @@ namespace TerrariaApi.Server
 			get { return this.serverChat; }
 		}
 
-		internal bool InvokeServerChat(MessageBuffer buffer, int who, string text)
+		internal bool InvokeServerChat(MessageBuffer buffer, int who, string text, Terraria.Chat.ChatCommandId commandId)
 		{
 			ServerChatEventArgs args = new ServerChatEventArgs
 			{
 				Buffer = buffer,
 				Who = who,
-				Text = text
+				Text = text,
+				CommandId = commandId
 			};
 
 			this.ServerChat.Invoke(args);
