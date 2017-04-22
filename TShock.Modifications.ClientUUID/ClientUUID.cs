@@ -7,7 +7,7 @@ namespace TShock.Modifications.ClientUUID
 	{
 		public override System.Collections.Generic.IEnumerable<string> AssemblyTargets => new[]
 		{
-			"OTAPI, Version=1.3.5.2, Culture=neutral, PublicKeyToken=null"
+			"OTAPI, Version=1.3.5.1, Culture=neutral, PublicKeyToken=null"
 		};
 		public override string Description => "Adding RemoteClient.ClientUUID...";
 		public override void Run()
