@@ -415,8 +415,10 @@ namespace TerrariaApi.Server
 		private static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
 		{
 			string fileName = args.Name.Split(',')[0];
-			IEnumerable<string> paths = Directory.EnumerateFiles(ServerPluginsDirectoryPath, "*.dll", SearchOption.AllDirectories)
-				.Concat(Directory.EnumerateFiles(ServerPluginsDirectoryPath, "*.dll-plugin", SearchOption.AllDirectories));
+			string dir = Directory.GetParent(ServerPluginsDirectoryPath).FullName;
+			
+			IEnumerable<string> paths = Directory.EnumerateFiles(dir, "*.dll", SearchOption.AllDirectories)
+				.Concat(Directory.EnumerateFiles(dir, "*.dll-plugin", SearchOption.AllDirectories));
 			try
 			{
 				string targetFile = paths.FirstOrDefault(
