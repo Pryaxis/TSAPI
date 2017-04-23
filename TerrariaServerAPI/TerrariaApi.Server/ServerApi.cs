@@ -181,12 +181,6 @@ namespace TerrariaApi.Server
 						}
 					case "-password":
 						goto case "-pass";
-					case "-lang":
-						{
-							Terraria.Localization.LanguageManager.Instance.SetLanguage(arg.Value);
-
-							break;
-						}
 					case "-worldname":
 						{
 							game.SetWorldName(arg.Value);
