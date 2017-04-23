@@ -52,7 +52,7 @@ namespace TShock.Modifications.Bootstrapper
 				modificationGlob
 			}, outputPath)
 			{
-				PackModifications = false
+				PackModifications = true
 			};
 			patcher.Run();
 		}
