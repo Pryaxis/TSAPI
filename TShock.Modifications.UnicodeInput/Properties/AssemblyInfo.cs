@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("TShock.Modifications.UnicodeInput")]
+[assembly: AssemblyTitle("Mintaka.Modifications.UnicodeInput")]
 [assembly: AssemblyDescription("Modifies the TerrariaServer console I/O to make it compatible with macOS/Linux")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("TShock.Modifications.UnicodeInput")]
+[assembly: AssemblyProduct("Mintaka.Modifications.UnicodeInput")]
 [assembly: AssemblyCopyright("Copyright © Tyler Watson <tyler@tw.id.au> 2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

@@ -2,7 +2,7 @@
 using OTAPI.Patcher.Engine.Modification;
 using System.Linq;
 
-namespace TShock.Modifications.Explosives
+namespace Mintaka.Modifications.Explosives
 {
 	public class Explosives : ModificationBase
 	{

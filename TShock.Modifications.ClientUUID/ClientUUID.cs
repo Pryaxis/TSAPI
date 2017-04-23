@@ -1,7 +1,7 @@
 ﻿using OTAPI.Patcher.Engine.Extensions;
 using OTAPI.Patcher.Engine.Modification;
 
-namespace TShock.Modifications.ClientUUID
+namespace Mintaka.Modifications.ClientUUID
 {
 	public class ClientUUID : ModificationBase
 	{

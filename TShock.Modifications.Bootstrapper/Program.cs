@@ -1,8 +1,6 @@
-﻿using NDesk.Options;
+﻿using System;
+using NDesk.Options;
 using OTAPI.Patcher.Engine;
-
-using System;
-using System.Linq;
 
 namespace TShock.Modifications.Bootstrapper
 {

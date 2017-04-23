@@ -4,7 +4,7 @@ using System.Linq;
 using Mono.Cecil.Cil;
 using OTAPI.Patcher.Engine.Modification;
 
-namespace TShock.Modifications.UnicodeInput
+namespace Mintaka.Modifications.UnicodeInput
 {
 	/// <summary>
 	/// This modification works around the use of System.Text.Encoding.Unicode in the official server which breaks

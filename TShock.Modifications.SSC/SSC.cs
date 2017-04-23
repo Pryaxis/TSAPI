@@ -5,7 +5,7 @@ using OTAPI.Patcher.Engine.Extensions.ILProcessor;
 using OTAPI.Patcher.Engine.Modification;
 using System.Linq;
 
-namespace TShock.Modifications.SSC
+namespace Mintaka.Modifications.SSC
 {
 	/// <summary>
 	/// This modification is used to inject the server side characters flag into the send data

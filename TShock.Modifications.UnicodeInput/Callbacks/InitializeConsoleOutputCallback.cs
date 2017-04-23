@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace TShock.Modifications.UnicodeInput.Callbacks
+namespace Mintaka.Modifications.UnicodeInput.Callbacks
 {
 	internal class InitializeConsoleOutputCallback
 	{
