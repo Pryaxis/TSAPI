@@ -30,7 +30,7 @@ namespace TerrariaApi.Server.Hooking
 
 		private static HookResult OnBroadcastChatMessage(NetworkText text, ref Color color, ref int ignorePlayer)
 		{
-			float r = 0, g = 0, b = 0;
+			float r = color.R, g = color.G, b = color.B;
 
 			var cancel = _hookManager.InvokeServerBroadcast(ref text, ref r, ref g, ref b);
 
