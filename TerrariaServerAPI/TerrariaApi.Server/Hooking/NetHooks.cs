@@ -1,6 +1,8 @@
 ﻿using OTAPI;
 using System;
 using Terraria;
+using Terraria.Localization;
+using Microsoft.Xna.Framework;
 
 namespace TerrariaApi.Server.Hooking
 {
@@ -23,6 +25,20 @@ namespace TerrariaApi.Server.Hooking
 			Hooks.Player.PreGreet = OnPreGreet;
 			Hooks.Net.SendBytes = OnSendBytes;
 			Hooks.Net.Socket.Accepted = OnAccepted;
+			Hooks.BroadcastChatMessage.BeforeBroadcastChatMessage = OnBroadcastChatMessage;
+		}
+
+		private static HookResult OnBroadcastChatMessage(NetworkText text, ref Color color, ref int ignorePlayer)
+		{
+			float r = 0, g = 0, b = 0;
+
+			var cancel = _hookManager.InvokeServerBroadcast(ref text, ref r, ref g, ref b);
+
+			color.R = (byte)r;
+			color.G = (byte)g;
+			color.B = (byte)b;
+
+			return cancel ? HookResult.Cancel : HookResult.Continue;
 		}
 
 		static HookResult OnSendData(
