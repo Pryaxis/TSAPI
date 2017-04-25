@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Linq;
-using System.Reflection;
 using Terraria.ID;
 using TerrariaApi.Server;
 
@@ -54,14 +53,6 @@ namespace OTAPI.Shims.TShock
 
 		static void StartServer(string[] args)
 		{
-			var gitInfo = Attribute.GetCustomAttribute(Assembly.GetEntryAssembly(), typeof(AssemblyInformationalVersionAttribute)) as AssemblyInformationalVersionAttribute;
-
-			if (gitInfo != null )
-			{
-				Console.Write(" Mintaka v");
-				Console.WriteLine(gitInfo?.InformationalVersion);
-			} 
-
 			if (args.Any(x => x == "-skipassemblyload"))
 			{
 				Terraria.Main.SkipAssemblyLoad = true;
