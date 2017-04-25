@@ -15,7 +15,7 @@ namespace Mintaka.Modifications.UnicodeInput
 	{
 		public override IEnumerable<string> AssemblyTargets => new[]
 		{
-			"OTAPI, Version=1.3.5.1, Culture=neutral, PublicKeyToken=null"
+			"OTAPI, Version=1.3.5.3, Culture=neutral, PublicKeyToken=null"
 		};
 
 		public override string Description => "Changing Console's Input/Output encoding to UTF-8";
