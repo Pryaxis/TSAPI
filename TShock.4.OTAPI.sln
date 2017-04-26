@@ -18,8 +18,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TShock.Modifications.SSC", "TShock.Modifications.SSC\TShock.Modifications.SSC.csproj", "{23EA4516-79FF-4DE4-AE92-3F3D69A906CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TShock.Modifications.UnicodeInput", "TShock.Modifications.UnicodeInput\TShock.Modifications.UnicodeInput.csproj", "{AC441C8A-EA6B-416F-9961-FA944131AFB6}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -120,24 +118,6 @@ Global
 		{23EA4516-79FF-4DE4-AE92-3F3D69A906CA}.Release|x64.Build.0 = Release|Any CPU
 		{23EA4516-79FF-4DE4-AE92-3F3D69A906CA}.Release|x86.ActiveCfg = Release|Any CPU
 		{23EA4516-79FF-4DE4-AE92-3F3D69A906CA}.Release|x86.Build.0 = Release|Any CPU
-		{AC441C8A-EA6B-416F-9961-FA944131AFB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AC441C8A-EA6B-416F-9961-FA944131AFB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AC441C8A-EA6B-416F-9961-FA944131AFB6}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{AC441C8A-EA6B-416F-9961-FA944131AFB6}.Debug|x64.Build.0 = Debug|Any CPU
-		{AC441C8A-EA6B-416F-9961-FA944131AFB6}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{AC441C8A-EA6B-416F-9961-FA944131AFB6}.Debug|x86.Build.0 = Debug|Any CPU
-		{AC441C8A-EA6B-416F-9961-FA944131AFB6}.Mono|Any CPU.ActiveCfg = Release|Any CPU
-		{AC441C8A-EA6B-416F-9961-FA944131AFB6}.Mono|Any CPU.Build.0 = Release|Any CPU
-		{AC441C8A-EA6B-416F-9961-FA944131AFB6}.Mono|x64.ActiveCfg = Release|Any CPU
-		{AC441C8A-EA6B-416F-9961-FA944131AFB6}.Mono|x64.Build.0 = Release|Any CPU
-		{AC441C8A-EA6B-416F-9961-FA944131AFB6}.Mono|x86.ActiveCfg = Release|Any CPU
-		{AC441C8A-EA6B-416F-9961-FA944131AFB6}.Mono|x86.Build.0 = Release|Any CPU
-		{AC441C8A-EA6B-416F-9961-FA944131AFB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AC441C8A-EA6B-416F-9961-FA944131AFB6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AC441C8A-EA6B-416F-9961-FA944131AFB6}.Release|x64.ActiveCfg = Release|Any CPU
-		{AC441C8A-EA6B-416F-9961-FA944131AFB6}.Release|x64.Build.0 = Release|Any CPU
-		{AC441C8A-EA6B-416F-9961-FA944131AFB6}.Release|x86.ActiveCfg = Release|Any CPU
-		{AC441C8A-EA6B-416F-9961-FA944131AFB6}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
