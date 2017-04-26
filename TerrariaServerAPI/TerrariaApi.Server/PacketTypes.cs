@@ -27,6 +27,7 @@ public enum PacketTypes
 	ItemOwner = 22,
 	NpcUpdate = 23,
 	NpcItemStrike = 24,
+	[Obsolete("ChatText is not used anymore. See packet 82.", true)]
 	ChatText = 25,
 	PlayerDamage = 26,
 	ProjectileNew = 27,
