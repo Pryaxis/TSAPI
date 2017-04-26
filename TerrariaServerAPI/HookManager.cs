@@ -139,14 +139,6 @@ namespace TerrariaApi.Server
 					  return HookResult.Cancel;
 				  }
 
-				  if (msgType == 25)
-				  {
-					  if (InvokeServerBroadcast(ref text, ref number2, ref number3, ref number4))
-					  {
-						  return HookResult.Cancel;
-					  }
-				  }
-
 				  return HookResult.Continue;
 			  };
 			Hooks.Net.ReceiveData = (MessageBuffer buffer, ref byte packetId, ref int readOffset, ref int start, ref int length,

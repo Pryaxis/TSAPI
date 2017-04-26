@@ -73,15 +73,6 @@ namespace TerrariaApi.Server.Hooking
 			{
 				return HookResult.Cancel;
 			}
-
-			if (msgType == (int)PacketTypes.ChatText)
-			{
-				if (_hookManager.InvokeServerBroadcast(ref text, ref number2, ref number3, ref number4))
-				{
-					return HookResult.Cancel;
-				}
-			}
-
 			return HookResult.Continue;
 		}
 
