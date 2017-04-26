@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using NDesk.Options;
 using OTAPI.Patcher.Engine;
 
@@ -21,9 +22,9 @@ namespace TShock.Modifications.Bootstrapper
 			{
 				args = new[]
 				{
-					@"-in=OTAPI.dll",
-					@"-mod=..\..\..\TShock.Modifications.**\bin\Debug\TShock.Modifications.*.dll",
-					@"-o=Output\OTAPI.dll"
+					"-in=OTAPI.dll",
+					"-mod=" + Path.Combine("..", "..", "..", "TShock.Modifications.**", "bin", "Debug", "TShock.Modifications.*.dll"),
+					"-o=" + Path.Combine("Output", "OTAPI.dll")
 				};
 			}
 
