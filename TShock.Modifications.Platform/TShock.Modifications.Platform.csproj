@@ -8,8 +8,8 @@
     <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TShock.Modifications.UnicodeInput</RootNamespace>
-    <AssemblyName>TShock.Modifications.UnicodeInput</AssemblyName>
+    <RootNamespace>Mintaka.Modifications.Platform</RootNamespace>
+    <AssemblyName>TShock.Modifications.Platform</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <LangVersion>6</LangVersion>
@@ -65,9 +65,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Callbacks\InitializeConsoleOutputCallback.cs" />
+    <Compile Include="Callbacks\PlatformConstructorCallback.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UnicodeInputModification.cs" />
+    <Compile Include="PlatformModification.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
