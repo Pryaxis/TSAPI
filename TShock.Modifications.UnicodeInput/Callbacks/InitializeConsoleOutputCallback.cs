@@ -9,7 +9,14 @@ namespace Mintaka.Modifications.UnicodeInput.Callbacks
 		{
 			if (!Console.IsInputRedirected)
 			{
-				Console.InputEncoding = Encoding.UTF8;
+				if (Environment.OSVersion.Platform == PlatformID.Win32NT)
+				{
+					Console.InputEncoding = Encoding.Unicode;
+				}
+				else
+				{
+					Console.InputEncoding = Encoding.UTF8;
+				}
 			}
 
 			if (!Console.IsOutputRedirected)

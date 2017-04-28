@@ -18,7 +18,7 @@ namespace Mintaka.Modifications.UnicodeInput
 			"OTAPI, Version=1.3.5.3, Culture=neutral, PublicKeyToken=null"
 		};
 
-		public override string Description => "Changing Console's Input/Output encoding to UTF-8";
+		public override string Description => "Changing Console's Input/Output encoding to UTF-8 for Mono";
 
 		public override void Run()
 		{
@@ -27,8 +27,8 @@ namespace Mintaka.Modifications.UnicodeInput
 
 			/*
 			 * There is a .try block in the original code, which means the stack and exception handlers must be
-             * cleared and reset to 1
-             */
+			 * cleared and reset to 1
+			 */
 			processor.Body.Instructions.Clear();
 			processor.Body.Variables.Clear();
 			processor.Body.ExceptionHandlers.Clear();
