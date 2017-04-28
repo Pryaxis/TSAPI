@@ -244,8 +244,11 @@ namespace TerrariaApi.Server
 			if (File.Exists(ignoredPluginsFilePath))
 				ignoredFiles.AddRange(File.ReadAllLines(ignoredPluginsFilePath));
 
-			List<FileInfo> fileInfos = new DirectoryInfo(ServerPluginsDirectoryPath).GetFiles("*.dll", SearchOption.AllDirectories).ToList();
-			fileInfos.AddRange(new DirectoryInfo(ServerPluginsDirectoryPath).GetFiles("*.dll-plugin", SearchOption.AllDirectories));
+			IEnumerable<FileInfo> fileInfos = 
+			new DirectoryInfo(ServerPluginsDirectoryPath).GetFiles("*.dll", SearchOption.AllDirectories)
+			.Concat(new DirectoryInfo(ServerPluginsDirectoryPath).GetFiles("*.dll-plugin", SearchOption.AllDirectories))
+			.GroupBy(file => file.Name)
+			.Select(file => file.First());
 
 			Dictionary<TerrariaPlugin, Stopwatch> pluginInitWatches = new Dictionary<TerrariaPlugin, Stopwatch>();
 			foreach (FileInfo fileInfo in fileInfos)
@@ -412,25 +415,46 @@ namespace TerrariaApi.Server
 			}
 		}
 
+		// Dictionary<full name, file path>
+		private static Dictionary<string, string> assemblyMap;
+
+		private static void PopulateAssemblyMap(string dir)
+		{
+			if (assemblyMap != null) return;
+
+			var paths = Directory.EnumerateFiles(dir, "*.dll", SearchOption.AllDirectories)
+				.Concat(Directory.EnumerateFiles(dir, "*.dll-plugin", SearchOption.AllDirectories))
+				.Distinct(StringComparer.OrdinalIgnoreCase);
+
+			assemblyMap = new Dictionary<string, string>();
+
+			foreach (var path in paths)
+				try
+				{
+					var fullName = AssemblyName.GetAssemblyName(path).FullName;
+					if (!assemblyMap.ContainsKey(fullName))
+						assemblyMap.Add(fullName, path);
+				}
+				catch (BadImageFormatException) // These aren't the assemblies you're looking for
+				{
+				}
+		}
+
 		private static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
 		{
 			string fileName = args.Name.Split(',')[0];
 			string dir = Directory.GetParent(ServerPluginsDirectoryPath).FullName;
-			
-			IEnumerable<string> paths = Directory.EnumerateFiles(dir, "*.dll", SearchOption.AllDirectories)
-				.Concat(Directory.EnumerateFiles(dir, "*.dll-plugin", SearchOption.AllDirectories));
+
+			PopulateAssemblyMap(dir);
 			try
 			{
-				string targetFile = paths.FirstOrDefault(
-					file => Path.GetFileName(file ?? "").Equals(fileName + ".dll", StringComparison.OrdinalIgnoreCase) ||
-					        Path.GetFileName(file ?? "").Equals(fileName + ".dll-plugin", StringComparison.OrdinalIgnoreCase));
-
-				if (File.Exists(targetFile))
+				string foundAssemblyPath;
+				if (assemblyMap.TryGetValue(args.Name, out foundAssemblyPath))
 				{
 					Assembly assembly;
 					if (!loadedAssemblies.TryGetValue(fileName, out assembly))
 					{
-						assembly = Assembly.Load(File.ReadAllBytes(targetFile));
+						assembly = Assembly.Load(File.ReadAllBytes(foundAssemblyPath));
 						// We just do this to return a proper error message incase this is a resolved plugin assembly
 						// referencing an old TerrariaServer version.
 						if (!InvalidateAssembly(assembly, fileName))
