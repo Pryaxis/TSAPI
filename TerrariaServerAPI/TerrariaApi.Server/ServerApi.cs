@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -420,7 +420,10 @@ namespace TerrariaApi.Server
 
 		private static void PopulateAssemblyMap(string dir)
 		{
-			if (assemblyMap != null) return;
+			if (assemblyMap != null)
+			{
+				return;
+			}
 
 			var paths = Directory.EnumerateFiles(dir, "*.dll", SearchOption.AllDirectories)
 				.Concat(Directory.EnumerateFiles(dir, "*.dll-plugin", SearchOption.AllDirectories))
@@ -429,6 +432,7 @@ namespace TerrariaApi.Server
 			assemblyMap = new Dictionary<string, string>();
 
 			foreach (var path in paths)
+			{
 				try
 				{
 					var fullName = AssemblyName.GetAssemblyName(path).FullName;
@@ -438,6 +442,7 @@ namespace TerrariaApi.Server
 				catch (BadImageFormatException) // These aren't the assemblies you're looking for
 				{
 				}
+			}
 		}
 
 		private static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
