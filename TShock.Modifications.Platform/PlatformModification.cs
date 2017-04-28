@@ -10,7 +10,7 @@ namespace Mintaka.Modifications.Platform
 	/// This should fix different world path OTAPI used on macOS
 	/// In addition, the console input will also be fixed.
 	/// </summary>
-	public class UnicodeInputModification : ModificationBase
+	public class PlatformModification : ModificationBase
 	{
 		public override IEnumerable<string> AssemblyTargets => new[]
 		{
