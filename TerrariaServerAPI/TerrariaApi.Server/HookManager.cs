@@ -523,6 +523,19 @@ namespace TerrariaApi.Server
 		#endregion
 
 		#region Npc Hooks
+
+		#region Killed
+		private readonly HandlerCollection<NpcKilledEventArgs> npcKilledInt =
+			new HandlerCollection<NpcKilledEventArgs>("NpcKilledInt");
+
+		public HandlerCollection<NpcKilledEventArgs> NpcKilled => npcKilledInt;
+
+		internal void InvokeNpcKilled(NPC npc)
+		{
+			this.npcKilledInt.Invoke(new NpcKilledEventArgs() { npc = npc });
+		}
+		#endregion
+
 		#region NpcSetDefaultsInt
 		private readonly HandlerCollection<SetDefaultsEventArgs<NPC, int>> npcSetDefaultsInt =
 			new HandlerCollection<SetDefaultsEventArgs<NPC, int>>("NpcSetDefaultsInt");
