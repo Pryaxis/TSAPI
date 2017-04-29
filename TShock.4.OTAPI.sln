@@ -20,8 +20,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TShock.Modifications.SSC", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TShock.Modifications.UnicodeInput", "TShock.Modifications.UnicodeInput\TShock.Modifications.UnicodeInput.csproj", "{AC441C8A-EA6B-416F-9961-FA944131AFB6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TShock.Modifications.EntityDeactivate", "TShock.Modifications.EntityDeactivate\TShock.Modifications.EntityDeactivate.csproj", "{D53E2C3F-9A3C-45CB-B681-CE016FAFBE83}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -140,24 +138,6 @@ Global
 		{AC441C8A-EA6B-416F-9961-FA944131AFB6}.Release|x64.Build.0 = Release|Any CPU
 		{AC441C8A-EA6B-416F-9961-FA944131AFB6}.Release|x86.ActiveCfg = Release|Any CPU
 		{AC441C8A-EA6B-416F-9961-FA944131AFB6}.Release|x86.Build.0 = Release|Any CPU
-		{D53E2C3F-9A3C-45CB-B681-CE016FAFBE83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D53E2C3F-9A3C-45CB-B681-CE016FAFBE83}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D53E2C3F-9A3C-45CB-B681-CE016FAFBE83}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{D53E2C3F-9A3C-45CB-B681-CE016FAFBE83}.Debug|x64.Build.0 = Debug|Any CPU
-		{D53E2C3F-9A3C-45CB-B681-CE016FAFBE83}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{D53E2C3F-9A3C-45CB-B681-CE016FAFBE83}.Debug|x86.Build.0 = Debug|Any CPU
-		{D53E2C3F-9A3C-45CB-B681-CE016FAFBE83}.Mono|Any CPU.ActiveCfg = Release|Any CPU
-		{D53E2C3F-9A3C-45CB-B681-CE016FAFBE83}.Mono|Any CPU.Build.0 = Release|Any CPU
-		{D53E2C3F-9A3C-45CB-B681-CE016FAFBE83}.Mono|x64.ActiveCfg = Release|Any CPU
-		{D53E2C3F-9A3C-45CB-B681-CE016FAFBE83}.Mono|x64.Build.0 = Release|Any CPU
-		{D53E2C3F-9A3C-45CB-B681-CE016FAFBE83}.Mono|x86.ActiveCfg = Release|Any CPU
-		{D53E2C3F-9A3C-45CB-B681-CE016FAFBE83}.Mono|x86.Build.0 = Release|Any CPU
-		{D53E2C3F-9A3C-45CB-B681-CE016FAFBE83}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D53E2C3F-9A3C-45CB-B681-CE016FAFBE83}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D53E2C3F-9A3C-45CB-B681-CE016FAFBE83}.Release|x64.ActiveCfg = Release|Any CPU
-		{D53E2C3F-9A3C-45CB-B681-CE016FAFBE83}.Release|x64.Build.0 = Release|Any CPU
-		{D53E2C3F-9A3C-45CB-B681-CE016FAFBE83}.Release|x86.ActiveCfg = Release|Any CPU
-		{D53E2C3F-9A3C-45CB-B681-CE016FAFBE83}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
