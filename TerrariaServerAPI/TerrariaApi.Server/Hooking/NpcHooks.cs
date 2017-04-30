@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using OTAPI;
 using Terraria;
 
@@ -24,6 +25,12 @@ namespace TerrariaApi.Server.Hooking
 			Hooks.Npc.PreDropLoot = OnPreDropLoot;
 			Hooks.Npc.BossBagItem = OnBossBagItem;
 			Hooks.Npc.PreAI = OnPreAI;
+			Hooks.Npc.Killed = OnKilled;
+		}
+
+		private static void OnKilled(NPC npc)
+		{
+			_hookManager.InvokeNpcKilled(npc);
 		}
 
 		static HookResult OnPreSetDefaultsById(NPC npc, ref int type, ref float scaleOverride)
