@@ -1,16 +1,15 @@
 ﻿using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Mintaka.Modifications.UnicodeInput")]
-[assembly: AssemblyDescription("Modifies the TerrariaServer console I/O to make it compatible with macOS/Linux")]
+[assembly: AssemblyTitle("Mintaka.Modifications.Platform")]
+[assembly: AssemblyDescription("Enforcing OTAPI to load right platform")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Mintaka.Modifications.UnicodeInput")]
-[assembly: AssemblyCopyright("Copyright © Tyler Watson <tyler@tw.id.au> 2017")]
+[assembly: AssemblyProduct("Mintaka.Modifications.Platform")]
+[assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
