@@ -48,7 +48,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="OTAPI, Version=1.3.5.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\OTAPI.2.0.0.25\lib\net451\OTAPI.dll</HintPath>
+      <HintPath>..\packages\OTAPI.2.0.0.27\lib\net451\OTAPI.dll</HintPath>
     </Reference>
     <Reference Include="OTAPI.Patcher.Engine">
       <HintPath>..\prebuilt\OTAPI.Patcher.Engine.dll</HintPath>
