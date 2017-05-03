@@ -26,6 +26,10 @@ namespace TerrariaApi.Server
 
         protected readonly object syncRoot = new object();
 
+        public int Width { get; private set; }
+
+        public int Height { get; private set; }
+
         /// <summary>
         /// Retrieves the Terraria.Tile instance at X and Y position.  Used for ABI compatibility with all of
         /// TSAPI's tile accessor mechansims.
@@ -41,6 +45,8 @@ namespace TerrariaApi.Server
             {
 				if (tileHeap == null)
                 {
+                    this.Width = Terraria.Main.maxTilesX;
+                    this.Height = Terraria.Main.maxTilesY;
                     /*
                      * The checker must be null here, because Main.maxTilesX is always
                      * initialized to the large world size, wasting RAM for smaller

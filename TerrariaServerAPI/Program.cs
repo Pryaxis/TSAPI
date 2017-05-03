@@ -71,5 +71,7 @@ namespace OTAPI.Shims.TShock
 		{
 			Console.WriteLine($"Unhandled exception\n{e}");
 		}
+
+
 	}
 }

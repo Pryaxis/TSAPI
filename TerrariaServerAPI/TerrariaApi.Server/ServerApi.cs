@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -18,7 +18,7 @@ namespace TerrariaApi.Server
 	{
 		public const string PluginsPath = "ServerPlugins";
 
-		public static readonly Version ApiVersion = new Version(2, 0, 0, 0);
+		public static readonly Version ApiVersion = new Version(2, 1, 0, 0);
 		private static Main game;
 		private static readonly Dictionary<string, Assembly> loadedAssemblies = new Dictionary<string, Assembly>();
 		private static readonly List<PluginContainer> plugins = new List<PluginContainer>();
@@ -73,6 +73,7 @@ namespace TerrariaApi.Server
 			ForceUpdate = false;
 			Type t = Type.GetType("Mono.Runtime");
 			RunningMono = (t != null);
+			Main.SkipAssemblyLoad = true;
 		}
 
 		internal static void Initialize(string[] commandLineArgs, Main game)
@@ -180,16 +181,6 @@ namespace TerrariaApi.Server
 						}
 					case "-password":
 						goto case "-pass";
-					case "-lang":
-						{
-							if (!Int32.TryParse(arg.Value, out Lang.lang)) {
-								ServerApi.LogWriter.ServerWriteLine("Invalid language. Using English", TraceLevel.Warning);
-
-								Lang.lang = 1;
-							}
-
-							break;
-						}
 					case "-worldname":
 						{
 							game.SetWorldName(arg.Value);
@@ -253,8 +244,11 @@ namespace TerrariaApi.Server
 			if (File.Exists(ignoredPluginsFilePath))
 				ignoredFiles.AddRange(File.ReadAllLines(ignoredPluginsFilePath));
 
-			List<FileInfo> fileInfos = new DirectoryInfo(ServerPluginsDirectoryPath).GetFiles("*.dll").ToList();
-			fileInfos.AddRange(new DirectoryInfo(ServerPluginsDirectoryPath).GetFiles("*.dll-plugin"));
+			IEnumerable<FileInfo> fileInfos = 
+			new DirectoryInfo(ServerPluginsDirectoryPath).GetFiles("*.dll", SearchOption.AllDirectories)
+			.Concat(new DirectoryInfo(ServerPluginsDirectoryPath).GetFiles("*.dll-plugin", SearchOption.AllDirectories))
+			.GroupBy(file => file.Name)
+			.Select(file => file.First());
 
 			Dictionary<TerrariaPlugin, Stopwatch> pluginInitWatches = new Dictionary<TerrariaPlugin, Stopwatch>();
 			foreach (FileInfo fileInfo in fileInfos)
@@ -421,18 +415,51 @@ namespace TerrariaApi.Server
 			}
 		}
 
+		// Dictionary<full name, file path>
+		private static Dictionary<string, string> assemblyMap;
+
+		private static void PopulateAssemblyMap(string dir)
+		{
+			if (assemblyMap != null)
+			{
+				return;
+			}
+
+			var paths = Directory.EnumerateFiles(dir, "*.dll", SearchOption.AllDirectories)
+				.Concat(Directory.EnumerateFiles(dir, "*.dll-plugin", SearchOption.AllDirectories))
+				.Distinct(StringComparer.OrdinalIgnoreCase);
+
+			assemblyMap = new Dictionary<string, string>();
+
+			foreach (var path in paths)
+			{
+				try
+				{
+					var fullName = AssemblyName.GetAssemblyName(path).FullName;
+					if (!assemblyMap.ContainsKey(fullName))
+						assemblyMap.Add(fullName, path);
+				}
+				catch (BadImageFormatException) // These aren't the assemblies you're looking for
+				{
+				}
+			}
+		}
+
 		private static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
 		{
 			string fileName = args.Name.Split(',')[0];
-			string path = Path.Combine(ServerPluginsDirectoryPath, fileName + ".dll");
+			string dir = Directory.GetParent(ServerPluginsDirectoryPath).FullName;
+
+			PopulateAssemblyMap(dir);
 			try
 			{
-				if (File.Exists(path))
+				string foundAssemblyPath;
+				if (assemblyMap.TryGetValue(args.Name, out foundAssemblyPath))
 				{
 					Assembly assembly;
 					if (!loadedAssemblies.TryGetValue(fileName, out assembly))
 					{
-						assembly = Assembly.Load(File.ReadAllBytes(path));
+						assembly = Assembly.Load(File.ReadAllBytes(foundAssemblyPath));
 						// We just do this to return a proper error message incase this is a resolved plugin assembly
 						// referencing an old TerrariaServer version.
 						if (!InvalidateAssembly(assembly, fileName))

@@ -21,5 +21,10 @@ namespace TerrariaApi.Server
 			get; 
 			internal set;
 		}
+		public Terraria.Chat.ChatCommandId CommandId
+		{
+			get;
+			internal set;
+		}
 	}
 }

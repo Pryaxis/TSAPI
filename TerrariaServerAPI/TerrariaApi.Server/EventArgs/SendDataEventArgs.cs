@@ -11,7 +11,7 @@ namespace TerrariaApi.Server
 
 		public int ignoreClient { get; set; }
 
-		public string text { get; set; }
+		public Terraria.Localization.NetworkText text { get; set; }
 
 		public int number { get; set; }
 

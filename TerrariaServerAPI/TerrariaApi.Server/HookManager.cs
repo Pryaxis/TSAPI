@@ -321,7 +321,7 @@ namespace TerrariaApi.Server
 		}
 
 		internal bool InvokeNetSendData(
-			ref int msgType, ref int remoteClient, ref int ignoreClient, ref string text,
+			ref int msgType, ref int remoteClient, ref int ignoreClient, ref Terraria.Localization.NetworkText text,
 			ref int number, ref float number2, ref float number3, ref float number4, ref int number5,
 			ref int number6, ref int number7)
 		{
@@ -389,21 +389,27 @@ namespace TerrariaApi.Server
 						}
 
 						break;
-					case PacketTypes.ChatText:
-						var text = "";
+					case PacketTypes.LoadNetModule:
 						using (var stream = new MemoryStream(buffer.readBuffer))
 						{
 							stream.Position = index;
 							using (var reader = new BinaryReader(stream))
 							{
-								reader.ReadByte();
-								reader.ReadRGB();
-								text = reader.ReadString();
+								ushort moduleId = reader.ReadUInt16();
+								//LoadNetModule is now used for sending chat text.
+								//Read the module ID to determine if this is in fact the text module
+								if (moduleId == Terraria.Net.NetManager.Instance.GetId<Terraria.GameContent.NetModules.NetTextModule>())
+								{
+									//Then deserialize the message from the reader
+									Terraria.Chat.ChatMessage msg = Terraria.Chat.ChatMessage.Deserialize(reader);
+
+									if (InvokeServerChat(buffer, buffer.whoAmI, @msg.Text, msg.CommandId))
+									{
+										return true;
+									}
+								}
 							}
 						}
-
-						if (this.InvokeServerChat(buffer, buffer.whoAmI, @text))
-							return true;
 
 						break;
 
@@ -517,6 +523,19 @@ namespace TerrariaApi.Server
 		#endregion
 
 		#region Npc Hooks
+
+		#region Killed
+		private readonly HandlerCollection<NpcKilledEventArgs> npcKilledInt =
+			new HandlerCollection<NpcKilledEventArgs>("NpcKilledInt");
+
+		public HandlerCollection<NpcKilledEventArgs> NpcKilled => npcKilledInt;
+
+		internal void InvokeNpcKilled(NPC npc)
+		{
+			this.npcKilledInt.Invoke(new NpcKilledEventArgs() { npc = npc });
+		}
+		#endregion
+
 		#region NpcSetDefaultsInt
 		private readonly HandlerCollection<SetDefaultsEventArgs<NPC, int>> npcSetDefaultsInt =
 			new HandlerCollection<SetDefaultsEventArgs<NPC, int>>("NpcSetDefaultsInt");
@@ -1016,13 +1035,14 @@ namespace TerrariaApi.Server
 			get { return this.serverChat; }
 		}
 
-		internal bool InvokeServerChat(MessageBuffer buffer, int who, string text)
+		internal bool InvokeServerChat(MessageBuffer buffer, int who, string text, Terraria.Chat.ChatCommandId commandId)
 		{
 			ServerChatEventArgs args = new ServerChatEventArgs
 			{
 				Buffer = buffer,
 				Who = who,
-				Text = text
+				Text = text,
+				CommandId = commandId
 			};
 
 			this.ServerChat.Invoke(args);
@@ -1039,7 +1059,7 @@ namespace TerrariaApi.Server
 			get { return serverBroadcast; }
 		}
 
-		internal bool InvokeServerBroadcast(ref string message, ref float r, ref float g, ref float b)
+		internal bool InvokeServerBroadcast(ref Terraria.Localization.NetworkText message, ref float r, ref float g, ref float b)
 		{
 			ServerBroadcastEventArgs args = new ServerBroadcastEventArgs
 			{

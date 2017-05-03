@@ -5,7 +5,7 @@ using OTAPI.Patcher.Engine.Extensions.ILProcessor;
 using OTAPI.Patcher.Engine.Modification;
 using System.Linq;
 
-namespace TShock.Modifications.SSC
+namespace Mintaka.Modifications.SSC
 {
 	/// <summary>
 	/// This modification is used to inject the server side characters flag into the send data
@@ -15,12 +15,12 @@ namespace TShock.Modifications.SSC
 	{
 		public override System.Collections.Generic.IEnumerable<string> AssemblyTargets => new[]
 		{
-			"OTAPI, Version=1.3.4.4, Culture=neutral, PublicKeyToken=null"
+			"OTAPI, Version=1.3.5.3, Culture=neutral, PublicKeyToken=null"
 		};
 		public override string Description => "Adding server side character support...";
 		public override void Run()
 		{
-			var sendData = this.Method(() => Terraria.NetMessage.SendDataDirect(0, 0, 0, "", 0, 0, 0, 0, 0, 0, 0));
+			var sendData = this.Method(() => Terraria.NetMessage.SendDataDirect(0, 0, 0, Terraria.Localization.NetworkText.Empty, 0, 0, 0, 0, 0, 0, 0));
 
 			//find the offset where we want to inject the Terraria.Main.ServerSideCharacter variable
 			var downedClown = sendData.Body.Instructions.Single( //expect one for the signature this modification is based around.
