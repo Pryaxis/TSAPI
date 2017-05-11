@@ -244,8 +244,8 @@ namespace TerrariaApi.Server
 			if (File.Exists(ignoredPluginsFilePath))
 				ignoredFiles.AddRange(File.ReadAllLines(ignoredPluginsFilePath));
 
-			List<FileInfo> fileInfos = new DirectoryInfo(ServerPluginsDirectoryPath).GetFiles("*.dll", SearchOption.AllDirectories).ToList();
-			fileInfos.AddRange(new DirectoryInfo(ServerPluginsDirectoryPath).GetFiles("*.dll-plugin", SearchOption.AllDirectories));
+			List<FileInfo> fileInfos = new DirectoryInfo(ServerPluginsDirectoryPath).GetFiles("*.dll").ToList();
+			fileInfos.AddRange(new DirectoryInfo(ServerPluginsDirectoryPath).GetFiles("*.dll-plugin"));
 
 			Dictionary<TerrariaPlugin, Stopwatch> pluginInitWatches = new Dictionary<TerrariaPlugin, Stopwatch>();
 			foreach (FileInfo fileInfo in fileInfos)
