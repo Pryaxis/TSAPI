@@ -121,5 +121,6 @@ public enum PacketTypes
 	MinionAttackTargetUpdate = 115,
 	CrystalInvasionSendWaitTime = 116,
 	PlayerHurtV2 = 117,
-	PlayerDeathV2 = 118
+	PlayerDeathV2 = 118,
+	CreateCombatTextExtended = 119
 }
