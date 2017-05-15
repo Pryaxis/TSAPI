@@ -1,6 +1,8 @@
 ﻿using OTAPI;
 using System;
 using Terraria;
+using Terraria.Localization;
+using Microsoft.Xna.Framework;
 
 namespace TerrariaApi.Server.Hooking
 {
@@ -23,6 +25,20 @@ namespace TerrariaApi.Server.Hooking
 			Hooks.Player.PreGreet = OnPreGreet;
 			Hooks.Net.SendBytes = OnSendBytes;
 			Hooks.Net.Socket.Accepted = OnAccepted;
+			Hooks.BroadcastChatMessage.BeforeBroadcastChatMessage = OnBroadcastChatMessage;
+		}
+
+		private static HookResult OnBroadcastChatMessage(NetworkText text, ref Color color, ref int ignorePlayer)
+		{
+			float r = color.R, g = color.G, b = color.B;
+
+			var cancel = _hookManager.InvokeServerBroadcast(ref text, ref r, ref g, ref b);
+
+			color.R = (byte)r;
+			color.G = (byte)g;
+			color.B = (byte)b;
+
+			return cancel ? HookResult.Cancel : HookResult.Continue;
 		}
 
 		static HookResult OnSendData(
@@ -30,7 +46,7 @@ namespace TerrariaApi.Server.Hooking
 				ref int msgType,
 				ref int remoteClient,
 				ref int ignoreClient,
-				ref string text,
+				ref Terraria.Localization.NetworkText text,
 				ref int number,
 				ref float number2,
 				ref float number3,
@@ -57,15 +73,6 @@ namespace TerrariaApi.Server.Hooking
 			{
 				return HookResult.Cancel;
 			}
-
-			if (msgType == (int)PacketTypes.ChatText)
-			{
-				if (_hookManager.InvokeServerBroadcast(ref text, ref number2, ref number3, ref number4))
-				{
-					return HookResult.Cancel;
-				}
-			}
-
 			return HookResult.Continue;
 		}
 

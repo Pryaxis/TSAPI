@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using OTAPI;
 using Terraria;
 
@@ -17,7 +18,6 @@ namespace TerrariaApi.Server.Hooking
 			_hookManager = hookManager;
 
 			Hooks.Npc.PreSetDefaultsById = OnPreSetDefaultsById;
-			Hooks.Npc.PreSetDefaultsByName = OnPreSetDefaultsByName;
 			Hooks.Npc.PreNetDefaults = OnPreNetDefaults;
 			Hooks.Npc.Strike = OnStrike;
 			Hooks.Npc.PreTransform = OnPreTransform;
@@ -25,20 +25,17 @@ namespace TerrariaApi.Server.Hooking
 			Hooks.Npc.PreDropLoot = OnPreDropLoot;
 			Hooks.Npc.BossBagItem = OnBossBagItem;
 			Hooks.Npc.PreAI = OnPreAI;
+			Hooks.Npc.Killed = OnKilled;
+		}
+
+		private static void OnKilled(NPC npc)
+		{
+			_hookManager.InvokeNpcKilled(npc);
 		}
 
 		static HookResult OnPreSetDefaultsById(NPC npc, ref int type, ref float scaleOverride)
 		{
 			if (_hookManager.InvokeNpcSetDefaultsInt(ref type, npc))
-			{
-				return HookResult.Cancel;
-			}
-			return HookResult.Continue;
-		}
-
-		static HookResult OnPreSetDefaultsByName(NPC npc, ref string name)
-		{
-			if (_hookManager.InvokeNpcSetDefaultsString(ref name, npc))
 			{
 				return HookResult.Cancel;
 			}

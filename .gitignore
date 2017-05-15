@@ -11,3 +11,5 @@ Output/
 *.exe
 *.pdb
 *.dll
+
+.idea/

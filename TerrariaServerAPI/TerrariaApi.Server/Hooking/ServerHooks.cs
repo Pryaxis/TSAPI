@@ -29,8 +29,11 @@ namespace TerrariaApi.Server.Hooking
 
 		static HookResult OnPreReset(Terraria.RemoteClient remoteClient)
 		{
-			_hookManager.InvokeServerLeave(remoteClient.Id);
-			_hookManager.InvokeServerSocketReset(remoteClient);
+			if (Terraria.Netplay.IsServerRunning)
+			{
+				_hookManager.InvokeServerLeave(remoteClient.Id);
+				_hookManager.InvokeServerSocketReset(remoteClient);
+			}
 			return HookResult.Continue;
 		}
 	}

@@ -18,7 +18,7 @@ namespace TerrariaApi.Server
 	{
 		public const string PluginsPath = "ServerPlugins";
 
-		public static readonly Version ApiVersion = new Version(2, 0, 0, 0);
+		public static readonly Version ApiVersion = new Version(2, 1, 0, 0);
 		private static Main game;
 		private static readonly Dictionary<string, Assembly> loadedAssemblies = new Dictionary<string, Assembly>();
 		private static readonly List<PluginContainer> plugins = new List<PluginContainer>();
@@ -73,6 +73,7 @@ namespace TerrariaApi.Server
 			ForceUpdate = false;
 			Type t = Type.GetType("Mono.Runtime");
 			RunningMono = (t != null);
+			Main.SkipAssemblyLoad = true;
 		}
 
 		internal static void Initialize(string[] commandLineArgs, Main game)
@@ -180,16 +181,6 @@ namespace TerrariaApi.Server
 						}
 					case "-password":
 						goto case "-pass";
-					case "-lang":
-						{
-							if (!Int32.TryParse(arg.Value, out Lang.lang)) {
-								ServerApi.LogWriter.ServerWriteLine("Invalid language. Using English", TraceLevel.Warning);
-
-								Lang.lang = 1;
-							}
-
-							break;
-						}
 					case "-worldname":
 						{
 							game.SetWorldName(arg.Value);

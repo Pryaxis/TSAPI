@@ -129,7 +129,7 @@ namespace TerrariaApi.Server
 			};
 			#endregion
 			#region Net Hooks
-			Hooks.Net.SendData = (ref int bufferId, ref int msgType, ref int remoteClient, ref int ignoreClient, ref string text,
+			Hooks.Net.SendData = (ref int bufferId, ref int msgType, ref int remoteClient, ref int ignoreClient, ref Terraria.Localization.NetworkText text,
 				  ref int number, ref float number2, ref float number3, ref float number4, ref int number5, ref int number6,
 				  ref int number7) =>
 			  {
@@ -137,14 +137,6 @@ namespace TerrariaApi.Server
 					  ref number2, ref number3, ref number4, ref number5, ref number6, ref number7))
 				  {
 					  return HookResult.Cancel;
-				  }
-
-				  if (msgType == 25)
-				  {
-					  if (InvokeServerBroadcast(ref text, ref number2, ref number3, ref number4))
-					  {
-						  return HookResult.Cancel;
-					  }
 				  }
 
 				  return HookResult.Continue;
@@ -695,7 +687,7 @@ namespace TerrariaApi.Server
 		}
 
 		internal bool InvokeNetSendData(
-			ref int msgType, ref int remoteClient, ref int ignoreClient, ref string text,
+			ref int msgType, ref int remoteClient, ref int ignoreClient, ref Terraria.Localization.NetworkText text,
 			ref int number, ref float number2, ref float number3, ref float number4, ref int number5,
 			ref int number6, ref int number7)
 		{
@@ -1413,7 +1405,7 @@ namespace TerrariaApi.Server
 			get { return serverBroadcast; }
 		}
 
-		internal bool InvokeServerBroadcast(ref string message, ref float r, ref float g, ref float b)
+		internal bool InvokeServerBroadcast(ref Terraria.Localization.NetworkText message, ref float r, ref float g, ref float b)
 		{
 			ServerBroadcastEventArgs args = new ServerBroadcastEventArgs
 			{
