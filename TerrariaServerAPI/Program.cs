@@ -28,6 +28,39 @@ namespace OTAPI.Shims.TShock
 				ItemID.BouncyBomb,
 				ItemID.BombFish
 			});
+
+			//Set corrupt tiles to true, as they aren't in vanilla
+			TileID.Sets.Corrupt[TileID.CorruptGrass] = true;
+			TileID.Sets.Corrupt[TileID.CorruptPlants] = true;
+			TileID.Sets.Corrupt[TileID.CorruptThorns] = true;
+			TileID.Sets.Corrupt[TileID.CorruptIce] = true;
+			TileID.Sets.Corrupt[TileID.CorruptHardenedSand] = true;
+			TileID.Sets.Corrupt[TileID.CorruptSandstone] = true;
+			TileID.Sets.Corrupt[TileID.Ebonstone] = true;
+			TileID.Sets.Corrupt[TileID.Ebonsand] = true;
+
+			//Same again for crimson
+			TileID.Sets.Crimson[TileID.FleshBlock] = true;
+			TileID.Sets.Crimson[TileID.FleshGrass] = true;
+			TileID.Sets.Crimson[TileID.FleshIce] = true;
+			TileID.Sets.Crimson[TileID.FleshWeeds] = true;
+			TileID.Sets.Crimson[TileID.Crimstone] = true;
+			TileID.Sets.Crimson[TileID.Crimsand] = true;
+			TileID.Sets.Crimson[TileID.CrimsonVines] = true;
+			TileID.Sets.Crimson[TileID.CrimtaneThorns] = true;
+			TileID.Sets.Crimson[TileID.CrimsonHardenedSand] = true;
+			TileID.Sets.Crimson[TileID.CrimsonSandstone] = true;
+
+			//And hallow
+			TileID.Sets.Hallow[TileID.HallowedGrass] = true;
+			TileID.Sets.Hallow[TileID.HallowedPlants] = true;
+			TileID.Sets.Hallow[TileID.HallowedPlants2] = true;
+			TileID.Sets.Hallow[TileID.HallowedVines] = true;
+			TileID.Sets.Hallow[TileID.HallowedIce] = true;
+			TileID.Sets.Hallow[TileID.HallowHardenedSand] = true;
+			TileID.Sets.Hallow[TileID.HallowSandstone] = true;
+			TileID.Sets.Hallow[TileID.Pearlsand] = true;
+			TileID.Sets.Hallow[TileID.Pearlstone] = true;
 		}
 
 		public static void Main(string[] args)

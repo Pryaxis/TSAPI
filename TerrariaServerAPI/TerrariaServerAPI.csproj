@@ -121,6 +121,7 @@
     <Compile Include="TerrariaApi.Server\EventArgs\DropBossBagEventArgs.cs" />
     <Compile Include="TerrariaApi.Server\EventArgs\ForceItemIntoChestEventArgs.cs" />
     <Compile Include="TerrariaApi.Server\EventArgs\GetDataEventArgs.cs" />
+    <Compile Include="TerrariaApi.Server\EventArgs\GrassSpreadEventArgs.cs" />
     <Compile Include="TerrariaApi.Server\EventArgs\GreetPlayerEventArgs.cs" />
     <Compile Include="TerrariaApi.Server\EventArgs\HalloweenCheckEventArgs.cs" />
     <Compile Include="TerrariaApi.Server\EventArgs\HardmodeTileUpdateEventArgs.cs" />

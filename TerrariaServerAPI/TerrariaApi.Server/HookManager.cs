@@ -1204,6 +1204,32 @@ namespace TerrariaApi.Server
 			return args.Handled;
 		}
 		#endregion
+
+		#region WorldGrassSpread
+		private readonly HandlerCollection<GrassSpreadEventArgs> worldGrassSpread =
+			new HandlerCollection<GrassSpreadEventArgs>("WorldGrassSpread");
+
+		public HandlerCollection<GrassSpreadEventArgs> WorldGrassSpread
+		{
+			get { return this.worldGrassSpread; }
+		}
+
+		internal bool InvokeWorldGrassSpread(int tileX, int tileY, int dirt, int grass, bool repeat, byte color)
+		{
+			GrassSpreadEventArgs args = new GrassSpreadEventArgs
+			{
+				TileX = tileX,
+				TileY = tileY,
+				Dirt = dirt,
+				Grass = grass,
+				Repeat = repeat,
+				Color = color
+			};
+
+			this.WorldGrassSpread.Invoke(args);
+			return args.Handled;
+		}
+		#endregion
 		#endregion
 
 		#region Wire Hooks

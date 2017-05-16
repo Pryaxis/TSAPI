@@ -21,6 +21,7 @@ namespace TerrariaApi.Server.Hooking
 			Hooks.World.DropMeteor = OnDropMeteor;
 			Hooks.Game.Christmas = OnChristmas;
 			Hooks.Game.Halloween = OnHalloween;
+			Hooks.World.SpreadGrass = OnGrassSpread;
 		}
 
 		static HookResult OnPressurePlate(ref int x, ref int y, ref IEntity entity)
@@ -98,6 +99,15 @@ namespace TerrariaApi.Server.Hooking
 		static HookResult OnHalloween()
 		{
 			if (_hookManager.InvokeWorldHalloweenCheck(ref Main.halloween))
+			{
+				return HookResult.Cancel;
+			}
+			return HookResult.Continue;
+		}
+
+		static HookResult OnGrassSpread(ref int tileX, ref int tileY, ref int dirt, ref int grass, ref bool repeat, ref byte color)
+		{
+			if (_hookManager.InvokeWorldGrassSpread(tileX, tileY, dirt, grass, repeat, color))
 			{
 				return HookResult.Cancel;
 			}
