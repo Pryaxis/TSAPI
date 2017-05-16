@@ -54,7 +54,7 @@ namespace TerrariaApi.Server.Hooking
 
 		static HookResult OnStatue(StatueType caller, float x, float y, int type, ref int num, ref int num2, ref int num3)
 		{
-			if (_hookManager.InvokeGameStatueSpawn(num2, num3, num, (int)x, (int)y, type, caller == StatueType.Npc))
+			if (_hookManager.InvokeGameStatueSpawn(num2, num3, num, (int)(x / 16f), (int)(y / 16f), type, caller == StatueType.Npc))
 			{
 				return HookResult.Continue;
 			}
