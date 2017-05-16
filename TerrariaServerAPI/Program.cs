@@ -50,6 +50,7 @@ namespace OTAPI.Shims.TShock
 			TileID.Sets.Crimson[TileID.CrimtaneThorns] = true;
 			TileID.Sets.Crimson[TileID.CrimsonHardenedSand] = true;
 			TileID.Sets.Crimson[TileID.CrimsonSandstone] = true;
+			TileID.Sets.Crimson[TileID.CrimtaneThorns] = true;
 
 			//And hallow
 			TileID.Sets.Hallow[TileID.HallowedGrass] = true;
