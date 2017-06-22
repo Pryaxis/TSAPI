@@ -113,7 +113,7 @@ namespace TerrariaApi.Server.Hooking
 				ref position,
 				ref width,
 				ref height,
-				ref itemId,
+				ref type,
 				ref stack,
 				ref noBroadcast,
 				ref prefix,
