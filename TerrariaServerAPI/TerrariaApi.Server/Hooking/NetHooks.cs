@@ -1,5 +1,6 @@
 ﻿using OTAPI;
 using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Localization;
 using Microsoft.Xna.Framework;
@@ -75,6 +76,8 @@ namespace TerrariaApi.Server.Hooking
 			}
 			return HookResult.Continue;
 		}
+		
+		static HashSet<int> _validPackets = new HashSet<int>(Enum.GetValues(typeof(PacketTypes)).Cast<int>());
 
 		static HookResult OnReceiveData(
 			MessageBuffer buffer,
@@ -84,7 +87,7 @@ namespace TerrariaApi.Server.Hooking
 			ref int length
 		)
 		{
-			if (!Enum.IsDefined(typeof(PacketTypes), (int)packetId))
+			if (!_validPackets.Contains(packetId))
 			{
 				return HookResult.Cancel;
 			}
