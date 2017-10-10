@@ -191,6 +191,9 @@ namespace TerrariaApi.Server
 						{
 							game.SetWorld(arg.Value, false);
 
+							Main.WorldPath = Path.GetDirectoryName(arg.Value);
+							Main.worldName = Path.GetFileNameWithoutExtension(arg.Value);
+
 							break;
 						}
 					case "-motd":
