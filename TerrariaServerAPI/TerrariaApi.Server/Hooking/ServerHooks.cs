@@ -31,7 +31,10 @@ namespace TerrariaApi.Server.Hooking
 		{
 			if (Terraria.Netplay.IsServerRunning)
 			{
-				_hookManager.InvokeServerLeave(remoteClient.Id);
+				if (remoteClient.IsActive)
+				{
+					_hookManager.InvokeServerLeave(remoteClient.Id);
+				}
 				_hookManager.InvokeServerSocketReset(remoteClient);
 			}
 			return HookResult.Continue;
