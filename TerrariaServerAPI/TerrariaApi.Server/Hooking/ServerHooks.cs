@@ -1,4 +1,5 @@
 ﻿using OTAPI;
+using System;
 
 namespace TerrariaApi.Server.Hooking
 {
@@ -14,8 +15,20 @@ namespace TerrariaApi.Server.Hooking
 		{
 			_hookManager = hookManager;
 
+			Hooks.Command.StartCommandThread = OnStartCommandThread;
 			Hooks.Command.Process = OnProcess;
 			Hooks.Net.RemoteClient.PreReset = OnPreReset;
+		}
+
+		static HookResult OnStartCommandThread()
+		{
+			if (Console.IsInputRedirected == true)
+			{
+				Console.WriteLine("TerrariaServer is running in the background and input is disabled.");
+				return HookResult.Cancel;
+			}
+
+			return HookResult.Continue;
 		}
 
 		static HookResult OnProcess(string lowered, string raw)
