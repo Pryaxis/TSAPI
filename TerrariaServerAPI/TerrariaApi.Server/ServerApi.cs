@@ -191,6 +191,10 @@ namespace TerrariaApi.Server
 						{
 							game.SetWorld(arg.Value, false);
 
+							var full_path = Path.GetFullPath(arg.Value);
+							Main.WorldPath = Path.GetDirectoryName(full_path);
+							Main.worldName = Path.GetFileNameWithoutExtension(full_path);
+
 							break;
 						}
 					case "-motd":

@@ -26,6 +26,7 @@ namespace TerrariaApi.Server.Hooking
 			Hooks.Net.SendBytes = OnSendBytes;
 			Hooks.Net.Socket.Accepted = OnAccepted;
 			Hooks.Net.BeforeBroadcastChatMessage = OnBroadcastChatMessage;
+			Hooks.Player.NameCollision = OnNameCollision;
 		}
 
 		private static HookResult OnBroadcastChatMessage(NetworkText text, ref Color color, ref int ignorePlayer)
