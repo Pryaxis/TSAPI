@@ -90,6 +90,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>echo $(ConfigurationName) &gt;&gt; $(TargetDir)\env.config</PreBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
@@ -97,9 +100,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <Target Name="BeforeBuild">
-    <WriteLinesToFile File="$(OutputPath)\env.config" 
-                      Lines="$(ConfigurationName)" Overwrite="true">
-    </WriteLinesToFile>
-</Target>
 </Project>
