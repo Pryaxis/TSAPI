@@ -97,7 +97,7 @@
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="OTAPI">
-      <HintPath>..\TShock.Modifications.Bootstrapper\bin\Debug\Output\OTAPI.dll</HintPath>
+      <HintPath>..\TShock.Modifications.Bootstrapper\bin\$(ConfigurationName)\Output\OTAPI.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.IO.Compression" />
