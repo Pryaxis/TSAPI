@@ -97,4 +97,9 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Target Name="BeforeBuild">
+    <WriteLinesToFile File="$(OutputPath)\env.config" 
+                      Lines="$(ConfigurationName)" Overwrite="true">
+    </WriteLinesToFile>
+</Target>
 </Project>
