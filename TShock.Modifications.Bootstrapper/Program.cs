@@ -19,23 +19,22 @@ namespace TShock.Modifications.Bootstrapper
 
 			Console.WriteLine("TShock Mintaka Bootstrapper, Open Terraria API v2.0");
 
-			if (File.Exists("env.config"))
-			{
-				using (StreamReader sr = File.OpenText("env.config"))
-				{
-					folder = sr.ReadLine();
-					Console.WriteLine($"Folder set to: " + folder);
-				}
-			}
-			else
-			{
-				Console.WriteLine("Something went wrong! (env.config not found)");
-				Console.ReadLine();
-				return;
-			}
-
 			if (args.Length == 0)
 			{
+				if (File.Exists("env.config"))
+				{
+					using (StreamReader sr = File.OpenText("env.config"))
+					{
+						folder = sr.ReadLine();
+						Console.WriteLine($"Folder set to: " + folder);
+					}
+				}
+				else
+				{
+					Console.WriteLine("Something went wrong! (env.config not found)");
+					Console.ReadLine();
+					return;
+				}
 				args = new[]
 				{
 					"-in=OTAPI.dll",
