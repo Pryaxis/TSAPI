@@ -24,9 +24,27 @@ namespace TerrariaApi.Server.Hooking
 			Hooks.Net.ReceiveData = OnReceiveData;
 			Hooks.Player.PreGreet = OnPreGreet;
 			Hooks.Net.SendBytes = OnSendBytes;
+			Hooks.Net.CheckBytes = OnCheckBytes;
 			Hooks.Net.Socket.Accepted = OnAccepted;
 			Hooks.BroadcastChatMessage.BeforeBroadcastChatMessage = OnBroadcastChatMessage;
 			Hooks.Player.NameCollision = OnNameCollision;
+		}
+
+		private static HookResult OnCheckBytes(ref int bufferIndex)
+		{
+			// Line 1772	
+			lock (NetMessage.buffer[bufferIndex])
+			{
+				int startBase = 0;
+
+				int totalData = NetMessage.buffer[bufferIndex].totalData;
+				Console.WriteLine("totalData: " + totalData);
+
+				int somethingElse = (int) BitConverter.ToUInt16(NetMessage.buffer[bufferIndex].readBuffer, startBase);
+				Console.WriteLine("somethingElse: " + somethingElse);
+			}
+
+			return HookResult.Continue;
 		}
 
 		private static HookResult OnBroadcastChatMessage(NetworkText text, ref Color color, ref int ignorePlayer)
