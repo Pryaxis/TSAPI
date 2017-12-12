@@ -371,6 +371,19 @@ namespace TerrariaApi.Server
 		{
 			if (Main.netMode == 2)
 			{
+				// A critical server crash/corruption bug was reported by @bartico6 on GitHub.
+				// If a packet length comes in at extreme values, the server can enter infinite loops, deadlock, and corrupt the world.
+				// As a result, we take the following action: disconnect the player and log the attempt as soon as we can.
+				// The length 1000 was chosen as an arbitrarily large number for all packets. It may need to be tuned later.
+				if (length > 1000)
+				{
+					RemoteClient currentClient = Netplay.Clients[buffer.whoAmI];
+					string name = String.IsNullOrWhiteSpace(currentClient.Name) ? "Unknown" : currentClient.Name;
+					ServerApi.LogWriter.ServerWriteLine("Disconnecting " + name + " (" + currentClient.Socket.GetRemoteAddress() + ") for attempted packet length overflow crash/DoS attempt.", TraceLevel.Error);
+					Netplay.Clients[buffer.whoAmI].PendingTermination = true;
+					return true;
+				}
+				
 				switch ((PacketTypes)msgId)
 				{
 					case PacketTypes.ConnectRequest:
