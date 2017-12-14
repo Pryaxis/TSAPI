@@ -37,7 +37,7 @@ public enum PacketTypes
 	ChestGetContents = 31,
 	ChestItem = 32,
 	ChestOpen = 33,
-	TileKill = 34,
+	PlaceChest = 34,
 	EffectHeal = 35,
 	Zones = 36,
 	PasswordRequired = 37,
