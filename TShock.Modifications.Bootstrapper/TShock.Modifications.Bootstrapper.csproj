@@ -101,6 +101,7 @@
   </Target>
   -->
   <Target Name="BeforeBuild">
+    <MakeDir Directories="$(OutputPath)" />
     <WriteLinesToFile File="$(OutputPath)\env.config" 
                       Lines="$(ConfigurationName)" Overwrite="true">
     </WriteLinesToFile>
