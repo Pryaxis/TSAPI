@@ -25,7 +25,6 @@ public enum PacketTypes
 	ItemOwner = 22,
 	NpcUpdate = 23,
 	NpcItemStrike = 24,
-	PlayerDamage = 26,
 	ProjectileNew = 27,
 	NpcStrike = 28,
 	ProjectileDestroy = 29,
