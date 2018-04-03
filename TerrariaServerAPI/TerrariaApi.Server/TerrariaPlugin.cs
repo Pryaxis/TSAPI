@@ -103,8 +103,7 @@ namespace TerrariaApi.Server
 		}
 
 		///<summary>
-		/// The plugin's name. This is used for display purposes and secondary ordering when loading. 
-		/// See <see cref="Order"/> for more information.
+		/// Deconstructor. Implements the Dispose pattern.
 		///</summary>
 		~TerrariaPlugin()
 		{
