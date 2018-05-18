@@ -79,7 +79,7 @@ public enum PacketTypes
 	PlaceObject = 79,
 	SyncPlayerChestIndex = 80,
 	CreateCombatText = 81,
-	LoadNetModule = 82,
+	FingerNetModule = 82,
 	NpcKillCount = 83,
 	PlayerStealth = 84,
 	ForceItemIntoNearestChest = 85,
