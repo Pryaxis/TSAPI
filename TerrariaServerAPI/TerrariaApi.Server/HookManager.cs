@@ -449,6 +449,11 @@ namespace TerrariaApi.Server
 				}
 			}
 
+			if (length - 1 < 0)
+			{
+				length = 1;
+			}
+
 			GetDataEventArgs args = new GetDataEventArgs
 			{
 				MsgID = (PacketTypes)msgId,
