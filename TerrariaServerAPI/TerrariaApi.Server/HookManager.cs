@@ -375,7 +375,10 @@ namespace TerrariaApi.Server
 				// If a packet length comes in at extreme values, the server can enter infinite loops, deadlock, and corrupt the world.
 				// As a result, we take the following action: disconnect the player and log the attempt as soon as we can.
 				// The length 1000 was chosen as an arbitrarily large number for all packets. It may need to be tuned later.
-				if (length > 1000)
+
+				// If the length is less than 1, it will cause exception when creating memory stream.
+				// Length couldn't less than 1 unless write wrong length manually
+				if (length > 1000 || length < 1)
 				{
 					RemoteClient currentClient = Netplay.Clients[buffer.whoAmI];
 					string name = String.IsNullOrWhiteSpace(currentClient.Name) ? "Unknown" : currentClient.Name;
@@ -447,11 +450,6 @@ namespace TerrariaApi.Server
 						Netplay.Clients[buffer.whoAmI].ClientUUID = "";
 						return true;
 				}
-			}
-
-			if (length - 1 < 0)
-			{
-				length = 1;
 			}
 
 			GetDataEventArgs args = new GetDataEventArgs
