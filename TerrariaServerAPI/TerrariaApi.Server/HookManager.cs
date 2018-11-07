@@ -382,6 +382,7 @@ namespace TerrariaApi.Server
 					string name = String.IsNullOrWhiteSpace(currentClient.Name) ? "Unknown" : currentClient.Name;
 					ServerApi.LogWriter.ServerWriteLine("Disconnecting " + name + " (" + currentClient.Socket.GetRemoteAddress() + ") for attempted packet length crash/DoS attempt.", TraceLevel.Error);
 					Netplay.Clients[buffer.whoAmI].PendingTermination = true;
+					return true;
 				}
 
 
