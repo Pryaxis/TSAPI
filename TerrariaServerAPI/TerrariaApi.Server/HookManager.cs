@@ -371,10 +371,24 @@ namespace TerrariaApi.Server
 		{
 			if (Main.netMode == 2)
 			{
+				// A critical server crash/slow-down bug was exploited in which a 0-length
+				// packet is sent, causing all NetGetData handlers to throw exceptions.
+				// Because a packet's header is 2 bytes of length + 1 byte of packet type,
+				// all packets must contain at least 3 bytes.
+				// Ideally this check should occur in an OTAPI modification.
+				if (length < 3)
+				{
+					RemoteClient currentClient = Netplay.Clients[buffer.whoAmI];
+					string name = String.IsNullOrWhiteSpace(currentClient.Name) ? "Unknown" : currentClient.Name;
+					ServerApi.LogWriter.ServerWriteLine("Disconnecting " + name + " (" + currentClient.Socket.GetRemoteAddress() + ") for attempted packet length crash/DoS attempt.", TraceLevel.Error);
+					Netplay.Clients[buffer.whoAmI].PendingTermination = true;
+				}
+				
 				// A critical server crash/corruption bug was reported by @bartico6 on GitHub.
 				// If a packet length comes in at extreme values, the server can enter infinite loops, deadlock, and corrupt the world.
 				// As a result, we take the following action: disconnect the player and log the attempt as soon as we can.
 				// The length 1000 was chosen as an arbitrarily large number for all packets. It may need to be tuned later.
+				// Ideally this check should occur in an OTAPI modification.
 				if (length > 1000)
 				{
 					RemoteClient currentClient = Netplay.Clients[buffer.whoAmI];
