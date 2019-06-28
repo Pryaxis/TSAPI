@@ -69,6 +69,8 @@ namespace TShock.Modifications.Bootstrapper
 				PackModifications = true
 			};
 			patcher.Run();
+
+			Console.ReadKey();
 		}
 	}
 }

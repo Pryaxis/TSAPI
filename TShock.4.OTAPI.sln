@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26403.7
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.156
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TerrariaServerAPI", "TerrariaServerAPI\TerrariaServerAPI.csproj", "{6877506E-ADC6-4142-98A6-79E4FA02855A}"
 EndProject
@@ -19,6 +19,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TShock.Modifications.SSC", "TShock.Modifications.SSC\TShock.Modifications.SSC.csproj", "{23EA4516-79FF-4DE4-AE92-3F3D69A906CA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TShock.Modifications.Platform", "TShock.Modifications.Platform\TShock.Modifications.Platform.csproj", "{AC441C8A-EA6B-416F-9961-FA944131AFB6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TShock.Modifications.ConnectionLoop", "TShock.Modifications.ConnectionLoop\TShock.Modifications.ConnectionLoop.csproj", "{B466E59A-8A07-46B1-B7C7-33DBC3A0C375}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -138,8 +140,29 @@ Global
 		{AC441C8A-EA6B-416F-9961-FA944131AFB6}.Release|x64.Build.0 = Release|Any CPU
 		{AC441C8A-EA6B-416F-9961-FA944131AFB6}.Release|x86.ActiveCfg = Release|Any CPU
 		{AC441C8A-EA6B-416F-9961-FA944131AFB6}.Release|x86.Build.0 = Release|Any CPU
+		{B466E59A-8A07-46B1-B7C7-33DBC3A0C375}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B466E59A-8A07-46B1-B7C7-33DBC3A0C375}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B466E59A-8A07-46B1-B7C7-33DBC3A0C375}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B466E59A-8A07-46B1-B7C7-33DBC3A0C375}.Debug|x64.Build.0 = Debug|Any CPU
+		{B466E59A-8A07-46B1-B7C7-33DBC3A0C375}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B466E59A-8A07-46B1-B7C7-33DBC3A0C375}.Debug|x86.Build.0 = Debug|Any CPU
+		{B466E59A-8A07-46B1-B7C7-33DBC3A0C375}.Mono|Any CPU.ActiveCfg = Release|Any CPU
+		{B466E59A-8A07-46B1-B7C7-33DBC3A0C375}.Mono|Any CPU.Build.0 = Release|Any CPU
+		{B466E59A-8A07-46B1-B7C7-33DBC3A0C375}.Mono|x64.ActiveCfg = Release|Any CPU
+		{B466E59A-8A07-46B1-B7C7-33DBC3A0C375}.Mono|x64.Build.0 = Release|Any CPU
+		{B466E59A-8A07-46B1-B7C7-33DBC3A0C375}.Mono|x86.ActiveCfg = Release|Any CPU
+		{B466E59A-8A07-46B1-B7C7-33DBC3A0C375}.Mono|x86.Build.0 = Release|Any CPU
+		{B466E59A-8A07-46B1-B7C7-33DBC3A0C375}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B466E59A-8A07-46B1-B7C7-33DBC3A0C375}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B466E59A-8A07-46B1-B7C7-33DBC3A0C375}.Release|x64.ActiveCfg = Release|Any CPU
+		{B466E59A-8A07-46B1-B7C7-33DBC3A0C375}.Release|x64.Build.0 = Release|Any CPU
+		{B466E59A-8A07-46B1-B7C7-33DBC3A0C375}.Release|x86.ActiveCfg = Release|Any CPU
+		{B466E59A-8A07-46B1-B7C7-33DBC3A0C375}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {34CE5BEA-93DE-4029-BD2E-85A2D6AFB362}
 	EndGlobalSection
 EndGlobal
