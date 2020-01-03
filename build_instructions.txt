@@ -1,10 +1,3 @@
 To build this beast the process is:
 
-1) Ignore TSAPI & TShock right now, and set TShock.Modifications.Bootstrapper as the default project
-2) Build the TShock.Modifications.ClientUUID/Explosive projects to generate the binaries
-3) Build and run the bootstrapper (individually)
-	- This will generate a TSAPI compatible OTAPI.dll by patching the NuGet version of OTAPI.dll with the TShock.Modifications.*'s
-	- After running, you must ensure that 3 modifications ran (the number of TShock modifications), or something is not right
-4) Reload TerrariaServerAPI if not already, and give it a rebuild to generate it's exe.
-5) Reload TShockAPI if not already, and then give it a rebuild.
-	- It should compile against the TerrariaServer.exe & OTAPI.dll located under the Bootstrapper
+1) Read the build instructions in the Pryaxis/TShock repo.
