@@ -8,6 +8,9 @@ using System.Reflection;
 using System.Linq;
 using Terraria;
 using TerrariaApi.Reporting;
+#if  NETCOREAPP
+using TerrariaServerAPI.TerrariaApi.Server;
+#endif
 
 namespace TerrariaApi.Server
 {
@@ -266,13 +269,21 @@ namespace TerrariaApi.Server
 				try
 				{
 					Assembly assembly;
+#if  NETCOREAPP
+					PluginLoadContext context = null;
+#endif
 					// The plugin assembly might have been resolved by another plugin assembly already, so no use to
 					// load it again, but we do still have to verify it and create plugin instances.
 					if (!loadedAssemblies.TryGetValue(fileNameWithoutExtension, out assembly))
 					{
 						try
 						{
+#if  NETCOREAPP
+							context = new PluginLoadContext(fileInfo.FullName);
+							assembly = context.LoadFromAssemblyName(new AssemblyName(fileNameWithoutExtension));
+#else
 							assembly = Assembly.Load(File.ReadAllBytes(fileInfo.FullName));
+#endif
 						}
 						catch (BadImageFormatException)
 						{
@@ -323,7 +334,11 @@ namespace TerrariaApi.Server
 							throw new InvalidOperationException(
 								string.Format("Could not create an instance of plugin class \"{0}\".", type.FullName), ex);
 						}
+#if  NETCOREAPP
+						plugins.Add(new PluginContainer(pluginInstance, context));
+#else
 						plugins.Add(new PluginContainer(pluginInstance));
+#endif
 					}
 				}
 				catch (Exception ex)
