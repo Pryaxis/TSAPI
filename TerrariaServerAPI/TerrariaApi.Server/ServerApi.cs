@@ -278,15 +278,19 @@ namespace TerrariaApi.Server
 					{
 						try
 						{
-#if  NETCOREAPP
+#if NETCOREAPP
 							context = new PluginLoadContext(fileInfo.FullName);
-							assembly = context.LoadFromAssemblyName(new AssemblyName(fileNameWithoutExtension));
+							using var ms = new MemoryStream();
+							ms.Write(File.ReadAllBytes(fileInfo.FullName));
+							ms.Seek(0, SeekOrigin.Begin);
+							assembly = context.LoadFromStream(ms);
 #else
 							assembly = Assembly.Load(File.ReadAllBytes(fileInfo.FullName));
 #endif
 						}
-						catch (BadImageFormatException)
+						catch (Exception e)
 						{
+							Console.WriteLine(e);
 							continue;
 						}
 						loadedAssemblies.Add(fileNameWithoutExtension, assembly);
