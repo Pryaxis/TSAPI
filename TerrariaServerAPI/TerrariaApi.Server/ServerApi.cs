@@ -280,10 +280,12 @@ namespace TerrariaApi.Server
 						{
 #if NETCOREAPP
 							context = new PluginLoadContext(fileInfo.FullName);
-							using var ms = new MemoryStream();
-							ms.Write(File.ReadAllBytes(fileInfo.FullName));
-							ms.Seek(0, SeekOrigin.Begin);
-							assembly = context.LoadFromStream(ms);
+							using (var ms = new MemoryStream())
+							{
+								ms.Write(File.ReadAllBytes(fileInfo.FullName));
+								ms.Seek(0, SeekOrigin.Begin);
+								assembly = context.LoadFromStream(ms);
+							}
 #else
 							assembly = Assembly.Load(File.ReadAllBytes(fileInfo.FullName));
 #endif

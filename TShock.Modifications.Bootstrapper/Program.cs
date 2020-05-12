@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Windows;
 using NDesk.Options;
 using OTAPI.Patcher.Engine;
 
@@ -15,26 +16,16 @@ namespace TShock.Modifications.Bootstrapper
 			string sourceAsm = null;
 			string modificationGlob = null;
 			string outputPath = null;
-			string folder = null;
+#if DEBUG
+			string folder = "Debug";
+#else
+			string folder = "Release";
+#endif
 
 			Console.WriteLine("TShock Mintaka Bootstrapper, Open Terraria API v2.0");
 
 			if (args.Length == 0)
 			{
-				if (File.Exists("env.config"))
-				{
-					using (StreamReader sr = File.OpenText("env.config"))
-					{
-						folder = sr.ReadLine();
-						Console.WriteLine($"Folder set to: " + folder);
-					}
-				}
-				else
-				{
-					Console.WriteLine("Something went wrong! (env.config not found)");
-					Console.ReadLine();
-					return;
-				}
 				args = new[]
 				{
 					"-in=OTAPI.dll",
@@ -53,14 +44,14 @@ namespace TShock.Modifications.Bootstrapper
 
 			options.Parse(args);
 
-			if (string.IsNullOrEmpty(sourceAsm) == true
-				|| string.IsNullOrEmpty(modificationGlob) == true)
+			if (string.IsNullOrEmpty(sourceAsm)
+				|| string.IsNullOrEmpty(modificationGlob))
 			{
 				options.WriteOptionDescriptions(Console.Out);
 				return;
 			}
 
-			System.IO.Directory.CreateDirectory("Output");
+			Directory.CreateDirectory("Output");
 
 			patcher = new Patcher(sourceAsm, new[] {
 				modificationGlob

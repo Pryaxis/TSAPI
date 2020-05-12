@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net462</TargetFramework>
+    <LangVersion>7.3</LangVersion>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="OTAPI.Patcher.Engine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>$(ProjectDir)/../prebuilt/OTAPI.Patcher.Engine.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="OTAPI" Version="2.0.0.32" />
+    <PackageReference Include="Mono.Cecil" Version="0.9.6.0" />
+    <PackageReference Include="NDesk.Options" Version="0.2.1" />
+  </ItemGroup>
+</Project>
