@@ -7,12 +7,6 @@ namespace TerrariaApi.Server
 {
 	public static class TaskExt
 	{
-		public static Task LogExceptions(this Task task)
-		{
-			task.ContinueWith(t => { ServerApi.LogWriter.ServerWriteLine(t.Exception.ToString(), TraceLevel.Error); }, TaskContinuationOptions.OnlyOnFaulted);
-			return task;
-		}
-
 		public static Task SuppressExceptions(this Task task)
 		{
 			task.ContinueWith(t => { var ex = t.Exception; }, TaskContinuationOptions.OnlyOnFaulted);

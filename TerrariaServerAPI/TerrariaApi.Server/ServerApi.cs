@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using NLog;
 using Terraria;
 using TerrariaApi.Reporting;
 
@@ -18,10 +19,9 @@ namespace TerrariaApi.Server
 		private static List<IPluginContainer> plugins = new List<IPluginContainer>();
 
 		internal static readonly CrashReporter reporter = new CrashReporter();
+		internal static Logger Log = LogManager.GetLogger("Server");
 		public static IReadOnlyCollection<IPluginContainer> Plugins => new List<IPluginContainer>(plugins);
 		public static HookManager Hooks { get; private set; }
-		public static LogWriterManager LogWriter { get; private set; }
-		public static ProfilerManager Profiler { get; private set; }
 		public static IPluginLoader PluginLoader { get; set; }
 		public static bool IsWorldRunning { get; internal set; }
 		public static bool RunningMono { get; private set; }
@@ -31,8 +31,6 @@ namespace TerrariaApi.Server
 		static ServerApi()
 		{
 			Hooks = new HookManager();
-			LogWriter = new LogWriterManager();
-			Profiler = new ProfilerManager();
 
 			UseAsyncSocketsInMono = false;
 			ForceUpdate = false;
@@ -43,15 +41,10 @@ namespace TerrariaApi.Server
 
 		internal static void Initialize(string[] commandLineArgs, Main game)
 		{
-			Profiler.BeginMeasureServerInitTime();
-			LogWriter.ServerWriteLine(
-				string.Format("TerrariaApi - Server v{0} started.", ApiVersion), TraceLevel.Verbose);
-			LogWriter.ServerWriteLine(
-				"\tCommand line: " + Environment.CommandLine, TraceLevel.Verbose);
-			LogWriter.ServerWriteLine(
-				string.Format("\tOS: {0} (64bit: {1})", Environment.OSVersion, Environment.Is64BitOperatingSystem), TraceLevel.Verbose);
-			LogWriter.ServerWriteLine(
-				"\tMono: " + RunningMono, TraceLevel.Verbose);
+			Log.Debug($"TerrariaApi - Server v{ApiVersion} started.");
+			Log.Debug($"\tCommand line: {Environment.CommandLine}");
+			Log.Debug($"\tOS: {Environment.OSVersion} (64bit: {Environment.Is64BitOperatingSystem})");
+			Log.Debug($"\tMono: {RunningMono}");
 
 			ServerApi.game = game;
 			HandleCommandLine(commandLineArgs);
@@ -61,8 +54,6 @@ namespace TerrariaApi.Server
 		internal static void DeInitialize()
 		{
 			UnloadPlugins();
-			Profiler.Deatch();
-			LogWriter.Deatch();
 		}
 
 		internal static void HandleCommandLine(string[] parms)
@@ -75,33 +66,24 @@ namespace TerrariaApi.Server
 				{
 					case "-forceupdate":
 						{
-							ServerApi.ForceUpdate = true;
-							ServerApi.LogWriter.ServerWriteLine(
-								"Forcing game updates regardless of players! This is experimental, and will cause constant CPU usage, you are on your own.",
-								TraceLevel.Warning);
-
+							ForceUpdate = true;
+							Log.Warn("Forcing game updates regardless of players! This is experimental, and will cause constant CPU usage, you are on your own.");
 							break;
 						}
 					case "-asyncmono":
 						{
-							ServerApi.UseAsyncSocketsInMono = true;
-							ServerApi.LogWriter.ServerWriteLine(
-								"Forcing Mono to use asynchronous sockets.  This is highly experimental and may not work on all versions of Mono.",
-								TraceLevel.Warning);
+							UseAsyncSocketsInMono = true;
+							Log.Warn("Forcing Mono to use asynchronous sockets.  This is highly experimental and may not work on all versions of Mono.");
 							break;
 						}
 					case "-players":
 						{
-							int playerCount;
-							if (!Int32.TryParse(arg.Value, out playerCount))
+							if (!Int32.TryParse(arg.Value, out var playerCount))
 							{
-								ServerApi.LogWriter.ServerWriteLine("Invalid player count. Using 8", TraceLevel.Warning);
-
+								Log.Warn("Invalid player count. Using 8");
 								playerCount = 8;
 							}
-
 							game.SetNetPlayers(playerCount);
-
 							break;
 						}
 					case "-maxplayers":
@@ -109,7 +91,6 @@ namespace TerrariaApi.Server
 					case "-pass":
 						{
 							Netplay.ServerPassword = arg.Value;
-
 							break;
 						}
 					case "-password":
@@ -117,53 +98,44 @@ namespace TerrariaApi.Server
 					case "-worldname":
 						{
 							game.SetWorldName(arg.Value);
-
 							break;
 						}
 					case "-world":
 						{
 							game.SetWorld(arg.Value, false);
-
 							var full_path = Path.GetFullPath(arg.Value);
 							Main.WorldPath = Path.GetDirectoryName(full_path);
 							Main.worldName = Path.GetFileNameWithoutExtension(full_path);
-
 							break;
 						}
 					case "-motd":
 						{
 							game.NewMOTD(arg.Value);
-
 							break;
 						}
 					case "-banlist":
 						{
 							Netplay.BanFilePath = arg.Value;
-
 							break;
 						}
 					case "-autoshutdown":
 						{
 							game.EnableAutoShutdown();
-
 							break;
 						}
 					case "-secure":
 						{
 							Netplay.spamCheck = true;
-
 							break;
 						}
 					case "-autocreate":
 						{
 							game.autoCreate(arg.Value);
-
 							break;
 						}
 					case "-loadlib":
 						{
 							game.loadLib(arg.Value);
-
 							break;
 						}
 					case "-crashdir":
@@ -183,9 +155,7 @@ namespace TerrariaApi.Server
 				}
 				catch (Exception ex)
 				{
-					LogWriter.ServerWriteLine(string.Format(
-						"Plugin \"{0}\" has thrown an exception while being deinitialized:\n{1}", pluginContainer.Plugin.Name, ex),
-						TraceLevel.Error);
+					Log.Error($"Plugin \"{pluginContainer.Plugin.Name}\" has thrown an exception while being deinitialized:\n{ex}");
 				}
 			}
 		}

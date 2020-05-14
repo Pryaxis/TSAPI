@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using NLog;
 using Terraria;
 
 namespace TerrariaApi.Server
@@ -14,11 +15,13 @@ namespace TerrariaApi.Server
 
 	public class HookManager
 	{
+		private static Logger Log = LogManager.GetCurrentClassLogger();
+
 		public static void InitialiseAPI()
 		{
 			try
 			{
-				Console.WriteLine("TerrariaAPI Version: {0} (Protocol {1} ({2}), OTAPI {3})",
+				Log.Info("TerrariaAPI Version: {0} (Protocol {1} ({2}), OTAPI {3})",
 					ServerApi.ApiVersion,
 					Main.versionNumber2,
 					Main.curRelease,
@@ -28,11 +31,8 @@ namespace TerrariaApi.Server
 			}
 			catch (Exception ex)
 			{
-				ServerApi.LogWriter.ServerWriteLine(
-					"Startup aborted due to an exception in the Server API initialization:\n" + ex, TraceLevel.Error);
-
+				Log.Error($"Startup aborted due to an exception in the Server API initialization:\n{ex}");
 				Console.ReadLine();
-				return;
 			}
 		}
 
@@ -40,7 +40,7 @@ namespace TerrariaApi.Server
 		{
 			if (args.Any(x => x == "-heaptile"))
 			{
-				ServerApi.LogWriter.ServerWriteLine($"Using {nameof(HeapTile)} for tile implementation", TraceLevel.Info);
+				Log.Info($"Using {nameof(HeapTile)} for tile implementation");
 				OTAPI.Hooks.Tile.CreateCollection = () =>
 				{
 					return new TileProvider();
@@ -393,7 +393,7 @@ namespace TerrariaApi.Server
 					Netplay.Clients[buffer.whoAmI].PendingTermination = true;
 					return true;
 				}
-				
+
 				switch ((PacketTypes)msgId)
 				{
 					case PacketTypes.ConnectRequest:

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Linq;
+using NLog;
 using Terraria.ID;
 using TerrariaApi.Server;
 
@@ -8,6 +9,8 @@ namespace OTAPI.Shims.TShock
 {
 	public class Launch
 	{
+		private static Logger Log = LogManager.GetLogger("Server");
+
 		/// <summary>
 		/// Initialises any internal values before any server initialisation begins
 		/// </summary>
@@ -80,7 +83,7 @@ namespace OTAPI.Shims.TShock
 			}
 			catch (Exception ex)
 			{
-				ServerApi.LogWriter.ServerWriteLine("Server crashed due to an unhandled exception:\n" + ex, TraceLevel.Error);
+				Log.Error($"Server crashed due to an unhandled exception:\n{ex}");
 			}
 		}
 
@@ -102,7 +105,7 @@ namespace OTAPI.Shims.TShock
 		/// <param name="e"></param>
 		private static void UnhandledException(object sender, UnhandledExceptionEventArgs e)
 		{
-			Console.WriteLine($"Unhandled exception\n{e}");
+			Log.Error($"Unhandled exception\n{e}");
 		}
 	}
 }

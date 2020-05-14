@@ -3,11 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using System.Diagnostics;
+using NLog;
 
 namespace TerrariaApi.Server
 {
 	public class HandlerCollection<ArgsType>: IEnumerable<HandlerRegistration<ArgsType>> where ArgsType: EventArgs
 	{
+		private static Logger Log = LogManager.GetLogger("Server");
 		// Always handle this collection like an immuteable object to maintain thread safety!
 		private List<HandlerRegistration<ArgsType>> registrations;
 		private readonly object alterRegistrationsLock = new object();
@@ -17,7 +19,7 @@ namespace TerrariaApi.Server
 		{
 			if (string.IsNullOrWhiteSpace(hookName))
 				throw new ArgumentException("Invalid hook name.", "hookName");
-			
+
 			this.registrations = new List<HandlerRegistration<ArgsType>>();
 			this.hookName = hookName;
 		}
@@ -81,7 +83,7 @@ namespace TerrariaApi.Server
 					return false;
 
 				var registrationsClone = new List<HandlerRegistration<ArgsType>>(this.registrations.Count);
-				for (int i = 0; i < this.registrations.Count; i++) 
+				for (int i = 0; i < this.registrations.Count; i++)
 					if (i != registrationIndex)
 						registrationsClone.Add(this.registrations[i]);
 
@@ -104,33 +106,11 @@ namespace TerrariaApi.Server
 			{
 				try
 				{
-					if (ServerApi.Profiler.WrappedProfiler == null)
-					{
-						registration.Handler(args);
-					}
-					else
-					{
-						Stopwatch watch = new Stopwatch();
-
-						watch.Start();
-						try
-						{
-							registration.Handler(args);
-						}
-						finally
-						{
-							watch.Stop();
-							ServerApi.Profiler.InputPluginHandlerTime(registration.Registrator, hookName, watch.Elapsed);
-						}
-					}
+					registration.Handler(args);
 				}
 				catch (Exception ex)
 				{
-					ServerApi.LogWriter.ServerWriteLine(string.Format(
-						"Plugin \"{0}\" has had an unhandled exception thrown by one of its {1} handlers: \n{2}",
-						registration.Registrator.Name, hookName, ex), TraceLevel.Warning);
-
-					ServerApi.Profiler.InputPluginHandlerExceptionThrown(registration.Registrator, hookName, ex);
+					Log.Warn($"Plugin \"{registration.Registrator.Name}\" has had an unhandled exception thrown by one of its {hookName} handlers: \n{ex}");
 				}
 			}
 		}

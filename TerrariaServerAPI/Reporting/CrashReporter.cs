@@ -11,6 +11,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using NLog;
 using Terraria;
 using TerrariaApi.Server;
 
@@ -24,6 +25,8 @@ namespace TerrariaApi.Reporting
 		/// </summary>
 		public static event EventHandler HeapshotRequesting;
 
+		private Logger Log = ServerApi.Log;
+
 		internal static string crashReportPath = "crashes";
 
 		internal CrashReporter()
@@ -33,27 +36,27 @@ namespace TerrariaApi.Reporting
 
 		internal void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
 		{
-			ServerApi.LogWriter.ServerWriteLine("===================================================================================", TraceLevel.Error);
-			ServerApi.LogWriter.ServerWriteLine("An unhandled exception has occured in TSAPI, and a crash report will be generated", TraceLevel.Error);
-			ServerApi.LogWriter.ServerWriteLine("Generating a crash report, please wait...", TraceLevel.Error);
+			Console.WriteLine("===================================================================================");
+			Log.Error("An unhandled exception has occured in TSAPI, and a crash report will be generated");
+			Log.Error("Generating a crash report, please wait...");
 
 			try
 			{
 				string path = CollectCrashReport(e.ExceptionObject as Exception);
-				ServerApi.LogWriter.ServerWriteLine("Crash report saved at " + path, TraceLevel.Error);
+				Log.Error("Crash report saved at " + path);
 			}
 			catch
 			{
-				ServerApi.LogWriter.ServerWriteLine("Could not generate a crash report.", TraceLevel.Error);
+				Log.Error("Could not generate a crash report.");
 			}
 			finally
 			{
-				ServerApi.LogWriter.ServerWriteLine("Please upload the crash file and report it at http://tshock.co/", TraceLevel.Error);
+				Log.Error("Please upload the crash file and report it at http://tshock.co/");
 				if (e.IsTerminating)
 				{
-					ServerApi.LogWriter.ServerWriteLine("The process will terminate.", TraceLevel.Error);
+					Log.Error("The process will terminate.");
 				}
-				ServerApi.LogWriter.ServerWriteLine("===================================================================================", TraceLevel.Error);
+				Console.WriteLine("===================================================================================");
 			}
 		}
 
