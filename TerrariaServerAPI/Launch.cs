@@ -6,12 +6,12 @@ using TerrariaApi.Server;
 
 namespace OTAPI.Shims.TShock
 {
-	class Program
+	public class Launch
 	{
 		/// <summary>
 		/// Initialises any internal values before any server initialisation begins
 		/// </summary>
-		public static void InitialiseInternals()
+		private static void InitialiseInternals()
 		{
 			ItemID.Sets.Explosives = ItemID.Sets.Factory.CreateBoolSet(new int[]
 			{
@@ -63,7 +63,7 @@ namespace OTAPI.Shims.TShock
 			TileID.Sets.Hallow[TileID.Pearlstone] = true;
 		}
 
-		public static void Main(string[] args)
+		public static void Start(string[] args)
 		{
 			AppDomain.CurrentDomain.UnhandledException += UnhandledException;
 			try
@@ -104,7 +104,5 @@ namespace OTAPI.Shims.TShock
 		{
 			Console.WriteLine($"Unhandled exception\n{e}");
 		}
-
-
 	}
 }
