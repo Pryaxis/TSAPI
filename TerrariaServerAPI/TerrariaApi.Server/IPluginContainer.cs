@@ -10,6 +10,5 @@ namespace TerrariaApi.Server
 		bool Dll { get; set; }
 		void Initialize();
 		void DeInitialize();
-		void Dispose();
 	}
 }
