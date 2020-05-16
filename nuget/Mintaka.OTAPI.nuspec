@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>Mintaka.OTAPI</id>
+    <version>0.0.3</version>
+    <authors>Pryaxis &amp; TShock Contributors</authors>
+    <owners>Pryaxis</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <projectUrl>https://github.com/Pryaxis/TerrariaAPI-Server</projectUrl>
+    <description>None</description>
+    <copyright>Copyright (C) 2011-2020 Pryaxis &amp; TShock Contributors</copyright>
+  </metadata>
+  <files>
+    <file src="..\TShock.Modifications.Bootstrapper\bin\Release\Output\OTAPI.dll" target="lib"></file>
+ </files>
+</package>

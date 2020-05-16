@@ -1,0 +1,29 @@
+name: Upload OTAPI
+
+on:
+  push:
+    branches: [ release ]
+
+jobs:
+  upload:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '3.1.100'
+      - uses: warrenbuckley/Setup-Nuget@v1
+          
+      - name: Build Patches
+        run: Get-ChildItem -Path ./ -Recurse -File -Include TShock.Modifications.*.csproj | % { dotnet build -f net462 -c Release "$_" }
+      - name: Patch
+        run: |
+          cd ./TShock.Modifications.Bootstrapper/bin/Release/
+          ./TShock.Modifications.Bootstrapper.exe
+
+      - name: Upload
+        run: |
+          cd nuget
+          nuget pack ./Mintaka.OTAPI.nuspec
+          Get-ChildItem -Path ./ -Recurse -File -Include *.nupkg | % { nuget push "$_" ${{secrets.NUGET_APIKEY}} -Source https://api.nuget.org/v3/index.json }
+

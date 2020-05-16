@@ -13,3 +13,4 @@ Output/
 *.dll
 
 .idea/
+/nuget/*.nupkg

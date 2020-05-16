@@ -16,11 +16,7 @@
     <None Remove="tshock_logo.png" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="OTAPI, Version=1.3.5.3, Culture=neutral, PublicKeyToken=null">
-      <HintPath>../TShock.Modifications.Bootstrapper/bin/$(Configuration)/Output/OTAPI.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
+    <PackageReference Include="Mintaka.OTAPI" Version="0.0.3" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.1" />
     <PackageReference Include="NLog" Version="4.7.0" />
     <PackageReference Include="System.Diagnostics.PerformanceCounter" Version="4.7.0" />
