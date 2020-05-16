@@ -2,6 +2,9 @@
 using System.Diagnostics;
 using System.Linq;
 using NLog;
+using NLog.Config;
+using NLog.Layouts;
+using NLog.Targets;
 using Terraria.ID;
 using TerrariaApi.Server;
 
@@ -71,6 +74,7 @@ namespace OTAPI.Shims.TShock
 			AppDomain.CurrentDomain.UnhandledException += UnhandledException;
 			try
 			{
+				SetupLogManager();
 				InitialiseInternals();
 				ServerApi.Hooks.AttachOTAPIHooks(args);
 
@@ -106,6 +110,30 @@ namespace OTAPI.Shims.TShock
 		private static void UnhandledException(object sender, UnhandledExceptionEventArgs e)
 		{
 			Log.Error($"Unhandled exception\n{e}");
+		}
+
+		static void SetupLogManager()
+		{
+			//TODO: Make logger configurable
+			var config = new LoggingConfiguration();
+
+			// Targets where to log to: File and Console
+			var logfile = new FileTarget("logfile") { FileName = "logs/log.txt" };
+			logfile.ArchiveEvery = FileArchivePeriod.Day;
+			logfile.ArchiveNumbering = ArchiveNumberingMode.Date;
+
+			var consoleTarget = new ColoredConsoleTarget();
+			consoleTarget.UseDefaultRowHighlightingRules = true;
+			consoleTarget.Layout = Layout.FromMethod(logEvent =>
+			{
+				return $"[{logEvent.LoggerName}]{logEvent.FormattedMessage}";
+			});
+			// Rules for mapping loggers to targets
+			config.AddRule(LogLevel.Info, LogLevel.Fatal, consoleTarget);
+			config.AddRule(LogLevel.Debug, LogLevel.Fatal, logfile);
+
+			// Apply config
+			LogManager.Configuration = config;
 		}
 	}
 }

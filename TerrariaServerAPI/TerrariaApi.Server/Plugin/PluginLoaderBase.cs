@@ -65,7 +65,10 @@ namespace TerrariaApi.Server
 			try
 			{
 				if (!File.Exists(filePath))
+				{
 					File.Create(filePath);
+					return files.ToList();
+				}
 				var ignored = File.ReadAllLines(filePath);
 				return files.Where(f => !ignored.Contains(f.Name)).ToList();
 			}
