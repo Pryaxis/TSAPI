@@ -16,13 +16,10 @@ namespace TerrariaApi.Server
 	{
 		public static readonly Version ApiVersion = new Version(2, 1, 0, 0);
 		private static Main game;
-		private static List<IPluginContainer> plugins = new List<IPluginContainer>();
-
 		internal static readonly CrashReporter reporter = new CrashReporter();
 		internal static Logger Log = LogManager.GetLogger("Server");
-		public static IReadOnlyCollection<IPluginContainer> Plugins => new List<IPluginContainer>(plugins);
 		public static HookManager Hooks { get; private set; }
-		public static IPluginLoader PluginLoader { get; set; }
+		public static PluginManager PluginManager { get; } = new PluginManager();
 		public static bool IsWorldRunning { get; internal set; }
 		public static bool RunningMono { get; private set; }
 		public static bool ForceUpdate { get; private set; }
@@ -48,12 +45,13 @@ namespace TerrariaApi.Server
 
 			ServerApi.game = game;
 			HandleCommandLine(commandLineArgs);
-			plugins = PluginLoader.LoadPlugins().ToList();
+			PluginManager.LoadPlugins();
+			PluginManager.InitializeAllPlugins();
 		}
 
 		internal static void DeInitialize()
 		{
-			UnloadPlugins();
+			PluginManager.UnloadAllPlugins();
 		}
 
 		internal static void HandleCommandLine(string[] parms)
@@ -144,21 +142,5 @@ namespace TerrariaApi.Server
 				}
 			}
 		}
-
-		internal static void UnloadPlugins()
-		{
-			foreach (var pluginContainer in plugins)
-			{
-				try
-				{
-					PluginLoader.UnloadPlugin(pluginContainer);
-				}
-				catch (Exception ex)
-				{
-					Log.Error($"Plugin \"{pluginContainer.Plugin.Name}\" has thrown an exception while being deinitialized:\n{ex}");
-				}
-			}
-		}
-
 	}
 }

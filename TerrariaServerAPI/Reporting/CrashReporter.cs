@@ -235,13 +235,13 @@ namespace TerrariaApi.Reporting
 
 				memory = GetMemoryInfo(),
 
-				plugins = from i in TerrariaApi.Server.ServerApi.Plugins
-						  orderby i.Plugin.Order
+				plugins = from i in ServerApi.PluginManager.Plugins
+						  orderby i.Order
 						  select new
 						  {
-							  Name = i.Plugin.Name,
-							  Author = i.Plugin.Author,
-							  Version = i.Plugin.Version.ToString(),
+							  Name = i.Name,
+							  Author = i.Author,
+							  Version = i.Version.ToString(),
 						  },
 
 				exception = GenerateExceptionData(ex)

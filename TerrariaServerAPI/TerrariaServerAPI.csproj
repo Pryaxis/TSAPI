@@ -6,16 +6,18 @@
 		<Product>Terraria</Product>
 		<Title>Terraria</Title>
 		<AssemblyName>TerrariaServerApi</AssemblyName>
-		<RootNamespace>TerrariaServerApi</RootNamespace>
+		<RootNamespace>TerrariaApi.Server</RootNamespace>
 		<AssemblyVersion>1.3.5.3</AssemblyVersion>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<TargetFramework>netstandard2.0</TargetFramework>
+		<Nullable>disable</Nullable>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="tshock_logo.ico" />
     <None Remove="tshock_logo.png" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="JetBrains.Annotations" Version="2020.1.0" />
     <PackageReference Include="Mintaka.OTAPI" Version="0.0.3" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.1" />
     <PackageReference Include="NLog" Version="4.7.0" />
