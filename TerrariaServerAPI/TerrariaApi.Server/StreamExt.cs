@@ -1,4 +1,6 @@
 //#if !BOOTSTRAPPED
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics.PackedVector;
 using System;
 using System.Text;
 namespace System.IO.Streams
@@ -133,6 +135,18 @@ namespace System.IO.Streams
 			}
 			s.WriteInt8((byte)num);
 		}
+		public static void WriteVector2(this Stream s, Vector2 v)
+		{
+			s.WriteSingle(v.X);
+			s.WriteSingle(v.Y);
+		}
+		public static void WriteRGB(this BinaryWriter bb, Color c)
+		{
+			bb.Write(c.R);
+			bb.Write(c.G);
+			bb.Write(c.B);
+		}
+
 		public static byte ReadInt8(this Stream s)
 		{
 			int num = s.ReadByte();
@@ -241,6 +255,15 @@ namespace System.IO.Streams
 				}
 			}
 			throw new FormatException("Format_Bad7BitInt32");
+		}
+
+		public static Vector2 ReadVector2(this Stream s)
+		{
+			return new Vector2(s.ReadSingle(), s.ReadSingle());
+		}
+		public static Color ReadRGB(this Stream s)
+		{
+			return new Color((int)s.ReadByte(), (int)s.ReadByte(), (int)s.ReadByte());
 		}
 	}
 }
