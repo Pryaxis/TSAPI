@@ -12,10 +12,10 @@ namespace Mintaka.Modifications.Platform.Callbacks
 			switch (Environment.OSVersion.Platform)
 			{
 				case PlatformID.Unix:
-					type = typeof(ReLogic.OS.Platform).Assembly.GetType(IsRunningOnMac() ? "ReLogic.OS.OsxPlatform" : "ReLogic.OS.LinuxPlatform");
+					type = typeof(ReLogic.OS.Platform).Assembly.GetType(IsRunningOnMac() ? "ReLogic.OS.OSX.OsxPlatform" : "ReLogic.OS.Linux.LinuxPlatform");
 					break;
 				case PlatformID.Win32NT:
-					type = typeof(ReLogic.OS.Platform).Assembly.GetType("ReLogic.OS.WindowsPlatform");
+					type = typeof(ReLogic.OS.Platform).Assembly.GetType("ReLogic.OS.Windows.WindowsPlatform");
 					break;
 				default:
 					throw new NotSupportedException();

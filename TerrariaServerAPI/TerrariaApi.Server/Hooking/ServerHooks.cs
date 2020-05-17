@@ -43,7 +43,7 @@ namespace TerrariaApi.Server.Hooking
 
 		static HookResult OnPreReset(Terraria.RemoteClient remoteClient)
 		{
-			if (WorldGen.serverLoadWorld().IsCompleted)
+			if (!Netplay.Disconnect)
 			{
 				if (remoteClient.IsActive)
 				{
