@@ -36,9 +36,9 @@ namespace TShock.Modifications.ConnectionLoop
 			checkBytes.Body.GetILProcessor().InsertAfter(targetInstruction,
 				new[]
 				{
-					Instruction.Create(OpCodes.Ldloc_S, checkBytes.Body.Variables[4]), 
+					Instruction.Create(OpCodes.Ldloc_S, checkBytes.Body.Variables[4]),
 					Instruction.Create(OpCodes.Ldc_I4_0),
-					Instruction.Create(OpCodes.Beq_S, targetInstruction.Operand as Instruction)
+					Instruction.Create(OpCodes.Beq, targetInstruction.Operand as Instruction)
 				}.AsEnumerable());
 		}
 	}
