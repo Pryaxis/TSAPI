@@ -1,5 +1,6 @@
 ﻿using OTAPI;
 using System;
+using Terraria;
 
 namespace TerrariaApi.Server.Hooking
 {
@@ -42,7 +43,7 @@ namespace TerrariaApi.Server.Hooking
 
 		static HookResult OnPreReset(Terraria.RemoteClient remoteClient)
 		{
-			if (Terraria.Netplay.IsServerRunning)
+			if (WorldGen.serverLoadWorld().IsCompleted)
 			{
 				if (remoteClient.IsActive)
 				{

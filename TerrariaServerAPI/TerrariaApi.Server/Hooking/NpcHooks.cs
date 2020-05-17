@@ -42,7 +42,7 @@ namespace TerrariaApi.Server.Hooking
 			return HookResult.Continue;
 		}
 
-		static HookResult OnPreNetDefaults(NPC npc, ref int type)
+		static HookResult OnPreNetDefaults(NPC npc, ref int type, ref NPCSpawnParams npcSpawnParams)
 		{
 			if (_hookManager.InvokeNpcNetDefaults(ref type, npc))
 			{
