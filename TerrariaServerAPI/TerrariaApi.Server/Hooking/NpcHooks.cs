@@ -33,7 +33,7 @@ namespace TerrariaApi.Server.Hooking
 			_hookManager.InvokeNpcKilled(npc);
 		}
 
-		static HookResult OnPreSetDefaultsById(NPC npc, ref int type, ref float scaleOverride)
+		static HookResult OnPreSetDefaultsById(NPC npc, ref int type, ref NPCSpawnParams spawnParams)
 		{
 			if (_hookManager.InvokeNpcSetDefaultsInt(ref type, npc))
 			{
@@ -42,7 +42,7 @@ namespace TerrariaApi.Server.Hooking
 			return HookResult.Continue;
 		}
 
-		static HookResult OnPreNetDefaults(NPC npc, ref int type)
+		static HookResult OnPreNetDefaults(NPC npc, ref int type, ref NPCSpawnParams npcSpawnParams)
 		{
 			if (_hookManager.InvokeNpcNetDefaults(ref type, npc))
 			{
