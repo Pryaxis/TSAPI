@@ -155,12 +155,11 @@
             Additionally, it must also have the result value by reference before any of the current method parameters are specified.
             </summary>
         </member>
-        <member name="M:OTAPI.Patcher.Engine.Extensions.TypeDefinitionExtensions.MakePublic(Mono.Cecil.TypeDefinition,System.Boolean)">
+        <member name="M:OTAPI.Patcher.Engine.Extensions.TypeDefinitionExtensions.MakePublic(Mono.Cecil.TypeDefinition)">
             <summary>
             Ensures all members of the type are publicly accessible
             </summary>
             <param name="type">The type to be made accessible</param>
-            <param name="nested">To make all nested classes public as well.</param>
         </member>
         <member name="P:OTAPI.Patcher.Engine.Modification.ModificationBase.SourceDefinitionFilePath">
             <summary>

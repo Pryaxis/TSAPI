@@ -19,7 +19,7 @@ namespace TShock.Modifications.ConnectionLoop
 	{
 		/// <inheritdoc />
 		public override IEnumerable<string> AssemblyTargets =>
-			new[] {"OTAPI, Version=1.3.5.3, Culture=neutral, PublicKeyToken=null"};
+			new[] { "OTAPI, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null" };
 
 		/// <inheritdoc />
 		public override string Description => "Patching connection loop exploit...";
@@ -31,7 +31,7 @@ namespace TShock.Modifications.ConnectionLoop
 
 			// Find the proper instruction range => if (i < num2)
 			var targetInstruction = checkBytes.Body.Instructions.Single(i =>
-				i.OpCode == OpCodes.Blt_S && i.Previous.OpCode == OpCodes.Ldloc_S &&
+				i.OpCode == OpCodes.Blt && i.Previous.OpCode == OpCodes.Ldloc_S &&
 				i.Previous.Previous.OpCode == OpCodes.Ldloc_3);
 			checkBytes.Body.GetILProcessor().InsertAfter(targetInstruction,
 				new[]
