@@ -1,6 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
+		<Configurations>Debug;Release;DebugLocalOTAPI;ReleaseLocalOTAPI</Configurations>
+		<Platforms>AnyCPU</Platforms>
 	</PropertyGroup>
 	<ItemGroup>
 	  <PackageReference Include="ILRepack.Lib" Version="2.0.15" />

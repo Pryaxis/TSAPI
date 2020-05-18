@@ -123,7 +123,7 @@ namespace TerrariaApi.Server
 						}
 					case "-secure":
 						{
-							Netplay.spamCheck = true;
+							Netplay.SpamCheck = true;
 							break;
 						}
 					case "-autocreate":

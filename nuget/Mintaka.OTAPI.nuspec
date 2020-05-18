@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Mintaka.OTAPI</id>
-    <version>0.0.3</version>
+    <version>0.0.4</version>
     <authors>Pryaxis &amp; TShock Contributors</authors>
     <owners>Pryaxis</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>

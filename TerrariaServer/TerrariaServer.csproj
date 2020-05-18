@@ -3,6 +3,8 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net462</TargetFramework>
+    <Configurations>Debug;Release;DebugLocalOTAPI;ReleaseLocalOTAPI</Configurations>
+    <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
