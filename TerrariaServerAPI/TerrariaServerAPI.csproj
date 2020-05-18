@@ -29,7 +29,7 @@
     <PackageReference Include="System.IO.Packaging" Version="4.7.0" />
   </ItemGroup>
 	<ItemGroup Condition=" $(LocalOTAPI) == false ">
-		<PackageReference Include="Mintaka.OTAPI" Version="0.0.3" />
+		<PackageReference Include="Mintaka.OTAPI" Version="0.0.4" />
 	</ItemGroup>
 	<ItemGroup Condition=" $(LocalOTAPI) == true ">
 		<Reference Include="OTAPI">
