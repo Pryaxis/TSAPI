@@ -6,13 +6,13 @@ using System.Runtime.Versioning;
 using System.Security.Permissions;
 
 [assembly: AssemblyCompany("Re-Logic & The TShock Team")]
-[assembly: AssemblyCopyright("Copyright © Re-Logic 2017")]
+[assembly: AssemblyCopyright("Copyright © Re-Logic, Pryaxis & TShock Contributors 2011-2020")]
 [assembly: AssemblyDescription("")]
-[assembly: AssemblyFileVersion("1.3.5.3")]
+[assembly: AssemblyFileVersion("1.4.0.2")]
 [assembly: AssemblyProduct("Terraria")]
 [assembly: AssemblyTitle("Terraria")]
 [assembly: AssemblyTrademark("")]
-[assembly: AssemblyVersion("1.3.5.3")]
+[assembly: AssemblyVersion("1.4.0.2")]
 [assembly: CompilationRelaxations(8)]
 [assembly: ComVisible(false)]
 [assembly: Debuggable(DebuggableAttribute.DebuggingModes.IgnoreSymbolStoreSequencePoints)]
