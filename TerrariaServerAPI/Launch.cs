@@ -47,13 +47,13 @@ namespace OTAPI.Shims.TShock
 
 			//Same again for crimson
 			TileID.Sets.Crimson[TileID.FleshBlock] = true;
-			TileID.Sets.Crimson[TileID.FleshGrass] = true;
+			TileID.Sets.Crimson[TileID.CrimsonGrass] = true;
 			TileID.Sets.Crimson[TileID.FleshIce] = true;
-			TileID.Sets.Crimson[TileID.FleshWeeds] = true;
+			TileID.Sets.Crimson[TileID.CrimsonPlants] = true;
 			TileID.Sets.Crimson[TileID.Crimstone] = true;
 			TileID.Sets.Crimson[TileID.Crimsand] = true;
 			TileID.Sets.Crimson[TileID.CrimsonVines] = true;
-			TileID.Sets.Crimson[TileID.CrimtaneThorns] = true;
+			TileID.Sets.Crimson[TileID.CrimsonThorns] = true;
 			TileID.Sets.Crimson[TileID.CrimsonHardenedSand] = true;
 			TileID.Sets.Crimson[TileID.CrimsonSandstone] = true;
 

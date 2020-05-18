@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Mono.Cecil;
 using Mono.Cecil.Cil;
 using OTAPI.Patcher.Engine.Modification;
+using OTAPI.Patcher.Engine.Extensions;
 
 namespace Mintaka.Modifications.Platform
 {
@@ -15,7 +17,7 @@ namespace Mintaka.Modifications.Platform
 	{
 		public override IEnumerable<string> AssemblyTargets => new[]
 		{
-			"OTAPI, Version=1.3.5.3, Culture=neutral, PublicKeyToken=null"
+			"OTAPI, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null"
 		};
 
 		public override string Description => "Enforcing OTAPI to load right platform...";
@@ -41,6 +43,23 @@ namespace Mintaka.Modifications.Platform
 			processor.Append(Instruction.Create(OpCodes.Ldsflda, field));
 			processor.Append(Instruction.Create(OpCodes.Call, changePlatformMethodDefinition));
 			processor.Append(Instruction.Create(OpCodes.Ret));
+
+			RemovePlatformSpecificSleep();
+		}
+
+		public void RemovePlatformSpecificSleep()
+		{
+			MethodDefinition def = this.SourceDefinition.Type("Terraria.Main").Method("NeverSleep");
+
+			var processor = def.Body.GetILProcessor();
+			processor.Body.Instructions.Clear();
+			processor.Append(Instruction.Create(OpCodes.Ret));
+
+			MethodDefinition def2 = this.SourceDefinition.Type("Terraria.Main").Method("YouCanSleepNow");
+
+			var processor2 = def2.Body.GetILProcessor();
+			processor2.Body.Instructions.Clear();
+			processor2.Append(Instruction.Create(OpCodes.Ret));
 		}
 
 	}

@@ -49,7 +49,7 @@
             }
         }
 
-        public override byte wall
+        public override ushort wall
         {
             get
             {
@@ -58,8 +58,9 @@
 
             set
             {
-                heap[offset + kHeapTileWallOffset] = value;
-            }
+				heap[offset + kHeapTileSTileHeaderOffset + 1] = (byte)(value >> 8);
+				heap[offset + kHeapTileSTileHeaderOffset] = (byte)(value & 0xFF);
+			}
         }
 
         public override byte liquid
