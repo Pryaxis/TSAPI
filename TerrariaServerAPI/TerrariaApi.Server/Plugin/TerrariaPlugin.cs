@@ -45,5 +45,7 @@ namespace TerrariaApi.Server
 
 		// Should rename to OnInit and be protected when we can discard backward compatibility
 		public abstract void Initialize();
+
+
 	}
 }

@@ -125,9 +125,9 @@ namespace TerrariaApi.Server
 		}
 		protected virtual bool ValidatePlugin(Assembly asm)
 		{
-			var requiredReference = typeof(ServerApi).Assembly.GetName();
+			var requiredReference = typeof(ServerApi).Assembly.GetName().FullName;
 			var references = asm.GetReferencedAssemblies();
-			if (references.Contains(requiredReference)
+			if (references.Any(r => r.FullName == requiredReference)
 			    // Backward compatibility
 				|| references.Any(r => r.Name == "TerrariaServer"))
 				return true;
