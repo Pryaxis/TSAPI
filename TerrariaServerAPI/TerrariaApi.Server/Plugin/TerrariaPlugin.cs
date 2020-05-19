@@ -13,7 +13,7 @@ namespace TerrariaApi.Server
 		public int Order { get; set; } = 1;
 		public virtual bool Enabled { get; set; }
 		public bool Initialized { get; protected set; }
-		public IPluginLoader Loader { get; }
+		public IPluginLoader Loader { get; set; }
 
 		protected Logger Log;
 

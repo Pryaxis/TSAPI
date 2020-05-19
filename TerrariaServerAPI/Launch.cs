@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Linq;
 using NLog;
+using NLog.Common;
 using NLog.Config;
 using NLog.Layouts;
 using NLog.Targets;
@@ -116,22 +117,27 @@ namespace OTAPI.Shims.TShock
 		{
 			//TODO: Make logger configurable
 			var config = new LoggingConfiguration();
+			InternalLogger.LogFile = "logs/internal.log";
+			InternalLogger.LogToConsole = true;
 
 			// Targets where to log to: File and Console
-			var logfile = new FileTarget("logfile") { FileName = "logs/log.txt" };
+			var logfile = new FileTarget("logfile") { FileName = "logs/log.log" };
 			logfile.ArchiveEvery = FileArchivePeriod.Day;
 			logfile.ArchiveNumbering = ArchiveNumberingMode.Date;
+			logfile.CreateDirs = true;
 
 			var consoleTarget = new ColoredConsoleTarget();
+			consoleTarget.DetectOutputRedirected = true;
+			consoleTarget.DetectConsoleAvailable = true;
 			consoleTarget.UseDefaultRowHighlightingRules = true;
 			consoleTarget.Layout = Layout.FromMethod(logEvent =>
 			{
 				return $"[{logEvent.LoggerName}]{logEvent.FormattedMessage}";
 			});
+
 			// Rules for mapping loggers to targets
 			config.AddRule(LogLevel.Info, LogLevel.Fatal, consoleTarget);
 			config.AddRule(LogLevel.Debug, LogLevel.Fatal, logfile);
-
 			// Apply config
 			LogManager.Configuration = config;
 		}

@@ -111,6 +111,7 @@ namespace TerrariaApi.Server
 				{
 					var plugin = (TerrariaPlugin) Activator.CreateInstance(type, Main.instance);
 					result.Add(plugin);
+					plugin.Loader = this;
 					Log.Info($"Plugin {plugin.Name} v{plugin.Version} (by {plugin.Author}) loaded.");
 				}
 				catch (Exception ex)
@@ -137,7 +138,9 @@ namespace TerrariaApi.Server
 		{
 			try
 			{
-				//TODO: Implement this
+				Log.Info($"Unloading plugin \"{plugin.Name}\"...");
+				plugin.Dispose();
+				//TODO: Check if this plugin has fully unloaded here
 			}
 			catch(Exception){}
 		}

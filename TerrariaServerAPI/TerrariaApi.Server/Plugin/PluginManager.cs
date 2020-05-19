@@ -52,7 +52,10 @@ namespace TerrariaApi.Server
 
 		public void UnloadAllPlugins()
 		{
-			//TODO: Implement this
+			foreach (var plugin in plugins)
+			{
+				plugin.Loader.UnloadPlugin(plugin);
+			}
 		}
 
 		public void RegisterPluginLoader([NotNull]IPluginLoader pluginLoader, bool loadImmediately = false)
