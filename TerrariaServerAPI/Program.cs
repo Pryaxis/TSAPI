@@ -4,7 +4,7 @@ using System.Linq;
 using Terraria.ID;
 using TerrariaApi.Server;
 
-namespace OTAPI.Shims.TShock
+namespace TerrariaApi.Server
 {
 	class Program
 	{
