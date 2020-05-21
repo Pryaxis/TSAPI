@@ -103,6 +103,12 @@
             <returns>The first instruction emitted</returns>
             <remarks>We use this to execute a vanilla wrapped method</remarks>
         </member>
+        <member name="M:OTAPI.Patcher.Engine.Extensions.WrappingExtensions.ClearBody(Mono.Cecil.MethodDefinition)">
+            <summary>
+            Clears the function entirely
+            </summary>
+            <param name="method"></param>
+        </member>
         <member name="F:OTAPI.Patcher.Engine.Extensions.WrappingExtensions.WrappedMethodNameSuffix">
             <summary>
             Default wrapped name that will be appended to wrapped methods
