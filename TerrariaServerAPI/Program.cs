@@ -15,25 +15,32 @@ namespace OTAPI.Shims.TShock
 		{
 			ItemID.Sets.Explosives = ItemID.Sets.Factory.CreateBoolSet(new int[]
 			{
+				// Bombs
 				ItemID.Bomb,
-				ItemID.Dynamite,
 				ItemID.StickyBomb,
-				ItemID.Explosives,
+				ItemID.BouncyBomb,
+				ItemID.BombFish,
+				ItemID.DirtBomb,
+				ItemID.DirtStickyBomb,
+				ItemID.ScarabBomb,
+				// Launchers
 				ItemID.GrenadeLauncher,
 				ItemID.RocketLauncher,
+				ItemID.SnowmanCannon,
+				// Rockets
 				ItemID.RocketII,
 				ItemID.RocketIV,
 				ItemID.ClusterRocketII,
 				ItemID.MiniNukeII,
-				ItemID.SnowmanCannon,
-				ItemID.StickyDynamite,
-				ItemID.BouncyBomb,
-				ItemID.BombFish,
 				// The following are classified as explosives untill we can figure out a better way.
 				ItemID.DryRocket,
 				ItemID.WetRocket,
 				ItemID.LavaRocket,
 				ItemID.HoneyRocket,
+				// Explosives & misc
+				ItemID.Dynamite,
+				ItemID.Explosives,
+				ItemID.StickyDynamite
 			});
 
 			//Set corrupt tiles to true, as they aren't in vanilla
