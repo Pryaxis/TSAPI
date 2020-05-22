@@ -23,10 +23,17 @@ namespace OTAPI.Shims.TShock
 				ItemID.RocketLauncher,
 				ItemID.RocketII,
 				ItemID.RocketIV,
+				ItemID.ClusterRocketII,
+				ItemID.MiniNukeII,
 				ItemID.SnowmanCannon,
 				ItemID.StickyDynamite,
 				ItemID.BouncyBomb,
-				ItemID.BombFish
+				ItemID.BombFish,
+				// The following are classified as explosives untill we can figure out a better way.
+				ItemID.DryRocket,
+				ItemID.WetRocket,
+				ItemID.LavaRocket,
+				ItemID.HoneyRocket,
 			});
 
 			//Set corrupt tiles to true, as they aren't in vanilla
