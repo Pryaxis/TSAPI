@@ -16,14 +16,8 @@ namespace TerrariaApi.Server.Hooking
 		{
 			_hookManager = hookManager;
 
-			Hooks.Command.StartCommandThread = OnStartCommandThread;
 			Hooks.Command.Process = OnProcess;
 			Hooks.Net.RemoteClient.PreReset = OnPreReset;
-		}
-
-		static HookResult OnStartCommandThread()
-		{
-			return HookResult.Continue;
 		}
 
 		static HookResult OnProcess(string lowered, string raw)
