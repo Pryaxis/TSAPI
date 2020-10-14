@@ -46,8 +46,8 @@
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="OTAPI, Version=1.4.0.5, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\OTAPI.2.0.0.37\lib\net451\OTAPI.dll</HintPath>
+    <Reference Include="OTAPI, Version=1.4.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\OTAPI.2.0.0.38\lib\net451\OTAPI.dll</HintPath>
     </Reference>
     <Reference Include="OTAPI.Patcher.Engine">
       <HintPath>..\prebuilt\OTAPI.Patcher.Engine.dll</HintPath>
