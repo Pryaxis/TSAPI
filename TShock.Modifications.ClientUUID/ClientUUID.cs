@@ -7,7 +7,7 @@ namespace Mintaka.Modifications.ClientUUID
 	{
 		public override System.Collections.Generic.IEnumerable<string> AssemblyTargets => new[]
 		{
-			"OTAPI, Version=1.4.1.0, Culture=neutral, PublicKeyToken=null"
+			"OTAPI, Version=1.4.1.1, Culture=neutral, PublicKeyToken=null"
 		};
 		public override string Description => "Adding RemoteClient.ClientUUID...";
 		public override void Run()
