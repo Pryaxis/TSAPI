@@ -55,6 +55,13 @@ namespace TerrariaApi.Server
 			Hooking.ServerHooks.AttachTo(this);
 			Hooking.WiringHooks.AttachTo(this);
 			Hooking.WorldHooks.AttachTo(this);
+
+			//Run after Hooking.ServerHooks.AttachTo(this) to override the Hooks.Command.StartCommandThread hook
+			if (Console.IsInputRedirected && args.Any(x => x == "-redirect"))
+			{
+				ServerApi.LogWriter.ServerWriteLine($"TerrariaServer is running in the background. Input has been re-enabled.", TraceLevel.Info);
+				OTAPI.Hooks.Command.StartCommandThread = () => OTAPI.HookResult.Continue;
+			}
 		}
 
 		#region Game Hooks
