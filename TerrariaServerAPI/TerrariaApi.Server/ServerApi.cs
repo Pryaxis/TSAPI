@@ -239,7 +239,7 @@ namespace TerrariaApi.Server
 								continue;
 							}
 
-							// If the arg isn't an integer, or its an incorrect value
+							// If the arg isn't an integer, or its an incorrect value, we want to ignore it
 							if (int.TryParse(arg.Value, out int dif))
 							{
 								if (dif >= 0 && dif <= 3)
