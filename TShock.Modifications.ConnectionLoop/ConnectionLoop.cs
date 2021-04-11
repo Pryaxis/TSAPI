@@ -19,7 +19,7 @@ namespace TShock.Modifications.ConnectionLoop
 	{
 		/// <inheritdoc />
 		public override IEnumerable<string> AssemblyTargets =>
-			new[] { "OTAPI, Version=1.4.1.2, Culture=neutral, PublicKeyToken=null" };
+			new[] { "OTAPI, Version=1.4.2.1, Culture=neutral, PublicKeyToken=null" };
 
 		/// <inheritdoc />
 		public override string Description => "Patching connection loop exploit...";
