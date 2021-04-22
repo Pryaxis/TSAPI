@@ -7,6 +7,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using Terraria;
+using Terraria.Net;
 
 namespace TerrariaApi.Server
 {
@@ -354,6 +355,31 @@ namespace TerrariaApi.Server
 			number5 = args.number5;
 			number6 = args.number6;
 			number7 = args.number7;
+			return args.Handled;
+		}
+		#endregion
+
+		#region NetSendNetData
+		private readonly HandlerCollection<SendNetDataEventArgs> netSendNetData =
+			new HandlerCollection<SendNetDataEventArgs>("NetSendNetData");
+
+		public HandlerCollection<SendNetDataEventArgs> NetSendNetData
+		{
+			get { return this.netSendNetData; }
+		}
+
+		internal bool InvokeNetSendNetData(
+			ref NetManager netManager, ref Terraria.Net.Sockets.ISocket socket, ref NetPacket packet)
+		{
+			SendNetDataEventArgs args = new SendNetDataEventArgs
+			{
+				netManager = netManager,
+				socket = socket,
+				packet = packet
+			};
+
+			this.NetSendNetData.Invoke(args);
+
 			return args.Handled;
 		}
 		#endregion
