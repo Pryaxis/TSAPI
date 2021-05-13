@@ -249,7 +249,7 @@ namespace TerrariaApi.Server
 							}
 							else
 							{
-								LogWriter.ServerWriteLine("Unexpected difficulty value. Expected values are 0-3.", TraceLevel.Info);
+								LogWriter.ServerWriteLine("Unexpected difficulty value. Expected values are 0-3.", TraceLevel.Warning);
 							}
 
 							break;
