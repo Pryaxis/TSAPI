@@ -235,7 +235,7 @@ namespace TerrariaApi.Server
 						{
 							if (!isAutoCreating)
 							{
-								// If we're not creating a world, ignore this flag
+								LogWriter.ServerWriteLine("Ignoring difficulty command line flag because server is starting in interactive mode without autocreate", TraceLevel.Warning);
 								continue;
 							}
 
