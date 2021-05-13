@@ -128,6 +128,8 @@ namespace TerrariaApi.Server
 		{
 			Dictionary<string, string> args = Utils.ParseArguements(parms);
 
+			bool isAutoCreating = false;
+
 			foreach (KeyValuePair<string, string> arg in args)
 			{
 				switch (arg.Key.ToLower())
@@ -225,6 +227,30 @@ namespace TerrariaApi.Server
 					case "-autocreate":
 						{
 							game.autoCreate(arg.Value);
+							isAutoCreating = true;
+
+							break;
+						}
+					case "-difficulty":
+						{
+							if (!isAutoCreating)
+							{
+								LogWriter.ServerWriteLine("Ignoring difficulty command line flag because server is starting in interactive mode without autocreate", TraceLevel.Warning);
+								continue;
+							}
+
+							// If the arg isn't an integer, or its an incorrect value, we want to ignore it
+							if (int.TryParse(arg.Value, out int dif))
+							{
+								if (dif >= 0 && dif <= 3)
+								{
+									Main.GameMode = dif;
+								}
+							}
+							else
+							{
+								LogWriter.ServerWriteLine("Unexpected difficulty value. Expected values are 0-3.", TraceLevel.Warning);
+							}
 
 							break;
 						}
