@@ -59,7 +59,7 @@ namespace TerrariaApi.Server
 			//Run after Hooking.ServerHooks.AttachTo(this) to override the Hooks.Command.StartCommandThread hook
 			if (Console.IsInputRedirected && args.Any(x => x == "-redirect"))
 			{
-				ServerApi.LogWriter.ServerWriteLine($"TerrariaServer is running in the background. Input has been re-enabled.", TraceLevel.Info);
+				ServerApi.LogWriter.ServerWriteLine($"TerrariaServer is running in the background, but input was re-enabled by command line flag.", TraceLevel.Info);
 				OTAPI.Hooks.Command.StartCommandThread = () => OTAPI.HookResult.Continue;
 			}
 		}
