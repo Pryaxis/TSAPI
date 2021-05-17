@@ -55,7 +55,7 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
     <Reference Include="OTAPI">
-      <HintPath>..\packages\OTAPI.2.0.0.42\lib\net451\OTAPI.dll</HintPath>
+      <HintPath>..\packages\OTAPI.2.0.0.43\lib\net451\OTAPI.dll</HintPath>
     </Reference>
     <Reference Include="ILRepack">
       <HintPath>..\packages\ILRepack.Lib.2.0.15\lib\net40\ILRepack.dll</HintPath>
