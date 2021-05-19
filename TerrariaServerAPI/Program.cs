@@ -27,6 +27,7 @@ namespace TerrariaApi.Server
 				ItemID.GrenadeLauncher,
 				ItemID.RocketLauncher,
 				ItemID.SnowmanCannon,
+				ItemID.Celeb2,
 				// Rockets
 				ItemID.RocketII,
 				ItemID.RocketIV,
