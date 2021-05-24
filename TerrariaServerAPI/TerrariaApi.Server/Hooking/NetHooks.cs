@@ -3,6 +3,7 @@ using System;
 using Terraria;
 using Terraria.Localization;
 using Microsoft.Xna.Framework;
+using Terraria.Net;
 
 namespace TerrariaApi.Server.Hooking
 {
@@ -21,6 +22,7 @@ namespace TerrariaApi.Server.Hooking
 			_hookManager = hookManager;
 
 			Hooks.Net.SendData = OnSendData;
+			Hooks.Net.SendNetData = OnSendNetData;
 			Hooks.Net.ReceiveData = OnReceiveData;
 			Hooks.Player.PreGreet = OnPreGreet;
 			Hooks.Net.SendBytes = OnSendBytes;
@@ -70,6 +72,20 @@ namespace TerrariaApi.Server.Hooking
 				ref number5,
 				ref number6,
 				ref number7
+			))
+			{
+				return HookResult.Cancel;
+			}
+			return HookResult.Continue;
+		}
+
+		private static HookResult OnSendNetData(NetManager manager, Terraria.Net.Sockets.ISocket socket, ref NetPacket packet)
+		{
+			if (_hookManager.InvokeNetSendNetData
+			(
+				ref manager,
+				ref socket,
+				ref packet
 			))
 			{
 				return HookResult.Cancel;
