@@ -78,7 +78,6 @@ namespace TerrariaApi.Server
 
 		internal static void Initialize(string[] commandLineArgs, Main game)
 		{
-
 			Profiler.BeginMeasureServerInitTime();
 			ServerApi.LogWriter.ServerWriteLine(
 				string.Format("TerrariaApi - Server v{0} started.", ApiVersion), TraceLevel.Verbose);
@@ -271,6 +270,8 @@ namespace TerrariaApi.Server
 		{
 			string ignoredPluginsFilePath = Path.Combine(ServerPluginsDirectoryPath, "ignoredplugins.txt");
 
+			DangerousPluginDetector detector = new DangerousPluginDetector();
+
 			List<string> ignoredFiles = new List<string>();
 			if (File.Exists(ignoredPluginsFilePath))
 				ignoredFiles.AddRange(File.ReadAllLines(ignoredPluginsFilePath));
@@ -310,6 +311,13 @@ namespace TerrariaApi.Server
 
 					if (!InvalidateAssembly(assembly, fileInfo.Name))
 						continue;
+
+					if (detector.MaliciousAssembly(assembly))
+					{
+						LogWriter.ServerWriteLine(string.Format("Assembly {0} {1} has been identified to the TShock Team as a dangerous plugin and needs to be removed.", assembly.GetName().Name, assembly.GetName().Version), TraceLevel.Error);
+						LogWriter.ServerWriteLine(string.Format("Continuing to use {0} may damage your server, your data, or your computer. For your safety, this plugin has been disabled.", assembly.GetName().Name), TraceLevel.Error);
+						continue;
+					}
 
 					foreach (Type type in assembly.GetExportedTypes())
 					{

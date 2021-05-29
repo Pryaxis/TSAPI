@@ -172,6 +172,7 @@
     <Compile Include="TerrariaApi.Server\PluginContainer.cs" />
     <Compile Include="TerrariaApi.Server\ProfilerManager.cs" />
     <Compile Include="TerrariaApi.Server\ServerApi.cs" />
+    <Compile Include="TerrariaApi.Server\DangerousPluginDetector.cs" />
     <Compile Include="TerrariaApi.Server\ServerLogWriter.cs" />
     <Compile Include="TerrariaApi.Server\StreamExt.cs" />
     <Compile Include="TerrariaApi.Server\StreamGenericExt.cs" />
