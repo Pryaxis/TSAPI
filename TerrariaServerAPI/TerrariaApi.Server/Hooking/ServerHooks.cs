@@ -1,5 +1,6 @@
 ﻿using OTAPI;
 using System;
+using System.Linq;
 using Terraria;
 
 namespace TerrariaApi.Server.Hooking
@@ -23,9 +24,9 @@ namespace TerrariaApi.Server.Hooking
 
 		static HookResult OnStartCommandThread()
 		{
-			if (Console.IsInputRedirected == true)
+			if(Environment.GetCommandLineArgs().Any(x => x.Equals("-disable-commands")))
 			{
-				Console.WriteLine("TerrariaServer is running in the background and input is disabled.");
+				Console.WriteLine("Command thread has been disabled.");
 				return HookResult.Cancel;
 			}
 
