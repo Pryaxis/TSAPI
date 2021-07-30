@@ -135,6 +135,7 @@
     <Compile Include="TerrariaApi.Server\EventArgs\NpcStrikeEventArgs.cs" />
     <Compile Include="TerrariaApi.Server\EventArgs\NpcTransformationEventArgs.cs" />
     <Compile Include="TerrariaApi.Server\EventArgs\ProjectileAiUpdateEventArgs.cs" />
+    <Compile Include="TerrariaApi.Server\EventArgs\ReceiveBytesEventArgs.cs" />
     <Compile Include="TerrariaApi.Server\EventArgs\SendBytesEventArgs.cs" />
     <Compile Include="TerrariaApi.Server\EventArgs\SendDataEventArgs.cs" />
     <Compile Include="TerrariaApi.Server\EventArgs\SendNetDataEventArgs.cs" />

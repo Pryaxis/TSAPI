@@ -22,6 +22,7 @@ namespace TerrariaApi.Server.Hooking
 			_hookManager = hookManager;
 
 			Hooks.Net.SendData = OnSendData;
+			Hooks.Net.ReceiveBytes = OnReceiveBytes;
 			Hooks.Net.SendNetData = OnSendNetData;
 			Hooks.Net.ReceiveData = OnReceiveData;
 			Hooks.Player.PreGreet = OnPreGreet;
@@ -72,6 +73,20 @@ namespace TerrariaApi.Server.Hooking
 				ref number5,
 				ref number6,
 				ref number7
+			))
+			{
+				return HookResult.Cancel;
+			}
+			return HookResult.Continue;
+		}
+
+		private static HookResult OnReceiveBytes(ref byte[] bytes, ref int streamLength, ref int bufferIndex)
+		{
+			if (_hookManager.InvokeNetReceiveBytes
+			(
+				ref bytes,
+				ref streamLength,
+				bufferIndex
 			))
 			{
 				return HookResult.Cancel;

@@ -524,6 +524,32 @@ namespace TerrariaApi.Server
 		}
 		#endregion
 
+		#region NetReceiveBytes
+		private readonly HandlerCollection<ReceiveBytesEventArgs> receiveBytes =
+			new HandlerCollection<ReceiveBytesEventArgs>("NetReceiveBytes");
+
+		public HandlerCollection<ReceiveBytesEventArgs> NetReceiveBytes
+		{
+			get { return this.receiveBytes; }
+		}
+
+		internal bool InvokeNetReceiveBytes(ref byte[] bytes, ref int streamLength, int bufferIndex)
+		{
+			ReceiveBytesEventArgs args = new ReceiveBytesEventArgs()
+			{
+				Bytes = bytes,
+				StreamLength = streamLength,
+				BufferIndex = bufferIndex
+			};
+
+			this.receiveBytes.Invoke(args);
+
+			bytes = args.Bytes;
+			streamLength = args.StreamLength;
+			return args.Handled;
+		}
+		#endregion
+
 		#region NetSendBytes
 		private readonly HandlerCollection<SendBytesEventArgs> netSendBytes =
 			new HandlerCollection<SendBytesEventArgs>("NetSendBytes");
