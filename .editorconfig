@@ -8,3 +8,8 @@ insert_final_newline = true
 indent_style = tab
 end_of_line = crlf
 trim_trailing_whitespace = true
+
+root = true
+
+[*]
+insert_final_newline = true
