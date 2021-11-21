@@ -1,3 +1,0 @@
-To build this beast the process is:
-
-1) Read the build instructions in the Pryaxis/TShock repo.

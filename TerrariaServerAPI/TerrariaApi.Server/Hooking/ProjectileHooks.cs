@@ -15,22 +15,22 @@ namespace TerrariaApi.Server.Hooking
 		{
 			_hookManager = hookManager;
 
-			Hooks.Projectile.PostSetDefaultsById = OnPostSetDefaultsById;
-			Hooks.Projectile.PreAI = OnPreAI;
+			On.Terraria.Projectile.SetDefaults += OnSetDefaults;
+			On.Terraria.Projectile.AI += OnAI;
 		}
 
-		static void OnPostSetDefaultsById(Projectile projectile, int type)
+		private static void OnSetDefaults(On.Terraria.Projectile.orig_SetDefaults orig, Projectile self, int Type)
 		{
-			_hookManager.InvokeProjectileSetDefaults(ref type, projectile);
+			_hookManager.InvokeProjectileSetDefaults(ref Type, self);
+			orig(self, Type);
 		}
 
-		static HookResult OnPreAI(Projectile projectile)
+		private static void OnAI(On.Terraria.Projectile.orig_AI orig, Projectile self)
 		{
-			if (_hookManager.InvokeProjectileAIUpdate(projectile))
-			{
-				return HookResult.Cancel;
-			}
-			return HookResult.Continue;
+			if (_hookManager.InvokeProjectileAIUpdate(self))
+				return;
+
+			orig(self);
 		}
 	}
 }
