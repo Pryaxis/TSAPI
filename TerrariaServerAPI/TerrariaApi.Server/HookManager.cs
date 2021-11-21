@@ -42,7 +42,7 @@ namespace TerrariaApi.Server
 			if (args.Any(x => x == "-heaptile"))
 			{
 				ServerApi.LogWriter.ServerWriteLine($"Using {nameof(HeapTile)} for tile implementation", TraceLevel.Info);
-				OTAPI.Hooks.Tile.CreateCollection = () =>
+				ModFramework.DefaultCollection<ITile>.OnCreateCollection += (int x, int y, string source) =>
 				{
 					return new TileProvider();
 				};
