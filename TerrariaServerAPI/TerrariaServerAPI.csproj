@@ -7,6 +7,7 @@
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<RunPostBuildEvent>Always</RunPostBuildEvent>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -17,4 +18,21 @@
 		<PackageReference Include="MonoMod.RuntimeDetour.HookGen" Version="21.11.9.2" />
 		<PackageReference Include="MonoMod" Version="21.11.9.2" />
 	</ItemGroup>
+
+	<ItemGroup>
+		<MoveBinaries Include="$(TargetDir)*" Exclude="$(TargetDir)\TerrariaServer*" />
+		<MoveBinariesForPublish Include="$(PublishDir)*" Exclude="$(PublishDir)\TerrariaServer*" />
+	</ItemGroup>
+	<Target Name="MoveTS" AfterTargets="FinalCleanup;Build;PostBuildEvent" BeforeTargets="Run">
+		<Move SourceFiles="@(MoveBinaries)" DestinationFolder="$(TargetDir)bin" ContinueOnError="true" />
+	</Target>
+	<Target Name="AfterBuild">
+		<Move SourceFiles="@(MoveBinaries)" DestinationFolder="$(TargetDir)bin" ContinueOnError="true" />
+	</Target>
+	<Target Name="PrepareForRun">
+		<Move SourceFiles="@(MoveBinaries)" DestinationFolder="$(TargetDir)bin" ContinueOnError="true" />
+	</Target>
+	<Target Name="PreparePublish" AfterTargets="Publish">
+		<Move SourceFiles="@(MoveBinariesForPublish)" DestinationFolder="$(PublishDir)bin" ContinueOnError="true" />
+	</Target>
 </Project>
