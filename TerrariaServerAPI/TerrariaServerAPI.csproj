@@ -18,21 +18,14 @@
 		<PackageReference Include="MonoMod.RuntimeDetour.HookGen" Version="21.11.9.2" />
 		<PackageReference Include="MonoMod" Version="21.11.9.2" />
 	</ItemGroup>
+	
+	<Target Name="MoveToBinFolder" AfterTargets="FinalCleanup;Build;PostBuildEvent;Publish">
+		<ItemGroup>
+			<MoveBinariesForDebug Include="$(TargetDir)*" Exclude="$(TargetDir)\TerrariaServer*" />
+			<MoveBinariesForPublish Include="$(PublishDir)*" Exclude="$(PublishDir)\TerrariaServer*" />
+		</ItemGroup>
 
-	<ItemGroup>
-		<MoveBinaries Include="$(TargetDir)*" Exclude="$(TargetDir)\TerrariaServer*" />
-		<MoveBinariesForPublish Include="$(PublishDir)*" Exclude="$(PublishDir)\TerrariaServer*" />
-	</ItemGroup>
-	<Target Name="MoveTS" AfterTargets="FinalCleanup;Build;PostBuildEvent" BeforeTargets="Run">
-		<Move SourceFiles="@(MoveBinaries)" DestinationFolder="$(TargetDir)bin" ContinueOnError="true" />
-	</Target>
-	<Target Name="AfterBuild">
-		<Move SourceFiles="@(MoveBinaries)" DestinationFolder="$(TargetDir)bin" ContinueOnError="true" />
-	</Target>
-	<Target Name="PrepareForRun">
-		<Move SourceFiles="@(MoveBinaries)" DestinationFolder="$(TargetDir)bin" ContinueOnError="true" />
-	</Target>
-	<Target Name="PreparePublish" AfterTargets="Publish">
-		<Move SourceFiles="@(MoveBinariesForPublish)" DestinationFolder="$(PublishDir)bin" ContinueOnError="true" />
+		<Move SourceFiles="@(MoveBinariesForDebug)" DestinationFolder="$(TargetDir)bin" ContinueOnError="true" />
+		<Move SourceFiles="@(MoveBinariesForPublish)" DestinationFolder="$(PublishDir)bin" ContinueOnError="true" /> 
 	</Target>
 </Project>
