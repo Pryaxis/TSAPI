@@ -2,14 +2,8 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyCompany("Re-Logic & The TShock Team")]
-[assembly: AssemblyCopyright("Copyright © Re-Logic, Pryaxis & TShock Contributors 2011-2020")]
 [assembly: AssemblyDescription("")]
-[assembly: AssemblyFileVersion("1.4.3.2")]
-[assembly: AssemblyProduct("Terraria")]
-[assembly: AssemblyTitle("Terraria")]
 [assembly: AssemblyTrademark("")]
-[assembly: AssemblyVersion("1.4.3.2")]
 [assembly: CompilationRelaxations(8)]
 [assembly: ComVisible(false)]
 [assembly: Guid("f571b16a-2c9b-44ab-b115-7c762c9e4e7e")]

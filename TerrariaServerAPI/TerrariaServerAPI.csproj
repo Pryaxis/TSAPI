@@ -2,13 +2,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<OutputType>Exe</OutputType>
+		<OutputType>Library</OutputType>
 		<AssemblyName>TerrariaServer</AssemblyName>
 		<TargetFramework>net6.0</TargetFramework>
-		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<RunPostBuildEvent>Always</RunPostBuildEvent>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>		
+		<Version>1.4.3.2-beta</Version>
+		<AssemblyTitle>Terraria</AssemblyTitle>
+		<Product>Terraria</Product>
+		<Company>Re-Logic &amp; The TShock Team</Company>
+		<Copyright>Copyright © Re-Logic, Pryaxis &amp; TShock Contributors 2011-2021</Copyright>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -19,14 +24,4 @@
 		<PackageReference Include="MonoMod.RuntimeDetour.HookGen" Version="21.11.9.2" />
 		<PackageReference Include="MonoMod" Version="21.11.9.2" />
 	</ItemGroup>
-	
-	<Target Name="MoveToBinFolder" AfterTargets="FinalCleanup;Build;PostBuildEvent;Publish">
-		<ItemGroup>
-			<MoveBinariesForDebug Include="$(TargetDir)*" Exclude="$(TargetDir)\TerrariaServer*" />
-			<MoveBinariesForPublish Include="$(PublishDir)*" Exclude="$(PublishDir)\TerrariaServer*" />
-		</ItemGroup>
-
-		<Move SourceFiles="@(MoveBinariesForDebug)" DestinationFolder="$(TargetDir)bin" ContinueOnError="true" />
-		<Move SourceFiles="@(MoveBinariesForPublish)" DestinationFolder="$(PublishDir)bin" ContinueOnError="true" /> 
-	</Target>
 </Project>
