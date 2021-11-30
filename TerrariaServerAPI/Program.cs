@@ -7,7 +7,7 @@ using TerrariaApi.Server;
 
 namespace TerrariaApi.Server
 {
-	class Program
+	public class Program
 	{
 		/// <summary>
 		/// Initialises any internal values before any server initialisation begins
@@ -79,24 +79,8 @@ namespace TerrariaApi.Server
 			TileID.Sets.Hallow[TileID.Pearlstone] = true;
 		}
 
-		private static System.Reflection.Assembly Default_Resolving(System.Runtime.Loader.AssemblyLoadContext arg1, System.Reflection.AssemblyName arg2)
-		{
-			var loc = Path.Combine(Environment.CurrentDirectory, "bin", arg2.Name + ".dll");
-			if (File.Exists(loc))
-				return arg1.LoadFromAssemblyPath(loc);
-
-			loc = Path.ChangeExtension(loc, ".exe");
-			if (File.Exists(loc))
-				return arg1.LoadFromAssemblyPath(loc);
-
-			return null;
-		}
-
 		public static void Main(string[] args)
 		{
-			// load dlls from bin
-			System.Runtime.Loader.AssemblyLoadContext.Default.Resolving += Default_Resolving;
-
 			AppDomain.CurrentDomain.UnhandledException += UnhandledException;
 			try
 			{
@@ -136,7 +120,5 @@ namespace TerrariaApi.Server
 		{
 			Console.WriteLine($"Unhandled exception\n{e}");
 		}
-
-
 	}
 }
