@@ -95,16 +95,16 @@ namespace TerrariaApi.Server.Hooking
 			}
 		}
 
-		static void OnSendNetData(On.Terraria.Net.NetManager.orig_SendData orig, NetManager self, Terraria.Net.Sockets.ISocket socket, NetPacket packet)
+		static void OnSendNetData(On.Terraria.Net.NetManager.orig_SendData orig, NetManager netmanager, Terraria.Net.Sockets.ISocket socket, NetPacket packet)
 		{
 			if (!_hookManager.InvokeNetSendNetData
 			(
-				ref self,
+				ref netmanager,
 				ref socket,
 				ref packet
 			))
 			{
-				orig(self, socket, packet);
+				orig(netmanager, socket, packet);
 			}
 		}
 

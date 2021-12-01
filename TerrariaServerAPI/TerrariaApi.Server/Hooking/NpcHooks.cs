@@ -33,41 +33,41 @@ namespace TerrariaApi.Server.Hooking
 			_hookManager.InvokeNpcKilled(e.Npc);
 		}
 
-		static void OnSetDefaultsById(On.Terraria.NPC.orig_SetDefaults orig, NPC self, int Type, NPCSpawnParams spawnparams)
+		static void OnSetDefaultsById(On.Terraria.NPC.orig_SetDefaults orig, NPC npc, int type, NPCSpawnParams spawnparams)
 		{
-			if (_hookManager.InvokeNpcSetDefaultsInt(ref Type, self))
+			if (_hookManager.InvokeNpcSetDefaultsInt(ref type, npc))
 				return;
 
-			orig(self, Type, spawnparams);
+			orig(npc, type, spawnparams);
 		}
 
-		static void OnSetDefaultsFromNetId(On.Terraria.NPC.orig_SetDefaultsFromNetId orig, NPC self, int id, NPCSpawnParams spawnparams)
+		static void OnSetDefaultsFromNetId(On.Terraria.NPC.orig_SetDefaultsFromNetId orig, NPC npc, int id, NPCSpawnParams spawnparams)
 		{
-			if (_hookManager.InvokeNpcNetDefaults(ref id, self))
+			if (_hookManager.InvokeNpcNetDefaults(ref id, npc))
 				return;
 
-			orig(self, id, spawnparams);
+			orig(npc, id, spawnparams);
 		}
 
-		static double OnStrike(On.Terraria.NPC.orig_StrikeNPC orig, NPC self, int Damage, float knockBack, int hitDirection, bool crit, bool noEffect, bool fromNet, Entity entity)
+		static double OnStrike(On.Terraria.NPC.orig_StrikeNPC orig, NPC npc, int Damage, float knockBack, int hitDirection, bool crit, bool noEffect, bool fromNet, Entity entity)
 		{
 			if (entity is Player player)
 			{
-				if (_hookManager.InvokeNpcStrike(self, ref Damage, ref knockBack, ref hitDirection, ref crit, ref noEffect, ref fromNet, player))
+				if (_hookManager.InvokeNpcStrike(npc, ref Damage, ref knockBack, ref hitDirection, ref crit, ref noEffect, ref fromNet, player))
 				{
 					return 0;
 				}
 			}
 
-			return orig(self, Damage, knockBack, hitDirection, crit, noEffect, fromNet, entity);
+			return orig(npc, Damage, knockBack, hitDirection, crit, noEffect, fromNet, entity);
 		}
 
-		static void OnTransform(On.Terraria.NPC.orig_Transform orig, NPC self, int newType)
+		static void OnTransform(On.Terraria.NPC.orig_Transform orig, NPC npc, int newType)
 		{
-			if (_hookManager.InvokeNpcTransformation(self.whoAmI))
+			if (_hookManager.InvokeNpcTransformation(npc.whoAmI))
 				return;
 
-			orig(self, newType);
+			orig(npc, newType);
 		}
 
 		static void OnSpawn(object sender, Hooks.NPC.SpawnEventArgs e)
@@ -167,12 +167,12 @@ namespace TerrariaApi.Server.Hooking
 			e.ReverseLookup = reverseLookup;
 		}
 
-		static void OnAI(On.Terraria.NPC.orig_AI orig, NPC self)
+		static void OnAI(On.Terraria.NPC.orig_AI orig, NPC npc)
 		{
-			if (_hookManager.InvokeNpcAIUpdate(self))
+			if (_hookManager.InvokeNpcAIUpdate(npc))
 				return;
 
-			orig(self);
+			orig(npc);
 		}
 	}
 }

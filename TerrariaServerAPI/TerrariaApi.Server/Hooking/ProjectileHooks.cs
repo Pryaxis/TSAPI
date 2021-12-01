@@ -19,18 +19,18 @@ namespace TerrariaApi.Server.Hooking
 			On.Terraria.Projectile.AI += OnAI;
 		}
 
-		private static void OnSetDefaults(On.Terraria.Projectile.orig_SetDefaults orig, Projectile self, int Type)
+		private static void OnSetDefaults(On.Terraria.Projectile.orig_SetDefaults orig, Projectile projectile, int type)
 		{
-			_hookManager.InvokeProjectileSetDefaults(ref Type, self);
-			orig(self, Type);
+			_hookManager.InvokeProjectileSetDefaults(ref type, projectile);
+			orig(projectile, type);
 		}
 
-		private static void OnAI(On.Terraria.Projectile.orig_AI orig, Projectile self)
+		private static void OnAI(On.Terraria.Projectile.orig_AI orig, Projectile projectile)
 		{
-			if (_hookManager.InvokeProjectileAIUpdate(self))
+			if (_hookManager.InvokeProjectileAIUpdate(projectile))
 				return;
 
-			orig(self);
+			orig(projectile);
 		}
 	}
 }

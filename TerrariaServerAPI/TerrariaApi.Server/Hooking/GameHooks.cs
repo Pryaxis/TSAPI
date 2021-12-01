@@ -25,10 +25,10 @@ namespace TerrariaApi.Server.Hooking
 			Hooks.NPC.MechSpawn += OnNpcMechSpawn;
 		}
 
-		private static void OnUpdate(On.Terraria.Main.orig_Update orig, Terraria.Main self, GameTime gameTime)
+		private static void OnUpdate(On.Terraria.Main.orig_Update orig, Terraria.Main instance, GameTime gameTime)
 		{
 			_hookManager.InvokeGameUpdate();
-			orig(self, gameTime);
+			orig(instance, gameTime);
 			_hookManager.InvokeGamePostUpdate();
 		}
 
@@ -48,11 +48,11 @@ namespace TerrariaApi.Server.Hooking
 			}
 		}
 
-		private static void OnInitialize(On.Terraria.Main.orig_Initialize orig, Terraria.Main self)
+		private static void OnInitialize(On.Terraria.Main.orig_Initialize orig, Terraria.Main instance)
 		{
 			HookManager.InitialiseAPI();
 			_hookManager.InvokeGameInitialize();
-			orig(self);
+			orig(instance);
 		}
 
 		private static void OnStartServer(On.Terraria.Netplay.orig_StartServer orig)

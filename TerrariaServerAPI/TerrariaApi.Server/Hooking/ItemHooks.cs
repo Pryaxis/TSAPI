@@ -21,20 +21,20 @@ namespace TerrariaApi.Server.Hooking
 			Hooks.Chest.QuickStack += OnQuickStack;
 		}
 
-		private static void OnNetDefaults(On.Terraria.Item.orig_netDefaults orig, Item self, int type)
+		private static void OnNetDefaults(On.Terraria.Item.orig_netDefaults orig, Item item, int type)
 		{
-			if (_hookManager.InvokeItemNetDefaults(ref type, self))
+			if (_hookManager.InvokeItemNetDefaults(ref type, item))
 				return;
 
-			orig(self, type);
+			orig(item, type);
 		}
 
-		private static void OnSetDefaults(On.Terraria.Item.orig_SetDefaults_int_bool orig, Item self, int Type, bool noMatCheck)
+		private static void OnSetDefaults(On.Terraria.Item.orig_SetDefaults_int_bool orig, Item item, int type, bool noMatCheck)
 		{
-			if (_hookManager.InvokeItemSetDefaultsInt(ref Type, self))
+			if (_hookManager.InvokeItemSetDefaultsInt(ref type, item))
 				return;
 
-			orig(self, Type, noMatCheck);
+			orig(item, type, noMatCheck);
 		}
 
 		private static void OnQuickStack(object sender, Hooks.Chest.QuickStackEventArgs e)

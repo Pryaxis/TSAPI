@@ -41,18 +41,18 @@ namespace TerrariaApi.Server.Hooking
 			}
 		}
 
-		static void RemoteClient_Reset(On.Terraria.RemoteClient.orig_Reset orig, RemoteClient self)
+		static void RemoteClient_Reset(On.Terraria.RemoteClient.orig_Reset orig, RemoteClient client)
 		{
 			if (!Netplay.Disconnect)
 			{
-				if (self.IsActive)
+				if (client.IsActive)
 				{
-					_hookManager.InvokeServerLeave(self.Id);
+					_hookManager.InvokeServerLeave(client.Id);
 				}
-				_hookManager.InvokeServerSocketReset(self);
+				_hookManager.InvokeServerSocketReset(client);
 			}
 
-			orig(self);
+			orig(client);
 		}
 	}
 }
