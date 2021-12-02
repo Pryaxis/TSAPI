@@ -1,23 +1,29 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Diagnostics;
+using System.Threading;
 
 namespace TerrariaServerAPI.Tests
 {
 	[TestClass]
     public class ServerInitTests
-    {
-        [TestMethod]
-        public void EnsureBoots()
+	{
+		[TestMethod]
+		public void EnsureBoots()
 		{
-			bool hit = false;
-			On.Terraria.Main.DedServ += (orig, instance) =>
+			var are = new AutoResetEvent(false);
+			On.Terraria.Main.hook_DedServ cb = (On.Terraria.Main.orig_DedServ orig, Terraria.Main instance) =>
 			{
-				hit = true;
-				Debug.WriteLine("Server init process successful");
+				are.Set();
+				Debug.WriteLine("Server startup successful");
 			};
+			On.Terraria.Main.DedServ += cb;
 
-			TerrariaApi.Server.Program.Main(new string[] { });
+			new Thread(() => TerrariaApi.Server.Program.Main(new string[] { })).Start();
+
+			var hit = are.WaitOne(TimeSpan.FromSeconds(30));
+
+			On.Terraria.Main.DedServ -= cb;
 
 			Assert.AreEqual(true, hit);
 		}
