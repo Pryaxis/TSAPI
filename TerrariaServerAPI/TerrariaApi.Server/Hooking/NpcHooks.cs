@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using OTAPI;
 using Terraria;
+using Terraria.DataStructures;
 
 namespace TerrariaApi.Server.Hooking
 {
@@ -95,6 +96,7 @@ namespace TerrariaApi.Server.Hooking
 
 		static HookResult OnPreDropLoot(
 				 NPC npc,
+				 ref IEntitySource source,
 				 ref int itemId,
 				 ref int x,
 				 ref int y,
@@ -134,6 +136,7 @@ namespace TerrariaApi.Server.Hooking
 
 		static HookResult OnBossBagItem(
 				NPC npc,
+				ref IEntitySource source,
 				ref int X,
 				ref int Y,
 				ref int Width,
