@@ -19,8 +19,6 @@
 	<ItemGroup>
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 		<PackageReference Include="System.Diagnostics.PerformanceCounter" Version="5.0.1" />
-		<PackageReference Include="OTAPI.Upcoming" Version="3.0.30-alpha" />
-		<PackageReference Include="MonoMod.RuntimeDetour.HookGen" Version="21.11.9.2" />
-		<PackageReference Include="MonoMod" Version="21.11.9.2" />
+		<PackageReference Include="OTAPI.Upcoming" Version="3.0.31-alpha" />
 	</ItemGroup>
 </Project>
