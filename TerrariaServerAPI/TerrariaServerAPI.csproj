@@ -9,7 +9,7 @@
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<RunPostBuildEvent>Always</RunPostBuildEvent>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>		
-		<Version>1.4.3.2-beta</Version>
+		<Version>1.4.3.4-beta</Version>
 		<AssemblyTitle>Terraria</AssemblyTitle>
 		<Product>Terraria</Product>
 		<Company>Re-Logic &amp; The TShock Team</Company>
