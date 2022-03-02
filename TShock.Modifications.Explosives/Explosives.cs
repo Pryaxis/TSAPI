@@ -8,7 +8,7 @@ namespace Mintaka.Modifications.Explosives
 	{
 		public override System.Collections.Generic.IEnumerable<string> AssemblyTargets => new[]
 		{
-			"OTAPI, Version=1.4.3.5, Culture=neutral, PublicKeyToken=null"
+			"OTAPI, Version=1.4.3.6, Culture=neutral, PublicKeyToken=null"
 		};
 		public override string Description => "Adding ItemID.Sets.Explosives...";
 		public override void Run()
