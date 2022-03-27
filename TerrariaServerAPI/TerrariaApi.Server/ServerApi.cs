@@ -299,7 +299,9 @@ namespace TerrariaApi.Server
 					{
 						try
 						{
-							assembly = Assembly.Load(File.ReadAllBytes(fileInfo.FullName));
+							var pdb = Path.ChangeExtension(fileInfo.FullName, ".pdb");
+							var symbols = File.Exists(pdb) ? File.ReadAllBytes(pdb) : null;
+							assembly = Assembly.Load(File.ReadAllBytes(fileInfo.FullName), symbols);
 						}
 						catch (BadImageFormatException)
 						{
