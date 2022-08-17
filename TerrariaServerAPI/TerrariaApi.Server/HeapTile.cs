@@ -1,6 +1,6 @@
-﻿namespace TerrariaApi.Server
+namespace TerrariaApi.Server
 {
-	public class HeapTile : Terraria.Tile
+    public class HeapTile : Terraria.Tile
     {
         protected readonly int offset;
         protected byte[] heap;
@@ -28,14 +28,14 @@
             this.y = y;
         }
 
-		public override void Initialise()
-		{
-			// here we prevent reinitialisation of the tile which would reset the tile in the heap
+        public override void Initialise()
+        {
+            // here we prevent reinitialisation of the tile which would reset the tile in the heap
 
-			//base.Initialise();
-		}
+            //base.Initialise();
+        }
 
-		public override ushort type
+        public override ushort type
         {
             get
             {
@@ -58,9 +58,9 @@
 
             set
             {
-				heap[offset + kHeapTileSTileHeaderOffset + 1] = (byte)(value >> 8);
-				heap[offset + kHeapTileSTileHeaderOffset] = (byte)(value & 0xFF);
-			}
+                heap[offset + kHeapTileSTileHeaderOffset + 1] = (byte)(value >> 8);
+                heap[offset + kHeapTileSTileHeaderOffset] = (byte)(value & 0xFF);
+            }
         }
 
         public override byte liquid
