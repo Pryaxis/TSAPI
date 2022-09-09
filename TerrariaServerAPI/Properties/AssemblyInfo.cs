@@ -2,7 +2,6 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyDescription("")]
 [assembly: AssemblyTrademark("")]
 [assembly: CompilationRelaxations(8)]
 [assembly: ComVisible(false)]

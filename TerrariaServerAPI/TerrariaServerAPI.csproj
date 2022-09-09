@@ -8,12 +8,16 @@
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<RunPostBuildEvent>Always</RunPostBuildEvent>
-		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>		
 		<Version>1.4.3.6-beta</Version>
-		<AssemblyTitle>Terraria</AssemblyTitle>
-		<Product>Terraria</Product>
-		<Company>Re-Logic &amp; The TShock Team</Company>
-		<Copyright>Copyright © Re-Logic, Pryaxis &amp; TShock Contributors 2011-2021</Copyright>
+		<AssemblyTitle>TerrariaServerAPI</AssemblyTitle>
+		<Product>TSAPI</Product>
+		<Company>Pryaxis &amp; TShock Contributors</Company>
+		<!-- extras for nuget -->
+		<PackageId>TSAPI</PackageId>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
+		<Authors>Pryaxis &amp; TShock Contributors</Authors>
+		<Description>This is the Terraria Server API, the API that TShock for Terraria runs on.</Description>
 	</PropertyGroup>
 
 	<ItemGroup>
