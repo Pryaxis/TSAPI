@@ -21,7 +21,7 @@ public class HookService
 	/// </summary>
 	/// <param name="logger"></param>
 	/// <param name="serviceLoader"></param>
-	internal HookService(ILogger<HookService> logger, ServiceLoader serviceLoader)
+	public HookService(ILogger<HookService> logger, ServiceLoader serviceLoader)
 	{
 		this._logger = logger;
 		this._serviceLoader = serviceLoader;
