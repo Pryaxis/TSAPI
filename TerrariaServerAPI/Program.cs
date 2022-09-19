@@ -1,18 +1,16 @@
-﻿using System;
-using System.IO;
-using System.Diagnostics;
-using System.Linq;
+﻿using System.Diagnostics;
 using Terraria.ID;
-using TerrariaApi.Server;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace TerrariaApi.Server
 {
-	public class Program
+	public static class Program
 	{
 		/// <summary>
 		/// Initialises any internal values before any server initialisation begins
 		/// </summary>
-		public static void InitialiseInternals()
+		static void InitialiseInternals()
 		{
 			ItemID.Sets.Explosives = ItemID.Sets.Factory.CreateBoolSet(new int[]
 			{
@@ -85,30 +83,33 @@ namespace TerrariaApi.Server
 			try
 			{
 				InitialiseInternals();
-				ServerApi.Hooks.AttachOTAPIHooks(args);
+
+				IHostBuilder hostBuilder = DIBuilder.ConfigureHost(args);
+				hostBuilder.ConfigureServices(svcs => svcs
+					.AddSingleton<ServiceLoader>()
+					.AddSingleton<HookService>());
+
+				IHost host = hostBuilder.Build();
+
+				HookService hookService = host.Services.GetRequiredService<HookService>();
+				hookService.AttachOtapiHooks(args);
 
 				// avoid any Terraria.Main calls here or the heaptile hook will not work.
 				// this is because the hook is executed on the Terraria.Main static constructor,
 				// and simply referencing it in this method will trigger the constructor.
 				StartServer(args);
-
-				ServerApi.DeInitialize();
 			}
 			catch (Exception ex)
 			{
-				ServerApi.LogWriter.ServerWriteLine("Server crashed due to an unhandled exception:\n" + ex, TraceLevel.Error);
+				Console.WriteLine("Server initialization failed due to uncaught exception: \n{0}", ex);
 			}
 		}
 
 		static void StartServer(string[] args)
 		{
-			if (args.Any(x => x == "-skipassemblyload"))
-			{
-				Terraria.Main.SkipAssemblyLoad = true;
-			}
-
 			Terraria.WindowsLaunch.Main(args);
 		}
+
 
 		/// <summary>
 		/// TShock sets up its own unhandled exception handler; this one is just to catch possible

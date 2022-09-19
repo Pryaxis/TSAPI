@@ -7,15 +7,15 @@ namespace TerrariaApi.Server.Hooking
 {
 	internal static class ServerHooks
 	{
-		private static HookManager _hookManager;
+		private static HookService _hookService;
 
 		/// <summary>
-		/// Attaches any of the OTAPI Server hooks to the existing <see cref="HookManager"/> implementation
+		/// Attaches any of the OTAPI Server hooks to the existing <see cref="HookService"/> implementation
 		/// </summary>
-		/// <param name="hookManager">HookManager instance which will receive the events</param>
-		public static void AttachTo(HookManager hookManager)
+		/// <param name="hookService">HookService instance which will receive the events</param>
+		public static void AttachTo(HookService hookService)
 		{
-			_hookManager = hookManager;
+			_hookService = hookService;
 
 			On.Terraria.Main.startDedInput += Main_startDedInput;
 			On.Terraria.RemoteClient.Reset += RemoteClient_Reset;
@@ -33,26 +33,26 @@ namespace TerrariaApi.Server.Hooking
 			orig();
 		}
 
-		static void OnProcess(object sender, Hooks.Main.CommandProcessEventArgs e)
-		{
-			if (_hookManager.InvokeServerCommand(e.Command))
-			{
-				e.Result = HookResult.Cancel;
-			}
-		}
-
 		static void RemoteClient_Reset(On.Terraria.RemoteClient.orig_Reset orig, RemoteClient client)
 		{
 			if (!Netplay.Disconnect)
 			{
 				if (client.IsActive)
 				{
-					_hookManager.InvokeServerLeave(client.Id);
+					_hookService.InvokeServerLeave(client.Id);
 				}
-				_hookManager.InvokeServerSocketReset(client);
+				_hookService.InvokeServerSocketReset(client);
 			}
 
 			orig(client);
+		}
+
+		static void OnProcess(object? sender, Hooks.Main.CommandProcessEventArgs e)
+		{
+			if (_hookService.InvokeServerCommand(e.Command))
+			{
+				e.Result = HookResult.Cancel;
+			}
 		}
 	}
 }
