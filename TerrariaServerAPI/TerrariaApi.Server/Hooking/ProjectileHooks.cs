@@ -5,15 +5,15 @@ namespace TerrariaApi.Server.Hooking
 {
 	internal static class ProjectileHooks
 	{
-		private static HookManager _hookManager;
+		private static HookService _hookService;
 
 		/// <summary>
-		/// Attaches any of the OTAPI Projectile hooks to the existing <see cref="HookManager"/> implementation
+		/// Attaches any of the OTAPI Projectile hooks to the existing <see cref="HookService"/> implementation
 		/// </summary>
-		/// <param name="hookManager">HookManager instance which will receive the events</param>
-		public static void AttachTo(HookManager hookManager)
+		/// <param name="hookService">HookService instance which will receive the events</param>
+		public static void AttachTo(HookService hookService)
 		{
-			_hookManager = hookManager;
+			_hookService = hookService;
 
 			On.Terraria.Projectile.SetDefaults += OnSetDefaults;
 			On.Terraria.Projectile.AI += OnAI;
@@ -27,7 +27,7 @@ namespace TerrariaApi.Server.Hooking
 
 		private static void OnAI(On.Terraria.Projectile.orig_AI orig, Projectile projectile)
 		{
-			if (_hookManager.InvokeProjectileAIUpdate(projectile))
+			if (_hookService.InvokeProjectileAIUpdate(projectile))
 				return;
 
 			orig(projectile);
