@@ -6,12 +6,12 @@ namespace TerrariaApi.Server;
 /// <summary>
 /// Loads plugin services from the DI container and invokes their <code>Start()</code> method.
 /// </summary>
-internal sealed class ServiceLoader
+public class ServiceLoader
 {
 	private IServiceProvider _services;
 	private ILogger<ServiceLoader> _logger;
 
-	internal ServiceLoader(IServiceProvider services, ILogger<ServiceLoader> logger)
+	public ServiceLoader(IServiceProvider services, ILogger<ServiceLoader> logger)
 	{
 		this._services = services;
 		this._logger = logger;
