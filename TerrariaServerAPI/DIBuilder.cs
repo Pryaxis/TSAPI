@@ -49,13 +49,13 @@ static class DIBuilder
 			switch (configurator)
 			{
 				case ServiceConfigurator svc:
-					hostBuilder.ConfigureServices((hostContext, services) => svc.Configure(hostContext, services));
+					hostBuilder.ConfigureServices((hostContext, services) => svc.Configure(hostContext, services, args));
 					break;
 				case ConfigConfigurator cfg:
-					hostBuilder.ConfigureAppConfiguration((hostContext, configBuilder) => cfg.Configure(hostContext, configBuilder));
+					hostBuilder.ConfigureAppConfiguration((hostContext, configBuilder) => cfg.Configure(hostContext, configBuilder, args));
 					break;
 				case LoggingConfigurator log:
-					hostBuilder.ConfigureLogging((hostContext, logBuilder) => log.Configure(hostContext, logBuilder));
+					hostBuilder.ConfigureLogging((hostContext, logBuilder) => log.Configure(hostContext, logBuilder, args));
 					break;
 				default:
 					break;
