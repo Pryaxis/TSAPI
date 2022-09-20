@@ -17,5 +17,6 @@ public abstract class ServiceConfigurator : BaseConfigurator
 	/// </summary>
 	/// <param name="hostContext">Context containing the current state of the host.</param>
 	/// <param name="services">Collection of services currently configured on the host.</param>
-	public abstract void Configure(HostBuilderContext hostContext, IServiceCollection services);
+	/// <param name="args">String arguments passed to the program</param>
+	public abstract void Configure(HostBuilderContext hostContext, IServiceCollection services, string[] args);
 }

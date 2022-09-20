@@ -18,5 +18,6 @@ public abstract class ConfigConfigurator : BaseConfigurator
 	/// </summary>
 	/// <param name="hostContext">Context containing the current state of the host.</param>
 	/// <param name="configBuilder">Builder providing the current configuration state, and enabling further changes.</param>
-	public abstract void Configure(HostBuilderContext hostContext, IConfigurationBuilder configBuilder);
+	/// <param name="args">String arguments passed to the program</param>
+	public abstract void Configure(HostBuilderContext hostContext, IConfigurationBuilder configBuilder, string[] args);
 }
