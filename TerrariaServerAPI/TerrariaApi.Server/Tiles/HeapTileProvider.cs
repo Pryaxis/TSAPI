@@ -14,10 +14,6 @@
 		/// </remarks>
 		protected byte[] tileHeap;
 
-		protected HeapTile lastTile;
-
-		protected readonly object syncRoot = new object();
-
 		public int Width { get; private set; }
 
 		public int Height { get; private set; }
@@ -49,10 +45,7 @@
 
 				return GetTile(x, y);
 			}
-			set
-			{
-				SetTile(value, x, y);
-			}
+			set => SetTile(value, x, y);
 		}
 
 		/// <summary>
@@ -67,20 +60,7 @@
 		/// Virtual function that derivatives must override if they want to implement getting of a tile from
 		/// its backing store.        /// </remarks>
 		protected virtual Terraria.ITile GetTile(int x, int y)
-		{
-			HeapTile tile;
-
-			lock (syncRoot)
-			{
-				if (lastTile != null && x == lastTile.x && y == lastTile.y)
-				{
-					return lastTile;
-				}
-				tile = lastTile = new HeapTile(tileHeap, x, y);
-			}
-
-			return tile;
-		}
+			=> new HeapTile(tileHeap, x, y);
 
 		/// <summary>
 		/// Sets a tile at position X and Y to the tile instance specified.
@@ -95,9 +75,6 @@
 		/// its backing store.
 		/// </remarks>
 		protected virtual void SetTile(Terraria.ITile tile, int x, int y)
-		{
-			HeapTile heapTile = new HeapTile(tileHeap, x, y);
-			heapTile.CopyFrom(tile);
-		}
+			=>  new HeapTile(tileHeap, x, y).CopyFrom(tile);
 	}
 }
