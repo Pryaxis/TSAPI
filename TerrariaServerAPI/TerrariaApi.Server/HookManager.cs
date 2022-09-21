@@ -44,7 +44,7 @@ namespace TerrariaApi.Server
 				ServerApi.LogWriter.ServerWriteLine($"Using {nameof(HeapTile)} for tile implementation", TraceLevel.Info);
 				ModFramework.DefaultCollection<ITile>.OnCreateCollection += (int x, int y, string source) =>
 				{
-					return new TileProvider();
+					return new HeapTileProvider();
 				};
 			}
 

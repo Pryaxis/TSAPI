@@ -4,7 +4,7 @@
 	/// Provides an abstraction layer between Terraria's tile mechanism and the various mechanisms that
 	/// provide the data to TSAPI.
 	/// </summary>
-	public class TileProvider : ModFramework.ICollection<Terraria.ITile>
+	public class HeapTileProvider : ModFramework.ICollection<Terraria.ITile>
 	{
         /// <summary>
         /// Holds the tile heap.
