@@ -20,6 +20,14 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TerrariaServerAPI\TerrariaServerAPI.csproj" />
+    <!--<ProjectReference Include="..\external\Tiled.csproj" Name="Tiled" />-->
   </ItemGroup>
 
+  <ItemGroup Condition="@(ProjectReference-&gt;AnyHaveMetadataValue('Name', 'Tiled'))">
+    <_DefineConstants Include="TILED_PLUGIN" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <DefineConstants>$(DefineConstants);@(_DefineConstants)</DefineConstants>
+  </PropertyGroup>
 </Project>

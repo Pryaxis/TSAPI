@@ -19,7 +19,18 @@ public class TileBenchmarks: BaseTest
 	[TestCase(10)]
 	public void Clearing_Orion(int cycles) => ClearWorld(() => new OrionTileCollection(), cycles);
 
-	public void ClearWorld<T>(Func<T> requestProvider)
+#if TILED_PLUGIN
+	[TestCase(10)]
+	public void Clearing_1d(int cycles) => ClearWorld(() => new Tiled.OneDimension.OneDimensionTileProvider(), cycles);
+
+	[TestCase(10)]
+	public void Clearing_2d(int cycles) => ClearWorld(() => new Tiled.TwoDimensions.TwoDimensionTileProvider(), cycles);
+
+	[TestCase(10)]
+	public void Clearing_Struct(int cycles) => ClearWorld(() => new Tiled.Struct.Structured1DTileProvider(), cycles);
+#endif
+
+	public void ClearWorld<T>(Func<T> requestProvider, int cycles)
 		 where T : ICollection<ITile>
 	{
 		SetWorldSmall();
@@ -68,6 +79,20 @@ public class TileBenchmarks: BaseTest
 	[Test]
 	public void Generate_Small_Orion()
 		=> Generate_Small(() => new OrionTileCollection());
+
+#if TILED_PLUGIN
+	[Test]
+	public void Generate_Small_1d()
+		=> Generate_Small(() => new Tiled.OneDimension.OneDimensionTileProvider());
+
+	[Test]
+	public void Generate_Small_2d()
+		=> Generate_Small(() => new Tiled.TwoDimensions.TwoDimensionTileProvider());
+
+	[Test]
+	public void Generate_Small_Struct()
+		=> Generate_Small(() => new Tiled.Struct.Structured1DTileProvider());
+#endif
 
 	static void CreateNewWorld()
 	{
