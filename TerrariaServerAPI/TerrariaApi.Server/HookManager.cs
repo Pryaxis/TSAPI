@@ -8,6 +8,7 @@ using System.Security.Cryptography;
 using System.Text;
 using Terraria;
 using Terraria.Net;
+using TerrariaServerAPI.TerrariaApi.Server.Tiles;
 
 namespace TerrariaApi.Server
 {
