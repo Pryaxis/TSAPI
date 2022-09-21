@@ -10,28 +10,30 @@ namespace TerrariaServerAPI.Tests;
 
 public class TileBenchmarks: BaseTest
 {
-	[Test]
-	public void Clearing_Stock() => ClearWorld(() => new DefaultCollection<ITile>(Main.maxTilesX, Main.maxTilesY));
+	[TestCase(10)]
+	public void Clearing_Stock(int cycles) => ClearWorld(() => new DefaultCollection<ITile>(Main.maxTilesX, Main.maxTilesY), cycles);
 
-	[Test]
-	public void Clearing_Heap() => ClearWorld(() => new HeapTileProvider());
-	[Test]
-	public void Clearing_Orion() => ClearWorld(() => new OrionTileCollection());
+	[TestCase(10)]
+	public void Clearing_Heap(int cycles) => ClearWorld(() => new HeapTileProvider(), cycles);
+
+	[TestCase(10)]
+	public void Clearing_Orion(int cycles) => ClearWorld(() => new OrionTileCollection(), cycles);
 
 	public void ClearWorld<T>(Func<T> requestProvider)
 		 where T : ICollection<ITile>
 	{
 		SetWorldSmall();
 		Main.tile = requestProvider();
-		Console.WriteLine($"{Main.tile.GetType().Name}: Clearing world...");
-		var max = 10;
+		Console.WriteLine($"{Main.tile.GetType().Name}: Clearing world with {cycles} cycle(s)...");
 
 		var sw = new Stopwatch();
 		sw.Start();
-		for (var i = 0; i < max; i++)
+		for (var i = 0; i < cycles; i++)
 			WorldGen.clearWorld();
+
 		sw.Stop();
-		Console.WriteLine($"{Main.tile.GetType().Name}: Clear took: {sw.Elapsed.TotalSeconds}s ({sw.Elapsed.TotalSeconds / max}s avg)");
+
+		Console.WriteLine($"{Main.tile.GetType().Name}: Clear took: {sw.Elapsed.TotalSeconds:#.00}s ({sw.Elapsed.TotalMilliseconds / cycles:#.00}ms p/c)");
 	}
 
 	void SetWorldSmall()
@@ -45,16 +47,14 @@ public class TileBenchmarks: BaseTest
 	{
 		SetWorldSmall();
 		Main.tile = requestProvider();
-		Console.WriteLine($"{Main.tile.GetType().Name} :Generate starting...");
+		Console.WriteLine($"{Main.tile.GetType().Name}: Generate starting...");
 		WorldGen.clearWorld();
-		var max = 1;
 
 		var sw = new Stopwatch();
 		sw.Start();
-		for (var i = 0; i < max; i++)
-			CreateNewWorld();
+		CreateNewWorld();
 		sw.Stop();
-		Console.WriteLine($"{Main.tile.GetType().Name}: Generate took: {sw.Elapsed.TotalSeconds}s ({sw.Elapsed.TotalSeconds / max}s avg)");
+		Console.WriteLine($"{Main.tile.GetType().Name}: Generate took: {sw.Elapsed.TotalSeconds:#.00}s");
 	}
 
 	[Test]
