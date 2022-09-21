@@ -48,6 +48,14 @@ namespace TerrariaApi.Server
 					return new HeapTileProvider();
 				};
 			}
+			if (args.Any(x => x == "-oriontile"))
+			{
+				ServerApi.LogWriter.ServerWriteLine($"Using {nameof(OrionTile)} for tile implementation", TraceLevel.Info);
+				ModFramework.DefaultCollection<ITile>.OnCreateCollection += (int x, int y, string source) =>
+				{
+					return new OrionTileCollection();
+				};
+			}
 
 			Hooking.GameHooks.AttachTo(this);
 			Hooking.ItemHooks.AttachTo(this);
