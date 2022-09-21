@@ -73,7 +73,8 @@ namespace TerrariaApi.Server
 			ForceUpdate = false;
 			Type t = Type.GetType("Mono.Runtime");
 			RunningMono = (t != null);
-			Main.SkipAssemblyLoad = true;
+
+			//Main.SkipAssemblyLoad = true; otapi3 should allow for this to pass. this also should not be here to avoid triggering the cctor (and thus the tile hook)
 		}
 
 		internal static void Initialize(string[] commandLineArgs, Main game)
