@@ -2,39 +2,14 @@
 using NUnit.Framework;
 using System;
 using System.Diagnostics;
-using System.Drawing;
-using System.Threading;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.Utilities;
 using TerrariaServerAPI.TerrariaApi.Server.Tiles;
 
 namespace TerrariaServerAPI.Tests;
 
-public class TileBenchmarks
+public class TileBenchmarks: BaseTest
 {
-	[OneTimeSetUp]
-	public void Init()
-	{
-		var are = new AutoResetEvent(false);
-		Exception? error = null;
-		On.Terraria.Main.hook_DedServ cb = (On.Terraria.Main.orig_DedServ orig, Terraria.Main instance) =>
-		{
-			instance.Initialize();
-			are.Set();
-		};
-		On.Terraria.Main.DedServ += cb;
-
-		global::TerrariaApi.Server.Program.Main(new string[] { });
-
-		var hit = are.WaitOne(TimeSpan.FromSeconds(30));
-
-		On.Terraria.Main.DedServ -= cb;
-
-		Assert.That(hit, Is.True);
-		Assert.That(error, Is.Null);
-	}
-
 	[Test]
 	public void Clearing_Stock() => ClearWorld(() => new DefaultCollection<ITile>(Main.maxTilesX, Main.maxTilesY));
 
@@ -47,8 +22,8 @@ public class TileBenchmarks
 		 where T : ICollection<ITile>
 	{
 		SetWorldSmall();
-		Console.WriteLine("Clearing world...");
 		Main.tile = requestProvider();
+		Console.WriteLine($"{Main.tile.GetType().Name}: Clearing world...");
 		var max = 10;
 
 		var sw = new Stopwatch();
@@ -56,7 +31,7 @@ public class TileBenchmarks
 		for (var i = 0; i < max; i++)
 			WorldGen.clearWorld();
 		sw.Stop();
-		Console.WriteLine($"Clear took: {sw.Elapsed.TotalSeconds}s ({sw.Elapsed.TotalSeconds / max}s avg)");
+		Console.WriteLine($"{Main.tile.GetType().Name}: Clear took: {sw.Elapsed.TotalSeconds}s ({sw.Elapsed.TotalSeconds / max}s avg)");
 	}
 
 	void SetWorldSmall()
@@ -68,9 +43,9 @@ public class TileBenchmarks
 	public void Generate_Small<T>(Func<T> requestProvider)
 		 where T : ICollection<ITile>
 	{
-		Console.WriteLine("Generate starting...");
 		SetWorldSmall();
 		Main.tile = requestProvider();
+		Console.WriteLine($"{Main.tile.GetType().Name} :Generate starting...");
 		WorldGen.clearWorld();
 		var max = 1;
 
@@ -79,7 +54,7 @@ public class TileBenchmarks
 		for (var i = 0; i < max; i++)
 			CreateNewWorld();
 		sw.Stop();
-		Console.WriteLine($"Generate took: {sw.Elapsed.TotalSeconds}s ({sw.Elapsed.TotalSeconds / max}s avg)");
+		Console.WriteLine($"{Main.tile.GetType().Name}: Generate took: {sw.Elapsed.TotalSeconds}s ({sw.Elapsed.TotalSeconds / max}s avg)");
 	}
 
 	[Test]
