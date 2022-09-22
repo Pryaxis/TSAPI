@@ -5,6 +5,8 @@ using System.Security.Cryptography;
 using System.Text;
 using Microsoft.Extensions.Logging;
 using Microsoft.Xna.Framework;
+using Microsoft.Extensions.FileProviders;
+using TerrariaServerAPI.TerrariaApi.Server.Tiles;
 
 namespace TerrariaApi.Server;
 
@@ -52,7 +54,15 @@ public class HookService
 			_logger.LogInformation("Using {HeapTile} for tile implementation", nameof(HeapTile));
 			ModFramework.DefaultCollection<ITile>.OnCreateCollection += (int x, int y, string source) =>
 			{
-				return new TileProvider();
+				return new HeapTileProvider();
+			};
+		}
+		if (args.Any(x => x == "-oriontile"))
+		{
+			_logger.LogInformation("Using {OrionTile} for tile implementation", nameof(OrionTile));
+			ModFramework.DefaultCollection<ITile>.OnCreateCollection += (int x, int y, string source) =>
+			{
+				return new OrionTileCollection();
 			};
 		}
 
