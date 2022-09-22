@@ -9,17 +9,17 @@ namespace TerrariaApi.Server.Hooking
 {
 	internal class NetHooks
 	{
-		private static HookManager _hookManager;
+		private static HookService _hookService;
 
 		public static readonly object syncRoot = new object();
 
 		/// <summary>
-		/// Attaches any of the OTAPI Net hooks to the existing <see cref="HookManager"/> implementation
+		/// Attaches any of the OTAPI Net hooks to the existing <see cref="HookService"/> implementation
 		/// </summary>
-		/// <param name="hookManager">HookManager instance which will receive the events</param>
-		public static void AttachTo(HookManager hookManager)
+		/// <param name="hookService">HookService instance which will receive the events</param>
+		public static void AttachTo(HookService hookService)
 		{
-			_hookManager = hookManager;
+			_hookService = hookService;
 
 			On.Terraria.NetMessage.greetPlayer += OnGreetPlayer;
 			On.Terraria.Netplay.OnConnectionAccepted += OnConnectionAccepted;
@@ -36,7 +36,7 @@ namespace TerrariaApi.Server.Hooking
 		{
 			float r = color.R, g = color.G, b = color.B;
 
-			var cancel = _hookManager.InvokeServerBroadcast(ref text, ref r, ref g, ref b);
+			var cancel = _hookService.InvokeServerBroadcast(ref text, ref r, ref g, ref b);
 
 			if (!cancel)
 			{
@@ -63,7 +63,7 @@ namespace TerrariaApi.Server.Hooking
 				var number5 = e.Number5;
 				var number6 = e.Number6;
 				var number7 = e.Number7;
-				if (_hookManager.InvokeNetSendData
+				if (_hookService.InvokeNetSendData
 				(
 					ref msgType,
 					ref remoteClient,
@@ -97,7 +97,7 @@ namespace TerrariaApi.Server.Hooking
 
 		static void OnSendNetData(On.Terraria.Net.NetManager.orig_SendData orig, NetManager netmanager, Terraria.Net.Sockets.ISocket socket, NetPacket packet)
 		{
-			if (!_hookManager.InvokeNetSendNetData
+			if (!_hookService.InvokeNetSendNetData
 			(
 				ref netmanager,
 				ref socket,
@@ -120,7 +120,7 @@ namespace TerrariaApi.Server.Hooking
 				var readOffset = e.ReadOffset;
 				var length = e.Length;
 
-				if (_hookManager.InvokeNetGetData(ref msgId, e.Instance, ref readOffset, ref length))
+				if (_hookService.InvokeNetGetData(ref msgId, e.Instance, ref readOffset, ref length))
 				{
 					e.Result = HookResult.Cancel;
 				}
@@ -133,7 +133,7 @@ namespace TerrariaApi.Server.Hooking
 
 		static void OnGreetPlayer(On.Terraria.NetMessage.orig_greetPlayer orig, int plr)
 		{
-			if (_hookManager.InvokeNetGreetPlayer(plr))
+			if (_hookService.InvokeNetGreetPlayer(plr))
 				return;
 
 			orig(plr);
@@ -141,7 +141,7 @@ namespace TerrariaApi.Server.Hooking
 
 		static void OnSendBytes(object sender, Hooks.NetMessage.SendBytesEventArgs e)
 		{
-			if (_hookManager.InvokeNetSendBytes(Netplay.Clients[e.RemoteClient], e.Data, e.Offset, e.Size))
+			if (_hookService.InvokeNetSendBytes(Netplay.Clients[e.RemoteClient], e.Data, e.Offset, e.Size))
 			{
 				e.Result = HookResult.Cancel;
 			}
@@ -149,7 +149,7 @@ namespace TerrariaApi.Server.Hooking
 
 		static void OnNameCollision(object sender, Hooks.MessageBuffer.NameCollisionEventArgs e)
 		{
-			if (_hookManager.InvokeNetNameCollision(e.Player.whoAmI, e.Player.name))
+			if (_hookService.InvokeNetNameCollision(e.Player.whoAmI, e.Player.name))
 			{
 				e.Result = HookResult.Cancel;
 			}

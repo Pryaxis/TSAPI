@@ -6,15 +6,15 @@ namespace TerrariaApi.Server.Hooking
 {
 	internal static class NpcHooks
 	{
-		private static HookManager _hookManager;
+		private static HookService _hookService;
 
 		/// <summary>
-		/// Attaches any of the OTAPI Npc hooks to the existing <see cref="HookManager"/> implementation
+		/// Attaches any of the OTAPI Npc hooks to the existing <see cref="HookService"/> implementation
 		/// </summary>
-		/// <param name="hookManager">HookManager instance which will receive the events</param>
-		public static void AttachTo(HookManager hookManager)
+		/// <param name="hookService">HookService instance which will receive the events</param>
+		public static void AttachTo(HookService hookService)
 		{
-			_hookManager = hookManager;
+			_hookService = hookService;
 
 			On.Terraria.NPC.SetDefaults += OnSetDefaultsById;
 			On.Terraria.NPC.SetDefaultsFromNetId += OnSetDefaultsFromNetId;
@@ -28,14 +28,9 @@ namespace TerrariaApi.Server.Hooking
 			Hooks.NPC.Killed += OnKilled;
 		}
 
-		static void OnKilled(object sender, Hooks.NPC.KilledEventArgs e)
-		{
-			_hookManager.InvokeNpcKilled(e.Npc);
-		}
-
 		static void OnSetDefaultsById(On.Terraria.NPC.orig_SetDefaults orig, NPC npc, int type, NPCSpawnParams spawnparams)
 		{
-			if (_hookManager.InvokeNpcSetDefaultsInt(ref type, npc))
+			if (_hookService.InvokeNpcSetDefaultsInt(ref type, npc))
 				return;
 
 			orig(npc, type, spawnparams);
@@ -43,7 +38,7 @@ namespace TerrariaApi.Server.Hooking
 
 		static void OnSetDefaultsFromNetId(On.Terraria.NPC.orig_SetDefaultsFromNetId orig, NPC npc, int id, NPCSpawnParams spawnparams)
 		{
-			if (_hookManager.InvokeNpcNetDefaults(ref id, npc))
+			if (_hookService.InvokeNpcNetDefaults(ref id, npc))
 				return;
 
 			orig(npc, id, spawnparams);
@@ -53,7 +48,7 @@ namespace TerrariaApi.Server.Hooking
 		{
 			if (entity is Player player)
 			{
-				if (_hookManager.InvokeNpcStrike(npc, ref Damage, ref knockBack, ref hitDirection, ref crit, ref noEffect, ref fromNet, player))
+				if (_hookService.InvokeNpcStrike(npc, ref Damage, ref knockBack, ref hitDirection, ref crit, ref noEffect, ref fromNet, player))
 				{
 					return 0;
 				}
@@ -64,23 +59,31 @@ namespace TerrariaApi.Server.Hooking
 
 		static void OnTransform(On.Terraria.NPC.orig_Transform orig, NPC npc, int newType)
 		{
-			if (_hookManager.InvokeNpcTransformation(npc.whoAmI))
+			if (_hookService.InvokeNpcTransformation(npc.whoAmI))
 				return;
 
 			orig(npc, newType);
 		}
 
-		static void OnSpawn(object sender, Hooks.NPC.SpawnEventArgs e)
+		static void OnAI(On.Terraria.NPC.orig_AI orig, NPC npc)
+		{
+			if (_hookService.InvokeNpcAIUpdate(npc))
+				return;
+
+			orig(npc);
+		}
+
+		static void OnSpawn(object? sender, Hooks.NPC.SpawnEventArgs e)
 		{
 			var index = e.Index;
-			if (_hookManager.InvokeNpcSpawn(ref index))
+			if (_hookService.InvokeNpcSpawn(ref index))
 			{
 				e.Result = HookResult.Cancel;
 				e.Index = index;
 			}
 		}
 
-		static void OnDropLoot(object sender, Hooks.NPC.DropLootEventArgs e)
+		static void OnDropLoot(object? sender, Hooks.NPC.DropLootEventArgs e)
 		{
 			if (e.Event == HookEvent.Before)
 			{
@@ -94,7 +97,7 @@ namespace TerrariaApi.Server.Hooking
 				var reverseLookup = e.ReverseLookup;
 
 				var position = new Vector2(e.X, e.Y);
-				if (_hookManager.InvokeNpcLootDrop
+				if (_hookService.InvokeNpcLootDrop
 				(
 					ref position,
 					ref Width,
@@ -127,7 +130,7 @@ namespace TerrariaApi.Server.Hooking
 			}
 		}
 
-		static void OnBossBagItem(object sender, Hooks.NPC.BossBagEventArgs e)
+		static void OnBossBagItem(object? sender, Hooks.NPC.BossBagEventArgs e)
 		{
 			var Width = e.Width;
 			var Height = e.Height;
@@ -139,7 +142,7 @@ namespace TerrariaApi.Server.Hooking
 			var reverseLookup = e.ReverseLookup;
 
 			var positon = new Vector2(e.X, e.Y);
-			if (_hookManager.InvokeDropBossBag
+			if (_hookService.InvokeDropBossBag
 			(
 				ref positon,
 				ref Width,
@@ -167,12 +170,9 @@ namespace TerrariaApi.Server.Hooking
 			e.ReverseLookup = reverseLookup;
 		}
 
-		static void OnAI(On.Terraria.NPC.orig_AI orig, NPC npc)
+		static void OnKilled(object? sender, Hooks.NPC.KilledEventArgs e)
 		{
-			if (_hookManager.InvokeNpcAIUpdate(npc))
-				return;
-
-			orig(npc);
+			_hookService.InvokeNpcKilled(e.Npc);
 		}
 	}
 }

@@ -1,38 +1,41 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading;
+﻿using System.Collections;
 using System.Diagnostics;
+using Microsoft.Extensions.Logging;
 
 namespace TerrariaApi.Server
 {
-	public class HandlerCollection<ArgsType>: IEnumerable<HandlerRegistration<ArgsType>> where ArgsType: EventArgs
+	public delegate void HookHandler<in ArgumentType>(ArgumentType args) where ArgumentType : EventArgs;
+
+	/// <summary>
+	/// Contains a collection of handlers for a particular argument type
+	/// </summary>
+	/// <typeparam name="ArgsType">Type of arguments that will be sent to the handler</typeparam>
+	public class HandlerCollection<ArgsType> : IEnumerable<HandlerRegistration<ArgsType>> where ArgsType : EventArgs
 	{
+
 		// Always handle this collection like an immuteable object to maintain thread safety!
 		private List<HandlerRegistration<ArgsType>> registrations;
 		private readonly object alterRegistrationsLock = new object();
-		public string hookName { get; private set; }
+		public string HookName { get; private set; }
 
 		internal HandlerCollection(string hookName)
 		{
 			if (string.IsNullOrWhiteSpace(hookName))
 				throw new ArgumentException("Invalid hook name.", "hookName");
-			
+
 			this.registrations = new List<HandlerRegistration<ArgsType>>();
-			this.hookName = hookName;
+			this.HookName = hookName;
 		}
 
-		public void Register(TerrariaPlugin registrator, HookHandler<ArgsType> handler, int priority)
+		public void Register<TLogger>(HookHandler<ArgsType> handler, ILogger<TLogger> logger, int priority)
 		{
-			if (registrator == null)
-				throw new ArgumentNullException("registrator");
 			if (handler == null)
 				throw new ArgumentNullException("handler");
 
 			var newRegistration = new HandlerRegistration<ArgsType>
 			{
-				Registrator = registrator,
 				Handler = handler,
+				Logger = logger,
 				Priority = priority
 			};
 
@@ -45,7 +48,8 @@ namespace TerrariaApi.Server
 				int insertionIndex = registrations.Count;
 				for (int i = 0; i < registrationsClone.Count; i++)
 				{
-					if (registrationsClone[i].Priority < priority) {
+					if (registrationsClone[i].Priority < priority)
+					{
 						insertionIndex = i;
 						break;
 					}
@@ -56,21 +60,18 @@ namespace TerrariaApi.Server
 			}
 		}
 
-		public void Register(TerrariaPlugin registrator, HookHandler<ArgsType> handler)
+		public void Register<TLogger>(HookHandler<ArgsType> handler, ILogger<TLogger> logger)
 		{
-			this.Register(registrator, handler, registrator.Order);
+			this.Register(handler, logger, 0);
 		}
 
-		public bool Deregister(TerrariaPlugin registrator, HookHandler<ArgsType> handler)
+		public bool Deregister(HookHandler<ArgsType> handler)
 		{
-			if (registrator == null)
-				throw new ArgumentNullException("registrator");
 			if (handler == null)
 				throw new ArgumentNullException("handler");
 
 			var registration = new HandlerRegistration<ArgsType>
 			{
-				Registrator = registrator,
 				Handler = handler
 			};
 
@@ -81,7 +82,7 @@ namespace TerrariaApi.Server
 					return false;
 
 				var registrationsClone = new List<HandlerRegistration<ArgsType>>(this.registrations.Count);
-				for (int i = 0; i < this.registrations.Count; i++) 
+				for (int i = 0; i < this.registrations.Count; i++)
 					if (i != registrationIndex)
 						registrationsClone.Add(this.registrations[i]);
 
@@ -99,38 +100,16 @@ namespace TerrariaApi.Server
 				return;
 
 			// We handle the registrations collection like an immuteable object, looping through it is always thread safe.
-			List<HandlerRegistration<ArgsType>> registrations =	this.registrations;
+			List<HandlerRegistration<ArgsType>> registrations = this.registrations;
 			foreach (var registration in registrations)
 			{
 				try
 				{
-					if (ServerApi.Profiler.WrappedProfiler == null)
-					{
-						registration.Handler(args);
-					}
-					else
-					{
-						Stopwatch watch = new Stopwatch();
-
-						watch.Start();
-						try
-						{
-							registration.Handler(args);
-						}
-						finally
-						{
-							watch.Stop();
-							ServerApi.Profiler.InputPluginHandlerTime(registration.Registrator, hookName, watch.Elapsed);
-						}
-					}
+					registration.Handler(args);
 				}
 				catch (Exception ex)
 				{
-					ServerApi.LogWriter.ServerWriteLine(string.Format(
-						"Plugin \"{0}\" has had an unhandled exception thrown by one of its {1} handlers: \n{2}",
-						registration.Registrator.Name, hookName, ex), TraceLevel.Warning);
-
-					ServerApi.Profiler.InputPluginHandlerExceptionThrown(registration.Registrator, hookName, ex);
+					registration.Logger.LogError(ex, "Unhandled exception thrown by handler for hook '{hook'}", HookName);
 				}
 			}
 		}
