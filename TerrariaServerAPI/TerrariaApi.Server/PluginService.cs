@@ -17,5 +17,5 @@ public abstract class PluginService
 	/// <summary>
 	/// Called when the server is ready for plugins to begin doing things
 	/// </summary>
-	public void Start() { }
+	public virtual void Start() { }
 }
