@@ -115,7 +115,10 @@ static class DIBuilder
 	{
 		Assembly asm = Assembly.Load(File.ReadAllBytes(path));
 
-		if (asm.GetExportedTypes().Any(t => t.IsSubclassOf(typeof(PluginService))))
+		if (asm.GetExportedTypes().Any(t => t.IsSubclassOf(typeof(PluginService))
+			// and allow configurational assemblies. for example, TShockCommands, depends on TShockAPI and only implements ICommandService.
+			|| t.IsSubclassOf(typeof(BaseConfigurator))
+		))
 		{
 			return asm;
 		}
