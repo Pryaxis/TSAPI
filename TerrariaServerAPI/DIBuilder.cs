@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Console;
+using System.Runtime.Loader;
 
 namespace TerrariaApi.Server;
 
@@ -113,7 +114,8 @@ static class DIBuilder
 
 	static Assembly? LoadAssembly(String path)
 	{
-		Assembly asm = Assembly.Load(File.ReadAllBytes(path));
+		using var ms = new MemoryStream(File.ReadAllBytes(path));
+		var asm = AssemblyLoadContext.Default.LoadFromStream(ms);
 
 		if (asm.GetExportedTypes().Any(t => t.IsSubclassOf(typeof(PluginService))
 			// and allow configurational assemblies. for example, TShockCommands, depends on TShockAPI and only implements ICommandService.
