@@ -57,7 +57,7 @@ namespace TerrariaApi.Server.Hooking
 			orig();
 		}
 
-		private static void WorldGen_SpreadGrass(On.Terraria.WorldGen.orig_SpreadGrass orig, int i, int j, int dirt, int grass, bool repeat, byte color)
+		private static void WorldGen_SpreadGrass(On.Terraria.WorldGen.orig_SpreadGrass orig, int i, int j, int dirt, int grass, bool repeat, TileColorCache color)
 		{
 			if (_hookService.InvokeWorldGrassSpread(i, j, dirt, grass, repeat, color))
 				return;

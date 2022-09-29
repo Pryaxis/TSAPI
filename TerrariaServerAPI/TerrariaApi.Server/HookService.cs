@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Xna.Framework;
 using Microsoft.Extensions.FileProviders;
 using TerrariaServerAPI.TerrariaApi.Server.Tiles;
+using Terraria.GameContent.Items;
 
 namespace TerrariaApi.Server;
 
@@ -57,14 +58,14 @@ public class HookService
 				return new HeapTileProvider();
 			};
 		}
-		if (args.Any(x => x == "-oriontile"))
-		{
-			_logger.LogInformation("Using {OrionTile} for tile implementation", nameof(OrionTile));
-			ModFramework.DefaultCollection<ITile>.OnCreateCollection += (int x, int y, string source) =>
-			{
-				return new OrionTileCollection();
-			};
-		}
+		//if (args.Any(x => x == "-oriontile"))
+		//{
+		//	_logger.LogInformation("Using {OrionTile} for tile implementation", nameof(OrionTile));
+		//	ModFramework.DefaultCollection<ITile>.OnCreateCollection += (int x, int y, string source) =>
+		//	{
+		//		return new OrionTileCollection();
+		//	};
+		//}
 
 		Hooking.GameHooks.AttachTo(this);
 		Hooking.ItemHooks.AttachTo(this);
@@ -239,12 +240,13 @@ public class HookService
 		get { return this.itemSetDefaultsInt; }
 	}
 
-	internal bool InvokeItemSetDefaultsInt(ref int itemType, Item item)
+	internal bool InvokeItemSetDefaultsInt(ref int itemType, Item item, ItemVariant? variant = null)
 	{
 		SetDefaultsEventArgs<Item, int> args = new SetDefaultsEventArgs<Item, int>
 		{
 			Info = itemType,
-			Object = item
+			Object = item,
+			ItemVariant = variant,
 		};
 
 		this.ItemSetDefaultsInt.Invoke(args);
@@ -1279,7 +1281,7 @@ public class HookService
 		get { return this.worldGrassSpread; }
 	}
 
-	internal bool InvokeWorldGrassSpread(int tileX, int tileY, int dirt, int grass, bool repeat, byte color)
+	internal bool InvokeWorldGrassSpread(int tileX, int tileY, int dirt, int grass, bool repeat, TileColorCache color)
 	{
 		GrassSpreadEventArgs args = new GrassSpreadEventArgs
 		{

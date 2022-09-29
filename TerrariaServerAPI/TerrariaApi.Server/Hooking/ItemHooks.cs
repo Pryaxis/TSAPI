@@ -1,5 +1,6 @@
 ﻿using OTAPI;
 using Terraria;
+using Terraria.GameContent.Items;
 
 namespace TerrariaApi.Server.Hooking
 {
@@ -15,7 +16,7 @@ namespace TerrariaApi.Server.Hooking
 		{
 			_hookService = hookManager;
 
-			On.Terraria.Item.SetDefaults_int_bool += OnSetDefaults;
+			On.Terraria.Item.SetDefaults_int_bool_ItemVariant += OnSetDefaults;
 			On.Terraria.Item.netDefaults += OnNetDefaults;
 
 			Hooks.Chest.QuickStack += OnQuickStack;
@@ -29,15 +30,15 @@ namespace TerrariaApi.Server.Hooking
 			orig(item, type);
 		}
 
-		private static void OnSetDefaults(On.Terraria.Item.orig_SetDefaults_int_bool orig, Item item, int type, bool noMatCheck)
+		private static void OnSetDefaults(On.Terraria.Item.orig_SetDefaults_int_bool_ItemVariant orig, Item item, int type, bool noMatCheck, ItemVariant? variant = null)
 		{
 			if (_hookService.InvokeItemSetDefaultsInt(ref type, item))
 				return;
 
-			orig(item, type, noMatCheck);
+			orig(item, type, noMatCheck, variant);
 		}
 
-		private static void OnQuickStack(object sender, Hooks.Chest.QuickStackEventArgs e)
+		private static void OnQuickStack(object? sender, Hooks.Chest.QuickStackEventArgs e)
 		{
 			if (_hookService.InvokeItemForceIntoChest(Main.chest[e.ChestIndex], e.Item, Main.player[e.PlayerId]))
 			{
