@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using Terraria.ID;
 using TerrariaApi.Server;
+using ReLogic.OS;
 
 namespace TerrariaApi.Server
 {
@@ -79,11 +80,23 @@ namespace TerrariaApi.Server
 			TileID.Sets.Hallow[TileID.Pearlstone] = true;
 		}
 
+		/// <summary>
+		/// 1.4.4.2 introduced another static variable, which needs to be setup before any Main calls
+		/// </summary>
+		static void PrepareSavePath(string[] args)
+		{
+			Terraria.Program.LaunchParameters = Terraria.Utils.ParseArguements(args);
+			Terraria.Program.SavePath = (Terraria.Program.LaunchParameters.ContainsKey("-savedirectory")
+				? Terraria.Program.LaunchParameters["-savedirectory"]
+				: Platform.Get<IPathService>().GetStoragePath("Terraria"));
+		}
+
 		public static void Main(string[] args)
 		{
 			AppDomain.CurrentDomain.UnhandledException += UnhandledException;
 			try
 			{
+				PrepareSavePath(args);
 				InitialiseInternals();
 				ServerApi.Hooks.AttachOTAPIHooks(args);
 
