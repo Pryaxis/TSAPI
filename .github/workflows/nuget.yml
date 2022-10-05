@@ -1,10 +1,6 @@
 name: Deploy NuGet(OTAPI3)
 
-on:
-  push:
-    branches: [ nuget-release ]
-  pull_request:
-    branches: [ nuget-release ]
+on: [push]
 
 jobs:
   build:

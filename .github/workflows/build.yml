@@ -1,12 +1,7 @@
 name: CI OTAPI3
 
 # Controls when the workflow will run
-on:
-  # Triggers the workflow on push events but only for the otapi3 branch
-  push:
-    branches: [ otapi3 ]
-  pull_request:
-    branches: [ otapi3 ]
+on: [push, pull_request]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
