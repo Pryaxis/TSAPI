@@ -13,3 +13,5 @@ Output/
 *.dll
 
 .idea/
+.vs/
+*.user

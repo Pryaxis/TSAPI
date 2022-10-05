@@ -90,8 +90,7 @@ namespace TerrariaApi.Server
 
 			ServerApi.game = game;
 			HandleCommandLine(commandLineArgs);
-			ServerPluginsDirectoryPath = Path.Combine(
-				Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), PluginsPath);
+			ServerPluginsDirectoryPath = Path.Combine(Environment.CurrentDirectory, PluginsPath);
 
 			if (!Directory.Exists(ServerPluginsDirectoryPath))
 			{
@@ -300,7 +299,9 @@ namespace TerrariaApi.Server
 					{
 						try
 						{
-							assembly = Assembly.Load(File.ReadAllBytes(fileInfo.FullName));
+							var pdb = Path.ChangeExtension(fileInfo.FullName, ".pdb");
+							var symbols = File.Exists(pdb) ? File.ReadAllBytes(pdb) : null;
+							assembly = Assembly.Load(File.ReadAllBytes(fileInfo.FullName), symbols);
 						}
 						catch (BadImageFormatException)
 						{

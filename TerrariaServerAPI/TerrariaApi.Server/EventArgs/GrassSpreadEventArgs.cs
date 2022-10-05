@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using Terraria;
 
 namespace TerrariaApi.Server
 {
@@ -9,6 +10,6 @@ namespace TerrariaApi.Server
 		public int Dirt { get; set; }
 		public int Grass { get; set; }
 		public bool Repeat { get; set; }
-		public byte Color { get; set; }
+		public TileColorCache Color { get; set; }
 	}
 }

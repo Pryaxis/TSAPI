@@ -1,8 +1,8 @@
-﻿using OTAPI;
+﻿using Microsoft.Xna.Framework;
+using OTAPI;
 using System;
 using Terraria;
 using Terraria.Localization;
-using Microsoft.Xna.Framework;
 using Terraria.Net;
 
 namespace TerrariaApi.Server.Hooking
@@ -21,132 +21,141 @@ namespace TerrariaApi.Server.Hooking
 		{
 			_hookManager = hookManager;
 
-			Hooks.Net.SendData = OnSendData;
-			Hooks.Net.SendNetData = OnSendNetData;
-			Hooks.Net.ReceiveData = OnReceiveData;
-			Hooks.Player.PreGreet = OnPreGreet;
-			Hooks.Net.SendBytes = OnSendBytes;
-			Hooks.Net.Socket.Accepted = OnAccepted;
-			Hooks.Net.BeforeBroadcastChatMessage = OnBroadcastChatMessage;
-			Hooks.Player.NameCollision = OnNameCollision;
+			On.Terraria.NetMessage.greetPlayer += OnGreetPlayer;
+			On.Terraria.Netplay.OnConnectionAccepted += OnConnectionAccepted;
+			On.Terraria.Chat.ChatHelper.BroadcastChatMessage += OnBroadcastChatMessage;
+			On.Terraria.Net.NetManager.SendData += OnSendNetData;
+
+			Hooks.NetMessage.SendData += OnSendData;
+			Hooks.NetMessage.SendBytes += OnSendBytes;
+			Hooks.MessageBuffer.GetData += OnReceiveData;
+			Hooks.MessageBuffer.NameCollision += OnNameCollision;
 		}
 
-		private static HookResult OnBroadcastChatMessage(NetworkText text, ref Color color, ref int ignorePlayer)
+		static void OnBroadcastChatMessage(On.Terraria.Chat.ChatHelper.orig_BroadcastChatMessage orig, NetworkText text, Color color, int excludedPlayer)
 		{
 			float r = color.R, g = color.G, b = color.B;
 
 			var cancel = _hookManager.InvokeServerBroadcast(ref text, ref r, ref g, ref b);
 
-			color.R = (byte)r;
-			color.G = (byte)g;
-			color.B = (byte)b;
-
-			return cancel ? HookResult.Cancel : HookResult.Continue;
-		}
-
-		static HookResult OnSendData(
-				ref int bufferId,
-				ref int msgType,
-				ref int remoteClient,
-				ref int ignoreClient,
-				ref Terraria.Localization.NetworkText text,
-				ref int number,
-				ref float number2,
-				ref float number3,
-				ref float number4,
-				ref int number5,
-				ref int number6,
-				ref int number7
-			)
-		{
-			if (_hookManager.InvokeNetSendData
-			(
-				ref msgType,
-				ref remoteClient,
-				ref ignoreClient,
-				ref text,
-				ref number,
-				ref number2,
-				ref number3,
-				ref number4,
-				ref number5,
-				ref number6,
-				ref number7
-			))
+			if (!cancel)
 			{
-				return HookResult.Cancel;
+				color.R = (byte)r;
+				color.G = (byte)g;
+				color.B = (byte)b;
+
+				orig(text, color, excludedPlayer);
 			}
-			return HookResult.Continue;
 		}
 
-		private static HookResult OnSendNetData(NetManager manager, Terraria.Net.Sockets.ISocket socket, ref NetPacket packet)
+		static void OnSendData(object sender, Hooks.NetMessage.SendDataEventArgs e)
 		{
-			if (_hookManager.InvokeNetSendNetData
+			if (e.Event == HookEvent.Before)
+			{
+				var msgType = e.MsgType;
+				var remoteClient = e.RemoteClient;
+				var ignoreClient = e.IgnoreClient;
+				var text = e.Text;
+				var number = e.Number;
+				var number2 = e.Number2;
+				var number3 = e.Number3;
+				var number4 = e.Number4;
+				var number5 = e.Number5;
+				var number6 = e.Number6;
+				var number7 = e.Number7;
+				if (_hookManager.InvokeNetSendData
+				(
+					ref msgType,
+					ref remoteClient,
+					ref ignoreClient,
+					ref text,
+					ref number,
+					ref number2,
+					ref number3,
+					ref number4,
+					ref number5,
+					ref number6,
+					ref number7
+				))
+				{
+					e.Result = HookResult.Cancel;
+				}
+
+				e.MsgType = msgType;
+				e.RemoteClient = remoteClient;
+				e.IgnoreClient = ignoreClient;
+				e.Text = text;
+				e.Number = number;
+				e.Number2 = number2;
+				e.Number3 = number3;
+				e.Number4 = number4;
+				e.Number5 = number5;
+				e.Number6 = number6;
+				e.Number7 = number7;
+			}
+		}
+
+		static void OnSendNetData(On.Terraria.Net.NetManager.orig_SendData orig, NetManager netmanager, Terraria.Net.Sockets.ISocket socket, NetPacket packet)
+		{
+			if (!_hookManager.InvokeNetSendNetData
 			(
-				ref manager,
+				ref netmanager,
 				ref socket,
 				ref packet
 			))
 			{
-				return HookResult.Cancel;
+				orig(netmanager, socket, packet);
 			}
-			return HookResult.Continue;
 		}
 
-		static HookResult OnReceiveData(
-			MessageBuffer buffer,
-			ref byte packetId,
-			ref int readOffset,
-			ref int start,
-			ref int length
-		)
+		static void OnReceiveData(object sender, Hooks.MessageBuffer.GetDataEventArgs e)
 		{
-			if (!Enum.IsDefined(typeof(PacketTypes), (int)packetId))
+			if (!Enum.IsDefined(typeof(PacketTypes), (int)e.PacketId))
 			{
-				return HookResult.Cancel;
+				e.Result = HookResult.Cancel;
 			}
-			if (_hookManager.InvokeNetGetData(ref packetId, buffer, ref readOffset, ref length))
+			else
 			{
-				return HookResult.Cancel;
+				var msgId = e.PacketId;
+				var readOffset = e.ReadOffset;
+				var length = e.Length;
+
+				if (_hookManager.InvokeNetGetData(ref msgId, e.Instance, ref readOffset, ref length))
+				{
+					e.Result = HookResult.Cancel;
+				}
+
+				e.PacketId = msgId;
+				e.ReadOffset = readOffset;
+				e.Length = length;
 			}
-			return HookResult.Continue;
 		}
 
-		static HookResult OnPreGreet(ref int playerId)
+		static void OnGreetPlayer(On.Terraria.NetMessage.orig_greetPlayer orig, int plr)
 		{
-			if (_hookManager.InvokeNetGreetPlayer(playerId))
-			{
-				return HookResult.Cancel;
-			}
-			return HookResult.Continue;
+			if (_hookManager.InvokeNetGreetPlayer(plr))
+				return;
+
+			orig(plr);
 		}
 
-		static HookResult OnSendBytes(
-			ref int remoteClient,
-			ref byte[] data,
-			ref int offset,
-			ref int size,
-			ref Terraria.Net.Sockets.SocketSendCallback callback,
-			ref object state
-		)
+		static void OnSendBytes(object sender, Hooks.NetMessage.SendBytesEventArgs e)
 		{
-			if (_hookManager.InvokeNetSendBytes(Netplay.Clients[remoteClient], data, offset, size))
+			if (_hookManager.InvokeNetSendBytes(Netplay.Clients[e.RemoteClient], e.Data, e.Offset, e.Size))
 			{
-				return HookResult.Cancel;
+				e.Result = HookResult.Cancel;
 			}
-			return HookResult.Continue;
 		}
 
-		static HookResult OnNameCollision(Player player)
+		static void OnNameCollision(object sender, Hooks.MessageBuffer.NameCollisionEventArgs e)
 		{
-			if (_hookManager.InvokeNetNameCollision(player.whoAmI, player.name))
+			if (_hookManager.InvokeNetNameCollision(e.Player.whoAmI, e.Player.name))
 			{
-				return HookResult.Cancel;
+				e.Result = HookResult.Cancel;
 			}
-			return HookResult.Continue;
 		}
 
-		static HookResult OnAccepted(Terraria.Net.Sockets.ISocket client)
+		static void OnConnectionAccepted(On.Terraria.Netplay.orig_OnConnectionAccepted orig, Terraria.Net.Sockets.ISocket client)
 		{
 			int slot = FindNextOpenClientSlot();
 			if (slot != -1)
@@ -158,7 +167,6 @@ namespace TerrariaApi.Server.Hooking
 			{
 				Netplay.StopListening();
 			}
-			return HookResult.Cancel;
 		}
 
 		static int FindNextOpenClientSlot()

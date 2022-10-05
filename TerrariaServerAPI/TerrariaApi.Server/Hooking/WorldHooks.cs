@@ -15,103 +15,81 @@ namespace TerrariaApi.Server.Hooking
 		{
 			_hookManager = hookManager;
 
-			Hooks.Collision.PressurePlate = OnPressurePlate;
-			Hooks.World.IO.PreSaveWorld = OnPreSaveWorld;
-			Hooks.World.PreHardmode = OnPreHardmode;
-			Hooks.World.DropMeteor = OnDropMeteor;
-			Hooks.Game.Christmas = OnChristmas;
-			Hooks.Game.Halloween = OnHalloween;
-			Hooks.World.SpreadGrass = OnGrassSpread;
+			On.Terraria.IO.WorldFile.SaveWorld_bool_bool += WorldFile_SaveWorld;
+			On.Terraria.WorldGen.StartHardmode += WorldGen_StartHardmode;
+			On.Terraria.WorldGen.SpreadGrass += WorldGen_SpreadGrass;
+			On.Terraria.Main.checkXMas += Main_checkXMas;
+			On.Terraria.Main.checkHalloween += Main_checkHalloween;
+
+			Hooks.Collision.PressurePlate += OnPressurePlate;
+			Hooks.WorldGen.Meteor += OnDropMeteor;
 		}
 
-		static HookResult OnPressurePlate(ref int x, ref int y, ref IEntity entity)
+		static void OnPressurePlate(object sender, Hooks.Collision.PressurePlateEventArgs e)
 		{
-			var npc = entity as NPC;
-			if (npc != null)
+			if (e.Entity is NPC npc)
 			{
-				if (_hookManager.InvokeNpcTriggerPressurePlate(npc, x, y))
-				{
-					return HookResult.Cancel;
-				}
+				if (_hookManager.InvokeNpcTriggerPressurePlate(npc, e.X, e.Y))
+					e.Result = HookResult.Cancel;
 			}
-			else
+			else if (e.Entity is Player player)
 			{
-				var player = entity as Player;
-				if (player != null)
-				{
-					if (_hookManager.InvokePlayerTriggerPressurePlate(player, x, y))
-					{
-						return HookResult.Cancel;
-					}
-				}
-				else
-				{
-					var projectile = entity as Projectile;
-					if (projectile != null)
-					{
-						if (_hookManager.InvokeProjectileTriggerPressurePlate(projectile, x, y))
-						{
-							return HookResult.Cancel;
-						}
-					}
-				}
+				if (_hookManager.InvokePlayerTriggerPressurePlate(player, e.X, e.Y))
+					e.Result = HookResult.Cancel;
 			}
-
-			return HookResult.Continue;
+			else if (e.Entity is Projectile projectile)
+			{
+				if (_hookManager.InvokeProjectileTriggerPressurePlate(projectile, e.X, e.Y))
+					e.Result = HookResult.Cancel;
+			}
 		}
 
-		static HookResult OnPreSaveWorld(ref bool useCloudSaving, ref bool resetTime)
+		static void WorldFile_SaveWorld(On.Terraria.IO.WorldFile.orig_SaveWorld_bool_bool orig, bool useCloudSaving, bool resetTime)
 		{
 			if (_hookManager.InvokeWorldSave(resetTime))
-			{
-				return HookResult.Cancel;
-			}
-			return HookResult.Continue;
+				return;
+
+			orig(useCloudSaving, resetTime);
 		}
 
-		static HookResult OnPreHardmode()
+		private static void WorldGen_StartHardmode(On.Terraria.WorldGen.orig_StartHardmode orig)
 		{
 			if (_hookManager.InvokeWorldStartHardMode())
-			{
-				return HookResult.Cancel;
-			}
-			return HookResult.Continue;
+				return;
+
+			orig();
 		}
 
-		static HookResult OnDropMeteor(ref int x, ref int y)
+		static void OnDropMeteor(object sender, Hooks.WorldGen.MeteorEventArgs e)
 		{
-			if (_hookManager.InvokeWorldMeteorDrop(x, y))
+			if (_hookManager.InvokeWorldMeteorDrop(e.X, e.Y))
 			{
-				return HookResult.Cancel;
+				e.Result = HookResult.Cancel;
 			}
-			return HookResult.Continue;
 		}
 
-		static HookResult OnChristmas()
+		private static void Main_checkXMas(On.Terraria.Main.orig_checkXMas orig)
 		{
 			if (_hookManager.InvokeWorldChristmasCheck(ref Terraria.Main.xMas))
-			{
-				return HookResult.Cancel;
-			}
-			return HookResult.Continue;
+				return;
+
+			orig();
 		}
 
-		static HookResult OnHalloween()
+		private static void Main_checkHalloween(On.Terraria.Main.orig_checkHalloween orig)
 		{
 			if (_hookManager.InvokeWorldHalloweenCheck(ref Main.halloween))
-			{
-				return HookResult.Cancel;
-			}
-			return HookResult.Continue;
+				return;
+
+			orig();
 		}
 
-		static HookResult OnGrassSpread(ref int tileX, ref int tileY, ref int dirt, ref int grass, ref bool repeat, ref byte color)
+		private static void WorldGen_SpreadGrass(On.Terraria.WorldGen.orig_SpreadGrass orig, int i, int j, int dirt, int grass, bool repeat, TileColorCache color)
 		{
-			if (_hookManager.InvokeWorldGrassSpread(tileX, tileY, dirt, grass, repeat, color))
-			{
-				return HookResult.Cancel;
-			}
-			return HookResult.Continue;
+			if (_hookManager.InvokeWorldGrassSpread(i, j, dirt, grass, repeat, color))
+				return;
+
+			orig(i, j, dirt, grass, repeat, color);
 		}
 	}
 }

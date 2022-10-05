@@ -7,6 +7,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using Terraria;
+using Terraria.GameContent.Items;
 using Terraria.Net;
 
 namespace TerrariaApi.Server
@@ -42,7 +43,7 @@ namespace TerrariaApi.Server
 			if (args.Any(x => x == "-heaptile"))
 			{
 				ServerApi.LogWriter.ServerWriteLine($"Using {nameof(HeapTile)} for tile implementation", TraceLevel.Info);
-				OTAPI.Hooks.Tile.CreateCollection = () =>
+				ModFramework.DefaultCollection<ITile>.OnCreateCollection += (int x, int y, string source) =>
 				{
 					return new TileProvider();
 				};
@@ -223,12 +224,13 @@ namespace TerrariaApi.Server
 			get { return this.itemSetDefaultsInt; }
 		}
 
-		internal bool InvokeItemSetDefaultsInt(ref int itemType, Item item)
+		internal bool InvokeItemSetDefaultsInt(ref int itemType, Item item, ItemVariant variant = null)
 		{
 			SetDefaultsEventArgs<Item, int> args = new SetDefaultsEventArgs<Item, int>
 			{
 				Info = itemType,
-				Object = item
+				Object = item,
+				ItemVariant = variant
 			};
 
 			this.ItemSetDefaultsInt.Invoke(args);
@@ -1263,7 +1265,7 @@ namespace TerrariaApi.Server
 			get { return this.worldGrassSpread; }
 		}
 
-		internal bool InvokeWorldGrassSpread(int tileX, int tileY, int dirt, int grass, bool repeat, byte color)
+		internal bool InvokeWorldGrassSpread(int tileX, int tileY, int dirt, int grass, bool repeat, TileColorCache color)
 		{
 			GrassSpreadEventArgs args = new GrassSpreadEventArgs
 			{

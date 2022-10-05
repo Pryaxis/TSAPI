@@ -1,0 +1,40 @@
+name: CI OTAPI3
+
+# Controls when the workflow will run
+on: 
+  push:
+  pull_request:
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: windows-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '6.0.100'
+
+      - name: MonoMod dev build
+        run: dotnet nuget add source https://pkgs.dev.azure.com/MonoMod/MonoMod/_packaging/DevBuilds%40Local/nuget/v3/index.json -n DevBuilds@Local
+
+      - name: Build the solution
+        run: dotnet build TSAPI.sln -c Release
+
+      - name: Run tests
+        run: dotnet test
+        
+      # example task for the release CI 
+      # - name: "Releasing to NuGet: TSAPI"
+      #   env:
+      #     NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+      #   run: dotnet nuget push ./TerrariaServerAPI/bin/Release/TerrariaServer.*.nupkg --source https://api.nuget.org/v3/index.json --api-key "$env:NUGET_API_KEY"
