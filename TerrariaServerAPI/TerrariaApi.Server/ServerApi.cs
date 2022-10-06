@@ -90,7 +90,7 @@ namespace TerrariaApi.Server
 
 			ServerApi.game = game;
 			HandleCommandLine(commandLineArgs);
-			ServerPluginsDirectoryPath = Path.Combine(Environment.CurrentDirectory, PluginsPath);
+			ServerPluginsDirectoryPath = Path.Combine(AppContext.BaseDirectory, PluginsPath);
 
 			if (!Directory.Exists(ServerPluginsDirectoryPath))
 			{
