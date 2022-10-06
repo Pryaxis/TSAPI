@@ -4,5 +4,11 @@
     "config:base"
   ],
   "bumpVersion": "prerelease",
-  "ignoreUnstable": "false"
+  "packageRules": [
+    {
+      "matchPackageNames": ["OTAPI.Upcoming"],
+      "ignoreUnstable": "false",
+      "bumpVersion": "prerelease",
+    }
+   ]
 }
