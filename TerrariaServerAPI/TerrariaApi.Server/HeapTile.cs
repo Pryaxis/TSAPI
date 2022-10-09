@@ -5,17 +5,17 @@
         protected readonly int offset;
         protected byte[] heap;
 
-        public const int kHeapTileSize = 13;
+        public const int kHeapTileSize = 14;
 
         public const int kHeapTileTypeOffset = 0;
         public const int kHeapTileWallOffset = 2;
-        public const int kHeapTileLiquidOffset = 3;
-        public const int kHeapTileSTileHeaderOffset = 4;
-        public const int kHeapTileBTypeHeaderOffset = 6;
-        public const int kHeapTileBTypeHeader2Offset = 7;
-        public const int kHeapTileBTypeHeader3Offset = 8;
-        public const int kHeapTileFrameXOffset = 9;
-        public const int kHeapTileFrameYOffset = 11;
+        public const int kHeapTileLiquidOffset = 4;
+        public const int kHeapTileSTileHeaderOffset = 5;
+        public const int kHeapTileBTypeHeaderOffset = 7;
+        public const int kHeapTileBTypeHeader2Offset = 8;
+        public const int kHeapTileBTypeHeader3Offset = 9;
+        public const int kHeapTileFrameXOffset = 10;
+        public const int kHeapTileFrameYOffset = 12;
 
         internal int x;
         internal int y;
@@ -53,13 +53,13 @@
         {
             get
             {
-                return heap[offset + kHeapTileWallOffset];
-            }
+				return (ushort)((heap[offset + kHeapTileWallOffset + 1] << 8) | heap[offset + kHeapTileWallOffset]);
+			}
 
-            set
+			set
             {
-				heap[offset + kHeapTileSTileHeaderOffset + 1] = (byte)(value >> 8);
-				heap[offset + kHeapTileSTileHeaderOffset] = (byte)(value & 0xFF);
+				heap[offset + kHeapTileWallOffset + 1] = (byte)(value >> 8);
+				heap[offset + kHeapTileWallOffset] = (byte)(value & 0xFF);
 			}
         }
 
