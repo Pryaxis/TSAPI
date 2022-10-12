@@ -8,6 +8,8 @@ using System.Reflection;
 using System.Linq;
 using Terraria;
 using TerrariaApi.Reporting;
+using System.Reflection.PortableExecutable;
+using System.Runtime.InteropServices;
 
 namespace TerrariaApi.Server
 {
@@ -265,6 +267,33 @@ namespace TerrariaApi.Server
 			}
 		}
 
+		/// <summary>
+		/// Tests to see if a plugin is using an incompatible architecture
+		/// </summary>
+		/// <param name="file">File info of the plugin</param>
+		/// <param name="data">File contents</param>
+		static void TryCheckArchitecture(FileInfo file, byte[] data)
+		{
+			using var ms = new MemoryStream(data);
+			using var pe = new PEReader(ms);
+			if (pe.HasMetadata)
+			{
+				var currentArch = RuntimeInformation.ProcessArchitecture;
+				var laa = (pe.PEHeaders.CoffHeader.Characteristics & Characteristics.LargeAddressAware) != 0;
+				Architecture? asmArch = pe.PEHeaders.CoffHeader.Machine switch
+				{
+					Machine.IA64 => Architecture.X64,
+					Machine.Arm64 => Architecture.Arm64,
+					Machine.Amd64 => Architecture.X64,
+					Machine.I386 => laa ? Architecture.X64 : Architecture.X86,
+					Machine.Arm => Architecture.Arm,
+					_ => null,
+				};
+				if (asmArch is not null && currentArch != asmArch)
+					LogWriter.ServerWriteLine($"{file.Name} was built for {asmArch} but expected it to be compatible with {currentArch}.", TraceLevel.Error);
+			}
+		}
+
 		internal static void LoadPlugins()
 		{
 			string ignoredPluginsFilePath = Path.Combine(ServerPluginsDirectoryPath, "ignoredplugins.txt");
@@ -297,15 +326,22 @@ namespace TerrariaApi.Server
 					// load it again, but we do still have to verify it and create plugin instances.
 					if (!loadedAssemblies.TryGetValue(fileNameWithoutExtension, out assembly))
 					{
+						byte[] pe = null;
 						try
 						{
 							var pdb = Path.ChangeExtension(fileInfo.FullName, ".pdb");
 							var symbols = File.Exists(pdb) ? File.ReadAllBytes(pdb) : null;
-							assembly = Assembly.Load(File.ReadAllBytes(fileInfo.FullName), symbols);
+							assembly = Assembly.Load(pe = File.ReadAllBytes(fileInfo.FullName), symbols);
 						}
 						catch (BadImageFormatException)
 						{
 							continue;
+						}
+						catch(FileLoadException)
+						{
+							if (pe is not null)
+								TryCheckArchitecture(fileInfo, pe);
+							throw; // don't consume the exception, only care about testing arch here
 						}
 						loadedAssemblies.Add(fileNameWithoutExtension, assembly);
 					}
