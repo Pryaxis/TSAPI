@@ -48,6 +48,11 @@ namespace TerrariaApi.Server
 					return new TileProvider();
 				};
 			}
+			if (args.Any(x => x == "-constileation"))
+			{
+				ServerApi.LogWriter.ServerWriteLine($"Using {nameof(ConstileationProvider)} for tile implementation", TraceLevel.Info);
+				Main.tile = new ConstileationProvider();
+			}
 
 			Hooking.GameHooks.AttachTo(this);
 			Hooking.ItemHooks.AttachTo(this);
