@@ -36,26 +36,26 @@ public class TileClearBenchmarks : TileBenchmarks
 	}
 
 	[Benchmark(Baseline = true), Test]
-	public void Use_Stock() => Use(_stock);
+	public void Clear_Stock() => Clear(_stock);
 
 	[Benchmark, Test]
-	public void Use_Heap() => Use(_heap);
+	public void Clear_Heap() => Clear(_heap);
 
 	[Benchmark, Test]
-	public void Use_Constileation() => Use(_const);
+	public void Clear_Constileation() => Clear(_const);
 
 #if TILED_PLUGIN
 	[Benchmark, Test]
-	public void Use_1d() => Use(_1d);
+	public void Clear_1d() => Clear(_1d);
 
 	[Benchmark, Test]
-	public void Use_2d() => Use(_2d);
+	public void Clear_2d() => Clear(_2d);
 
 	[Benchmark, Test]
-	public void Use_Struct() => Use(_struct);
+	public void Clear_Struct() => Clear(_struct);
 #endif
 
-	public void Use(ICollection<ITile> provider)
+	public void Clear(ICollection<ITile> provider)
 	{
 		for (int x = 0; x < Main.maxTilesX; x++)
 			for (int y = 0; y < Main.maxTilesY; y++)
