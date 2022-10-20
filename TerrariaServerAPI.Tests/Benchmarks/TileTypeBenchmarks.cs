@@ -53,7 +53,7 @@ public class TileTypeBenchmarks : TileBenchmarks
 	public void Type_2d() => Type(_2d);
 
 	[Benchmark, Test]
-	public void Struct() => Type(_struct);
+	public void Type_Struct() => Type(_struct);
 #endif
 
 	public void Type(ICollection<ITile> provider)
