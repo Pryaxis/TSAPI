@@ -21,7 +21,7 @@ jobs:
     - name: Build
       run: dotnet build TSAPI.sln --configuration Release --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal --configuration Release --filter "FullyQualifiedName!~TerrariaServerAPI.Tests.TileBenchmarks"
+      run: dotnet test --no-build --verbosity normal --configuration Release --filter "FullyQualifiedName!~TerrariaServerAPI.Tests.Benchmarks"
 
     # Publish
     - name: Push TSAPI

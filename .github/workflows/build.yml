@@ -31,7 +31,7 @@ jobs:
         run: dotnet build TSAPI.sln -c Release
 
       - name: Run tests
-        run: dotnet test --filter "FullyQualifiedName!~TerrariaServerAPI.Tests.TileBenchmarks"
+        run: dotnet test --filter "FullyQualifiedName!~TerrariaServerAPI.Tests.Benchmarks"
         
       # example task for the release CI 
       # - name: "Releasing to NuGet: TSAPI"
