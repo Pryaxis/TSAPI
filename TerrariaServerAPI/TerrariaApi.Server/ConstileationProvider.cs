@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using Terraria;
 
@@ -14,7 +15,7 @@ internal class ConstileationProvider : ModFramework.ICollection<ITile>
 	public int Width => Main.maxTilesX + 1;
 	public int Height => Main.maxTilesY + 1;
 
-	public ITile this[int x, int y]
+	public unsafe ITile this[int x, int y]
 	{
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		get
@@ -22,17 +23,22 @@ internal class ConstileationProvider : ModFramework.ICollection<ITile>
 			data ??= new TileData[Width * Height];
 			return new TileReference(ref data[Main.maxTilesY * x + y]);
 		}
-
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		set => new TileReference(ref data[Main.maxTilesY * x + y]).CopyFrom(value);
+		set
+		{
+			if (value is TileReference tref) // if it's one of our own, copy memory instead of newing up a new reference.
+				data[Main.maxTilesY * x + y] = *tref._tile;
+			else new TileReference(ref data[Main.maxTilesY * x + y]).CopyFrom(value);
+		}
 	}
 }
+
 
 /// <summary>
 /// Maps tile data to memory in an organised format
 /// </summary>
 /// <remarks>When updating this, refer to <see cref="ITile"/> properties, and adjust the Size accordingly. Size is likely not required, but it make it clear how many bytes we expect to consume</remarks>
-[StructLayout(LayoutKind.Sequential, Size = 14, Pack = 1)]
+[StructLayout(LayoutKind.Sequential, Size = TileReference.TileSize, Pack = 1)]
 internal struct TileData
 {
 	public ushort type;
@@ -51,6 +57,11 @@ internal struct TileData
 /// </summary>
 internal unsafe sealed class TileReference : Tile
 {
+	/// <summary>
+	/// Size of the tile data in bytes
+	/// </summary>
+	public const Int32 TileSize = 14;
+
 	public override ushort type
 	{
 		get => _tile->type;
@@ -110,11 +121,18 @@ internal unsafe sealed class TileReference : Tile
 		// this is called in ctor. we dont want to run the default code here.
 	}
 
-	readonly TileData* _tile;
+	internal readonly TileData* _tile;
 
+	/// <summary>
+	/// Creates a new reference to the packed memory data
+	/// </summary>
+	/// <param name="tile"></param>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public TileReference(ref TileData tile)
-	{
-		_tile = (TileData*)Unsafe.AsPointer(ref tile);
-	}
+	public TileReference(ref TileData tile) => _tile = (TileData*)Unsafe.AsPointer(ref tile);
+
+	/// <summary>
+	/// Clears the tile data, using a faster method than resetting each variable (which creates more instructions than required with this setup)
+	/// </summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public override void ClearEverything() => Unsafe.InitBlockUnaligned(_tile, 0, TileSize);
 }
