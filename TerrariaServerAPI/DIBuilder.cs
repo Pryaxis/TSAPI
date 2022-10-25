@@ -8,20 +8,37 @@ using System.Runtime.Loader;
 
 namespace TerrariaApi.Server;
 
+/// <summary>
+/// Helper class responsible for creating the DI container and priming it with services and configuration.
+/// </summary>
 static class DIBuilder
 {
-	const string PLUGIN_PATH = "plugins";
+	/// <summary>
+	/// Default root directory name from which plugins will be loaded.
+	/// </summary>
+	const string DEFAULT_PLUGIN_ROOT = "plugins";
 
 	internal static IHostBuilder ConfigureHost(string[] args)
 	{
-		Dictionary<string, Assembly> loadedAssemblies = ResolveAssemblies(PLUGIN_PATH);
-		IEnumerable<Type> exportedTypes = loadedAssemblies.SelectMany(kvp => kvp.Value.GetExportedTypes());
+		// Create initial host configuration, reading values from the commandline and environment variables.
+		// This enables immediate overriding of the Plugins root directory
+		IConfiguration hostConfiguration = new ConfigurationBuilder()
+			.AddEnvironmentVariables(prefix: "TSAPI_")
+			.AddCommandLine(args)
+			.Build();
+
+		// The plugin path can be defined through an environment variable or on the commandline.
+		// To use an environment variable, set a variable named TSAPI_PLUGINS__ROOT with an *unquoted* directory value. Eg export TSAPI_PLUGINS__ROOT=~/my tshock dir/plugins
+		// To use a commandline variable, pass the --<key> <value> option to the command. Eg dotnet run --Plugins:Root "~/my tshock dir/plugins"
+		string pluginPath = hostConfiguration.GetSection("Plugins:Root").Value ?? Path.Combine(AppContext.BaseDirectory, DEFAULT_PLUGIN_ROOT);
+		Dictionary<string, Assembly> loadedAssemblies = ResolveAssemblies(pluginPath);
+		IEnumerable<Type> exportedTypes = loadedAssemblies.SelectMany(kvp => kvp.Value.GetExportedTypes())
+														  .Concat(typeof(DIBuilder).Assembly.GetExportedTypes());
 
 		// Add initial configuration to the host
 		IHostBuilder hostBuilder = Host.CreateDefaultBuilder()
-			.ConfigureHostConfiguration(conf => conf        // Add configuration for the host.
-				.AddCommandLine(args)                       // This need only be enough to get things up and running.
-				.AddEnvironmentVariables(prefix: "TSAPI_")  // All other config should be part of 'app configuration'
+			.ConfigureHostConfiguration(conf => conf
+				.AddConfiguration(hostConfiguration) // Generate host configuration using the configuration built earlier
 			)
 			.ConfigureLogging(conf => conf // Remove default logging providers & supply our own basic console logger
 				.ClearProviders()
@@ -44,23 +61,21 @@ static class DIBuilder
 			orderby configurator.Priority descending
 			select configurator;
 
-		// Run each configurator, passing the different requirements based on configurator type
-		foreach (BaseConfigurator configurator in configurators)
+		// Run each configurator, passing the different requirements based on configurator type.
+		// All config configurators are run first, such that all configuration is available for the log configurators.
+		// All log configurators are run second, such that all logging is configured before services are loaded.
+		// All service configurators are run last, such that all configuration and logging is available to them.
+		foreach (ConfigConfigurator cfg in configurators.Where(configurator => configurator is ConfigConfigurator))
 		{
-			switch (configurator)
-			{
-				case ServiceConfigurator svc:
-					hostBuilder.ConfigureServices((hostContext, services) => svc.Configure(hostContext, services, args));
-					break;
-				case ConfigConfigurator cfg:
-					hostBuilder.ConfigureAppConfiguration((hostContext, configBuilder) => cfg.Configure(hostContext, configBuilder, args));
-					break;
-				case LoggingConfigurator log:
-					hostBuilder.ConfigureLogging((hostContext, logBuilder) => log.Configure(hostContext, logBuilder, args));
-					break;
-				default:
-					break;
-			};
+			hostBuilder.ConfigureAppConfiguration((hostContext, configBuilder) => cfg.Configure(hostContext, configBuilder, args));
+		}
+		foreach (LoggingConfigurator log in configurators.Where(configurator => configurator is LoggingConfigurator))
+		{
+			hostBuilder.ConfigureLogging((hostContext, logBuilder) => log.Configure(hostContext, logBuilder, args));
+		}
+		foreach (ServiceConfigurator svc in configurators.Where(configurator => configurator is ServiceConfigurator))
+		{
+			hostBuilder.ConfigureServices((hostContext, services) => svc.Configure(hostContext, services, args));
 		}
 
 		// Collect all plugin service types & register them with the DI container
@@ -81,13 +96,13 @@ static class DIBuilder
 		AppDomain.CurrentDomain.AssemblyResolve += (sender, args) =>
 		{
 			string fileName = args.Name.Split(',')[0];
-			string path = Path.Combine(PLUGIN_PATH, fileName + ".dll");
+			string filePath = Path.Combine(path, fileName + ".dll");
 
-			if (File.Exists(path))
+			if (File.Exists(filePath))
 			{
 				if (!loadedAssemblies.TryGetValue(fileName, out Assembly? asm))
 				{
-					asm = LoadAssembly(path);
+					asm = LoadAssembly(filePath);
 				}
 				return asm;
 			}
@@ -136,7 +151,7 @@ static class DIBuilder
 
 	static IEnumerable<Type> GetExportedConfigurators(IEnumerable<Type> exportedTypes)
 	{
-		return exportedTypes.Where(type => type.IsSubclassOf(typeof(BaseConfigurator)))
+		return exportedTypes.Where(type => type.IsSubclassOf(typeof(BaseConfigurator)) && !type.IsAbstract)
 							.Distinct();
 	}
 }
