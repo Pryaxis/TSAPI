@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
-using System.Net;
 using System.Reflection;
 using System.Linq;
 using Terraria;
@@ -68,8 +67,9 @@ namespace TerrariaApi.Server
 
 		static ServerApi()
 		{
+			Dictionary<string, string> args = Utils.ParseArguements(Environment.GetCommandLineArgs());
 			Hooks = new HookManager();
-			LogWriter = new LogWriterManager();
+			LogWriter = new LogWriterManager(enabled: !args.ContainsKey("-nolog"));
 			Profiler = new ProfilerManager();
 
 			UseAsyncSocketsInMono = false;
@@ -133,6 +133,8 @@ namespace TerrariaApi.Server
 
 			foreach (KeyValuePair<string, string> arg in args)
 			{
+				// Note that the flag -nolog also exists in the constructor, but it can't be here because
+				// the log writer initializes before this code is run
 				switch (arg.Key.ToLower())
 				{
 					case "-ignoreversion":
@@ -162,6 +164,7 @@ namespace TerrariaApi.Server
 							break;
 						}
 					case "-players":
+					case "-maxplayers":
 						{
 							int playerCount;
 							if (!Int32.TryParse(arg.Value, out playerCount))
@@ -175,16 +178,13 @@ namespace TerrariaApi.Server
 
 							break;
 						}
-					case "-maxplayers":
-						goto case "-players";
 					case "-pass":
+					case "-password":
 						{
 							Netplay.ServerPassword = arg.Value;
 
 							break;
 						}
-					case "-password":
-						goto case "-pass";
 					case "-worldname":
 						{
 							game.SetWorldName(arg.Value);
