@@ -22,7 +22,7 @@ namespace TerrariaApi.Server.Hooking
 		private static void OnSetDefaults(On.Terraria.Projectile.orig_SetDefaults orig, Projectile projectile, int type)
 		{
 			orig(projectile, type);
-			_hookManager.InvokeProjectileSetDefaults(ref type, projectile);
+			_hookService.InvokeProjectileSetDefaults(ref type, projectile);
 		}
 
 		private static void OnAI(On.Terraria.Projectile.orig_AI orig, Projectile projectile)

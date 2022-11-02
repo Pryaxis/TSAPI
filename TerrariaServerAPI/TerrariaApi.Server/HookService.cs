@@ -6,6 +6,7 @@ using System.Text;
 using Microsoft.Extensions.Logging;
 using Microsoft.Xna.Framework;
 using Terraria.GameContent.Items;
+using System.Diagnostics;
 
 namespace TerrariaApi.Server;
 
@@ -51,10 +52,12 @@ public class HookService
 		if (args.Any(x => x == "-heaptile"))
 		{
 			_logger.LogInformation("Using {HeapTile} for tile implementation", nameof(HeapTile));
-			ModFramework.DefaultCollection<ITile>.OnCreateCollection += (int x, int y, string source) =>
-			{
-				return new TileProvider();
-			};
+			Terraria.Main.tile = new TileProvider();
+		}
+		if (args.Any(x => x == "-constileation" || x == "-c"))
+		{
+			_logger.LogInformation("Using {ConstileationProvider} for tile implementation", nameof(ConstileationProvider));
+			Main.tile = new ConstileationProvider();
 		}
 
 		Hooking.GameHooks.AttachTo(this);
@@ -88,6 +91,8 @@ public class HookService
 				this.InvokeGameWorldDisconnect();
 			else
 				this.InvokeGameWorldConnect();
+
+			//IsWorldRunning = !Main.gameMenu;
 		}
 
 		this.GameUpdate.Invoke(EventArgs.Empty);
@@ -1271,7 +1276,7 @@ public class HookService
 		get { return this.worldGrassSpread; }
 	}
 
-	internal bool InvokeWorldGrassSpread(int tileX, int tileY, int dirt, int grass, bool repeat, byte color)
+	internal bool InvokeWorldGrassSpread(int tileX, int tileY, int dirt, int grass, bool repeat, TileColorCache color)
 	{
 		GrassSpreadEventArgs args = new GrassSpreadEventArgs
 		{
@@ -1316,5 +1321,4 @@ public class HookService
 	}
 	#endregion
 	#endregion
-
 }
