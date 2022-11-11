@@ -8,13 +8,25 @@ namespace TerrariaApi.Server;
 /// <summary>
 /// Cons"tile"ation provider is a tile adapter that will function similar to heaptile to reduce memory, but instead of using math to determine offsets, a TileData structure is used instead which already knows the layout.
 /// </summary>
-internal class ConstileationProvider : ModFramework.ICollection<ITile>
+public class ConstileationProvider : ModFramework.ICollection<ITile>
 {
 	private TileData[] data = null;
 
+	/// <summary>
+	/// Returns the max tile x value
+	/// </summary>
 	public int Width => Main.maxTilesX + 1;
+	/// <summary>
+	/// Returns the max tile y value
+	/// </summary>
 	public int Height => Main.maxTilesY + 1;
 
+	/// <summary>
+	/// Returns a tile given the coordinates
+	/// </summary>
+	/// <param name="x">Tile X</param>
+	/// <param name="y">Tile Y</param>
+	/// <returns>Tile data via the <see cref="ITile"/> interface</returns>
 	public unsafe ITile this[int x, int y]
 	{
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
