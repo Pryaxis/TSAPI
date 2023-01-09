@@ -34,6 +34,10 @@ namespace TerrariaApi.Server.Hooking
 
 		private static void OnHardmodeTileUpdate(object sender, Hooks.WorldGen.HardmodeTileUpdateEventArgs e)
 		{
+			if (e.Result == HookResult.Cancel)
+			{
+				return;
+			}
 			if (_hookManager.InvokeGameHardmodeTileUpdate(e.X, e.Y, e.Type))
 			{
 				e.Result = HookResult.Cancel;
@@ -42,6 +46,10 @@ namespace TerrariaApi.Server.Hooking
 
 		private static void OnHardmodeTilePlace(object sender, Hooks.WorldGen.HardmodeTilePlaceEventArgs e)
 		{
+			if (e.Result == HardmodeTileUpdateResult.Cancel)
+			{
+				return;
+			}
 			if (_hookManager.InvokeGameHardmodeTileUpdate(e.X, e.Y, e.Type))
 			{
 				e.Result = HardmodeTileUpdateResult.Cancel;
@@ -63,6 +71,10 @@ namespace TerrariaApi.Server.Hooking
 
 		private static void OnItemMechSpawn(object sender, Hooks.Item.MechSpawnEventArgs e)
 		{
+			if (e.Result == HookResult.Cancel)
+			{
+				return;
+			}
 			if (!_hookManager.InvokeGameStatueSpawn(e.Num2, e.Num3, e.Num, (int)(e.X / 16f), (int)(e.Y / 16f), e.Type, false))
 			{
 				e.Result = HookResult.Cancel;
@@ -71,6 +83,10 @@ namespace TerrariaApi.Server.Hooking
 
 		private static void OnNpcMechSpawn(object sender, Hooks.NPC.MechSpawnEventArgs e)
 		{
+			if (e.Result == HookResult.Cancel)
+			{
+				return;
+			}
 			if (!_hookManager.InvokeGameStatueSpawn(e.Num2, e.Num3, e.Num, (int)(e.X / 16f), (int)(e.Y / 16f), e.Type, true))
 			{
 				e.Result = HookResult.Cancel;

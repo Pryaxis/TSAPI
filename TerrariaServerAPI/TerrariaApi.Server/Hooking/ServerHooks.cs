@@ -35,6 +35,10 @@ namespace TerrariaApi.Server.Hooking
 
 		static void OnProcess(object sender, Hooks.Main.CommandProcessEventArgs e)
 		{
+			if (e.Result == HookResult.Cancel)
+			{
+				return;
+			}
 			if (_hookManager.InvokeServerCommand(e.Command))
 			{
 				e.Result = HookResult.Cancel;
