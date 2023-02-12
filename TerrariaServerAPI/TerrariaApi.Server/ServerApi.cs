@@ -9,6 +9,7 @@ using Terraria;
 using TerrariaApi.Reporting;
 using System.Reflection.PortableExecutable;
 using System.Runtime.InteropServices;
+using System.Collections.Immutable;
 
 namespace TerrariaApi.Server
 {
@@ -18,8 +19,15 @@ namespace TerrariaApi.Server
 	public static class ServerApi
 	{
 		public const string PluginsPath = "ServerPlugins";
-		public static string? AdditionalPluginsPath { get; private set; } = null;
 
+		/// <summary>
+		/// Returns the first value from <see cref="AdditionalPluginsPaths"/> if it exists, otherwise null.
+		/// </summary>
+		[Obsolete("Use AdditionalPluginsPaths instead", error: false)]
+		public static string? AdditionalPluginsPath => AdditionalPluginsPaths.FirstOrDefault();
+
+		/// <summary> A list of all plugin paths specified by the -additionalplugins flag. </summary>
+		public static ImmutableList<string> AdditionalPluginsPaths { get; private set; } = ImmutableList.Create<string>();
 		public static readonly Version ApiVersion = new Version(2, 1, 0, 0);
 		private static Main game;
 		private static readonly Dictionary<string, Assembly> loadedAssemblies = new Dictionary<string, Assembly>();
@@ -265,7 +273,7 @@ namespace TerrariaApi.Server
 						CrashReporter.crashReportPath = arg.Value;
 						break;
 					case "-additionalplugins":
-						AdditionalPluginsPath = arg.Value;
+						AdditionalPluginsPaths = arg.Value.Split(',').ToImmutableList();
 						break;
 				}
 			}
@@ -310,7 +318,7 @@ namespace TerrariaApi.Server
 
 			List<FileInfo> fileInfos = new DirectoryInfo(ServerPluginsDirectoryPath).GetFiles("*.dll").ToList();
 			fileInfos.AddRange(new DirectoryInfo(ServerPluginsDirectoryPath).GetFiles("*.dll-plugin"));
-			if (AdditionalPluginsPath is string additionalPath)
+			foreach (string additionalPath in AdditionalPluginsPaths)
 			{
 				var di = new DirectoryInfo(Path.Combine(AppContext.BaseDirectory, additionalPath));
 				fileInfos.AddRange(di.GetFiles("*.dll"));
