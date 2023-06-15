@@ -75,6 +75,7 @@ namespace TerrariaApi.Server
 
 		static ServerApi()
 		{
+			AppContext.SetSwitch("Switch.System.Diagnostics.StackTrace.ShowILOffsets", true);
 			Dictionary<string, string> args = Utils.ParseArguements(Environment.GetCommandLineArgs());
 			Hooks = new HookManager();
 			LogWriter = new LogWriterManager(enabled: !args.ContainsKey("-nolog"));
