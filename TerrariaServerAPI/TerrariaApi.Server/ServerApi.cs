@@ -517,7 +517,8 @@ namespace TerrariaApi.Server
 					Assembly assembly;
 					if (!loadedAssemblies.TryGetValue(fileName, out assembly))
 					{
-						assembly = Assembly.Load(File.ReadAllBytes(path));
+						var pdbPath = Path.ChangeExtension(fileName, ".pdb");
+						assembly = Assembly.Load(File.ReadAllBytes(path), File.Exists(pdbPath) ? File.ReadAllBytes(pdbPath) : null);
 						// We just do this to return a proper error message incase this is a resolved plugin assembly
 						// referencing an old TerrariaServer version.
 						if (!InvalidateAssembly(assembly, fileName))
