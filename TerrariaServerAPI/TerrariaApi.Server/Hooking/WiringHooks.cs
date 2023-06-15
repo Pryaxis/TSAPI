@@ -20,6 +20,10 @@ namespace TerrariaApi.Server.Hooking
 
 		static void OnAnnouncementBox(object sender, Hooks.Wiring.AnnouncementBoxEventArgs e)
 		{
+			if (e.Result == HookResult.Cancel)
+			{
+				return;
+			}
 			if (_hookManager.InvokeWireTriggerAnnouncementBox(Wiring.CurrentUser, e.X, e.Y, e.SignId, Main.sign[e.SignId].text))
 			{
 				e.Result = HookResult.Cancel;
