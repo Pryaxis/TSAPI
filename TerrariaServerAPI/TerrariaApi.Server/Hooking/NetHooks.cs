@@ -25,11 +25,22 @@ namespace TerrariaApi.Server.Hooking
 			On.Terraria.Netplay.OnConnectionAccepted += OnConnectionAccepted;
 			On.Terraria.Chat.ChatHelper.BroadcastChatMessage += OnBroadcastChatMessage;
 			On.Terraria.Net.NetManager.SendData += OnSendNetData;
+			On.Terraria.Netplay.UpdateConnectedClients += OnUpdateConnectedClients;
+
 
 			Hooks.NetMessage.SendData += OnSendData;
 			Hooks.NetMessage.SendBytes += OnSendBytes;
 			Hooks.MessageBuffer.GetData += OnReceiveData;
 			Hooks.MessageBuffer.NameCollision += OnNameCollision;
+		}
+
+		static void OnUpdateConnectedClients(On.Terraria.Netplay.orig_UpdateConnectedClients orig)
+		{
+			orig();
+			if (ServerApi.ForceUpdate)
+			{
+				Terraria.Netplay.HasClients = true;
+			}
 		}
 
 		static void OnBroadcastChatMessage(On.Terraria.Chat.ChatHelper.orig_BroadcastChatMessage orig, NetworkText text, Color color, int excludedPlayer)
