@@ -1,33 +1,32 @@
 ﻿using OTAPI;
 using Terraria;
 
-namespace TerrariaApi.Server.Hooking
+namespace TerrariaApi.Server.Hooking;
+
+internal static class WiringHooks
 {
-	internal static class WiringHooks
+	private static HookManager _hookManager;
+
+	/// <summary>
+	/// Attaches any of the OTAPI Wiring hooks to the existing <see cref="HookManager"/> implementation
+	/// </summary>
+	/// <param name="hookManager">HookManager instance which will receive the events</param>
+	public static void AttachTo(HookManager hookManager)
 	{
-		private static HookManager _hookManager;
+		_hookManager = hookManager;
 
-		/// <summary>
-		/// Attaches any of the OTAPI Wiring hooks to the existing <see cref="HookManager"/> implementation
-		/// </summary>
-		/// <param name="hookManager">HookManager instance which will receive the events</param>
-		public static void AttachTo(HookManager hookManager)
+		Hooks.Wiring.AnnouncementBox += OnAnnouncementBox;
+	}
+
+	static void OnAnnouncementBox(object sender, Hooks.Wiring.AnnouncementBoxEventArgs e)
+	{
+		if (e.Result == HookResult.Cancel)
 		{
-			_hookManager = hookManager;
-
-			Hooks.Wiring.AnnouncementBox += OnAnnouncementBox;
+			return;
 		}
-
-		static void OnAnnouncementBox(object sender, Hooks.Wiring.AnnouncementBoxEventArgs e)
+		if (_hookManager.InvokeWireTriggerAnnouncementBox(Wiring.CurrentUser, e.X, e.Y, e.SignId, Main.sign[e.SignId].text))
 		{
-			if (e.Result == HookResult.Cancel)
-			{
-				return;
-			}
-			if (_hookManager.InvokeWireTriggerAnnouncementBox(Wiring.CurrentUser, e.X, e.Y, e.SignId, Main.sign[e.SignId].text))
-			{
-				e.Result = HookResult.Cancel;
-			}
+			e.Result = HookResult.Cancel;
 		}
 	}
 }

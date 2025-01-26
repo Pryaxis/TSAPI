@@ -24,7 +24,7 @@ namespace TerrariaApi.Server
 					ServerApi.ApiVersion,
 					Main.versionNumber2,
 					Main.curRelease,
-					typeof(OTAPI.Hooks).Assembly.GetName().Version
+					OTAPI.Common.VersionShort
 				);
 				ServerApi.Initialize(Environment.GetCommandLineArgs(), Main.instance);
 			}

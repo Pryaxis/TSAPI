@@ -1,6 +1,5 @@
 ﻿using NUnit.Framework;
-using System;
-using System.Threading;
+using System.Runtime.InteropServices;
 
 namespace TerrariaServerAPI.Tests;
 
@@ -13,24 +12,26 @@ public class BaseTest
 	{
 		if (!_initialized)
 		{
-			var are = new AutoResetEvent(false);
-			Exception? error = null;
-			On.Terraria.Main.hook_DedServ cb = (On.Terraria.Main.orig_DedServ orig, Terraria.Main instance) =>
+			TestContext.Out.WriteLine($"Test architecture {RuntimeInformation.ProcessArchitecture}");
+
+			bool invoked = false;
+			HookEvents.HookDelegate<Terraria.Main, HookEvents.Terraria.Main.DedServEventArgs> cb = (instance, args) =>
 			{
+				invoked = true;
+				// DedServ typically requires input, so no need to continue execution
+				args.ContinueExecution = false;
+				// DedServ calls the following, which is needed for subsequent tests
 				instance.Initialize();
-				are.Set();
-				_initialized = true;
 			};
-			On.Terraria.Main.DedServ += cb;
+			HookEvents.Terraria.Main.DedServ += cb;
 
-			global::TerrariaApi.Server.Program.Main(new string[] { });
+			TerrariaApi.Server.Program.Main([]);
 
-			_initialized = are.WaitOne(TimeSpan.FromSeconds(30));
+			HookEvents.Terraria.Main.DedServ -= cb;
 
-			On.Terraria.Main.DedServ -= cb;
+			Assert.That(invoked, Is.True);
 
-			Assert.That(_initialized, Is.True);
-			Assert.That(error, Is.Null);
+			_initialized = true;
 		}
 	}
 }

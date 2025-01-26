@@ -1,96 +1,96 @@
-﻿using Microsoft.Xna.Framework;
-using OTAPI;
+﻿using OTAPI;
 
-namespace TerrariaApi.Server.Hooking
+namespace TerrariaApi.Server.Hooking;
+
+internal static class GameHooks
 {
-	internal static class GameHooks
+	private static HookManager _hookManager;
+
+	/// <summary>
+	/// Attaches any of the OTAPI Game hooks to the existing <see cref="HookManager"/> implementation
+	/// </summary>
+	/// <param name="hookManager">HookManager instance which will receive the events</param>
+	public static void AttachTo(HookManager hookManager)
 	{
-		private static HookManager _hookManager;
+		_hookManager = hookManager;
 
-		/// <summary>
-		/// Attaches any of the OTAPI Game hooks to the existing <see cref="HookManager"/> implementation
-		/// </summary>
-		/// <param name="hookManager">HookManager instance which will receive the events</param>
-		public static void AttachTo(HookManager hookManager)
+		HookEvents.Terraria.Main.Update += OnUpdate;
+		HookEvents.Terraria.Main.Initialize += OnInitialize;
+		HookEvents.Terraria.Netplay.StartServer += OnStartServer;
+
+		Hooks.WorldGen.HardmodeTilePlace += OnHardmodeTilePlace;
+		Hooks.WorldGen.HardmodeTileUpdate += OnHardmodeTileUpdate;
+		Hooks.Item.MechSpawn += OnItemMechSpawn;
+		Hooks.NPC.MechSpawn += OnNpcMechSpawn;
+	}
+
+	private static void OnUpdate(Terraria.Main instance, HookEvents.Terraria.Main.UpdateEventArgs args)
+	{
+		if (!args.ContinueExecution) return;
+		args.ContinueExecution = false;
+		_hookManager.InvokeGameUpdate();
+		args.OriginalMethod(args.gameTime);
+		_hookManager.InvokeGamePostUpdate();
+	}
+
+	private static void OnHardmodeTileUpdate(object sender, Hooks.WorldGen.HardmodeTileUpdateEventArgs e)
+	{
+		if (e.Result == HookResult.Cancel)
 		{
-			_hookManager = hookManager;
-
-			On.Terraria.Main.Update += OnUpdate;
-			On.Terraria.Main.Initialize += OnInitialize;
-			On.Terraria.Netplay.StartServer += OnStartServer;
-
-			Hooks.WorldGen.HardmodeTilePlace += OnHardmodeTilePlace;
-			Hooks.WorldGen.HardmodeTileUpdate += OnHardmodeTileUpdate;
-			Hooks.Item.MechSpawn += OnItemMechSpawn;
-			Hooks.NPC.MechSpawn += OnNpcMechSpawn;
+			return;
 		}
-
-		private static void OnUpdate(On.Terraria.Main.orig_Update orig, Terraria.Main instance, GameTime gameTime)
+		if (_hookManager.InvokeGameHardmodeTileUpdate(e.X, e.Y, e.Type))
 		{
-			_hookManager.InvokeGameUpdate();
-			orig(instance, gameTime);
-			_hookManager.InvokeGamePostUpdate();
+			e.Result = HookResult.Cancel;
 		}
+	}
 
-		private static void OnHardmodeTileUpdate(object sender, Hooks.WorldGen.HardmodeTileUpdateEventArgs e)
+	private static void OnHardmodeTilePlace(object sender, Hooks.WorldGen.HardmodeTilePlaceEventArgs e)
+	{
+		if (e.Result == HardmodeTileUpdateResult.Cancel)
 		{
-			if (e.Result == HookResult.Cancel)
-			{
-				return;
-			}
-			if (_hookManager.InvokeGameHardmodeTileUpdate(e.X, e.Y, e.Type))
-			{
-				e.Result = HookResult.Cancel;
-			}
+			return;
 		}
-
-		private static void OnHardmodeTilePlace(object sender, Hooks.WorldGen.HardmodeTilePlaceEventArgs e)
+		if (_hookManager.InvokeGameHardmodeTileUpdate(e.X, e.Y, e.Type))
 		{
-			if (e.Result == HardmodeTileUpdateResult.Cancel)
-			{
-				return;
-			}
-			if (_hookManager.InvokeGameHardmodeTileUpdate(e.X, e.Y, e.Type))
-			{
-				e.Result = HardmodeTileUpdateResult.Cancel;
-			}
+			e.Result = HardmodeTileUpdateResult.Cancel;
 		}
+	}
 
-		private static void OnInitialize(On.Terraria.Main.orig_Initialize orig, Terraria.Main instance)
+	private static void OnInitialize(Terraria.Main instance, HookEvents.Terraria.Main.InitializeEventArgs args)
+	{
+		if (!args.ContinueExecution) return;
+		HookManager.InitialiseAPI();
+		_hookManager.InvokeGameInitialize();
+	}
+
+	private static void OnStartServer(object? sender, HookEvents.Terraria.Netplay.StartServerEventArgs args)
+	{
+		if (!args.ContinueExecution) return;
+		_hookManager.InvokeGamePostInitialize();
+	}
+
+	private static void OnItemMechSpawn(object sender, Hooks.Item.MechSpawnEventArgs e)
+	{
+		if (e.Result == HookResult.Cancel)
 		{
-			HookManager.InitialiseAPI();
-			_hookManager.InvokeGameInitialize();
-			orig(instance);
+			return;
 		}
-
-		private static void OnStartServer(On.Terraria.Netplay.orig_StartServer orig)
+		if (!_hookManager.InvokeGameStatueSpawn(e.Num2, e.Num3, e.Num, (int)(e.X / 16f), (int)(e.Y / 16f), e.Type, false))
 		{
-			_hookManager.InvokeGamePostInitialize();
-			orig();
+			e.Result = HookResult.Cancel;
 		}
+	}
 
-		private static void OnItemMechSpawn(object sender, Hooks.Item.MechSpawnEventArgs e)
+	private static void OnNpcMechSpawn(object sender, Hooks.NPC.MechSpawnEventArgs e)
+	{
+		if (e.Result == HookResult.Cancel)
 		{
-			if (e.Result == HookResult.Cancel)
-			{
-				return;
-			}
-			if (!_hookManager.InvokeGameStatueSpawn(e.Num2, e.Num3, e.Num, (int)(e.X / 16f), (int)(e.Y / 16f), e.Type, false))
-			{
-				e.Result = HookResult.Cancel;
-			}
+			return;
 		}
-
-		private static void OnNpcMechSpawn(object sender, Hooks.NPC.MechSpawnEventArgs e)
+		if (!_hookManager.InvokeGameStatueSpawn(e.Num2, e.Num3, e.Num, (int)(e.X / 16f), (int)(e.Y / 16f), e.Type, true))
 		{
-			if (e.Result == HookResult.Cancel)
-			{
-				return;
-			}
-			if (!_hookManager.InvokeGameStatueSpawn(e.Num2, e.Num3, e.Num, (int)(e.X / 16f), (int)(e.Y / 16f), e.Type, true))
-			{
-				e.Result = HookResult.Cancel;
-			}
+			e.Result = HookResult.Cancel;
 		}
 	}
 }

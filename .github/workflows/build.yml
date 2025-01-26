@@ -12,17 +12,37 @@ on:
 jobs:
   # This workflow contains a single job called "build"
   build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ 
+          {
+            name: Windows,
+            runs-on: windows-latest,
+          },
+          {
+            name: Ubuntu,
+            runs-on: ubuntu-latest,
+          },
+          {
+            name: MacOS,
+            runs-on: macos-latest,
+          }
+        ]
+
     # The type of runner that the job will run on
-    runs-on: windows-latest
+    runs-on: ${{ matrix.os.runs-on }}
+
+    name: ${{ matrix.os.name }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - uses: actions/setup-dotnet@v3
+      - uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '6.0.100'
+          dotnet-version: 9.0.x
 
       - name: MonoMod dev build
         run: dotnet nuget add source https://pkgs.dev.azure.com/MonoMod/MonoMod/_packaging/DevBuilds%40Local/nuget/v3/index.json -n DevBuilds@Local
@@ -32,9 +52,3 @@ jobs:
 
       - name: Run tests
         run: dotnet test --filter "FullyQualifiedName!~TerrariaServerAPI.Tests.Benchmarks"
-        
-      # example task for the release CI 
-      # - name: "Releasing to NuGet: TSAPI"
-      #   env:
-      #     NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
-      #   run: dotnet nuget push ./TerrariaServerAPI/bin/Release/TerrariaServer.*.nupkg --source https://api.nuget.org/v3/index.json --api-key "$env:NUGET_API_KEY"
