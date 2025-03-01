@@ -211,23 +211,16 @@ namespace System.IO.Streams
 				throw new ArgumentOutOfRangeException("count");
 			}
 			byte[] array = new byte[count];
-			int num = 0;
-			do
+			int offset = 0;
+			while (count > 0)
 			{
-				int num2 = s.Read(array, num, count);
-				if (num2 == 0)
+				int numBytesRead = s.Read(array, offset, count);
+				if (numBytesRead == 0)
 				{
-					break;
+					throw new EndOfStreamException("End of stream");
 				}
-				num += num2;
-				count -= num2;
-			}
-			while (count > 0);
-			if (num != array.Length)
-			{
-				byte[] array2 = new byte[num];
-				Buffer.BlockCopy(array, 0, array2, 0, num);
-				array = array2;
+				offset += numBytesRead;
+				count -= numBytesRead;
 			}
 			return array;
 		}
