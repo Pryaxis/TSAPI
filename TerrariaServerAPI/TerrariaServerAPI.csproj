@@ -4,7 +4,7 @@
 	<PropertyGroup>
 		<OutputType>Library</OutputType>
 		<AssemblyName>TerrariaServer</AssemblyName> <!-- old plugins reference this, if it changes, they break -->
-		<TargetFramework>net9.0</TargetFramework>
+		<TargetFramework>net8.0</TargetFramework>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<RunPostBuildEvent>Always</RunPostBuildEvent>
