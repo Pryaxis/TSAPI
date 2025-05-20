@@ -51,7 +51,7 @@ internal class NetHooks
 
 		if (!cancel)
 		{
-			args.color = new Microsoft.Xna.Framework.Color(r, g, b);
+			args.color = new Microsoft.Xna.Framework.Color((int)r, (int)g, (int)b);
 		}
 
 		args.ContinueExecution = !cancel;
