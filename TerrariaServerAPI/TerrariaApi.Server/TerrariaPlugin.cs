@@ -130,5 +130,14 @@ namespace TerrariaApi.Server
 		/// Invoked after the plugin is constructed. Initialization logic should occur here.
 		///</summary>
 		public abstract void Initialize();
+
+		/// <summary>
+		/// Implements weak inter-plugin communication. Allows interaction with other plugins without referencing their types or namespaces.
+		/// </summary>
+		public virtual object Call(params object[] args)
+		{
+			return null;
+		}
+
 	}
 }
