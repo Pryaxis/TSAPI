@@ -4,7 +4,7 @@
 	<PropertyGroup>
 		<OutputType>Library</OutputType>
 		<AssemblyName>TerrariaServer</AssemblyName> <!-- old plugins reference this, if it changes, they break -->
-		<TargetFramework>net9.0</TargetFramework>
+		<TargetFramework>net10.0</TargetFramework>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<RunPostBuildEvent>Always</RunPostBuildEvent>
@@ -21,8 +21,9 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="MonoMod.RuntimeDetour" Version="25.3.3" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="System.Diagnostics.PerformanceCounter" Version="9.0.0" />
-		<PackageReference Include="OTAPI.Upcoming" Version="3.3.1" />
+		<PackageReference Include="OTAPI.Upcoming" Version="3.3.3" />
 	</ItemGroup>
 </Project>
