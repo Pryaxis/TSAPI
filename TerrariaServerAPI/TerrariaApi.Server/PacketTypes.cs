@@ -158,5 +158,9 @@ public enum PacketTypes
 	ExtraSpawnSectionLoaded = 158,
 	RequestSection = 159,
 	ItemPosition = 160,
-	HostToken = 161
+	HostToken = 161,
+
+	// Mobile version packets
+	ServerInfo = 162,
+	PlayerPlatformInfo = 163
 }
