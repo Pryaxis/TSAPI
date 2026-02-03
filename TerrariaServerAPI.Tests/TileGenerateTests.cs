@@ -24,13 +24,13 @@ public class TileGenerateTests : TileBenchmarks
 		Main.tile = provider;
 
 		WorldGen.generatingWorld = true;
-		Main.rand = new UnifiedRandom(9999);
-		WorldGen.gen = true;
+		Main.ActiveWorldFileData.SetSeed("seeeeeeeeeed");
+		Main.rand = new UnifiedRandom(Main.ActiveWorldFileData.Seed);
 		Main.menuMode = 888;
 
 		WorldGen.clearWorld();
 
-		WorldGen.GenerateWorld(9999);
+		WorldGen.GenerateWorld();
 	}
 
 	[Test]

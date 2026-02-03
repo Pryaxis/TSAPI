@@ -15,7 +15,7 @@ internal static class ItemHooks
 	{
 		_hookManager = hookManager;
 
-		HookEvents.Terraria.Item.SetDefaults_Int32_Boolean_ItemVariant += OnSetDefaults;
+		HookEvents.Terraria.Item.SetDefaults += OnSetDefaults;
 		HookEvents.Terraria.Item.netDefaults += OnNetDefaults;
 
 		Hooks.Chest.QuickStack += OnQuickStack;
@@ -28,7 +28,7 @@ internal static class ItemHooks
 			args.ContinueExecution = false;
 	}
 
-	private static void OnSetDefaults(Item item, HookEvents.Terraria.Item.SetDefaults_Int32_Boolean_ItemVariantEventArgs args)
+	private static void OnSetDefaults(Item item, HookEvents.Terraria.Item.SetDefaultsEventArgs args)
 	{
 		if (!args.ContinueExecution) return;
 		if (_hookManager.InvokeItemSetDefaultsInt(ref args.Type, item, args.variant))
