@@ -91,7 +91,7 @@ public enum PacketTypes
 	EmoteBubble = 91,
 	SyncExtraValue = 92,
 	SocialHandshake = 93,
-	Deprecated = 94,
+	DebugCommands = 94,
 	KillPortal = 95,
 	PlayerTeleportPortal = 96,
 	NotifyPlayerNpcKilled = 97,
@@ -145,5 +145,18 @@ public enum PacketTypes
 	SyncItemsWithShimmer = 145,
 	ShimmerActions = 146,
 	SyncLoadout = 147,
-	SyncItemCannotBeTakenByEnemies = 148
+	SyncItemCannotBeTakenByEnemies = 148,
+	TEDeadCellsDisplayJar = 149,
+	Spectating = 150,
+	ItemAirTurn = 151,
+	ItemUseSound = 152,
+	NpcHurtByDebuff = 153,
+	Ping = 154,
+	ChestResize = 155,
+	LeashedEntityItem = 156,
+	PlayerTeamV2 = 157, // Same as PlayerTeam(case 45) in source code
+	TeamSwapSpawn = 158,
+	RequestSection = 159,
+	ItemPositionSync = 160,
+	HostToken = 161
 }
