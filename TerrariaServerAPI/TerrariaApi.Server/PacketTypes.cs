@@ -145,5 +145,22 @@ public enum PacketTypes
 	SyncItemsWithShimmer = 145,
 	ShimmerActions = 146,
 	SyncLoadout = 147,
-	SyncItemCannotBeTakenByEnemies = 148
+	SyncItemCannotBeTakenByEnemies = 148,
+	DeadCellsDisplayJarTryPlacing = 149,
+	SpectatePlayer = 150,
+	SyncItemDespawn = 151,
+	ItemUseSound = 152,
+	NPCDebuffDamage = 153,
+	Ping = 154,
+	SyncChestSize = 155,
+	TELeashedEntityAnchorPlaceItem = 156,
+	TeamChangeFromUI = 157,
+	ExtraSpawnSectionLoaded = 158,
+	RequestSection = 159,
+	ItemPosition = 160,
+	HostToken = 161,
+
+	// Mobile version packets
+	ServerInfo = 162,
+	PlayerPlatformInfo = 163
 }
