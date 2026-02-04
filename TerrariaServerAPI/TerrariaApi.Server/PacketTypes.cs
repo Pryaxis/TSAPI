@@ -145,8 +145,8 @@ public enum PacketTypes
 	SyncItemsWithShimmer = 145,
 	ShimmerActions = 146,
 	SyncLoadout = 147,
-	SyncItemCannotBeTakenByEnemies = 148,	
-  TEDeadCellsDisplayJar = 149,
+	SyncItemCannotBeTakenByEnemies = 148,
+	TEDeadCellsDisplayJar = 149,
 	SpectatePlayer = 150,
 	SyncItemDespawn = 151,
 	ItemUseSound = 152,
@@ -158,8 +158,8 @@ public enum PacketTypes
 	ExtraSpawnSectionLoaded = 158,
 	RequestSection = 159,
 	SyncItemPosition = 160,
-	HostToken = 161
-  
+	HostToken = 161,
+
 	// Mobile version packets
 	ServerInfo = 162,
 	PlayerPlatformInfo = 163
