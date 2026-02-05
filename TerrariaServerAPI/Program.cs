@@ -25,6 +25,9 @@ namespace TerrariaApi.Server
 				ItemID.DirtBomb,
 				ItemID.DirtStickyBomb,
 				ItemID.ScarabBomb,
+				ItemID.SuperBomb,
+				ItemID.SuperStickyBomb,
+				ItemID.FreezeBomb,
 				// Launchers
 				ItemID.GrenadeLauncher,
 				ItemID.RocketLauncher,
