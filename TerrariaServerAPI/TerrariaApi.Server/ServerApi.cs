@@ -202,7 +202,15 @@ namespace TerrariaApi.Server
 						}
 					case "-world":
 						{
-							game.SetWorld(arg.Value, false);
+							if (File.Exists(arg.Value))
+							{
+								game.SetWorld(arg.Value, false);
+							}
+							else
+							{
+								Main.autoGenFileLocation = arg.Value;
+								Main.ActiveWorldFileData = new Terraria.IO.WorldFileData(arg.Value, false);
+							}
 
 							var full_path = Path.GetFullPath(arg.Value);
 							Main.WorldPath = Path.GetDirectoryName(full_path);
