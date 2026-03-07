@@ -18,6 +18,7 @@ internal static class ServerHooks
 		_hookManager = hookManager;
 
 		HookEvents.Terraria.Main.startDedInput += Main_startDedInput;
+		HookEvents.Terraria.Main.ReadLineInput += Main_ReadLineInput;
 		HookEvents.Terraria.RemoteClient.Reset += RemoteClient_Reset;
 		Hooks.Main.CommandProcess += OnProcess;
 	}
@@ -35,6 +36,23 @@ internal static class ServerHooks
 
 		args.OriginalMethod();
 	}
+
+#nullable enable
+	/// <summary>
+	/// Hooks the default ReadLineInput method to add a small delay when Console.ReadLine() returns null.
+	/// For example, some docker instances may experience a 100% CPU usage due to this vanilla thread implementation.
+	/// </summary>
+	static void Main_ReadLineInput(object? sender, HookEvents.Terraria.Main.ReadLineInputEventArgs args)
+	{
+		args.ContinueExecution = false;
+
+		string? text;
+		while ((text = Console.ReadLine()) is null)
+			System.Threading.Thread.Sleep(100);
+
+		args.HookReturnValue = text;
+	}
+#nullable disable
 
 	static void OnProcess(object sender, Hooks.Main.CommandProcessEventArgs e)
 	{
