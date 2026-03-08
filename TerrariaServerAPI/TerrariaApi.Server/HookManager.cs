@@ -1,5 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using System;
+using System.Buffers.Binary;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
@@ -16,6 +17,8 @@ namespace TerrariaApi.Server
 
 	public class HookManager
 	{
+		private static int netTextModuleId = -1;
+
 		public static void InitialiseAPI()
 		{
 			try
@@ -408,7 +411,6 @@ namespace TerrariaApi.Server
 				// Ideally this check should occur in an OTAPI modification.
 				if (length < 1)
 				{
-					RemoteClient currentClient = Netplay.Clients[buffer.whoAmI];
 					Netplay.Clients[buffer.whoAmI].PendingTermination = true;
 					return true;
 				}
@@ -419,7 +421,6 @@ namespace TerrariaApi.Server
 				// The length 1000 was chosen as an arbitrarily large number for all packets. It may need to be tuned later.
 				if (length > 1000)
 				{
-					RemoteClient currentClient = Netplay.Clients[buffer.whoAmI];
 					Netplay.Clients[buffer.whoAmI].PendingTermination = true;
 					return true;
 				}
@@ -443,23 +444,26 @@ namespace TerrariaApi.Server
 
 						break;
 					case PacketTypes.LoadNetModule:
-						using (var stream = new MemoryStream(buffer.readBuffer))
+						if (!TryGetPacketSpan(buffer.readBuffer, index, length, out ReadOnlySpan<byte> modulePacket) ||
+							modulePacket.Length < sizeof(ushort))
 						{
-							stream.Position = index;
+							return true;
+						}
+
+						ushort moduleId = BinaryPrimitives.ReadUInt16LittleEndian(modulePacket);
+						// LoadNetModule is now used for sending chat text.
+						// Read the module ID to determine if this is the text module.
+						if (moduleId == GetNetTextModuleId())
+						{
+							using (var stream = new MemoryStream(buffer.readBuffer, index, length, writable: false))
 							using (var reader = new BinaryReader(stream))
 							{
-								ushort moduleId = reader.ReadUInt16();
-								//LoadNetModule is now used for sending chat text.
-								//Read the module ID to determine if this is in fact the text module
-								if (moduleId == Terraria.Net.NetManager.Instance.GetId<Terraria.GameContent.NetModules.NetTextModule>())
-								{
-									//Then deserialize the message from the reader
-									Terraria.Chat.ChatMessage msg = Terraria.Chat.ChatMessage.Deserialize(reader);
+								reader.ReadUInt16();
+								Terraria.Chat.ChatMessage msg = Terraria.Chat.ChatMessage.Deserialize(reader);
 
-									if (InvokeServerChat(buffer, buffer.whoAmI, @msg.Text, msg.CommandId))
-									{
-										return true;
-									}
+								if (InvokeServerChat(buffer, buffer.whoAmI, msg.Text, msg.CommandId))
+								{
+									return true;
 								}
 							}
 						}
@@ -471,23 +475,24 @@ namespace TerrariaApi.Server
 					//Then the bytes get hashed, and set as ClientUUID (and gets written in DB for auto-login)
 					//length minus 2 = 36, the length of a UUID.
 					case PacketTypes.ClientUUID:
-						if (length == 38)
+						if (length == 38 && TryGetPacketSpan(buffer.readBuffer, index + 1, length - 2, out ReadOnlySpan<byte> uuidBytes))
 						{
-							byte[] uuid = new byte[length - 2];
-							Buffer.BlockCopy(buffer.readBuffer, index + 1, uuid, 0, length - 2);
-							Guid guid = new Guid();
-							if (Guid.TryParse(Encoding.Default.GetString(uuid, 0, uuid.Length), out guid))
+							Span<char> uuidChars = stackalloc char[36];
+							int charsWritten = Encoding.ASCII.GetChars(uuidBytes, uuidChars);
+							if (charsWritten == 36 && Guid.TryParse(uuidChars, out _))
 							{
-								SHA512 shaM = new SHA512Managed();
-								var result = shaM.ComputeHash(uuid);
-								Netplay.Clients[buffer.whoAmI].ClientUUID = result.Aggregate("", (s, b) => s + b.ToString("X2"));
+								Netplay.Clients[buffer.whoAmI].ClientUUID = Convert.ToHexString(SHA512.HashData(uuidBytes));
 								return true;
 							}
 						}
-						Netplay.Clients[buffer.whoAmI].ClientUUID = "";
+
+						Netplay.Clients[buffer.whoAmI].ClientUUID = string.Empty;
 						return true;
 				}
 			}
+
+			if (this.netGetData.Count == 0)
+				return false;
 
 			GetDataEventArgs args = new GetDataEventArgs
 			{
@@ -525,6 +530,27 @@ namespace TerrariaApi.Server
 			this.NetGreetPlayer.Invoke(args);
 
 			return args.Handled;
+		}
+
+		private static bool TryGetPacketSpan(byte[] buffer, int offset, int length, out ReadOnlySpan<byte> span)
+		{
+			if (buffer == null || offset < 0 || length < 0 || offset > buffer.Length - length)
+			{
+				span = ReadOnlySpan<byte>.Empty;
+				return false;
+			}
+
+			span = new ReadOnlySpan<byte>(buffer, offset, length);
+			return true;
+		}
+
+		private static int GetNetTextModuleId()
+		{
+			if (netTextModuleId >= 0)
+				return netTextModuleId;
+
+			netTextModuleId = Terraria.Net.NetManager.Instance.GetId<Terraria.GameContent.NetModules.NetTextModule>();
+			return netTextModuleId;
 		}
 		#endregion
 

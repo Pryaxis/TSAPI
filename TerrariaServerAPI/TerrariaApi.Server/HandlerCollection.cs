@@ -22,6 +22,8 @@ namespace TerrariaApi.Server
 			this.hookName = hookName;
 		}
 
+		public int Count => this.registrations.Count;
+
 		public void Register(TerrariaPlugin registrator, HookHandler<ArgsType> handler, int priority)
 		{
 			if (registrator == null)

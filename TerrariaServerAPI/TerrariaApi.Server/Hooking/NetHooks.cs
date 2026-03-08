@@ -1,5 +1,6 @@
-﻿using OTAPI;
+using OTAPI;
 using System;
+using System.Collections;
 using Terraria;
 using Terraria.Net;
 
@@ -8,6 +9,7 @@ namespace TerrariaApi.Server.Hooking;
 internal class NetHooks
 {
 	private static HookManager _hookManager;
+	private static readonly BitArray knownPacketIds = BuildKnownPacketIds();
 
 	public static readonly object syncRoot = new();
 
@@ -128,7 +130,7 @@ internal class NetHooks
 		{
 			return;
 		}
-		if (!Enum.IsDefined(typeof(PacketTypes), (int)e.PacketId))
+		if ((uint)e.PacketId >= knownPacketIds.Length || !knownPacketIds.Get(e.PacketId))
 		{
 			e.Result = HookResult.Cancel;
 		}
@@ -209,5 +211,26 @@ internal class NetHooks
 			}
 		}
 		return -1;
+	}
+
+	private static BitArray BuildKnownPacketIds()
+	{
+		int maxPacketId = 0;
+		Array values = Enum.GetValues(typeof(PacketTypes));
+		for (int i = 0; i < values.Length; i++)
+		{
+			int packetId = (int)values.GetValue(i);
+			if (packetId > maxPacketId)
+				maxPacketId = packetId;
+		}
+
+		var map = new BitArray(maxPacketId + 1);
+		for (int i = 0; i < values.Length; i++)
+		{
+			int packetId = (int)values.GetValue(i);
+			map.Set(packetId, true);
+		}
+
+		return map;
 	}
 }
