@@ -15,7 +15,7 @@ internal static class WorldHooks
 	{
 		_hookManager = hookManager;
 
-		HookEvents.Terraria.IO.WorldFile.SaveWorld_Boolean_Boolean += WorldFile_SaveWorld;
+		HookEvents.Terraria.IO.WorldFile._SaveWorld += WorldFile_SaveWorld;
 		HookEvents.Terraria.WorldGen.StartHardmode += WorldGen_StartHardmode;
 		HookEvents.Terraria.WorldGen.SpreadGrass += WorldGen_SpreadGrass;
 		HookEvents.Terraria.Main.checkXMas += Main_checkXMas;
@@ -48,7 +48,7 @@ internal static class WorldHooks
 		}
 	}
 
-	static void WorldFile_SaveWorld(object? sender, HookEvents.Terraria.IO.WorldFile.SaveWorld_Boolean_BooleanEventArgs args)
+	static void WorldFile_SaveWorld(object? sender, HookEvents.Terraria.IO.WorldFile._SaveWorldEventArgs args)
 	{
 		if (!args.ContinueExecution) return;
 		if (_hookManager.InvokeWorldSave(args.resetTime))
