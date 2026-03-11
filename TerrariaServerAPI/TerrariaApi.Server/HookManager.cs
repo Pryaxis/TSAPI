@@ -470,7 +470,14 @@ namespace TerrariaApi.Server
 					//We copy the bytes of the UUID then convert it to string. Then validating the GUID so its the correct format.
 					//Then the bytes get hashed, and set as ClientUUID (and gets written in DB for auto-login)
 					//length minus 2 = 36, the length of a UUID.
+					//We only accept this packet during the initial connectioon state (1), and only if their current UUID is blank,
+					//to prevent malicious clients from changing their UUID after connecting.
 					case PacketTypes.ClientUUID:
+						if ((Netplay.Clients[buffer.whoAmI].State != 1 || !string.IsNullOrEmpty(Netplay.Clients[buffer.whoAmI].ClientUUID)))
+						{
+							return true;
+						}
+
 						if (length == 38)
 						{
 							byte[] uuid = new byte[length - 2];
