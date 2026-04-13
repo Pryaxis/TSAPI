@@ -21,7 +21,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
 		<PackageReference Include="System.Diagnostics.PerformanceCounter" Version="9.0.0" />
 		<PackageReference Include="OTAPI.Upcoming" Version="3.3.11" />
 	</ItemGroup>
