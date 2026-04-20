@@ -515,36 +515,52 @@ namespace TerrariaApi.Server
 			}
 		}
 
-		private static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
+		private static Assembly ResolveAssembly(string pluginsPath, string fileName)
 		{
-			string fileName = args.Name.Split(',')[0];
-			string path = Path.Combine(ServerPluginsDirectoryPath, fileName + ".dll");
 			try
 			{
-				if (File.Exists(path))
-				{
-					Assembly assembly;
-					if (!loadedAssemblies.TryGetValue(fileName, out assembly))
-					{
-						var pdbPath = Path.ChangeExtension(fileName, ".pdb");
-						assembly = Assembly.Load(File.ReadAllBytes(path), File.Exists(pdbPath) ? File.ReadAllBytes(pdbPath) : null);
-						// We just do this to return a proper error message incase this is a resolved plugin assembly
-						// referencing an old TerrariaServer version.
-						if (!InvalidateAssembly(assembly, fileName))
-							throw new InvalidOperationException(
-								"The assembly is referencing a version of TerrariaServer prior 1.14.");
+				string pluginPath = Path.Combine(pluginsPath, fileName + ".dll");
 
-						loadedAssemblies.Add(fileName, assembly);
-					}
-					return assembly;
-				}
+				if (!File.Exists(pluginPath)) return null;
+
+				if (loadedAssemblies.TryGetValue(fileName, out var assembly)) return assembly;
+
+				var pdbPath = Path.ChangeExtension(pluginPath, ".pdb");
+				assembly = Assembly.Load(File.ReadAllBytes(pluginPath),
+					File.Exists(pdbPath) ? File.ReadAllBytes(pdbPath) : null);
+
+				// We just do this to return a proper error message incase this is a resolved plugin assembly
+				// referencing an old TerrariaServer version.
+				if (!InvalidateAssembly(assembly, fileName))
+					throw new InvalidOperationException(
+						"The assembly is referencing a version of TerrariaServer prior 1.14.");
+
+				loadedAssemblies.Add(fileName, assembly);
+
+				return assembly;
 			}
 			catch (Exception ex)
 			{
 				LogWriter.ServerWriteLine(
-					string.Format("Error on resolving assembly \"{0}.dll\":\n{1}", fileName, ex),
+					$"Error on resolving assembly \"{fileName}.dll\":\n{ex}",
 					TraceLevel.Error);
 			}
+
+			return null;
+		}
+
+		private static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
+		{
+			string fileName = args.Name.Split(',')[0];
+			List<string> pluginsPaths = [ServerPluginsDirectoryPath, ..AdditionalPluginsPaths];
+
+			foreach (string pluginsPath in pluginsPaths)
+			{
+				Assembly assembly = ResolveAssembly(pluginsPath, fileName);
+
+				if (assembly != null) return assembly;
+			}
+
 			return null;
 		}
 
