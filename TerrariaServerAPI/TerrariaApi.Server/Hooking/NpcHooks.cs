@@ -52,7 +52,10 @@ internal static class NpcHooks
 		if (!args.ContinueExecution) return;
 		if (args.entity is Player player)
 		{
-			if (_hookManager.InvokeNpcStrike(npc, ref args.Damage, ref args.knockBack, ref args.hitDirection, ref args.crit, ref args.noEffect, ref args.fromNet, player))
+			// 1.4.5.7 removed the noEffect parameter from NPC.StrikeNPC, so it is
+			// not part of the OTAPI hook args anymore; keep the internal API intact.
+			bool noEffect = false;
+			if (_hookManager.InvokeNpcStrike(npc, ref args.Damage, ref args.knockBack, ref args.hitDirection, ref args.crit, ref noEffect, ref args.fromNet, player))
 			{
 				args.ContinueExecution = false;
 				args.HookReturnValue = 0;

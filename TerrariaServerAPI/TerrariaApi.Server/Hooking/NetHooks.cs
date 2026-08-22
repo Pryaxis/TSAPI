@@ -38,7 +38,7 @@ internal class NetHooks
 		args.OriginalMethod();
 		if (ServerApi.ForceUpdate)
 		{
-			Terraria.Netplay.HasClients = true;
+			Terraria.Netplay.HasFullyConnectedClients = true;
 		}
 	}
 
@@ -192,7 +192,7 @@ internal class NetHooks
 		}
 		if (FindNextOpenClientSlot() == -1)
 		{
-			Netplay.StopListening();
+			Netplay.TcpListener?.StopListening();
 		}
 	}
 
