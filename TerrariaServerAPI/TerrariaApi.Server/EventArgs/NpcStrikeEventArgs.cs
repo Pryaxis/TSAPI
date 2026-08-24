@@ -36,6 +36,7 @@ namespace TerrariaApi.Server
 			get;
 			set;
 		}
+		[Obsolete("NPC.StrikeNPC does not supply this value; it is always false and is ignored.")]
 		public bool NoEffect 
 		{ 
 			get; 
