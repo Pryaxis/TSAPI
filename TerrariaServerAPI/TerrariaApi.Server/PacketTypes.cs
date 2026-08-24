@@ -159,10 +159,7 @@ public enum PacketTypes
 	RequestSection = 159,
 	SyncItemPosition = 160,
 	HostToken = 161,
-	// 1.4.5.7: 162 is the NPC strike acknowledgement (DamageNPCAck).
-	// The old mobile-only aliases are kept as same-value members for API compatibility,
-	// matching how OTAPI retains deprecated members for older plugins.
 	DamageNPCAck = 162,
-	ServerInfo = 162,
-	PlayerPlatformInfo = 163
+	ServerInfo = 163,
+	PlayerPlatformInfo = 164
 }
