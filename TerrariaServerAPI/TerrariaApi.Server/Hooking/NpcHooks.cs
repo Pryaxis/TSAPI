@@ -52,7 +52,7 @@ internal static class NpcHooks
 		if (!args.ContinueExecution) return;
 		if (args.entity is Player player)
 		{
-			if (_hookManager.InvokeNpcStrike(npc, ref args.Damage, ref args.knockBack, ref args.hitDirection, ref args.crit, ref args.noEffect, ref args.fromNet, player))
+			if (_hookManager.InvokeNpcStrike(npc, ref args.Damage, ref args.knockBack, ref args.hitDirection, ref args.crit, ref args.fromNet, player))
 			{
 				args.ContinueExecution = false;
 				args.HookReturnValue = 0;
