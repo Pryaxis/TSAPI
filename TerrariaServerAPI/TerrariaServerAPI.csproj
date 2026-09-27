@@ -8,7 +8,7 @@
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<RunPostBuildEvent>Always</RunPostBuildEvent>
-		<Version>6.2.0</Version>
+		<Version>6.2.1</Version>
 		<AssemblyTitle>TSAPI</AssemblyTitle>
 		<Product>TSAPI</Product>
 		<Company>TShock Contributors</Company>
