@@ -1,6 +1,7 @@
 ﻿using OTAPI;
 using System;
 using Terraria;
+using Terraria.Localization;
 using Terraria.Net;
 
 namespace TerrariaApi.Server.Hooking;
@@ -190,9 +191,13 @@ internal class NetHooks
 			Netplay.Clients[slot].Reset();
 			Netplay.Clients[slot].Socket = args.client;
 		}
-		if (FindNextOpenClientSlot() == -1)
+		else
 		{
-			Netplay.TcpListener?.StopListening();
+			lock (Netplay.fullBuffer)
+			{
+				Netplay.KickClient(args.client, NetworkText.FromKey("CLI.ServerIsFull"));
+			}
+			args.client.Close();
 		}
 	}
 
@@ -202,7 +207,7 @@ internal class NetHooks
 		{
 			for (int i = 0; i < Main.maxNetPlayers; i++)
 			{
-				if (!Netplay.Clients[i].IsConnected())
+				if (!Netplay.Clients[i].IsConnected() && !Netplay.Clients[i].IsActive && !Netplay.Clients[i].PendingTermination)
 				{
 					return i;
 				}
