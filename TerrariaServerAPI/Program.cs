@@ -124,6 +124,7 @@ namespace TerrariaApi.Server
 			}
 
 			Terraria.WindowsLaunch.Main(args);
+			Terraria.Netplay.Disconnect = true;
 		}
 
 		/// <summary>
