@@ -1,7 +1,9 @@
 ﻿using OTAPI;
 using System;
 using Terraria;
+using Terraria.Localization;
 using Terraria.Net;
+using Terraria.Testing;
 
 namespace TerrariaApi.Server.Hooking;
 
@@ -24,11 +26,20 @@ internal class NetHooks
 		HookEvents.Terraria.Chat.ChatHelper.BroadcastChatMessage += OnBroadcastChatMessage;
 		HookEvents.Terraria.Net.NetManager.SendData += OnSendNetData;
 		HookEvents.Terraria.Netplay.UpdateConnectedClients += OnUpdateConnectedClients;
+		HookEvents.Terraria.NetMessage.LogMessageError += OnLogMessageError;
 
 		Hooks.NetMessage.SendData += OnSendData;
 		Hooks.NetMessage.SendBytes += OnSendBytes;
 		Hooks.MessageBuffer.GetData += OnReceiveData;
 		Hooks.MessageBuffer.NameCollision += OnNameCollision;
+	}
+
+	static void OnLogMessageError(object? sender, HookEvents.Terraria.NetMessage.LogMessageErrorEventArgs args)
+	{
+		if (!args.ContinueExecution) return;
+		args.ContinueExecution = false;
+		RemoteClient client = Netplay.Clients[args.bufferIndex];
+		Invariant.Assert(false, $"{Language.GetTextValue("Error.NetMessageError", args.id)} @{client.Socket?.GetRemoteAddress()}({client.Name}). {args.exception}");
 	}
 
 	static void OnUpdateConnectedClients(object? sender, HookEvents.Terraria.Netplay.UpdateConnectedClientsEventArgs args)
