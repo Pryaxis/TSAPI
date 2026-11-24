@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
@@ -8,7 +8,7 @@
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<RunPostBuildEvent>Always</RunPostBuildEvent>
-		<Version>6.2.1</Version>
+		<Version>6.2.2</Version>
 		<AssemblyTitle>TSAPI</AssemblyTitle>
 		<Product>TSAPI</Product>
 		<Company>TShock Contributors</Company>
@@ -23,6 +23,6 @@
 	<ItemGroup>
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="System.Diagnostics.PerformanceCounter" Version="9.0.0" />
-		<PackageReference Include="OTAPI.Upcoming" Version="3.3.14" />
+		<PackageReference Include="OTAPI.Upcoming" Version="3.3.15" />
 	</ItemGroup>
 </Project>
