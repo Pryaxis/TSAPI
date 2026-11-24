@@ -161,5 +161,6 @@ public enum PacketTypes
 	HostToken = 161,
 	DamageNPCAck = 162,
 	ServerInfo = 163,
-	PlayerPlatformInfo = 164
+	PlayerPlatformInfo = 164,
+	CustomServerAck = 165
 }

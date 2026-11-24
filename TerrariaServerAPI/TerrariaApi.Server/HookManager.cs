@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -409,7 +409,7 @@ namespace TerrariaApi.Server
 				if (length < 1)
 				{
 					RemoteClient currentClient = Netplay.Clients[buffer.whoAmI];
-					Netplay.Clients[buffer.whoAmI].PendingTermination = true;
+					Netplay.Clients[buffer.whoAmI].RequestTermination("Invalid zero-length packet");
 					return true;
 				}
 
@@ -420,7 +420,7 @@ namespace TerrariaApi.Server
 				if (length > 1000)
 				{
 					RemoteClient currentClient = Netplay.Clients[buffer.whoAmI];
-					Netplay.Clients[buffer.whoAmI].PendingTermination = true;
+					Netplay.Clients[buffer.whoAmI].RequestTermination("Packet length exceeded limit");
 					return true;
 				}
 				
@@ -429,7 +429,7 @@ namespace TerrariaApi.Server
 					case PacketTypes.ConnectRequest:
 						if (this.InvokeServerConnect(buffer.whoAmI))
 						{
-							Netplay.Clients[buffer.whoAmI].PendingTermination = true;
+							Netplay.Clients[buffer.whoAmI].RequestTermination("Rejected by ServerConnect hook");
 							return true;
 						}
 
@@ -437,7 +437,7 @@ namespace TerrariaApi.Server
 					case PacketTypes.ContinueConnecting2:
 						if (this.InvokeServerJoin(buffer.whoAmI))
 						{
-							Netplay.Clients[buffer.whoAmI].PendingTermination = true;
+							Netplay.Clients[buffer.whoAmI].RequestTermination("Rejected by ServerJoin hook");
 							return true;
 						}
 

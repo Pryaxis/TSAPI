@@ -1,4 +1,4 @@
-﻿using OTAPI;
+using OTAPI;
 using System;
 using Terraria;
 using Terraria.Net;
@@ -20,7 +20,6 @@ internal class NetHooks
 		_hookManager = hookManager;
 
 		HookEvents.Terraria.NetMessage.greetPlayer += OnGreetPlayer;
-		HookEvents.Terraria.Netplay.OnConnectionAccepted += OnConnectionAccepted;
 		HookEvents.Terraria.Chat.ChatHelper.BroadcastChatMessage += OnBroadcastChatMessage;
 		HookEvents.Terraria.Net.NetManager.SendData += OnSendNetData;
 		HookEvents.Terraria.Netplay.UpdateConnectedClients += OnUpdateConnectedClients;
